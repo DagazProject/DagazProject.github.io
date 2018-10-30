@@ -14,7 +14,11 @@ function Design() {
    this.players    = [];
    this.symmetries = [];
    this.positions  = [];
+   this.zones      = [];
+   this.znames     = [];
+   this.modes      = [];
    this.graph      = [];
+   this.attrs      = [];
    this.graph.push([]);
 }
 
@@ -76,14 +80,14 @@ Dagaz.Model.setOption = function(design, name, value) {
        Dagaz.Model.recycleCaptures = (value == "true");
        return;
    }
-   alert("Option [" + name + " = " + value + "] not supported.");
+   console.warn("Option [" + name + " = " + value + "] not supported.");
 }
 
 Design.prototype.setOption = function(name, value) {
    Dagaz.Model.setOption(this, name, value);
 }
 
-Design.prototype.co = Design.prototype.checkOption;
+Design.prototype.op = Design.prototype.setOption;
 
 Design.prototype.addDirection = function(name) {
    this.directions.push(name);
@@ -94,7 +98,7 @@ Design.prototype.di = Design.prototype.addDirection;
 Design.prototype.addPosition = function(name, dirs) {
    this.positions.push(name);
    if (!_.isArray(dirs)) {
-       alert("Direction list for [" + name + "] position is not array.");
+       console.error("Direction list for [" + name + "] position is not array.");
    }
    this.graph(dirs);
 }
@@ -104,7 +108,7 @@ Design.prototype.ps = Design.prototype.addPosition;
 Design.prototype.addPlayer = function(name, dirs) {
    this.players.push(name);
    if (!_.isArray(dirs)) {
-       alert("Symmetry for [" + name + "] player is not array.");
+       console.error("Symmetry for [" + name + "] player is not array.");
    }
    this.symmetries.push(dirs);
 }
@@ -136,6 +140,67 @@ Design.prototype.stringToPos = function(name) {
    }
 }
 
+Design.prototype.opposite = function(dir) {
+   if (this.symmetries.length == 0) return null;
+   if (this.symmetries[0].length <= dir) return null;
+   return this.symmetries[0][dir];
+}
+
+Design.prototype.navigate = function(player, pos, dir) {
+   if (_.isUndefined(this.graph[pos]) || _.isUndefined(this.graph[pos][dir])) {
+       console.warn("Invalid parameters in [design.navigate] pos = [" + pos + "], dir = [" + dir + "]");
+   }
+   if (this.graph[pos][dir] != 0) {
+       return +pos + this.graph[pos][dir];
+   } else {
+       return null;
+   }
+}
+
+Design.prototype.addZone = function(name, player, positions) {
+   if (!_.isArray(positions)) {
+       console.error("Positions for [" + name + "/" + player + "] zone is not array.");
+   }
+  var zone = _.indexOf(this.znames, name);
+  if (zone < 0) {
+      zone = this.znames.length;
+      this.znames.push(name);
+  }
+  if (_.isUndefined(this.zones[zone])) {
+      this.zones[zone] = [];
+  }
+  this.zones[zone][player] = positions;
+}
+
+Design.prototype.zn = Design.prototype.addZone;
+
+Design.prototype.inZone = function(player, pos, zone) {
+  if (!_.isUndefined(this.zones[zone]) && !_.isUndefined(this.zones[zone][player])) {
+      return _.indexOf(this.zones[zone][player], pos) >= 0;
+  } else {
+      return false;
+  }
+}
+
+Design.prototype.addPriority = function(modes) {
+  if (_.isArray(modes)) {
+      this.modes.push(modes);
+  } else {
+      this.modes.push([modes]);
+  }
+}
+
+Design.prototype.pr = Design.prototype.addPriority;
+
+Design.prototype.addAttribute = function(type, name, val) {
+  if (_.isUndefined(this.attrs[name])) {
+      this.attrs[name] = [];
+  }
+  this.attrs[name][type] = val;
+}
+
+Design.prototype.at = Design.prototype.addAttribute;
+
 function Move(mode) {
    this.mode  = mode;
    this.parts = [];
@@ -147,7 +212,9 @@ Move.prototype.isPass = function() {
 }
 
 Move.prototype.closePart = function() {
-   // TODO: Check this.current is undefined
+   if (!_.isUndefined(this.current)) {
+       console.warn("Move [" + this.toString() + "] is not completed");
+   }
    this.part++;
 }
 
@@ -165,7 +232,11 @@ Move.prototype.capturePiece = function(pos) {
 
 Move.prototype.dropPiece = function(pos, pieces) {
    var part = this.getPart();
-   part.push(new Action(null, pos, pieces));
+   if (_.isArray(pieces)) {
+       part.push(new Action(null, pos, pieces));
+   } else {
+       part.push(new Action(null, pos, [pieces]));
+   }
 }
 
 Move.prototype.startMove = function(pos) {
@@ -177,7 +248,11 @@ Move.prototype.startMove = function(pos) {
 Move.prototype.endMove = function(pos, pieces) {
    if (!_.isUndefined(this.current)) {
        this.current.to = pos;
-       this.current.pieces = pieces;
+       if (_.isArray(pieces)) {
+           this.current.pieces = pieces;
+       } else {
+           this.current.pieces = [pieces];
+       }
        delete this.current;
    }
 }
