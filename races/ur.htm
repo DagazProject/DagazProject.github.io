@@ -1,0 +1,55 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Ur</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="SBoard" style="display:none" src="images/ur/urs.png">
+<img id="NBoard" style="display:none" src="images/ur/urn.png">
+<img id="Whited0" style="display:none" src="images/ur/d011.png">
+<img id="Blackd0" style="display:none" src="images/ur/d010.png">
+<img id="Whited1" style="display:none" src="images/ur/d100.png">
+<img id="Blackd1" style="display:none" src="images/ur/d101.png">
+<img id="WhiteMan" style="display:none" src="images/ur/wi.png">
+<img id="BlackMan" style="display:none" src="images/ur/bi.png">
+<img id="WhiteKing" style="display:none" src="images/ur/wp.png">
+<img id="BlackKing" style="display:none" src="images/ur/bp.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Copyright (c) 2011 Dmitry Skiryuk (<a target="_blank" href="https://www.ancientgames.org/royal-game-ur-game-20-squares/">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="ur-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="763" height="400" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/heuristic-ai.js"></script>
+<script src="scripts/ur-goal.js"></script>
+<script src="scripts/ur-pass.js"></script>
+<script src="scripts/ur-repeat.js"></script>
+<script src="scripts/ur-extension.js"></script>
+<script src="scripts/ur-restrictions.js"></script>
+<script src="scripts/ur-promotion.js"></script>
+<script src="scripts/ur-dice.js"></script>
+<script src="scripts/ur.js"></script>
+<script src="../common-scripts/app-v4.js"></script>
+
+</body>
+</html>

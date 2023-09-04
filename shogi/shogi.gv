@@ -1,0 +1,48 @@
+digraph graphname {
+    "Makruk"[style="filled",fillcolor="green"];
+    "Heian shogi"[style="filled",fillcolor="red"];
+    "Heian dai shogi"[style="filled",fillcolor="red"];
+    "Sho shogi"[style="filled",fillcolor="red"];
+    "Dai shogi"[style="filled",fillcolor="red"];
+    "Chu shogi"[style="filled",fillcolor="red"];
+    "Wa shogi"[style="filled",fillcolor="red"];
+    "Tori shogi"[style="filled",fillcolor="red"];
+    "Tenjiku shogi"[style="filled",fillcolor="red"];
+    "Dai dai shogi"[style="filled",fillcolor="red"];
+    "Ko shogi"[style="filled",fillcolor="red"];
+    "Maka dai dai shogi"[style="filled",fillcolor="red"];
+    "Hishigata shogi"[style="filled",fillcolor="red"];
+    "Macadamia shogi"[style="filled",fillcolor="red"];
+    "Shogi"[style="filled",fillcolor="red"];
+    "Yonin shogi"[style="filled",fillcolor="red"];
+    "Kyoto shogi"[style="filled",fillcolor="red"];
+    "Micro shogi"[style="filled",fillcolor="red"];
+    "Minishogi"[style="filled",fillcolor="red"];
+    "Annan shogi"[style="filled",fillcolor="orange"];
+    "Dobutsu shogi"[style="filled",fillcolor="red"];
+    "Goro goro shogi"[style="filled",fillcolor="red"];
+    "Xiangqi"[style="filled",fillcolor="yellow"];
+
+    "Makruk" -> "Heian shogi"[style=dotted];
+    "Heian shogi" -> "Heian dai shogi"[style=dotted];
+    "Heian shogi" -> "Sho shogi"[style=dotted];
+    "Heian dai shogi" -> "Dai shogi"[style=dotted];
+    "Dai shogi" -> "Chu shogi";
+    "Dai shogi" -> "Dai dai shogi";
+    "Chu shogi" -> "Tenjiku shogi"[style=dotted];
+    "Dai dai shogi" -> "Maka dai dai shogi"[style=dotted];
+    "Maka dai dai shogi" -> "Hishigata shogi";
+    "Maka dai dai shogi" -> "Macadamia shogi";
+    "Chu shogi" -> "Wa shogi";
+    "Wa shogi" -> "Tori shogi"[style=dotted];
+    "Shogi" -> "Dobutsu shogi"[style=dotted];
+    "Dobutsu shogi" -> "Goro goro shogi"[style=dotted];
+    "Shogi" -> "Yonin shogi";
+    "Dai dai shogi" -> "Ko shogi"[style=dotted];
+    "Xiangqi" -> "Ko shogi"[style=dotted];
+    "Shogi" -> "Kyoto shogi"[style=dotted];
+    "Shogi" -> "Micro shogi"[style=dotted];
+    "Shogi" -> "Minishogi";
+    "Shogi" -> "Annan shogi";
+    "Sho shogi" -> "Shogi";
+}

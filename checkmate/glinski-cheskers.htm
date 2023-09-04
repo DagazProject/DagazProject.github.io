@@ -1,0 +1,67 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Glinski's Cheskers</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/hex/glinski.png">
+<img id="Promote" style="display:none" src="images/hex/dialog-4.png">
+<img id="WhiteMan" style="display:none" src="images/hex/wman.png">
+<img id="BlackMan" style="display:none" src="images/hex/bman.png">
+<img id="WhiteDama" style="display:none" src="images/hex/wdamone.png">
+<img id="BlackDama" style="display:none" src="images/hex/bdamone.png">
+<img id="WhitePawn" style="display:none" src="images/hex/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/hex/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/hex/wrook.png">
+<img id="BlackRook" style="display:none" src="images/hex/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/hex/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/hex/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/hex/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/hex/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/hex/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/hex/bqueen.png">
+<img id="WhiteKing" style="display:none" src="images/hex/wking.png">
+<img id="BlackKing" style="display:none" src="images/hex/bking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+            <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+            <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+            <a href="glinski-cheskers-board.htm">no AI</a>
+            <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+            <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="747" height="835" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="../common-scripts/fast-ai.js"></script>
+<script src="scripts/glinski-cheskers-ai.js"></script>
+<script src="scripts/chess-goal.js"></script>
+<script src="scripts/glinski-chess-invariant.js"></script>
+<script src="scripts/shabel-invariant.js"></script>
+<script src="scripts/chess-promotion.js"></script>
+<script src="scripts/glinski-cheskers-fen.js"></script>
+<script src="scripts/glinski-cheskers.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

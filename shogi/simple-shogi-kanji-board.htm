@@ -1,0 +1,57 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Simple Shogi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/3x5.png">
+<img id="Promote" style="display:none" src="images/dialog-2.png">
+<img id="SouthKing" style="display:none" src="images/kanji/sking.png">
+<img id="NorthKing" style="display:none" src="images/kanji/nking.png">
+<img id="SouthGold" style="display:none" src="images/kanji/sgold.png">
+<img id="NorthGold" style="display:none" src="images/kanji/ngold.png">
+<img id="SouthSilver" style="display:none" src="images/kanji/ssilver.png">
+<img id="NorthSilver" style="display:none" src="images/kanji/nsilver.png">
+<img id="SouthSilverP" style="display:none" src="images/kanji/ssilverp.png">
+<img id="NorthSilverP" style="display:none" src="images/kanji/nsilverp.png">
+<img id="SouthPawn" style="display:none" src="images/kanji/spawn.png">
+<img id="NorthPawn" style="display:none" src="images/kanji/npawn.png">
+<img id="SouthPawnP" style="display:none" src="images/kanji/spawnp.png">
+<img id="NorthPawnP" style="display:none" src="images/kanji/npawnp.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2012 Itsubaki Yoshihisa 
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="simple-shogi-kanji.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="387" height="260" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/simple-shogi-fen.js"></script>
+<script src="scripts/simple-shogi-invariant.js"></script>
+<script src="scripts/simple-shogi-extension.js"></script>
+<script src="scripts/simple-shogi-promotion.js"></script>
+<script src="scripts/simple-shogi.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

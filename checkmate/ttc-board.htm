@@ -1,0 +1,65 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Division Tower Chess</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="WhiteBoard" style="display:none" src="images/ttc/boards.png">
+<img id="BlackBoard" style="display:none" src="images/ttc/boardn.png">
+<img id="WhitePawn" style="display:none" src="images/ttc/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/ttc/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/ttc/wrook.png">
+<img id="BlackRook" style="display:none" src="images/ttc/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/ttc/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/ttc/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/ttc/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/ttc/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/ttc/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/ttc/bqueen.png">
+<img id="WhiteKing" style="display:none" src="images/ttc/wking.png">
+<img id="BlackKing" style="display:none" src="images/ttc/bking.png">
+<img id="WhitePawnP" style="display:none" src="images/ttc/wpawnp.png">
+<img id="BlackPawnP" style="display:none" src="images/ttc/bpawnp.png">
+<img id="WhiteRookP" style="display:none" src="images/ttc/wrookp.png">
+<img id="BlackRookP" style="display:none" src="images/ttc/brookp.png">
+<img id="WhiteKnightP" style="display:none" src="images/ttc/wknightp.png">
+<img id="BlackKnightP" style="display:none" src="images/ttc/bknightp.png">
+<img id="WhiteBishopP" style="display:none" src="images/ttc/wbishopp.png">
+<img id="BlackBishopP" style="display:none" src="images/ttc/bbishopp.png">
+<img id="WhiteQueenP" style="display:none" src="images/ttc/wqueenp.png">
+<img id="BlackQueenP" style="display:none" src="images/ttc/bqueenp.png">
+<img id="WhiteKingP" style="display:none" src="images/ttc/wkingp.png">
+<img id="BlackKingP" style="display:none" src="images/ttc/bkingp.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="538" height="678" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="scripts/ttc-goal.js"></script>
+<script src="scripts/ttc-extension.js"></script>
+<script src="scripts/ttc.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

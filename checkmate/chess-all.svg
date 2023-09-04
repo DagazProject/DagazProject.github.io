@@ -1,0 +1,616 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1581 620" width="1581pt" height="620pt">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 616)">
+<title>graphname</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-616 1578,-616 1578,5 -4,5" />
+<!-- Ashta&#45;kashte -->
+<g class="node" id="node1"><title>Ashta-kashte</title>
+<ellipse fill="green" stroke="black" cx="793" cy="-594" rx="61.1703" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="793" y="-589.8">Ashta-kashte</text>
+</g>
+<!-- Chaturanga -->
+<g class="node" id="node2"><title>Chaturanga</title>
+<a xlink:href="chaturanga.htm">
+<ellipse fill="green" stroke="black" cx="793" cy="-522" rx="55.3236" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="793" y="-517.8">Chaturanga</text>
+</a>
+</g>
+<!-- Ashta&#45;kashte&#45;&gt;Chaturanga -->
+<g class="edge" id="edge2"><title>Ashta-kashte-&gt;Chaturanga</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 793 -575.697 C 793 -567.983 793 -558.712 793 -550.112" />
+<polygon fill="black" stroke="black" points="796.5,-550.104 793,-540.104 789.5,-550.104 796.5,-550.104" />
+</g>
+<!-- Makruk -->
+<g class="node" id="node3"><title>Makruk</title>
+<a xlink:href="makruk.htm">
+<ellipse fill="green" stroke="black" cx="672" cy="-450" rx="41.4107" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="672" y="-445.8">Makruk</text>
+</a>
+</g>
+<!-- Chaturanga&#45;&gt;Makruk -->
+<g class="edge" id="edge14"><title>Chaturanga-&gt;Makruk</title>
+<path fill="none" stroke="black" d="M 767.042 -505.983 C 748.819 -495.44 724.306 -481.26 704.74 -469.94" />
+<polygon fill="black" stroke="black" points="706.269,-466.782 695.861,-464.804 702.764,-472.841 706.269,-466.782" />
+</g>
+<!-- Chaturaji -->
+<g class="node" id="node6"><title>Chaturaji</title>
+<ellipse fill="green" stroke="black" cx="1022" cy="-450" rx="46.4596" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1022" y="-445.8">Chaturaji</text>
+</g>
+<!-- Chaturanga&#45;&gt;Chaturaji -->
+<g class="edge" id="edge4"><title>Chaturanga-&gt;Chaturaji</title>
+<path fill="none" stroke="black" d="M 831.847 -509.125 C 872.013 -496.848 934.661 -477.697 976.968 -464.765" />
+<polygon fill="black" stroke="black" points="978.188,-468.052 986.728,-461.782 976.142,-461.358 978.188,-468.052" />
+</g>
+<!-- Shatranj -->
+<g class="node" id="node7"><title>Shatranj</title>
+<a xlink:href="shatranj.htm">
+<ellipse fill="lightgreen" stroke="black" cx="914" cy="-450" rx="43.3265" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="914" y="-445.8">Shatranj</text>
+</a>
+</g>
+<!-- Chaturanga&#45;&gt;Shatranj -->
+<g class="edge" id="edge6"><title>Chaturanga-&gt;Shatranj</title>
+<path fill="none" stroke="black" d="M 818.958 -505.983 C 837.062 -495.51 861.372 -481.446 880.873 -470.164" />
+<polygon fill="black" stroke="black" points="882.83,-473.076 889.733,-465.039 879.325,-467.017 882.83,-473.076" />
+</g>
+<!-- Qiguo Xiangqi -->
+<g class="node" id="node12"><title>Qiguo Xiangqi</title>
+<a xlink:href="../xiangqi/qiquo-xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="416" cy="-450" rx="68.5525" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="416" y="-445.8">Qiguo Xiangqi</text>
+</a>
+</g>
+<!-- Chaturanga&#45;&gt;Qiguo Xiangqi -->
+<g class="edge" id="edge22"><title>Chaturanga-&gt;Qiguo Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 746.015 -512.276 C 678.954 -499.824 555.579 -476.917 480.155 -462.912" />
+<polygon fill="black" stroke="black" points="480.766,-459.466 470.296,-461.081 479.489,-466.348 480.766,-459.466" />
+</g>
+<!-- Ouk&#45;Khmer -->
+<g class="node" id="node4"><title>Ouk-Khmer</title>
+<ellipse fill="green" stroke="black" cx="555" cy="-378" rx="57.5391" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="555" y="-373.8">Ouk-Khmer</text>
+</g>
+<!-- Makruk&#45;&gt;Ouk&#45;Khmer -->
+<g class="edge" id="edge16"><title>Makruk-&gt;Ouk-Khmer</title>
+<path fill="none" stroke="black" d="M 648.605 -435.003 C 631.564 -424.808 608.217 -410.839 589.104 -399.404" />
+<polygon fill="black" stroke="black" points="590.761,-396.317 580.383,-394.186 587.167,-402.324 590.761,-396.317" />
+</g>
+<!-- Sittuyin -->
+<g class="node" id="node5"><title>Sittuyin</title>
+<a xlink:href="sittuyin.htm">
+<ellipse fill="green" stroke="black" cx="672" cy="-378" rx="41.4368" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="672" y="-373.8">Sittuyin</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Sittuyin -->
+<g class="edge" id="edge18"><title>Makruk-&gt;Sittuyin</title>
+<path fill="none" stroke="black" d="M 672 -431.697 C 672 -423.983 672 -414.712 672 -406.112" />
+<polygon fill="black" stroke="black" points="675.5,-406.104 672,-396.104 668.5,-406.104 675.5,-406.104" />
+</g>
+<!-- Xiangqi -->
+<g class="node" id="node13"><title>Xiangqi</title>
+<a xlink:href="../xiangqi/xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="416" cy="-378" rx="42.2212" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="416" y="-373.8">Xiangqi</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Xiangqi -->
+<g class="edge" id="edge26"><title>Makruk-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 638.005 -439.705 C 592.229 -427.188 510.705 -404.896 460.21 -391.089" />
+<polygon fill="black" stroke="black" points="461.114,-387.707 450.545,-388.446 459.268,-394.46 461.114,-387.707" />
+</g>
+<!-- Heian shogi -->
+<g class="node" id="node21"><title>Heian shogi</title>
+<ellipse fill="red" stroke="black" cx="789" cy="-378" rx="57.1488" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="789" y="-373.8">Heian shogi</text>
+</g>
+<!-- Makruk&#45;&gt;Heian shogi -->
+<g class="edge" id="edge48"><title>Makruk-&gt;Heian shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 695.395 -435.003 C 712.436 -424.808 735.783 -410.839 754.896 -399.404" />
+<polygon fill="black" stroke="black" points="756.833,-402.324 763.617,-394.186 753.239,-396.317 756.833,-402.324" />
+</g>
+<!-- Shatranj al&#45;husun -->
+<g class="node" id="node8"><title>Shatranj al-husun</title>
+<ellipse fill="lightgreen" stroke="black" cx="1313" cy="-378" rx="78.3301" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1313" y="-373.8">Shatranj al-husun</text>
+</g>
+<!-- Shatranj&#45;&gt;Shatranj al&#45;husun -->
+<g class="edge" id="edge8"><title>Shatranj-&gt;Shatranj al-husun</title>
+<path fill="none" stroke="black" d="M 945.664 -437.733 C 952.324 -435.622 959.347 -433.584 966 -432 C 1056.41 -410.472 1162.24 -395.785 1233.04 -387.428" />
+<polygon fill="black" stroke="black" points="1233.7,-390.875 1243.22,-386.241 1232.89,-383.922 1233.7,-390.875" />
+</g>
+<!-- Senterej -->
+<g class="node" id="node10"><title>Senterej</title>
+<ellipse fill="lightgreen" stroke="black" cx="914" cy="-378" rx="42.5127" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="914" y="-373.8">Senterej</text>
+</g>
+<!-- Shatranj&#45;&gt;Senterej -->
+<g class="edge" id="edge12"><title>Shatranj-&gt;Senterej</title>
+<path fill="none" stroke="black" d="M 914 -431.697 C 914 -423.983 914 -414.712 914 -406.112" />
+<polygon fill="black" stroke="black" points="917.5,-406.104 914,-396.104 910.5,-406.104 917.5,-406.104" />
+</g>
+<!-- Courier chess -->
+<g class="node" id="node48"><title>Courier chess</title>
+<a xlink:href="courier-chess-variant.htm">
+<ellipse fill="lightblue" stroke="black" cx="1054" cy="-378" rx="63.2927" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1054" y="-373.8">Courier chess</text>
+</a>
+</g>
+<!-- Shatranj&#45;&gt;Courier chess -->
+<g class="edge" id="edge104"><title>Shatranj-&gt;Courier chess</title>
+<path fill="none" stroke="black" d="M 940.662 -435.669 C 961.674 -425.163 991.274 -410.363 1014.96 -398.522" />
+<polygon fill="black" stroke="black" points="1016.66,-401.583 1024.04,-393.981 1013.53,-395.322 1016.66,-401.583" />
+</g>
+<!-- Tamerlane chess -->
+<g class="node" id="node9"><title>Tamerlane chess</title>
+<ellipse fill="lightgreen" stroke="black" cx="1398" cy="-306" rx="75.4734" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1398" y="-301.8">Tamerlane chess</text>
+</g>
+<!-- Shatranj al&#45;husun&#45;&gt;Tamerlane chess -->
+<g class="edge" id="edge10"><title>Shatranj al-husun-&gt;Tamerlane chess</title>
+<path fill="none" stroke="black" d="M 1333.14 -360.411 C 1344.15 -351.345 1357.96 -339.974 1370 -330.057" />
+<polygon fill="black" stroke="black" points="1372.51,-332.529 1378,-323.47 1368.06,-327.125 1372.51,-332.529" />
+</g>
+<!-- Go -->
+<g class="node" id="node11"><title>Go</title>
+<ellipse fill="yellow" stroke="black" cx="228" cy="-522" rx="27" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="228" y="-517.8">Go</text>
+</g>
+<!-- Go&#45;&gt;Qiguo Xiangqi -->
+<g class="edge" id="edge20"><title>Go-&gt;Qiguo Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 251.052 -512.417 C 280.125 -501.592 330.843 -482.707 368.387 -468.728" />
+<polygon fill="black" stroke="black" points="369.961,-471.877 378.111,-465.108 367.518,-465.317 369.961,-471.877" />
+</g>
+<!-- Ko shogi -->
+<g class="node" id="node29"><title>Ko shogi</title>
+<a xlink:href="../shogi/ko-shogi-board.htm">
+<ellipse fill="red" stroke="black" cx="46" cy="-90" rx="46.2632" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="46" y="-85.8">Ko shogi</text>
+</a>
+</g>
+<!-- Go&#45;&gt;Ko shogi -->
+<g class="edge" id="edge90"><title>Go-&gt;Ko shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 202.543 -515.661 C 148.457 -502.668 27 -464.024 27 -379 C 27 -379 27 -379 27 -233 C 27 -192.64 34.6339 -146.392 40.224 -117.936" />
+<polygon fill="black" stroke="black" points="43.6916,-118.447 42.2462,-107.951 36.8309,-117.057 43.6916,-118.447" />
+</g>
+<!-- Qiguo Xiangqi&#45;&gt;Xiangqi -->
+<g class="edge" id="edge24"><title>Qiguo Xiangqi-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 416 -431.697 C 416 -423.983 416 -414.712 416 -406.112" />
+<polygon fill="black" stroke="black" points="419.5,-406.104 416,-396.104 412.5,-406.104 419.5,-406.104" />
+</g>
+<!-- Siguo Xiangqi -->
+<g class="node" id="node14"><title>Siguo Xiangqi</title>
+<ellipse fill="yellow" stroke="black" cx="617" cy="-306" rx="67.1485" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="617" y="-301.8">Siguo Xiangqi</text>
+</g>
+<!-- Xiangqi&#45;&gt;Siguo Xiangqi -->
+<g class="edge" id="edge28"><title>Xiangqi-&gt;Siguo Xiangqi</title>
+<path fill="none" stroke="black" d="M 447.849 -365.908 C 480.163 -354.655 530.615 -337.084 568.018 -324.058" />
+<polygon fill="black" stroke="black" points="569.418,-327.277 577.71,-320.683 567.115,-320.667 569.418,-327.277" />
+</g>
+<!-- Shou Dou Qi -->
+<g class="node" id="node15"><title>Shou Dou Qi</title>
+<a xlink:href="../breakthrough/jungle-board.htm">
+<ellipse fill="yellow" stroke="black" cx="470" cy="-306" rx="62.003" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="470" y="-301.8">Shou Dou Qi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Shou Dou Qi -->
+<g class="edge" id="edge30"><title>Xiangqi-&gt;Shou Dou Qi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 428.524 -360.765 C 435.175 -352.143 443.49 -341.365 450.925 -331.727" />
+<polygon fill="black" stroke="black" points="453.832,-333.689 457.169,-323.633 448.289,-329.413 453.832,-333.689" />
+</g>
+<!-- Banqi -->
+<g class="node" id="node17"><title>Banqi</title>
+<ellipse fill="yellow" stroke="black" cx="433" cy="-234" rx="34.1562" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="433" y="-229.8">Banqi</text>
+</g>
+<!-- Xiangqi&#45;&gt;Banqi -->
+<g class="edge" id="edge32"><title>Xiangqi-&gt;Banqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 408.043 -360.039 C 400.651 -341.959 391.786 -312.605 399 -288 C 401.967 -277.878 407.528 -267.858 413.305 -259.3" />
+<polygon fill="black" stroke="black" points="416.301,-261.128 419.304,-250.968 410.621,-257.038 416.301,-261.128" />
+</g>
+<!-- Janggi -->
+<g class="node" id="node18"><title>Janggi</title>
+<a xlink:href="../xiangqi/janggi-1.htm">
+<ellipse fill="orange" stroke="black" cx="312" cy="-306" rx="36.3727" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="312" y="-301.8">Janggi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Janggi -->
+<g class="edge" id="edge40"><title>Xiangqi-&gt;Janggi</title>
+<path fill="none" stroke="black" d="M 394.451 -362.496 C 379.049 -352.129 358.144 -338.058 341.237 -326.679" />
+<polygon fill="black" stroke="black" points="343.062,-323.688 332.812,-321.008 339.153,-329.495 343.062,-323.688" />
+</g>
+<!-- Xiangqi&#45;&gt;Ko shogi -->
+<g class="edge" id="edge88"><title>Xiangqi-&gt;Ko shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 375.062 -373.844 C 304.472 -366.116 160.116 -339.865 84 -252 C 51.2803 -214.23 45.4839 -153.425 45.1276 -118.348" />
+<polygon fill="black" stroke="black" points="48.6275,-118.356 45.1679,-108.342 41.6276,-118.327 48.6275,-118.356" />
+</g>
+<!-- Luzhanqi -->
+<g class="node" id="node16"><title>Luzhanqi</title>
+<ellipse fill="yellow" stroke="black" cx="533" cy="-234" rx="47.2604" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="533" y="-229.8">Luzhanqi</text>
+</g>
+<!-- Shou Dou Qi&#45;&gt;Luzhanqi -->
+<g class="edge" id="edge36"><title>Shou Dou Qi-&gt;Luzhanqi</title>
+<path fill="none" stroke="black" d="M 484.93 -288.411 C 492.854 -279.606 502.735 -268.628 511.473 -258.919" />
+<polygon fill="black" stroke="black" points="514.089,-261.244 518.177,-251.47 508.886,-256.562 514.089,-261.244" />
+</g>
+<!-- Shou Dou Qi&#45;&gt;Banqi -->
+<g class="edge" id="edge34"><title>Shou Dou Qi-&gt;Banqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 461.043 -288.055 C 456.726 -279.887 451.453 -269.912 446.65 -260.824" />
+<polygon fill="black" stroke="black" points="449.642,-258.994 441.874,-251.789 443.453,-262.266 449.642,-258.994" />
+</g>
+<!-- Stratego -->
+<g class="node" id="node47"><title>Stratego</title>
+<ellipse fill="lightblue" stroke="black" cx="193" cy="-162" rx="43.3265" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="193" y="-157.8">Stratego</text>
+</g>
+<!-- Luzhanqi&#45;&gt;Stratego -->
+<g class="edge" id="edge38"><title>Luzhanqi-&gt;Stratego</title>
+<path fill="none" stroke="black" d="M 497.925 -221.733 C 490.72 -219.647 483.151 -217.618 476 -216 C 375.085 -193.163 346.675 -203.873 246 -180 C 242.354 -179.135 238.596 -178.143 234.844 -177.08" />
+<polygon fill="black" stroke="black" points="235.59,-173.65 225.007,-174.146 233.589,-180.358 235.59,-173.65" />
+</g>
+<!-- Gwangsanghui -->
+<g class="node" id="node19"><title>Gwangsanghui</title>
+<a xlink:href="../xiangqi/gwangsanghui.htm">
+<ellipse fill="orange" stroke="black" cx="312" cy="-234" rx="68.4444" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="312" y="-229.8">Gwangsanghui</text>
+</a>
+</g>
+<!-- Janggi&#45;&gt;Gwangsanghui -->
+<g class="edge" id="edge42"><title>Janggi-&gt;Gwangsanghui</title>
+<path fill="none" stroke="black" d="M 312 -287.697 C 312 -279.983 312 -270.712 312 -262.112" />
+<polygon fill="black" stroke="black" points="315.5,-262.104 312,-252.104 308.5,-262.104 315.5,-262.104" />
+</g>
+<!-- Sanjangjanggi -->
+<g class="node" id="node20"><title>Sanjangjanggi</title>
+<ellipse fill="orange" stroke="black" cx="159" cy="-234" rx="65.9313" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="159" y="-229.8">Sanjangjanggi</text>
+</g>
+<!-- Janggi&#45;&gt;Sanjangjanggi -->
+<g class="edge" id="edge44"><title>Janggi-&gt;Sanjangjanggi</title>
+<path fill="none" stroke="black" d="M 286.391 -293.284 C 263.029 -282.595 228.079 -266.605 200.693 -254.075" />
+<polygon fill="black" stroke="black" points="201.903,-250.78 191.353,-249.802 198.99,-257.145 201.903,-250.78" />
+</g>
+<!-- Heian dai shogi -->
+<g class="node" id="node22"><title>Heian dai shogi</title>
+<ellipse fill="red" stroke="black" cx="776" cy="-306" rx="71.4678" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="776" y="-301.8">Heian dai shogi</text>
+</g>
+<!-- Heian shogi&#45;&gt;Heian dai shogi -->
+<g class="edge" id="edge50"><title>Heian shogi-&gt;Heian dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 785.787 -359.697 C 784.354 -351.983 782.632 -342.712 781.035 -334.112" />
+<polygon fill="black" stroke="black" points="784.444,-333.297 779.177,-324.104 777.561,-334.575 784.444,-333.297" />
+</g>
+<!-- Sho shogi -->
+<g class="node" id="node23"><title>Sho shogi</title>
+<ellipse fill="red" stroke="black" cx="929" cy="-306" rx="49.1016" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="929" y="-301.8">Sho shogi</text>
+</g>
+<!-- Heian shogi&#45;&gt;Sho shogi -->
+<g class="edge" id="edge52"><title>Heian shogi-&gt;Sho shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 818.349 -362.326 C 839.772 -351.614 868.969 -337.015 891.992 -325.504" />
+<polygon fill="black" stroke="black" points="893.742,-328.542 901.121,-320.94 890.611,-322.281 893.742,-328.542" />
+</g>
+<!-- Dai shogi -->
+<g class="node" id="node24"><title>Dai shogi</title>
+<ellipse fill="red" stroke="black" cx="647" cy="-234" rx="47.977" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="647" y="-229.8">Dai shogi</text>
+</g>
+<!-- Heian dai shogi&#45;&gt;Dai shogi -->
+<g class="edge" id="edge54"><title>Heian dai shogi-&gt;Dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 747.371 -289.465 C 728.189 -279.056 702.8 -265.279 682.358 -254.186" />
+<polygon fill="black" stroke="black" points="683.812,-250.993 673.353,-249.3 680.473,-257.146 683.812,-250.993" />
+</g>
+<!-- Shogi -->
+<g class="node" id="node38"><title>Shogi</title>
+<a xlink:href="../shogi/shogi.htm">
+<ellipse fill="red" stroke="black" cx="937" cy="-234" rx="33.3604" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="937" y="-229.8">Shogi</text>
+</a>
+</g>
+<!-- Sho shogi&#45;&gt;Shogi -->
+<g class="edge" id="edge46"><title>Sho shogi-&gt;Shogi</title>
+<path fill="none" stroke="black" d="M 930.978 -287.697 C 931.859 -279.983 932.919 -270.712 933.901 -262.112" />
+<polygon fill="black" stroke="black" points="937.387,-262.437 935.045,-252.104 930.432,-261.642 937.387,-262.437" />
+</g>
+<!-- Chu shogi -->
+<g class="node" id="node25"><title>Chu shogi</title>
+<ellipse fill="red" stroke="black" cx="305" cy="-162" rx="50.209" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="305" y="-157.8">Chu shogi</text>
+</g>
+<!-- Dai shogi&#45;&gt;Chu shogi -->
+<g class="edge" id="edge56"><title>Dai shogi-&gt;Chu shogi</title>
+<path fill="none" stroke="black" d="M 611.295 -221.766 C 603.965 -219.677 596.267 -217.64 589 -216 C 490.211 -193.713 462.84 -202.061 364 -180 C 359.962 -179.099 355.792 -178.08 351.624 -177" />
+<polygon fill="black" stroke="black" points="352.527,-173.619 341.961,-174.396 350.705,-180.378 352.527,-173.619" />
+</g>
+<!-- Dai dai shogi -->
+<g class="node" id="node28"><title>Dai dai shogi</title>
+<ellipse fill="red" stroke="black" cx="436" cy="-162" rx="62.2952" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="436" y="-157.8">Dai dai shogi</text>
+</g>
+<!-- Dai shogi&#45;&gt;Dai dai shogi -->
+<g class="edge" id="edge58"><title>Dai shogi-&gt;Dai dai shogi</title>
+<path fill="none" stroke="black" d="M 612.158 -221.441 C 577.412 -209.914 523.742 -192.109 484.771 -179.18" />
+<polygon fill="black" stroke="black" points="485.794,-175.832 475.201,-176.005 483.59,-182.476 485.794,-175.832" />
+</g>
+<!-- Wa shogi -->
+<g class="node" id="node26"><title>Wa shogi</title>
+<ellipse fill="red" stroke="black" cx="305" cy="-90" rx="47.1688" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="305" y="-85.8">Wa shogi</text>
+</g>
+<!-- Chu shogi&#45;&gt;Wa shogi -->
+<g class="edge" id="edge76"><title>Chu shogi-&gt;Wa shogi</title>
+<path fill="none" stroke="black" d="M 305 -143.697 C 305 -135.983 305 -126.712 305 -118.112" />
+<polygon fill="black" stroke="black" points="308.5,-118.104 305,-108.104 301.5,-118.104 308.5,-118.104" />
+</g>
+<!-- Tenjiku shogi -->
+<g class="node" id="node36"><title>Tenjiku shogi</title>
+<a xlink:href="../shogi/tenjiku-shogi.htm">
+<ellipse fill="red" stroke="black" cx="175" cy="-90" rx="64.1218" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="175" y="-85.8">Tenjiku shogi</text>
+</a>
+</g>
+<!-- Chu shogi&#45;&gt;Tenjiku shogi -->
+<g class="edge" id="edge60"><title>Chu shogi-&gt;Tenjiku shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 278.379 -146.666 C 259.355 -136.422 233.497 -122.498 212.402 -111.139" />
+<polygon fill="black" stroke="black" points="213.851,-107.945 203.387,-106.285 210.533,-114.108 213.851,-107.945" />
+</g>
+<!-- Tori shogi -->
+<g class="node" id="node27"><title>Tori shogi</title>
+<ellipse fill="red" stroke="black" cx="296" cy="-18" rx="51.0027" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="296" y="-13.8">Tori shogi</text>
+</g>
+<!-- Wa shogi&#45;&gt;Tori shogi -->
+<g class="edge" id="edge78"><title>Wa shogi-&gt;Tori shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 302.775 -71.6966 C 301.783 -63.9827 300.592 -54.7125 299.486 -46.1124" />
+<polygon fill="black" stroke="black" points="302.946,-45.5763 298.199,-36.1043 296.003,-46.469 302.946,-45.5763" />
+</g>
+<!-- Dai dai shogi&#45;&gt;Ko shogi -->
+<g class="edge" id="edge86"><title>Dai dai shogi-&gt;Ko shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 390.433 -149.549 C 381.691 -147.549 372.586 -145.6 364 -144 C 248.45 -122.471 216.816 -133.15 102 -108 C 98.092 -107.144 94.0614 -106.149 90.0383 -105.078" />
+<polygon fill="black" stroke="black" points="90.7015,-101.629 80.1277,-102.296 88.8096,-108.369 90.7015,-101.629" />
+</g>
+<!-- Cashew shogi -->
+<g class="node" id="node30"><title>Cashew shogi</title>
+<ellipse fill="red" stroke="black" cx="764" cy="-90" rx="64.4172" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="764" y="-85.8">Cashew shogi</text>
+</g>
+<!-- Dai dai shogi&#45;&gt;Cashew shogi -->
+<g class="edge" id="edge68"><title>Dai dai shogi-&gt;Cashew shogi</title>
+<path fill="none" stroke="black" d="M 481.771 -149.759 C 490.15 -147.781 498.827 -145.786 507 -144 C 587.555 -126.396 608.34 -125.115 689 -108 C 694.606 -106.811 700.44 -105.542 706.269 -104.254" />
+<polygon fill="black" stroke="black" points="707.031,-107.67 716.031,-102.08 705.509,-100.838 707.031,-107.67" />
+</g>
+<!-- Tai shogi -->
+<g class="node" id="node31"><title>Tai shogi</title>
+<ellipse fill="red" stroke="black" cx="436" cy="-90" rx="47.3685" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="436" y="-85.8">Tai shogi</text>
+</g>
+<!-- Dai dai shogi&#45;&gt;Tai shogi -->
+<g class="edge" id="edge72"><title>Dai dai shogi-&gt;Tai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 436 -143.697 C 436 -135.983 436 -126.712 436 -118.112" />
+<polygon fill="black" stroke="black" points="439.5,-118.104 436,-108.104 432.5,-118.104 439.5,-118.104" />
+</g>
+<!-- Maka dai dai shogi -->
+<g class="node" id="node33"><title>Maka dai dai shogi</title>
+<ellipse fill="red" stroke="black" cx="596" cy="-90" rx="84.1829" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="596" y="-85.8">Maka dai dai shogi</text>
+</g>
+<!-- Dai dai shogi&#45;&gt;Maka dai dai shogi -->
+<g class="edge" id="edge62"><title>Dai dai shogi-&gt;Maka dai dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 468.764 -146.666 C 492.622 -136.228 525.212 -121.97 551.436 -110.497" />
+<polygon fill="black" stroke="black" points="553.023,-113.623 560.781,-106.408 550.217,-107.21 553.023,-113.623" />
+</g>
+<!-- Taikyoku shogi -->
+<g class="node" id="node32"><title>Taikyoku shogi</title>
+<ellipse fill="red" stroke="black" cx="436" cy="-18" rx="71.0819" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="436" y="-13.8">Taikyoku shogi</text>
+</g>
+<!-- Tai shogi&#45;&gt;Taikyoku shogi -->
+<g class="edge" id="edge74"><title>Tai shogi-&gt;Taikyoku shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 436 -71.6966 C 436 -63.9827 436 -54.7125 436 -46.1124" />
+<polygon fill="black" stroke="black" points="439.5,-46.1043 436,-36.1043 432.5,-46.1044 439.5,-46.1043" />
+</g>
+<!-- Hishigata shogi -->
+<g class="node" id="node34"><title>Hishigata shogi</title>
+<ellipse fill="red" stroke="black" cx="774" cy="-18" rx="71.0761" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="774" y="-13.8">Hishigata shogi</text>
+</g>
+<!-- Maka dai dai shogi&#45;&gt;Hishigata shogi -->
+<g class="edge" id="edge64"><title>Maka dai dai shogi-&gt;Hishigata shogi</title>
+<path fill="none" stroke="black" d="M 634.623 -73.811 C 661.999 -63.0454 698.856 -48.5511 727.792 -37.1716" />
+<polygon fill="black" stroke="black" points="729.252,-40.3587 737.277,-33.4417 726.69,-33.8443 729.252,-40.3587" />
+</g>
+<!-- Macadamia shogi -->
+<g class="node" id="node35"><title>Macadamia shogi</title>
+<ellipse fill="red" stroke="black" cx="605" cy="-18" rx="79.1263" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="605" y="-13.8">Macadamia shogi</text>
+</g>
+<!-- Maka dai dai shogi&#45;&gt;Macadamia shogi -->
+<g class="edge" id="edge70"><title>Maka dai dai shogi-&gt;Macadamia shogi</title>
+<path fill="none" stroke="black" d="M 598.225 -71.6966 C 599.217 -63.9827 600.408 -54.7125 601.514 -46.1124" />
+<polygon fill="black" stroke="black" points="604.997,-46.469 602.801,-36.1043 598.054,-45.5763 604.997,-46.469" />
+</g>
+<!-- Nutty shogi -->
+<g class="node" id="node37"><title>Nutty shogi</title>
+<ellipse fill="red" stroke="black" cx="171" cy="-18" rx="56.0573" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="171" y="-13.8">Nutty shogi</text>
+</g>
+<!-- Tenjiku shogi&#45;&gt;Nutty shogi -->
+<g class="edge" id="edge66"><title>Tenjiku shogi-&gt;Nutty shogi</title>
+<path fill="none" stroke="black" d="M 174.011 -71.6966 C 173.57 -63.9827 173.041 -54.7125 172.549 -46.1124" />
+<polygon fill="black" stroke="black" points="176.042,-45.8883 171.977,-36.1043 169.054,-46.2878 176.042,-45.8883" />
+</g>
+<!-- Yonin shogi -->
+<g class="node" id="node39"><title>Yonin shogi</title>
+<a xlink:href="../shogi/yonin-shogi.htm">
+<ellipse fill="red" stroke="black" cx="1254" cy="-162" rx="58.2737" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1254" y="-157.8">Yonin shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Yonin shogi -->
+<g class="edge" id="edge84"><title>Shogi-&gt;Yonin shogi</title>
+<path fill="none" stroke="black" d="M 967.744 -226.82 C 1014.84 -217.27 1107.63 -198.131 1186 -180 C 1190.72 -178.909 1195.61 -177.746 1200.51 -176.561" />
+<polygon fill="black" stroke="black" points="1201.64,-179.887 1210.52,-174.111 1199.98,-173.088 1201.64,-179.887" />
+</g>
+<!-- Kyoto shogi -->
+<g class="node" id="node40"><title>Kyoto shogi</title>
+<a xlink:href="../shogi/kyoto-shogi.htm">
+<ellipse fill="red" stroke="black" cx="575" cy="-162" rx="58.2737" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="575" y="-157.8">Kyoto shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Kyoto shogi -->
+<g class="edge" id="edge92"><title>Shogi-&gt;Kyoto shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 905.421 -228.079 C 851.282 -219.475 737.359 -200.637 642 -180 C 637.334 -178.99 632.5 -177.884 627.664 -176.735" />
+<polygon fill="black" stroke="black" points="628.328,-173.295 617.784,-174.335 626.676,-180.097 628.328,-173.295" />
+</g>
+<!-- Micro shogi -->
+<g class="node" id="node41"><title>Micro shogi</title>
+<a xlink:href="../shogi/micro-shogi.htm">
+<ellipse fill="red" stroke="black" cx="709" cy="-162" rx="57.4599" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="709" y="-157.8">Micro shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Micro shogi -->
+<g class="edge" id="edge94"><title>Shogi-&gt;Micro shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 908.585 -224.276 C 870.994 -212.735 804.147 -192.212 758.25 -178.121" />
+<polygon fill="black" stroke="black" points="759.092,-174.718 748.505,-175.129 757.037,-181.41 759.092,-174.718" />
+</g>
+<!-- Minishogi -->
+<g class="node" id="node42"><title>Minishogi</title>
+<a xlink:href="../shogi/mini-shogi.htm">
+<ellipse fill="red" stroke="black" cx="836" cy="-162" rx="50.6109" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="836" y="-157.8">Minishogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Minishogi -->
+<g class="edge" id="edge96"><title>Shogi-&gt;Minishogi</title>
+<path fill="none" stroke="black" d="M 917.046 -219.17 C 902.555 -209.127 882.689 -195.359 866.253 -183.967" />
+<polygon fill="black" stroke="black" points="868.229,-181.079 858.017,-178.259 864.242,-186.832 868.229,-181.079" />
+</g>
+<!-- Annan shogi -->
+<g class="node" id="node43"><title>Annan shogi</title>
+<a xlink:href="../shogi/annan-shogi.htm">
+<ellipse fill="orange" stroke="black" cx="965" cy="-162" rx="60.1785" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="965" y="-157.8">Annan shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Annan shogi -->
+<g class="edge" id="edge98"><title>Shogi-&gt;Annan shogi</title>
+<path fill="none" stroke="black" d="M 943.778 -216.055 C 946.93 -208.176 950.753 -198.617 954.282 -189.794" />
+<polygon fill="black" stroke="black" points="957.626,-190.86 958.09,-180.275 951.126,-188.26 957.626,-190.86" />
+</g>
+<!-- Dobutsu shogi -->
+<g class="node" id="node44"><title>Dobutsu shogi</title>
+<a xlink:href="../breakthrough/doubutsu-shogi.htm">
+<ellipse fill="red" stroke="black" cx="1110" cy="-162" rx="67.1499" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1110" y="-157.8">Dobutsu shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Dobutsu shogi -->
+<g class="edge" id="edge80"><title>Shogi-&gt;Dobutsu shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 962.9 -222.52 C 989.924 -211.586 1032.81 -194.234 1065.32 -181.081" />
+<polygon fill="black" stroke="black" points="1066.66,-184.314 1074.61,-177.318 1064.03,-177.825 1066.66,-184.314" />
+</g>
+<!-- Okisaki shogi -->
+<g class="node" id="node46"><title>Okisaki shogi</title>
+<ellipse fill="red" stroke="black" cx="1395" cy="-162" rx="64.1204" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1395" y="-157.8">Okisaki shogi</text>
+</g>
+<!-- Shogi&#45;&gt;Okisaki shogi -->
+<g class="edge" id="edge100"><title>Shogi-&gt;Okisaki shogi</title>
+<path fill="none" stroke="black" d="M 969.266 -229.526 C 1035.49 -222.18 1191.43 -203.777 1321 -180 C 1326.65 -178.964 1332.52 -177.788 1338.37 -176.55" />
+<polygon fill="black" stroke="black" points="1339.13,-179.966 1348.15,-174.421 1337.64,-173.126 1339.13,-179.966" />
+</g>
+<!-- Goro goro shogi -->
+<g class="node" id="node45"><title>Goro goro shogi</title>
+<a xlink:href="../shogi/gorogoro-shogi.htm">
+<ellipse fill="red" stroke="black" cx="1110" cy="-90" rx="74.0002" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1110" y="-85.8">Goro goro shogi</text>
+</a>
+</g>
+<!-- Dobutsu shogi&#45;&gt;Goro goro shogi -->
+<g class="edge" id="edge82"><title>Dobutsu shogi-&gt;Goro goro shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1110 -143.697 C 1110 -135.983 1110 -126.712 1110 -118.112" />
+<polygon fill="black" stroke="black" points="1113.5,-118.104 1110,-108.104 1106.5,-118.104 1113.5,-118.104" />
+</g>
+<!-- Rithmomachia -->
+<g class="node" id="node49"><title>Rithmomachia</title>
+<a xlink:href="../elimination/rithmomachia.htm">
+<ellipse fill="lightblue" stroke="black" cx="1239" cy="-306" rx="65.1358" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1239" y="-301.8">Rithmomachia</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Rithmomachy -->
+<g class="edge" id="edge110"><title>Courier chess-&gt;Rithmomachy</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1090.55 -363.17 C 1119.85 -352.085 1161.14 -336.461 1192.74 -324.504" />
+<polygon fill="black" stroke="black" points="1194.1,-327.733 1202.21,-320.921 1191.62,-321.186 1194.1,-327.733" />
+</g>
+<!-- Gala -->
+<g class="node" id="node50"><title>Gala</title>
+<a xlink:href="../control/gala.htm">
+<ellipse fill="lightblue" stroke="black" cx="1040" cy="-306" rx="28.9004" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1040" y="-301.8">Gala</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Gala -->
+<g class="edge" id="edge106"><title>Courier chess-&gt;Gala</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1050.54 -359.697 C 1049 -351.983 1047.14 -342.712 1045.42 -334.112" />
+<polygon fill="black" stroke="black" points="1048.81,-333.224 1043.42,-324.104 1041.95,-334.597 1048.81,-333.224" />
+</g>
+<!-- Chess -->
+<g class="node" id="node51"><title>Chess</title>
+<a xlink:href="chess.htm">
+<ellipse fill="lightblue" stroke="black" cx="1121" cy="-306" rx="34.1548" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1121" y="-301.8">Chess</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Chess -->
+<g class="edge" id="edge108"><title>Courier chess-&gt;Chess</title>
+<path fill="none" stroke="black" d="M 1069.88 -360.411 C 1078.64 -351.261 1089.64 -339.765 1099.19 -329.784" />
+<polygon fill="black" stroke="black" points="1101.77,-332.155 1106.15,-322.511 1096.71,-327.315 1101.77,-332.155" />
+</g>
+<!-- Chess&#45;&gt;Okisaki shogi -->
+<g class="edge" id="edge102"><title>Chess-&gt;Okisaki shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1119.52 -288.001 C 1118.77 -267.918 1120.88 -234.859 1140 -216 C 1198.4 -158.41 1240.8 -197.184 1321 -180 C 1326.32 -178.861 1331.84 -177.647 1337.37 -176.413" />
+<polygon fill="black" stroke="black" points="1338.29,-179.793 1347.28,-174.181 1336.75,-172.964 1338.29,-179.793" />
+</g>
+<!-- Shatar -->
+<g class="node" id="node52"><title>Shatar</title>
+<ellipse fill="yellow" stroke="black" cx="1185" cy="-234" rx="35.5569" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1185" y="-229.8">Shatar</text>
+</g>
+<!-- Chess&#45;&gt;Shatar -->
+<g class="edge" id="edge112"><title>Chess-&gt;Shatar</title>
+<path fill="none" stroke="black" d="M 1135.2 -289.465 C 1143.54 -280.349 1154.23 -268.651 1163.57 -258.434" />
+<polygon fill="black" stroke="black" points="1166.23,-260.719 1170.39,-250.977 1161.06,-255.996 1166.23,-260.719" />
+</g>
+<!-- Ultima -->
+<g class="node" id="node54"><title>Ultima</title>
+<a xlink:href="../custodian/ultima.htm">
+<ellipse fill="lightblue" stroke="black" cx="1277" cy="-234" rx="37.2887" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1277" y="-229.8">Ultima</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Ultima -->
+<g class="edge" id="edge116"><title>Chess-&gt;Ultima</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1146.06 -293.753 C 1171.75 -282.226 1211.95 -264.189 1241.03 -251.139" />
+<polygon fill="black" stroke="black" points="1242.74,-254.209 1250.43,-246.922 1239.88,-247.822 1242.74,-254.209" />
+</g>
+<!-- Hiashatar -->
+<g class="node" id="node53"><title>Hiashatar</title>
+<a xlink:href="hiashatar-board.htm">
+<ellipse fill="yellow" stroke="black" cx="1525" cy="-162" rx="48.0513" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1525" y="-157.8">Hiashatar</text>
+</a>
+</g>
+<!-- Shatar&#45;&gt;Hiashatar -->
+<g class="edge" id="edge114"><title>Shatar-&gt;Hiashatar</title>
+<path fill="none" stroke="black" d="M 1211.35 -221.986 C 1217.4 -219.755 1223.86 -217.605 1230 -216 C 1333.5 -188.946 1363.6 -203.345 1468 -180 C 1471.91 -179.125 1475.95 -178.124 1479.98 -177.056" />
+<polygon fill="black" stroke="black" points="1481.23,-180.343 1489.93,-174.296 1479.36,-173.598 1481.23,-180.343" />
+</g>
+</g>
+</svg>

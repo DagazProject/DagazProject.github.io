@@ -1,0 +1,1 @@
+Dagaz.AI.SGF = Dagaz.Model.parseSgf("(;Y[b2d4];Y[c3e5];Y[e5f6];Y[c1c3];Y[c3e5];Y[e5g7];Y[a3c3];Y[c3e5];Y[a1c1];Y[c1c3];Y[b1d3];Y[d3d5];Y[d5f5];Y[f5f7];Y[f7h7];Y[a2c4];Y[c4e4];Y[e4e6];Y[e6g6];Y[g6g8];Y[c2c4];Y[c4e4];Y[e4e6];Y[e6g6];Y[g6i8];Y[b3d3];Y[d3d5];Y[d5f5];Y[f5f7];Y[f7h9];Y[g7g9];Y[g9i9];Y[e5g7];Y[g7i7];Y[c3e5];Y[e5g7];Y[g7g9];Y[d4e5];Y[e5g7];Y[f6h8])");

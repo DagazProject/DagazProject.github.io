@@ -1,0 +1,91 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chaturaji</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="SBoard" style="display:none" src="images/chaturaji/sboard.png">
+<img id="WBoard" style="display:none" src="images/chaturaji/wboard.png">
+<img id="NBoard" style="display:none" src="images/chaturaji/nboard.png">
+<img id="EBoard" style="display:none" src="images/chaturaji/eboard.png">
+<img id="SouthD2" style="display:none" src="images/chaturaji/sd2.png">
+<img id="WestD2" style="display:none" src="images/chaturaji/wd2.png">
+<img id="NorthD2" style="display:none" src="images/chaturaji/nd2.png">
+<img id="EastD2" style="display:none" src="images/chaturaji/ed2.png">
+<img id="SouthD3" style="display:none" src="images/chaturaji/sd3.png">
+<img id="WestD3" style="display:none" src="images/chaturaji/wd3.png">
+<img id="NorthD3" style="display:none" src="images/chaturaji/nd3.png">
+<img id="EastD3" style="display:none" src="images/chaturaji/ed3.png">
+<img id="SouthD4" style="display:none" src="images/chaturaji/sd4.png">
+<img id="WestD4" style="display:none" src="images/chaturaji/wd4.png">
+<img id="NorthD4" style="display:none" src="images/chaturaji/nd4.png">
+<img id="EastD4" style="display:none" src="images/chaturaji/ed4.png">
+<img id="SouthD5" style="display:none" src="images/chaturaji/sd5.png">
+<img id="WestD5" style="display:none" src="images/chaturaji/wd5.png">
+<img id="NorthD5" style="display:none" src="images/chaturaji/nd5.png">
+<img id="EastD5" style="display:none" src="images/chaturaji/ed5.png">
+<img id="SouthRaja" style="display:none" src="images/chaturaji/gking.png">
+<img id="WestRaja" style="display:none" src="images/chaturaji/yking.png">
+<img id="NorthRaja" style="display:none" src="images/chaturaji/bking.png">
+<img id="EastRaja" style="display:none" src="images/chaturaji/rking.png">
+<img id="SouthBhata" style="display:none" src="images/chaturaji/gpawn.png">
+<img id="WestBhata" style="display:none" src="images/chaturaji/ypawn.png">
+<img id="NorthBhata" style="display:none" src="images/chaturaji/bpawn.png">
+<img id="EastBhata" style="display:none" src="images/chaturaji/rpawn.png">
+<img id="SouthGaja" style="display:none" src="images/chaturaji/gelephant.png">
+<img id="WestGaja" style="display:none" src="images/chaturaji/yelephant.png">
+<img id="NorthGaja" style="display:none" src="images/chaturaji/belephant.png">
+<img id="EastGaja" style="display:none" src="images/chaturaji/relephant.png">
+<img id="SouthAshva" style="display:none" src="images/chaturaji/gknight.png">
+<img id="WestAshva" style="display:none" src="images/chaturaji/yknight.png">
+<img id="NorthAshva" style="display:none" src="images/chaturaji/bknight.png">
+<img id="EastAshva" style="display:none" src="images/chaturaji/rknight.png">
+<img id="SouthRatha" style="display:none" src="images/chaturaji/grook.png">
+<img id="WestRatha" style="display:none" src="images/chaturaji/yrook.png">
+<img id="NorthRatha" style="display:none" src="images/chaturaji/brook.png">
+<img id="EastRatha" style="display:none" src="images/chaturaji/rrook.png">
+<img id="SouthRajaCaptured" style="display:none" src="images/chaturaji/gking.png">
+<img id="WestRajaCaptured" style="display:none" src="images/chaturaji/ykingc.png">
+<img id="NorthRajaCaptured" style="display:none" src="images/chaturaji/bkingc.png">
+<img id="EastRajaCaptured" style="display:none" src="images/chaturaji/rkingc.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Chaturaji">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="chaturaji-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="535" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/heuristic-ai-v5.js"></script>
+<script src="scripts/chaturaji-score.js"></script>
+<script src="scripts/chaturaji-dice.js"></script>
+<script src="scripts/chaturaji-triumph.js"></script>
+<script src="scripts/chaturaji-extension.js"></script>
+<script src="scripts/chaturaji-promotion.js"></script>
+<script src="scripts/chaturaji.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

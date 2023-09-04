@@ -1,0 +1,55 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Daldosa</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/daldosa/board.png">
+<img id="WhiteOff" style="display:none" src="images/daldosa/w0.png">
+<img id="BlackOff" style="display:none" src="images/daldosa/b0.png">
+<img id="WhiteOn" style="display:none" src="images/daldosa/w1.png">
+<img id="BlackOn" style="display:none" src="images/daldosa/b1.png">
+<img id="WhiteD1" style="display:none" src="images/daldosa/d1.png">
+<img id="BlackD1" style="display:none" src="images/daldosa/d1.png">
+<img id="WhiteD2" style="display:none" src="images/daldosa/d2.png">
+<img id="BlackD2" style="display:none" src="images/daldosa/d2.png">
+<img id="WhiteD3" style="display:none" src="images/daldosa/d3.png">
+<img id="BlackD3" style="display:none" src="images/daldosa/d3.png">
+<img id="WhiteD4" style="display:none" src="images/daldosa/d4.png">
+<img id="BlackD4" style="display:none" src="images/daldosa/d4.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Dald%C3%B8s">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="daldosa-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="711" height="122" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/heuristic-ai-v4.js"></script>
+<script src="scripts/daldosa-restrictions.js"></script>
+<script src="scripts/daldosa.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

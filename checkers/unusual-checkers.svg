@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 956 404" width="956pt" height="404pt">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 400)">
+<title>checkers</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-400 953,-400 953,5 -4,5" />
+<!-- Alquerque -->
+<g class="node" id="node1"><title>Alquerque</title>
+<a xlink:href="../checkers-like/alquerque.htm">
+<ellipse fill="lightgreen" stroke="black" cx="352" cy="-378" rx="51.1929" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="352" y="-373.8">Alquerque</text>
+</a>
+</g>
+<!-- Turkish Dama -->
+<g class="node" id="node2"><title>Turkish Dama</title>
+<a xlink:href="turkish-dama.htm">
+<ellipse fill="lightgreen" stroke="black" cx="152" cy="-306" rx="66.3197" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="152" y="-301.8">Turkish Dama</text>
+</a>
+</g>
+<!-- Alquerque&#45;&gt;Turkish Dama -->
+<g class="edge" id="edge4"><title>Alquerque-&gt;Turkish Dama</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 316.704 -364.647 C 284.518 -353.381 236.66 -336.631 200.815 -324.085" />
+<polygon fill="black" stroke="black" points="201.641,-320.666 191.046,-320.666 199.328,-327.273 201.641,-320.666" />
+</g>
+<!-- English Checkers -->
+<g class="node" id="node3"><title>English Checkers</title>
+<a xlink:href="english-checkers.htm">
+<ellipse fill="lightblue" stroke="black" cx="553" cy="-306" rx="78.3301" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="553" y="-301.8">English Checkers</text>
+</a>
+</g>
+<!-- Alquerque&#45;&gt;English Checkers -->
+<g class="edge" id="edge2"><title>Alquerque-&gt;English Checkers</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 387.012 -364.807 C 418.78 -353.743 466.012 -337.294 501.978 -324.769" />
+<polygon fill="black" stroke="black" points="503.509,-327.942 511.802,-321.348 501.207,-321.331 503.509,-327.942" />
+</g>
+<!-- Bahrain Dama -->
+<g class="node" id="node14"><title>Bahrain Dama</title>
+<a xlink:href="bahrain-dama.htm">
+<ellipse fill="none" stroke="black" cx="67" cy="-234" rx="67.1151" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="67" y="-229.8">Bahrain Dama</text>
+</a>
+</g>
+<!-- Turkish Dama&#45;&gt;Bahrain Dama -->
+<g class="edge" id="edge12"><title>Turkish Dama-&gt;Bahrain Dama</title>
+<path fill="none" stroke="black" d="M 132.286 -288.765 C 121.102 -279.554 106.929 -267.882 94.6482 -257.769" />
+<polygon fill="black" stroke="black" points="96.8462,-255.045 86.9019,-251.39 92.3962,-260.449 96.8462,-255.045" />
+</g>
+<!-- International Draughts -->
+<g class="node" id="node4"><title>International Draughts</title>
+<a xlink:href="international-checkers.htm">
+<ellipse fill="lightblue" stroke="black" cx="788" cy="-234" rx="98.28" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="788" y="-229.8">International Draughts</text>
+</a>
+</g>
+<!-- English Checkers&#45;&gt;International Draughts -->
+<g class="edge" id="edge6"><title>English Checkers-&gt;International Draughts</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 598.868 -291.337 C 636.011 -280.273 688.597 -264.61 728.895 -252.606" />
+<polygon fill="black" stroke="black" points="730.012,-255.925 738.596,-249.716 728.013,-249.216 730.012,-255.925" />
+</g>
+<!-- Cheskers -->
+<g class="node" id="node16"><title>Cheskers</title>
+<a xlink:href="cheskers.htm">
+<ellipse fill="none" stroke="black" cx="430" cy="-234" rx="46.15" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="430" y="-229.8">Cheskers</text>
+</a>
+</g>
+<!-- English Checkers&#45;&gt;Cheskers -->
+<g class="edge" id="edge14"><title>English Checkers-&gt;Cheskers</title>
+<path fill="none" stroke="black" d="M 525.089 -289.116 C 506.978 -278.808 483.259 -265.31 464.042 -254.373" />
+<polygon fill="black" stroke="black" points="465.712,-251.297 455.29,-249.393 462.25,-257.381 465.712,-251.297" />
+</g>
+<!-- Laska -->
+<g class="node" id="node27"><title>Laska</title>
+<a xlink:href="laska.htm">
+<ellipse fill="none" stroke="black" cx="914" cy="-18" rx="34.1403" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="914" y="-13.8">Laska</text>
+</a>
+</g>
+<!-- English Checkers&#45;&gt;Laska -->
+<g class="edge" id="edge30"><title>English Checkers-&gt;Laska</title>
+<path fill="none" stroke="black" d="M 631.08 -303.736 C 720.816 -300.497 860.218 -289.396 895 -252 C 947.552 -195.5 932.527 -94.4106 921.313 -46.1238" />
+<polygon fill="black" stroke="black" points="924.641,-44.9982 918.865,-36.1162 917.842,-46.6614 924.641,-44.9982" />
+</g>
+<!-- Swedish Checkers -->
+<g class="node" id="node39"><title>Swedish Checkers</title>
+<a xlink:href="swedish-checkers.htm">
+<ellipse fill="none" stroke="black" cx="288" cy="-162" rx="82.1516" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="288" y="-157.8">Swedish Checkers</text>
+</a>
+</g>
+<!-- English Checkers&#45;&gt;Swedish Checkers -->
+<g class="edge" id="edge44"><title>English Checkers-&gt;Swedish Checkers</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 544.43 -287.848 C 533.435 -267.615 512.457 -234.408 485 -216 C 450.839 -193.098 407.135 -180.068 369.574 -172.666" />
+<polygon fill="black" stroke="black" points="370.136,-169.21 359.663,-170.813 368.849,-176.091 370.136,-169.21" />
+</g>
+<!-- Black &amp; White -->
+<g class="node" id="node42"><title>Black &amp; White</title>
+<a xlink:href="black-and-white.htm">
+<ellipse fill="none" stroke="black" cx="602" cy="-234" rx="69.2509" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="602" y="-229.8">Black &amp; White</text>
+</a>
+</g>
+<!-- English Checkers&#45;&gt;Black &amp; White -->
+<g class="edge" id="edge46"><title>English Checkers-&gt;Black &amp; White</title>
+<path fill="none" stroke="black" d="M 564.862 -288.055 C 570.7 -279.715 577.856 -269.491 584.324 -260.252" />
+<polygon fill="black" stroke="black" points="587.38,-261.988 590.248,-251.789 581.646,-257.974 587.38,-261.988" />
+</g>
+<!-- Russian Checkers -->
+<g class="node" id="node5"><title>Russian Checkers</title>
+<a xlink:href="russian-checkers.htm">
+<ellipse fill="lightblue" stroke="black" cx="647" cy="-162" rx="79.436" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="647" y="-157.8">Russian Checkers</text>
+</a>
+</g>
+<!-- International Draughts&#45;&gt;Russian Checkers -->
+<g class="edge" id="edge8"><title>International Draughts-&gt;Russian Checkers</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 755.652 -216.941 C 735.538 -206.955 709.495 -194.026 687.948 -183.329" />
+<polygon fill="black" stroke="black" points="689.225,-180.055 678.712,-178.743 686.112,-186.325 689.225,-180.055" />
+</g>
+<!-- Altai Shatra -->
+<g class="node" id="node19"><title>Altai Shatra</title>
+<a xlink:href="altai-shatra.htm">
+<ellipse fill="none" stroke="black" cx="477" cy="-162" rx="57.1431" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="477" y="-157.8">Altai Shatra</text>
+</a>
+</g>
+<!-- International Draughts&#45;&gt;Altai Shatra -->
+<g class="edge" id="edge20"><title>International Draughts-&gt;Altai Shatra</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 728.404 -219.586 C 671.784 -206.842 587.333 -187.834 532.209 -175.426" />
+<polygon fill="black" stroke="black" points="532.795,-171.971 522.271,-173.19 531.258,-178.8 532.795,-171.971" />
+</g>
+<!-- Belarusian Chess -->
+<g class="node" id="node22"><title>Belarusian Chess</title>
+<a xlink:href="../checkmate/belarusian-chess.htm">
+<ellipse fill="none" stroke="black" cx="237" cy="-90" rx="77.22" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="237" y="-85.8">Belarusian Chess</text>
+</a>
+</g>
+<!-- Russian Checkers&#45;&gt;Belarusian Chess -->
+<g class="edge" id="edge24"><title>Russian Checkers-&gt;Belarusian Chess</title>
+<path fill="none" stroke="black" d="M 585.619 -150.52 C 511.219 -137.818 386.101 -116.456 307.727 -103.075" />
+<polygon fill="black" stroke="black" points="307.909,-99.5558 297.462,-101.323 306.731,-106.456 307.909,-99.5558" />
+</g>
+<!-- Column Checkers -->
+<g class="node" id="node25"><title>Column Checkers</title>
+<a xlink:href="column-checkers.htm">
+<ellipse fill="none" stroke="black" cx="792" cy="-90" rx="80.2498" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="792" y="-85.8">Column Checkers</text>
+</a>
+</g>
+<!-- Russian Checkers&#45;&gt;Column Checkers -->
+<g class="edge" id="edge26"><title>Russian Checkers-&gt;Column Checkers</title>
+<path fill="none" stroke="black" d="M 679.18 -145.465 C 700.226 -135.305 727.919 -121.936 750.6 -110.986" />
+<polygon fill="black" stroke="black" points="752.175,-114.112 759.659,-106.613 749.132,-107.808 752.175,-114.112" />
+</g>
+<!-- Samoedy -->
+<g class="node" id="node32"><title>Samoedy</title>
+<a xlink:href="samoedy.htm">
+<ellipse fill="none" stroke="black" cx="647" cy="-90" rx="46.464" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="647" y="-85.8">Samoedy</text>
+</a>
+</g>
+<!-- Russian Checkers&#45;&gt;Samoedy -->
+<g class="edge" id="edge34"><title>Russian Checkers-&gt;Samoedy</title>
+<path fill="none" stroke="black" d="M 647 -143.697 C 647 -135.983 647 -126.712 647 -118.112" />
+<polygon fill="black" stroke="black" points="650.5,-118.104 647,-108.104 643.5,-118.104 650.5,-118.104" />
+</g>
+<!-- Stavropol Checkers -->
+<g class="node" id="node34"><title>Stavropol Checkers</title>
+<a xlink:href="stavropol-checkers.htm">
+<ellipse fill="none" stroke="black" cx="495" cy="-90" rx="86.3946" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="495" y="-85.8">Stavropol Checkers</text>
+</a>
+</g>
+<!-- Russian Checkers&#45;&gt;Stavropol Checkers -->
+<g class="edge" id="edge36"><title>Russian Checkers-&gt;Stavropol Checkers</title>
+<path fill="none" stroke="black" d="M 613.643 -145.638 C 591.424 -135.406 562.016 -121.862 538.037 -110.82" />
+<polygon fill="black" stroke="black" points="539.352,-107.572 528.805,-106.568 536.424,-113.93 539.352,-107.572" />
+</g>
+<!-- Chess -->
+<g class="node" id="node6"><title>Chess</title>
+<ellipse fill="lightblue" stroke="black" cx="307" cy="-306" rx="34.1548" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="307" y="-301.8">Chess</text>
+</g>
+<!-- Swedish Chess -->
+<g class="node" id="node7"><title>Swedish Chess</title>
+<ellipse fill="lightblue" stroke="black" cx="259" cy="-234" rx="69.3602" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="259" y="-229.8">Swedish Chess</text>
+</g>
+<!-- Chess&#45;&gt;Swedish Chess -->
+<g class="edge" id="edge10"><title>Chess-&gt;Swedish Chess</title>
+<path fill="none" stroke="black" d="M 295.867 -288.765 C 290.1 -280.354 282.925 -269.89 276.442 -260.436" />
+<polygon fill="black" stroke="black" points="279.284,-258.392 270.742,-252.124 273.511,-262.351 279.284,-258.392" />
+</g>
+<!-- Chess&#45;&gt;Cheskers -->
+<g class="edge" id="edge16"><title>Chess-&gt;Cheskers</title>
+<path fill="none" stroke="black" d="M 329.274 -292.324 C 347.932 -281.706 374.855 -266.383 396.173 -254.251" />
+<polygon fill="black" stroke="black" points="397.966,-257.258 404.926,-249.27 394.504,-251.174 397.966,-257.258" />
+</g>
+<!-- Chess&#45;&gt;Altai Shatra -->
+<g class="edge" id="edge18"><title>Chess-&gt;Altai Shatra</title>
+<path fill="none" stroke="black" d="M 316.505 -288.474 C 328.264 -269.155 349.84 -237.14 375 -216 C 392.123 -201.613 413.801 -189.666 432.764 -180.779" />
+<polygon fill="black" stroke="black" points="434.448,-183.859 442.109,-176.54 431.556,-177.484 434.448,-183.859" />
+</g>
+<!-- Chess&#45;&gt;Belarusian Chess -->
+<g class="edge" id="edge22"><title>Chess-&gt;Belarusian Chess</title>
+<path fill="none" stroke="black" d="M 274.006 -301.225 C 244.063 -295.856 201.549 -282.937 181 -252 C 152.169 -208.594 189.49 -148.733 215.604 -115.586" />
+<polygon fill="black" stroke="black" points="218.37,-117.731 221.954,-107.761 212.935,-113.32 218.37,-117.731" />
+</g>
+<!-- Swedish Chess&#45;&gt;Swedish Checkers -->
+<g class="edge" id="edge42"><title>Swedish Chess-&gt;Swedish Checkers</title>
+<path fill="none" stroke="black" d="M 266.02 -216.055 C 269.284 -208.176 273.245 -198.617 276.9 -189.794" />
+<polygon fill="black" stroke="black" points="280.249,-190.853 280.843,-180.275 273.782,-188.174 280.249,-190.853" />
+</g>
+<!-- Column Checkers&#45;&gt;Laska -->
+<g class="edge" id="edge28"><title>Column Checkers-&gt;Laska</title>
+<path fill="none" stroke="black" d="M 819.989 -72.9406 C 838.816 -62.1385 863.646 -47.8918 883.06 -36.7527" />
+<polygon fill="black" stroke="black" points="884.899,-39.7328 891.83,-31.7202 881.415,-33.6612 884.899,-39.7328" />
+</g>
+<!-- Northern Checkers -->
+<g class="node" id="node30"><title>Northern Checkers</title>
+<a xlink:href="northern-checkers.htm">
+<ellipse fill="none" stroke="black" cx="778" cy="-18" rx="84.3531" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="778" y="-13.8">Northern Checkers</text>
+</a>
+</g>
+<!-- Column Checkers&#45;&gt;Northern Checkers -->
+<g class="edge" id="edge32"><title>Column Checkers-&gt;Northern Checkers</title>
+<path fill="none" stroke="black" d="M 788.539 -71.6966 C 786.997 -63.9827 785.142 -54.7125 783.422 -46.1124" />
+<polygon fill="black" stroke="black" points="786.814,-45.2237 781.421,-36.1043 779.95,-46.5966 786.814,-45.2237" />
+</g>
+<!-- Stavropol Columns -->
+<g class="node" id="node36"><title>Stavropol Columns</title>
+<ellipse fill="none" stroke="black" cx="543" cy="-18" rx="85.319" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="543" y="-13.8">Stavropol Columns</text>
+</g>
+<!-- Column Checkers&#45;&gt;Stavropol Columns -->
+<g class="edge" id="edge40"><title>Column Checkers-&gt;Stavropol Columns</title>
+<path fill="none" stroke="black" d="M 743.99 -75.5033 C 703.478 -64.1142 645.323 -47.7654 601.982 -35.5812" />
+<polygon fill="black" stroke="black" points="602.713,-32.1511 592.139,-32.8141 600.818,-38.8899 602.713,-32.1511" />
+</g>
+<!-- Stavropol Checkers&#45;&gt;Stavropol Columns -->
+<g class="edge" id="edge38"><title>Stavropol Checkers-&gt;Stavropol Columns</title>
+<path fill="none" stroke="black" d="M 506.619 -72.055 C 512.254 -63.8373 519.143 -53.7911 525.405 -44.6599" />
+<polygon fill="black" stroke="black" points="528.385,-46.502 531.154,-36.2753 522.612,-42.5432 528.385,-46.502" />
+</g>
+</g>
+</svg>

@@ -1,0 +1,52 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Belarusian Chess</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/8x8.png">
+<img id="WhiteMan" style="display:none" src="images/shabel/wman.png">
+<img id="BlackMan" style="display:none" src="images/shabel/bman.png">
+<img id="WhiteDama" style="display:none" src="images/shabel/wdamone.png">
+<img id="BlackDama" style="display:none" src="images/shabel/bdamone.png">
+<img id="WhitePawn" style="display:none" src="images/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/shabel/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/wrook.png">
+<img id="BlackRook" style="display:none" src="images/shabel/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/shabel/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/shabel/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/shabel/bqueen.png">
+<img id="WhiteKing" style="display:none" src="images/wking.png">
+<img id="BlackKing" style="display:none" src="images/shabel/bking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go()">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="548" height="548" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/belarusian-editor-extension.js"></script>
+<script src="scripts/belarusian-chess-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

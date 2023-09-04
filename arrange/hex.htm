@@ -1,0 +1,51 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Hex</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/hex/board.png">
+<img id="RedStone" style="display:none" src="images/hex/red.png">
+<img id="BlueStone" style="display:none" src="images/hex/blue.png">
+<img id="Big" style="display:none" src="images/hex/big.png">
+<img id="Small" style="display:none" src="images/hex/small.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1942 Piet Hein and John Nash (<a target="_blank" href="http://www.iggamecenter.com/info/en/hex.html">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="hex-board.htm">no AI</a>
+        <a href="hex-advisor.htm">Hints</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="523" height="314" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/jquery-3.5.1.min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/hex-ai.js"></script>
+<script src="scripts/hex-advisor.js"></script>
+<script src="scripts/hex-setup.js"></script>
+<script src="scripts/hex-goal.js"></script>
+<script src="scripts/hex-pie.js"></script>
+<script src="scripts/hex.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

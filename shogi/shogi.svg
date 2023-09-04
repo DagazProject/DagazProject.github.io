@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1323 476" width="1323pt" height="476pt">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 472)">
+<title>graphname</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-472 1320,-472 1320,5 -4,5" />
+<!-- Makruk -->
+<g class="node" id="node1"><title>Makruk</title>
+<a xlink:href="../checkmate/makruk.htm">
+<ellipse fill="green" stroke="black" cx="567" cy="-450" rx="41.4107" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="567" y="-445.8">Makruk</text>
+</a>
+</g>
+<!-- Heian shogi -->
+<g class="node" id="node2"><title>Heian shogi</title>
+<ellipse fill="red" stroke="black" cx="567" cy="-378" rx="57.1488" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="567" y="-373.8">Heian shogi</text>
+</g>
+<!-- Makruk&#45;&gt;Heian shogi -->
+<g class="edge" id="edge2"><title>Makruk-&gt;Heian shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 567 -431.697 C 567 -423.983 567 -414.712 567 -406.112" />
+<polygon fill="black" stroke="black" points="570.5,-406.104 567,-396.104 563.5,-406.104 570.5,-406.104" />
+</g>
+<!-- Heian dai shogi -->
+<g class="node" id="node3"><title>Heian dai shogi</title>
+<ellipse fill="red" stroke="black" cx="464" cy="-306" rx="71.4678" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="464" y="-301.8">Heian dai shogi</text>
+</g>
+<!-- Heian shogi&#45;&gt;Heian dai shogi -->
+<g class="edge" id="edge4"><title>Heian shogi-&gt;Heian dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 544.141 -361.465 C 530.039 -351.881 511.736 -339.442 496.183 -328.872" />
+<polygon fill="black" stroke="black" points="498.107,-325.948 487.869,-323.222 494.172,-331.737 498.107,-325.948" />
+</g>
+<!-- Sho shogi -->
+<g class="node" id="node4"><title>Sho shogi</title>
+<ellipse fill="red" stroke="black" cx="670" cy="-306" rx="49.1016" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="670" y="-301.8">Sho shogi</text>
+</g>
+<!-- Heian shogi&#45;&gt;Sho shogi -->
+<g class="edge" id="edge6"><title>Heian shogi-&gt;Sho shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 589.859 -361.465 C 604.361 -351.609 623.305 -338.734 639.134 -327.977" />
+<polygon fill="black" stroke="black" points="641.256,-330.767 647.559,-322.251 637.321,-324.977 641.256,-330.767" />
+</g>
+<!-- Dai shogi -->
+<g class="node" id="node5"><title>Dai shogi</title>
+<ellipse fill="red" stroke="black" cx="330" cy="-234" rx="47.977" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="330" y="-229.8">Dai shogi</text>
+</g>
+<!-- Heian dai shogi&#45;&gt;Dai shogi -->
+<g class="edge" id="edge8"><title>Heian dai shogi-&gt;Dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 434.261 -289.465 C 414.111 -278.939 387.369 -264.969 366.014 -253.813" />
+<polygon fill="black" stroke="black" points="367.41,-250.594 356.926,-249.066 364.168,-256.798 367.41,-250.594" />
+</g>
+<!-- Shogi -->
+<g class="node" id="node15"><title>Shogi</title>
+<a xlink:href="shogi.htm">
+<ellipse fill="red" stroke="black" cx="738" cy="-234" rx="33.3604" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="738" y="-229.8">Shogi</text>
+</a>
+</g>
+<!-- Sho shogi&#45;&gt;Shogi -->
+<g class="edge" id="edge44"><title>Sho shogi-&gt;Shogi</title>
+<path fill="none" stroke="black" d="M 685.771 -288.765 C 694.776 -279.496 706.202 -267.734 716.069 -257.576" />
+<polygon fill="black" stroke="black" points="718.788,-259.801 723.245,-250.189 713.767,-254.923 718.788,-259.801" />
+</g>
+<!-- Chu shogi -->
+<g class="node" id="node6"><title>Chu shogi</title>
+<a xlink:href="chu-shogi.htm">
+<ellipse fill="red" stroke="black" cx="181" cy="-162" rx="50.209" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="181" y="-157.8">Chu shogi</text>
+</a>
+</g>
+<!-- Dai shogi&#45;&gt;Chu shogi -->
+<g class="edge" id="edge10"><title>Dai shogi-&gt;Chu shogi</title>
+<path fill="none" stroke="black" d="M 301.271 -219.503 C 277.923 -208.534 244.783 -192.965 219.2 -180.946" />
+<polygon fill="black" stroke="black" points="220.688,-177.778 210.149,-176.694 217.712,-184.114 220.688,-177.778" />
+</g>
+<!-- Dai dai shogi -->
+<g class="node" id="node10"><title>Dai dai shogi</title>
+<ellipse fill="red" stroke="black" cx="330" cy="-162" rx="62.2952" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="330" y="-157.8">Dai dai shogi</text>
+</g>
+<!-- Dai shogi&#45;&gt;Dai dai shogi -->
+<g class="edge" id="edge12"><title>Dai shogi-&gt;Dai dai shogi</title>
+<path fill="none" stroke="black" d="M 330 -215.697 C 330 -207.983 330 -198.712 330 -190.112" />
+<polygon fill="black" stroke="black" points="333.5,-190.104 330,-180.104 326.5,-190.104 333.5,-190.104" />
+</g>
+<!-- Wa shogi -->
+<g class="node" id="node7"><title>Wa shogi</title>
+<a xlink:href="wa-shogi.htm">
+<ellipse fill="red" stroke="black" cx="51" cy="-90" rx="47.1688" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="51" y="-85.8">Wa shogi</text>
+</a>
+</g>
+<!-- Chu shogi&#45;&gt;Wa shogi -->
+<g class="edge" id="edge22"><title>Chu shogi-&gt;Wa shogi</title>
+<path fill="none" stroke="black" d="M 154.379 -146.666 C 134.619 -136.026 107.488 -121.417 85.9779 -109.834" />
+<polygon fill="black" stroke="black" points="87.6054,-106.735 77.1413,-105.076 84.2867,-112.899 87.6054,-106.735" />
+</g>
+<!-- Tenjiku shogi -->
+<g class="node" id="node9"><title>Tenjiku shogi</title>
+<a xlink:href="tenjiku-shogi.htm">
+<ellipse fill="red" stroke="black" cx="181" cy="-90" rx="64.1218" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="181" y="-85.8">Tenjiku shogi</text>
+</a>
+</g>
+<!-- Chu shogi&#45;&gt;Tenjiku shogi -->
+<g class="edge" id="edge14"><title>Chu shogi-&gt;Tenjiku shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 181 -143.697 C 181 -135.983 181 -126.712 181 -118.112" />
+<polygon fill="black" stroke="black" points="184.5,-118.104 181,-108.104 177.5,-118.104 184.5,-118.104" />
+</g>
+<!-- Tori shogi -->
+<g class="node" id="node8"><title>Tori shogi</title>
+<ellipse fill="red" stroke="black" cx="51" cy="-18" rx="51.0027" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="51" y="-13.8">Tori shogi</text>
+</g>
+<!-- Wa shogi&#45;&gt;Tori shogi -->
+<g class="edge" id="edge24"><title>Wa shogi-&gt;Tori shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 51 -71.6966 C 51 -63.9827 51 -54.7125 51 -46.1124" />
+<polygon fill="black" stroke="black" points="54.5001,-46.1043 51,-36.1043 47.5001,-46.1044 54.5001,-46.1043" />
+</g>
+<!-- Ko shogi -->
+<g class="node" id="node11"><title>Ko shogi</title>
+<a xlink:href="ko-shogi-board.htm">
+<ellipse fill="red" stroke="black" cx="790" cy="-90" rx="46.2632" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="790" y="-85.8">Ko shogi</text>
+</a>
+</g>
+<!-- Dai dai shogi&#45;&gt;Ko shogi -->
+<g class="edge" id="edge32"><title>Dai dai shogi-&gt;Ko shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 374.927 -149.529 C 383.548 -147.531 392.529 -145.587 401 -144 C 519.689 -121.762 660.408 -104.92 735.82 -96.656" />
+<polygon fill="black" stroke="black" points="736.455,-100.108 746.018,-95.5472 735.698,-93.1487 736.455,-100.108" />
+</g>
+<!-- Maka dai dai shogi -->
+<g class="node" id="node12"><title>Maka dai dai shogi</title>
+<a xlink:href="makadaidaishogi-board.htm">
+<ellipse fill="red" stroke="black" cx="348" cy="-90" rx="84.1829" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="348" y="-85.8">Maka dai dai shogi</text>
+</a>
+</g>
+<!-- Dai dai shogi&#45;&gt;Maka dai dai shogi -->
+<g class="edge" id="edge16"><title>Dai dai shogi-&gt;Maka dai dai shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 334.449 -143.697 C 336.455 -135.898 338.869 -126.509 341.101 -117.829" />
+<polygon fill="black" stroke="black" points="344.501,-118.661 343.602,-108.104 337.722,-116.918 344.501,-118.661" />
+</g>
+<!-- Hishigata shogi -->
+<g class="node" id="node13"><title>Hishigata shogi</title>
+<a xlink:href="hishigata-shogi-board.htm">
+<ellipse fill="red" stroke="black" cx="269" cy="-18" rx="71.0761" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="269" y="-13.8">Hishigata shogi</text>
+</a>
+</g>
+<!-- Maka dai dai shogi&#45;&gt;Hishigata shogi -->
+<g class="edge" id="edge18"><title>Maka dai dai shogi-&gt;Hishigata shogi</title>
+<path fill="none" stroke="black" d="M 329.278 -72.411 C 319.144 -63.4318 306.46 -52.1926 295.345 -42.3436" />
+<polygon fill="black" stroke="black" points="297.393,-39.4823 287.588,-35.4699 292.751,-44.7214 297.393,-39.4823" />
+</g>
+<!-- Macadamia shogi -->
+<g class="node" id="node14"><title>Macadamia shogi</title>
+<a xlink:href="macadamia-shogi-board.htm">
+<ellipse fill="red" stroke="black" cx="438" cy="-18" rx="79.1263" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="438" y="-13.8">Macadamia shogi</text>
+</a>
+</g>
+<!-- Maka dai dai shogi&#45;&gt;Macadamia shogi -->
+<g class="edge" id="edge20"><title>Maka dai dai shogi-&gt;Macadamia shogi</title>
+<path fill="none" stroke="black" d="M 369.329 -72.411 C 381.098 -63.2575 395.886 -51.7553 408.722 -41.7715" />
+<polygon fill="black" stroke="black" points="411.08,-44.3721 416.824,-35.4699 406.782,-38.8467 411.08,-44.3721" />
+</g>
+<!-- Yonin shogi -->
+<g class="node" id="node16"><title>Yonin shogi</title>
+<a xlink:href="yonin-shogi.htm">
+<ellipse fill="red" stroke="black" cx="469" cy="-162" rx="58.2737" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="469" y="-157.8">Yonin shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Yonin shogi -->
+<g class="edge" id="edge30"><title>Shogi-&gt;Yonin shogi</title>
+<path fill="none" stroke="black" d="M 708.7 -225.376 C 663.869 -213.709 577.58 -191.255 521.688 -176.711" />
+<polygon fill="black" stroke="black" points="522.524,-173.312 511.964,-174.18 520.761,-180.086 522.524,-173.312" />
+</g>
+<!-- Kyoto shogi -->
+<g class="node" id="node17"><title>Kyoto shogi</title>
+<a xlink:href="kyoto-shogi.htm">
+<ellipse fill="red" stroke="black" cx="604" cy="-162" rx="58.2737" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="604" y="-157.8">Kyoto shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Kyoto shogi -->
+<g class="edge" id="edge36"><title>Shogi-&gt;Kyoto shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 714.965 -220.967 C 694.75 -210.407 664.976 -194.853 641.358 -182.515" />
+<polygon fill="black" stroke="black" points="642.798,-179.319 632.314,-177.791 639.557,-185.524 642.798,-179.319" />
+</g>
+<!-- Micro shogi -->
+<g class="node" id="node18"><title>Micro shogi</title>
+<a xlink:href="micro-shogi.htm">
+<ellipse fill="red" stroke="black" cx="738" cy="-162" rx="57.4599" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="738" y="-157.8">Micro shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Micro shogi -->
+<g class="edge" id="edge38"><title>Shogi-&gt;Micro shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 738 -215.697 C 738 -207.983 738 -198.712 738 -190.112" />
+<polygon fill="black" stroke="black" points="741.5,-190.104 738,-180.104 734.5,-190.104 741.5,-190.104" />
+</g>
+<!-- Minishogi -->
+<g class="node" id="node19"><title>Minishogi</title>
+<a xlink:href="mini-shogi.htm">
+<ellipse fill="red" stroke="black" cx="865" cy="-162" rx="50.6109" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="865" y="-157.8">Minishogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Minishogi -->
+<g class="edge" id="edge40"><title>Shogi-&gt;Minishogi</title>
+<path fill="none" stroke="black" d="M 760.413 -220.647 C 779.689 -210.022 807.819 -194.517 830.051 -182.263" />
+<polygon fill="black" stroke="black" points="831.798,-185.297 838.866,-177.405 828.419,-179.167 831.798,-185.297" />
+</g>
+<!-- Annan shogi -->
+<g class="node" id="node20"><title>Annan shogi</title>
+<a xlink:href="annan-shogi.htm">
+<ellipse fill="orange" stroke="black" cx="994" cy="-162" rx="60.1785" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="994" y="-157.8">Annan shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Annan shogi -->
+<g class="edge" id="edge42"><title>Shogi-&gt;Annan shogi</title>
+<path fill="none" stroke="black" d="M 767.366 -224.97 C 809.686 -213.398 888.506 -191.846 941.119 -177.46" />
+<polygon fill="black" stroke="black" points="942.226,-180.786 950.948,-174.772 940.379,-174.033 942.226,-180.786" />
+</g>
+<!-- Dobutsu shogi -->
+<g class="node" id="node21"><title>Dobutsu shogi</title>
+<a xlink:href="../breakthrough/doubutsu-shogi.htm">
+<ellipse fill="red" stroke="black" cx="1241" cy="-162" rx="67.1499" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1241" y="-157.8">Dobutsu shogi</text>
+</a>
+</g>
+<!-- Shogi&#45;&gt;Dobutsu shogi -->
+<g class="edge" id="edge26"><title>Shogi-&gt;Dobutsu shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 770.566 -230.041 C 842.2 -223.296 1018.72 -205.378 1165 -180 C 1170.72 -179.008 1176.65 -177.871 1182.58 -176.665" />
+<polygon fill="black" stroke="black" points="1183.42,-180.064 1192.49,-174.584 1181.98,-173.214 1183.42,-180.064" />
+</g>
+<!-- Goro goro shogi -->
+<g class="node" id="node22"><title>Goro goro shogi</title>
+<a xlink:href="gorogoro-shogi.htm">
+<ellipse fill="red" stroke="black" cx="1241" cy="-90" rx="74.0002" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1241" y="-85.8">Goro goro shogi</text>
+</a>
+</g>
+<!-- Dobutsu shogi&#45;&gt;Goro goro shogi -->
+<g class="edge" id="edge28"><title>Dobutsu shogi-&gt;Goro goro shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1241 -143.697 C 1241 -135.983 1241 -126.712 1241 -118.112" />
+<polygon fill="black" stroke="black" points="1244.5,-118.104 1241,-108.104 1237.5,-118.104 1244.5,-118.104" />
+</g>
+<!-- Xiangqi -->
+<g class="node" id="node23"><title>Xiangqi</title>
+<a xlink:href="../xiangqi/xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="1114" cy="-162" rx="42.2212" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="1114" y="-157.8">Xiangqi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Ko shogi -->
+<g class="edge" id="edge34"><title>Xiangqi-&gt;Ko shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 1082.63 -149.834 C 1076.19 -147.74 1069.41 -145.683 1063 -144 C 986.946 -124.032 897.169 -108.02 841.912 -99.0122" />
+<polygon fill="black" stroke="black" points="842.437,-95.5517 832.006,-97.4123 841.32,-102.462 842.437,-95.5517" />
+</g>
+</g>
+</svg>

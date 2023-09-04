@@ -1,0 +1,42 @@
+digraph chess {
+    "Chaturanga"[style="filled",fillcolor="green"];
+    "Makruk"[style="filled",fillcolor="green"];
+    "Shatranj"[style="filled",fillcolor="lightgreen"];
+    "Sittuyin"[style="filled",fillcolor="green"]
+    "Qiguo Xiangqi"[style="filled",fillcolor="yellow"];
+    "Xiangqi"[style="filled",fillcolor="yellow"];
+    "Shogi"[style="filled",fillcolor="red"];
+    "Courier chess"[style="filled",fillcolor="lightblue"];
+    "Gala"[style="filled",fillcolor="lightblue"];
+    "Rithmomachy"[style="filled",fillcolor="lightblue"];
+    "Chess"[style="filled",fillcolor="lightblue"];
+    "Shatar"[style="filled",fillcolor="yellow"];
+    "Hiashatar"[style="filled",fillcolor="yellow"];
+    "Mini Chess";
+    "Dunsany's Chess";
+    "Platform Chess";
+    "Maharadja";
+    "Russian Checkers"[style="filled",fillcolor="lightblue"];
+    "Belarusian Chess";
+    "Omega Chess";
+
+    "Chaturanga" -> "Shatranj";
+    "Chaturanga" -> "Makruk";
+    "Makruk" -> "Sittuyin";
+    "Makruk" -> "Xiangqi"[style=dotted];
+    "Qiguo Xiangqi" -> "Xiangqi"[style=dotted];
+    "Makruk" -> "Shogi"[style=dotted];
+    "Shatranj" -> "Courier chess";
+    "Courier chess" -> "Gala"[style=dotted];
+    "Courier chess" -> "Rithmomachy"[style=dotted];
+    "Courier chess" -> "Chess";
+    "Chess" -> "Mini Chess";
+    "Chess" -> "Dunsany's Chess";
+    "Chess" -> "Platform Chess";
+    "Chess" -> "Maharadja";
+    "Russian Checkers" -> "Belarusian Chess";
+    "Chess" -> "Belarusian Chess";
+    "Chess" -> "Shatar";
+    "Shatar" -> "Hiashatar";
+    "Shatar" -> "Omega Chess";
+}

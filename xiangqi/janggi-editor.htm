@@ -1,0 +1,51 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Janggi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/janggi.png">
+<img id="RedSoldier" style="display:none" src="images/rsoldier.png">
+<img id="BlackSoldier" style="display:none" src="images/bsoldier.png">
+<img id="RedHorse" style="display:none" src="images/rhorse.png">
+<img id="BlackHorse" style="display:none" src="images/bhorse.png">
+<img id="RedElephant" style="display:none" src="images/relephant.png">
+<img id="BlackElephant" style="display:none" src="images/belephant.png">
+<img id="RedChariot" style="display:none" src="images/rchariot.png">
+<img id="BlackChariot" style="display:none" src="images/bchariot.png">
+<img id="RedCannon" style="display:none" src="images/rcannon.png">
+<img id="BlackCannon" style="display:none" src="images/bcannon.png">
+<img id="RedMandarin" style="display:none" src="images/rmandarin.png">
+<img id="BlackMandarin" style="display:none" src="images/bmandarin.png">
+<img id="RedGeneral" style="display:none" src="images/rgeneral.png">
+<img id="BlackGeneral" style="display:none" src="images/bgeneral.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Janggi">rules</a>) 
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go()">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="411" height="458" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../checkmate/scripts/chess-editor-extension.js"></script>
+<script src="scripts/janggi-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

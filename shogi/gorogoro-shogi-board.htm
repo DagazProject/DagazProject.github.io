@@ -1,0 +1,56 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Goro Goro Doubutsu Shogi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/gorogoro/board.png">
+<img id="Promote" style="display:none" src="images/gorogoro/dialog-2.png">
+<img id="GreenLion" style="display:none" src="images/gorogoro/king-green.png">
+<img id="RedLion" style="display:none" src="images/gorogoro/king-red.png">
+<img id="GreenChick" style="display:none" src="images/gorogoro/pawn-green.png">
+<img id="RedChick" style="display:none" src="images/gorogoro/pawn-red.png">
+<img id="GreenChickP" style="display:none" src="images/gorogoro/gold-green.png">
+<img id="RedChickP" style="display:none" src="images/gorogoro/gold-red.png">
+<img id="GreenCat" style="display:none" src="images/gorogoro/silver-green.png">
+<img id="RedCat" style="display:none" src="images/gorogoro/silver-red.png">
+<img id="GreenCatP" style="display:none" src="images/gorogoro/gold-cat-green.png">
+<img id="RedCatP" style="display:none" src="images/gorogoro/gold-cat-red.png">
+<img id="GreenDog" style="display:none" src="images/gorogoro/gold-dog-green.png">
+<img id="RedDog" style="display:none" src="images/gorogoro/gold-dog-red.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) Madoka Kitao (<a target="_blank" href="https://en.wikipedia.org/wiki/D%C5%8Dbutsu_sh%C5%8Dgi">rules</a>) 
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="gorogoro-shogi.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="906" height="580" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="scripts/gorogoro-shogi-fen.js"></script>
+<script src="scripts/gorogoro-shogi-extension.js"></script>
+<script src="scripts/gorogoro-shogi-promotion.js"></script>
+<script src="scripts/gorogoro-shogi.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

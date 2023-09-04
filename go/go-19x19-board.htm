@@ -1,0 +1,58 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Go (19x19)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/19x19.png">
+<img id="BlackStone" style="display:none" src="images/bsmall.png">
+<img id="WhiteStone" style="display:none" src="images/wsmall.png">
+<img id="Big" style="display:none" src="images/big.png">
+<img id="Small" style="display:none" src="images/small.png">
+<img id="RBig" style="display:none" src="images/rb.png">
+<img id="RSmall" style="display:none" src="images/rs.png">
+<img id="GBig" style="display:none" src="images/gb.png">
+<img id="GSmall" style="display:none" src="images/gs.png">
+<img id="BM" style="display:none" src="images/bm.png">
+<img id="WM" style="display:none" src="images/wm.png">
+<img id="Ko" style="display:none" src="images/ko.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Rules_of_Go">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="go-19x19.htm">AI</a>
+        <a href="go-19x19-advisor-board.htm">Hints</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('go-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="583" height="583" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/go-edit.js"></script>
+<script src="scripts/go-mark.js"></script>
+<script src="scripts/go-fen.js"></script>
+<script src="scripts/go-ko.js"></script>
+<script src="scripts/go-capturing.js"></script>
+<script src="scripts/go-19x19.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

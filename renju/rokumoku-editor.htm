@@ -1,0 +1,52 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Rokumoku</title>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/igo/19x19.png">
+<img id="BlackStone" style="display:none" src="images/igo/b.png">
+<img id="WhiteStone" style="display:none" src="images/igo/w.png">
+
+<table style="margin:auto; font-family:sans-serif; font-size:14px" id="Table">
+<tr><td>
+<a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+<a href="javascript:Dagaz.Controller.go('rokumoku-board.htm')">Play</a>
+</td></tr>
+<tr style="height:882px; vertical-align:top">
+<td id="CanvasCell" style="width:882px">
+<canvas id="Canvas" width="882" height="882" style="cursor:default">Broken canvas...</canvas>
+</td><td style="width:300px;">
+<div style="height:510px; overflow:auto" id="ScrollDiv">
+<img id="GlyphImage"><p id="HelpText"></p>
+<p id="GameSession"></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div style="height:100px; width:500px; margin-left:auto; margin-right:auto">
+<table>
+<tr style="display:none" id="PieceInfo">
+<td><img id="PieceInfoImage"></td><td id="PieceInfoText"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/gomoku-igo-editor-extension.js"></script>
+<script src="scripts/rokumoku-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

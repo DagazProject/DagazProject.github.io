@@ -1,0 +1,572 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 1988" width="528pt" height="1988pt" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 1984)">
+<title>minimancala</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-1984 525,-1984 525,5 -4,5"/>
+<!-- S2222 -->
+<g class="node" id="node1"><title>S2222</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=2;0:1=2;0:1=2;;&amp;turn=0">
+<ellipse fill="darkgreen" stroke="black" cx="293" cy="-1962" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1957.8">S2222</text>
+</a>
+</g>
+<!-- N3203 -->
+<g class="node" id="node4"><title>N3203</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=3;0:1=0;0:1=3;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="293" cy="-1890" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1885.8">N3203</text>
+</a>
+</g>
+<!-- S2222&#45;&gt;N3203 -->
+<g class="edge" id="edge2"><title>S2222-&gt;N3203</title>
+<path fill="none" stroke="black" d="M 293 -1943.7 C 293 -1935.98 293 -1926.71 293 -1918.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1918.1 293,-1908.1 289.5,-1918.1 296.5,-1918.1"/>
+</g>
+<!-- N0008 -->
+<g class="node" id="node2"><title>N0008</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=0;0:1=0;0:1=8;;&amp;turn=1">
+<ellipse fill="darkgreen" stroke="black" cx="143" cy="-18" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="143" y="-13.8">N0008</text>
+</a>
+</g>
+<!-- S1430 -->
+<g class="node" id="node6"><title>S1430</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=3;0:1=1;0:1=4;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="38" cy="-378" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="38" y="-373.8">S1430</text>
+</a>
+</g>
+<!-- N3203&#45;&gt;S1430 -->
+<g class="edge" id="edge4"><title>N3203-&gt;S1430</title>
+<path fill="none" stroke="black" d="M 255.891 -1887.75 C 177.049 -1882.9 0 -1859.49 0 -1747 C 0 -1747 0 -1747 0 -521 C 0 -479.406 15.4027 -433.217 26.5955 -405.143"/>
+<polygon fill="black" stroke="black" points="29.9281,-406.242 30.4924,-395.662 23.4536,-403.581 29.9281,-406.242"/>
+</g>
+<!-- S1403 -->
+<g class="node" id="node17"><title>S1403</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=0;0:1=1;0:1=4;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="293" cy="-1818" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1813.8">S1403</text>
+</a>
+</g>
+<!-- N3203&#45;&gt;S1403 -->
+<g class="edge" id="edge16"><title>N3203-&gt;S1403</title>
+<path fill="none" stroke="black" d="M 293 -1871.7 C 293 -1863.98 293 -1854.71 293 -1846.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1846.1 293,-1836.1 289.5,-1846.1 296.5,-1846.1"/>
+</g>
+<!-- N3005 -->
+<g class="node" id="node8"><title>N3005</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=3;0:1=0;0:1=5;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="160" cy="-306" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="160" y="-301.8">N3005</text>
+</a>
+</g>
+<!-- S1430&#45;&gt;N3005 -->
+<g class="edge" id="edge6"><title>S1430-&gt;N3005</title>
+<path fill="none" stroke="black" d="M 60.6613 -363.998 C 79.6297 -353.114 106.915 -337.458 128.093 -325.308"/>
+<polygon fill="black" stroke="black" points="130.114,-328.183 137.046,-320.17 126.63,-322.111 130.114,-328.183"/>
+</g>
+<!-- S1601 -->
+<g class="node" id="node10"><title>S1601</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=0;0:1=1;0:1=6;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="186" cy="-234" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="186" y="-229.8">S1601</text>
+</a>
+</g>
+<!-- N3005&#45;&gt;S1601 -->
+<g class="edge" id="edge8"><title>N3005-&gt;S1601</title>
+<path fill="none" stroke="black" d="M 166.294 -288.055 C 169.264 -280.059 172.877 -270.331 176.194 -261.4"/>
+<polygon fill="black" stroke="black" points="179.563,-262.382 179.764,-251.789 173.001,-259.945 179.563,-262.382"/>
+</g>
+<!-- N0107 -->
+<g class="node" id="node12"><title>N0107</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=0;0:1=0;0:1=7;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="179" cy="-162" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="179" y="-157.8">N0107</text>
+</a>
+</g>
+<!-- S1601&#45;&gt;N0107 -->
+<g class="edge" id="edge10"><title>S1601-&gt;N0107</title>
+<path fill="none" stroke="black" d="M 184.27 -215.697 C 183.498 -207.983 182.571 -198.712 181.711 -190.112"/>
+<polygon fill="black" stroke="black" points="185.188,-189.706 180.71,-180.104 178.223,-190.403 185.188,-189.706"/>
+</g>
+<!-- S1700 -->
+<g class="node" id="node14"><title>S1700</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=0;0:1=1;0:1=7;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="143" cy="-90" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="143" y="-85.8">S1700</text>
+</a>
+</g>
+<!-- N0107&#45;&gt;S1700 -->
+<g class="edge" id="edge12"><title>N0107-&gt;S1700</title>
+<path fill="none" stroke="black" d="M 170.469 -144.411 C 166.271 -136.249 161.113 -126.22 156.405 -117.065"/>
+<polygon fill="black" stroke="black" points="159.406,-115.248 151.72,-107.956 153.181,-118.45 159.406,-115.248"/>
+</g>
+<!-- S1700&#45;&gt;N0008 -->
+<g class="edge" id="edge14"><title>S1700-&gt;N0008</title>
+<path fill="none" stroke="black" d="M 143 -71.6966 C 143 -63.9827 143 -54.7125 143 -46.1124"/>
+<polygon fill="black" stroke="black" points="146.5,-46.1043 143,-36.1043 139.5,-46.1044 146.5,-46.1043"/>
+</g>
+<!-- N0305 -->
+<g class="node" id="node22"><title>N0305</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=0;0:1=0;0:1=5;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="293" cy="-1746" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1741.8">N0305</text>
+</a>
+</g>
+<!-- S1403&#45;&gt;N0305 -->
+<g class="edge" id="edge20"><title>S1403-&gt;N0305</title>
+<path fill="none" stroke="black" d="M 293 -1799.7 C 293 -1791.98 293 -1782.71 293 -1774.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1774.1 293,-1764.1 289.5,-1774.1 296.5,-1774.1"/>
+</g>
+<!-- S3203 -->
+<g class="node" id="node18"><title>S3203</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=0;0:1=3;0:1=2;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="139" cy="-1458" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="139" y="-1453.8">S3203</text>
+</a>
+</g>
+<!-- N1403 -->
+<g class="node" id="node20"><title>N1403</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=4;0:2=1;0:1=0;0:1=3;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="131" cy="-882" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="131" y="-877.8">N1403</text>
+</a>
+</g>
+<!-- S3203&#45;&gt;N1403 -->
+<g class="edge" id="edge18"><title>S3203-&gt;N1403</title>
+<path fill="none" stroke="black" d="M 126.553 -1440.99 C 108.193 -1415.71 76 -1364.36 76 -1315 C 76 -1315 76 -1315 76 -1025 C 76 -984.553 79.1192 -973.199 95 -936 C 99.2582 -926.026 105.495 -915.961 111.585 -907.322"/>
+<polygon fill="black" stroke="black" points="114.443,-909.344 117.548,-899.214 108.804,-905.196 114.443,-909.344"/>
+</g>
+<!-- S0305 -->
+<g class="node" id="node26"><title>S0305</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=5;0:2=0;0:1=0;0:1=3;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="131" cy="-810" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="131" y="-805.8">S0305</text>
+</a>
+</g>
+<!-- N1403&#45;&gt;S0305 -->
+<g class="edge" id="edge24"><title>N1403-&gt;S0305</title>
+<path fill="none" stroke="black" d="M 131 -863.697 C 131 -855.983 131 -846.712 131 -838.112"/>
+<polygon fill="black" stroke="black" points="134.5,-838.104 131,-828.104 127.5,-838.104 134.5,-838.104"/>
+</g>
+<!-- S1421 -->
+<g class="node" id="node48"><title>S1421</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=2;0:1=1;0:1=4;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="484" cy="-738" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="484" y="-733.8">S1421</text>
+</a>
+</g>
+<!-- N1403&#45;&gt;S1421 -->
+<g class="edge" id="edge48"><title>N1403-&gt;S1421</title>
+<path fill="none" stroke="black" d="M 149.978 -866.226 C 176.077 -846.584 225.154 -812.028 272 -792 C 327.87 -768.114 396.811 -753.371 440.6 -745.679"/>
+<polygon fill="black" stroke="black" points="441.36,-749.1 450.627,-743.965 440.18,-742.201 441.36,-749.1"/>
+</g>
+<!-- S1610 -->
+<g class="node" id="node24"><title>S1610</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=1;0:1=1;0:1=6;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="293" cy="-1674" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1669.8">S1610</text>
+</a>
+</g>
+<!-- N0305&#45;&gt;S1610 -->
+<g class="edge" id="edge22"><title>N0305-&gt;S1610</title>
+<path fill="none" stroke="black" d="M 293 -1727.7 C 293 -1719.98 293 -1710.71 293 -1702.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1702.1 293,-1692.1 289.5,-1702.1 296.5,-1702.1"/>
+</g>
+<!-- N3221 -->
+<g class="node" id="node43"><title>N3221</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=3;0:1=2;0:1=1;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="293" cy="-1602" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1597.8">N3221</text>
+</a>
+</g>
+<!-- S1610&#45;&gt;N3221 -->
+<g class="edge" id="edge42"><title>S1610-&gt;N3221</title>
+<path fill="none" stroke="black" d="M 293 -1655.7 C 293 -1647.98 293 -1638.71 293 -1630.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1630.1 293,-1620.1 289.5,-1630.1 296.5,-1630.1"/>
+</g>
+<!-- N1610 -->
+<g class="node" id="node28"><title>N1610</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=6;0:2=1;0:1=1;0:1=0;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="131" cy="-738" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="131" y="-733.8">N1610</text>
+</a>
+</g>
+<!-- S0305&#45;&gt;N1610 -->
+<g class="edge" id="edge26"><title>S0305-&gt;N1610</title>
+<path fill="none" stroke="black" d="M 131 -791.697 C 131 -783.983 131 -774.712 131 -766.112"/>
+<polygon fill="black" stroke="black" points="134.5,-766.104 131,-756.104 127.5,-766.104 134.5,-766.104"/>
+</g>
+<!-- S1007 -->
+<g class="node" id="node30"><title>S1007</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=7;0:2=0;0:1=1;0:1=0;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="129" cy="-666" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="129" y="-661.8">S1007</text>
+</a>
+</g>
+<!-- N1610&#45;&gt;S1007 -->
+<g class="edge" id="edge28"><title>N1610-&gt;S1007</title>
+<path fill="none" stroke="black" d="M 130.506 -719.697 C 130.285 -711.983 130.02 -702.712 129.775 -694.112"/>
+<polygon fill="black" stroke="black" points="133.273,-694 129.489,-684.104 126.276,-694.2 133.273,-694"/>
+</g>
+<!-- S3221 -->
+<g class="node" id="node53"><title>S3221</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=2;0:1=3;0:1=2;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="287" cy="-666" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="287" y="-661.8">S3221</text>
+</a>
+</g>
+<!-- N1610&#45;&gt;S3221 -->
+<g class="edge" id="edge54"><title>N1610-&gt;S3221</title>
+<path fill="none" stroke="black" d="M 157.463 -725.125 C 183.549 -713.42 223.553 -695.47 252.201 -682.615"/>
+<polygon fill="black" stroke="black" points="253.754,-685.754 261.444,-678.467 250.888,-679.368 253.754,-685.754"/>
+</g>
+<!-- N0701 -->
+<g class="node" id="node32"><title>N0701</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=7;0:2=0;0:1=0;0:1=1;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="128" cy="-594" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="128" y="-589.8">N0701</text>
+</a>
+</g>
+<!-- S1007&#45;&gt;N0701 -->
+<g class="edge" id="edge30"><title>S1007-&gt;N0701</title>
+<path fill="none" stroke="black" d="M 128.753 -647.697 C 128.643 -639.983 128.51 -630.712 128.387 -622.112"/>
+<polygon fill="black" stroke="black" points="131.887,-622.053 128.244,-612.104 124.888,-622.153 131.887,-622.053"/>
+</g>
+<!-- S2321 -->
+<g class="node" id="node34"><title>S2321</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=2;0:1=2;0:1=3;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="128" cy="-522" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="128" y="-517.8">S2321</text>
+</a>
+</g>
+<!-- N0701&#45;&gt;S2321 -->
+<g class="edge" id="edge32"><title>N0701-&gt;S2321</title>
+<path fill="none" stroke="black" d="M 128 -575.697 C 128 -567.983 128 -558.712 128 -550.112"/>
+<polygon fill="black" stroke="black" points="131.5,-550.104 128,-540.104 124.5,-550.104 131.5,-550.104"/>
+</g>
+<!-- N3104 -->
+<g class="node" id="node36"><title>N3104</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=3;0:1=0;0:1=4;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="127" cy="-450" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="127" y="-445.8">N3104</text>
+</a>
+</g>
+<!-- S2321&#45;&gt;N3104 -->
+<g class="edge" id="edge34"><title>S2321-&gt;N3104</title>
+<path fill="none" stroke="black" d="M 127.753 -503.697 C 127.643 -495.983 127.51 -486.712 127.387 -478.112"/>
+<polygon fill="black" stroke="black" points="130.887,-478.053 127.244,-468.104 123.888,-478.153 130.887,-478.053"/>
+</g>
+<!-- N3104&#45;&gt;S1430 -->
+<g class="edge" id="edge58"><title>N3104-&gt;S1430</title>
+<path fill="none" stroke="black" d="M 108.125 -434.155 C 95.4144 -424.157 78.472 -410.832 64.4247 -399.783"/>
+<polygon fill="black" stroke="black" points="66.5661,-397.015 56.5422,-393.584 62.2386,-402.517 66.5661,-397.015"/>
+</g>
+<!-- S1502 -->
+<g class="node" id="node38"><title>S1502</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=0;0:1=1;0:1=5;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="127" cy="-378" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="127" y="-373.8">S1502</text>
+</a>
+</g>
+<!-- N3104&#45;&gt;S1502 -->
+<g class="edge" id="edge36"><title>N3104-&gt;S1502</title>
+<path fill="none" stroke="black" d="M 127 -431.697 C 127 -423.983 127 -414.712 127 -406.112"/>
+<polygon fill="black" stroke="black" points="130.5,-406.104 127,-396.104 123.5,-406.104 130.5,-406.104"/>
+</g>
+<!-- N0206 -->
+<g class="node" id="node40"><title>N0206</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=0;0:1=0;0:1=6;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="95" cy="-234" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="95" y="-229.8">N0206</text>
+</a>
+</g>
+<!-- S1502&#45;&gt;N0206 -->
+<g class="edge" id="edge38"><title>S1502-&gt;N0206</title>
+<path fill="none" stroke="black" d="M 122.653 -359.845 C 120.062 -349.484 116.753 -336.005 114 -324 C 109.262 -303.34 104.272 -279.892 100.595 -262.252"/>
+<polygon fill="black" stroke="black" points="103.947,-261.177 98.4898,-252.096 97.0928,-262.598 103.947,-261.177"/>
+</g>
+<!-- N0206&#45;&gt;S1700 -->
+<g class="edge" id="edge40"><title>N0206-&gt;S1700</title>
+<path fill="none" stroke="black" d="M 100.695 -216.153 C 108.922 -191.813 124.216 -146.568 133.986 -117.665"/>
+<polygon fill="black" stroke="black" points="137.426,-118.419 137.313,-107.825 130.795,-116.178 137.426,-118.419"/>
+</g>
+<!-- N3221&#45;&gt;S3203 -->
+<g class="edge" id="edge44"><title>N3221-&gt;S3203</title>
+<path fill="none" stroke="black" d="M 276.519 -1585.8 C 249.194 -1560.61 194.401 -1510.08 162.852 -1480.99"/>
+<polygon fill="black" stroke="black" points="165.087,-1478.29 155.362,-1474.09 160.341,-1483.44 165.087,-1478.29"/>
+</g>
+<!-- S3230 -->
+<g class="node" id="node46"><title>S3230</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=3;0:1=3;0:1=2;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="293" cy="-1530" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1525.8">S3230</text>
+</a>
+</g>
+<!-- N3221&#45;&gt;S3230 -->
+<g class="edge" id="edge46"><title>N3221-&gt;S3230</title>
+<path fill="none" stroke="black" d="M 293 -1583.7 C 293 -1575.98 293 -1566.71 293 -1558.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1558.1 293,-1548.1 289.5,-1558.1 296.5,-1558.1"/>
+</g>
+<!-- N4130 -->
+<g class="node" id="node66"><title>N4130</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=4;0:1=3;0:1=0;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="293" cy="-1458" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="293" y="-1453.8">N4130</text>
+</a>
+</g>
+<!-- S3230&#45;&gt;N4130 -->
+<g class="edge" id="edge70"><title>S3230-&gt;N4130</title>
+<path fill="none" stroke="black" d="M 293 -1511.7 C 293 -1503.98 293 -1494.71 293 -1486.11"/>
+<polygon fill="black" stroke="black" points="296.5,-1486.1 293,-1476.1 289.5,-1486.1 296.5,-1486.1"/>
+</g>
+<!-- N2105 -->
+<g class="node" id="node50"><title>N2105</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=2;0:1=0;0:1=5;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="253" cy="-450" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="253" y="-445.8">N2105</text>
+</a>
+</g>
+<!-- S1421&#45;&gt;N2105 -->
+<g class="edge" id="edge50"><title>S1421-&gt;N2105</title>
+<path fill="none" stroke="black" d="M 470.919 -720.804 C 432.245 -672.923 318.297 -531.844 272.442 -475.071"/>
+<polygon fill="black" stroke="black" points="274.944,-472.599 265.938,-467.018 269.499,-476.997 274.944,-472.599"/>
+</g>
+<!-- N2105&#45;&gt;S1502 -->
+<g class="edge" id="edge52"><title>N2105-&gt;S1502</title>
+<path fill="none" stroke="black" d="M 229.596 -435.998 C 209.793 -424.996 181.213 -409.118 159.244 -396.914"/>
+<polygon fill="black" stroke="black" points="160.72,-393.73 150.279,-391.933 157.321,-399.849 160.72,-393.73"/>
+</g>
+<!-- S1520 -->
+<g class="node" id="node57"><title>S1520</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=2;0:1=1;0:1=5;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="253" cy="-378" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="253" y="-373.8">S1520</text>
+</a>
+</g>
+<!-- N2105&#45;&gt;S1520 -->
+<g class="edge" id="edge60"><title>N2105-&gt;S1520</title>
+<path fill="none" stroke="black" d="M 253 -431.697 C 253 -423.983 253 -414.712 253 -406.112"/>
+<polygon fill="black" stroke="black" points="256.5,-406.104 253,-396.104 249.5,-406.104 256.5,-406.104"/>
+</g>
+<!-- S3221&#45;&gt;N3203 -->
+<g class="edge" id="edge56"><title>S3221-&gt;N3203</title>
+<path fill="none" stroke="black" d="M 311.705 -679.121 C 350.167 -699.931 420 -746.343 420 -809 C 420 -1747 420 -1747 420 -1747 C 420 -1803.49 363.463 -1847.81 325.833 -1871.06"/>
+<polygon fill="black" stroke="black" points="323.967,-1868.1 317.187,-1876.24 327.564,-1874.1 323.967,-1868.1"/>
+</g>
+<!-- N2006 -->
+<g class="node" id="node59"><title>N2006</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=2;0:1=0;0:1=6;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="253" cy="-306" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="253" y="-301.8">N2006</text>
+</a>
+</g>
+<!-- S1520&#45;&gt;N2006 -->
+<g class="edge" id="edge62"><title>S1520-&gt;N2006</title>
+<path fill="none" stroke="black" d="M 253 -359.697 C 253 -351.983 253 -342.712 253 -334.112"/>
+<polygon fill="black" stroke="black" points="256.5,-334.104 253,-324.104 249.5,-334.104 256.5,-334.104"/>
+</g>
+<!-- N2006&#45;&gt;S1601 -->
+<g class="edge" id="edge64"><title>N2006-&gt;S1601</title>
+<path fill="none" stroke="black" d="M 238.131 -289.465 C 229.283 -280.221 217.893 -268.321 208.017 -258.003"/>
+<polygon fill="black" stroke="black" points="210.271,-255.296 200.828,-250.492 205.214,-260.136 210.271,-255.296"/>
+</g>
+<!-- N4004 -->
+<g class="node" id="node61"><title>N4004</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=4;0:1=0;0:1=4;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="317" cy="-882" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="317" y="-877.8">N4004</text>
+</a>
+</g>
+<!-- S1511 -->
+<g class="node" id="node63"><title>S1511</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=1;0:1=1;0:1=5;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="317" cy="-810" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="317" y="-805.8">S1511</text>
+</a>
+</g>
+<!-- N4004&#45;&gt;S1511 -->
+<g class="edge" id="edge66"><title>N4004-&gt;S1511</title>
+<path fill="none" stroke="black" d="M 317 -863.697 C 317 -855.983 317 -846.712 317 -838.112"/>
+<polygon fill="black" stroke="black" points="320.5,-838.104 317,-828.104 313.5,-838.104 320.5,-838.104"/>
+</g>
+<!-- S1511&#45;&gt;N3221 -->
+<g class="edge" id="edge68"><title>S1511-&gt;N3221</title>
+<path fill="none" stroke="black" d="M 333.871 -826.128 C 343.818 -835.966 355.823 -849.608 363 -864 C 381.049 -900.196 382 -912.553 382 -953 C 382 -1459 382 -1459 382 -1459 C 382 -1507.46 344.326 -1552.97 318.001 -1578.86"/>
+<polygon fill="black" stroke="black" points="315.403,-1576.5 310.584,-1585.93 320.235,-1581.56 315.403,-1576.5"/>
+</g>
+<!-- S4112 -->
+<g class="node" id="node68"><title>S4112</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=2;0:2=1;0:1=4;0:1=1;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="250" cy="-1098" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="250" y="-1093.8">S4112</text>
+</a>
+</g>
+<!-- N4130&#45;&gt;S4112 -->
+<g class="edge" id="edge72"><title>N4130-&gt;S4112</title>
+<path fill="none" stroke="black" d="M 293 -1439.95 C 293 -1413.29 293 -1360.11 293 -1315 C 293 -1315 293 -1315 293 -1241 C 293 -1198.83 275.417 -1152.53 262.739 -1124.62"/>
+<polygon fill="black" stroke="black" points="265.904,-1123.13 258.495,-1115.56 259.564,-1126.1 265.904,-1123.13"/>
+</g>
+<!-- S4040 -->
+<g class="node" id="node70"><title>S4040</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=4;0:1=4;0:1=0;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="228" cy="-1386" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="228" y="-1381.8">S4040</text>
+</a>
+</g>
+<!-- N4130&#45;&gt;S4040 -->
+<g class="edge" id="edge74"><title>N4130-&gt;S4040</title>
+<path fill="none" stroke="black" d="M 278.25 -1441.12 C 269.774 -1431.99 258.973 -1420.36 249.558 -1410.22"/>
+<polygon fill="black" stroke="black" points="252.06,-1407.77 242.691,-1402.82 246.931,-1412.53 252.06,-1407.77"/>
+</g>
+<!-- N2312 -->
+<g class="node" id="node81"><title>N2312</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=2;0:1=1;0:1=2;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="250" cy="-1026" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="250" y="-1021.8">N2312</text>
+</a>
+</g>
+<!-- S4112&#45;&gt;N2312 -->
+<g class="edge" id="edge86"><title>S4112-&gt;N2312</title>
+<path fill="none" stroke="black" d="M 250 -1079.7 C 250 -1071.98 250 -1062.71 250 -1054.11"/>
+<polygon fill="black" stroke="black" points="253.5,-1054.1 250,-1044.1 246.5,-1054.1 253.5,-1054.1"/>
+</g>
+<!-- N5111 -->
+<g class="node" id="node72"><title>N5111</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=1;0:2=5;0:1=1;0:1=1;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="228" cy="-1314" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="228" y="-1309.8">N5111</text>
+</a>
+</g>
+<!-- S4040&#45;&gt;N5111 -->
+<g class="edge" id="edge76"><title>S4040-&gt;N5111</title>
+<path fill="none" stroke="black" d="M 228 -1367.7 C 228 -1359.98 228 -1350.71 228 -1342.11"/>
+<polygon fill="black" stroke="black" points="231.5,-1342.1 228,-1332.1 224.5,-1342.1 231.5,-1342.1"/>
+</g>
+<!-- S2213 -->
+<g class="node" id="node74"><title>S2213</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=1;0:1=2;0:1=2;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="140" cy="-1242" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="140" y="-1237.8">S2213</text>
+</a>
+</g>
+<!-- N5111&#45;&gt;S2213 -->
+<g class="edge" id="edge78"><title>N5111-&gt;S2213</title>
+<path fill="none" stroke="black" d="M 209.337 -1298.15 C 196.887 -1288.25 180.33 -1275.08 166.518 -1264.09"/>
+<polygon fill="black" stroke="black" points="168.339,-1261.07 158.334,-1257.58 163.981,-1266.55 168.339,-1261.07"/>
+</g>
+<!-- S2150 -->
+<g class="node" id="node76"><title>S2150</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=5;0:1=2;0:1=1;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="229" cy="-1242" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="229" y="-1237.8">S2150</text>
+</a>
+</g>
+<!-- N5111&#45;&gt;S2150 -->
+<g class="edge" id="edge80"><title>N5111-&gt;S2150</title>
+<path fill="none" stroke="black" d="M 228.247 -1295.7 C 228.357 -1287.98 228.49 -1278.71 228.613 -1270.11"/>
+<polygon fill="black" stroke="black" points="232.112,-1270.15 228.756,-1260.1 225.113,-1270.05 232.112,-1270.15"/>
+</g>
+<!-- N2303 -->
+<g class="node" id="node90"><title>N2303</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=3;0:2=2;0:1=0;0:1=3;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="141" cy="-1026" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="141" y="-1021.8">N2303</text>
+</a>
+</g>
+<!-- S2213&#45;&gt;N2303 -->
+<g class="edge" id="edge98"><title>S2213-&gt;N2303</title>
+<path fill="none" stroke="black" d="M 140.08 -1223.85 C 140.253 -1186.83 140.663 -1099.18 140.872 -1054.39"/>
+<polygon fill="black" stroke="black" points="144.373,-1054.25 140.919,-1044.23 137.373,-1054.22 144.373,-1054.25"/>
+</g>
+<!-- N6020 -->
+<g class="node" id="node78"><title>N6020</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=6;0:1=2;0:1=0;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="228" cy="-1170" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="228" y="-1165.8">N6020</text>
+</a>
+</g>
+<!-- S2150&#45;&gt;N6020 -->
+<g class="edge" id="edge82"><title>S2150-&gt;N6020</title>
+<path fill="none" stroke="black" d="M 228.753 -1223.7 C 228.643 -1215.98 228.51 -1206.71 228.387 -1198.11"/>
+<polygon fill="black" stroke="black" points="231.887,-1198.05 228.244,-1188.1 224.888,-1198.15 231.887,-1198.05"/>
+</g>
+<!-- N6020&#45;&gt;S4112 -->
+<g class="edge" id="edge84"><title>N6020-&gt;S4112</title>
+<path fill="none" stroke="black" d="M 233.326 -1152.05 C 235.775 -1144.26 238.742 -1134.82 241.489 -1126.08"/>
+<polygon fill="black" stroke="black" points="244.911,-1126.86 244.571,-1116.28 238.233,-1124.77 244.911,-1126.86"/>
+</g>
+<!-- S2204 -->
+<g class="node" id="node83"><title>S2204</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=4;0:2=0;0:1=2;0:1=2;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="229" cy="-954" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="229" y="-949.8">S2204</text>
+</a>
+</g>
+<!-- N2312&#45;&gt;S2204 -->
+<g class="edge" id="edge88"><title>N2312-&gt;S2204</title>
+<path fill="none" stroke="black" d="M 244.916 -1008.05 C 242.578 -1000.26 239.747 -990.822 237.124 -982.079"/>
+<polygon fill="black" stroke="black" points="240.409,-980.848 234.183,-972.275 233.704,-982.859 240.409,-980.848"/>
+</g>
+<!-- S2330 -->
+<g class="node" id="node85"><title>S2330</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=0;0:2=3;0:1=2;0:1=3;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="318" cy="-954" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="318" y="-949.8">S2330</text>
+</a>
+</g>
+<!-- N2312&#45;&gt;S2330 -->
+<g class="edge" id="edge90"><title>N2312-&gt;S2330</title>
+<path fill="none" stroke="black" d="M 265.091 -1009.46 C 274.159 -1000.13 285.858 -988.087 295.948 -977.7"/>
+<polygon fill="black" stroke="black" points="298.493,-980.103 302.951,-970.492 293.472,-975.226 298.493,-980.103"/>
+</g>
+<!-- S2204&#45;&gt;N1403 -->
+<g class="edge" id="edge96"><title>S2204-&gt;N1403</title>
+<path fill="none" stroke="black" d="M 209.168 -938.834 C 194.917 -928.655 175.489 -914.778 159.568 -903.406"/>
+<polygon fill="black" stroke="black" points="161.31,-900.349 151.139,-897.385 157.242,-906.045 161.31,-900.349"/>
+</g>
+<!-- S2330&#45;&gt;N4004 -->
+<g class="edge" id="edge92"><title>S2330-&gt;N4004</title>
+<path fill="none" stroke="black" d="M 317.753 -935.697 C 317.643 -927.983 317.51 -918.712 317.387 -910.112"/>
+<polygon fill="black" stroke="black" points="320.887,-910.053 317.244,-900.104 313.888,-910.153 320.887,-910.053"/>
+</g>
+<!-- S2330&#45;&gt;N4130 -->
+<g class="edge" id="edge94"><title>S2330-&gt;N4130</title>
+<path fill="none" stroke="black" d="M 320.568 -972.003 C 324.357 -998.601 331 -1051.7 331 -1097 C 331 -1315 331 -1315 331 -1315 C 331 -1356.59 315.597 -1402.78 304.404 -1430.86"/>
+<polygon fill="black" stroke="black" points="301.072,-1429.76 300.508,-1440.34 307.546,-1432.42 301.072,-1429.76"/>
+</g>
+<!-- N2303&#45;&gt;S1430 -->
+<g class="edge" id="edge102"><title>N2303-&gt;S1430</title>
+<path fill="none" stroke="black" d="M 120.651 -1010.54 C 90.6332 -987.348 38 -938.733 38 -883 C 38 -883 38 -883 38 -521 C 38 -480.996 38 -434.653 38 -406.08"/>
+<polygon fill="black" stroke="black" points="41.5001,-406.049 38,-396.049 34.5001,-406.049 41.5001,-406.049"/>
+</g>
+<!-- S1304 -->
+<g class="node" id="node92"><title>S1304</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=4;0:2=0;0:1=1;0:1=3;;&amp;turn=0">
+<ellipse fill="none" stroke="black" cx="140" cy="-954" rx="35.5772" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="140" y="-949.8">S1304</text>
+</a>
+</g>
+<!-- N2303&#45;&gt;S1304 -->
+<g class="edge" id="edge100"><title>N2303-&gt;S1304</title>
+<path fill="none" stroke="black" d="M 140.753 -1007.7 C 140.643 -999.983 140.51 -990.712 140.387 -982.112"/>
+<polygon fill="black" stroke="black" points="143.887,-982.053 140.244,-972.104 136.888,-982.153 143.887,-982.053"/>
+</g>
+<!-- N0404 -->
+<g class="node" id="node95"><title>N0404</title>
+<a xlink:href="mini-mancala.htm?setup=0:2=4;0:2=0;0:1=0;0:1=4;;&amp;turn=1">
+<ellipse fill="none" stroke="black" cx="224" cy="-882" rx="36.9842" ry="18"/>
+<text font-family="Times,serif" font-size="14px" text-anchor="middle" x="224" y="-877.8">N0404</text>
+</a>
+</g>
+<!-- S1304&#45;&gt;N0404 -->
+<g class="edge" id="edge104"><title>S1304-&gt;N0404</title>
+<path fill="none" stroke="black" d="M 157.814 -938.155 C 169.619 -928.317 185.291 -915.257 198.422 -904.315"/>
+<polygon fill="black" stroke="black" points="200.77,-906.914 206.211,-897.824 196.289,-901.537 200.77,-906.914"/>
+</g>
+<!-- N0404&#45;&gt;S1511 -->
+<g class="edge" id="edge106"><title>N0404-&gt;S1511</title>
+<path fill="none" stroke="black" d="M 243.27 -866.496 C 256.701 -856.386 274.813 -842.754 289.723 -831.531"/>
+<polygon fill="black" stroke="black" points="292.188,-834.056 298.073,-825.246 287.979,-828.463 292.188,-834.056"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,52 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Shogi Puzzle</title>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/puzzles/board.png">
+<img id="YouPawn" style="display:none" src="images/puzzles/pl.png">
+<img id="YouKnight" style="display:none" src="images/puzzles/nl.png">
+<img id="YouLance" style="display:none" src="images/puzzles/ll.png">
+<img id="YouRook" style="display:none" src="images/puzzles/rb.png">
+<img id="YouBishop" style="display:none" src="images/puzzles/bl.png">
+<img id="YouSilver" style="display:none" src="images/puzzles/sl.png">
+<img id="YouGold" style="display:none" src="images/puzzles/gl.png">
+
+<table style="margin:auto; font-family:sans-serif; font-size:14px" id="Table">
+<tr style="height:218px; vertical-align:top">
+<td id="CanvasCell" style="width:218px">
+<canvas id="Canvas" width="218" height="218" style="cursor:default">Broken canvas...</canvas>
+</td><td style="width:300px;">
+<div style="height:510px; overflow:auto" id="ScrollDiv">
+<img id="GlyphImage"><p id="HelpText"></p>
+<p id="GameSession"></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div style="height:100px; width:500px; margin-left:auto; margin-right:auto">
+<table>
+<tr style="display:none" id="PieceInfo">
+<td><img id="PieceInfoImage"></td><td id="PieceInfoText"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/2d-view.js"></script>
+<script src="../common-scripts/move-list.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/shogi-puzzle-a-1.js"></script>
+<script src="../common-scripts/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Margo</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/margo/9x9.png">
+<img id="WhiteStone" style="display:none" src="images/margo/w.png">
+<img id="BlackStone" style="display:none" src="images/margo/b.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Copyright (c) 2006 Cameron Browne (<a target="_blank" href="doc/margo-basics.pdf">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go('margo-board.htm')">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="600" height="600" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/margo-editor-extension.js"></script>
+<script src="scripts/margo-restrictions.js"></script>
+<script src="scripts/margo-editor.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+03/07/2023 - 1.4.0
+  L-Game
+  Dropper
+  Straits
+  Stations
+  Judkins Shogi
+  Tawula
+  mini-shogi-ai
+03/03/2023 - 1.3.9
+  Glinski's Cheskers
+  Xiang Hex
+  Kentish Draughts
+  Fandango
+  Jacquet
+  Permainan Tabal
+  hex-bot-v2 (MCTS)
+21/11/2022 - 1.3.8
+  Marine Chess
+  Andalusia
+  Lika
+  Nubia
+  Glinski's Chess
+  McCooey's Chess
+  Hexofen
+  Shafran's Chess
+  Sahkku
+  Da Fang
+  Khans
+  Dyzym
+  Crazy Tile Chess
+  Shafran's Checkers
+  Croda
+  MiniXiangqi
+  Pskov Checkers
+  column-checkers-ai
+30/03/2022 - 1.3.7
+  RedStone
+  Vis-a-vis Chess
+  King's Checkers
+  Turkish Columns
+  Koma Janggi
+  Madrasi Chess
+  Patrol Chess
+  Benedict Chess
+  Legan Chess
+  Gonnect
+  Pioneer Checkers
+  WojiaoQi
+  Fairy Eater Chess
+  Elementals
+  Grand Dice Chess
+  AutoFit
+  GoBot
+  Garbo AI Checkers
+09/09/2021 - 1.3.6
+  Dual Go
+  Hoppel-Poppel Chess
+  Six Men's Morris
+  Liuzi ChongQi
+  Fighting Checkers
+  Fangyuan TiaoQi
+  Neutron
+  Co Ganh
+  Shashki Adiyukh
+  Sovereign Chess
+  Cyclic Checkers
+  Duell
+  Men Row Chess
+  Dagaz Server
+  Garbo Chess AI
+24/09/2020 - 1.3.5
+  Filler (variants)
+  Constitutional Checkers
+  Rock Chess
+  Storm the Ivory Tower
+  Littera Chinese Chess
+  Chess Go
+  Custom Passive Chess
+  Tibetian Go
+  Tibetian checkers
+  Escalation
+  Dark Chinese Chess
+  Labyrinth Chess
+  app-net
+27/05/2020 - 1.3.4
+  Bakuk
+  Progressive Chess
+  Mastermind
+  Retrograde Chess
+  Resurrection Chess
+  Bushi
+  Dragonchess
+  Terrace
+  EVOLUCHESS
+  MarGo
+02/03/2020 - 1.3.3
+  Ur
+  Tablan
+  Mini Mancala
+  Chaturaji
+  Palestinian Dama
+  Pawn Wars
+  Dunsany's Chess
+  Atari Go
+  Mini XiangQi
+  4-line Kono
+  Passive Chess
+  Spock
+  Platform Chess
+  Silverman's Chess
+  Nam Dinh
+  Jungle
+  Abalone (new setups)
+  ab-ai-v5
+  zobrist-v2
+  persistence (common-setup-v2)
+31/12/2019 - 1.3.2
+  Surakarta
+  Shogi puzzles
+  Netwalk
+  Lines
+  Martian Chess
+  North American Checkers
+  Alaska Checkers
+  Russian Backgammon
+  Senet
+  Rithmomachia
+  Longgammon
+  deferred-captures option fixed
+02/10/2019 - 1.3.1
+  Backgammon (3 variants)
+  Ultimate tic-tac-toe
+  Cinc Camins
+  Gravity Chess
+  Momentum Chess
+  Morris variants
+  Maka Dai Dai Shogi (3 variants)
+  Traditional Altai Shatra
+  Tavola delle stagioni
+  Ohvalhu
+  Luzhanqi
+  relative positions
+23/07/2019 - 1.3.0
+  Puluc
+  Hypergammon
+  Makneeb
+  Quantum Morris
+  Chessball
+  Bizingo
+  Daldosa
+  Hawalis
+  Turnover
+  Alak
+  Alak Checkers
+  Stoical Go
+  Oblong Shatranj
+  Stapeldammen
+  Shen
+  Pilare (board only)
+  complete partial
+  goto in turn-order
+13/05/2019 - 1.2.7
+  Nat Klab Al-shawk (2 variants)
+  Gate
+  Stratego
+  Hex (board only)
+  Mahjong solitaire
+  Salt and Pepper
+  Quantum Tic-Tac-Toe
+  Mana
+  Nutty Shogi
+  Troitzky Chess (2 variants)
+  Chess Swappers (3 variants)
+  Pyramid solitaire
+  Yitongqi
+  Amazons
+  5 Tigers
+  Balbo's Game
+  checkmate
+  uct-ai-v5
+12/02/2019 - 1.2.6
+  Camelot
+  Grand Camelot
+  Chivalry
+  Cam
+  Grand Cam
+  Traverse
+  Game of Generals
+  Kantorai
+  Chu Shogi (2 variants)
+  Klondike
+  Selus
+  8x3 Solitaire
+  Chinese Checkers (3 variants)
+  Choko
+  Kauri
+  ab-ai-v4
+  forced-ai
+12/12/2018 - 1.2.5
+  Fox Hunting
+  Double Alquerque
+  Mine Sweeper
+  Pyon Pyon Shogi
+  Neutral King Chess
+  Anti King Chess
+  Halma (3 variants)
+  Halma Puzzles
+  Descent
+  Tchuka Ruma (4 variants)
+  Ohojichi (2 variants)
+  Dakon
+  Congkak
+  Kalah
+  Cross Kalah
+  Abalala'e
+  Shakti
+  Treasure Shogi
+  Simple Shogi
+  Rocket Shogi
+  LeShogi
+  Ikusa Shogi
+  Renge Shogi
+  Hexagonal Kyoto Shogi
+  Rhombic Chess (variant)
+  Find Pair puzzle
+  Suffragetto
+  advisor option
+  promotion dialog
+05/09/2018 - 1.2.4
+  Dark Chess
+  Dark XiangQi
+  Dark Mini XiangQi
+  Dark Alapo
+  Dark Yonin Shogi (2 variants)
+  Dark Janggi
+  Dark Gwangsanghui
+  Genesis Chess (2 variants)
+  Dark Courier Chess (2 variants)
+  Passive Chess
+  Dark Passive Chess
+  Pasang (39 variants)
+  Dark Sittuyin
+  Dark Shatranj
+  Alice Chess
+  Triangle Sliding Puzzle
+  Cloack Yonin Shogi
+  Cloack XiangQi
+  Short Assize
+  Chess Puzzles
+  Dark Cannon
+  BanQi (3 variants)
+  setup selector
+  resource selector
+  session manager
+  sound manager
+02/07/2018 - 1.2.3
+  Captain's Mistress
+  Abalone
+  Cannon
+  Ordo (2 variants)
+  Triangle Morris
+  Taacoca
+  Magyar Dama
+  GESS (board only)
+  Rhombic Chess
+  Bear Games
+  Hare Games upgraded
+  Kolowisi Awithlaknannai
+  turn modes option
+23/05/2018 - 1.2.2
+  Omega Chess Advanced (board only)
+  Seega
+  Gomoku
+  Ninuki Renju
+  Pente
+  Gomoku Knights
+  Three Men's Morris
+  Les Pendus
+  Tribunes
+  Bagh-Chal
+  Nine Men's Morris
+  Morabaraba
+  Bolotoudou
+  Yote
+  Mu Torere
+  Ningxia Fangqi (board only)
+  Xinjiang Fangqi (board only)
+  Ko display option
+17/04/2018 - 1.2.1
+  Reversi
+  Renju
+  Atari Go
+  Go (board only)
+  Three Color Go (board only)
+  Paper and Pencil Go (board only)
+  Virus Wars
+  common setup v2
+  Heuristic AI
+23/03/2018 - 1.2.0
+  Focus
+  Omega Chess
+  Hiashatar
+  Jasir
+  Oware
+  Cross-Wari
+  Vai Lung Thlan
+  Bohnenspiel
+  Alemungula
+  Al-Manqala
+  Toguz Kumalak
+16/02/2018 - 1.1.9
+  Chess minigames
+  Hex LifghtOff
+  Horn Chess
+  Caissa
+  Apocalypse
+  Alapo
+  Liberian Queah
+  Shogi (2 variants)
+  Annan Shogi
+  Ultima
+  Agon (board only)
+  Ko Shogi (board only)
+  Yonin Shogi (2 variants)
+  Ming Mang
+  Tablut (board only)
+  Hnefatafl (board only)
+  Alea Evangeli (board only)
+  Hasami Shogi (board only)
+  Jungle (board only)
+  Jeson Mor (board only)
+  Hanga Roa (board only)
+  Epaminondas
+  Watermelon Chess (board only)
+  progressive levels option
+  common setup option
+22/12/2017 - 1.1.8
+  Thud!
+  Sokoban (60 levels)
+  Tafl games (Gwyddbwyll, Fidchell, Brandubh, Ard-Ri)
+  Gala
+  Tenjiku Shogi
+  Chess games (Charge of the Light Brigade, Weak!, Dunsany's Chess, Horde Chess)
+  Historical chess (Chaturanga, Shatranj, Makruk, Sittuyin)
+  Gwangsanghui
+  Chess
+  Platform Chess
+  High Jump
+  Courier Chess
+  Shisima
+23/11/2017 - 1.1.7
+  Towers Puzzles
+  Spock
+  MiniShogi
+  REN Shogi
+  Micro Shogi
+  Kyoto Shogi
+  Swappers
+  Fore and Aft
+03/11/2017 - 1.1.6
+  Prairie
+  Makyek
+  Breakthrough
+  Mini Chess (15 variants)
+  Goro Goro Doubutsu Shogi
+  UCT AI v2
+27/09/2017 - 1.1.5
+  Column Checkers
+  Laska
+  Cheskers (2 variants)
+  Grand Cheskers (3 variants)
+  Move List optimized
+  Samoedy
+  Stavropol Checkers
+  Bahrain Dama
+  Swedish Checkers
+  Black & White Checkers (2 variants)
+  Altai Shatra (2 variants)
+  Three Crowns
+  MaxMin AI
+  KPI API
+  Dameo
+  Lines of Action
+07/08/2017 - 1.1.4
+  Senegalese Checkers
+  Harzdame
+  Chessence
+  Nam Dinh
+  Konane
+  Walhall
+  Fanorona
+  Pass Partial option
+  Google Analytics
+  Northern Checkers (2 variants)
+  Belarusian Chess (2 variants)
+27/07/2017 - 1.1.3
+  Alquerque
+  Kharbaga
+  Zamma (2 variants)
+  Dablot Asele
+  Dablot Frostviken (2 variants)
+  Dablot Dares (2 variants)
+  Russian Checkers (Mini Game)
+  Brazilian Checkers
+  Canadian Checkers
+  International Checkers
+  Frisian Checkers
+24/07/2017 - 1.1.2
+  Fox and Geese (4 variants)
+  Asalto
+  Dablot Prejjesne
+  Russian Checkers
+  80-cells Checkers
+  Spanish Checkers
+  Argentinian Checkers
+  Thai Checkers
+  Armenian Tama
+  Deferred capturing option
+18/07/2017 - 1.1.1
+  English Checkers
+  Italian Checkers
+  Italian Damone
+  Turkish Dama
+  Greek Checkers
+  Composite moves
+  Euclid
+12/07/2017 - 1.1.0
+  Qiquo Xiangqi
+  Janggi
+  Move List (version 2)
+  Elephant Hunt
+  Gauntlet
+21/06/2017 - 1.0.9
+  Doubutsu Shogi
+  XiangQi
+  Mini XiangQi
+  Knight's Court
+  Not Chess
+  SGF AI
+07/06/2017 - 1.0.8
+  Four-lines Kono
+  Dodgem
+  Kamisado
+  UCT AI
+01/06/2017 - 1.0.7
+  Three Musketeers
+  Maharadja
+  Careful AI
+  Turn order customizing
+29/05/2017 - 1.0.6
+  LightOff puzzles
+  Solitaire AI
+  Promotion on the spot
+  External links
+26/05/2017 - 1.0.5
+  Solitaire puzzles
+  Hunt game
+23/05/2017 - 1.0.4
+  Four-lines Gonu
+  Aggressive AI fixed
+  Goals customizing
+19/05/2017 - 1.0.3
+  Archimedes
+  Aggressive AI
+  More Sliding puzzles
+  Game of Dwarfs
+  Capturing
+  Copyrights
+17/05/2017 - 1.0.2
+  Lewthwaite's game
+  Random AI
+10/05/2017 - 1.0.1
+  French Military Game
+  Just You Wait!
+  Breakthrough AI
+  Positional Goals
+20/04/2017 - 1.0.0
+  MIT License
+  Sliding puzzles collection
+  BruteForce AI
+  Zobrist hashing
+  Cascade moves

@@ -1,0 +1,49 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Reversi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board_0" style="display:none" src="images/reversi/8x8_0.png">
+<img id="Board_1" style="display:none" src="images/reversi/8x8_1.png">
+<img id="Board_2" style="display:none" src="images/reversi/8x8_2.png">
+<img id="Board_3" style="display:none" src="images/reversi/8x8_3.png">
+<img id="Board_4" style="display:none" src="images/reversi/8x8_4.png">
+<img id="WhiteStone" style="display:none" src="images/reversi/wbig.png">
+<img id="BlackStone" style="display:none" src="images/reversi/bbig.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1883 Lewis Waterman, John W. Mollett (<a target="_blank" href="https://en.wikipedia.org/wiki/Reversi">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="reversi.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="548" height="548" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/seedrandom.min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="scripts/reversi-extension.js"></script>
+<script src="scripts/reversi.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Virus Wars</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/virus-wars/board.png">
+<img id="BlueAlive" style="display:none" src="images/virus-wars/ba.png">
+<img id="RedAlive" style="display:none" src="images/virus-wars/ra.png">
+<img id="BlueDead" style="display:none" src="images/virus-wars/rd.png">
+<img id="RedDead" style="display:none" src="images/virus-wars/bd.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+<a href="http://www.iggamecenter.com/info/en/viruswars.html">Rules</a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="virus-wars-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="275" height="275" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/heuristic-ai.js"></script>
+<script src="scripts/virus-wars-extension.js"></script>
+<script src="scripts/virus-wars-invariant.js"></script>
+<script src="scripts/virus-wars.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

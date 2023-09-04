@@ -1,0 +1,61 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Traverse</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/traverse/board.png">
+<img id="SouthT" style="display:none" src="images/traverse/st.png">
+<img id="WestT" style="display:none" src="images/traverse/wt.png">
+<img id="NorthT" style="display:none" src="images/traverse/nt.png">
+<img id="EastT" style="display:none" src="images/traverse/et.png">
+<img id="SouthS" style="display:none" src="images/traverse/ss.png">
+<img id="WestS" style="display:none" src="images/traverse/ws.png">
+<img id="NorthS" style="display:none" src="images/traverse/ns.png">
+<img id="EastS" style="display:none" src="images/traverse/es.png">
+<img id="SouthR" style="display:none" src="images/traverse/sr.png">
+<img id="WestR" style="display:none" src="images/traverse/wr.png">
+<img id="NorthR" style="display:none" src="images/traverse/nr.png">
+<img id="EastR" style="display:none" src="images/traverse/er.png">
+<img id="SouthC" style="display:none" src="images/traverse/sc.png">
+<img id="WestC" style="display:none" src="images/traverse/wc.png">
+<img id="NorthC" style="display:none" src="images/traverse/nc.png">
+<img id="EastC" style="display:none" src="images/traverse/ec.png">
+<img id="Ko" style="display:none" src="images/traverse/spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) 1992 Educational Insights 
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="traverse.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="504" height="504" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/halma-restrictions.js"></script>
+<script src="scripts/traverse-goal.js"></script>
+<script src="scripts/traverse-spark.js"></script>
+<script src="scripts/traverse-board.js"></script>
+<script src="../common-scripts/app-v4.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stratego (8x8)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/stratego/small.png">
+<img id="RedFlag" style="display:none" src="images/stratego/rflag.png">
+<img id="BlueFlag" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedSpy" style="display:none" src="images/stratego/rspy.png">
+<img id="BlueSpy" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedScout" style="display:none" src="images/stratego/rscout.png">
+<img id="BlueScout" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedDisarmer" style="display:none" src="images/stratego/rdisarmer.png">
+<img id="BlueDisarmer" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedSergeant" style="display:none" src="images/stratego/rsergeant.png">
+<img id="BlueSergeant" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedLieutenant" style="display:none" src="images/stratego/rlieutenant.png">
+<img id="BlueLieutenant" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedCaptain" style="display:none" src="images/stratego/rcaptain.png">
+<img id="BlueCaptain" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedMajor" style="display:none" src="images/stratego/rmajor.png">
+<img id="BlueMajor" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedBrigadier" style="display:none" src="images/stratego/rbrigadier.png">
+<img id="BlueBrigadier" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedGeneral" style="display:none" src="images/stratego/rgeneral.png">
+<img id="BlueGeneral" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedCommandant" style="display:none" src="images/stratego/rcommandant.png">
+<img id="BlueCommandant" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedBomb" style="display:none" src="images/stratego/rbomb.png">
+<img id="BlueBomb" style="display:none" src="images/stratego/bhidden.png">
+<img id="RedFlagOpened" style="display:none" src="images/stratego/rflag.png">
+<img id="BlueFlagOpened" style="display:none" src="images/stratego/bflag.png">
+<img id="RedSpyOpened" style="display:none" src="images/stratego/rspy.png">
+<img id="BlueSpyOpened" style="display:none" src="images/stratego/bspy.png">
+<img id="RedScoutOpened" style="display:none" src="images/stratego/rscout.png">
+<img id="BlueScoutOpened" style="display:none" src="images/stratego/bscout.png">
+<img id="RedDisarmerOpened" style="display:none" src="images/stratego/rdisarmer.png">
+<img id="BlueDisarmerOpened" style="display:none" src="images/stratego/bdisarmer.png">
+<img id="RedSergeantOpened" style="display:none" src="images/stratego/rsergeant.png">
+<img id="BlueSergeantOpened" style="display:none" src="images/stratego/bsergeant.png">
+<img id="RedLieutenantOpened" style="display:none" src="images/stratego/rlieutenant.png">
+<img id="BlueLieutenantOpened" style="display:none" src="images/stratego/blieutenant.png">
+<img id="RedCaptainOpened" style="display:none" src="images/stratego/rcaptain.png">
+<img id="BlueCaptainOpened" style="display:none" src="images/stratego/bcaptain.png">
+<img id="RedMajorOpened" style="display:none" src="images/stratego/rmajor.png">
+<img id="BlueMajorOpened" style="display:none" src="images/stratego/bmajor.png">
+<img id="RedBrigadierOpened" style="display:none" src="images/stratego/rbrigadier.png">
+<img id="BlueBrigadierOpened" style="display:none" src="images/stratego/bbrigadier.png">
+<img id="RedGeneralOpened" style="display:none" src="images/stratego/rgeneral.png">
+<img id="BlueGeneralOpened" style="display:none" src="images/stratego/bgeneral.png">
+<img id="RedCommandantOpened" style="display:none" src="images/stratego/rcommandant.png">
+<img id="BlueCommandantOpened" style="display:none" src="images/stratego/bcommandant.png">
+<img id="RedBombOpened" style="display:none" src="images/stratego/rbomb.png">
+<img id="BlueBombOpened" style="display:none" src="images/stratego/bbomb.png">
+<img id="Ko" style="display:none" src="images/stratego/spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Stratego">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="321" height="321" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/ko.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/uct-ai-v4.js"></script>
+<script src="scripts/spark-view.js"></script>
+<script src="scripts/stratego-setup-small.js"></script>
+<script src="scripts/stratego-view.js"></script>
+<script src="scripts/stratego-goal.js"></script>
+<script src="scripts/stratego-extension.js"></script>
+<script src="scripts/stratego-small.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

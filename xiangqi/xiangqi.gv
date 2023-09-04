@@ -1,0 +1,27 @@
+digraph chess {
+    "Makruk"[style="filled",fillcolor="green"];
+    "Qiguo Xiangqi"[style="filled",fillcolor="yellow"];
+    "Xiangqi"[style="filled",fillcolor="yellow"];
+    "Siguo Xiangqi"[style="filled",fillcolor="yellow"];
+    "Shou Dou Qi"[style="filled",fillcolor="yellow"];
+    "Luzhanqi"[style="filled",fillcolor="yellow"];
+    "Banqi"[style="filled",fillcolor="yellow"];
+    "Janggi"[style="filled",fillcolor="orange"];
+    "Gwangsanghui"[style="filled",fillcolor="orange"];
+    "Sanjangjanggi"[style="filled",fillcolor="orange"];
+    "Stratego"[style="filled",fillcolor="lightblue"];
+    "Mini XiangQi";
+
+    "Qiguo Xiangqi" -> "Xiangqi"[style=dotted];
+    "Makruk" -> "Xiangqi"[style=dotted];
+    "Xiangqi" -> "Siguo Xiangqi";
+    "Xiangqi" -> "Shou Dou Qi"[style=dotted];
+    "Xiangqi" -> "Banqi"[style=dotted];
+    "Shou Dou Qi" -> "Banqi"[style=dotted];
+    "Shou Dou Qi" -> "Luzhanqi";
+    "Luzhanqi" -> "Stratego";
+    "Xiangqi" -> "Janggi";
+    "Janggi" -> "Gwangsanghui";
+    "Janggi" -> "Sanjangjanggi";
+    "Xiangqi" -> "Mini XiangQi";
+}

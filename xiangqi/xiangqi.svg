@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 596 332" width="596pt" height="332pt">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 328)">
+<title>chess</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-328 593,-328 593,5 -4,5" />
+<!-- Makruk -->
+<g class="node" id="node1"><title>Makruk</title>
+<a xlink:href="../checkmate/makruk.htm">
+<ellipse fill="green" stroke="black" cx="240" cy="-306" rx="41.4107" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="240" y="-301.8">Makruk</text>
+</a>
+</g>
+<!-- Xiangqi -->
+<g class="node" id="node3"><title>Xiangqi</title>
+<a xlink:href="xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="304" cy="-234" rx="42.2212" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="304" y="-229.8">Xiangqi</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Xiangqi -->
+<g class="edge" id="edge4"><title>Makruk-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 254.523 -289.116 C 262.671 -280.204 273 -268.906 282.11 -258.942" />
+<polygon fill="black" stroke="black" points="284.926,-261.049 289.091,-251.307 279.76,-256.326 284.926,-261.049" />
+</g>
+<!-- Qiguo Xiangqi -->
+<g class="node" id="node2"><title>Qiguo Xiangqi</title>
+<a xlink:href="qiquo-xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="368" cy="-306" rx="68.5525" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="368" y="-301.8">Qiguo Xiangqi</text>
+</a>
+</g>
+<!-- Qiguo Xiangqi&#45;&gt;Xiangqi -->
+<g class="edge" id="edge2"><title>Qiguo Xiangqi-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 352.833 -288.411 C 344.666 -279.479 334.454 -268.31 325.484 -258.498" />
+<polygon fill="black" stroke="black" points="327.949,-256.007 318.618,-250.988 322.782,-260.73 327.949,-256.007" />
+</g>
+<!-- Siguo Xiangqi -->
+<g class="node" id="node4"><title>Siguo Xiangqi</title>
+<ellipse fill="yellow" stroke="black" cx="67" cy="-162" rx="67.1485" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="67" y="-157.8">Siguo Xiangqi</text>
+</g>
+<!-- Xiangqi&#45;&gt;Siguo Xiangqi -->
+<g class="edge" id="edge6"><title>Xiangqi-&gt;Siguo Xiangqi</title>
+<path fill="none" stroke="black" d="M 270.295 -223.045 C 231.125 -211.476 165.995 -192.239 120.026 -178.662" />
+<polygon fill="black" stroke="black" points="120.816,-175.246 110.234,-175.77 118.833,-181.959 120.816,-175.246" />
+</g>
+<!-- Shou Dou Qi -->
+<g class="node" id="node5"><title>Shou Dou Qi</title>
+<a xlink:href="../breakthrough/jungle-board.htm">
+<ellipse fill="yellow" stroke="black" cx="214" cy="-162" rx="62.003" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="214" y="-157.8">Shou Dou Qi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Shou Dou Qi -->
+<g class="edge" id="edge8"><title>Xiangqi-&gt;Shou Dou Qi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 284.471 -217.811 C 272.312 -208.354 256.454 -196.02 242.861 -185.447" />
+<polygon fill="black" stroke="black" points="244.786,-182.51 234.743,-179.134 240.488,-188.036 244.786,-182.51" />
+</g>
+<!-- Banqi -->
+<g class="node" id="node7"><title>Banqi</title>
+<ellipse fill="yellow" stroke="black" cx="247" cy="-90" rx="34.1562" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="247" y="-85.8">Banqi</text>
+</g>
+<!-- Xiangqi&#45;&gt;Banqi -->
+<g class="edge" id="edge10"><title>Xiangqi-&gt;Banqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 302.461 -215.961 C 300.327 -197.56 295.475 -167.7 285 -144 C 280.421 -133.641 273.619 -123.285 267.03 -114.512" />
+<polygon fill="black" stroke="black" points="269.781,-112.348 260.857,-106.637 264.271,-116.667 269.781,-112.348" />
+</g>
+<!-- Janggi -->
+<g class="node" id="node8"><title>Janggi</title>
+<a xlink:href="janggi-1.htm">
+<ellipse fill="orange" stroke="black" cx="368" cy="-162" rx="36.3727" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="368" y="-157.8">Janggi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Janggi -->
+<g class="edge" id="edge18"><title>Xiangqi-&gt;Janggi</title>
+<path fill="none" stroke="black" d="M 318.844 -216.765 C 327.119 -207.714 337.567 -196.286 346.7 -186.296" />
+<polygon fill="black" stroke="black" points="349.512,-188.408 353.677,-178.666 344.346,-183.684 349.512,-188.408" />
+</g>
+<!-- Mini XiangQi -->
+<g class="node" id="node12"><title>Mini XiangQi</title>
+<a xlink:href="mini-xiangqi.htm">
+<ellipse fill="none" stroke="black" cx="488" cy="-162" rx="65.2265" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="488" y="-157.8">Mini XiangQi</text>
+</a>
+</g>
+<!-- Xiangqi&#45;&gt;Mini XiangQi -->
+<g class="edge" id="edge24"><title>Xiangqi-&gt;Mini XiangQi</title>
+<path fill="none" stroke="black" d="M 334.384 -221.441 C 363.555 -210.343 408.022 -193.426 441.621 -180.644" />
+<polygon fill="black" stroke="black" points="443.126,-183.816 451.228,-176.989 440.637,-177.274 443.126,-183.816" />
+</g>
+<!-- Luzhanqi -->
+<g class="node" id="node6"><title>Luzhanqi</title>
+<ellipse fill="yellow" stroke="black" cx="147" cy="-90" rx="47.2604" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="147" y="-85.8">Luzhanqi</text>
+</g>
+<!-- Shou Dou Qi&#45;&gt;Luzhanqi -->
+<g class="edge" id="edge14"><title>Shou Dou Qi-&gt;Luzhanqi</title>
+<path fill="none" stroke="black" d="M 198.122 -144.411 C 189.694 -135.606 179.187 -124.628 169.894 -114.919" />
+<polygon fill="black" stroke="black" points="172.207,-112.274 162.764,-107.47 167.15,-117.114 172.207,-112.274" />
+</g>
+<!-- Shou Dou Qi&#45;&gt;Banqi -->
+<g class="edge" id="edge12"><title>Shou Dou Qi-&gt;Banqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 221.988 -144.055 C 225.799 -135.973 230.443 -126.121 234.69 -117.112" />
+<polygon fill="black" stroke="black" points="237.987,-118.327 239.085,-107.789 231.655,-115.342 237.987,-118.327" />
+</g>
+<!-- Stratego -->
+<g class="node" id="node11"><title>Stratego</title>
+<ellipse fill="lightblue" stroke="black" cx="147" cy="-18" rx="43.3265" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="147" y="-13.8">Stratego</text>
+</g>
+<!-- Luzhanqi&#45;&gt;Stratego -->
+<g class="edge" id="edge16"><title>Luzhanqi-&gt;Stratego</title>
+<path fill="none" stroke="black" d="M 147 -71.6966 C 147 -63.9827 147 -54.7125 147 -46.1124" />
+<polygon fill="black" stroke="black" points="150.5,-46.1043 147,-36.1043 143.5,-46.1044 150.5,-46.1043" />
+</g>
+<!-- Gwangsanghui -->
+<g class="node" id="node9"><title>Gwangsanghui</title>
+<a xlink:href="gwangsanghui.htm">
+<ellipse fill="orange" stroke="black" cx="368" cy="-90" rx="68.4444" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="368" y="-85.8">Gwangsanghui</text>
+</a>
+</g>
+<!-- Janggi&#45;&gt;Gwangsanghui -->
+<g class="edge" id="edge20"><title>Janggi-&gt;Gwangsanghui</title>
+<path fill="none" stroke="black" d="M 368 -143.697 C 368 -135.983 368 -126.712 368 -118.112" />
+<polygon fill="black" stroke="black" points="371.5,-118.104 368,-108.104 364.5,-118.104 371.5,-118.104" />
+</g>
+<!-- Sanjangjanggi -->
+<g class="node" id="node10"><title>Sanjangjanggi</title>
+<ellipse fill="orange" stroke="black" cx="521" cy="-90" rx="65.9313" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="521" y="-85.8">Sanjangjanggi</text>
+</g>
+<!-- Janggi&#45;&gt;Sanjangjanggi -->
+<g class="edge" id="edge22"><title>Janggi-&gt;Sanjangjanggi</title>
+<path fill="none" stroke="black" d="M 393.609 -149.284 C 416.971 -138.595 451.921 -122.605 479.307 -110.075" />
+<polygon fill="black" stroke="black" points="481.01,-113.145 488.647,-105.802 478.097,-106.78 481.01,-113.145" />
+</g>
+</g>
+</svg>

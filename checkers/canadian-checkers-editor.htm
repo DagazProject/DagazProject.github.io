@@ -1,0 +1,41 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Canadian Checkers</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/12x12.png">
+<img id="WhiteMan" style="display:none" src="images/wman.png">
+<img id="BlackMan" style="display:none" src="images/bman.png">
+<img id="WhiteKing" style="display:none" src="images/wdamone.png">
+<img id="BlackKing" style="display:none" src="images/bdamone.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Canadian_checkers">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go()">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="604" height="604" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/checkers-editor-fen.js"></script>
+<script src="scripts/canadian-checkers-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

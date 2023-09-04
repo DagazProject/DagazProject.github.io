@@ -1,0 +1,24 @@
+digraph arrange {
+  "Tic-Tac-Toe"[style="filled",fillcolor="lightblue"];
+  "Renju"[style="filled",fillcolor="red"];
+  "Ninuki Renju"[style="filled",fillcolor="red"];
+  "Les Pendus"[style="filled",fillcolor="lightblue"];
+  "Three Men's Morris"[style="filled",fillcolor="lightblue"];
+  "Nine Men's Morris"[style="filled",fillcolor="lightblue"];
+  "Morabaraba"[style="filled",fillcolor="chocolate"];
+  "Shisima"[style="filled",fillcolor="chocolate"];
+  "Bolotoudou"[style="filled",fillcolor="chocolate"];
+  "Fang Qi"[style="filled",fillcolor="yellow"];
+
+  "Tic-Tac-Toe" -> "Renju";
+  "Renju" -> "Ninuki Renju";
+  "Tic-Tac-Toe" -> "Three Men's Morris";
+  "Three Men's Morris" -> "Nine Men's Morris";
+  "Les Pendus" -> "Nine Men's Morris"[style=dotted];
+  "Three Men's Morris" -> "Les Pendus";
+  "Three Men's Morris" -> "Shisima";
+  "Nine Men's Morris" -> "Morabaraba";
+  "Nine Men's Morris" -> "Bolotoudou"[style=dotted];
+  "Nine Men's Morris" -> "Fang Qi"[style=dotted];
+  "Renju" -> "Fang Qi"[style=dotted];
+}

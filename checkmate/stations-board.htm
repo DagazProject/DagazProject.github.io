@@ -1,0 +1,88 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stations</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/stations/board.png">
+<img id="Promote-6" style="display:none" src="images/stations/dialog-6.png">
+<img id="Promote-3" style="display:none" src="images/stations/dialog-3.png">
+<img id="Promote-2" style="display:none" src="images/stations/dialog-2.png">
+<img id="RedST" style="display:none" src="images/stations/r-st.png">
+<img id="BlueST" style="display:none" src="images/stations/g-st.png">
+<img id="RedDNN" style="display:none" src="images/stations/r-dn-n.png">
+<img id="BlueDNN" style="display:none" src="images/stations/g-dn-n.png">
+<img id="RedDNNE" style="display:none" src="images/stations/r-dn-ne.png">
+<img id="BlueDNNE" style="display:none" src="images/stations/g-dn-ne.png">
+<img id="RedDNNW" style="display:none" src="images/stations/r-dn-nw.png">
+<img id="BlueDNNW" style="display:none" src="images/stations/g-dn-nw.png">
+<img id="RedDNS" style="display:none" src="images/stations/r-dn-s.png">
+<img id="BlueDNS" style="display:none" src="images/stations/g-dn-s.png">
+<img id="RedDNSE" style="display:none" src="images/stations/r-dn-se.png">
+<img id="BlueDNSE" style="display:none" src="images/stations/g-dn-se.png">
+<img id="RedDNSW" style="display:none" src="images/stations/r-dn-sw.png">
+<img id="BlueDNSW" style="display:none" src="images/stations/g-dn-sw.png">
+<img id="RedCRN" style="display:none" src="images/stations/r-cr-n.png">
+<img id="BlueCRN" style="display:none" src="images/stations/g-cr-n.png">
+<img id="RedCRNE" style="display:none" src="images/stations/r-cr-ne.png">
+<img id="BlueCRNE" style="display:none" src="images/stations/g-cr-ne.png">
+<img id="RedCRNW" style="display:none" src="images/stations/r-cr-nw.png">
+<img id="BlueCRNW" style="display:none" src="images/stations/g-cr-nw.png">
+<img id="RedDSN" style="display:none" src="images/stations/r-ds-n.png">
+<img id="BlueDSN" style="display:none" src="images/stations/g-ds-n.png">
+<img id="RedDSS" style="display:none" src="images/stations/r-ds-s.png">
+<img id="BlueDSS" style="display:none" src="images/stations/g-ds-s.png">
+<img id="RedCTN" style="display:none" src="images/stations/r-ct-n.png">
+<img id="BlueCTN" style="display:none" src="images/stations/g-ct-n.png">
+<img id="RedCTNE" style="display:none" src="images/stations/r-ct-ne.png">
+<img id="BlueCTNE" style="display:none" src="images/stations/g-ct-ne.png">
+<img id="RedCTNW" style="display:none" src="images/stations/r-ct-nw.png">
+<img id="BlueCTNW" style="display:none" src="images/stations/g-ct-nw.png">
+<img id="RedFTN" style="display:none" src="images/stations/r-ft-n.png">
+<img id="BlueFTN" style="display:none" src="images/stations/g-ft-n.png">
+<img id="RedFTNW" style="display:none" src="images/stations/r-ft-nw.png">
+<img id="BlueFTNW" style="display:none" src="images/stations/g-ft-nw.png">
+<img id="RedFTNE" style="display:none" src="images/stations/r-ft-ne.png">
+<img id="BlueFTNE" style="display:none" src="images/stations/g-ft-ne.png">
+<img id="RedFTS" style="display:none" src="images/stations/r-ft-s.png">
+<img id="BlueFTS" style="display:none" src="images/stations/g-ft-s.png">
+<img id="RedFTSW" style="display:none" src="images/stations/r-ft-sw.png">
+<img id="BlueFTSW" style="display:none" src="images/stations/g-ft-sw.png">
+<img id="RedFTSE" style="display:none" src="images/stations/r-ft-se.png">
+<img id="BlueFTSE" style="display:none" src="images/stations/g-ft-se.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2001 L. Lynn Smith (<a target="_blank" href="https://www.zillions-of-games.com/cgi-bin/zilligames/submissions.cgi?do=show;id=865">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="308" height="362" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/stations-fen.js"></script>
+<script src="scripts/stations-invariant.js"></script>
+<script src="scripts/stations-restrictions.js"></script>
+<script src="scripts/stations-promotion.js"></script>
+<script src="scripts/stations.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

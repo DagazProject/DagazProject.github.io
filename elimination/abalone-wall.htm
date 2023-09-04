@@ -1,0 +1,51 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Abalone (The Wall)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/abalone/board.png">
+<img id="BlackStone" style="display:none" src="images/abalone/black.png">
+<img id="WhiteStone" style="display:none" src="images/abalone/white.png">
+<img id="BlackCaptured" style="display:none" src="images/abalone/white.png">
+<img id="WhiteCaptured" style="display:none" src="images/abalone/black.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1987 Michel Lalet and Laurent Levi 
+        (<a target="_blank" href="https://en.wikipedia.org/wiki/Abalone_(board_game)">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="abalone-wall-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('abalone-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="510" height="530" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v4.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/aggressive-ai-v5.js"></script>
+<script src="scripts/abalone-goal.js"></script>
+<script src="scripts/abalone-extension.js"></script>
+<script src="scripts/abalone-wall.js"></script>
+<script src="../common-scripts/app-v3.js"></script>
+
+</body>
+</html>

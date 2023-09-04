@@ -1,0 +1,49 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Grand Cheskers (10x10)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/10x10.png">
+<img id="WhiteBishop" style="display:none" src="images/cheskers/bbishop.png">
+<img id="BlackBishop" style="display:none" src="images/cheskers/wbishop.png">
+<img id="WhiteCamel" style="display:none" src="images/cheskers/bknight.png">
+<img id="BlackCamel" style="display:none" src="images/cheskers/wknight.png">
+<img id="WhiteDragon" style="display:none" src="images/cheskers/bdragon.png">
+<img id="BlackDragon" style="display:none" src="images/cheskers/wdragon.png">
+<img id="WhiteQueen" style="display:none" src="images/cheskers/bqueen.png">
+<img id="BlackQueen" style="display:none" src="images/cheskers/wqueen.png">
+<img id="WhiteMan" style="display:none" src="images/bman.png">
+<img id="BlackMan" style="display:none" src="images/wman.png">
+<img id="WhiteKing" style="display:none" src="images/cheskers/bking.png">
+<img id="BlackKing" style="display:none" src="images/cheskers/wking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Copyright (c) Peter Aronson 
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go()">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="504" height="504" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/cheskers-editor-fen.js"></script>
+<script src="scripts/cheskers-10x10-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

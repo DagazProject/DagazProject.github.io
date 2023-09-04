@@ -1,0 +1,51 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Martian Chess (4x8)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board-1" style="display:none" src="images/martian/4x8se.png">
+<img id="Board-2" style="display:none" src="images/martian/4x8nw.png">
+<img id="PurpleBishop" style="display:none" src="images/martian/pbishop.png">
+<img id="OrangeBishop" style="display:none" src="images/martian/obishop.png">
+<img id="PurpleDrone" style="display:none" src="images/martian/prook.png">
+<img id="OrangeDrone" style="display:none" src="images/martian/orook.png">
+<img id="PurpleQueen" style="display:none" src="images/martian/pqueen.png">
+<img id="OrangeQueen" style="display:none" src="images/martian/oqueen.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) 1999 Andrew Looney (<a target="_blank" href="https://en.wikipedia.org/wiki/Martian_chess">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="martian-chess-2.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="240" height="424" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/ko.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/martian-goal.js"></script>
+<script src="scripts/martian-promotion.js"></script>
+<script src="scripts/martian-extension.js"></script>
+<script src="scripts/martian-chess-2.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Magyar Dama (variant)</title>
+</head>
+<body>
+
+<img id="NTile" style="display:none" src="images/magyar/tile.png">
+<img id="RedStone" style="display:none" src="images/magyar/red.png">
+<img id="WhiteStone" style="display:none" src="images/magyar/white.png">
+
+<table style="margin:auto; font-family:sans-serif; font-size:14px" id="Table">
+<tr><td><a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+<a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="magyar-dama-variant-board.htm">no AI</a>
+<a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+<a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a></td></tr>
+<tr style="height:843px; vertical-align:top">
+<td id="CanvasCell" style="width:1137px">
+<canvas id="Canvas" width="1137" height="843" style="cursor:default">Broken canvas...</canvas>
+</td><td style="width:300px;">
+<div style="height:510px; overflow:auto" id="ScrollDiv">
+<img id="GlyphImage"><p id="HelpText"></p>
+<p id="GameSession"></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div style="height:100px; width:500px; margin-left:auto; margin-right:auto">
+<table>
+<tr style="display:none" id="PieceInfo">
+<td><img id="PieceInfoImage"></td><td id="PieceInfoText"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/sgf-parser.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/aggressive-ai-v5.js"></script>
+<script src="scripts/magyar-view.js"></script>
+<script src="scripts/magyar-no-pass.js"></script>
+<script src="scripts/magyar-ko.js"></script>
+<script src="scripts/magyar-goal.js"></script>
+<script src="scripts/magyar-tiles.js"></script>
+<script src="scripts/magyar-extension.js"></script>
+<script src="scripts/magyar-invariant.js"></script>
+<script src="scripts/magyar-checkers-variant.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Quantum tic-tac-toe</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/qxo/board.png">
+<img id="XB1" style="display:none" src="images/qxo/bigx1.png">
+<img id="OB1" style="display:none" src="images/qxo/bigo1.png">
+<img id="XB2" style="display:none" src="images/qxo/bigx2.png">
+<img id="OB2" style="display:none" src="images/qxo/bigo2.png">
+<img id="XB3" style="display:none" src="images/qxo/bigx3.png">
+<img id="OB3" style="display:none" src="images/qxo/bigo3.png">
+<img id="XB4" style="display:none" src="images/qxo/bigx4.png">
+<img id="OB4" style="display:none" src="images/qxo/bigo1.png">
+<img id="XB5" style="display:none" src="images/qxo/bigx4.png">
+<img id="OB5" style="display:none" src="images/qxo/bigo1.png">
+<img id="XS1" style="display:none" src="images/qxo/smallx1.png">
+<img id="OS1" style="display:none" src="images/qxo/smallo1.png">
+<img id="XS2" style="display:none" src="images/qxo/smallx2.png">
+<img id="OS2" style="display:none" src="images/qxo/smallo2.png">
+<img id="XS3" style="display:none" src="images/qxo/smallx3.png">
+<img id="OS3" style="display:none" src="images/qxo/smallo3.png">
+<img id="XS4" style="display:none" src="images/qxo/smallx4.png">
+<img id="OS4" style="display:none" src="images/qxo/smallo4.png">
+<img id="XS5" style="display:none" src="images/qxo/smallx5.png">
+<img id="OS5" style="display:none" src="images/qxo/smallo5.png">
+<img id="XNone" style="display:none" src="images/qxo/e.png">
+<img id="ONone" style="display:none" src="images/qxo/e.png">
+<img id="Ko" style="display:none" src="images/qxo/spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) Allan Goff (<a target="_blank" href="https://en.wikipedia.org/wiki/Quantum_tic-tac-toe">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="qxo.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="597" height="590" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/qxo-sound.js"></script>
+<script src="scripts/qxo-goal.js"></script>
+<script src="scripts/qxo-collision.js"></script>
+<script src="scripts/qxo-extension.js"></script>
+<script src="scripts/qxo-restrictions.js"></script>
+<script src="scripts/qxo-priority.js"></script>
+<script src="scripts/qxo.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

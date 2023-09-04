@@ -1,0 +1,50 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Senet</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/senet/board.png">
+<img id="BlueZero" style="display:none" src="images/senet/light.png">
+<img id="GreenZero" style="display:none" src="images/senet/light.png">
+<img id="BlueOne" style="display:none" src="images/senet/dark.png">
+<img id="GreenOne" style="display:none" src="images/senet/dark.png">
+<img id="BlueStone" style="display:none" src="images/senet/blue.png">
+<img id="GreenStone" style="display:none" src="images/senet/green.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Senet">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="senet.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="660" height="185" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/senet-goal.js"></script>
+<script src="scripts/senet-invariant.js"></script>
+<script src="scripts/senet-extension.js"></script>
+<script src="scripts/senet-homes.js"></script>
+<script src="scripts/senet-restrictions.js"></script>
+<script src="scripts/senet-dices.js"></script>
+<script src="scripts/senet.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

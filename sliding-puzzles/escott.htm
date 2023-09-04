@@ -1,0 +1,93 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Escott's puzzle</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="YouHBR1" style="display:none" src="images/HBR.png">
+<img id="YouHBL1" style="display:none" src="images/HBL.png">
+<img id="YouHTBR1" style="display:none" src="images/HTBR.png">
+<img id="YouHTBL1" style="display:none" src="images/HTBL.png">
+<img id="YouHTRC1" style="display:none" src="images/HTRC.png">
+<img id="YouHBLR1" style="display:none" src="images/HBLR.png">
+<img id="YouHTR1" style="display:none" src="images/HTR.png">
+<img id="YouHTLR1" style="display:none" src="images/HTLR.png">
+<img id="YouHTL1" style="display:none" src="images/HTL.png">
+<img id="YouHBR2" style="display:none" src="images/HBR.png">
+<img id="YouHBL2" style="display:none" src="images/HBL.png">
+<img id="YouHTR2" style="display:none" src="images/HTR.png">
+<img id="YouHTL2" style="display:none" src="images/HTL.png">
+<img id="YouHBR3" style="display:none" src="images/HBR.png">
+<img id="YouHBLRC3" style="display:none" src="images/HBLRC.png">
+<img id="YouHLR3" style="display:none" src="images/HLR.png">
+<img id="YouHL3" style="display:none" src="images/HL.png">
+<img id="YouHTR3" style="display:none" src="images/HTR.png">
+<img id="YouHTL3" style="display:none" src="images/HTL.png">
+<img id="YouHBR4" style="display:none" src="images/HBR.png">
+<img id="YouHBL4" style="display:none" src="images/HBL.png">
+<img id="YouHTR4" style="display:none" src="images/HTR.png">
+<img id="YouHTL4" style="display:none" src="images/HTL.png">
+<img id="YouHBR5" style="display:none" src="images/HBR.png">
+<img id="YouHBL5" style="display:none" src="images/HBL.png">
+<img id="YouHTR5" style="display:none" src="images/HTR.png">
+<img id="YouHTLRC5" style="display:none" src="images/HTLRC.png">
+<img id="YouHLR5" style="display:none" src="images/HLR.png">
+<img id="YouHL5" style="display:none" src="images/HL.png">
+<img id="YouHR6" style="display:none" src="images/HR.png">
+<img id="YouHLR6" style="display:none" src="images/HLR.png">
+<img id="YouHBRLC6" style="display:none" src="images/HBRLC.png">
+<img id="YouHBL6" style="display:none" src="images/HBL.png">
+<img id="YouHTR6" style="display:none" src="images/HTR.png">
+<img id="YouHTL6" style="display:none" src="images/HTL.png">
+<img id="YouHBR7" style="display:none" src="images/HBR.png">
+<img id="YouHBLR7" style="display:none" src="images/HBLR.png">
+<img id="YouHBL7" style="display:none" src="images/HBL.png">
+<img id="YouHTR7" style="display:none" src="images/HTR.png">
+<img id="YouHTLR7" style="display:none" src="images/HTLR.png">
+<img id="YouHBLC7" style="display:none" src="images/HBLC.png">
+<img id="YouHTBL7" style="display:none" src="images/HTBL.png">
+<img id="YouHTBR7" style="display:none" src="images/HTBR.png">
+<img id="YouHTL7" style="display:none" src="images/HTL.png">
+<img id="YouHBR8" style="display:none" src="images/HBR.png">
+<img id="YouHBL8" style="display:none" src="images/HBL.png">
+<img id="YouHTR8" style="display:none" src="images/HTR.png">
+<img id="YouHTL8" style="display:none" src="images/HTL.png">
+<img id="YouHBR9" style="display:none" src="images/HBR.png">
+<img id="YouHBL9" style="display:none" src="images/HBL.png">
+<img id="YouHR9" style="display:none" src="images/HR.png">
+<img id="YouHLR9" style="display:none" src="images/HLR.png">
+<img id="YouHTRLC9" style="display:none" src="images/HTRLC.png">
+<img id="YouHTL9" style="display:none" src="images/HTL.png">
+<img id="YouHBR10" style="display:none" src="images/HBR.png">
+<img id="YouHBL10" style="display:none" src="images/HBL.png">
+<img id="YouHTR10" style="display:none" src="images/HTR.png">
+<img id="YouHTL10" style="display:none" src="images/HTL.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+Copyright (c) E. B. Escott
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="400" height="500" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view.js"></script>
+<script src="../common-scripts/simple-move-list.js"></script>
+<script src="scripts/sliding-puzzle.js"></script>
+<script src="scripts/escott.js"></script>
+<script src="../common-scripts/app.js"></script>
+
+</body>
+</html>

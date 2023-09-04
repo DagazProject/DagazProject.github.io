@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Littera Chinese Chess</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="GoldSoldier" style="display:none" src="images/litter/ssoldier.png">
+<img id="SilverSoldier" style="display:none" src="images/litter/nsoldier.png">
+<img id="GoldHorse" style="display:none" src="images/litter/shorse.png">
+<img id="SilverHorse" style="display:none" src="images/litter/nhorse.png">
+<img id="GoldElephant" style="display:none" src="images/litter/selephant.png">
+<img id="SilverElephant" style="display:none" src="images/litter/nelephant.png">
+<img id="GoldChariot" style="display:none" src="images/litter/schariot.png">
+<img id="SilverChariot" style="display:none" src="images/litter/nchariot.png">
+<img id="GoldCannon" style="display:none" src="images/litter/scannon.png">
+<img id="SilverCannon" style="display:none" src="images/litter/ncannon.png">
+<img id="GoldMandarin" style="display:none" src="images/litter/smandarin.png">
+<img id="SilverMandarin" style="display:none" src="images/litter/nmandarin.png">
+<img id="GoldGeneral" style="display:none" src="images/litter/sgeneral.png">
+<img id="SilverGeneral" style="display:none" src="images/litter/ngeneral.png">
+<img id="GoldMan" style="display:none" src="images/litter/gold.png">
+<img id="SilverMan" style="display:none" src="images/litter/silver.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="litter-chess-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="560" height="560" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/seedrandom.min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/maxmin-ai-v2.js"></script>
+<script src="scripts/litter-ai.js"></script>
+<script src="scripts/litter-setup.js"></script>
+<script src="scripts/litter-invariant.js"></script>
+<script src="scripts/litter-goal.js"></script>
+<script src="scripts/litter-restriction.js"></script>
+<script src="scripts/litter-swap.js"></script>
+<script src="scripts/litter.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

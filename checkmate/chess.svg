@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 404" width="960pt" height="404pt">
+<g class="graph" id="graph1" transform="scale(1) rotate(0) translate(4 400)">
+<title>chess</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-400 957,-400 957,5 -4,5" />
+<!-- Chaturanga -->
+<g class="node" id="node1"><title>Chaturanga</title>
+<a xlink:href="chaturanga.htm">
+<ellipse fill="green" stroke="black" cx="254" cy="-378" rx="55.3236" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="254" y="-373.8">Chaturanga</text>
+</a>
+</g>
+<!-- Makruk -->
+<g class="node" id="node2"><title>Makruk</title>
+<a xlink:href="makruk.htm">
+<ellipse fill="green" stroke="black" cx="125" cy="-306" rx="41.4107" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="125" y="-301.8">Makruk</text>
+</a>
+</g>
+<!-- Chaturanga&#45;&gt;Makruk -->
+<g class="edge" id="edge4"><title>Chaturanga-&gt;Makruk</title>
+<path fill="none" stroke="black" d="M 226.642 -362.155 C 206.928 -351.457 180.192 -336.949 159.089 -325.498" />
+<polygon fill="black" stroke="black" points="160.589,-322.33 150.131,-320.637 157.251,-328.483 160.589,-322.33" />
+</g>
+<!-- Shatranj -->
+<g class="node" id="node3"><title>Shatranj</title>
+<a xlink:href="shatranj.htm">
+<ellipse fill="lightgreen" stroke="black" cx="383" cy="-306" rx="43.3265" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="383" y="-301.8">Shatranj</text>
+</a>
+</g>
+<!-- Chaturanga&#45;&gt;Shatranj -->
+<g class="edge" id="edge2"><title>Chaturanga-&gt;Shatranj</title>
+<path fill="none" stroke="black" d="M 281.358 -362.155 C 301.072 -351.457 327.808 -336.949 348.911 -325.498" />
+<polygon fill="black" stroke="black" points="350.749,-328.483 357.869,-320.637 347.411,-322.33 350.749,-328.483" />
+</g>
+<!-- Sittuyin -->
+<g class="node" id="node4"><title>Sittuyin</title>
+<a xlink:href="sittuyin.htm">
+<ellipse fill="green" stroke="black" cx="41" cy="-234" rx="41.4368" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="41" y="-229.8">Sittuyin</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Sittuyin -->
+<g class="edge" id="edge6"><title>Makruk-&gt;Sittuyin</title>
+<path fill="none" stroke="black" d="M 106.773 -289.811 C 95.2945 -280.245 80.2833 -267.736 67.5003 -257.084" />
+<polygon fill="black" stroke="black" points="69.4041,-254.114 59.4813,-250.401 64.9228,-259.492 69.4041,-254.114" />
+</g>
+<!-- Xiangqi -->
+<g class="node" id="node6"><title>Xiangqi</title>
+<a xlink:href="../xiangqi/xiangqi.htm">
+<ellipse fill="yellow" stroke="black" cx="245" cy="-234" rx="42.2212" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="245" y="-229.8">Xiangqi</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Xiangqi -->
+<g class="edge" id="edge8"><title>Makruk-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 148.708 -291.17 C 166.833 -280.597 192.036 -265.896 212.111 -254.185" />
+<polygon fill="black" stroke="black" points="214.056,-257.103 220.93,-249.041 210.529,-251.056 214.056,-257.103" />
+</g>
+<!-- Shogi -->
+<g class="node" id="node7"><title>Shogi</title>
+<a xlink:href="../shogi/shogi.htm">
+<ellipse fill="red" stroke="black" cx="134" cy="-234" rx="33.3604" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="134" y="-229.8">Shogi</text>
+</a>
+</g>
+<!-- Makruk&#45;&gt;Shogi -->
+<g class="edge" id="edge12"><title>Makruk-&gt;Shogi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 127.225 -287.697 C 128.217 -279.983 129.408 -270.712 130.514 -262.112" />
+<polygon fill="black" stroke="black" points="133.997,-262.469 131.801,-252.104 127.054,-261.576 133.997,-262.469" />
+</g>
+<!-- Courier chess -->
+<g class="node" id="node8"><title>Courier chess</title>
+<a xlink:href="courier-chess-variant.htm">
+<ellipse fill="lightblue" stroke="black" cx="383" cy="-234" rx="63.2927" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="383" y="-229.8">Courier chess</text>
+</a>
+</g>
+<!-- Shatranj&#45;&gt;Courier chess -->
+<g class="edge" id="edge14"><title>Shatranj-&gt;Courier chess</title>
+<path fill="none" stroke="black" d="M 383 -287.697 C 383 -279.983 383 -270.712 383 -262.112" />
+<polygon fill="black" stroke="black" points="386.5,-262.104 383,-252.104 379.5,-262.104 386.5,-262.104" />
+</g>
+<!-- Qiguo Xiangqi -->
+<g class="node" id="node5"><title>Qiguo Xiangqi</title>
+<a xlink:href="../xiangqi/qiquo-xiangqi-kanji.htm">
+<ellipse fill="yellow" stroke="black" cx="253" cy="-306" rx="68.5525" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="253" y="-301.8">Qiguo Xiangqi</text>
+</a>
+</g>
+<!-- Qiguo Xiangqi&#45;&gt;Xiangqi -->
+<g class="edge" id="edge10"><title>Qiguo Xiangqi-&gt;Xiangqi</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 251.022 -287.697 C 250.141 -279.983 249.081 -270.712 248.099 -262.112" />
+<polygon fill="black" stroke="black" points="251.568,-261.642 246.955,-252.104 244.613,-262.437 251.568,-261.642" />
+</g>
+<!-- Gala -->
+<g class="node" id="node9"><title>Gala</title>
+<a xlink:href="../control/gala.htm">
+<ellipse fill="lightblue" stroke="black" cx="270" cy="-162" rx="28.9004" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="270" y="-157.8">Gala</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Gala -->
+<g class="edge" id="edge16"><title>Courier chess-&gt;Gala</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 357.922 -217.465 C 340.264 -206.527 316.604 -191.87 298.275 -180.516" />
+<polygon fill="black" stroke="black" points="300.1,-177.529 289.756,-175.238 296.414,-183.48 300.1,-177.529" />
+</g>
+<!-- Rithmomachia -->
+<g class="node" id="node10"><title>Rithmomachia</title>
+<a xlink:href="../elimination/rithmomachia.htm">
+<ellipse fill="lightblue" stroke="black" cx="383" cy="-162" rx="65.1358" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="383" y="-157.8">Rithmomachia</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Rithmomachy -->
+<g class="edge" id="edge18"><title>Courier chess-&gt;Rithmomachy</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M 383 -215.697 C 383 -207.983 383 -198.712 383 -190.112" />
+<polygon fill="black" stroke="black" points="386.5,-190.104 383,-180.104 379.5,-190.104 386.5,-190.104" />
+</g>
+<!-- Chess -->
+<g class="node" id="node11"><title>Chess</title>
+<a xlink:href="chess.htm">
+<ellipse fill="lightblue" stroke="black" cx="501" cy="-162" rx="34.1548" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="501" y="-157.8">Chess</text>
+</a>
+</g>
+<!-- Courier chess&#45;&gt;Chess -->
+<g class="edge" id="edge20"><title>Courier chess-&gt;Chess</title>
+<path fill="none" stroke="black" d="M 409.188 -217.465 C 427.276 -206.734 451.398 -192.425 470.377 -181.166" />
+<polygon fill="black" stroke="black" points="472.418,-184.025 479.232,-175.913 468.846,-178.005 472.418,-184.025" />
+</g>
+<!-- Shatar -->
+<g class="node" id="node12"><title>Shatar</title>
+<ellipse fill="yellow" stroke="black" cx="158" cy="-90" rx="35.5569" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="158" y="-85.8">Shatar</text>
+</g>
+<!-- Chess&#45;&gt;Shatar -->
+<g class="edge" id="edge34"><title>Chess-&gt;Shatar</title>
+<path fill="none" stroke="black" d="M 475.264 -149.931 C 469.348 -147.704 463.023 -145.568 457 -144 C 346.663 -115.268 313.444 -136.319 203 -108 C 200.022 -107.236 196.97 -106.341 193.927 -105.367" />
+<polygon fill="black" stroke="black" points="194.933,-102.012 184.338,-102.057 192.648,-108.629 194.933,-102.012" />
+</g>
+<!-- Mini Chess -->
+<g class="node" id="node14"><title>Mini Chess</title>
+<a xlink:href="mini-chess.htm">
+<ellipse fill="none" stroke="black" cx="267" cy="-90" rx="54.9471" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="267" y="-85.8">Mini Chess</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Mini Chess -->
+<g class="edge" id="edge22"><title>Chess-&gt;Mini Chess</title>
+<path fill="none" stroke="black" d="M 474.625 -150.334 C 468.855 -148.134 462.752 -145.908 457 -144 C 431.359 -135.492 365.153 -117.34 318.123 -104.662" />
+<polygon fill="black" stroke="black" points="318.966,-101.265 308.4,-102.046 317.147,-108.024 318.966,-101.265" />
+</g>
+<!-- Dunsany&#39;s Chess -->
+<g class="node" id="node15"><title>Dunsany's Chess</title>
+<a xlink:href="dunsanys-chess.htm">
+<ellipse fill="none" stroke="black" cx="418" cy="-90" rx="77.2243" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="418" y="-85.8">Dunsany's Chess</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Dunsany&#39;s Chess -->
+<g class="edge" id="edge24"><title>Chess-&gt;Dunsany's Chess</title>
+<path fill="none" stroke="black" d="M 483.398 -146.155 C 472.39 -136.871 457.979 -124.717 445.487 -114.182" />
+<polygon fill="black" stroke="black" points="447.512,-111.311 437.611,-107.539 442.999,-116.662 447.512,-111.311" />
+</g>
+<!-- Platform Chess -->
+<g class="node" id="node16"><title>Platform Chess</title>
+<a xlink:href="platform-chess.htm">
+<ellipse fill="none" stroke="black" cx="584" cy="-90" rx="69.9657" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="584" y="-85.8">Platform Chess</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Platform Chess -->
+<g class="edge" id="edge26"><title>Chess-&gt;Platform Chess</title>
+<path fill="none" stroke="black" d="M 518.602 -146.155 C 529.61 -136.871 544.021 -124.717 556.513 -114.182" />
+<polygon fill="black" stroke="black" points="559.001,-116.662 564.389,-107.539 554.488,-111.311 559.001,-116.662" />
+</g>
+<!-- Maharadja -->
+<g class="node" id="node17"><title>Maharadja</title>
+<a xlink:href="../elimination/maharadja-variant.htm">
+<ellipse fill="none" stroke="black" cx="725" cy="-90" rx="51.9854" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="725" y="-85.8">Maharadja</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Maharadja -->
+<g class="edge" id="edge28"><title>Chess-&gt;Maharadja</title>
+<path fill="none" stroke="black" d="M 529.826 -151.992 C 567.286 -140.286 633.184 -119.692 677.942 -105.706" />
+<polygon fill="black" stroke="black" points="679.212,-108.976 687.713,-102.652 677.124,-102.294 679.212,-108.976" />
+</g>
+<!-- Belarusian Chess -->
+<g class="node" id="node19"><title>Belarusian Chess</title>
+<a xlink:href="belarusian-chess.htm">
+<ellipse fill="none" stroke="black" cx="873" cy="-90" rx="77.22" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="873" y="-85.8">Belarusian Chess</text>
+</a>
+</g>
+<!-- Chess&#45;&gt;Belarusian Chess -->
+<g class="edge" id="edge32"><title>Chess-&gt;Belarusian Chess</title>
+<path fill="none" stroke="black" d="M 532.648 -155.212 C 585.264 -145.567 694.048 -125.533 786 -108 C 792.501 -106.76 799.272 -105.458 806.04 -104.148" />
+<polygon fill="black" stroke="black" points="806.77,-107.572 815.921,-102.231 805.437,-100.7 806.77,-107.572" />
+</g>
+<!-- Hiashatar -->
+<g class="node" id="node13"><title>Hiashatar</title>
+<a xlink:href="hiashatar-board.htm">
+<ellipse fill="yellow" stroke="black" cx="93" cy="-18" rx="48.0513" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="93" y="-13.8">Hiashatar</text>
+</a>
+</g>
+<!-- Shatar&#45;&gt;Hiashatar -->
+<g class="edge" id="edge36"><title>Shatar-&gt;Hiashatar</title>
+<path fill="none" stroke="black" d="M 143.574 -73.4647 C 135.229 -64.4776 124.553 -52.9799 115.162 -42.8666" />
+<polygon fill="black" stroke="black" points="117.66,-40.4136 108.291,-35.4672 112.531,-45.1767 117.66,-40.4136" />
+</g>
+<!-- Omega Chess -->
+<g class="node" id="node20"><title>Omega Chess</title>
+<a xlink:href="omega-chess-board.htm">
+<ellipse fill="none" stroke="black" cx="223" cy="-18" rx="64.1045" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="223" y="-13.8">Omega Chess</text>
+</a>
+</g>
+<!-- Shatar&#45;&gt;Omega Chess -->
+<g class="edge" id="edge38"><title>Shatar-&gt;Omega Chess</title>
+<path fill="none" stroke="black" d="M 172.426 -73.4647 C 180.652 -64.606 191.143 -53.3079 200.435 -43.3008" />
+<polygon fill="black" stroke="black" points="203.01,-45.6713 207.25,-35.9618 197.88,-40.9082 203.01,-45.6713" />
+</g>
+<!-- Russian Checkers -->
+<g class="node" id="node18"><title>Russian Checkers</title>
+<a xlink:href="../checkers/russian-checkers.htm">
+<ellipse fill="lightblue" stroke="black" cx="873" cy="-162" rx="79.436" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="873" y="-157.8">Russian Checkers</text>
+</a>
+</g>
+<!-- Russian Checkers&#45;&gt;Belarusian Chess -->
+<g class="edge" id="edge30"><title>Russian Checkers-&gt;Belarusian Chess</title>
+<path fill="none" stroke="black" d="M 873 -143.697 C 873 -135.983 873 -126.712 873 -118.112" />
+<polygon fill="black" stroke="black" points="876.5,-118.104 873,-108.104 869.5,-118.104 876.5,-118.104" />
+</g>
+</g>
+</svg>

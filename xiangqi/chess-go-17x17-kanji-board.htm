@@ -1,0 +1,65 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chess Go (17x17)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/chessgo/17x17.png">
+<img id="BlackStone" style="display:none" src="images/chessgo/bstones.png">
+<img id="WhiteStone" style="display:none" src="images/chessgo/wstones.png">
+<img id="BlackSoldier" style="display:none" src="images/kanji/bsoldiers.png">
+<img id="WhiteSoldier" style="display:none" src="images/kanji/wsoldiers.png">
+<img id="BlackHorse" style="display:none" src="images/kanji/bhorses.png">
+<img id="WhiteHorse" style="display:none" src="images/kanji/whorses.png">
+<img id="BlackElephant" style="display:none" src="images/kanji/belephants.png">
+<img id="WhiteElephant" style="display:none" src="images/kanji/welephants.png">
+<img id="BlackChariot" style="display:none" src="images/kanji/bchariots.png">
+<img id="WhiteChariot" style="display:none" src="images/kanji/wchariots.png">
+<img id="BlackCannon" style="display:none" src="images/kanji/bcannons.png">
+<img id="WhiteCannon" style="display:none" src="images/kanji/wcannons.png">
+<img id="BlackMandarin" style="display:none" src="images/kanji/bmandarins.png">
+<img id="WhiteMandarin" style="display:none" src="images/kanji/wmandarins.png">
+<img id="BlackGeneral" style="display:none" src="images/kanji/bgenerals.png">
+<img id="WhiteGeneral" style="display:none" src="images/kanji/wgenerals.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) Valentin Chelnokov
+        designed by <a target="_blank" href="https://www.shutterstock.com/ru/g/SuanHsiao">SuanHsiao</a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('chess-go-17x17-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="538" height="538" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/ko.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/chess-go-edit.js"></script>
+<script src="scripts/chess-go-goal.js"></script>
+<script src="scripts/chess-go-invariant.js"></script>
+<script src="scripts/chess-go-extension.js"></script>
+<script src="scripts/chess-go-move.js"></script>
+<script src="scripts/chess-go-restriction.js"></script>
+<script src="scripts/chess-go-17x17.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

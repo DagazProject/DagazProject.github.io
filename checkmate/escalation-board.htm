@@ -1,0 +1,59 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Escalation</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/escalation/8x8.png">
+<img id="BlueKing" style="display:none" src="images/escalation/bw.png">
+<img id="GreenKing" style="display:none" src="images/escalation/gw.png">
+<img id="BlueMan" style="display:none" src="images/escalation/bm.png">
+<img id="GreenMan" style="display:none" src="images/escalation/gm.png">
+<img id="L0" style="display:none" src="images/escalation/fl.png">
+<img id="L1" style="display:none" src="images/escalation/dl.png">
+<img id="L2" style="display:none" src="images/escalation/al.png">
+<img id="L3" style="display:none" src="images/escalation/nl.png">
+<img id="R0" style="display:none" src="images/escalation/fr.png">
+<img id="R1" style="display:none" src="images/escalation/dr.png">
+<img id="R2" style="display:none" src="images/escalation/ar.png">
+<img id="R3" style="display:none" src="images/escalation/nr.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1973 G. P. Jelliss
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="escalation.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="644" height="643" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/escalation-fen.js"></script>
+<script src="scripts/escalation-setup.js"></script>
+<script src="scripts/escalation-view.js"></script>
+<script src="scripts/escalation-invariant.js"></script>
+<script src="scripts/escalation-promotion.js"></script>
+<script src="scripts/escalation-extension.js"></script>
+<script src="scripts/escalation-restriction.js"></script>
+<script src="scripts/escalation.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

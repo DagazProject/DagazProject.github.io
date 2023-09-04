@@ -1,0 +1,62 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Ultima</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/ultima/board.png">
+<img id="WhiteKing" style="display:none" src="images/ultima/wking.png">
+<img id="BlackKing" style="display:none" src="images/ultima/bking.png">
+<img id="WhiteWithdrawer" style="display:none" src="images/ultima/wwithdrawer.png">
+<img id="BlackWithdrawer" style="display:none" src="images/ultima/bwithdrawer.png">
+<img id="WhiteChameleon" style="display:none" src="images/ultima/wchameleon.png">
+<img id="BlackChameleon" style="display:none" src="images/ultima/bchameleon.png">
+<img id="WhiteLongLeaper" style="display:none" src="images/ultima/wlongleaper.png">
+<img id="BlackLongLeaper" style="display:none" src="images/ultima/blongleaper.png">
+<img id="WhiteCoordinator" style="display:none" src="images/ultima/wcoordinator.png">
+<img id="BlackCoordinator" style="display:none" src="images/ultima/bcoordinator.png">
+<img id="WhiteImmobilizer" style="display:none" src="images/ultima/wimmobilizer.png">
+<img id="BlackImmobilizer" style="display:none" src="images/ultima/bimmobilizer.png">
+<img id="WhitePawn" style="display:none" src="images/ultima/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/ultima/bpawn.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1962 Robert Abbott (<a target="_blank" href="https://www.chessvariants.com/other.dir/ultima.html">rules</a>) <b>01</b> <a href="ultima-02.htm">02</a> <a href="ultima-03.htm">03</a> <a href="ultima-04.htm">04</a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="ultima.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="548" height="548" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="scripts/ultima-goal.js"></script>
+<script src="scripts/ultima-chameleon.js"></script>
+<script src="scripts/ultima-long-leaper.js"></script>
+<script src="scripts/ultima-withdrawer.js"></script>
+<script src="scripts/ultima-coordinator.js"></script>
+<script src="scripts/ultima-immobilizer.js"></script>
+<script src="scripts/ultima-custodian.js"></script>
+<script src="scripts/ultima-01.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

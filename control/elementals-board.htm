@@ -1,0 +1,97 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Elementals</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/elementals/board.png">
+<img id="LightGA" style="display:none" src="images/elementals/lga.png">
+<img id="DarkGA" style="display:none" src="images/elementals/dga.png">
+<img id="LightGB" style="display:none" src="images/elementals/lgb.png">
+<img id="DarkGB" style="display:none" src="images/elementals/dgb.png">
+<img id="LightGC" style="display:none" src="images/elementals/lgc.png">
+<img id="DarkGC" style="display:none" src="images/elementals/dgc.png">
+<img id="LightGD" style="display:none" src="images/elementals/lgd.png">
+<img id="DarkGD" style="display:none" src="images/elementals/dgd.png">
+<img id="LightBYA" style="display:none" src="images/elementals/lbya.png">
+<img id="LightBYB" style="display:none" src="images/elementals/lbyb.png">
+<img id="LightBYC" style="display:none" src="images/elementals/lbyc.png">
+<img id="LightBYD" style="display:none" src="images/elementals/lbyd.png">
+<img id="LightYBA" style="display:none" src="images/elementals/lyba.png">
+<img id="LightYBB" style="display:none" src="images/elementals/lybb.png">
+<img id="LightYBC" style="display:none" src="images/elementals/lybc.png">
+<img id="LightYBD" style="display:none" src="images/elementals/lybd.png">
+<img id="LightGBA" style="display:none" src="images/elementals/lgba.png">
+<img id="DarkGBA" style="display:none" src="images/elementals/dgba.png">
+<img id="LightGBB" style="display:none" src="images/elementals/lgbb.png">
+<img id="DarkGBB" style="display:none" src="images/elementals/dgbb.png">
+<img id="LightGBC" style="display:none" src="images/elementals/lgbc.png">
+<img id="DarkGBC" style="display:none" src="images/elementals/dgbc.png">
+<img id="LightGBD" style="display:none" src="images/elementals/lgbd.png">
+<img id="DarkGBD" style="display:none" src="images/elementals/dgbd.png">
+<img id="LightBGA" style="display:none" src="images/elementals/lbga.png">
+<img id="DarkBGA" style="display:none" src="images/elementals/dbga.png">
+<img id="LightBGB" style="display:none" src="images/elementals/lbgb.png">
+<img id="DarkBGB" style="display:none" src="images/elementals/dbgb.png">
+<img id="LightBGC" style="display:none" src="images/elementals/lbgc.png">
+<img id="DarkBGC" style="display:none" src="images/elementals/dbgc.png">
+<img id="LightBGD" style="display:none" src="images/elementals/lbgd.png">
+<img id="DarkBGD" style="display:none" src="images/elementals/dbgd.png">
+<img id="LightYGA" style="display:none" src="images/elementals/lyga.png">
+<img id="LightYGB" style="display:none" src="images/elementals/lygb.png">
+<img id="LightYGC" style="display:none" src="images/elementals/lygc.png">
+<img id="LightYGD" style="display:none" src="images/elementals/lygd.png">
+<img id="LightGYA" style="display:none" src="images/elementals/lgya.png">
+<img id="LightGYB" style="display:none" src="images/elementals/lgyb.png">
+<img id="LightGYC" style="display:none" src="images/elementals/lgyc.png">
+<img id="LightGYD" style="display:none" src="images/elementals/lgyd.png">
+<img id="DarkRA" style="display:none" src="images/elementals/dra.png">
+<img id="DarkRB" style="display:none" src="images/elementals/drb.png">
+<img id="DarkRC" style="display:none" src="images/elementals/drc.png">
+<img id="DarkRD" style="display:none" src="images/elementals/drd.png">
+<img id="DarkGRA" style="display:none" src="images/elementals/dgra.png">
+<img id="DarkGRB" style="display:none" src="images/elementals/dgrb.png">
+<img id="DarkGRC" style="display:none" src="images/elementals/dgrc.png">
+<img id="DarkGRD" style="display:none" src="images/elementals/dgrd.png">
+<img id="DarkRGA" style="display:none" src="images/elementals/drga.png">
+<img id="DarkRGB" style="display:none" src="images/elementals/drgb.png">
+<img id="DarkRGC" style="display:none" src="images/elementals/drgc.png">
+<img id="DarkRGD" style="display:none" src="images/elementals/drgd.png">
+<img id="Ko" style="display:none" src="images/elementals/ice.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) 2017 Valentin Chelnokov (<a target="_blank" href="https://www.zillions-of-games.com/cgi-bin/zilligames/submissions.cgi?do=show;id=2583">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="705" height="705" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/elementals-goal.js"></script>
+<script src="scripts/elementals-stone.js"></script>
+<script src="scripts/elementals-ice.js"></script>
+<script src="scripts/elementals-fire.js"></script>
+<script src="scripts/elementals.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

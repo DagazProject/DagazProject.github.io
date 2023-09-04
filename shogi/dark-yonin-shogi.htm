@@ -1,0 +1,110 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dark Yonin Shogi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="SouthBoard" style="display:none" src="images/yonin/boards.png">
+<img id="WestBoard" style="display:none" src="images/yonin/boardw.png">
+<img id="NorthBoard" style="display:none" src="images/yonin/boardn.png">
+<img id="EastBoard" style="display:none" src="images/yonin/boarde.png">
+<img id="Promote" style="display:none" src="images/dialog-2.png">
+<img id="SouthKing" style="display:none" src="images/sking.png">
+<img id="WestKing" style="display:none" src="images/yonin/wking.png">
+<img id="NorthKing" style="display:none" src="images/nking.png">
+<img id="EastKing" style="display:none" src="images/yonin/eking.png">
+<img id="SouthGold" style="display:none" src="images/sgold.png">
+<img id="WestGold" style="display:none" src="images/yonin/wgold.png">
+<img id="NorthGold" style="display:none" src="images/ngold.png">
+<img id="EastGold" style="display:none" src="images/yonin/egold.png">
+<img id="SouthSilver" style="display:none" src="images/ssilver.png">
+<img id="WestSilver" style="display:none" src="images/yonin/wsilver.png">
+<img id="NorthSilver" style="display:none" src="images/nsilver.png">
+<img id="EastSilver" style="display:none" src="images/yonin/esilver.png">
+<img id="SouthKnight" style="display:none" src="images/sknight.png">
+<img id="WestKnight" style="display:none" src="images/yonin/wknight.png">
+<img id="NorthKnight" style="display:none" src="images/nknight.png">
+<img id="EastKnight" style="display:none" src="images/yonin/eknight.png">
+<img id="SouthLance" style="display:none" src="images/slance.png">
+<img id="WestLance" style="display:none" src="images/yonin/wlance.png">
+<img id="NorthLance" style="display:none" src="images/nlance.png">
+<img id="EastLance" style="display:none" src="images/yonin/elance.png">
+<img id="SouthBishop" style="display:none" src="images/sbishop.png">
+<img id="WestBishop" style="display:none" src="images/yonin/wbishop.png">
+<img id="NorthBishop" style="display:none" src="images/nbishop.png">
+<img id="EastBishop" style="display:none" src="images/yonin/ebishop.png">
+<img id="SouthRook" style="display:none" src="images/srook.png">
+<img id="WestRook" style="display:none" src="images/yonin/wrook.png">
+<img id="NorthRook" style="display:none" src="images/nrook.png">
+<img id="EastRook" style="display:none" src="images/yonin/erook.png">
+<img id="SouthPawn" style="display:none" src="images/spawn.png">
+<img id="WestPawn" style="display:none" src="images/yonin/wpawn.png">
+<img id="NorthPawn" style="display:none" src="images/npawn.png">
+<img id="EastPawn" style="display:none" src="images/yonin/epawn.png">
+<img id="SouthSilverP" style="display:none" src="images/ssilverp.png">
+<img id="WestSilverP" style="display:none" src="images/yonin/wsilverp.png">
+<img id="NorthSilverP" style="display:none" src="images/nsilverp.png">
+<img id="EastSilverP" style="display:none" src="images/yonin/esilverp.png">
+<img id="SouthKnightP" style="display:none" src="images/sknightp.png">
+<img id="WestKnightP" style="display:none" src="images/yonin/wknightp.png">
+<img id="NorthKnightP" style="display:none" src="images/nknightp.png">
+<img id="EastKnightP" style="display:none" src="images/yonin/eknightp.png">
+<img id="SouthLanceP" style="display:none" src="images/slancep.png">
+<img id="WestLanceP" style="display:none" src="images/yonin/wlancep.png">
+<img id="NorthLanceP" style="display:none" src="images/nlancep.png">
+<img id="EastLanceP" style="display:none" src="images/yonin/elancep.png">
+<img id="SouthBishopP" style="display:none" src="images/sbishopp.png">
+<img id="WestBishopP" style="display:none" src="images/yonin/wbishopp.png">
+<img id="NorthBishopP" style="display:none" src="images/nbishopp.png">
+<img id="EastBishopP" style="display:none" src="images/yonin/ebishopp.png">
+<img id="SouthRookP" style="display:none" src="images/srookp.png">
+<img id="WestRookP" style="display:none" src="images/yonin/wrookp.png">
+<img id="NorthRookP" style="display:none" src="images/nrookp.png">
+<img id="EastRookP" style="display:none" src="images/yonin/erookp.png">
+<img id="SouthPawnP" style="display:none" src="images/spawnp.png">
+<img id="WestPawnP" style="display:none" src="images/yonin/wpawnp.png">
+<img id="NorthPawnP" style="display:none" src="images/npawnp.png">
+<img id="EastPawnP" style="display:none" src="images/yonin/epawnp.png">
+<img id="Ko" style="display:none" src="images/yonin/ko.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditionals (<a target="_blank" href="https://en.wikipedia.org/wiki/Yonin_shogi">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="640" height="645" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/ab-ai-v4.js"></script>
+<script src="scripts/dark-shogi-view.js"></script>
+<script src="scripts/yonin-shogi-goal.js"></script>
+<script src="scripts/yonin-shogi-invariant.js"></script>
+<script src="scripts/common-shogi-invariant.js"></script>
+<script src="scripts/shogi-extension.js"></script>
+<script src="scripts/shogi-promotion.js"></script>
+<script src="scripts/dark-yonin-shogi.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

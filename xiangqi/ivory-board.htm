@@ -1,0 +1,58 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Storm the Ivory Tower</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/ivory/board.png">
+<img id="RedNinny" style="display:none" src="images/ivory/rninny.png">
+<img id="BlueNinny" style="display:none" src="images/ivory/bninny.png">
+<img id="RedYahoo" style="display:none" src="images/ivory/ryahoo.png">
+<img id="BlueYahoo" style="display:none" src="images/ivory/byahoo.png">
+<img id="RedFuddy-Duddy" style="display:none" src="images/ivory/rfuddyduddy.png">
+<img id="BlueFuddy-Duddy" style="display:none" src="images/ivory/bfuddyduddy.png">
+<img id="RedNumskull" style="display:none" src="images/ivory/rnumskull.png">
+<img id="BlueNumskull" style="display:none" src="images/ivory/bnumskull.png">
+<img id="RedClodhopper" style="display:none" src="images/ivory/rclodhopper.png">
+<img id="BlueClodhopper" style="display:none" src="images/ivory/bclodhopper.png">
+<img id="RedToady" style="display:none" src="images/ivory/rtoady.png">
+<img id="BlueToady" style="display:none" src="images/ivory/btoady.png">
+<img id="RedBrain" style="display:none" src="images/ivory/rbrain.png">
+<img id="BlueBrain" style="display:none" src="images/ivory/bbrain.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) Fergus Duniho 2003 (<a target="_blank" href="https://www.chessvariants.com/large.dir/ivorytower.html">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="ivory.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('ivory-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="544" height="604" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../checkmate/scripts/common-edit.js"></script>
+<script src="scripts/ivory-setup.js"></script>
+<script src="scripts/ivory-invariant.js"></script>
+<script src="scripts/ivory.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

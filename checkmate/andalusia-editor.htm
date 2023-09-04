@@ -1,0 +1,43 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Andalusia</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images\andalusia\board.png">
+<img id="BlueSoldier" style="display:none" src="images\andalusia\bpawn.png">
+<img id="RedSoldier" style="display:none" src="images\andalusia\wpawn.png">
+<img id="BlueChariot" style="display:none" src="images\andalusia\brook.png">
+<img id="RedChariot" style="display:none" src="images\andalusia\wrook.png">
+<img id="BlueKing" style="display:none" src="images\andalusia\bking.png">
+<img id="RedKing" style="display:none" src="images\andalusia\wking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Copyright (c) 2009 Chris Huntoon (<a target="_blank" href="https://www.zillions-of-games.com/cgi-bin/zilligames/submissions.cgi?do=show;id=1733">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go()">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="398" height="398" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/chess-editor-extension.js"></script>
+<script src="scripts/andalusia-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+digraph checkers {
+    "Alquerque"[style="filled",fillcolor="lightgreen"];
+    "Turkish Dama"[style="filled",fillcolor="lightgreen"];
+    "English Checkers"[style="filled",fillcolor="lightblue"];
+    "International Draughts"[style="filled",fillcolor="lightblue"];
+    "Russian Checkers"[style="filled",fillcolor="lightblue"];
+    "Chess"[style="filled",fillcolor="lightblue"];
+    "Swedish Chess"[style="filled",fillcolor="lightblue"];
+
+    "Alquerque" -> "English Checkers"[style=dotted];
+    "Alquerque" -> "Turkish Dama"[style=dotted];
+    "English Checkers" -> "International Draughts"[style=dotted];
+    "International Draughts" -> "Russian Checkers"[style=dotted];
+    "Chess" -> "Swedish Chess"
+
+    "Turkish Dama" -> "Bahrain Dama";
+    "English Checkers" -> "Cheskers"
+    "Chess" -> "Cheskers"
+    "Chess" -> "Altai Shatra"
+    "International Draughts" -> "Altai Shatra"[style=dotted];
+    "Chess" -> "Belarusian Chess"
+    "Russian Checkers" -> "Belarusian Chess"
+    "Russian Checkers" -> "Column Checkers"
+    "Column Checkers" -> "Laska"
+    "English Checkers" -> "Laska"
+    "Column Checkers" -> "Northern Checkers"
+    "Russian Checkers" -> "Samoedy"
+    "Russian Checkers" -> "Stavropol Checkers"
+    "Stavropol Checkers" -> "Stavropol Columns"
+    "Column Checkers" -> "Stavropol Columns"
+    "Swedish Chess" -> "Swedish Checkers"
+    "English Checkers" -> "Swedish Checkers"[style=dotted];
+    "English Checkers" -> "Black & White"
+}

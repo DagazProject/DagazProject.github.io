@@ -1,0 +1,76 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dragonchess</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board0" style="display:none" src="images/dragon/l0.png">
+<img id="Board1" style="display:none" src="images/dragon/l1.png">
+<img id="Board2" style="display:none" src="images/dragon/l2.png">
+<img id="WhiteKing" style="display:none" src="images/dragon/wking.png">
+<img id="BlackKing" style="display:none" src="images/dragon/bking.png">
+<img id="WhiteWarrior" style="display:none" src="images/dragon/wwarrior.png">
+<img id="BlackWarrior" style="display:none" src="images/dragon/bwarrior.png">
+<img id="WhiteHero" style="display:none" src="images/dragon/whero.png">
+<img id="BlackHero" style="display:none" src="images/dragon/bhero.png">
+<img id="WhiteOliphant" style="display:none" src="images/dragon/woliphant.png">
+<img id="BlackOliphant" style="display:none" src="images/dragon/boliphant.png">
+<img id="WhiteUnicorn" style="display:none" src="images/dragon/wunicorn.png">
+<img id="BlackUnicorn" style="display:none" src="images/dragon/bunicorn.png">
+<img id="WhiteThief" style="display:none" src="images/dragon/wthief.png">
+<img id="BlackThief" style="display:none" src="images/dragon/bthief.png">
+<img id="WhiteCleric" style="display:none" src="images/dragon/wcleric.png">
+<img id="BlackCleric" style="display:none" src="images/dragon/bcleric.png">
+<img id="WhiteMage" style="display:none" src="images/dragon/wmage.png">
+<img id="BlackMage" style="display:none" src="images/dragon/bmage.png">
+<img id="WhitePaladin" style="display:none" src="images/dragon/wpaladin.png">
+<img id="BlackPaladin" style="display:none" src="images/dragon/bpaladin.png">
+<img id="WhiteSylph" style="display:none" src="images/dragon/wsylph.png">
+<img id="BlackSylph" style="display:none" src="images/dragon/bsylph.png">
+<img id="WhiteGriffon" style="display:none" src="images/dragon/wgriffon.png">
+<img id="BlackGriffon" style="display:none" src="images/dragon/bgriffon.png">
+<img id="WhiteDragon" style="display:none" src="images/dragon/wdragon.png">
+<img id="BlackDragon" style="display:none" src="images/dragon/bdragon.png">
+<img id="WhiteDwarf" style="display:none" src="images/dragon/wdwarf.png">
+<img id="BlackDwarf" style="display:none" src="images/dragon/bdwarf.png">
+<img id="WhiteBasilisk" style="display:none" src="images/dragon/wbasilisk.png">
+<img id="BlackBasilisk" style="display:none" src="images/dragon/bbasilisk.png">
+<img id="WhiteElemental" style="display:none" src="images/dragon/welemental.png">
+<img id="BlackElemental" style="display:none" src="images/dragon/belemental.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1985 Gary Gygax (<a target="_blank" href="https://en.wikipedia.org/wiki/Dragonchess">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="dragonchess.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="676" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v5.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/dragonchess-goal.js"></script>
+<script src="scripts/dragonchess-basilisk.js"></script>
+<script src="scripts/dragonchess-dragon.js"></script>
+<script src="scripts/dragonchess.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

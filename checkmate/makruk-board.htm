@@ -1,0 +1,57 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Makruk</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/makruk.png">
+<img id="WhiteKhun" style="display:none" src="images/wking.png">
+<img id="BlackKhun" style="display:none" src="images/bking.png">
+<img id="WhiteMet" style="display:none" src="images/wqueen.png">
+<img id="BlackMet" style="display:none" src="images/bqueen.png">
+<img id="WhiteRuea" style="display:none" src="images/wrook.png">
+<img id="BlackRuea" style="display:none" src="images/brook.png">
+<img id="WhiteKhon" style="display:none" src="images/wbishop.png">
+<img id="BlackKhon" style="display:none" src="images/bbishop.png">
+<img id="WhiteMa" style="display:none" src="images/wknight.png">
+<img id="BlackMa" style="display:none" src="images/bknight.png">
+<img id="WhiteBia" style="display:none" src="images/wpawn.png">
+<img id="BlackBia" style="display:none" src="images/bpawn.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Makruk">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="makruk.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('makruk-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="404" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/common-edit.js"></script>
+<script src="scripts/makruk-setup.js"></script>
+<script src="scripts/makruk-invariant.js"></script>
+<script src="scripts/makruk.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

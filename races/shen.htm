@@ -1,0 +1,52 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Shen</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/shen/board.png">
+<img id="BlueD0" style="display:none" src="images/shen/wdice.png">
+<img id="RedD0" style="display:none" src="images/shen/wdice.png">
+<img id="BlueD1" style="display:none" src="images/shen/bdice.png">
+<img id="RedD1" style="display:none" src="images/shen/bdice.png">
+<img id="BlueMan" style="display:none" src="images/shen/white.png">
+<img id="RedMan" style="display:none" src="images/shen/black.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Designed by <a href="https://a4games.company/pdfs-2/">A4 Games</a> (<a target="_blank" href="https://en.wikipedia.org/wiki/Hounds_and_Jackals">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="shen-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="628" height="670" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/heuristic-ai.js"></script>
+<script src="scripts/shen-goal.js"></script>
+<script src="scripts/shen-skip.js"></script>
+<script src="scripts/shen-turns.js"></script>
+<script src="scripts/shen-respawn.js"></script>
+<script src="scripts/shen-capture.js"></script>
+<script src="scripts/shen-extension.js"></script>
+<script src="scripts/shen-restrictions.js"></script>
+<script src="scripts/shen.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

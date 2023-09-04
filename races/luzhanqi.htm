@@ -1,0 +1,72 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Luzhanqi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/luzhanqi/board.png">
+<img id="SouthFieldMarshal" style="display:none" src="images/luzhanqi/p1bb.png">
+<img id="NorthFieldMarshal" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthGeneral" style="display:none" src="images/luzhanqi/p2bb.png">
+<img id="NorthGeneral" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthMajorGeneral" style="display:none" src="images/luzhanqi/p3bb.png">
+<img id="NorthMajorGeneral" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthBrigadierGeneral" style="display:none" src="images/luzhanqi/p4bb.png">
+<img id="NorthBrigadierGeneral" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthColonel" style="display:none" src="images/luzhanqi/p5bb.png">
+<img id="NorthColonel" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthMajor" style="display:none" src="images/luzhanqi/p6bb.png">
+<img id="NorthMajor" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthCaptain" style="display:none" src="images/luzhanqi/p7bb.png">
+<img id="NorthCaptain" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthLieutenant" style="display:none" src="images/luzhanqi/p8bb.png">
+<img id="NorthLieutenant" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthEngineer" style="display:none" src="images/luzhanqi/p9bb.png">
+<img id="NorthEngineer" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthBomb" style="display:none" src="images/luzhanqi/pgbb.png">
+<img id="NorthBomb" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthLandmine" style="display:none" src="images/luzhanqi/pmbb.png">
+<img id="NorthLandmine" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthFlag" style="display:none" src="images/luzhanqi/pfbb.png">
+<img id="NorthFlag" style="display:none" src="images/luzhanqi/prh.png">
+<img id="SouthOpenedFlag" style="display:none" src="images/luzhanqi/pfbb.png">
+<img id="NorthOpenedFlag" style="display:none" src="images/luzhanqi/pfbr.png">
+<img id="Ko" style="display:none" src="images/stratego/spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Traditional - China (<a target="_blank" href="https://en.wikipedia.org/wiki/Luzhanqi">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="451" height="609" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/uct-ai-v4.js"></script>
+<script src="scripts/spark-view.js"></script>
+<script src="scripts/luzhanqi-setup.js"></script>
+<script src="scripts/luzhanqi-goal.js"></script>
+<script src="scripts/luzhanqi-extension.js"></script>
+<script src="scripts/luzhanqi.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

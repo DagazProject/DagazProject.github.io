@@ -1,0 +1,56 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chinese Checkers Capturing</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/chinese/board.png">
+<img id="RedMan" style="display:none" src="images/chinese/red.png">
+<img id="PurpleMan" style="display:none" src="images/chinese/purple.png">
+<img id="YellowMan" style="display:none" src="images/chinese/yellow.png">
+<img id="BlueMan" style="display:none" src="images/chinese/blue.png">
+<img id="GreenMan" style="display:none" src="images/chinese/green.png">
+<img id="OrangeMan" style="display:none" src="images/chinese/orange.png">
+<img id="RedDead" style="display:none" src="images/chinese/red.png">
+<img id="PurpleDead" style="display:none" src="images/chinese/purple.png">
+<img id="YellowDead" style="display:none" src="images/chinese/yellow.png">
+<img id="BlueDead" style="display:none" src="images/chinese/blue.png">
+<img id="GreenDead" style="display:none" src="images/chinese/green.png">
+<img id="OrangeDead" style="display:none" src="images/chinese/orange.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) 1928 Bill and Jack Pressman (<a target="_blank" href="https://en.wikipedia.org/wiki/Chinese_checkers">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="chinese-checkers-capturing.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="806" height="574" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/seedrandom.min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/chinese-capturing-extension.js"></script>
+<script src="scripts/chinese-capturing-setup.js"></script>
+<script src="scripts/chinese-checkers-capturing.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

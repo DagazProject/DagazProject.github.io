@@ -1,0 +1,62 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>5 Tigers (Black)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/10x9.png">
+<img id="RedTiger" style="display:none" src="images/rsoldier.png">
+<img id="BlackTiger" style="display:none" src="images/bsoldier.png">
+<img id="RedSoldier" style="display:none" src="images/rsoldier.png">
+<img id="BlackSoldier" style="display:none" src="images/bsoldier.png">
+<img id="RedHorse" style="display:none" src="images/rhorse.png">
+<img id="BlackHorse" style="display:none" src="images/bhorse.png">
+<img id="RedElephant" style="display:none" src="images/relephant.png">
+<img id="BlackElephant" style="display:none" src="images/belephant.png">
+<img id="RedChariot" style="display:none" src="images/rchariot.png">
+<img id="BlackChariot" style="display:none" src="images/bchariot.png">
+<img id="RedCannon" style="display:none" src="images/rcannon.png">
+<img id="BlackCannon" style="display:none" src="images/bcannon.png">
+<img id="RedMandarin" style="display:none" src="images/rmandarin.png">
+<img id="BlackMandarin" style="display:none" src="images/bmandarin.png">
+<img id="RedGeneral" style="display:none" src="images/rgeneral.png">
+<img id="BlackGeneral" style="display:none" src="images/bgeneral.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://www.chessvariants.com/xiangqivariants.dir/tigers.html">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="tigers-black-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="411" height="458" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/uct-ai-v4.js"></script>
+<script src="scripts/tigers-ai.js"></script>
+<script src="scripts/tigers-invariant.js"></script>
+<script src="scripts/tigers-restrictions.js"></script>
+<script src="scripts/tigers-black.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

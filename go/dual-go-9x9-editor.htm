@@ -1,0 +1,79 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dual Go</title>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/igo/9x9.png">
+<img id="BlackStone" style="display:none" src="images/igo/b.png">
+<img id="WhiteStone" style="display:none" src="images/igo/w.png">
+<img id="Black0" style="display:none" src="images/igo/0b.png">
+<img id="Black1" style="display:none" src="images/igo/1b.png">
+<img id="Black2" style="display:none" src="images/igo/2b.png">
+<img id="Black3" style="display:none" src="images/igo/3b.png">
+<img id="Black4" style="display:none" src="images/igo/4b.png">
+<img id="Black5" style="display:none" src="images/igo/5b.png">
+<img id="Black6" style="display:none" src="images/igo/6b.png">
+<img id="Black7" style="display:none" src="images/igo/7b.png">
+<img id="Black8" style="display:none" src="images/igo/8b.png">
+<img id="Black9" style="display:none" src="images/igo/9b.png">
+<img id="White0" style="display:none" src="images/igo/0w.png">
+<img id="White1" style="display:none" src="images/igo/1w.png">
+<img id="White2" style="display:none" src="images/igo/2w.png">
+<img id="White3" style="display:none" src="images/igo/3w.png">
+<img id="White4" style="display:none" src="images/igo/4w.png">
+<img id="White5" style="display:none" src="images/igo/5w.png">
+<img id="White6" style="display:none" src="images/igo/6w.png">
+<img id="White7" style="display:none" src="images/igo/7w.png">
+<img id="White8" style="display:none" src="images/igo/8w.png">
+<img id="White9" style="display:none" src="images/igo/9w.png">
+<img id="BlackD" style="display:none" src="images/igo/bd.png">
+<img id="WhiteD" style="display:none" src="images/igo/wd.png">
+<img id="BlackO" style="display:none" src="images/igo/bo.png">
+<img id="WhiteO" style="display:none" src="images/igo/wo.png">
+<img id="BlackF" style="display:none" src="images/igo/bf.png">
+<img id="WhiteF" style="display:none" src="images/igo/wf.png">
+<img id="BlackC" style="display:none" src="images/igo/bc.png">
+<img id="WhiteC" style="display:none" src="images/igo/wc.png">
+
+<table style="margin:auto; font-family:sans-serif; font-size:14px" id="Table">
+<tr><td>
+<a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+</td></tr>
+<tr style="height:462px; vertical-align:top">
+<td id="CanvasCell" style="width:462px">
+<canvas id="Canvas" width="462" height="462" style="cursor:default">Broken canvas...</canvas>
+</td><td style="width:300px;">
+<div style="height:510px; overflow:auto" id="ScrollDiv">
+<img id="GlyphImage"><p id="HelpText"></p>
+<p id="GameSession"></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div style="height:100px; width:500px; margin-left:auto; margin-right:auto">
+<table>
+<tr style="display:none" id="PieceInfo">
+<td><img id="PieceInfoImage"></td><td id="PieceInfoText"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/dual-go-editor-extension.js"></script>
+<script src="scripts/dual-go-9x9-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

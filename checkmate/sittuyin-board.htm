@@ -1,0 +1,59 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Sittuyin</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/sittuyin.png">
+<img id="WhiteMin-gyi" style="display:none" src="images/wking.png">
+<img id="BlackMin-gyi" style="display:none" src="images/bking.png">
+<img id="WhiteSit-ke" style="display:none" src="images/wqueen.png">
+<img id="BlackSit-ke" style="display:none" src="images/bqueen.png">
+<img id="WhiteYahhta" style="display:none" src="images/wrook.png">
+<img id="BlackYahhta" style="display:none" src="images/brook.png">
+<img id="WhiteSin" style="display:none" src="images/wbishop.png">
+<img id="BlackSin" style="display:none" src="images/bbishop.png">
+<img id="WhiteMyin" style="display:none" src="images/wknight.png">
+<img id="BlackMyin" style="display:none" src="images/bknight.png">
+<img id="WhiteNe" style="display:none" src="images/wpawn.png">
+<img id="BlackNe" style="display:none" src="images/bpawn.png">
+<img id="Ko" style="display:none" src="images/small-spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://en.wikipedia.org/wiki/Sittuyin">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Model.go('sittuyin.htm', 8)">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('sittuyin-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="404" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/common-edit.js"></script>
+<script src="scripts/spark-view.js"></script>
+<script src="scripts/sittuyin-setup.js"></script>
+<script src="scripts/sittuyin-promotion.js"></script>
+<script src="scripts/sittuyin-invariant.js"></script>
+<script src="scripts/sittuyin-board.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

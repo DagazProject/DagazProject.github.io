@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Micro Shogi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/4x5.png">
+<img id="SouthKing" style="display:none" src="images/sking.png">
+<img id="NorthKing" style="display:none" src="images/nking.png">
+<img id="SouthBishop" style="display:none" src="images/sbishop.png">
+<img id="NorthBishop" style="display:none" src="images/nbishop.png">
+<img id="SouthTokin" style="display:none" src="images/spawnp.png">
+<img id="NorthTokin" style="display:none" src="images/npawnp.png">
+<img id="SouthGold" style="display:none" src="images/sgold.png">
+<img id="NorthGold" style="display:none" src="images/ngold.png">
+<img id="SouthRook" style="display:none" src="images/srookp.png">
+<img id="NorthRook" style="display:none" src="images/nrookp.png">
+<img id="SouthSilver" style="display:none" src="images/ssilver.png">
+<img id="NorthSilver" style="display:none" src="images/nsilver.png">
+<img id="SouthLance" style="display:none" src="images/slancep.png">
+<img id="NorthLance" style="display:none" src="images/nlancep.png">
+<img id="SouthPawn" style="display:none" src="images/spawn.png">
+<img id="NorthPawn" style="display:none" src="images/npawn.png">
+<img id="SouthKnight" style="display:none" src="images/sknightp.png">
+<img id="NorthKnight" style="display:none" src="images/nknightp.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1982 Oyama Yasuharu (<a target="_blank" href="https://en.wikipedia.org/wiki/Micro_shogi">rules</a>) 
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="micro-shogi-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="428" height="260" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="scripts/micro-shogi-ai.js"></script>
+<script src="scripts/micro-shogi-fen.js"></script>
+<script src="scripts/micro-shogi-invariant.js"></script>
+<script src="scripts/micro-shogi-extension.js"></script>
+<script src="scripts/micro-shogi.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

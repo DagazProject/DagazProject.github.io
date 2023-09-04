@@ -1,0 +1,47 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Walhall (impossible)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/walhall/walhall.png">
+<img id="DarkJotunnA" style="display:none" src="images/walhall/jta.png">
+<img id="DarkJotunnR" style="display:none" src="images/walhall/jtr.png">
+<img id="DarkJotunn" style="display:none" src="images/walhall/jt.png">
+<img id="LightValkyrieA" style="display:none" src="images/walhall/vla.png">
+<img id="LightValkyrieR" style="display:none" src="images/walhall/vlr.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2017 Valentin Chelnokov
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="walhall-impossible.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="644" height="644" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/walhall-fen.js"></script>
+<script src="scripts/walhall-extension.js"></script>
+<script src="scripts/walhall-impossible.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

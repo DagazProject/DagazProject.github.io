@@ -1,0 +1,70 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Oblong Shatranj</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/oblong.png">
+<img id="WhiteD1" style="display:none" src="images/dice/1.png">
+<img id="BlackD1" style="display:none" src="images/dice/1.png">
+<img id="WhiteD2" style="display:none" src="images/dice/2.png">
+<img id="BlackD2" style="display:none" src="images/dice/2.png">
+<img id="WhiteD3" style="display:none" src="images/dice/3.png">
+<img id="BlackD3" style="display:none" src="images/dice/3.png">
+<img id="WhiteD4" style="display:none" src="images/dice/4.png">
+<img id="BlackD4" style="display:none" src="images/dice/4.png">
+<img id="WhiteD5" style="display:none" src="images/dice/5.png">
+<img id="BlackD5" style="display:none" src="images/dice/5.png">
+<img id="WhiteD6" style="display:none" src="images/dice/6.png">
+<img id="BlackD6" style="display:none" src="images/dice/6.png">
+<img id="WhiteShah" style="display:none" src="images/wking.png">
+<img id="BlackShah" style="display:none" src="images/bking.png">
+<img id="WhiteFers" style="display:none" src="images/wqueen.png">
+<img id="BlackFers" style="display:none" src="images/bqueen.png">
+<img id="WhiteRokh" style="display:none" src="images/wrook.png">
+<img id="BlackRokh" style="display:none" src="images/brook.png">
+<img id="WhiteAlfil" style="display:none" src="images/wbishop.png">
+<img id="BlackAlfil" style="display:none" src="images/bbishop.png">
+<img id="WhiteAsb" style="display:none" src="images/wknight.png">
+<img id="BlackAsb" style="display:none" src="images/bknight.png">
+<img id="WhiteSarbaz" style="display:none" src="images/wpawn.png">
+<img id="BlackSarbaz" style="display:none" src="images/bpawn.png">
+<img id="WhitePass" style="display:none" src="images/dice/pass.png">
+<img id="BlackPass" style="display:none" src="images/dice/pass.png">
+<img id="Ko" style="display:none" src="images/dice/spark.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="http://history.chess.free.fr/oblong.htm">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="oblong-shatranj.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="849" height="204" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-v4.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/oblong-goal.js"></script>
+<script src="scripts/oblong-pass.js"></script>
+<script src="scripts/oblong-restrictions.js"></script>
+<script src="scripts/oblong-shatranj.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

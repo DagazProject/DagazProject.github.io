@@ -1,0 +1,72 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Labyrinth Chess</title>
+</head>
+<body>
+
+<img id="WhiteBoard" style="display:none" src="images/labyrinth.png">
+<img id="BlackBoard" style="display:none" src="images/labyrinthb.png">
+<img id="WhitePawn" style="display:none" src="images/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/shabel/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/wrook.png">
+<img id="BlackRook" style="display:none" src="images/shabel/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/shabel/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/shabel/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/shabel/bqueen.png">
+<img id="WhiteKing" style="display:none" src="images/wking.png">
+<img id="BlackKing" style="display:none" src="images/shabel/bking.png">
+
+<table style="margin:auto; font-family:sans-serif; font-size:14px" id="Table">
+<tr><td></a>
+Copyright (c) 2020 Valentin Chelnokov
+<a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="labyrinth-board.htm">no AI</a>
+<a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+</td></tr>
+<tr style="height:604px; vertical-align:top">
+<td id="CanvasCell" style="width:604px">
+<canvas id="canvas" width="604" height="604" style="cursor:default">Broken canvas...</canvas>
+</td><td style="width:300px;">
+<div style="height:510px; overflow:auto" id="ScrollDiv">
+<img id="GlyphImage"><p id="HelpText"></p>
+<p id="GameSession"></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div style="height:100px; width:500px; margin-left:auto; margin-right:auto">
+<table>
+<tr style="display:none" id="PieceInfo">
+<td><img id="PieceInfoImage"></td><td id="PieceInfoText"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-full.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/uct-ai-v5.js"></script>
+<script src="../common-scripts/fast-ai-v2.js"></script>
+<script src="scripts/labyrinth-ai.js"></script>
+<script src="scripts/labyrinth-view.js"></script>
+<script src="scripts/labyrinth-goal.js"></script>
+<script src="scripts/labyrinth-extension.js"></script>
+<script src="scripts/labyrinth.js"></script>
+<script src="../common-scripts/app-full.js"></script>
+
+</body>
+</html>

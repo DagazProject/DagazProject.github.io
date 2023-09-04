@@ -1,0 +1,60 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dark Mini XiangQi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/6x7.png">
+<img id="RedSoldier" style="display:none" src="images/kanji/wsoldier.png">
+<img id="BlackSoldier" style="display:none" src="images/kanji/bsoldier.png">
+<img id="RedHorse" style="display:none" src="images/kanji/whorse.png">
+<img id="BlackHorse" style="display:none" src="images/kanji/bhorse.png">
+<img id="RedChariot" style="display:none" src="images/kanji/wchariot.png">
+<img id="BlackChariot" style="display:none" src="images/kanji/bchariot.png">
+<img id="RedCannon" style="display:none" src="images/kanji/wcannon.png">
+<img id="BlackCannon" style="display:none" src="images/kanji/bcannon.png">
+<img id="RedMandarin" style="display:none" src="images/kanji/wmandarin.png">
+<img id="BlackMandarin" style="display:none" src="images/kanji/bmandarin.png">
+<img id="RedGeneral" style="display:none" src="images/kanji/wgeneral.png">
+<img id="BlackGeneral" style="display:none" src="images/kanji/bgeneral.png">
+<img id="Ko" style="display:none" src="images/ko.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) Robert Price 
+        designed by <a target="_blank" href="https://www.shutterstock.com/ru/g/SuanHsiao">SuanHsiao</a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="321" height="278" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="../common-scripts/fast-ai.js"></script>
+<script src="scripts/xiangqi-ai.js"></script>
+<script src="scripts/xiangqi-setup.js"></script>
+<script src="scripts/dark-xiangqi-view.js"></script>
+<script src="scripts/xiangqi-extension.js"></script>
+<script src="scripts/dark-mini-xiangqi.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

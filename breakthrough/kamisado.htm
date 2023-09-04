@@ -1,0 +1,80 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Kamisado</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/kamisado/board.png">
+<img id="WhiteOrangeDragon" style="display:none" src="images/kamisado/wo.png">
+<img id="BlackOrangeDragon" style="display:none" src="images/kamisado/bo.png">
+<img id="WhiteOrangeSumo" style="display:none" src="images/kamisado/wos.png">
+<img id="BlackOrangeSumo" style="display:none" src="images/kamisado/bos.png">
+<img id="WhiteBlueDragon" style="display:none" src="images/kamisado/wb.png">
+<img id="BlackBlueDragon" style="display:none" src="images/kamisado/bb.png">
+<img id="WhiteBlueSumo" style="display:none" src="images/kamisado/wbs.png">
+<img id="BlackBlueSumo" style="display:none" src="images/kamisado/bbs.png">
+<img id="WhitePurpleDragon" style="display:none" src="images/kamisado/wp.png">
+<img id="BlackPurpleDragon" style="display:none" src="images/kamisado/bp.png">
+<img id="WhitePurpleSumo" style="display:none" src="images/kamisado/wps.png">
+<img id="BlackPurpleSumo" style="display:none" src="images/kamisado/bps.png">
+<img id="WhitePinkDragon" style="display:none" src="images/kamisado/wi.png">
+<img id="BlackPinkDragon" style="display:none" src="images/kamisado/bi.png">
+<img id="WhitePinkSumo" style="display:none" src="images/kamisado/wis.png">
+<img id="BlackPinkSumo" style="display:none" src="images/kamisado/bis.png">
+<img id="WhiteYellowDragon" style="display:none" src="images/kamisado/wy.png">
+<img id="BlackYellowDragon" style="display:none" src="images/kamisado/by.png">
+<img id="WhiteYellowSumo" style="display:none" src="images/kamisado/wys.png">
+<img id="BlackYellowSumo" style="display:none" src="images/kamisado/bys.png">
+<img id="WhiteRedDragon" style="display:none" src="images/kamisado/wr.png">
+<img id="BlackRedDragon" style="display:none" src="images/kamisado/br.png">
+<img id="WhiteRedSumo" style="display:none" src="images/kamisado/wrs.png">
+<img id="BlackRedSumo" style="display:none" src="images/kamisado/brs.png">
+<img id="WhiteGreenDragon" style="display:none" src="images/kamisado/wg.png">
+<img id="BlackGreenDragon" style="display:none" src="images/kamisado/bg.png">
+<img id="WhiteGreenSumo" style="display:none" src="images/kamisado/wgs.png">
+<img id="BlackGreenSumo" style="display:none" src="images/kamisado/bgs.png">
+<img id="WhiteBrownDragon" style="display:none" src="images/kamisado/ww.png">
+<img id="BlackBrownDragon" style="display:none" src="images/kamisado/bw.png">
+<img id="WhiteBrownSumo" style="display:none" src="images/kamisado/wws.png">
+<img id="BlackBrownSumo" style="display:none" src="images/kamisado/bws.png">
+<img id="Ko" style="display:none" src="images/kamisado/ko.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2008 Peter Burley (<a target="_blank" href="http://www.boardspace.net/kamisado/english/RULES%20ENG.pdf">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="kamisado-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="401" height="400" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/sgf-parser.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/uct-ai-v2.js"></script>
+<script src="../common-scripts/fast-ai.js"></script>
+<script src="scripts/kamisado-view.js"></script>
+<script src="scripts/kamisado-extension.js"></script>
+<script src="scripts/kamisado.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

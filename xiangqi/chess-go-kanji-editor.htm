@@ -1,0 +1,55 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chess Go</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/chessgo/9x9.png">
+<img id="BlackStone" style="display:none" src="images/chessgo/bstone.png">
+<img id="WhiteStone" style="display:none" src="images/chessgo/wstone.png">
+<img id="BlackSoldier" style="display:none" src="images/kanji/bsoldier.png">
+<img id="WhiteSoldier" style="display:none" src="images/kanji/wsoldier.png">
+<img id="BlackHorse" style="display:none" src="images/kanji/bhorse.png">
+<img id="WhiteHorse" style="display:none" src="images/kanji/whorse.png">
+<img id="BlackElephant" style="display:none" src="images/kanji/belephant.png">
+<img id="WhiteElephant" style="display:none" src="images/kanji/welephant.png">
+<img id="BlackChariot" style="display:none" src="images/kanji/bchariot.png">
+<img id="WhiteChariot" style="display:none" src="images/kanji/wchariot.png">
+<img id="BlackCannon" style="display:none" src="images/kanji/bcannon.png">
+<img id="WhiteCannon" style="display:none" src="images/kanji/wcannon.png">
+<img id="BlackMandarin" style="display:none" src="images/kanji/bmandarin.png">
+<img id="WhiteMandarin" style="display:none" src="images/kanji/wmandarin.png">
+<img id="BlackGeneral" style="display:none" src="images/kanji/bgeneral.png">
+<img id="WhiteGeneral" style="display:none" src="images/kanji/wgeneral.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        Copyright (c) Valentin Chelnokov
+        designed by <a target="_blank" href="https://www.shutterstock.com/ru/g/SuanHsiao">SuanHsiao</a>
+        <a href="javascript:Dagaz.Controller.newGame()">Clear</a>
+        <a href="javascript:Dagaz.Controller.go('chess-go-kanji-board.htm')">Play</a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="411" height="413" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="scripts/chess-go-editor-extension.js"></script>
+<script src="scripts/chess-go-editor-reserve.js"></script>
+<script src="scripts/chess-go-editor.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

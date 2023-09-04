@@ -1,0 +1,51 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Bushi</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/bushi/board.png">
+<img id="WhiteSmall" style="display:none" src="images/bushi/wsmall.png">
+<img id="BlackSmall" style="display:none" src="images/bushi/bsmall.png">
+<img id="WhiteMedium" style="display:none" src="images/bushi/wmedium.png">
+<img id="BlackMedium" style="display:none" src="images/bushi/bmedium.png">
+<img id="WhiteLarge" style="display:none" src="images/bushi/wlarge.png">
+<img id="BlackLarge" style="display:none" src="images/bushi/blarge.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+Copyright (c) 1970 Henri Sala
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+<a href="bushi.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="863" height="863" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/sgf-parser.js"></script>
+<script src="scripts/bushi-goal.js"></script>
+<script src="scripts/bushi-restriction.js"></script>
+<script src="scripts/bushi-extension.js"></script>
+<script src="scripts/bushi.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

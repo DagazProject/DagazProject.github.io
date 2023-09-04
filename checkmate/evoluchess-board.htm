@@ -1,0 +1,66 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>EVOLUCHESS</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/evoluchess/chess8x8.png">
+<img id="Promote-5" style="display:none" src="images/evoluchess/dialog-5.png">
+<img id="Promote-2" style="display:none" src="images/evoluchess/dialog-2.png">
+<img id="WhiteKing" style="display:none" src="images/evoluchess/wking.png">
+<img id="BlackKing" style="display:none" src="images/evoluchess/bking.png">
+<img id="WhitePawn" style="display:none" src="images/evoluchess/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/evoluchess/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/evoluchess/wrook.png">
+<img id="BlackRook" style="display:none" src="images/evoluchess/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/evoluchess/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/evoluchess/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/evoluchess/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/evoluchess/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/evoluchess/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/evoluchess/bqueen.png">
+<img id="WhiteWall" style="display:none" src="images/evoluchess/wwall.png">
+<img id="BlackWall" style="display:none" src="images/evoluchess/bwall.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2020 Michele Alessandro Tumbarello
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="evoluchess.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('evoluchess-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="542" height="542" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v3.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/sgf-parser.js"></script>
+<script src="scripts/evoluchess-edit.js"></script>
+<script src="scripts/evoluchess-ai.js"></script>
+<script src="scripts/evoluchess-goal.js"></script>
+<script src="scripts/evoluchess-promotion.js"></script>
+<script src="scripts/evoluchess-king.js"></script>
+<script src="scripts/evoluchess-split.js"></script>
+<script src="scripts/evoluchess-shoot.js"></script>
+<script src="scripts/evoluchess-wall.js"></script>
+<script src="scripts/evoluchess.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

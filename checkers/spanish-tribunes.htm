@@ -1,0 +1,57 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Straight Tribunes</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/8x8.png">
+<img id="WhiteM1" style="display:none" src="images/wman.png">
+<img id="BlackM1" style="display:none" src="images/bman.png">
+<img id="WhiteM2" style="display:none" src="images/wman-2.png">
+<img id="BlackM2" style="display:none" src="images/bman-2.png">
+<img id="WhiteM3" style="display:none" src="images/wman-3.png">
+<img id="BlackM3" style="display:none" src="images/bman-3.png">
+<img id="WhiteK1" style="display:none" src="images/wdamone.png">
+<img id="BlackK1" style="display:none" src="images/bdamone.png">
+<img id="WhiteK2" style="display:none" src="images/wdamone-2.png">
+<img id="BlackK2" style="display:none" src="images/bdamone-2.png">
+<img id="WhiteK3" style="display:none" src="images/wdamone-3.png">
+<img id="BlackK3" style="display:none" src="images/bdamone-3.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Experimental
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="spanish-tribunes-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="404" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/uct-ai-v4.js"></script>
+<script src="scripts/russian-checkers-extension.js"></script>
+<script src="scripts/tribunes-extension.js"></script>
+<script src="scripts/russian-captures.js"></script>
+<script src="scripts/spanish-tribunes.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>
