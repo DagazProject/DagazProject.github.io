@@ -1,0 +1,30 @@
+.divGameIconWrap {
+    display: flex; 
+    flex-wrap:wrap;
+}
+
+.divGameIcon
+{
+    text-align:center;
+    margin:7px;
+    flex-basis: 200px;
+    height:210px;
+    flex-grow:2; 
+    max-width:260px;
+    min-width:130px;
+    flex-shrink:2;
+}
+
+.divGameIcon a {
+    display: block;
+}
+
+.divGameIcon img {
+    max-width: 100%;
+}
+
+@media (max-width:640px) { 
+    .divGameIcon { 
+        flex-basis:160px; 
+    } 
+}
