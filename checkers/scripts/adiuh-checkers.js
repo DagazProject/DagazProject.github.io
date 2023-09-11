@@ -2,6 +2,7 @@ Dagaz.Controller.persistense = "session";
 Dagaz.View.TARGET_COLOR = "#FFC44E";
 Dagaz.Model.BOARD_SIZE = 64;
 Dagaz.Model.WIDTH = 8;
+Dagaz.Model.HEIGHT = 8;
 
 ZRF = {
     JUMP:          0,
