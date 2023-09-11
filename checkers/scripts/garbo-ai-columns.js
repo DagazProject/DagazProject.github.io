@@ -150,7 +150,7 @@ Dagaz.AI.ResetGame = function() {
 }
 
 Dagaz.AI.InitializeFromFen = function(fen) {
-    var chunks = fen.split(' ');
+    var chunks = fen.split('-');
 
     clearStacks();
     for (var i = 0; i < 256; i++) 
@@ -214,7 +214,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                     }
                 }
                 
-                Dagaz.AI.g_board[Dagaz.AI.MakeSquare(row, col)] = piece;
+                if ((row < Dagaz.Model.HEIGHT) && (Dagaz.Model.WIDTH)) {
+                    Dagaz.AI.g_board[Dagaz.AI.MakeSquare(row, col)] = piece;
+                }
                 col++;
             }
         }

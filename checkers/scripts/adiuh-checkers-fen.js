@@ -213,9 +213,9 @@ Dagaz.Model.getSetup = function(design, board) {
   }
   str += getGlobal(design, board);
   if (board.turn == 0) {
-      str += " w";
+      str += "-w";
   } else {
-      str += " b";
+      str += "-b";
   }
   if (Dagaz.Controller.persistense == "setup") {
       var s = str + "&game=" + getName() + "*";
