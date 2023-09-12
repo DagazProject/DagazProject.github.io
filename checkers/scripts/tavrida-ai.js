@@ -125,8 +125,11 @@ Dagaz.AI.FormatMove = function(move) {
 }
 
 function GenerateCaptureMoves(moves) {
-  var color = Dagaz.AI.g_toMove ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
+  var color = Dagaz.AI.g_toMove ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;   
   for (var pos = 0; pos < 256; pos++) {
+       if (Dagaz.AI.g_lastPos > 0) {
+           if (pos != Dagaz.AI.g_lastPos) continue;
+       }
        if (Dagaz.AI.g_board[pos] & color) {
            GenerateCaptureMovesFrom(moves, pos);
        }
@@ -134,6 +137,7 @@ function GenerateCaptureMoves(moves) {
 }
 
 function GenerateQuietMoves(moves) {
+  if (Dagaz.AI.g_lastPos > 0) return;
   var color = Dagaz.AI.g_toMove ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
   for (var pos = 0; pos < 256; pos++) {
        if (Dagaz.AI.g_board[pos] & color) {
@@ -218,53 +222,6 @@ Dagaz.AI.IsHashMoveValid = function(move) {
         if ((dir <= 17) && (dir >= -17)) return false;
     }
     return true;
-}
-
-function GenerateCaptureMoves(moves) {
-  var color = Dagaz.AI.g_toMove ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
-  for (var pos = 0; pos < 256; pos++) {
-       if (Dagaz.AI.g_board[pos] & color) {           
-           GenerateCaptureMovesFrom(moves, pos);
-       }
-  }
-}
-
-function GenerateQuietMoves(moves) {
-  var color = Dagaz.AI.g_toMove ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
-  for (var pos = 0; pos < 256; pos++) {
-       if (Dagaz.AI.g_board[pos] & color) {
-           GenerateQuietMovesFrom(moves, pos);
-       }
-  }
-}
-
-function CheckInvariant(moves) {
-  var mx = 0;
-  for (var i = 0; i < moves.length; i++) {
-      if (mx < moves[i].length) mx = moves[i].length;
-  }
-  var result = [];
-  for (var i = 0; i < moves.length; i++) {
-      if (moves[i].length == mx) result.push(moves[i]);
-  }
-  return result;
-}
-
-Dagaz.AI.GenerateAllMoves = function() {
-  var moves = [];
-  GenerateCaptureMoves(moves);
-  moves = CheckInvariant(moves);
-  if (moves.length == 0) {
-      GenerateQuietMoves(moves);
-  }
-  return moves;
-}
-
-Dagaz.AI.GenerateCaptureMoves = function() {
-  var moves = [];
-  GenerateCaptureMoves(moves);
-  moves = CheckInvariant(moves);
-  return moves;
 }
 
 function GenerateQuietStep(moves, from, to, isMan) {

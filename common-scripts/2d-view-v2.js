@@ -676,7 +676,11 @@ View2D.prototype.draw = function(canvas) {
                var board = Dagaz.Controller.app.board;
                if (_.indexOf(b.t, board.turn) < 0) return;
            }
-           ctx.drawImage(b.h, b.x, b.y);
+           let x = b.x;
+           let y = b.y;
+           let dx = b.dx;
+           let dy = b.dy;     
+           ctx.drawImage(b.h, 0, 0, b.dx, b.dy, b.x, b.y, canvas.width - x * 2,canvas.height - y * 2);
       });
       if (!_.isUndefined(Dagaz.View.showBoard)) {
            var board = this.controller.getBoard();

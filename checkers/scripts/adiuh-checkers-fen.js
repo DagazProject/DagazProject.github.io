@@ -173,9 +173,9 @@ var getPieceNotation = function(design, piece) {
 var getGlobal = function(design, board) {
   var to = board.getValue(0);
   var from = board.getValue(1);
-  var r = '';
+  var r = '-';
   if ((from !== null) && (to !== null)) {
-      r = '-' + Dagaz.Model.posToString(from, design) + Dagaz.Model.posToString(to, design);
+      r = r + Dagaz.Model.posToString(from, design) + Dagaz.Model.posToString(to, design);
   }
   return r;
 }

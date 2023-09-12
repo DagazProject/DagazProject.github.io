@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "session";
+Dagaz.Controller.persistense = "none";
 Dagaz.View.TARGET_COLOR = "#FFC44E";
 Dagaz.Model.BOARD_SIZE = 80;
 Dagaz.Model.WIDTH = 10;
@@ -31,6 +31,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "from");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("se"); // 0
     design.addDirection("sw"); // 1
