@@ -302,7 +302,11 @@ function GenerateCaptureMovesFromTree(moves, from, isMan, stack, restricted) {
 
 function GenerateCaptureMovesFrom(moves, from) {
     var piece = Dagaz.AI.g_board[from] & Dagaz.AI.TYPE_MASK;   
-    GenerateCaptureMovesFromTree(moves, from, piece == pieceMan, new Array());
+    if ((Dagaz.AI.g_lastPos > 0) && (Dagaz.AI.g_lastDir != 0)) {
+        GenerateCaptureMovesFromTree(moves, from, piece == pieceMan, new Array(), -Dagaz.AI.g_lastDir);
+    } else {
+        GenerateCaptureMovesFromTree(moves, from, piece == pieceMan, new Array());
+    }
 }
 
 function GenerateQuietMovesFrom(moves, from) {

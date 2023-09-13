@@ -26,6 +26,7 @@ var moveflagPromotion   = 0x01000000;
 var moveflagUnPromotion = 0x02000000;
 
 Dagaz.AI.g_lastPos      = -1;
+Dagaz.AI.g_lastDir      = 0;
 
 var stacks = new Array();
 var g_moveUndoStack = new Array();
@@ -151,6 +152,18 @@ Dagaz.AI.ResetGame = function() {
   pieceSquareAdj[pieceKing >> Dagaz.AI.STACK_SIZE] = MakeTable(Dagaz.AI.pieceAdj[pieceKing >> Dagaz.AI.STACK_SIZE]);
 }
 
+Dagaz.AI.GetDirection = function(dir) {
+  if (dir > 0) {
+      if ((dir % 17) == 0) return 17;
+      if ((dir % 15) == 0) return 15;
+  }
+  if (dir < 0) {
+      if ((-dir % 17) == 0) return -17;
+      if ((-dir % 15) == 0) return -15;
+  }
+  return 0;
+}
+
 Dagaz.AI.InitializeFromFen = function(fen) {
     var chunks = fen.split('-');
 
@@ -229,6 +242,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
 	var col = chunks[1].charAt(2).charCodeAt() - 'a'.charCodeAt();
 	var row = Dagaz.Model.HEIGHT - (chunks[1].charAt(3).charCodeAt() - '0'.charCodeAt());
         Dagaz.AI.g_lastPos = Dagaz.AI.MakeSquare(row, col);
+	col = chunks[1].charAt(0).charCodeAt() - 'a'.charCodeAt();
+	row = Dagaz.Model.HEIGHT - (chunks[1].charAt(1).charCodeAt() - '0'.charCodeAt());
+        Dagaz.AI.g_lastDir = Dagaz.AI.GetDirection(Dagaz.AI.g_lastPos - Dagaz.AI.MakeSquare(row, col));
     }
 
     Dagaz.AI.g_toMove = chunks[2].charAt(0) == 'w' ? Dagaz.AI.colorWhite : pieceEmpty;
@@ -256,14 +272,15 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     return '';
 }
 
-function UndoHistory(move, step, baseEval, hashKeyLow, hashKeyHigh, move50, last) {
+function UndoHistory(move, step, baseEval, hashKeyLow, hashKeyHigh, move50, pos, dir) {
     this.move = move;
     this.step = step;
     this.baseEval = baseEval;
     this.hashKeyLow = hashKeyLow;
     this.hashKeyHigh = hashKeyHigh;
     this.move50 = move50;
-    this.last = last;
+    this.pos = pos;
+    this.dir = dir;
 }
 
 Dagaz.AI.MakeStep = function(move, step) {
@@ -276,10 +293,11 @@ Dagaz.AI.MakeStep = function(move, step) {
     var captured = target ? Dagaz.AI.g_board[target] : pieceEmpty;
     var piece = Dagaz.AI.g_board[from];
 
-    g_moveUndoStack[Dagaz.AI.g_moveCount] = new UndoHistory(move, step, Dagaz.AI.g_baseEval, Dagaz.AI.g_hashKeyLow, Dagaz.AI.g_hashKeyHigh, Dagaz.AI.g_move50, Dagaz.AI.g_lastPos);
+    g_moveUndoStack[Dagaz.AI.g_moveCount] = new UndoHistory(move, step, Dagaz.AI.g_baseEval, Dagaz.AI.g_hashKeyLow, Dagaz.AI.g_hashKeyHigh, Dagaz.AI.g_move50, Dagaz.AI.g_lastPos, Dagaz.AI.g_lastDir);
     Dagaz.AI.g_moveCount++;
 
     Dagaz.AI.g_lastPos = -1;
+    Dagaz.AI.g_lastDir = 0;
 
     if (captured) {
         var capturedType = (captured & Dagaz.AI.TYPE_MASK) >> Dagaz.AI.STACK_SIZE;
@@ -369,7 +387,8 @@ Dagaz.AI.UnmakeStep = function() {
     Dagaz.AI.g_hashKeyLow = g_moveUndoStack[Dagaz.AI.g_moveCount].hashKeyLow;
     Dagaz.AI.g_hashKeyHigh = g_moveUndoStack[Dagaz.AI.g_moveCount].hashKeyHigh;
     Dagaz.AI.g_move50 = g_moveUndoStack[Dagaz.AI.g_moveCount].move50;
-    Dagaz.AI.g_lastPos = g_moveUndoStack[Dagaz.AI.g_moveCount].last;
+    Dagaz.AI.g_lastPos = g_moveUndoStack[Dagaz.AI.g_moveCount].pos;
+    Dagaz.AI.g_lastDir = g_moveUndoStack[Dagaz.AI.g_moveCount].dir;
 
     var flags = move & 0xFF000000;
     var captured = null;
