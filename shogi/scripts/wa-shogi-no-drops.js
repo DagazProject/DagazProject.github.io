@@ -1,9 +1,10 @@
-Dagaz.View.CHECK_CANVAS = true;
+Dagaz.View.CHECK_CANVAS   = true;
+Dagaz.View.SCALE_SIZE     = true;
 
-Dagaz.Model.WIDTH       = 11;
-Dagaz.Model.HEIGHT      = 11;
+Dagaz.Model.WIDTH         = 11;
+Dagaz.Model.HEIGHT        = 11;
 
-Dagaz.AI.NO_DROPS       = true;
+Dagaz.AI.NO_DROPS         = true;
 
 ZRF = {
     JUMP:          0,

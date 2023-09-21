@@ -535,11 +535,15 @@ View2D.prototype.draw = function(canvas) {
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       _.each(this.board, function(b) {
-           let x = b.x;
-           let y = b.y;
-           let dx = b.dx;
-           let dy = b.dy;     
-           ctx.drawImage(b.h, 0, 0, b.dx, b.dy, b.x, b.y, canvas.width - x * 2,canvas.height - y * 2);
+           if (Dagaz.View.SCALE_SIZE) {
+               let x = b.x;
+               let y = b.y;
+               let dx = b.dx;
+               let dy = b.dy;     
+               ctx.drawImage(b.h, 0, 0, b.dx, b.dy, b.x, b.y, canvas.width - x * 2,canvas.height - y * 2);
+           } else {
+               ctx.drawImage(b.h, b.x, b.y);
+           }
       });
       _.chain(_.range(this.setup.length))
        .sortBy(function(ix) {

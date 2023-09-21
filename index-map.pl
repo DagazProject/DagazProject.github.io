@@ -11,7 +11,7 @@ print "  <body>\n";
 print "    <div class=\"divGameIconWrap\">\n";
 
 while (<>) {
-  if (/^[^;]+;([^;]+);([^;]+);([^;]*);([^;]+)/) {
+  if (/^[^;]+;([^;]*);([^;]+);([^;]*);([^;]+)/) {
       my $name = $1;
       my $href = $2;
       my $rule = $3;
@@ -20,15 +20,17 @@ while (<>) {
       print "        <a href=\"$href\">\n";
       print "          <img src=\"upload/$view.png\">\n";
       print "        </a>\n";
-      print "        <p>\n";
-      if ($rule) {
-          print "          <a target=\"_blank\" href=\"$rule\">\n";
+      if ($name) {
+          print "        <p>\n";
+          if ($rule) {
+              print "          <a target=\"_blank\" href=\"$rule\">\n";
+          }
+          print "            <b>$name</b>\n";
+          if ($rule) {
+              print "          </a>\n";
+          }
+          print "        </p>\n";
       }
-      print "            <b>$name</b>\n";
-      if ($rule) {
-          print "          </a>\n";
-      }
-      print "        </p>\n";
       print "      </div>\n";
   }
 }

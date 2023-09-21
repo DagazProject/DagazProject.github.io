@@ -132,8 +132,10 @@ Dagaz.Model.setup = function(board, init) {
       var r = setup.match(/[wb]-([a-g]\d+)/);
       if (r) {
           var pos = Dagaz.Model.stringToPos(r[1], design);
-          checkPassant(board, pos + 7);
-          checkPassant(board, pos - 7);
+          if (pos !== null) {
+              checkPassant(board, pos + 7);
+              checkPassant(board, pos - 7);
+          }
       }
       var turn = getTurn(init);
       if (turn) {
