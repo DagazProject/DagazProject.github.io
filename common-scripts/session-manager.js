@@ -1,8 +1,10 @@
 (function() {
 
 Dagaz.Model.DETAIL_MOVE_DESCRIPTION = false;
+Dagaz.Controller.INDO_ONCE = false;
 
 var sessionManager = null;
+var hideUndo = false;
 
 function SessionManager(controller) {
   this.controller = controller;
@@ -55,7 +57,7 @@ SessionManager.prototype.updateButtons = function() {
   } else {
       undo.style.display = "none";
   }
-  if (!_.isUndefined(this.current) && !_.isUndefined(this.current.current)) {
+  if (!_.isUndefined(this.current) && !_.isUndefined(this.current.current) && !Dagaz.Controller.INDO_ONCE) {
       redo.style.display = "inline";
   } else {
       redo.style.display = "none";
@@ -139,6 +141,7 @@ SessionManager.prototype.load = function(sgf) {
 }
 
 SessionManager.prototype.addState = function(move, board) {
+  hideUndo = false;
   var current = {
       move:   move,
       board:  board,
@@ -262,6 +265,7 @@ SessionManager.prototype.undo = function() {
 }
 
 Dagaz.Controller.undo = function() {
+  if (hideUndo) return;
   var sm = Dagaz.Controller.getSessionManager();
   if (_.isUndefined(sm.current) || _.isUndefined(sm.controller.setBoard) || !sm.controller.isReady()) return;
   var current = sm.current;
@@ -281,6 +285,10 @@ Dagaz.Controller.undo = function() {
   }
   sm.controller.setBoard(board);
   sm.updateButtons();
+  if (Dagaz.Controller.INDO_ONCE) {
+      undo.style.display = "none";
+      hideUndo = true;
+  }
 }
 
 var clearGame = Dagaz.Controller.clearGame;
@@ -317,7 +325,7 @@ window.onkeyup = function(event) {
   if (name == 'd') {
       Dagaz.Controller.undo();
   }
-  if  (name == 'u') {
+  if ((name == 'u') && !Dagaz.Controller.INDO_ONCE) {
       Dagaz.Controller.redo();
   }
   if (onkeyup) {

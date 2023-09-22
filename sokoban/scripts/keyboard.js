@@ -1,5 +1,8 @@
 (function() {
 
+Dagaz.Controller.persistense = "none";
+Dagaz.Controller.INDO_ONCE = true;
+
 var DEF_TIMEOUT = 100;
 
 var DIR_NAMES   = {
@@ -42,6 +45,9 @@ var exec = function() {
               app.move  = moves[0];
               app.board = app.board.apply(app.move);
               app.state = 4; // STATE.EXEC
+              if (!_.isUndefined(Dagaz.Controller.addState)) {
+                  Dagaz.Controller.addState(app.move, app.board);
+              }
               delete app.list;
               Dagaz.Controller.app.run();
           }

@@ -14,8 +14,12 @@
 
 <div class="center-body">
     <div class="canvas-wrap" id="canvasFit">
-        <div class="cc2">Copyright (c) 1981 Hiroyuki Imabayashi (<a target="_blank" href="https://en.wikipedia.org/wiki/Sokoban">rules</a>)<br>
-        <canvas id="Canvas" width="288" height="274" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        <div class="cc2">
+            <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+            <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+            Copyright (c) 1981 Hiroyuki Imabayashi (<a target="_blank" href="https://en.wikipedia.org/wiki/Sokoban">rules</a>)
+            <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+            <br><canvas id="Canvas" width="288" height="265" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
         </div>
     </div>
 </div>
@@ -27,6 +31,8 @@
 <script src="../common-scripts/zobrist.js"></script>
 <script src="../common-scripts/2d-view-v2.js"></script>
 <script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
 <script src="scripts/keyboard.js"></script>
 <script src="scripts/sokoban-goal.js"></script>
 <script src="scripts/sokoban-06.js"></script>

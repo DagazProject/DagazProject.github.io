@@ -1,14 +1,14 @@
 ﻿Elimination games;Abalone;index-map-abalone.html;https://en.wikipedia.org/wiki/Abalone_(board_game);abalone-1;1987 Michel Lalet and Laurent Levi
 Breakthrough games;Alapo;breakthrough/alapo.htm;https://www.chessvariants.com/small.dir/alapo.html;alapo;1982 Johannes Tranelis
 Checkers games;Alquerque;index-map-alquerque.html;https://en.wikipedia.org/wiki/Alquerque;alquerque;
-Checkers games;Altai Shatra;checkers/altai-shatra.htm;https://en.wikipedia.org/wiki/Shatra_(game);shatra-1;
+Checkers games;Altai Shatra;index-map-shatra.html;https://en.wikipedia.org/wiki/Shatra_(game);shatra-1;
 Stalemate games;Amazons;stalemate/amazons.htm;https://www.iggamecenter.com/en/rules/amazons;amazons;1988 Walter Zamkauskas
 Checkmate games;Andalusia;checkmate/andalusia.htm;;andalusia;2009 Chris Huntoon
 Elimination games;Apocalypse;elimination/apocalypse.htm;https://en.wikipedia.org/wiki/Apocalypse_(chess_variant);apocalypse;1976 C. S. Elliott
 Breakthrough games;Archimedes;breakthrough/archimedes.htm;http://www.di.fc.ul.pt/~jpn/gv/archimedes.htm;archimedes;1988 Scott Marley and Philip Cohen
 Go family;Atari Go;go/atari-go.htm;https://senseis.xmp.net/?AtariGo;go-9x9;
-Races;Backgammon;races/backgammon.htm;https://bkgm.com/rules.html;backgammon;
-Elimination games;BanQi;xiangqi/banqi-taiwanese.htm;https://en.wikipedia.org/wiki/Banqi;banqi;
+Races;Backgammon;index-map-backgammon.html;;backgammon;
+Elimination games;BanQi;index-map-banqi.html;https://en.wikipedia.org/wiki/Banqi;banqi;
 Other puzzles;Bulls and Cows;arrange/mastermind.htm;;mastermind;
 Arrange games;Captain's Mistress;arrange/connect-four.htm;https://en.wikipedia.org/wiki/Connect_Four;connect-four;1974 Milton Bradley
 Checkers games;Checkers;index-map-checkers.html;https://en.wikipedia.org/wiki/Russian_draughts;russian-checkers-1;
@@ -23,6 +23,7 @@ Checkers games;Column Checkers;index-map-columns.html;https://en.wikipedia.org/w
 Races;Dodgem;races/dodgem-7x7.htm;http://www.di.fc.ul.pt/~jpn/gv/dodgem.htm;dodgem;1972 Colin Vout
 Checkers games;Fanorona;checkers-like/fanorona-riatra.htm;https://en.wikipedia.org/wiki/Fanorona;fanorona;
 Other puzzles;Filler;control/filler-40x20.htm;;filler;
+Breakthrough games;French Military Games;index-map-french.html;;french-1;
 Elimination games;Four Lines Kono;elimination/kono.htm;http://www.di.fc.ul.pt/~jpn/gv/kono2.htm;kono;
 Checkers games;Fox and Geese;index-map-fox.html;https://en.wikipedia.org/wiki/Fox_games;fox-and-geese;
 Other puzzles;Fox Hunting;elimination/fox-hunting.htm;;fox-hunting;
@@ -32,8 +33,10 @@ Go family;Go;go/go-19x19-advisor.htm;https://en.wikipedia.org/wiki/Rules_of_Go;g
 Arrange games;Hex;arrange/hex.htm;https://www.iggamecenter.com/en/rules/hex;hex;1942 Piet Hein and John Nash
 Chess family;Hexagonal Chess;index-map-hexchess.html;;glinski;
 Chess family;Hiashatar;checkmate/hiashatar.htm;https://en.wikipedia.org/wiki/Hiashatar;hiashatar;
+Breakthrough games;Horn Chess;breakthrough/horn-chess-hard.htm;;horn;
 Races;Hounds and Jackals;races/shen.htm;https://en.wikipedia.org/wiki/Hounds_and_jackals;shen;
 XiangQi family;Janggi;index-map-janggi.html;https://en.wikipedia.org/wiki/Janggi;janggi;
+Breakthrough games;Just You Wait!;breakthrough/just-you-wait.htm;;just-you-wait;Isaak Shafran
 Breakthrough games;Jungle;breakthrough/jungle.htm;https://en.wikipedia.org/wiki/Jungle_(board_game);jungle;
 Breakthrough games;Kamisado;breakthrough/kamisado.htm;http://www.boardspace.net/kamisado/english/RULES%20ENG.pdf;kamisado;2008 Peter Burley
 Other puzzles;Klondike;arrange/klondike.htm;;klondike;
@@ -41,7 +44,6 @@ Arrange games;L-Game;arrange/l-game.htm;https://en.wikipedia.org/wiki/L_game;l-g
 Chess family;Legan Chess;checkmate/legan-chess.htm;https://en.wikipedia.org/wiki/Legan_chess;legan-chess;1913 L. Legan
 LightOff puzzles;LightOff;light-off/4x4-wazir.htm;https://en.wikipedia.org/wiki/Lights_Out_(game);lights-off;
 Other puzzles;Lines;arrange/lines.htm;;lines;
-Elimination games;Liuzi ChongQi;stalemate/gonu.htm;https://en.wikipedia.org/wiki/Cinc_Camins;liuzi-chongqi;
 Elimination games;Maharadja;elimination/maharadja.htm;https://en.wikipedia.org/wiki/Maharajah_and_the_Sepoys;maharadja-1;
 Other puzzles;Mahjong solitaire;arrange/mahjong-solitaire.htm;;mahjong-solitaire;
 Chess family;Makruk;checkmate/makruk.htm;https://en.wikipedia.org/wiki/Makruk;makruk;
@@ -61,10 +63,12 @@ Arrange games;Renju;renju/renju.htm;https://en.wikipedia.org/wiki/Renju;renju;
 Custodian games;Reversi;index-map-reversi.html;https://en.wikipedia.org/wiki/Reversi;reversi-1;1883 Lewis Waterman, John W. Mollett
 Custodian games;Seega;custodian/seega.htm;http://www.cyningstan.com/game/120/seega;seega;
 Chess family;Shatranj;checkmate/shatranj.htm;https://en.wikipedia.org/wiki/Shatranj;shatranj-93;
+Arrange games;Shisima;arrange/shisima.htm;https://en.wikipedia.org/wiki/Shisima;shisima;
 Shogi family;Shogi;index-map-shogi.html;https://en.wikipedia.org/wiki/Shogi;shogi-1;
 Chess family;Sittuyin;checkmate/sittuyin.htm;https://en.wikipedia.org/wiki/Sittuyin;sittuyin;
 Sliding puzzles;Sliding puzzles;index-map-sliding.html;;donkey_1;
 Other puzzles;Sokoban;index-map-sokoban.html;https://en.wikipedia.org/wiki/Sokoban;sokoban-01;1981 Hiroyuki Imabayashi
+Solitaire;Solitaire;index-map-solitaire.html;https://en.wikipedia.org/wiki/Solitaire;solitaire;
 Races;Suffragetto;checkers-like/suff.htm;http://suffrajitsu.com/play-suffragetto-online-the-1909-suffragettes-vs-police-board-game-meets-the-digital-age/;suff;1908 Women's Social and Political Union
 Elimination games;Surakarta;elimination/surakarta.htm;https://en.wikipedia.org/wiki/Surakarta_(game);surakarta;
 Mancala games;Toguz Kumalak;mancala/toguz-kumalak.htm;https://mancala.fandom.com/wiki/Toguz_Kumalak;toguz-kumalak;
