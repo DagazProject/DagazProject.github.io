@@ -1,5 +1,6 @@
 Dagaz.Controller.persistense = "none";
-Dagaz.Model.NO_SOUND = true;
+Dagaz.Controller.UNDO_ONCE   = true;
+Dagaz.Model.NO_SOUND         = true;
 
 Dagaz.Model.WIDTH  = 12;
 Dagaz.Model.HEIGHT = 8;

@@ -1,7 +1,7 @@
 (function() {
 
 Dagaz.Controller.persistense = "none";
-Dagaz.Controller.INDO_ONCE = true;
+Dagaz.Controller.UNDO_ONCE = true;
 
 var DEF_TIMEOUT = 100;
 

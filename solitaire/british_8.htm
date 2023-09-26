@@ -13,7 +13,9 @@
 <div class="center-body">
     <div class="canvas-wrap" id="canvasFit">
         <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
         <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
         </div>
         <div class="cc2">
         <canvas id="Canvas" width="360" height="360" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
@@ -28,6 +30,7 @@
 <script src="../common-scripts/zobrist.js"></script>
 <script src="../common-scripts/2d-view.js"></script>
 <script src="../common-scripts/move-list.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
 <script src="scripts/solitaire-extension.js"></script>
 <script src="scripts/british_8.js"></script>
 <script src="../common-scripts/app.js"></script>

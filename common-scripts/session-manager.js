@@ -1,7 +1,7 @@
 (function() {
 
 Dagaz.Model.DETAIL_MOVE_DESCRIPTION = false;
-Dagaz.Controller.INDO_ONCE = false;
+Dagaz.Controller.UNDO_ONCE = false;
 
 var sessionManager = null;
 var hideUndo = false;
@@ -57,7 +57,7 @@ SessionManager.prototype.updateButtons = function() {
   } else {
       undo.style.display = "none";
   }
-  if (!_.isUndefined(this.current) && !_.isUndefined(this.current.current) && !Dagaz.Controller.INDO_ONCE) {
+  if (!_.isUndefined(this.current) && !_.isUndefined(this.current.current) && !Dagaz.Controller.UNDO_ONCE) {
       redo.style.display = "inline";
   } else {
       redo.style.display = "none";
@@ -285,7 +285,7 @@ Dagaz.Controller.undo = function() {
   }
   sm.controller.setBoard(board);
   sm.updateButtons();
-  if (Dagaz.Controller.INDO_ONCE) {
+  if (Dagaz.Controller.UNDO_ONCE) {
       undo.style.display = "none";
       hideUndo = true;
   }
@@ -325,7 +325,7 @@ window.onkeyup = function(event) {
   if (name == 'd') {
       Dagaz.Controller.undo();
   }
-  if ((name == 'u') && !Dagaz.Controller.INDO_ONCE) {
+  if ((name == 'u') && !Dagaz.Controller.UNDO_ONCE) {
       Dagaz.Controller.redo();
   }
   if (onkeyup) {

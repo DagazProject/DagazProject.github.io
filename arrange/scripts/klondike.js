@@ -1,5 +1,6 @@
 Dagaz.Controller.persistense = "none";
-Dagaz.Model.NO_SOUND = true;
+Dagaz.Controller.UNDO_ONCE   = true;
+Dagaz.Model.NO_SOUND         = true;
 
 Dagaz.View.MARK_R = 20;
 
