@@ -1,5 +1,6 @@
 Dagaz.View.MARK_R = 12;
 Dagaz.View.CHECK_CANVAS = true;
+Dagaz.Model.showLose = false;
 
 ZRF = {
     JUMP:          0,
