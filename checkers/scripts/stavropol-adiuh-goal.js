@@ -40,14 +40,17 @@ var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
   var w = 0; var b = 0;
-  for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {
-      var piece = board.getPiece(pos);
-      if (piece !== null) {
-          if (piece.player == 1) w++;
-              else b++;
+  board.generate(design);
+  if (board.moves.length > 0) {
+      for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {
+          var piece = board.getPiece(pos);
+          if (piece !== null) {
+              if (piece.player == 1) w++;
+                  else b++;
+          }
       }
+      if ((w > 0) && (b > 0)) return checkGoals(design, board, player);
   }
-  if ((w > 0) && (b > 0)) return checkGoals(design, board, player);
   w = 0; var b = 0;
   for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {
        var piece = board.getPiece(pos);
