@@ -230,7 +230,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           move.goTo(board.turn);
           move.setValue(0, to);
           move.setValue(1, from);
-          if (piece.type == 1) {
+          if (piece.type > 1) {
               move.mode = 2;
           }
       } else {
