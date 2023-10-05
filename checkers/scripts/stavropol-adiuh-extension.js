@@ -217,7 +217,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       var b = board.apply(move);
       var f = false;
       var isKing = piece.type > 1;
-      if (design.inZone(board.player == 1 ? 0 : 1, board.player, to)) {
+      if (design.inZone(piece.player == 1 ? 0 : 1, board.player, to)) {
           isKing = true;
       }
       _.each(design.allDirections(), function(dir) {
@@ -236,7 +236,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       } else {
           move.setValue(0, null);
           move.setValue(1, null);
-          if ((piece.type > 1) && !design.inZone(board.player == 1 ? 0 : 1, board.player, to)) {
+          if ((piece.type > 1) && !design.inZone(piece.player == 1 ? 0 : 1, board.player, to)) {
               _.each(move.actions, function(a) {
                   if (a[0] === null) return;
                   if (a[1] === null) return;
