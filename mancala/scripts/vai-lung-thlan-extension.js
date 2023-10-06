@@ -69,6 +69,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                result[ix] = 0;
                pos = design.navigate(0, pos, dir);
                ix--;
+               if (ix < 0) ix = 11;
           }
           var pos = move.actions[0][0][0];
           for (var ix = 0; ix < result.length; ix++) {

@@ -25,7 +25,11 @@ while (<>) {
           if ($rule) {
               print "          <a target=\"_blank\" href=\"$rule\">\n";
           }
-          print "            <b>$name</b>\n";
+          if ($href =~ /index-map/) {
+              print "            <b>$name ...</b>\n";
+          } else {
+              print "            <b>$name</b>\n";
+          }
           if ($rule) {
               print "          </a>\n";
           }
