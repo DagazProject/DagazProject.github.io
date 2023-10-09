@@ -30,7 +30,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("mancala-view", "true");
     design.checkVersion("dearth-extension", "true");
     design.checkVersion("mancala-goal", "true");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("alemungula-extension", "true");
 
     design.addDirection("nx");

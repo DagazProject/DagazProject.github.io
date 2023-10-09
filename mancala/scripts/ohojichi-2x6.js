@@ -31,7 +31,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("pass-turn", "forced");
     design.checkVersion("mancala-setup", "4");
     design.checkVersion("mancala-view", "true");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("ohojichi-extension", "6");
 
     design.addDirection("nx");

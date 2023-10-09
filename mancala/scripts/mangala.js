@@ -28,8 +28,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("mancala-setup", "7");
     design.checkVersion("mancala-view", "true");
     design.checkVersion("dearth-extension", "true");
-    design.checkVersion("mancala-goal", "true");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("mancala-goal", "7");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("mangala-extension", "true");
 
     design.addDirection("nx");

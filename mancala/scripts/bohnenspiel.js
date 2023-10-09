@@ -27,8 +27,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("mancala-setup", "6");
     design.checkVersion("mancala-view", "true");
-    design.checkVersion("mancala-goal", "true");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("mancala-goal", "6");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("bohnenspiel-extension", "true");
 
     design.addDirection("nx");

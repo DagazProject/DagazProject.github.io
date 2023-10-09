@@ -30,7 +30,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("pass-turn", "forced");
     design.checkVersion("mancala-setup", "3");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("nx");
     design.addDirection("fr");

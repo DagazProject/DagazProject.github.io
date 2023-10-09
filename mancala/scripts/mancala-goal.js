@@ -1,6 +1,7 @@
 (function() {
 
 var isForced = false;
+var width    = 0;
 
 var MATERIAL_FACTOR = 10;
 
@@ -9,6 +10,9 @@ var checkVersion = Dagaz.Model.checkVersion;
 Dagaz.Model.checkVersion = function(design, name, value) {
   if (name == "mancala-goal") {
       isForced = (value == "forced");
+      if (value | 0 > 0) {
+          width = value | 0;
+      }
   } else {
       checkVersion(design, name, value);
   }
@@ -46,6 +50,26 @@ Dagaz.AI.heuristic = function(ai, design, board, move) {
   return 1;
 }
 
+var checkCycle = function(board) {
+  var s = []; var pos = width;
+  for (var ix = 0; ix < width; ix++, pos++) {
+       var piece = board.getPiece(pos);
+       if (piece !== null) {
+           var v = piece.getValue(0);
+           if ((v !== null) && (v == 1)) s.push(ix);
+       }
+  } pos = width - 1;
+  for (var ix = width; ix < width * 2; ix++, pos--) {
+       var piece = board.getPiece(pos);
+       if (piece !== null) {
+           var v = piece.getValue(0);
+           if ((v !== null) && (v == 1)) s.push(ix);
+       }
+  }
+  console.log(s);
+  return (s.length == 2) && (s[1] - s[0] == width);
+}
+
 var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
@@ -66,6 +90,11 @@ Dagaz.Model.checkGoals = function(design, board, player) {
                }
            }
        }
+  }
+  if ((width > 0) && checkCycle(board)) {
+      if (fr > er) return 1;
+      if (fr < er) return -1;
+      return 0;
   }
   if (!isForced && (fc == 0)) {
       if (board.player == player) {

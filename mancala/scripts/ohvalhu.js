@@ -34,7 +34,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("mancala-view", "true");
     design.checkVersion("dakon-restrictions", "extended");
     design.checkVersion("progressive-levels", "true");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("sx"); // 0
     design.addDirection("nx"); // 1

@@ -33,7 +33,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("dakon-extension", "simulate");
     design.checkVersion("dakon-extension", "mati-bela");
     design.checkVersion("dakon-restrictions", "extended");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("dakon-goal", "extended");
 
     design.addDirection("sx");

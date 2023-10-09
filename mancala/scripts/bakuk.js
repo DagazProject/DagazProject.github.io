@@ -26,7 +26,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("mancala-setup", "6");
-    design.checkVersion("advisor-wait", "15");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("nx"); // 0
     design.addDirection("rv"); // 1

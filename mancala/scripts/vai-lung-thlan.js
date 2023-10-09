@@ -29,7 +29,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("mancala-setup", "5");
     design.checkVersion("mancala-view", "true");
     design.checkVersion("mancala-goal", "forced");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("mancala-goal", "6");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("vai-lung-thlan-extension", "true");
 
     design.addDirection("nx");
