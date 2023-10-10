@@ -66,7 +66,6 @@ var checkCycle = function(board) {
            if ((v !== null) && (v == 1)) s.push(ix);
        }
   }
-  console.log(s);
   return (s.length == 2) && (s[1] - s[0] == width);
 }
 

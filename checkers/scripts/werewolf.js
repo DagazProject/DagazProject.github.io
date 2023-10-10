@@ -1,3 +1,8 @@
+Dagaz.Controller.persistense = "setup";
+
+Dagaz.Model.WIDTH  = 8;
+Dagaz.Model.HEIGHT = 8;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -141,27 +146,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	26);	// capture
     design.addCommand(2, ZRF.PARAM,	2);	// $3
     design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(2, ZRF.FUNCTION,	0);	// not
-    design.addCommand(2, ZRF.IF,	17);
-    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
-    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(2, ZRF.FUNCTION,	0);	// not
-    design.addCommand(2, ZRF.IF,	5);
-    design.addCommand(2, ZRF.PARAM,	3);	// $4
-    design.addCommand(2, ZRF.FUNCTION,	23);	// opposite
-    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(2, ZRF.JUMP,	-6);
-    design.addCommand(2, ZRF.FUNCTION,	26);	// capture
-    design.addCommand(2, ZRF.FUNCTION,	7);	// back
-    design.addCommand(2, ZRF.FORK,	3);
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
-    design.addCommand(2, ZRF.FUNCTION,	28);	// end
-    design.addCommand(2, ZRF.PARAM,	4);	// $5
-    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(2, ZRF.JUMP,	-18);
     design.addCommand(2, ZRF.FUNCTION,	28);	// end
 
     design.addCommand(3, ZRF.FUNCTION,	24);	// from
@@ -190,14 +180,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [2], 1);
 
     design.addPiece("King", 1, 10);
-    design.addMove(1, 2, [3, 3, 3, 3, 3], 0);
-    design.addMove(1, 2, [2, 2, 2, 2, 2], 0);
-    design.addMove(1, 2, [1, 1, 1, 1, 1], 0);
-    design.addMove(1, 2, [0, 0, 0, 0, 0], 0);
-    design.addMove(1, 3, [3, 3], 1);
-    design.addMove(1, 3, [2, 2], 1);
-    design.addMove(1, 3, [1, 1], 1);
-    design.addMove(1, 3, [0, 0], 1);
+    design.addMove(1, 2, [3, 3, 3], 0, 10);
+    design.addMove(1, 2, [2, 2, 2], 0, 10);
+    design.addMove(1, 2, [1, 1, 1], 0, 10);
+    design.addMove(1, 2, [0, 0, 0], 0, 10);
+    design.addMove(1, 3, [3, 3], 1, 10);
+    design.addMove(1, 3, [2, 2], 1, 10);
+    design.addMove(1, 3, [1, 1], 1, 10);
+    design.addMove(1, 3, [0, 0], 1, 10);
 
     design.setup("White", "Man", 56);
     design.setup("White", "Man", 58);

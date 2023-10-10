@@ -21,7 +21,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       var piece = board.getPiece(pos);
       if (piece === null) return;
       piece = piece.changeOwner(design.nextPlayer(board.player));
-      if ((piece.type != 0) && design.inZone(0, piece.player, move.actions[1][1][0])) {
+      if ((piece.type == 0) && design.inZone(0, piece.player, move.actions[1][1][0])) {
           piece = piece.promote(1);
       }
       move.actions[1][2] = [piece];
