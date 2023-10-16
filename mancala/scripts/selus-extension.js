@@ -91,6 +91,9 @@ Dagaz.Model.CheckInvariants = function(board) {
                    if (!design.inZone(2, board.player, pos)) {
                        fr = 2;
                        result[ix] = piece.getValue(0) - 1;
+                       if (piece.player == board.player) {
+                           move.goTo(board.turn);
+                       }
                    } else {
                        result[ix] = Math.abs(result[ix]);
                    }
