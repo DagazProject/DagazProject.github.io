@@ -90,11 +90,11 @@ Dagaz.Model.checkGoals = function(design, board, player) {
            }
        }
   }
-  if ((width > 0) && checkCycle(board)) {
+/*if ((width > 0) && checkCycle(board)) {
       if (fr > er) return 1;
       if (fr < er) return -1;
       return 0;
-  }
+  }*/
   if (!isForced && (fc == 0)) {
       if (board.player == player) {
           er += ec;
