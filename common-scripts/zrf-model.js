@@ -2,6 +2,8 @@
 
 var Z2J_VERSION = 2;
 
+Dagaz.Model.IGNORE_DROP_LASTT = false;
+
 Dagaz.Model.deferredStrike  = false;
 Dagaz.Model.discardCascades = false;
 Dagaz.Model.forkMode        = false;
@@ -2121,7 +2123,9 @@ ZrfBoard.prototype.movePiece = function(move, from, to, piece) {
 }
 
 ZrfBoard.prototype.dropPiece = function(move, pos, piece) {
-  this.lastt = pos;
+  if (!Dagaz.Model.IGNORE_DROP_LASTT) {
+      this.lastt = pos;
+  }
   Dagaz.Model.decReserve(this, piece);
   this.setPiece(pos, piece);
   this.changed.push(pos);

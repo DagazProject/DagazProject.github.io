@@ -33,8 +33,14 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   _.each(board.moves, function(move) {
-      if (!move.isSimpleMove()) return;
-      var pos = move.actions[0][0][0];
+      var pos = null;
+      for (var i = 0; i < move.actions.length; i++) {
+           if ((move.actions[i][0] !== null) && (move.actions[i][1] !== null)) {
+               pos = move.actions[i][0][0];
+               break;
+           }
+      }
+      if (pos === null) return;
       var piece = board.getPiece(pos);
       if (piece.type < 5) {
           move.dropPiece(pos, piece.promote(+piece.type + 1));

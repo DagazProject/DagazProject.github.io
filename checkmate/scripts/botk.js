@@ -1,5 +1,7 @@
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.Model.IGNORE_DROP_LASTT = true;
+
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;
 
@@ -30,6 +32,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
+    design.checkVersion("ko", "situation");
     design.checkVersion("advisor-wait", "25");
 
     design.addDirection("w");  // 0
@@ -108,7 +111,13 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("f1", [-1, 1, 0, -7, -8, 0, 0, -9]);
     design.addPosition("g1", [-1, 1, 0, -7, -8, 0, 0, -9]);
     design.addPosition("h1", [-1, 0, 0, 0, -8, 0, 0, -9]);
+    design.addPosition("X1", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X2", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X3", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X4", [0, 0, 0, 0, 0, 0, 0, 0]);
 
+    design.addZone("last-rank", 1, [0, 1, 2, 3, 4, 5, 6, 7]);
+    design.addZone("last-rank", 2, [56, 57, 58, 59, 60, 61, 62, 63]);
     design.addZone("third-rank", 1, [40, 41, 42, 43, 44, 45, 46, 47]);
     design.addZone("third-rank", 2, [16, 17, 18, 19, 20, 21, 22, 23]);
 
@@ -117,6 +126,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.IN_ZONE,	0);	// last-rank
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	4);
+    design.addCommand(0, ZRF.PROMOTE,	4);	// Queen
+    design.addCommand(0, ZRF.FUNCTION,	25);	// to
+    design.addCommand(0, ZRF.JUMP,	2);
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
@@ -125,7 +140,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.IN_ZONE,	0);	// third-rank
+    design.addCommand(1, ZRF.IN_ZONE,	1);	// third-rank
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.PARAM,	1);	// $2
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
@@ -139,6 +154,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.IN_ZONE,	0);	// last-rank
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	4);
+    design.addCommand(2, ZRF.PROMOTE,	4);	// Queen
+    design.addCommand(2, ZRF.FUNCTION,	25);	// to
+    design.addCommand(2, ZRF.JUMP,	2);
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
     design.addCommand(2, ZRF.FUNCTION,	28);	// end
 
@@ -349,4 +370,10 @@ Dagaz.View.configure = function(view) {
     view.defPosition("f1", 342, 478, 68, 68);
     view.defPosition("g1", 410, 478, 68, 68);
     view.defPosition("h1", 478, 478, 68, 68);
+
+    view.defPopup("Promote", 127, 100);
+    view.defPopupPosition("X1", 10, 7, 68, 68);
+    view.defPopupPosition("X2", 80, 7, 68, 68);
+    view.defPopupPosition("X3", 150, 7, 68, 68);
+    view.defPopupPosition("X4", 220, 7, 68, 68);
 }
