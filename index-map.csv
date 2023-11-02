@@ -21,6 +21,7 @@ Breakthrough games;Chessball;breakthrough/chessball.htm;;chessball;1957 Kamzolov
 Chess family;Chessence;checkmate/chessence.htm;https://en.wikipedia.org/wiki/Chessence;chessence;2000 Jason D. Wittman
 Races;Chinese Checkers;index-map-chinese-checkers.html;https://en.wikipedia.org/wiki/Chinese_checkers;chinese-checkers;1928 Bill and Jack Pressman
 Elimination games;Cinc Camins;index-map-cinc.html;https://en.wikipedia.org/wiki/Cinc_Camins;cinc-camins;
+Custodian;Co Ganh;custodian/co-ganh.htm;https://vi.wikipedia.org/wiki/C%E1%BB%9D_g%C3%A1nh;co-ganh;
 Checkers games;Column Checkers;index-map-columns.html;https://en.wikipedia.org/wiki/Bashni;column-checkers;
 Races;Dodgem;races/dodgem-7x7.htm;http://www.di.fc.ul.pt/~jpn/gv/dodgem.htm;dodgem;1972 Colin Vout
 Checkers games;Fanorona;checkers-like/fanorona-riatra.htm;https://en.wikipedia.org/wiki/Fanorona;fanorona;
@@ -36,8 +37,8 @@ Arrange games;Hex;arrange/hex.htm;https://www.iggamecenter.com/en/rules/hex;hex;
 Chess family;Hexagonal Chess;index-map-hexchess.html;;glinski;
 Chess family;Hiashatar;checkmate/hiashatar.htm;https://en.wikipedia.org/wiki/Hiashatar;hiashatar;
 Breakthrough games;Horn Chess;breakthrough/horn-chess-hard.htm;;horn;
-Races;Hounds and Jackals;races/shen.htm;https://en.wikipedia.org/wiki/Hounds_and_jackals;shen;
 XiangQi family;Janggi;index-map-janggi.html;https://en.wikipedia.org/wiki/Janggi;janggi;
+Races;Jeson Mor;races/jeson-mor.htm;https://en.wikipedia.org/wiki/Jeson_Mor;jeson-mor;
 Breakthrough games;Just You Wait!;breakthrough/just-you-wait.htm;;just-you-wait;Isaak Shafran
 Breakthrough games;Jungle;breakthrough/jungle.htm;https://en.wikipedia.org/wiki/Jungle_(board_game);jungle;
 Breakthrough games;Kamisado;breakthrough/kamisado.htm;http://www.boardspace.net/kamisado/english/RULES%20ENG.pdf;kamisado;2008 Peter Burley
@@ -57,7 +58,6 @@ Breakthrough games;Nubia;breakthrough/nubia.htm;;nubia;2009 Chris Huntoon
 Breakthrough games;Ordo;index-map-ordo.html;https://www.iggamecenter.com/en/rules/ordo;ordo;2009 Dieter Stein
 Elimination games;Pasang;index-map-pasang.html;https://en.wikipedia.org/wiki/Pasang_(game);pasang-1;
 Chess family;Platform Chess;index-map-platform.html;;platform-chess-1;2001 Robert Price
-Races;Puluc;races/puluc.htm;https://en.wikipedia.org/wiki/Bul_(game);puluc;
 Arrange games;Renju;index-map-renju.html;https://en.wikipedia.org/wiki/Renju;renju;
 Custodian games;Reversi;index-map-reversi.html;https://en.wikipedia.org/wiki/Reversi;reversi-1;1883 Lewis Waterman, John W. Mollett
 Custodian games;Seega;index-map-seega.html;http://www.cyningstan.com/game/120/seega;seega;
@@ -75,6 +75,6 @@ Chess family;Tile Chess;index-map-tile.html;;tile-chess;
 Chess family;Turnover;index-map-turnover.html;https://www.chessvariants.com/rules/turnover;turnover-1;2019 Lucio Jose Patrocinio Filho
 Elimination games;Ultima;custodian/ultima.htm;https://www.chessvariants.com/other.dir/ultima.html;ultima;1962 Robert Abbott
 Arrange games;Ultimate tic-tac-toe;arrange/uxo.htm;https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe;uxo;
-Races;Ur;races/ur.htm;;ur;2011 Dmitry Skiryuk
+Races;Ur;index-map-ur.html;;ur;2011 Dmitry Skiryuk
 Checkers games;Walhall;index-map-walhall.html;;walhall-3;2017 Valentin Chelnokov
 XiangQi family;XiangQi;index-map-xiangqi.html;https://en.wikipedia.org/wiki/Xiangqi;xiangqi;

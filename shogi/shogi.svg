@@ -11,8 +11,10 @@
 </g>
 <!-- Heian shogi -->
 <g class="node" id="node2"><title>Heian shogi</title>
+<a xlink:href="heian-shogi.htm">
 <ellipse fill="red" stroke="black" cx="567" cy="-378" rx="57.1488" ry="18" />
 <text font-family="Times,serif" font-size="14" text-anchor="middle" x="567" y="-373.8">Heian shogi</text>
+</a>
 </g>
 <!-- Makruk&#45;&gt;Heian shogi -->
 <g class="edge" id="edge2"><title>Makruk-&gt;Heian shogi</title>
