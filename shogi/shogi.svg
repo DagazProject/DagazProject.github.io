@@ -33,8 +33,10 @@
 </g>
 <!-- Sho shogi -->
 <g class="node" id="node4"><title>Sho shogi</title>
+<a xlink:href="sho-shogi.htm">
 <ellipse fill="red" stroke="black" cx="670" cy="-306" rx="49.1016" ry="18" />
 <text font-family="Times,serif" font-size="14" text-anchor="middle" x="670" y="-301.8">Sho shogi</text>
+</a>
 </g>
 <!-- Heian shogi&#45;&gt;Sho shogi -->
 <g class="edge" id="edge6"><title>Heian shogi-&gt;Sho shogi</title>

@@ -82,6 +82,16 @@ var createPiece = function(design, c) {
   if (c == 'l') return Dagaz.Model.createPiece(design.getPieceType("Lance"), 2);
   if (c == 'P') return Dagaz.Model.createPiece(design.getPieceType("Pawn"), 1);
   if (c == 'p') return Dagaz.Model.createPiece(design.getPieceType("Pawn"), 2);
+  if (c == 'B') return Dagaz.Model.createPiece(design.getPieceType("Bishop"), 1);
+  if (c == 'b') return Dagaz.Model.createPiece(design.getPieceType("Bishop"), 2);
+  if (c == 'H') return Dagaz.Model.createPiece(design.getPieceType("BishopP"), 1);
+  if (c == 'h') return Dagaz.Model.createPiece(design.getPieceType("BishopP"), 2);
+  if (c == 'R') return Dagaz.Model.createPiece(design.getPieceType("Rook"), 1);
+  if (c == 'r') return Dagaz.Model.createPiece(design.getPieceType("Rook"), 2);
+  if (c == 'D') return Dagaz.Model.createPiece(design.getPieceType("RookP"), 1);
+  if (c == 'd') return Dagaz.Model.createPiece(design.getPieceType("RookP"), 2);
+  if (c == 'E') return Dagaz.Model.createPiece(design.getPieceType("DrunkenElephant"), 1);
+  if (c == 'e') return Dagaz.Model.createPiece(design.getPieceType("DrunkenElephant"), 2);
   return null;
 }
 
@@ -121,6 +131,11 @@ var getPieceNotation = function(design, piece) {
   if (piece.type == design.getPieceType("Knight"))  r = 'N';
   if (piece.type == design.getPieceType("Lance"))   r = 'L';
   if (piece.type == design.getPieceType("Gold"))    r = 'G';
+  if (piece.type == design.getPieceType("Bishop"))  r = 'B';
+  if (piece.type == design.getPieceType("BishopP")) r = 'H';
+  if (piece.type == design.getPieceType("Rook"))    r = 'R';
+  if (piece.type == design.getPieceType("RookP"))   r = 'D';
+  if (piece.type == design.getPieceType("DrunkenElephant")) r = 'E';
   if (piece.player > 1) {
       return r.toLowerCase();
   }
