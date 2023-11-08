@@ -165,16 +165,6 @@ function GenerateQuietMoves(moves) {
   }
 }
 
-function isBad(move) {
-  var captured = [];
-  for (var i = 0; i < move.length; i++) {
-       var pos = (move[i] >> 16) & 0xFF;
-       if (_.indexOf(captured, pos) >= 0) return true;
-       captured.push(pos);
-  }
-  return false;
-}
-
 function CheckInvariant(moves) {
   var mx = 0;
   for (var i = 0; i < moves.length; i++) {
