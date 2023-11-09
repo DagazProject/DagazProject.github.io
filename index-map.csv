@@ -30,6 +30,7 @@ Breakthrough games;French Military Games;index-map-french.html;;french-1;
 Elimination games;Four Lines Kono;index-map-kono.html;http://www.di.fc.ul.pt/~jpn/gv/kono2.htm;kono;
 Checkers games;Fox and Geese;index-map-fox.html;https://en.wikipedia.org/wiki/Fox_games;fox-and-geese;
 Other puzzles;Fox Hunting;elimination/fox-hunting.htm;;fox-hunting;
+Races;Gala;control/gala.htm;https://www.chessvariants.com/historic.dir/gala.html;gala;
 Breakthrough games;Gate;breakthrough/gate.htm;https://www.iggamecenter.com/en/rules/gate;gate;2010 Gregory Keith Van Patten
 Breakthrough games;Gauntlet;breakthrough/gauntlet-8x8.htm;https://www.di.fc.ul.pt/~jpn/gv/gauntlet.htm;gauntlet;1980 Phillip L. Leduc
 Go family;Go;go/go-19x19-advisor.htm;https://en.wikipedia.org/wiki/Rules_of_Go;go-19x19;
@@ -38,16 +39,20 @@ Chess family;Hexagonal Chess;index-map-hexchess.html;;glinski;
 Chess family;Hiashatar;checkmate/hiashatar.htm;https://en.wikipedia.org/wiki/Hiashatar;hiashatar;
 Breakthrough games;Horn Chess;index-map-horn.html;;horn;
 XiangQi family;Janggi;index-map-janggi.html;https://en.wikipedia.org/wiki/Janggi;janggi;
+Races;Jasir;races/jasir.htm;https://en.wikipedia.org/wiki/Jarmo_(game);jasir;
 Races;Jeson Mor;races/jeson-mor.htm;https://en.wikipedia.org/wiki/Jeson_Mor;jeson-mor;
 Breakthrough games;Just You Wait!;breakthrough/just-you-wait.htm;;just-you-wait;Isaak Shafran
 Breakthrough games;Jungle;breakthrough/jungle.htm;https://en.wikipedia.org/wiki/Jungle_(board_game);jungle;
 Breakthrough games;Kamisado;breakthrough/kamisado.htm;http://www.boardspace.net/kamisado/english/RULES%20ENG.pdf;kamisado;2008 Peter Burley
 Other puzzles;Klondike;index-map-klondike.html;;klondike;
+Stalemate games;Konane;stalemate/konane.htm;https://en.wikipedia.org/wiki/Konane;konane;
 Arrange games;L-Game;arrange/l-game.htm;https://en.wikipedia.org/wiki/L_game;l-game;1967 Edward de Bono
 LightOff puzzles;LightOff;index-map-lightoff.html;https://en.wikipedia.org/wiki/Lights_Out_(game);lights-off;
 Other puzzles;Lines;arrange/lines.htm;;lines;
 Other puzzles;Mahjong solitaire;index-map-mahjong.html;;mahjong-solitaire-1;
 Chess family;Makruk;index-map-makruk.html;https://en.wikipedia.org/wiki/Makruk;makruk;
+Custodian;Makyek;index-map-makyek.html;https://en.wikipedia.org/wiki/Mak-yek;makyek-1;
+Elimination games;Mana;index-map-mana.html;;mana-1;2005 Claude Leroy
 Mancala games;Mancala;index-map-mancala.html;;oware;
 Other puzzles;Mine Sweeper;elimination/mine-sweeper-16x16.htm;;mine-sweeper;
 Custodian games;Ming Mang;index-map-ming-mang.html;https://www.di.fc.ul.pt/~jpn/gv/mingmang.htm;ming-mang-17x17;
@@ -68,8 +73,11 @@ Chess family;Sittuyin;index-map-sittuyin.html;https://en.wikipedia.org/wiki/Sitt
 Sliding puzzles;Sliding puzzles;index-map-sliding.html;;donkey_1;
 Other puzzles;Sokoban;index-map-sokoban.html;https://en.wikipedia.org/wiki/Sokoban;sokoban-01;1981 Hiroyuki Imabayashi
 Solitaire;Solitaire;index-map-solitaire.html;https://en.wikipedia.org/wiki/Solitaire;solitaire;
+Elimination games;Spock;elimination/spock.htm;;spock;2017 Valentin Chelnokov
+Chess family;Straits;checkmate/straits.htm;https://www.chess.com/blog/Pokshtya/chess-variant-from-1893;straits;1893 Anna Marriott Watson
 Races;Suffragetto;checkers-like/suff.htm;http://suffrajitsu.com/play-suffragetto-online-the-1909-suffragettes-vs-police-board-game-meets-the-digital-age/;suff;1908 Women's Social and Political Union
 Elimination games;Surakarta;elimination/surakarta.htm;https://en.wikipedia.org/wiki/Surakarta_(game);surakarta;
+Custodian;Tafl Games;index-map-tafl.html;;brandubh;
 Elimination games;Thud!;elimination/thud.htm;https://en.wikipedia.org/wiki/Games_of_the_Discworld#Thud;thud;2002 Trevor Truran
 Chess family;Tile Chess;index-map-tile.html;;tile-chess;
 Chess family;Turnover;index-map-turnover.html;https://www.chessvariants.com/rules/turnover;turnover-1;2019 Lucio Jose Patrocinio Filho
