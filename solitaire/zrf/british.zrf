@@ -1,0 +1,175 @@
+(define step (
+  $1 (verify not-empty?)
+  capture 
+  $1 (verify empty?)
+  add
+))
+
+(game
+   (title "British Solitaire")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+;  (option "show hints"       false)
+
+   (players You)
+   (turn-order You)
+
+   (board
+      (image "images/british.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+      (zone (name goal) 
+         (players You) 
+         (positions d4)
+      )
+   )
+
+   (piece
+      (image You "images/man.bmp")
+      (name  Stone)
+      (help "Stone")
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+   )
+
+   (board-setup
+      (You (Stone a3 a4 a5 b3 b4 b5 c1 c2 c3 c4 c5 c6 c7 d1 d2 d3 d5 d6 d7 e1 e2 e3 e4 e5 e6 e7 f3 f4 f5 g3 g4 g5))
+   )
+)
+
+(variant
+   (title "Latin cross")
+   (board-setup
+      (You (Stone d3 d4 d5 d6 c5 e5))
+   )
+)
+
+(variant
+   (title "Greek cross")
+   (board-setup
+      (You (Stone b4 c4 d2 d3 d4 d5 d6 e4 f4))
+   )
+)
+
+(variant
+   (title "Large cross")
+   (board-setup
+      (You (Stone a4 b4 c3 c4 c5 d1 d2 d3 d5 d6 d7 e3 e4 e5 f4 g4))
+   )
+)
+
+(variant
+   (title "Tiny Diamond")
+   (board-setup
+      (You (Stone b4 c3 c4 c5 d2 d3 d5 d6 e3 e4 e5 f4))
+   )
+)
+
+(variant
+   (title "Diamond")
+   (board-setup
+      (You (Stone a4 b3 b4 b5 c2 c3 c4 c5 c6 d1 d2 d3 d5 d6 d7 e2 e3 e4 e5 e6 f3 f4 f5 g4))
+   )
+)
+
+(variant
+   (title "Tiny Pyramid")
+   (board-setup
+      (You (Stone b3 c3 c4 d3 d4 d5 e3 e4 f3))
+   )
+)
+
+(variant
+   (title "Pyramid")
+   (board-setup
+      (You (Stone a3 b3 b4 c3 c4 c5 d3 d4 d5 d6 e3 e4 e5 f3 f4 g3))
+   )
+)
+
+(variant
+   (title "Arrow")
+   (board-setup
+      (You (Stone b5 c1 c2 c5 c6 d1 d2 d3 d4 d5 d6 d7 e1 e2 e5 e6 f5))
+   )
+)
+
+(variant
+   (title "Double Arrow")
+   (board-setup
+      (You (Stone b3 b5 c2 c3 c4 c5 c6 d1 d2 d3 d4 d5 d6 d7 e2 e3 e4 e5 e6 f3 f5))
+   )
+)
+
+(variant
+   (title "Huge Arrow")
+   (board-setup
+      (You (Stone a3 a4 b3 b4 b5 c1 c2 c3 c4 c5 c6 d1 d2 d3 d4 d5 d6 d7 e1 e2 e3 e4 e5 e6 f3 f4 f5 g3 g4))
+   )
+)
+
+(variant
+   (title "Four Knights")
+   (board-setup
+      (You (Stone a3 a4 a5 b3 b4 b5 c1 c2 c4 c6 c7 d1 d2 d3 d4 d5 d6 d7 e1 e2 e4 e6 e7 f3 f4 f5 g3 g4 g5))
+   )
+)
+
+(variant
+   (title "Christmas Tree")
+   (board-setup
+      (You (Stone a3 b3 b4 c3 c4 c5 d1 d2 d3 d5 d6 d7 e3 e4 e5 f3 f4 g3))
+   )
+)
+
+(variant
+  (title "8x3 Solitaire")
+  (default)
+  (board
+     (image "images/8x3.bmp")
+     (grid
+         (start-rectangle 12 12 60 60)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (48 0)) ; files
+           ("3/2/1" (0 48)) ; ranks
+         )
+         (directions (n 0 -1) (w -1 0) (s 0 1) (e 1 0))
+     )
+  )
+  (piece
+      (image You "images/wman.bmp")
+      (name  White)
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+  )
+  (piece
+      (image You "images/bman.bmp")
+      (name  Black)
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+  )
+  (board-setup
+      (You (White a1) (Black b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2))
+  )
+)

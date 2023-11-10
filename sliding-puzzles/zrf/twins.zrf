@@ -1,0 +1,55 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "5 Twins")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e" (100 0)) ; files
+           ("3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0000  1)
+  (T R0010C 2) (T R0001P 2)
+  (T R0100C 3) (T R1000C 3)
+  (T R0010P 4) (T R0001C 4)
+  (T R0000P 5)
+  (T R0100P 6) (T R1000P 6)
+  (T R0000C 7)
+  (T R0000  8)
+  (T R0000  9)
+
+  (board-setup
+     (You 
+         (R00001 b3)
+         (R0010C2 c3) (R0001P2 c2)
+         (R0100C3 d3) (R1000C3 e3)
+         (R0010P4 a2) (R0001C4 a1)
+         (R0000P5 b2)
+         (R0100P6 d2) (R1000P6 e2)
+         (R0000C7 b1)
+         (R00008 c1)
+         (R00009 d1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0010C2 (a2 b2 c2 d2 e2))
+     (absolute-config R0100C3 (a2 b2 c2 d2 e2))
+     (absolute-config R1000C3 (a2 b2 c2 d2 e2))
+     (absolute-config R0001C4 (a2 b2 c2 d2 e2))
+     (absolute-config R0000C7 (a2 b2 c2 d2 e2))
+  ))
+)

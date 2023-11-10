@@ -1,0 +1,182 @@
+(version "3.0")
+
+(define shift (
+   $1 (verify not-friend?)
+   (verify (not-in-zone? water))
+   (verify (not-in-zone? home))
+   add
+))
+
+(define slide (
+   $1 (verify (in-zone? water))
+   (while (in-zone? water) 
+      (verify empty?)
+      $1
+   )
+   (verify not-friend?)
+   add
+))
+
+(define rat-shift (
+   $1 (verify not-friend?) 
+   (verify (not-in-zone? home))
+   add
+))
+
+(define p
+   (piece
+      (name $1)
+      (image Red "images/jungle/Red$1.bmp"
+             Green "images/jungle/Black$1.bmp")
+      (glyph Red "images/jungle/Red$1Glyph.bmp"
+             Green "images/jungle/Black$1Glyph.bmp")
+      (attribute weight $2)
+      (moves
+         (shift n) (shift s) (shift w) (shift e)
+      )
+   )
+)
+
+(game
+    (title "Jungle")
+
+    (option "highlight goals"  false)
+    (option "jungle-extension" strict)
+    (option "ko" situation)
+
+    (players Red Green)
+    (turn-order Red Green)
+
+    (board
+        (image "images/jungle/board.bmp")
+        (grid
+            (start-rectangle 4 3 70 69) ; top-left position
+            (dimensions
+                ("a/b/c/d/e/f/g" (66 0)) ; columns
+                ("9/8/7/6/5/4/3/2/1" (0 66)) ; rows
+            )
+            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+        )
+        (zone (name trap)  
+           (glyph "images/jungle/Trap.bmp")
+           (help "Trap")
+           (players Red) 
+           (positions c9 d8 e9)
+        )
+        (zone (name trap)  
+           (glyph "images/jungle/Trap.bmp")
+           (help "Trap")
+           (players Green) 
+           (positions c1 d2 e1)
+        )
+        (zone (name water)  
+           (glyph "images/jungle/Water.bmp")
+           (help "Water")
+           (players Red Green) 
+           (positions b6 b5 b4 c6 c5 c4 e6 e5 e4 f6 f5 f4)
+        )
+        (zone (name home)  
+           (glyph "images/jungle/Home.bmp")
+           (help "Home")
+           (players Red) 
+           (positions d1)
+        )
+        (zone (name home)  
+           (players Green) 
+           (positions d9)
+        )
+   )
+  
+   (piece
+      (name Rat)
+      (attribute weight 1)
+      (image Red "images/jungle/RedRat.bmp"
+             Green "images/jungle/BlackRat.bmp")
+      (glyph Red "images/jungle/RedRatGlyph.bmp"
+             Green "images/jungle/BlackRatGlyph.bmp")
+      (moves
+         (rat-shift n) (rat-shift s) (rat-shift w) (rat-shift e)
+      )
+   )
+   (p Cat 2)
+   (p Dog 3)
+   (p Fox 4)
+   (piece
+      (name Panther)
+      (image Red "images/jungle/RedPanther.bmp"
+             Green "images/jungle/BlackPanther.bmp")
+      (glyph Red "images/jungle/RedPantherGlyph.bmp"
+             Green "images/jungle/BlackPantherGlyph.bmp")
+      (attribute weight 5)
+      (moves
+         (shift n) (shift s) (shift w) (shift e)
+         (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Tiger)
+      (image Red "images/jungle/RedTiger.bmp"
+             Green "images/jungle/BlackTiger.bmp")
+      (glyph Red "images/jungle/RedTigerGlyph.bmp"
+             Green "images/jungle/BlackTigerGlyph.bmp")
+      (attribute weight 7)
+      (moves
+         (shift n) (shift s) (shift w) (shift e)
+         (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Lion)
+      (image Red "images/jungle/RedLion.bmp"
+             Green "images/jungle/BlackLion.bmp")
+      (glyph Red "images/jungle/RedLionGlyph.bmp"
+             Green "images/jungle/BlackLionGlyph.bmp")
+      (attribute weight 7)
+      (moves
+         (shift n) (shift s) (shift w) (shift e)
+         (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (p Elephant 8)
+
+   (board-setup
+      (Red
+         (Elephant a3)
+         (Tiger    a1)
+         (Cat      b2)
+         (Dog      c3)
+         (Panther  e3)
+         (Fox      f2)
+         (Rat      g3)
+         (Lion     g1)
+      )
+      (Green
+         (Elephant g7)
+         (Tiger    g9)
+         (Cat      f8)
+         (Dog      e7)
+         (Panther  c7)
+         (Fox      b8)
+         (Rat      a7)
+         (Lion     a9)
+      )
+   )
+
+   (win-condition (Red)   (absolute-config Elephant (d9)))
+   (win-condition (Red)   (absolute-config Lion     (d9)))
+   (win-condition (Red)   (absolute-config Tiger    (d9)))
+   (win-condition (Red)   (absolute-config Panther  (d9)))
+   (win-condition (Red)   (absolute-config Fox      (d9)))
+   (win-condition (Red)   (absolute-config Dog      (d9)))
+   (win-condition (Red)   (absolute-config Cat      (d9)))
+   (win-condition (Red)   (absolute-config Rat      (d9)))
+
+   (win-condition (Green) (absolute-config Elephant (d1)))
+   (win-condition (Green) (absolute-config Lion     (d1)))
+   (win-condition (Green) (absolute-config Tiger    (d1)))
+   (win-condition (Green) (absolute-config Panther  (d1)))
+   (win-condition (Green) (absolute-config Fox      (d1)))
+   (win-condition (Green) (absolute-config Dog      (d1)))
+   (win-condition (Green) (absolute-config Cat      (d1)))
+   (win-condition (Green) (absolute-config Rat      (d1)))
+)

@@ -1,0 +1,122 @@
+(define drop-dice (
+  (verify (in-zone? dice-zone))
+  (verify empty?)
+  add
+))
+
+(define step-1 (
+  $1 (while friend? $1) add
+))
+
+(define step-2 (
+  $1 $1 (while friend? $1) add
+))
+
+(define step-3 (
+  $1 $1 $1 (while friend? $1) add
+))
+
+(define step-4 (
+  $1 $1 $1 $1 (while friend? $1) add
+))
+
+(define step-5 (
+  $1 $1 $1 $1 $1 (while friend? $1) add
+))
+
+(define step-6 (
+  $1 $1 $1 $1 $1 $1 (while friend? $1) add
+))
+
+(define d
+  (piece
+     (name D$1)
+     (image White "images/backgammon/$1.bmp"
+            Black "images/backgammon/$1.bmp")
+     (drops
+        (move-type drop-type)
+        (drop-dice)
+     )
+  )
+)
+
+(game
+  (title "Chasing the Girls")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/backgammon/board.bmp")
+     (positions  
+         (m1   9  10  43 42)
+         (l1  43  10  77 42)
+         (k1  77  10 111 42)
+         (j1 111  10 145 42)
+         (h1 145  10 179 42)
+         (g1 179  10 213 42)
+         (f1 237  10 271 42)
+         (e1 271  10 305 42)
+         (d1 305  10 339 42)
+         (c1 339  10 373 42)
+         (b1 373  10 407 42)
+         (a1 407  10 441 42)
+         (m2   9 308  43 340)
+         (l2  43 308  77 340)
+         (k2  77 308 111 340)
+         (j2 111 308 145 340)
+         (h2 145 308 179 340)
+         (g2 179 308 213 340)
+         (f2 237 308 271 340)
+         (e2 271 308 305 340)
+         (d2 305 308 339 340)
+         (c2 339 308 373 340)
+         (b2 373 308 407 340)
+         (a2 407 308 441 340)
+
+         (D1  77 160 111 189) 
+         (D2 111 160 145 189)
+         (D3 305 160 339 189) 
+         (D4 339 160 373 189)
+     )
+     (links dx
+         (m1 D1) (D1 D2) (D2 D3) (D3 D4)
+     )
+     (links wx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) 
+         (g1 h1) (h1 j1) (j1 k1) (k1 l1) (l1 m1) (m1 m2)
+         (m2 l2) (l2 k2) (k2 j2) (j2 h2) (h2 g2) (g2 f2) 
+         (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links px
+         (a1 f1) (b1 f1) (c1 f1) (d1 f1) (e1 f1) (f1 g1) 
+         (g1 m1) (h1 m1) (j1 m1) (k1 m1) (l1 m1) (m1 m2)
+         (m2 g2) (l2 g2) (k2 g2) (j2 g2) (h2 g2) (g2 f2) 
+         (f2 a2) (e2 a2) (d2 a2) (c2 a2) (b2 a2) (a2 a1)
+     )
+     (zone (name dice-zone) (players White)
+           (positions D1 D2)
+     )
+     (zone (name dice-zone) (players Black)
+           (positions D3 D4)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/backgammon/white.bmp"
+            Black "images/backgammon/black.bmp")
+     (moves
+         (move-type normal-type)
+         (step-1 wx) (step-2 wx)
+         (step-3 wx) (step-4 wx)
+         (step-5 wx) (step-6 wx)
+     )
+  )
+  (d 1) (d 2) (d 3) (d 4) (d 5) (d 6)
+
+  (board-setup
+    (Black (Man a1 b1 c1 d1 e1 f1))
+    (White (Man g2 h2 j2 k2 l2 m2))
+  )
+)

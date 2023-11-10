@@ -1,0 +1,90 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump-friend (
+  $1 (verify friend?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-enemy (
+  $1 (verify enemy?)
+  (verify (piece? $2))
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(game
+  (title "Fangyuan TiaoQi")
+
+  (players Red Blue)
+  (turn-order Red Blue)
+
+  (board
+     (image "images/fangyuan-tiaoqi/small.bmp")
+     (grid
+         (start-rectangle 103 2 135 34)
+         (dimensions
+           ("a/b/c/d/e" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (-25 43)) ; ranks
+         )
+         (directions 
+              (ne 0 -1) (nw -1 -1) (se 1 1) (sw 0 1) (w -1 0) (e 1 0)
+         )
+     )
+     (kill-positions 
+           a1 b1 c1 d1 a2 b2 c2 a3 b3 a4
+           e6 d7 e7 c8 d8 e8 b9 c9 d9 e9
+     )
+     (zone (name goal-zone) (players Red)
+           (positions a9 a8 b8 a7 b7 c7 a6 b6 c6 d6)
+     )
+     (zone (name goal-zone) (players Blue)
+           (positions e1 d2 e2 c3 d3 e3 b4 c4 d4 e4)
+     )
+  )
+
+  (piece
+     (name R)
+     (image Red    "images/fangyuan-tiaoqi/wr.bmp"
+            Blue   "images/fangyuan-tiaoqi/br.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne)
+         (step sw) (step se)
+         (step e)  (step w) 
+         (move-type continue-type)
+         (jump-friend nw)  (jump-friend ne)
+         (jump-friend sw)  (jump-friend se)
+         (jump-friend e)   (jump-friend w) 
+         (jump-enemy nw R) (jump-enemy ne R)
+         (jump-enemy sw R) (jump-enemy se R)
+         (jump-enemy e R)  (jump-enemy w R) 
+     )
+  )
+  (piece
+     (name S)
+     (image Red    "images/fangyuan-tiaoqi/ws.bmp"
+            Blue   "images/fangyuan-tiaoqi/bs.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne)
+         (step sw) (step se)
+         (step e)  (step w) 
+         (move-type continue-type)
+         (jump-friend nw)  (jump-friend ne)
+         (jump-friend sw)  (jump-friend se)
+         (jump-friend e)   (jump-friend w) 
+         (jump-enemy nw S) (jump-enemy ne S)
+         (jump-enemy sw S) (jump-enemy se S)
+         (jump-enemy e S)  (jump-enemy w S) 
+     )
+  )
+
+  (board-setup
+    (Red (S off 5) (R off 5))
+    (Blue (S off 5) (R off 5))
+  )
+)

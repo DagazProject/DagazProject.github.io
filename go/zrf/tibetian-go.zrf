@@ -1,0 +1,45 @@
+(define drop-stone (
+  (verify empty?)
+  add
+))
+
+(game
+   (title "Tibetian Go")
+
+   (players White Black)
+   (turn-order White Black)
+
+   (board
+      (image "images/tibetian.bmp")
+      (grid
+          (start-rectangle 5 5 36 36)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (31 0)) ; files
+            ("17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 31)) ; ranks
+          )
+          (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (zone (name init) (players White)
+           (positions c3 c11 g15 k3 o7 o15)
+      )
+      (zone (name init) (players Black)
+           (positions c7 c15 g3 k15 o3 o11)
+      )
+   )
+
+   (piece
+      (name Stone)
+      (image Black "images/bsmall.bmp"
+             White "images/wsmall.bmp")
+      (drops (drop-stone))
+   )
+
+   (board-setup
+      (White
+         (Stone c3 c11 g15 k3 o7 o15)
+      )
+      (Black
+         (Stone c7 c15 g3 k15 o3 o11)
+      )
+   )
+)

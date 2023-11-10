@@ -1,0 +1,57 @@
+(define capture-piece (
+  capture add
+))
+
+(define p
+  (piece
+     (name $1)
+     (image You "images/v$2.bmp"
+            Off "images/v.bmp")
+     (moves
+        (capture-piece)
+     )
+  )
+)
+
+(game
+  (title "Pyramid")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+
+  (players You Off)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 156 0 208 103)
+         (dimensions
+           ("a/b/c/d/e/f/g" (52 0))
+           ("7/6/5/4/3/2/1" (-26 103))
+         )
+         (directions (ne 0 -1) (nw -1 -1) (sw 0 1) (se 1 1))
+     )
+     (kill-positions b7 c7 d7 e7 f7 g7 c6 d6 e6 f6 g6 d5 e5 f5 g5 e4 f4 g4 f3 g3 g2)
+     (zone (name board-zone)
+           (players You)
+           (positions a1 b1 c1 d1 e1 f1 g1 a2 b2 c2 d2 e2 f2 a3 b3 c3 d3 e3 a4 b4 c4 d4 a5 b5 c5 a6 b6 a7)
+     )
+     (zone (name inner-zone)
+           (players You)
+           (positions a2 b2 c2 d2 e2 f2 a3 b3 c3 d3 e3 a4 b4 c4 d4 a5 b5 c5 a6 b6)
+     )
+  )
+
+  (p P00 00) (p P01 01) (p P02 02) (p P03 03) (p P04 04) (p P05 05) (p P06 06)
+  (p P11 11) (p P12 12) (p P13 13) (p P14 14) (p P15 15) (p P16 16)
+  (p P22 22) (p P23 23) (p P24 24) (p P25 25) (p P26 26)
+  (p P33 33) (p P34 34) (p P35 35) (p P36 36)
+  (p P44 44) (p P45 45) (p P46 46)
+  (p P55 55) (p P56 56)
+  (p P66 66)
+)

@@ -1,0 +1,257 @@
+(define shift (
+  $1 (verify empty?)
+  (if (in-zone? promotion-zone)
+      (add $2)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify enemy?)
+  (if (in-zone? promotion-zone)
+      (add $2)
+   else
+      add
+  )
+))
+
+(define leap (
+  $1 $2 (verify empty?)
+  (if (in-zone? promotion-zone)
+      (add $3)
+   else
+      add
+  )
+))
+
+(define jump (
+  $1 $2 (verify enemy?)
+  (if (in-zone? promotion-zone)
+      (add $3)
+   else
+      add
+  )
+))
+
+(define glide (
+  $1 (while empty? (if (in-zone? promotion-zone) (add $2) else add) $1)
+))
+
+(define slide (
+  $1 (while empty? $1)
+  (verify enemy?)
+  (if (in-zone? promotion-zone)
+      (add $2)
+   else
+      add
+  )
+))
+
+(game
+  (title "Kantorai")
+  (history "Copyright (c) 2001 Chris Huntoon.")
+
+  (option "animate captures"      false)
+  (option "animate drops"         false)
+  (option "smart moves"           false)
+
+  (players South North)
+  (turn-order South North)
+  (move-priorities capture-type normal-type)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/7x9.bmp")
+        (grid
+               (start-rectangle 9 15 50 61)
+               (dimensions ("a/b/c/d/e/f/g" (41 0))
+                           ("9/8/7/6/5/4/3/2/1" (0 46))
+               )
+               (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+               )
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+        (zone (name promotion-zone) (players South)
+              (positions a9 b9 c9 d9 e9 f9 g9
+                         a8 b8 c8 d8 e8 f8 g8
+                         a7 b7 c7 d7 e7 f7 g7)
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1
+                         a2 b2 c2 d2 e2 f2 g2
+                         a3 b3 c3 d3 e3 f3 g3)
+        )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (move-type normal-type)
+           (shift n King) (shift nw King)
+           (shift s King) (shift se King)
+           (shift w King) (shift sw King)
+           (shift e King) (shift ne King)
+           (move-type capture-type)
+           (step n King) (step nw King)
+           (step s King) (step se King)
+           (step w King) (step sw King)
+           (step e King) (step ne King)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/spawn.bmp" 
+              North "images/npawn.bmp")
+       (moves
+           (move-type normal-type)
+           (shift n Gold)
+           (move-type capture-type)
+           (step nw Gold) (step ne Gold)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/spawnp.bmp" 
+              North "images/npawnp.bmp")
+       (moves
+           (move-type normal-type)
+           (shift n Gold) (shift nw Gold)
+           (shift s Gold) (shift ne Gold)
+           (shift w Gold) (shift e  Gold) 
+           (move-type capture-type)
+           (step n Gold) (step nw Gold)
+           (step s Gold) (step ne Gold)
+           (step w Gold) (step e  Gold) 
+       )
+  )
+  (piece 
+       (name Raven)
+       (image South "images/srook.bmp" 
+              North "images/nrook.bmp")
+       (moves
+           (move-type normal-type)
+           (glide n Rook) (glide e Rook)
+           (glide w Rook) 
+           (move-type capture-type)
+           (slide n Rook) (slide e Rook)
+           (slide w Rook) 
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/srookp.bmp" 
+              North "images/nrookp.bmp")
+       (moves
+           (move-type normal-type)
+           (glide n Rook) (glide e Rook)
+           (glide w Rook) (glide s Rook)
+           (move-type capture-type)
+           (slide n Rook) (slide e Rook)
+           (slide w Rook) (slide s Rook)
+       )
+  )
+  (piece 
+       (name Squire)
+       (image South "images/sknight.bmp" 
+              North "images/nknight.bmp")
+       (moves
+           (move-type normal-type)
+           (leap n nw Knight) (leap w nw Knight)
+           (leap n ne Knight) (leap e ne Knight)
+           (move-type capture-type)
+           (jump n nw Knight) (jump w nw Knight)
+           (jump n ne Knight) (jump e ne Knight)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknightp.bmp" 
+              North "images/nknightp.bmp")
+       (moves
+           (move-type normal-type)
+           (leap n nw Knight) (leap w nw Knight)
+           (leap n ne Knight) (leap w sw Knight)
+           (leap s sw Knight) (leap e ne Knight)
+           (leap s se Knight) (leap e se Knight)
+           (move-type capture-type)
+           (jump n nw Knight) (jump w nw Knight)
+           (jump n ne Knight) (jump w sw Knight)
+           (jump s sw Knight) (jump e ne Knight)
+           (jump s se Knight) (jump e se Knight)
+       )
+  )
+  (piece 
+       (name Priest)
+       (image South "images/sbishop.bmp" 
+              North "images/nbishop.bmp")
+       (moves
+           (move-type normal-type)
+           (glide nw Bishop) (glide ne Bishop)
+           (move-type capture-type)
+           (slide nw Bishop) (slide ne Bishop)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/sbishopp.bmp" 
+              North "images/nbishopp.bmp")
+       (moves
+           (move-type normal-type)
+           (glide nw Bishop) (glide se Bishop)
+           (glide ne Bishop) (glide sw Bishop)
+           (move-type capture-type)
+           (slide nw Bishop) (slide se Bishop)
+           (slide ne Bishop) (slide sw Bishop)
+       )
+  )
+
+  (board-setup
+      (South
+         (Pawn a3 b3 c3 d3 e3 f3 g3)
+         (Squire c1 f1)
+         (Priest b1 e1)
+         (Raven a1 g1)
+         (King d1)
+      )
+      (North
+         (Pawn a7 b7 c7 d7 e7 f7 g7)
+         (Squire c9 f9)
+         (Priest b9 e9)
+         (Raven a9 g9)
+         (King d9)
+      )
+  )
+
+  (loss-condition (South North) (checkmated King) )
+  (loss-condition (South North) (pieces-remaining 1))
+)
+
+(variant
+  (title "Kantorai (variant)")
+  (default)
+  (board-setup
+      (South
+         (Pawn a2 b2 c2 d2 e2 f2 g2)
+         (Squire c1 f1)
+         (Priest b1 e1)
+         (Raven a1 g1)
+         (King d1)
+      )
+      (North
+         (Pawn a8 b8 c8 d8 e8 f8 g8)
+         (Squire c9 f9)
+         (Priest b9 e9)
+         (Raven a9 g9)
+         (King d9)
+      )
+  )
+)
+

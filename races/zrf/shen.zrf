@@ -1,0 +1,251 @@
+(define drop-die (
+  (verify (in-zone? dice))
+  (verify empty?)
+  add
+))
+
+(define step (
+   $1 add
+))
+
+(define step-1 (
+   $1 (verify empty?)
+   (if (on-board? fk)
+      (add-partial continue-type)
+    else
+      add
+   )
+))
+
+(define step-2 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (if (on-board? fk)
+      (add-partial continue-type)
+    else
+      add
+   )
+))
+
+(define step-3 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (if (on-board? fk)
+      (add-partial continue-type)
+    else
+      add
+   )
+))
+
+(define step-4 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (if (on-board? fk)
+      (add-partial continue-type)
+    else
+      add
+   )
+))
+
+(define step-5 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (if (on-board? fk)
+      (add-partial continue-type)
+    else
+      add
+   )
+))
+
+(game
+  (title "Shen")
+
+  (option "smart moves"  true)
+  (option "pass turn"    forced)
+  (option "pass partial" false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/shen/board.bmp")
+     (positions  
+         (x1  566   7 581 329)
+         (x2  596   7 611 329)
+         (x3  566 339 581 661)
+         (x4  596 339 611 661)
+         (y1   19   7  34 329)
+         (y2   47   7  62 329)
+         (y3   19 339  34 661)
+         (y4   47 339  62 661)
+         (a1  236 216 262 242)
+         (b1  366 216 392 242)
+         (a2  236 254 262 280)
+         (b2  366 254 392 280)
+         (a3  236 292 262 318)
+         (b3  366 292 392 318)
+         (a4  236 330 262 356)
+         (b4  366 330 392 356)
+         (a5  236 368 262 394)
+         (b5  366 368 392 394)
+         (a6  236 407 262 433)
+         (b6  366 407 392 433)
+         (a7  236 446 262 472)
+         (b7  366 446 392 472)
+         (a8  236 484 262 510)
+         (b8  366 484 392 510)
+         (a9  236 523 262 549)
+         (b9  366 523 392 549)
+         (a10 236 561 262 587)
+         (b10 366 561 392 587)
+         (a11 236 600 262 626)
+         (b11 366 600 392 626)
+         (a12 203 580 229 606)
+         (b12 399 580 425 606)
+         (a13 176 553 202 579)
+         (b13 426 553 452 579)
+         (a14 152 523 178 549)
+         (b14 450 523 476 549)
+         (a15 133 490 159 516)
+         (b15 469 490 495 516)
+         (a16 118 454 144 480) 
+         (b16 484 454 510 480)
+         (a17 107 417 133 443)
+         (b17 495 417 521 443)
+         (a18 100 380 126 406)
+         (b18 502 380 528 406)
+         (a19  96 342 122 368)
+         (b19 505 342 531 368)
+         (a20  95 303 121 329)
+         (b20 506 303 532 329)
+         (a21  99 265 125 291)
+         (b21 503 265 529 291)
+         (a22 105 226 131 252)
+         (b22 497 226 523 252)
+         (a23 115 190 141 216)
+         (b23 487 190 513 216)
+         (a24 129 154 155 180)
+         (b24 473 154 499 180)
+         (a25 147 120 173 146)
+         (b25 455 120 481 146)
+         (a26 169  89 195 115)
+         (b26 433  89 459 115)
+         (a27 196  61 222  87)
+         (b27 406  61 432  87)
+         (a28 228  39 254  65)
+         (b28 375  39 401  65)
+         (a29 263  24 289  50)
+         (b29 339  24 365  50)
+         (end 300  18 328  44)
+         (z1  198 292 224 318)
+         (t1  404 292 430 318)
+         (z2  198 330 224 356)
+         (t2  404 330 430 356)
+         (z3  198 368 224 394)
+         (t3  404 368 430 394)
+         (z4  198 406 224 432)
+         (t4  404 406 430 432)
+     )
+     (links nx
+         (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 a6) (a6 a7) (a7 a8) (a8 a9) (a9 a10) (a10 a11) (a11 a12) (a12 a13) (a13 a14) (a14 a15) (a15 a16)
+         (a16 a17) (a17 a18) (a18 a19) (a19 a20) (a20 a21) (a21 a22) (a22 a23) (a23 a24) (a24 a25) (a25 a26) (a26 a27) (a27 a28) (a28 a29) (a29 end)
+         (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 b6) (b6 b7) (b7 b8) (b8 b9) (b9 b10) (b10 b11) (b11 b12) (b12 b13) (b13 b14) (b14 b15) (b15 b16)
+         (b16 b17) (b17 b18) (b18 b19) (b19 b20) (b20 b21) (b21 b22) (b22 b23) (b23 b24) (b24 b25) (b25 b26) (b26 b27) (b27 b28) (b28 b29) (b29 end)
+     )
+     (links fk
+         (b6 b20) (b20 b6) (b8 b10) (b10 b8) (end b1) (t1 b1) (t2 b1) (t3 b1) (t4 b1) (b1 t1)
+     )
+     (links fb
+         (a6 a20) (a20 a6) (a8 a10) (a10 a8) (end a1) (z1 a1) (z2 a1) (z3 a1) (z4 a1) (a1 z1)
+     )
+     (links rs
+         (b1 t1) (t1 t2) (t2 t3) (t3 t4)
+         (a1 z1) (z1 z2) (z2 z3) (z3 z4)
+     )
+     (symmetry Black (nx nx) (fk fb) (fb fk) (rs rs))
+     (zone
+         (name start)
+         (players White)
+         (positions b1)
+     )
+     (zone
+         (name start)
+         (players Black)
+         (positions a1)
+     )
+     (zone
+         (name stop)
+         (players White Black)
+         (positions end)
+     )
+     (zone
+         (name bonus)
+         (players White Black)
+         (positions a15 a25 b15 b25)
+     )
+     (zone
+         (name dice)
+         (players White)
+         (positions x1 x2 x3 x4)
+     )
+     (zone
+         (name dice)
+         (players Black)
+         (positions y1 y2 y3 y4)
+     )
+     (zone
+         (name reserve)
+         (players White Black)
+         (positions z1 z2 z3 z4 t1 t2 t3 t4)
+     )
+  )
+
+  (piece
+     (name D0)
+     (image White "Images/shen/wdice.bmp"
+            Black "Images/shen/wdice.bmp")
+     (drops
+        (move-type setup-type)
+        (drop-die) 
+     )
+  )
+  (piece
+     (name D1)
+     (image White "Images/shen/bdice.bmp"
+            Black "Images/shen/bdice.bmp")
+     (drops
+        (move-type setup-type)
+        (drop-die) 
+     )
+  )
+  (piece
+     (name Man)
+     (image White "images/shen/white.bmp"
+            Black "images/shen/black.bmp")
+     (moves
+        (move-type type-1)
+        (step-1 nx) 
+        (move-type type-2)
+        (step-2 nx) 
+        (move-type type-3)
+        (step-3 nx) 
+        (move-type type-4)
+        (step-4 nx) 
+        (move-type type-5)
+        (step-5 nx)
+        (move-type continue-type)
+        (step fk)
+     )
+  )
+
+  (board-setup
+     (White (Man b1 t1 t2 t3 t4))
+     (Black (Man a1 z1 z2 z3 z4))
+  )
+)

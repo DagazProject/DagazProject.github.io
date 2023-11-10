@@ -1,0 +1,1054 @@
+(define all-placement (
+  (verify (in-zone? board-zone))
+  (verify empty?)
+  add
+))
+
+(define onecell-move (
+    $1 
+    (if friend?
+      xv
+      (add $2)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define onecell-goal-move (
+    $1 
+    cascade
+    back xv from xv $1 xv
+    add
+))
+
+(define onecell-abandon (
+    xv $1
+    (add $2)
+))
+
+(define twocell-move (
+    $1 $2
+    (if friend?
+      xv
+      (add $3)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define twocell-goal-move (
+    $1 $2
+    cascade
+    back xv from xv $1 $2 xv
+    add
+))
+
+(define twocell-abandon (
+    xv $1 $2
+    (add $3)
+))
+
+(define threecell-move (
+    $1 $2 $3
+    (if friend?
+      xv
+      (add $4)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define threecell-goal-move (
+    $1 $2 $3
+    cascade
+    back xv from xv $1 $2 $3 xv
+    add
+))
+
+(define threecell-abandon (
+    xv $1 $2 $3
+    (add $4)
+))
+
+(define threecell-goal-fencer-move (
+    $1 $2 $3
+    cascade
+    back xv from xv $1 $2 $3 xv
+    add
+))
+
+(define threecellfly-move (
+    $1 $2 $3
+    (if friend?
+      xv
+      (add $4)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define threecellfly-abandon (
+    xv $1 $2 $3
+    (add $4)
+))
+
+(define fourcell-move (
+    $1 $2 $3 $4
+    (if friend?
+      xv
+      (add $5)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define fourcell-abandon (
+    xv $1 $2 $3 $4
+    (add $5)
+))
+
+(define fourcellfly-move (
+    $1 $2 $3 $4
+    (if friend?
+      xv
+      (add $5)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define fourcellfly-abandon (
+    xv $1 $2 $3 $4
+    (add $5)
+))
+
+(define fivecellfly-move (
+    $1 $2 $3 $4 $5
+    (if friend?
+      xv
+      (add $6)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define fivecellfly-abandon (
+    xv $1 $2 $3 $4 $5
+    (add $6)
+))
+
+(define sixcellfly-move (
+    $1 $2 $3 $4 $5 $6
+    (if friend?
+      xv
+      (add $7)
+    else
+      (verify not-friend?)
+      add
+    )
+))
+
+(define sixcellfly-abandon (
+    xv $1 $2 $3 $4 $5 $6
+    (add $7)
+))
+
+(define onecell-blockader-move (
+  $1 add
+))
+
+(define twocell-blockader-move (
+  $1 $2 add
+))
+
+(game
+  (title "Open Setup")
+  (description "This is Klin Zha with open setup. See www.klinzha.com/laws")
+  (history "The game Klin Zha is derived from the novel 'The Final Reflection' by John M. Ford.")
+
+  (option "pass turn" forced)
+
+  (players Gold Green)
+  (turn-order
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Gold  setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Green setup)
+    (Gold  setup-goal)
+    (Green setup-goal)
+    repeat
+    (Gold  combat) 
+    (Green combat)
+  )
+
+  (board 
+    (image "images\klin-zha\board.bmp")
+    (positions
+    ; This is for the Kagga variant, to display a crown on A19
+    (Kagga-Crown  403  0 494 24) 
+
+    ; These are the actual board positions
+    (A19  427  43 471  76)  (A19V 437  25 461  42)
+    (B18  382 121 426 154)  (B18V 392 103 416 120)
+    (B19  427  79 471 112)  (B19V 437 113 461 130)
+    (B29  472 121 516 154)  (B29V 482 103 506 120)
+    (C17  337 199 381 232)  (C17V 347 181 371 198)
+    (C18  382 157 426 190)  (C18V 392 191 416 208)
+    (C28  427 199 471 232)  (C28V 437 181 461 198)
+    (C29  472 157 516 190)  (C29V 482 191 506 208)
+    (C39  517 199 561 232)  (C39V 527 181 551 198)
+    (D16  292 277 336 310)  (D16V 302 259 326 276)
+    (D17  337 235 381 268)  (D17V 347 269 371 286)
+    (D27  382 277 426 310)  (D27V 392 259 416 276)
+    (D28  427 235 471 268)  (D28V 437 269 461 286)
+    (D38  472 277 516 310)  (D38V 482 259 506 276)
+    (D39  517 235 561 268)  (D39V 527 269 551 286)
+    (D49  562 277 606 310)  (D49V 572 259 596 276)
+    (E15  247 355 291 388)  (E15V 257 337 281 354)
+    (E16  292 313 336 346)  (E16V 302 347 326 364)
+    (E26  337 355 381 388)  (E26V 347 337 371 354)
+    (E27  382 313 426 346)  (E27V 392 347 416 364)
+    (E37  427 355 471 388)  (E37V 437 337 461 354)
+    (E38  472 313 516 346)  (E38V 482 347 506 364)
+    (E48  517 355 561 388)  (E48V 527 337 551 354)
+    (E49  562 313 606 346)  (E49V 572 347 596 364)
+    (E59  607 355 651 388)  (E59V 617 337 641 354)
+    (F14  202 433 246 466)  (F14V 212 415 236 432)
+    (F15  247 391 291 424)  (F15V 257 425 281 442)
+    (F25  292 433 336 466)  (F25V 302 415 326 432)
+    (F26  337 391 381 424)  (F26V 347 425 371 442)
+    (F36  382 433 426 466)  (F36V 392 415 416 432)
+    (F37  427 391 471 424)  (F37V 437 425 461 442)
+    (F47  472 433 516 466)  (F47V 482 415 506 432)
+    (F48  517 391 561 424)  (F48V 527 425 551 442)
+    (F58  562 433 606 466)  (F58V 572 415 596 432)
+    (F59  607 391 651 424)  (F59V 617 425 641 442)
+    (F69  652 433 696 466)  (F69V 662 415 686 432)
+    (G13  157 511 201 544)  (G13V 167 493 191 510)
+    (G14  202 469 246 502)  (G14V 212 503 236 520)
+    (G24  247 511 291 544)  (G24V 257 493 281 510)
+    (G25  292 469 336 502)  (G25V 302 503 326 520)
+    (G35  337 511 381 544)  (G35V 347 493 371 510)
+    (G36  382 469 426 502)  (G36V 392 503 416 520)
+    (G46  427 511 471 544)  (G46V 437 493 461 510)
+    (G47  472 469 516 502)  (G47V 482 503 506 520)
+    (G57  517 511 561 544)  (G57V 527 493 551 510)
+    (G58  562 469 606 502)  (G58V 572 503 596 520)
+    (G68  607 511 651 544)  (G68V 617 493 641 510)
+    (G69  652 469 696 502)  (G69V 662 503 686 520)
+    (G79  697 511 741 544)  (G79V 707 493 731 510)
+    (H12  112 589 156 622)  (H12V 122 571 146 588)
+    (H13  157 547 201 580)  (H13V 167 581 191 598)
+    (H23  202 589 246 622)  (H23V 212 571 236 588)
+    (H24  247 547 291 580)  (H24V 257 581 281 598)
+    (H34  292 589 336 622)  (H34V 302 571 326 588)
+    (H35  337 547 381 580)  (H35V 347 581 371 598)
+    (H45  382 589 426 622)  (H45V 392 571 416 588)
+    (H46  427 547 471 580)  (H46V 437 581 461 598)
+    (H56  472 589 516 622)  (H56V 482 571 506 588)
+    (H57  517 547 561 580)  (H57V 527 581 551 598)
+    (H67  562 589 606 622)  (H67V 572 571 596 588)
+    (H68  607 547 651 580)  (H68V 617 581 641 598)
+    (H78  652 589 696 622)  (H78V 662 571 686 588)
+    (H79  697 547 741 580)  (H79V 707 581 731 598)
+    (H89  742 589 786 622)  (H89V 752 571 776 588)
+    (I11   67 667 111 700)  (I11V  77 649 101 666)
+    (I12  112 625 156 658)  (I12V 122 659 146 676)
+    (I22  157 667 201 700)  (I22V 167 649 191 666)
+    (I23  202 625 246 658)  (I23V 212 659 236 676)
+    (I33  247 667 291 700)  (I33V 257 649 281 666)
+    (I34  292 625 336 658)  (I34V 302 659 326 676)
+    (I44  337 667 381 700)  (I44V 347 649 371 666)
+    (I45  382 625 426 658)  (I45V 392 659 416 676)
+    (I55  427 667 471 700)  (I55V 437 649 461 666)
+    (I56  472 625 516 658)  (I56V 482 659 506 676)
+    (I66  517 667 561 700)  (I66V 527 649 551 666)
+    (I67  562 625 606 658)  (I67V 572 659 596 676)
+    (I77  607 667 651 700)  (I77V 617 649 641 666)
+    (I78  652 625 696 658)  (I78V 662 659 686 676)
+    (I88  697 667 741 700)  (I88V 707 649 731 666)
+    (I89  742 625 786 658)  (I89V 752 659 776 676)
+    (I99  787 667 831 700)  (I99V 797 649 821 666))
+
+    (zone
+    (name board-zone)
+    (players Green Gold)
+    (positions
+        A19
+        B18
+        B19
+        B29
+        C17
+        C18
+        C28
+        C29
+        C39
+        D16
+        D17
+        D27
+        D28
+        D38
+        D39
+        D49
+        E15
+        E16
+        E26
+        E27
+        E37
+        E38
+        E48
+        E49
+        E59
+        F14
+        F15
+        F25
+        F26
+        F36
+        F37
+        F47
+        F48
+        F58
+        F59
+        F69
+        G13
+        G14
+        G24
+        G25
+        G35
+        G36
+        G46
+        G47
+        G57
+        G58
+        G68
+        G69
+        G79
+        H12
+        H13
+        H23
+        H24
+        H34
+        H35
+        H45
+        H46
+        H56
+        H57
+        H67
+        H68
+        H78
+        H79
+        H89
+        I11
+        I12
+        I22
+        I23
+        I33
+        I34
+        I44
+        I45
+        I55
+        I56
+        I66
+        I67
+        I77
+        I78
+        I88
+        I89
+        I99
+    ))
+
+    (zone
+    ; The wedge zone is for the setup with honor option, these are the
+    ; locations on the board where a blockader will cause some carriers
+    ; to be ineligible for initially carrying the Goal.
+    (name wedge)
+    (players Green Gold)
+    (positions
+      C28  H23  H78
+    ))
+
+    (zone
+    ; These are the cells where if the friendly Blockader is in the wedge, the
+    ; cells in the dishonor zone cannot initially posess the Goal
+    (name dishonor)
+    (players Green Gold)
+    (positions
+                      A19 
+                  B18 B19 B29 
+          H12                    H89
+      I11 I12 I22            I88 I89 I99
+    ))
+
+    ; kagga link goes from A19 to Kagga's Crown, not used in regular variants
+    (links kagga (A19 Kagga-Crown))
+    ; v links go south or north.  We never care which...
+    (links v
+                                       (A19  B19)
+                                       (B19  A19)
+                                  (B18  C18)(B29  C29)
+                                  (C18  B18)(C29  B29)
+                             (C17  D17)(C28  D28)(C39  D39)
+                             (D17  C17)(D28  C28)(D39  C39)
+                        (D16  E16)(D27  E27)(D38  E38)(D49  E49)
+                        (E16  D16)(E27  D27)(E38  D38)(E49  D49)
+                   (E15  F15)(E26  F26)(E37  F37)(E48  F48)(E59  F59)
+                   (F15  E15)(F26  E26)(F37  E37)(F48  E48)(F59  E59)
+              (F14  G14)(F25  G25)(F36  G36)(F47  G47)(F58  G58)(F69  G69)
+              (G14  F14)(G25  F25)(G36  F36)(G47  F47)(G58  F58)(G69  F69)
+         (G13  H13)(G24  H24)(G35  H35)(G46  H46)(G57  H57)(G68  H68)(G79  H79)
+         (H13  G13)(H24  G24)(H35  G35)(H46  G46)(H57  G57)(H68  G68)(H79  G79)
+    (H12  I12)(H23  I23)(H34  I34)(H45  I45)(H56  I56)(H67  I67)(H78  I78)(H89  I89)
+    (I12  H12)(I23  H23)(I34  H34)(I45  H45)(I56  H56)(I67  H67)(I78  H78)(I89  H89))
+
+    ; w links go west
+    (links w
+                                       (B19  B18)
+                                       (B29  B19)
+                                  (C18  C17)(C29  C28)
+                                  (C28  C18)(C39  C29)
+                             (D17  D16)(D28  D27)(D39  D38)
+                             (D27  D17)(D38  D28)(D49  D39)
+                        (E16  E15)(E27  E26)(E38  E37)(E49  E48)
+                        (E26  E16)(E37  E27)(E48  E38)(E59  E49)
+                   (F15  F14)(F26  F25)(F37  F36)(F48  F47)(F59  F58)
+                   (F25  F15)(F36  F26)(F47  F37)(F58  F48)(F69  F59)
+              (G14  G13)(G25  G24)(G36  G35)(G47  G46)(G58  G57)(G69  G68)
+              (G24  G14)(G35  G25)(G46  G36)(G57  G47)(G68  G58)(G79  G69)
+         (H13  H12)(H24  H23)(H35  H34)(H46  H45)(H57  H56)(H68  H67)(H79  H78)
+         (H23  H13)(H34  H24)(H45  H35)(H56  H46)(H67  H57)(H78  H68)(H89  H79)
+    (I12  I11)(I23  I22)(I34  I33)(I45  I44)(I56  I55)(I67  I66)(I78  I77)(I89  I88)
+    (I22  I12)(I33  I23)(I44  I34)(I55  I45)(I66  I56)(I77  I67)(I88  I78)(I99  I89))
+
+    ; e links go east
+    (links e
+                                       (B18  B19)
+                                       (B19  B29)
+                                  (C17  C18)(C28  C29)
+                                  (C18  C28)(C29  C39)
+                             (D16  D17)(D27  D28)(D38  D39)
+                             (D17  D27)(D28  D38)(D39  D49)
+                        (E15  E16)(E26  E27)(E37  E38)(E48  E49)
+                        (E16  E26)(E27  E37)(E38  E48)(E49  E59)
+                   (F14  F15)(F25  F26)(F36  F37)(F47  F48)(F58  F59)
+                   (F15  F25)(F26  F36)(F37  F47)(F48  F58)(F59  F69)
+              (G13  G14)(G24  G25)(G35  G36)(G46  G47)(G57  G58)(G68  G69)
+              (G14  G24)(G25  G35)(G36  G46)(G47  G57)(G58  G68)(G69  G79)
+         (H12  H13)(H23  H24)(H34  H35)(H45  H46)(H56  H57)(H67  H68)(H78  H79)
+         (H13  H23)(H24  H34)(H35  H45)(H46  H56)(H57  H67)(H68  H78)(H79  H89)
+    (I11  I12)(I22  I23)(I33  I34)(I44  I45)(I55  I56)(I66  I67)(I77  I78)(I88  I89)
+    (I12  I22)(I23  I33)(I34  I44)(I45  I55)(I56  I66)(I67  I77)(I78  I88)(I89  I99))
+
+    ; these links are two move links, speed up zoc processing ww ee vw ve ev wv.  
+    (links ee
+                                                                   (B18 B29)
+                                                          (C17 C28)(C18 C29)(C28 C39)
+                                                 (D16 D27)(D17 D28)(D27 D38)(D28 D39)(D38 D49) 
+                                        (E15 E26)(E16 E27)(E26 E37)(E27 E38)(E37 E48)(E38 E49)(E48 E59)   
+                               (F14 F25)(F15 F26)(F25 F36)(F26 F37)(F36 F47)(F37 F48)(F47 F58)(F48 F59)(F58 F69) 
+                      (G13 G24)(G14 G25)(G24 G35)(G25 G36)(G35 G46)(G36 G47)(G46 G57)(G47 G58)(G57 G68)(G58 G69)(G68 G79)
+             (H12 H23)(H13 H24)(H23 H34)(H24 H35)(H34 H45)(H35 H46)(H45 H56)(H46 H57)(H56 H67)(H57 H68)(H67 H78)(H68 H79)(H78 H89)
+    (I11 I22)(I12 I23)(I22 I33)(I23 I34)(I33 I44)(I34 I45)(I44 I55)(I45 I56)(I55 I66)(I56 I67)(I66 I77)(I67 I78)(I77 I88)(I78 I89)(I88 I99))
+
+    (links ww
+                                                                   (B29 B18)
+                                                          (C28 C17)(C29 C18)(C39 C28)
+                                                 (D27 D16)(D28 D17)(D38 D27)(D39 D28)(D49 D38)
+                                        (E26 E15)(E27 E16)(E37 E26)(E38 E27)(E48 E37)(E49 E38)(E59 E48)  
+                               (F25 F14)(F26 F15)(F36 F25)(F37 F26)(F47 F36)(F48 F37)(F58 F47)(F59 F48)(F69 F58)
+                      (G24 G13)(G25 G14)(G35 G24)(G36 G25)(G46 G35)(G47 G36)(G57 G46)(G58 G47)(G68 G57)(G69 G58)(G79 G68)
+             (H23 H12)(H24 H13)(H34 H23)(H35 H24)(H45 H34)(H46 H35)(H56 H45)(H57 H46)(H67 H56)(H68 H57)(H78 H67)(H79 H68)(H89 H78)
+    (I22 I11)(I23 I12)(I33 I22)(I34 I23)(I44 I33)(I45 I34)(I55 I44)(I56 I45)(I66 I55)(I67 I56)(I77 I66)(I78 I67)(I88 I77)(I89 I78)(I99 I88))
+
+    (links ve
+                                                                   (A19 B29)
+                                                          (B18 C28)         (B29 C39)
+                                                 (C17 D27)(C18 B19)(C28 D38)         (C39 D49)
+                                        (D16 E26)(D17 C18)(D27 E37)(D28 C29)(D38 E48)         (D49 E59)
+                               (E15 F25)(E16 D17)(E26 F36)(E27 D28)(E37 F47)(E38 D39)(E48 F58)         (E59 F69) 
+                      (F14 G24)(F15 E16)(F25 G35)(F26 E27)(F36 G46)(F37 E38)(F47 G57)(F48 E49)(F58 G68)         (F69 G79) 
+             (G13 H23)(G14 F15)(G24 H34)(G25 F26)(G35 H45)(G36 F37)(G46 H56)(G47 F48)(G57 H67)(G58 F59)(G68 H78)         (G79 H89)
+    (H12 I22)(H13 G14)(H23 I33)(H24 G25)(H34 I44)(H35 G36)(H45 I55)(H46 G47)(H56 I66)(H57 G58)(H67 I77)(H68 G69)(H78 I88)         (H89 I99)
+    (I12 H13)         (I23 H24)         (I34 H35)         (I45 H46)         (I56 H57)         (I67 H68)         (I78 H79))
+
+    (links vw
+                                                                   (A19 B18)
+                                                          (B18 C17)         (B29 C28)
+                                                 (C17 D16)         (C28 D27)(C29 B19)(C39 D38)
+                                        (D16 E15)         (D27 E26)(D28 C18)(D38 E37)(D39 C29)(D49 E48)
+                               (E15 F14)         (E26 F25)(E27 D17)(E37 F36)(E38 D28)(E48 F47)(E49 D39)(E59 F58)
+                      (F14 G13)         (F25 G24)(F26 E16)(F36 G35)(F37 E27)(F47 G46)(F48 E38)(F58 G57)(F59 E49)(F69 G68)
+             (G13 H12)         (G24 H23)(G25 F15)(G35 H34)(G36 F26)(G46 H45)(G47 F37)(G57 H56)(G58 F48)(G68 H67)(G69 F59)(G79 H78)
+    (H12 I11)         (H23 I22)(H24 G14)(H34 I33)(H35 G25)(H45 I44)(H46 G36)(H56 I55)(H57 G47)(H67 I66)(H68 G58)(H78 I77)(H79 G69)(H89 I88)
+                      (I23 H13)         (I34 H24)         (I45 H35)         (I56 H46)         (I67 H57)         (I78 H68)         (I89 H79))
+
+    (links ev
+                                                                   (B18 A19)(B19 C29)
+                                                          (C17 B18)(C18 D28)(C28 B29)(C29 D39)
+                                                 (D16 C17)(D17 E27)(D27 C28)(D28 E38)(D38 C39)(D39 E49) 
+                                        (E15 D16)(E16 F26)(E26 D27)(E27 F37)(E37 D38)(E38 F48)(E48 D49)(E49 F59) 
+                               (F14 E15)(F15 G25)(F25 E26)(F26 G36)(F36 E37)(F37 G47)(F47 E48)(F48 G58)(F58 E59)(F59 G69) 
+                      (G13 F14)(G14 H24)(G24 F25)(G25 H35)(G35 F36)(G36 H46)(G46 F47)(G47 H57)(G57 F58)(G58 H68)(G68 F69)(G69 H79)
+             (H12 G13)(H13 I23)(H23 G24)(H24 I34)(H34 G35)(H35 I45)(H45 G46)(H46 I56)(H56 G57)(H57 I67)(H67 G68)(H68 I78)(H78 G79)(H79 I89)
+    (I11 H12)         (I22 H23)         (I33 H34)         (I44 H45)         (I55 H56)         (I66 H67)         (I77 H78)         (I88 H89)) 
+
+    (links wv
+                                                          (B19 C18)(B29 A19)
+                                                 (C18 D17)(C28 B18)(C29 D28)(C39 B29)
+                                        (D17 E16)(D27 C17)(D28 E27)(D38 C28)(D39 E38)(D49 C39)
+                               (E16 F15)(E26 D16)(E27 F26)(E37 D27)(E38 F37)(E48 D38)(E49 F48)(E59 D49)
+                      (F15 G14)(F25 E15)(F26 G25)(F36 E26)(F37 G36)(F47 E37)(F48 G47)(F58 E48)(F59 G58)(F69 E59)
+             (G14 H13)(G24 F14)(G25 H24)(G35 F25)(G36 H35)(G46 F36)(G47 H46)(G57 F47)(G58 H57)(G68 F58)(G69 H68)(G79 F69)
+    (H13 I12)(H23 G13)(H24 I23)(H34 G24)(H35 I34)(H45 G35)(H46 I45)(H56 G46)(H57 I56)(H67 G57)(H68 I67)(H78 G68)(H79 I78)(H89 G79)
+    (I22 H12)         (I33 H23)         (I44 H34)         (I55 H45)         (I66 H56)         (I77 H67)         (I88 H78)         (I99 H89))
+  
+    ; these links connect the cell to the space for the goal carrier.
+    (links xv
+    (A19 A19V)(A19V A19)    (B18 B18V)(B18V B18)    (B19 B19V)(B19V B19)
+    (B29 B29V)(B29V B29)    (C17 C17V)(C17V C17)    (C18 C18V)(C18V C18)
+    (C28 C28V)(C28V C28)    (C29 C29V)(C29V C29)    (C39 C39V)(C39V C39)
+    (D16 D16V)(D16V D16)    (D17 D17V)(D17V D17)    (D27 D27V)(D27V D27)
+    (D28 D28V)(D28V D28)    (D38 D38V)(D38V D38)    (D39 D39V)(D39V D39)
+    (D49 D49V)(D49V D49)    (E15 E15V)(E15V E15)    (E16 E16V)(E16V E16)
+    (E26 E26V)(E26V E26)    (E27 E27V)(E27V E27)    (E37 E37V)(E37V E37)
+    (E38 E38V)(E38V E38)    (E48 E48V)(E48V E48)    (E49 E49V)(E49V E49)
+    (E59 E59V)(E59V E59)    (F14 F14V)(F14V F14)    (F15 F15V)(F15V F15)
+    (F25 F25V)(F25V F25)    (F26 F26V)(F26V F26)    (F36 F36V)(F36V F36)
+    (F37 F37V)(F37V F37)    (F47 F47V)(F47V F47)    (F48 F48V)(F48V F48)
+    (F58 F58V)(F58V F58)    (F59 F59V)(F59V F59)    (F69 F69V)(F69V F69)
+    (G13 G13V)(G13V G13)    (G14 G14V)(G14V G14)    (G24 G24V)(G24V G24)
+    (G25 G25V)(G25V G25)    (G35 G35V)(G35V G35)    (G36 G36V)(G36V G36)
+    (G46 G46V)(G46V G46)    (G47 G47V)(G47V G47)    (G57 G57V)(G57V G57)
+    (G58 G58V)(G58V G58)    (G68 G68V)(G68V G68)    (G69 G69V)(G69V G69)
+    (G79 G79V)(G79V G79)    (H12 H12V)(H12V H12)    (H13 H13V)(H13V H13)
+    (H23 H23V)(H23V H23)    (H24 H24V)(H24V H24)    (H34 H34V)(H34V H34)
+    (H35 H35V)(H35V H35)    (H45 H45V)(H45V H45)    (H46 H46V)(H46V H46)
+    (H56 H56V)(H56V H56)    (H57 H57V)(H57V H57)    (H67 H67V)(H67V H67)
+    (H68 H68V)(H68V H68)    (H78 H78V)(H78V H78)    (H79 H79V)(H79V H79)
+    (H89 H89V)(H89V H89)    (I11 I11V)(I11V I11)    (I12 I12V)(I12V I12)
+    (I22 I22V)(I22V I22)    (I23 I23V)(I23V I23)    (I33 I33V)(I33V I33)
+    (I34 I34V)(I34V I34)    (I44 I44V)(I44V I44)    (I45 I45V)(I45V I45)
+    (I55 I55V)(I55V I55)    (I56 I56V)(I56V I56)    (I66 I66V)(I66V I66)
+    (I67 I67V)(I67V I67)    (I77 I77V)(I77V I77)    (I78 I78V)(I78V I78)
+    (I88 I88V)(I88V I88)    (I89 I89V)(I89V I89)    (I99 I99V)(I99V I99))
+
+    ; these links are for blockader detection at setup; if the position is wedge
+    ; away from a blockader, it cannot posess the Goal initially.
+    (links wedge
+      (A19 C28)(B18 C28)(B19 C28)(B29 C28)
+      (H12 H23)(I11 H23)(I12 H23)(I22 H23)
+      (H89 H78)(I88 H78)(I89 H78)(I99 H78)
+    )
+  )
+
+  (piece
+    (name Goal)
+    (image 
+       Gold
+         "images\klin-zha\ay_goal.bmp"
+       Green
+         "images\klin-zha\ag_goal.bmp"
+    )
+    (drops
+      (move-type setup-goal)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat)  
+        (onecell-goal-move v)
+        (onecell-goal-move e)
+        (onecell-goal-move w)
+        (twocell-goal-move v e)
+        (twocell-goal-move e e)
+        (twocell-goal-move e v)
+        (twocell-goal-move v w)
+        (twocell-goal-move w w)
+        (twocell-goal-move w v)
+        (threecell-goal-move v e v)
+        (threecell-goal-move e e e)
+        (threecell-goal-move e v e)
+        (threecell-goal-move v w v)
+        (threecell-goal-move w w w)
+        (threecell-goal-move w v w)
+        (threecell-goal-fencer-move v e e)
+        (threecell-goal-fencer-move e e v)
+        (threecell-goal-fencer-move e v w)
+        (threecell-goal-fencer-move v w w)
+        (threecell-goal-fencer-move w w v)
+        (threecell-goal-fencer-move w v e)
+    )
+  )
+  (piece
+    (name Vanguard)
+    (image 
+       Gold 
+         "images\klin-zha\ay_vanguard.bmp" 
+       Green 
+         "images\klin-zha\ag_vanguard.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (onecell-move v Vanguard-carrier)
+        (onecell-move e Vanguard-carrier)
+        (onecell-move w Vanguard-carrier)
+    )
+  )
+  (piece
+    (name Vanguard-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_vanguard.bmp" 
+       Green 
+         "images\klin-zha\cg_vanguard.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (onecell-abandon v Vanguard)
+        (onecell-abandon e Vanguard)
+        (onecell-abandon w Vanguard)
+    )
+  )
+  (piece
+    (name Power-Vanguard)
+    (image 
+       Gold 
+         "images\klin-zha\ay_pvanguard.bmp" 
+       Green 
+         "images\klin-zha\ag_pvanguard.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (onecell-move v Power-Vanguard-carrier)
+        (onecell-move e Power-Vanguard-carrier)
+        (onecell-move w Power-Vanguard-carrier)
+        (twocell-move v e Power-Vanguard-carrier)
+        (twocell-move e e Power-Vanguard-carrier)
+        (twocell-move e v Power-Vanguard-carrier)
+        (twocell-move v w Power-Vanguard-carrier)
+        (twocell-move w w Power-Vanguard-carrier)
+        (twocell-move w v Power-Vanguard-carrier)
+    )
+  )
+  (piece
+    (name Power-Vanguard-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_vanguard.bmp" 
+       Green 
+         "images\klin-zha\cg_vanguard.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (onecell-abandon v Power-Vanguard)
+        (onecell-abandon e Power-Vanguard)
+        (onecell-abandon w Power-Vanguard)
+        (twocell-abandon v e Power-Vanguard)
+        (twocell-abandon e e Power-Vanguard)
+        (twocell-abandon e v Power-Vanguard)
+        (twocell-abandon v w Power-Vanguard)
+        (twocell-abandon w w Power-Vanguard)
+        (twocell-abandon w v Power-Vanguard)
+    )
+  )
+  (piece
+    (name Lancer)
+    (image 
+       Gold 
+         "images\klin-zha\ay_lancer.bmp" 
+       Green 
+         "images\klin-zha\ag_lancer.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (onecell-move v Lancer-carrier)
+        (onecell-move e Lancer-carrier)
+        (onecell-move w Lancer-carrier)
+        (twocell-move v e Lancer-carrier)
+        (twocell-move e e Lancer-carrier)
+        (twocell-move e v Lancer-carrier)
+        (twocell-move v w Lancer-carrier)
+        (twocell-move w w Lancer-carrier)
+        (twocell-move w v Lancer-carrier)
+        (threecell-move v e v Lancer-carrier)
+        (threecell-move e e e Lancer-carrier)
+        (threecell-move e v e Lancer-carrier)
+        (threecell-move v w v Lancer-carrier)
+        (threecell-move w w w Lancer-carrier)
+        (threecell-move w v w Lancer-carrier)
+    )
+  )
+  (piece
+    (name Lancer-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_lancer.bmp" 
+       Green 
+         "images\klin-zha\cg_lancer.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (onecell-abandon v Lancer)
+        (onecell-abandon e Lancer)
+        (onecell-abandon w Lancer)
+        (twocell-abandon v e Lancer)
+        (twocell-abandon e e Lancer)
+        (twocell-abandon e v Lancer)
+        (twocell-abandon v w Lancer)
+        (twocell-abandon w w Lancer)
+        (twocell-abandon w v Lancer)
+        (threecell-abandon v e v Lancer)
+        (threecell-abandon e e e Lancer)
+        (threecell-abandon e v e Lancer)
+        (threecell-abandon v w v Lancer)
+        (threecell-abandon w w w Lancer)
+        (threecell-abandon w v w Lancer)
+    )
+  )
+  (piece
+    (name Fencer)
+    (image 
+       Gold 
+         "images\klin-zha\ay_fencer.bmp" 
+       Green 
+         "images\klin-zha\ag_fencer.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (onecell-move v Fencer-carrier)
+        (onecell-move e Fencer-carrier)
+        (onecell-move w Fencer-carrier)
+        (twocell-move v e Fencer-carrier)
+        (twocell-move e e Fencer-carrier)
+        (twocell-move e v Fencer-carrier)
+        (twocell-move v w Fencer-carrier)
+        (twocell-move w w Fencer-carrier)
+        (twocell-move w v Fencer-carrier)
+        (threecell-move v e v Fencer-carrier)
+        (threecell-move e e e Fencer-carrier)
+        (threecell-move e v e Fencer-carrier)
+        (threecell-move v w v Fencer-carrier)
+        (threecell-move w w w Fencer-carrier)
+        (threecell-move w v w Fencer-carrier)
+        (threecell-move v e e Fencer-carrier)
+        (threecell-move e e v Fencer-carrier)
+        (threecell-move e v w Fencer-carrier)
+        (threecell-move v w w Fencer-carrier)
+        (threecell-move w w v Fencer-carrier)
+        (threecell-move w v e Fencer-carrier)
+    )
+  )
+  (piece
+    (name Fencer-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_fencer.bmp" 
+       Green 
+         "images\klin-zha\cg_fencer.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (onecell-abandon v Fencer)
+        (onecell-abandon e Fencer)
+        (onecell-abandon w Fencer)
+        (twocell-abandon v e Fencer)
+        (twocell-abandon e e Fencer)
+        (twocell-abandon e v Fencer)
+        (twocell-abandon v w Fencer)
+        (twocell-abandon w w Fencer)
+        (twocell-abandon w v Fencer)
+        (threecell-abandon v e v Fencer)
+        (threecell-abandon e e e Fencer)
+        (threecell-abandon e v e Fencer)
+        (threecell-abandon v w v Fencer)
+        (threecell-abandon w w w Fencer)
+        (threecell-abandon w v w Fencer)
+        (threecell-abandon v e e Fencer)
+        (threecell-abandon e e v Fencer)
+        (threecell-abandon e v w Fencer)
+        (threecell-abandon v w w Fencer)
+        (threecell-abandon w w v Fencer)
+        (threecell-abandon w v e Fencer)
+    )
+  )
+  (piece
+    (name Swift)
+    (image 
+       Gold  
+         "images\klin-zha\ay_swift.bmp" 
+       Green 
+         "images\klin-zha\ag_swift.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (twocell-move v e Swift-carrier)
+        (twocell-move e e Swift-carrier)
+        (twocell-move e v Swift-carrier)
+        (twocell-move v w Swift-carrier)
+        (twocell-move w w Swift-carrier)
+        (twocell-move w v Swift-carrier)
+        (threecell-move v e v Swift-carrier)
+        (threecell-move e e e Swift-carrier)
+        (threecell-move e v e Swift-carrier)
+        (threecell-move v w v Swift-carrier)
+        (threecell-move w w w Swift-carrier)
+        (threecell-move w v w Swift-carrier)
+        (threecell-move v e e Swift-carrier)
+        (threecell-move e e v Swift-carrier)
+        (threecell-move e v w Swift-carrier)
+        (threecell-move v w w Swift-carrier)
+        (threecell-move w w v Swift-carrier)
+        (threecell-move w v e Swift-carrier)
+        (fourcell-move v w v w Swift-carrier)
+        (fourcell-move v w v e Swift-carrier)
+        (fourcell-move v w w w Swift-carrier)
+        (fourcell-move v w w v Swift-carrier)
+        (fourcell-move v e v w Swift-carrier)
+        (fourcell-move v e v e Swift-carrier)
+        (fourcell-move v e e v Swift-carrier)
+        (fourcell-move v e e e Swift-carrier)
+        (fourcell-move w v w w Swift-carrier)
+        (fourcell-move w v w v Swift-carrier)
+        (fourcell-move w v e v Swift-carrier)
+        (fourcell-move w v e e Swift-carrier)
+        (fourcell-move w w v w Swift-carrier)
+        (fourcell-move w w v e Swift-carrier)
+        (fourcell-move w w w w Swift-carrier)
+        (fourcell-move w w w v Swift-carrier)
+        (fourcell-move e e v w Swift-carrier)
+        (fourcell-move e e v e Swift-carrier)
+        (fourcell-move e e e e Swift-carrier)
+        (fourcell-move e e e v Swift-carrier)
+        (fourcell-move e v w w Swift-carrier)
+        (fourcell-move e v w v Swift-carrier)
+        (fourcell-move e v e e Swift-carrier)
+        (fourcell-move e v e v Swift-carrier)
+    )
+  )
+  (piece
+    (name Swift-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_swift.bmp" 
+       Green 
+         "images\klin-zha\cg_swift.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (twocell-abandon v e Swift)
+        (twocell-abandon e e Swift)
+        (twocell-abandon e v Swift)
+        (twocell-abandon v w Swift)
+        (twocell-abandon w w Swift)
+        (twocell-abandon w v Swift)
+        (threecell-abandon v e v Swift)
+        (threecell-abandon e e e Swift)
+        (threecell-abandon e v e Swift)
+        (threecell-abandon v w v Swift)
+        (threecell-abandon w w w Swift)
+        (threecell-abandon w v w Swift)
+        (threecell-abandon v e e Swift)
+        (threecell-abandon e e v Swift)
+        (threecell-abandon e v w Swift)
+        (threecell-abandon v w w Swift)
+        (threecell-abandon w w v Swift)
+        (threecell-abandon w v e Swift)
+        (fourcell-abandon v w v w Swift)
+        (fourcell-abandon v w v e Swift)
+        (fourcell-abandon v w w w Swift)
+        (fourcell-abandon v w w v Swift)
+        (fourcell-abandon v e v w Swift)
+        (fourcell-abandon v e v e Swift)
+        (fourcell-abandon v e e v Swift)
+        (fourcell-abandon v e e e Swift)
+        (fourcell-abandon w v w w Swift)
+        (fourcell-abandon w v w v Swift)
+        (fourcell-abandon w v e v Swift)
+        (fourcell-abandon w v e e Swift)
+        (fourcell-abandon w w v w Swift)
+        (fourcell-abandon w w v e Swift)
+        (fourcell-abandon w w w w Swift)
+        (fourcell-abandon w w w v Swift)
+        (fourcell-abandon e e v w Swift)
+        (fourcell-abandon e e v e Swift)
+        (fourcell-abandon e e e e Swift)
+        (fourcell-abandon e e e v Swift)
+        (fourcell-abandon e v w w Swift)
+        (fourcell-abandon e v w v Swift)
+        (fourcell-abandon e v e e Swift)
+        (fourcell-abandon e v e v Swift)
+    )
+  )
+  (piece
+    (name Flier)
+    (image 
+       Gold 
+         "images\klin-zha\ay_flier.bmp" 
+       Green 
+         "images\klin-zha\ag_flier.bmp" 
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (threecellfly-move v e v Flier-carrier)
+        (threecellfly-move e e e Flier-carrier)
+        (threecellfly-move e v e Flier-carrier)
+        (threecellfly-move v w v Flier-carrier)
+        (threecellfly-move w w w Flier-carrier)
+        (threecellfly-move w v w Flier-carrier)
+        (fourcellfly-move v e v e Flier-carrier)
+        (fourcellfly-move e e e e Flier-carrier)
+        (fourcellfly-move e v e v Flier-carrier)
+        (fourcellfly-move v w v w Flier-carrier)
+        (fourcellfly-move w w w w Flier-carrier)
+        (fourcellfly-move w v w v Flier-carrier)
+        (fivecellfly-move v e v e v Flier-carrier)
+        (fivecellfly-move e e e e e Flier-carrier)
+        (fivecellfly-move e v e v e Flier-carrier)
+        (fivecellfly-move v w v w v Flier-carrier)
+        (fivecellfly-move w w w w w Flier-carrier)
+        (fivecellfly-move w v w v w Flier-carrier)
+        (sixcellfly-move v e v e v e Flier-carrier)
+        (sixcellfly-move e e e e e e Flier-carrier)
+        (sixcellfly-move e v e v e v Flier-carrier)
+        (sixcellfly-move v w v w v w Flier-carrier)
+        (sixcellfly-move w w w w w w Flier-carrier)
+        (sixcellfly-move w v w v w v Flier-carrier)
+    )
+  )
+  (piece
+    (name Flier-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_flier.bmp" 
+       Green 
+         "images\klin-zha\cg_flier.bmp" 
+    )
+    (moves
+      (move-type combat) 
+        (threecellfly-abandon v e v Flier)
+        (threecellfly-abandon e e e Flier)
+        (threecellfly-abandon e v e Flier)
+        (threecellfly-abandon v w v Flier)
+        (threecellfly-abandon w w w Flier)
+        (threecellfly-abandon w v w Flier)
+        (fourcellfly-abandon v e v e Flier)
+        (fourcellfly-abandon e e e e Flier)
+        (fourcellfly-abandon e v e v Flier)
+        (fourcellfly-abandon v w v w Flier)
+        (fourcellfly-abandon w w w w Flier)
+        (fourcellfly-abandon w v w v Flier)
+        (fivecellfly-abandon v e v e v Flier)
+        (fivecellfly-abandon e e e e e Flier)
+        (fivecellfly-abandon e v e v e Flier)
+        (fivecellfly-abandon v w v w v Flier)
+        (fivecellfly-abandon w w w w w Flier)
+        (fivecellfly-abandon w v w v w Flier)
+        (sixcellfly-abandon v e v e v e Flier)
+        (sixcellfly-abandon e e e e e e Flier)
+        (sixcellfly-abandon e v e v e v Flier)
+        (sixcellfly-abandon v w v w v w Flier)
+        (sixcellfly-abandon w w w w w w Flier)
+        (sixcellfly-abandon w v w v w v Flier)
+    )
+  )
+  (piece
+    (name Blockader)
+    (image 
+       Gold 
+         "images\klin-zha\ay_blockader.bmp"
+       Green
+         "images\klin-zha\ag_blockader.bmp"
+    )
+    (drops
+      (move-type setup)  
+        (all-placement)
+    )
+    (moves
+      (move-type combat) 
+        (onecell-blockader-move v)
+        (onecell-blockader-move e)
+        (onecell-blockader-move w)
+        (twocell-blockader-move v e)
+        (twocell-blockader-move v w)
+        (twocell-blockader-move e e)
+        (twocell-blockader-move w w)
+        (twocell-blockader-move e v)
+        (twocell-blockader-move w v)
+    )
+  )
+  (piece
+    (name Crown)
+    (image 
+       Gold 
+         "images\klin-zha\crown.bmp" 
+       Green 
+         "images\klin-zha\crown.bmp" 
+    )
+  )
+
+  (board-setup
+    (Gold
+      (Vanguard  off 3)
+      (Lancer    off 1)
+      (Flier     off 2)
+      (Swift     off 1)
+      (Fencer    off 1)
+      (Blockader off 1)
+      (Goal      off 1)
+    )
+    (Green
+      (Vanguard  off 3)
+      (Lancer    off 1)
+      (Flier     off 2)
+      (Swift     off 1)
+      (Fencer    off 1)
+      (Blockader off 1)
+      (Goal      off 1)
+    )
+  )
+
+  (loss-condition (Green Gold) (captured Goal))
+)

@@ -1,0 +1,221 @@
+(define drop-dice (
+  (verify (in-zone? dices))
+  (verify not-friend?)
+  add
+))
+
+(define step-1 (
+  $1 add
+))
+
+(define step-2 (
+  $1 $1 add
+))
+
+(define step-3 (
+  $1 $1 $1 add
+))
+
+(define step-4 (
+  $1 $1 $1 $1 add
+))
+
+(game
+  (title "Ur")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/ur/ur.bmp")
+
+     (positions
+             (x3 660 108 710 161)
+             (x2 660 176 710 229)
+             (x1 660 244 710 297)
+
+             (a40  67  38  96  67)
+             (b40 134  38 163  67)
+             (c40 201  38 230  67)
+             (d40 268  38 297  67)
+             (e40 335  38 364  67)
+             (f40 402  38 431  67)
+             (g40 469  38 498  67)
+
+             (a30  67 115  96 144)
+             (b30 134 115 163 144)
+             (b31 131 112 159 140)
+             (b32 127 108 155 136)
+             (b33 123 104 151 132)
+             (c30 201 115 230 144)
+             (d30 268 115 297 144)
+             (d31 265 112 293 140)
+             (d32 261 108 289 136)
+             (d33 257 104 285 132)
+             (g30 469 115 498 144)
+             (h30 536 115 565 144)
+
+             (z0  -31 186  -6 211)
+             (a20  67 184  96 213)
+             (b20 134 184 163 213)
+             (c20 201 184 230 213)
+             (c21 198 181 226 209)
+             (c22 194 177 222 205)
+             (c23 190 173 218 201)
+             (d20 268 184 297 213)
+             (e20 335 184 364 213)
+             (f20 402 184 431 213)
+             (f21 399 181 427 209)
+             (f22 395 177 423 205)
+             (f23 391 173 419 201)
+             (g20 469 184 498 213)
+             (g21 466 181 494 209)
+             (g22 462 177 490 205)
+             (g23 458 173 486 201)
+             (h20 536 184 565 213)
+
+             (a10  67 253  96 282)
+             (b10 134 253 163 282)
+             (b11 131 250 159 278)
+             (b12 127 246 155 274)
+             (b13 123 242 151 270)
+             (c10 201 253 230 282)
+             (d10 268 253 297 282)
+             (d11 265 250 293 278)
+             (d12 261 246 289 274)
+             (d13 257 242 285 270)
+             (g10 469 254 498 283)
+             (h10 536 254 565 283)
+
+             (a00  67 330  96 359)
+             (b00 134 330 163 359)
+             (c00 201 330 230 359)
+             (d00 268 330 297 359)
+             (e00 335 330 364 359)
+             (f00 402 330 431 359)
+             (g00 469 330 498 359)
+
+             (a3h  67 115  96 144)
+             (b3h 134 115 163 144)
+             (c3h 201 115 230 144)
+             (d3h 268 115 297 144)
+             (g3h 469 115 498 144)
+             (h3h 536 115 565 144)
+             (a2h  67 184  96 213)
+             (b2h 134 184 163 213)
+             (c2h 201 184 230 213)
+             (d2h 268 184 297 213)
+             (e2h 335 184 364 213)
+             (f2h 402 184 431 213)
+             (g2h 469 184 498 213)
+             (h2h 536 184 565 213)
+             (a1h  67 253  96 282)
+             (b1h 134 253 163 282)
+             (c1h 201 253 230 282)
+             (d1h 268 253 297 282)
+             (g1h 469 254 498 283)
+             (h1h 536 254 565 283)
+     )
+     (links up  
+             (a00 b00) (b00 c00) (c00 d00) (d00 e00) (e00 f00) (f00 g00)
+             (a40 b40) (b40 c40) (c40 d40) (d40 e40) (e40 f40) (f40 g40)
+             (b10 b11) (b11 b12) (b12 b13) (d10 d11) (d11 d12) (d12 d13)
+             (b30 b31) (b31 b32) (b32 b33) (d30 d31) (d31 d32) (d32 d33)
+             (c20 c21) (c21 c22) (c22 c23) (f20 f21) (f21 f22) (f22 f23)
+             (g20 g21) (g21 g22) (g22 g23) 
+     )
+     (links down
+             (d11 d10) (d12 d11) (d13 d12) (b11 b10) (b12 b11) (b13 b12)
+             (d31 d30) (d32 d31) (d33 d32) (b31 b30) (b32 b31) (b33 b32)
+             (c21 c20) (c22 c21) (c23 c22) (f21 f20) (f22 f21) (f23 f22)
+             (g21 g20) (g22 g21) (g23 g22)
+     )
+     (links next
+             (a00 d10) (b00 d10) (c00 d10) (d00 d10) (e00 d10) (f00 d10) (g00 d10)
+             (d10 c10) (c10 b10) (b10 a10) (a10 a20) (a20 b20) (b20 c20) (c20 d20) 
+             (d20 e20) (e20 f20) (f20 g20) (g20 g10) (g10 h10) (h10 h20) (h20 h30)
+             (h30 g30) (g30 g20) (d11 c10) (d12 c10) (d13 c10) (b11 a10) (b12 a10)
+             (b13 a10) (c21 d20) (c22 d20) (c23 d20) (f21 g20) (f22 g20) (f23 g20)
+             (g21 g10) (g22 g10) (g23 g10)
+     )
+     (links next-black
+             (a40 d30) (b40 d30) (c40 d30) (d40 d30) (e40 d30) (f40 d30) (g40 d30) 
+             (d30 c30) (c30 b30) (b30 a30) (a30 a20) (a20 b20) (b20 c20) (c20 d20) 
+             (d20 e20) (e20 f20) (f20 g20) (g20 g30) (g30 h30) (h30 h20) (h20 h10) 
+             (h10 g10) (g10 g20) (d31 c30) (d32 c30) (d33 c30) (b31 a30) (b32 a30)
+             (b33 a30) (c21 d20) (c22 d20) (c23 d20) (f21 g20) (f22 g20) (f23 g20)
+             (g21 g30) (g22 g30) (g23 g30)
+     )
+     (links prom
+             (h20 h30) (h30 g30) (g30 g20) (g20 f20) (f20 e20) (e20 d20) (d20 c20)
+             (c20 b20) (b20 a20) (g21 f20) (g22 f20) (g23 f20) (f21 e20) (f22 e20) 
+             (f23 e20) (c21 b20) (c22 b20) (c23 b20) (a20 z0) 
+     )
+     (links prom-black
+             (h20 h10) (h10 g10) (g10 g20) (g20 f20) (f20 e20) (e20 d20) (d20 c20)
+             (c20 b20) (b20 a20) (g21 f20) (g22 f20) (g23 f20) (f21 e20) (f22 e20) 
+             (f23 e20) (c21 b20) (c22 b20) (c23 b20) (a20 z0)
+     )
+     (links free 
+             (x3 a40) (a40 b40) (b40 c40) (c40 d40) (d40 e40) (e40 f40) (f40 g40)
+     )
+     (links home 
+             (x3 a00) (a00 b00) (b00 c00) (c00 d00) (d00 e00) (e00 f00) (f00 g00)
+     )
+     (links dice (x1 x2) (x2 x3) )
+     (links sh
+             (a30 a3h) (b30 b3h) (c30 c3h) (d30 d3h) (g30 g3h) (h30 h3h)
+             (a10 a1h) (b10 b1h) (c10 c1h) (d10 d1h) (g10 g1h) (h10 h1h)
+             (a20 a2h) (b20 b2h) (c20 c2h) (d20 d2h) (e20 e2h) (f20 f2h) 
+             (g20 g2h) (h20 h2h)
+     )
+     (symmetry Black (next next-black) (prom prom-black) (free home) (home free) (up up) (down down) (sh sh))
+     (zone (name end)   (players White Black) (positions z0))
+     (zone (name promo) (players White) (positions h10))
+     (zone (name promo) (players Black) (positions h30))
+     (zone (name safe)  (players White Black) (positions g20))
+     (zone (name fin)   (players White Black) (positions a20))
+     (zone (name dices) (players White Black) (positions x1 x2 x3))
+     (zone (name star)  (players White Black) (positions a10 a30 d20 g10 g30))
+  )
+
+  (piece
+	  (name d0)
+          (image White "images/Ur/d011.bmp"
+                 Black "images/Ur/d010.bmp")
+          (drops
+             (move-type setup)
+             (drop-dice) 
+          )
+  )
+  (piece
+	  (name d1)
+          (image White "images/Ur/d100.bmp"
+                 Black "images/Ur/d101.bmp")
+          (drops
+             (move-type setup)
+             (drop-dice) 
+          )
+  )
+  (piece
+	  (name  Man)
+          (image White "images/Ur/wi.bmp"
+                 Black "images/Ur/bi.bmp")
+          (moves
+             (step-1 next) (step-2 next) (step-3 next) (step-4 next)
+          )
+  )
+  (piece
+	  (name  King)
+          (image White "images/Ur/wp.bmp"
+                 Black "images/Ur/bp.bmp")
+          (moves
+             (step-1 prom) (step-2 prom) (step-3 prom) (step-4 prom)
+          )
+  )
+
+  (board-setup
+          (White (Man a00 b00 c00 d00 e00 f00 g00) (d0 x2 x1) (d1 x3))
+          (Black (Man a40 b40 c40 d40 e40 f40 g40))
+  )
+)

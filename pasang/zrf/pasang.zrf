@@ -1,0 +1,538 @@
+(define capture-move (
+  (verify (in-zone? home-zone))
+  capture add
+))
+
+(define step (
+  (verify (in-zone? home-zone))
+  $1 (verify empty?)
+; change-owner
+  (add Ka)
+))
+
+(define jump (
+  (verify (in-zone? home-zone))
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+; change-owner
+  (add Ka)
+))
+
+(define slide (
+  (verify friend?)
+  $1 (while empty? add $1)
+))
+
+(game
+    (title "Pasang (setup 1)")
+
+    (move-sound "Audio\Pickup.wav")
+    (release-sound "Audio\Pickup.wav")
+    (capture-sound "")
+    (drop-sound "")
+
+    (option "animate captures" false)
+    (option "smart moves"      false)
+    (option "shared-pieces"    true)
+
+    (players Blue Red N)
+    (turn-order Blue Red)
+
+    (move-priorities priority-type normal-type)
+
+    (board
+        (image "images/pasang.bmp")
+        (grid
+            (start-rectangle 5 5 37 37) ; top-left position
+            (dimensions
+                ("a/b/c/d/e/f/g/h/i/j/k" (32 0)) ; columns
+                ("11/10/9/8/7/6/5/4/3/2/1" (0 32)) ; rows
+            )
+            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+        )
+        (kill-positions f6)
+        (links gr
+            (a1 a2) (a2 a3) (a3 a4)  (a4 a5)   (a5 a1)
+            (b1 b2) (b2 b3) (b3 b4)  (b4 b5)   (b5 b1)
+            (c1 c2) (c2 c3) (c3 c4)  (c4 c5)   (c5 c1)
+            (d1 d2) (d2 d3) (d3 d4)  (d4 d5)   (d5 d1)
+            (e1 e2) (e2 e3) (e3 e4)  (e4 e5)   (e5 e1)
+            (f1 f2) (f2 f3) (f3 f4)  (f4 f5)   (f5 f1)
+            (g1 g2) (g2 g3) (g3 g4)  (g4 g5)   (g5 g1)
+            (h1 h2) (h2 h3) (h3 h4)  (h4 h5)   (h5 h1)
+            (i1 i2) (i2 i3) (i3 i4)  (i4 i5)   (i5 i1)
+            (j1 j2) (j2 j3) (j3 j4)  (j4 j5)   (j5 j1)
+            (k1 k2) (k2 k3) (k3 k4)  (k4 k5)   (k5 k1)
+            (a7 a8) (a8 a9) (a9 a10) (a10 a11) (a11 a7)
+            (b7 b8) (b8 b9) (b9 b10) (b10 b11) (b11 b7)
+            (c7 c8) (c8 c9) (c9 c10) (c10 c11) (c11 c7)
+            (d7 d8) (d8 d9) (d9 d10) (d10 d11) (d11 d7)
+            (e7 e8) (e8 e9) (e9 e10) (e10 e11) (e11 e7)
+            (f7 f8) (f8 f9) (f9 f10) (f10 f11) (f11 f7)
+            (g7 g8) (g8 g9) (g9 g10) (g10 g11) (g11 g7)
+            (h7 h8) (h8 h9) (h9 h10) (h10 h11) (h11 h7)
+            (i7 i8) (i8 i9) (i9 i10) (i10 i11) (i11 i7)
+            (j7 j8) (j8 j9) (j9 j10) (j10 j11) (j11 j7)
+            (k7 k8) (k8 k9) (k9 k10) (k10 k11) (k11 k7)
+        )
+        (links sd
+            (f7 f1) (f8 f1) (f9 f1) (f10 f1) (f11 f1)
+            (f1 f2) (f2 f3) (f3 f4) (f4  f5)
+            (a7 a1) (a8 a1) (a9 a1) (a10 a1) (a11 a1)
+            (b7 a1) (b8 a1) (b9 a1) (b10 a1) (b11 a1)
+            (c7 a1) (c8 a1) (c9 a1) (c10 a1) (c11 a1)
+            (d7 a1) (d8 a1) (d9 a1) (d10 a1) (d11 a1)
+            (e7 a1) (e8 a1) (e9 a1) (e10 a1) (e11 a1)
+            (g1 g2) (g2 g3) (g3 g4) (g4  g5) (g5  h1)
+            (h1 h2) (h2 h3) (h3 h4) (h4  h5) (h5  i1)
+            (i1 i2) (i2 i3) (i3 i4) (i4  i5) (i5  j1)
+            (j1 j2) (j2 j3) (j3 j4) (j4  j5) (j5  k1)
+            (k1 k2) (k2 k3) (k3 k4) (k4  k5)         
+            (g7 g1) (g8 g1) (g9 g1) (g10 g1) (g11 g1)
+            (h7 g1) (h8 g1) (h9 g1) (h10 g1) (h11 g1)
+            (i7 g1) (i8 g1) (i9 g1) (i10 g1) (i11 g1)
+            (j7 g1) (j8 g1) (j9 g1) (j10 g1) (j11 g1)
+            (k7 g1) (k8 g1) (k9 g1) (k10 g1) (k11 g1)
+            (a1 a2) (a2 a3) (a3 a4) (a4  a5) (a5  b1)
+            (b1 b2) (b2 b3) (b3 b4) (b4  b5) (b5  c1)
+            (c1 c2) (c2 c3) (c3 c4) (c4  c5) (c5  d1)
+            (d1 d2) (d2 d3) (d3 d4) (d4  d5) (d5  e1)
+            (e1 e2) (e2 e3) (e3 e4) (e4  e5) 
+        )
+        (zone (name home-zone) (players Blue) (positions
+            a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1
+            a2  b2  c2  d2  e2  f2  g2  h2  i2  j2  k2
+            a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3
+            a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4
+            a5  b5  c5  d5  e5  f5  g5  h5  i5  j5  k5
+        ))
+        (zone (name home-zone) (players Red) (positions
+            a7  b7  c7  d7  e7  f7  g7  h7  i7  j7  k7
+            a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8
+            a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9
+            a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10
+            a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11
+        ))
+   )
+
+   (piece
+      (name Ka)
+      (help "Ka")
+      (image Blue "images/blue.bmp"
+             Red  "images/red.bmp")
+      (moves
+          (move-type priority-type)
+          (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Black)
+      (help " ")
+      (image N "images/black.bmp")
+      (moves
+          (move-type normal-type)
+          (capture-move)
+          (step n) (step s) (step w) (step e)
+          (jump n) (jump s) (jump w) (jump e)
+      )
+   )
+   (piece
+      (name White)
+      (help " ")
+      (image N "images/white.bmp")
+      (moves
+          (move-type normal-type)
+          (capture-move)
+          (step n) (step s) (step w) (step e)
+          (jump n) (jump s) (jump w) (jump e)
+      )
+   )
+
+   (board-setup
+      (N
+          (Black a10 a6 a7 a8 a9 b1 b6 b7 b8 b9 c1 c2 c6 c7 c8 d1 d2 d3 d6 d7 e1 e2 e3 e4 e6 f1 f10 f11 f2 f3 f4 f5 f7 f8 f9 g10 g11 g6 g8 g9 h10 h11 h5 h6 h9 i10 i11 i4 i5 i6 j11 j3 j4 j5 j6 k2 k3 k4 k5 k6)
+          (White a1 a11 a2 a3 a4 a5 b10 b11 b2 b3 b4 b5 c10 c11 c3 c4 c5 c9 d10 d11 d4 d5 d8 d9 e10 e11 e5 e7 e8 e9 g1 g2 g3 g4 g5 g7 h1 h2 h3 h4 h7 h8 i1 i2 i3 i7 i8 i9 j1 j10 j2 j7 j8 j9 k1 k10 k11 k7 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 2)")
+   (board-setup
+      (N
+          (Black a10 a2 a5 a7 b1 b10 b11 b2 b3 b6 b9 c10 c2 c4 c6 c8 d3 d4 d5 d7 d8 d9 e1 e11 e4 e6 e8 f10 f2 f3 f5 f7 f9 g1 g11 g4 g6 g8 h3 h4 h5 h7 h8 h9 i10 i2 i4 i6 i8 j1 j10 j11 j2 j3 j6 j9 k10 k2 k5 k7)
+          (White a1 a11 a3 a4 a6 a8 a9 b4 b5 b7 b8 c1 c11 c3 c5 c7 c9 d1 d10 d11 d2 d6 e10 e2 e3 e5 e7 e9 f1 f11 f4 f8 g10 g2 g3 g5 g7 g9 h1 h10 h11 h2 h6 i1 i11 i3 i5 i7 i9 j4 j5 j7 j8 k1 k11 k3 k4 k6 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 3)")
+   (board-setup
+      (N
+          (Black g6 a3 a4 a5 a7 a8 a9 b4 b5 b7 b8 c1 c11 c5 c6 c7 d1 d10 d11 d2 d6 e1 e10 e11 e2 e3 e6 e9 f3 f4 f5 f7 f8 f9 g1 g10 g11 g2 g3 g9 h1 h10 h11 h2 h6 i1 i11 i5 i6 i7 j4 j5 j7 j8 k3 k4 k5 k7 k8 k9)
+          (White a1 a10 a11 a2 a6 b1 b10 b11 b2 b3 b6 b9 c10 c2 c3 c4 c8 c9 d3 d4 d5 d7 d8 d9 e4 e5 e7 e8 f1 f10 f11 f2 g4 g5 g7 g8 h3 h4 h5 h7 h8 h9 i10 i2 i3 i4 i8 i9 j1 j10 j11 j2 j3 j6 j9 k1 k10 k11 k2 k6)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 4)")
+   (board-setup
+      (N
+          (Black a10 a2 a5 a6 a9 b1 b10 b11 b2 b3 b6 b7 c11 c2 c4 c7 c8 d3 d4 d5 d8 d9 e1 e10 e4 e6 e9 f1 f10 f11 f2 f5 f7 g11 g2 g3 g6 g8 h3 h4 h7 h8 h9 i1 i10 i4 i5 i8 j1 j10 j11 j2 j5 j6 j9 k10 k2 k3 k6 k7)
+          (White a1 a11 a3 a4 a7 a8 b4 b5 b8 b9 c1 c10 c3 c5 c6 c9 d1 d10 d11 d2 d6 d7 e11 e2 e3 e5 e7 e8 f3 f4 f8 f9 g1 g10 g4 g5 g7 g9 h1 h10 h11 h2 h5 h6 i11 i2 i3 i6 i7 i9 j3 j4 j7 j8 k1 k11 k4 k5 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 5)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a8 a9 b3 b6 b9 c1 c10 c11 c2 c4 c5 c7 c8 d1 d11 d3 d5 d7 d9 e3 e4 e6 e8 e9 f10 f2 f5 f7 g3 g4 g6 g8 g9 h1 h11 h3 h5 h7 h9 i1 i10 i11 i2 i4 i5 i7 i8 j3 j6 j9 k1 k11 k3 k4 k8 k9)
+          (White a10 a2 a5 a6 a7 b1 b10 b11 b2 b4 b5 b7 b8 c3 c6 c9 d10 d2 d4 d6 d8 e1 e10 e11 e2 e5 e7 f1 f11 f3 f4 f8 f9 g1 g10 g11 g2 g5 g7 h10 h2 h4 h6 h8 i3 i6 i9 j1 j10 j11 j2 j4 j5 j7 j8 k10 k2 k5 k6 k7)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 6)")
+   (board-setup
+      (N
+          (Black a10 a2 a5 a6 a7 b1 b11 b3 b9 c10 c2 c4 c5 c7 c8 d3 d5 d6 d7 d9 e1 e11 e3 e4 e6 e8 e9 f1 f11 f4 f5 f7 f8 g1 g11 g3 g4 g6 g8 g9 h3 h5 h6 h7 h9 i10 i2 i4 i5 i7 i8 j1 j11 j3 j9 k10 k2 k5 k6 k7)
+          (White a1 a11 a3 a4 a8 a9 b10 b2 b4 b5 b6 b7 b8 c1 c11 c3 c6 c9 d1 d10 d11 d2 d4 d8 e10 e2 e5 e7 f10 f2 f3 f9 g10 g2 g5 g7 h1 h10 h11 h2 h4 h8 i1 i11 i3 i6 i9 j10 j2 j4 j5 j6 j7 j8 k1 k11 k3 k4 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 7)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a6 a8 a9 b3 b6 b9 c1 c10 c11 c2 c4 c5 c7 c8 d1 d11 d3 d6 d9 e3 e5 e7 e9 f1 f10 f11 f2 f4 f8 g3 g5 g7 g9 h1 h11 h3 h6 h9 i1 i10 i11 i2 i4 i5 i7 i8 j3 j6 j9 k1 k11 k3 k4 k6 k8 k9)
+          (White a10 a2 a5 a7 b1 b10 b11 b2 b4 b5 b7 b8 c3 c6 c9 d10 d2 d4 d5 d7 d8 e1 e10 e11 e2 e4 e6 e8 f3 f5 f7 f9 g1 g10 g11 g2 g4 g6 g8 h10 h2 h4 h5 h7 h8 i3 i6 i9 j1 j10 j11 j2 j4 j5 j7 j8 k10 k2 k5 k7)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 8)")
+   (board-setup
+      (N
+          (Black a10 a2 a5 a7 b1 b11 b3 b5 b7 b9 c10 c2 c4 c6 c8 d3 d5 d6 d7 d9 e1 e10 e11 e2 e4 e6 e8 f3 f4 f5 f7 f8 f9 g1 g10 g11 g2 g4 g6 g8 h3 h5 h6 h7 h9 i10 i2 i4 i6 i8 j1 j11 j3 j5 j7 j9 k10 k2 k5 k7)
+          (White a1 a11 a3 a4 a6 a8 a9 b10 b2 b4 b6 b8 c1 c11 c3 c5 c7 c9 d1 d10 d11 d2 d4 d8 e3 e5 e7 e9 f1 f10 f11 f2 g3 g5 g7 g9 h1 h10 h11 h2 h4 h8 i1 i11 i3 i5 i7 i9 j10 j2 j4 j6 j8 k1 k11 k3 k4 k6 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 9)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a6 a8 b3 b4 b5 b7 b8 b9 c10 c2 c3 c6 c9 d1 d10 d11 d2 d6 e10 e2 e5 e6 e7 f1 f11 f3 f4 f5 f7 f8 f9 g10 g2 g5 g6 g7 h1 h10 h11 h2 h6 i10 i2 i3 i6 i9 j3 j4 j5 j7 j8 j9 k1 k11 k4 k6 k8)
+          (White a10 a2 a3 a5 a7 a9 b1 b10 b11 b2 b6 c1 c11 c4 c5 c7 c8 d3 d4 d5 d7 d8 d9 e1 e11 e3 e4 e8 e9 f10 f2 g1 g11 g3 g4 g8 g9 h3 h4 h5 h7 h8 h9 i1 i11 i4 i5 i7 i8 j1 j10 j11 j2 j6 k10 k2 k3 k5 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 10)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a6 a9 b3 b5 b6 b7 b9 c1 c10 c11 c2 c3 c5 c7 c9 d4 d6 d8 e10 e2 e3 e6 e9 f1 f10 f11 f2 f4 f5 f7 f8 g10 g2 g3 g6 g9 h4 h6 h8 i1 i10 i11 i2 i3 i5 i7 i9 j3 j5 j6 j7 j9 k1 k11 k3 k6 k9)
+          (White a10 a2 a4 a5 a7 a8 b1 b10 b11 b2 b4 b8 c4 c6 c8 d1 d10 d11 d2 d3 d5 d7 d9 e1 e11 e4 e5 e7 e8 f3 f9 g1 g11 g4 g5 g7 g8 h1 h10 h11 h2 h3 h5 h7 h9 i4 i6 i8 j1 j10 j11 j2 j4 j8 k10 k2 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 11)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a6 a8 b3 b4 b5 b7 b8 b9 c10 c2 c5 c7 d1 d10 d11 d2 d4 d6 d8 e10 e2 e3 e6 e9 f1 f11 f4 f5 f7 f8 g10 g2 g3 g6 g9 h1 h10 h11 h2 h4 h6 h8 i10 i2 i5 i7 j3 j4 j5 j7 j8 j9 k1 k11 k4 k6 k8)
+          (White a10 a2 a3 a5 a7 a9 b1 b10 b11 b2 b6 c1 c11 c3 c4 c6 c8 c9 d3 d5 d7 d9 e1 e11 e4 e5 e7 e8 f10 f2 f3 f9 g1 g11 g4 g5 g7 g8 h3 h5 h7 h9 i1 i11 i3 i4 i6 i8 i9 j1 j10 j11 j2 j6 k10 k2 k3 k5 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 12)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a6 a9 b10 b2 b4 b5 b7 b8 c1 c11 c3 c5 c7 c9 d10 d2 d4 d6 d8 e10 e2 e3 e6 e9 f1 f11 f4 f5 f7 f8 g10 g2 g3 g6 g9 h10 h2 h4 h6 h8 i1 i11 i3 i5 i7 i9 j10 j2 j4 j5 j7 j8 k1 k11 k3 k6 k9)
+          (White a10 a2 a4 a5 a7 a8 b1 b11 b3 b6 b9 c10 c2 c4 c6 c8 d1 d11 d3 d5 d7 d9 e1 e11 e4 e5 e7 e8 f10 f2 f3 f9 g1 g11 g4 g5 g7 g8 h1 h11 h3 h5 h7 h9 i10 i2 i4 i6 i8 j1 j11 j3 j6 j9 k10 k2 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 13)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a6 a8 b3 b6 b9 c10 c2 c4 c5 c6 c7 c8 d1 d11 d3 d6 d9 e3 e5 e6 e7 e9 f1 f10 f11 f2 f3 f4 f5 f7 f8 f9 g3 g5 g6 g7 g9 h1 h11 h3 h6 h9 i10 i2 i4 i5 i6 i7 i8 j3 j6 j9 k1 k11 k4 k6 k8)
+          (White a10 a2 a3 a5 a7 a9 b1 b10 b11 b2 b4 b5 b7 b8 c1 c11 c3 c9 d10 d2 d4 d5 d7 d8 e1 e10 e11 e2 e4 e8 g1 g10 g11 g2 g4 g8 h10 h2 h4 h5 h7 h8 i1 i11 i3 i9 j1 j10 j11 j2 j4 j5 j7 j8 k10 k2 k3 k5 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 14)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a8 a9 b4 b6 b8 c1 c11 c4 c5 c7 c8 d1 d10 d11 d2 d3 d5 d7 d9 e3 e4 e6 e8 e9 f10 f2 f5 f7 g3 g4 g6 g8 g9 h1 h10 h11 h2 h3 h5 h7 h9 i1 i11 i4 i5 i7 i8 j4 j6 j8 k1 k11 k3 k4 k8 k9)
+          (White a10 a2 a5 a6 a7 b1 b10 b11 b2 b3 b5 b7 b9 c10 c2 c3 c6 c9 d4 d6 d8 e1 e10 e11 e2 e5 e7 f1 f11 f3 f4 f8 f9 g1 g10 g11 g2 g5 g7 h4 h6 h8 i10 i2 i3 i6 i9 j1 j10 j11 j2 j3 j5 j7 j9 k10 k2 k5 k6 k7)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 15)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a5 a7 a8 a9 b4 b6 b8 c1 c11 c3 c5 c7 c9 d1 d10 d11 d2 d4 d8 e1 e11 e3 e5 e7 e9 f10 f2 g1 g11 g3 g5 g7 g9 h1 h10 h11 h2 h4 h8 i1 i11 i3 i5 i7 i9 j4 j6 j8 k1 k11 k3 k4 k5 k7 k8 k9)
+          (White a10 a2 a6 b1 b10 b11 b2 b3 b5 b7 b9 c10 c2 c4 c6 c8 d3 d5 d6 d7 d9 e10 e2 e4 e6 e8 f1 f11 f3 f4 f5 f7 f8 f9 g10 g2 g4 g6 g8 h3 h5 h6 h7 h9 i10 i2 i4 i6 i8 j1 j10 j11 j2 j3 j5 j7 j9 k10 k2 k6)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 16)")
+   (board-setup
+      (N
+          (Black a10 a2 a4 a6 a8 b1 b11 b3 b5 b7 b9 c10 c2 c4 c6 c8 d1 d11 d3 d6 d9 e10 e2 e5 e6 e7 f1 f11 f3 f4 f5 f7 f8 f9 g10 g2 g5 g6 g7 h1 h11 h3 h6 h9 i10 i2 i4 i6 i8 j1 j11 j3 j5 j7 j9 k10 k2 k4 k6 k8)
+          (White a1 a11 a3 a5 a7 a9 b10 b2 b4 b6 b8 c1 c11 c3 c5 c7 c9 d10 d2 d4 d5 d7 d8 e1 e11 e3 e4 e8 e9 f10 f2 g1 g11 g3 g4 g8 g9 h10 h2 h4 h5 h7 h8 i1 i11 i3 i5 i7 i9 j10 j2 j4 j6 j8 k1 k11 k3 k5 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 17)")
+   (board-setup
+      (N
+          (Black a10 a2 a3 a6 a9 b1 b11 b4 b5 b7 b8 c1 c11 c4 c6 c8 d10 d2 d3 d5 d7 d9 e10 e2 e4 e6 e8 f1 f11 f3 f5 f7 f9 g10 g2 g4 g6 g8 h10 h2 h3 h5 h7 h9 i1 i11 i4 i6 i8 j1 j11 j4 j5 j7 j8 k10 k2 k3 k6 k9)
+          (White a1 a11 a4 a5 a7 a8 b10 b2 b3 b6 b9 c10 c2 c3 c5 c7 c9 d1 d11 d4 d6 d8 e1 e11 e3 e5 e7 e9 f10 f2 f4 f8 g1 g11 g3 g5 g7 g9 h1 h11 h4 h6 h8 i10 i2 i3 i5 i7 i9 j10 j2 j3 j6 j9 k1 k11 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 18)")
+   (board-setup
+      (N
+          (Black a3 a5 a7 a9 b3 b4 b6 b8 b9 c1 c10 c11 c2 c4 c5 c7 c8 d10 d2 d3 d6 d9 e1 e11 e3 e5 e7 e9 f10 f2 f4 f8 g1 g11 g3 g5 g7 g9 h10 h2 h3 h6 h9 i1 i10 i11 i2 i4 i5 i7 i8 j3 j4 j6 j8 j9 k3 k5 k7 k9)
+          (White a1 a10 a11 a2 a4 a6 a8 b1 b10 b11 b2 b5 b7 c3 c6 c9 d1 d11 d4 d5 d7 d8 e10 e2 e4 e6 e8 f1 f11 f3 f5 f7 f9 g10 g2 g4 g6 g8 h1 h11 h4 h5 h7 h8 i3 i6 i9 j1 j10 j11 j2 j5 j7 k1 k10 k11 k2 k4 k6 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 19)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a5 a7 a8 a9 b4 b8 c1 c11 c3 c5 c7 c9 d1 d10 d11 d2 d6 e1 e11 e3 e5 e6 e7 e9 f4 f5 f7 f8 g1 g11 g3 g5 g6 g7 g9 h1 h10 h11 h2 h6 i1 i11 i3 i5 i7 i9 j4 j8 k1 k11 k3 k4 k5 k7 k8 k9)
+          (White a10 a2 a6 b1 b10 b11 b2 b3 b5 b6 b7 b9 c10 c2 c4 c6 c8 d3 d4 d5 d7 d8 d9 e10 e2 e4 e8 f1 f10 f11 f2 f3 f9 g10 g2 g4 g8 h3 h4 h5 h7 h8 h9 i10 i2 i4 i6 i8 j1 j10 j11 j2 j3 j5 j6 j7 j9 k10 k2 k6)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 20)")
+   (board-setup
+      (N
+          (Black a1 a10 a11 a2 a5 a7 b1 b11 b3 b4 b6 b8 b9 c10 c2 c5 c7 d10 d2 d5 d7 e1 e11 e3 e4 e6 e8 e9 f10 f2 f5 f7 g1 g11 g3 g4 g6 g8 g9 h10 h2 h5 h7 i10 i2 i5 i7 j1 j11 j3 j4 j6 j8 j9 k1 k10 k11 k2 k5 k7)
+          (White a3 a4 a6 a8 a9 b10 b2 b5 b7 c1 c11 c3 c4 c6 c8 c9 d1 d11 d3 d4 d6 d8 d9 e10 e2 e5 e7 f1 f11 f3 f4 f8 f9 g10 g2 g5 g7 h1 h11 h3 h4 h6 h8 h9 i1 i11 i3 i4 i6 i8 i9 j10 j2 j5 j7 k3 k4 k6 k8 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 21)")
+   (board-setup
+      (N
+          (Black a10 a2 a3 a4 a8 a9 b1 b11 b4 b5 b7 b8 c1 c11 c5 c7 d1 d10 d11 d2 d5 d7 e10 e2 e3 e4 e6 e8 e9 f5 f7 g10 g2 g3 g4 g6 g8 g9 h1 h10 h11 h2 h5 h7 i1 i11 i5 i7 j1 j11 j4 j5 j7 j8 k10 k2 k3 k4 k8 k9)
+          (White a1 a11 a5 a6 a7 b10 b2 b3 b6 b9 c10 c2 c3 c4 c6 c8 c9 d3 d4 d6 d8 d9 e1 e11 e5 e7 f1 f10 f11 f2 f3 f4 f8 f9 g1 g11 g5 g7 h3 h4 h6 h8 h9 i10 i2 i3 i4 i6 i8 i9 j10 j2 j3 j6 j9 k1 k11 k5 k6 k7)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 22)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a6 a8 b10 b2 b4 b5 b7 b8 c3 c6 c9 d1 d10 d11 d2 d4 d6 d8 e10 e2 e5 e6 e7 f1 f11 f3 f4 f5 f7 f8 f9 g10 g2 g5 g6 g7 h1 h10 h11 h2 h4 h6 h8 i3 i6 i9 j10 j2 j4 j5 j7 j8 k1 k11 k4 k6 k8)
+          (White a10 a2 a3 a5 a7 a9 b1 b11 b3 b6 b9 c1 c10 c11 c2 c4 c5 c7 c8 d3 d5 d7 d9 e1 e11 e3 e4 e8 e9 f10 f2 g1 g11 g3 g4 g8 g9 h3 h5 h7 h9 i1 i10 i11 i2 i4 i5 i7 i8 j1 j11 j3 j6 j9 k10 k2 k3 k5 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 23)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a5 a7 a8 b3 b5 b6 b7 b9 c10 c2 c4 c6 c8 d1 d11 d3 d6 d9 e1 e10 e11 e2 e5 e7 f10 f2 f3 f4 f8 f9 g1 g10 g11 g2 g5 g7 h1 h11 h3 h6 h9 i10 i2 i4 i6 i8 j3 j5 j6 j7 j9 k1 k11 k4 k5 k7 k8)
+          (White a10 a2 a3 a6 a9 b1 b10 b11 b2 b4 b8 c1 c11 c3 c5 c7 c9 d10 d2 d4 d5 d7 d8 e3 e4 e6 e8 e9 f1 f11 f5 f7 g3 g4 g6 g8 g9 h10 h2 h4 h5 h7 h8 i1 i11 i3 i5 i7 i9 j1 j10 j11 j2 j4 j8 k10 k2 k3 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 24)")
+   (default)
+   (board-setup
+      (N
+          (Black a1 a11 a3 a5 a7 a9 b3 b6 b9 c1 c10 c11 c2 c4 c5 c7 c8 d3 d6 d9 e1 e11 e3 e5 e6 e7 e9 f10 f2 f4 f5 f7 f8 g1 g11 g3 g5 g6 g7 g9 h3 h6 h9 i1 i10 i11 i2 i4 i5 i7 i8 j3 j6 j9 k1 k11 k3 k5 k7 k9)
+          (White a10 a2 a4 a6 a8 b1 b10 b11 b2 b4 b5 b7 b8 c3 c6 c9 d1 d10 d11 d2 d4 d5 d7 d8 e10 e2 e4 e8 f1 f11 f3 f9 g10 g2 g4 g8 h1 h10 h11 h2 h4 h5 h7 h8 i3 i9 j1 j10 i6 j11 j2 j4 j5 j7 j8 k10 k2 k4 k6 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 25)")
+   (board-setup
+      (N
+          (Black a3 a6 a9 b10 b2 b3 b4 b6 b8 b9 c1 c10 c11 c2 c5 c6 c7 d10 d2 d4 d5 d8 e3 e6 e8 e9 f1 f10 f11 f2 f3 f5 f7 f9 g3 g4 g6 g9 h10 h2 h4 h7 h8 i1 i10 i11 i2 i5 i6 i7 j10 j2 j3 j4 j6 j8 j9 k3 k6 k9)
+          (White a1 a10 a11 a2 a4 a5 a7 a8 b1 b11 b5 b7 c3 c4 c8 c9 d1 d11 d3 d6 d7 d9 e1 e10 e11 e2 e4 e5 e7 f4 f8 g1 g10 g11 g2 g5 g7 g8 h1 h11 h3 h5 h6 h9 i3 i4 i8 i9 j1 j11 j5 j7 k1 k10 k11 k2 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 26)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a5 a7 a8 b3 b4 b6 b8 b9 c10 c2 c5 c7 d1 d10 d11 d2 d4 d5 d8 e1 e11 e3 e6 e8 e9 f10 f2 f5 f7 g1 g11 g3 g4 g6 g9 h1 h10 h11 h2 h4 h7 h8 i10 i2 i5 i7 j3 j4 j6 j8 j9 k1 k11 k4 k5 k7 k8)
+          (White a10 a2 a3 a6 a9 b1 b10 b11 b2 b5 b7 c1 c11 c3 c4 c6 c8 c9 d3 d6 d7 d9 e10 e2 e4 e5 e7 f1 f11 f3 f4 f8 f9 g10 g2 g5 g7 g8 h3 h5 h6 h9 i1 i11 i3 i4 i6 i8 i9 j1 j10 j11 j2 j5 j7 k10 k2 k3 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 27)")
+   (board-setup
+      (N
+          (Black a10 a3 a5 a8 a9 b1 b4 b6 b9 c1 c11 c2 c3 c5 c7 c8 c9 d1 d10 d3 d4 d5 d8 e11 e3 e6 e8 e9 f10 f2 f5 f7 g1 g3 g4 g6 g9 h11 h2 h4 h7 h8 h9 i1 i10 i11 i3 i4 i5 i7 i9 j11 j3 j6 j8 k2 k3 k4 k7 k9)
+          (White a1 a11 a2 a4 a6 a7 b10 b11 b2 b3 b5 b7 b8 c10 c4 c6 d11 d2 d6 d7 d9 e1 e10 e2 e4 e5 e7 f1 f11 f3 f4 f8 f9 g10 g11 g2 g5 g7 g8 h1 h10 h3 h5 h6 i2 i6 i8 j1 j10 j2 j4 j5 j7 j9 k1 k10 k11 k5 k6 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 28)")
+   (board-setup
+      (N
+          (Black a2 a3 a6 a9 b11 b3 b4 b6 b8 c1 c10 c11 c4 c5 c7 c8 d10 d2 d3 d4 d5 d8 d9 e3 e6 e8 e9 f1 f10 f11 f2 f5 f7 g3 g4 g6 g9 h10 h2 h3 h4 h7 h8 h9 i1 i11 i2 i4 i5 i7 i8 j1 j4 j6 j8 j9 k10 k3 k6 k9)
+          (White a1 a10 a11 a4 a5 a7 a8 b1 b10 b2 b5 b7 b9 c2 c3 c6 c9 d1 d11 d6 d7 e1 e10 e11 e2 e4 e5 e7 f3 f4 f8 f9 g1 g10 g11 g2 g5 g7 g8 h1 h11 h5 h6 i10 i3 i6 i9 j10 j11 j2 j3 j5 j7 k1 k11 k2 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 29)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a5 a8 b3 b4 b7 b8 b9 c10 c2 c4 c6 c7 d1 d10 d11 d2 d5 d6 d9 e11 e2 e3 e6 e8 f3 f4 f5 f7 f8 f9 g1 g10 g4 g6 g9 h1 h10 h11 h2 h3 h6 h7 i10 i2 i5 i6 i8 j3 j4 j5 j8 j9 k1 k11 k4 k7 k8)
+          (White a10 a2 a3 a6 a7 a9 b1 b10 b11 b2 b5 b6 c1 c11 c3 c5 c8 c9 d3 d4 d7 d8 e1 e10 e4 e5 e7 e9 f1 f10 f11 f2 g11 g2 g3 g5 g7 g8 h4 h5 h8 h9 i1 i11 i3 i4 i7 i9 j1 j10 j11 j2 j6 j7 k10 k2 k3 k5 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 30)")
+   (board-setup
+      (N
+          (Black a10 a3 a4 a7 a8 a9 b1 b4 b5 b8 b9 c1 c11 c2 c5 c6 c8 d1 d10 d11 d2 d3 d6 d7 e1 e10 e4 e9 f3 f4 f8 f9 g11 g2 g3 g8 h1 h10 h11 h2 h5 h6 h9 i1 i10 i11 i4 i6 i7 j11 j3 j4 j7 j8 k2 k3 k4 k5 k8 k9)
+          (White a1 a11 a2 a5 a6 b10 b11 b2 b3 b6 b7 c10 c3 c4 c7 c9 d4 d5 d8 d9 e11 e2 e3 e5 e6 e7 e8 f1 f10 f11 f2 f5 f7 g1 g10 g4 g5 g6 g7 g9 h3 h4 h7 h8 i2 i3 i5 i8 i9 j1 j10 j2 j5 j6 j9 k1 k10 k11 k6 k7)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 31)")
+   (board-setup
+      (N
+          (Black a2 a3 a5 a8 a9 b11 b3 b4 b7 b8 c1 c10 c11 c4 c6 c7 d1 d10 d2 d5 d6 d9 e11 e2 e3 e6 e8 f3 f4 f5 f7 f8 f9 g1 g10 g4 g6 g9 h10 h11 h2 h3 h6 h7 i1 i11 i2 i5 i6 i8 j1 j4 j5 j8 j9 k10 k3 k4 k7 k9)
+          (White a1 a10 a11 a4 a6 a7 b1 b10 b2 b5 b6 b9 c2 c3 c5 c8 c9 d11 d3 d4 d7 d8 e1 e10 e4 e5 e7 e9 f1 f10 f11 f2 g11 g2 g3 g5 g7 g8 h1 h4 h5 h8 h9 i10 i3 i4 i7 i9 j10 j11 j2 j3 j6 j7 k1 k11 k2 k5 k6 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 32)")
+   (board-setup
+      (N
+          (Black a1 a10 a11 a4 a5 a8 b1 b10 b2 b5 b6 b9 c2 c3 c6 c7 c9 d1 d11 d4 d7 d8 e10 e11 e3 e4 e5 e7 f10 f2 f3 f9 g1 g2 g5 g7 g8 g9 h1 h11 h4 h5 h8 i10 i3 i5 i6 i9 j10 j11 j2 j3 j6 j7 k1 k11 k2 k4 k7 k8)
+          (White a2 a3 a6 a7 a9 b11 b3 b4 b7 b8 c1 c10 c11 c4 c5 c8 d10 d2 d3 d5 d6 d9 e1 e2 e6 e8 e9 f1 f11 f4 f5 f7 f8 g10 g11 g3 g4 g6 h10 h2 h3 h6 h7 h9 i1 i11 i2 i4 i7 i8 j1 j4 j5 j8 j9 k10 k3 k5 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 33)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a5 a7 a8 b3 b4 b6 b8 b9 c10 c2 c5 c7 d1 d10 d11 d2 d4 d5 d8 e1 e11 e3 e6 e8 e9 f10 f2 f5 f7 g1 g11 g3 g4 g6 g9 h1 h10 h11 h2 h4 h7 h8 i10 i2 i5 i7 j3 j4 j6 j8 j9 k1 k11 k4 k5 k7 k8)
+          (White a10 a2 a3 a6 a9 b1 b10 b11 b2 b5 b7 c1 c11 c3 c4 c6 c8 c9 d3 d6 d7 d9 e10 e2 e4 e5 e7 f1 f11 f3 f4 f8 f9 g10 g2 g5 g7 g8 h3 h5 h6 h9 i1 i11 i3 i4 i6 i8 i9 j1 j10 j11 j2 j5 j7 k10 k2 k3 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 34)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a8 a9 b4 b5 b6 b7 b8 c1 c3 c4 c5 c8 c9 d1 d10 d11 d2 d3 d5 d9 e10 e2 e6 e8 e9 f10 f2 f5 f7 g10 g2 g3 g4 g6 h1 h10 h11 h2 h3 h7 h9 i11 i3 i4 i7 i8 i9 j4 j5 j6 j7 j8 k1 k11 k3 k4 k8)
+          (White a10 a2 a3 a5 a6 a7 b1 b10 b11 b2 b3 b9 c10 c11 c2 c6 c7 d4 d6 d7 d8 e1 e11 e3 e4 e5 e7 f1 f11 f3 f4 f8 f9 g1 g11 g5 g7 g8 g9 h4 h5 h6 h8 i1 i10 i2 i5 i6 j1 j10 j11 j2 j3 j9 k10 k2 k5 k6 k7 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 35)")
+   (board-setup
+      (N
+          (Black a10 a3 a6 a9 b1 b3 b4 b6 b7 b9 c1 c10 c11 c2 c5 c6 c8 d10 d3 d4 d7 d8 e2 e4 e5 e7 e9 f1 f10 f11 f2 f3 f9 g10 g3 g5 g7 g8 h2 h4 h5 h8 h9 i1 i10 i11 i2 i4 i6 i7 j11 j3 j5 j6 j8 j9 k2 k3 k6 k9)
+          (White a1 a11 a2 a4 a5 a7 a8 b10 b11 b2 b5 b8 c3 c4 c7 c9 d1 d11 d2 d5 d6 d9 e1 e10 e11 e3 e6 e8 f4 f5 f7 f8 g1 g11 g2 g4 g6 g9 h1 h10 h11 h3 h6 h7 i3 i5 i8 i9 j1 j10 j2 j4 j7 k1 k10 k11 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 36)")
+   (board-setup
+      (N
+          (Black a3 a6 a9 b10 b2 b3 b4 b6 b8 b9 c1 c10 c11 c2 c5 c6 c7 d10 d2 d4 d5 d8 e3 e6 e8 e9 f1 f10 f11 f2 f3 f5 f7 f9 g3 g4 g6 g9 h10 h2 h4 h7 h8 i1 i10 i11 i2 i5 i6 i7 j10 j2 j3 j4 j6 j8 j9 k3 k6 k9)
+          (White a1 a10 a11 a2 a4 a5 a7 a8 b1 b11 b5 b7 c3 c4 c8 c9 d1 d11 d3 d6 d7 d9 e1 e10 e11 e2 e4 e5 e7 f4 f8 g1 g10 g11 g2 g5 g7 g8 h1 h11 h3 h5 h6 h9 i3 i4 i8 i9 j1 j11 j5 j7 k1 k10 k11 k2 k4 k5 k7 k8)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 37)")
+   (board-setup
+      (N
+          (Black a1 a11 a4 a5 a8 b3 b4 b7 b8 b9 c10 c2 c4 c6 c7 d1 d10 d11 d2 d5 d6 d9 e11 e2 e3 e6 e8 f3 f4 f5 f7 f8 f9 g1 g10 g4 g6 g9 h1 h10 h11 h2 h3 h6 h7 i10 i2 i5 i6 i8 j3 j4 j5 j8 j9 k1 k11 k4 k7 k8)
+          (White a10 a2 a3 a6 a7 a9 b1 b10 b11 b2 b5 b6 c1 c11 c3 c5 c8 c9 d3 d4 d7 d8 e1 e10 e4 e5 e7 e9 f1 f10 f11 f2 g11 g2 g3 g5 g7 g8 h4 h5 h8 h9 i1 i11 i3 i4 i7 i9 j1 j10 j11 j2 j6 j7 k10 k2 k3 k5 k6 k9)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 38)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a4 a5 a7 a8 a9 b4 b8 c1 c11 c3 c5 c7 c9 d1 d10 d11 d2 d6 e1 e11 e3 e5 e6 e7 e9 f4 f5 f7 f8 g1 g11 g3 g5 g6 g7 g9 h1 h10 h11 h2 h6 i1 i11 i3 i5 i7 i9 j4 j8 k1 k11 k3 k4 k5 k7 k8 k9)
+          (White a10 a2 a6 b1 b10 b11 b2 b3 b5 b6 b7 b9 c10 c2 c4 c6 c8 d3 d4 d5 d7 d8 d9 e10 e2 e4 e8 f1 f10 f11 f2 f3 f9 g10 g2 g4 g8 h3 h4 h5 h7 h8 h9 i10 i2 i4 i6 i8 j1 j10 j11 j2 j3 j5 j6 j7 j9 k10 k2 k6)
+      )
+   )
+)
+
+(variant
+   (title "Pasang (setup 39)")
+   (board-setup
+      (N
+          (Black a1 a11 a3 a5 a7 a9 b10 b2 b4 b6 b8 c1 c11 c3 c5 c7 c9 d10 d2 d4 d6 d8 e1 e11 e3 e5 e7 e9 f10 f2 f4 f8 g1 g11 g3 g5 g7 g9 h10 h2 h4 h6 h8 i1 i11 i3 i5 i7 i9 j10 j2 j4 j6 j8 k1 k11 k3 k5 k7 k9)
+          (White a10 a2 a4 a6 a8 b1 b11 b3 b5 b7 b9 c10 c2 c4 c6 c8 d1 d11 d3 d5 d7 d9 e10 e2 e4 e6 e8 f1 f11 f3 f5 f7 f9 g10 g2 g4 g6 g8 h1 h11 h3 h5 h7 h9 i10 i2 i4 i6 i8 j1 j11 j3 j5 j7 j9 k10 k2 k4 k6 k8)
+      )
+   )
+)

@@ -1,0 +1,211 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(game
+  (title "Halma 10x10")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"        false)
+  (option "smart moves"             false)
+  (option "pass partial"            true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/halma/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions a10 b10 c10 d10 a9 b9 c9 d9 a8 b8 c8 a7 b7)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions g1 h1 i1 j1 g2 h2 i2 j2 h3 i3 j3 i4 j4)
+     )
+     (zone (name target-zone) (players White)
+           (positions a10)
+     )
+     (zone (name target-zone) (players Black)
+           (positions j1)
+     )
+     (links nx (a10 b10) (b10 a9) (a9 a8) (a8 b9) (b9 c10) (c10 d10) (d10 c9) (c9 b8) (b8 a7) (a7 b7) (b7 c8) (c8 d9))
+     (links nb (j1 j2) (j2 i1) (i1 h1) (h1 i2) (i2 j3) (j3 j4) (j4 i3) (i3 h2) (h2 g1) (g1 g2) (g2 h3) (h3 i4))
+     (symmetry Black (n n) (s s) (w w) (e e) (nx nb) (nb nx))
+  )
+
+  (piece
+     (name Man)
+     (image White "images/halma/rman.bmp"
+            Black "images/halma/uman.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step e)
+         (step w) (step s)
+         (move-type continue-type)
+         (jump n) (jump e)
+         (jump w) (jump s)
+     )
+  )
+
+  (board-setup
+    (White (Man g1 h1 i1 j1 g2 h2 i2 j2 h3 i3 j3 i4 j4))
+    (Black (Man a10 b10 c10 d10 a9 b9 c9 d9 a8 b8 c8 a7 b7))
+  )
+)
+
+(variant
+  (title "Halma (4 players)")
+
+  (players Blue White Red Black)
+  (turn-order Blue White Red Black)
+
+  (board
+     (image "images/halma/halma.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players Blue)
+           (positions a10 b10 c10 d10 e10 a9 b9 c9 d9 a8 b8 c8 a7 b7 a6)
+     )
+     (zone (name goal-zone) (players White)
+           (positions f10 g10 h10 i10 j10 g9 h9 i9 j9 h8 i8 j8 i7 j7 j6)
+     )
+     (zone (name goal-zone) (players Red)
+           (positions f1 g1 h1 i1 j1 g2 h2 i2 j2 h3 i3 j3 i4 j4 j5)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 b1 c1 d1 e1 a2 b2 c2 d2 a3 b3 c3 a4 b4 a5)
+     )
+     (zone (name target-zone) (players Blue)
+           (positions a10)
+     )
+     (zone (name target-zone) (players White)
+           (positions j10)
+     )
+     (zone (name target-zone) (players Red)
+           (positions j1)
+     )
+     (zone (name target-zone) (players Black)
+           (positions a1)
+     )
+     (links nx (a10 b10) (b10 a9) (a9 a8) (a8 b9) (b9 c10) (c10 d10) (d10 c9) (c9 b8) (b8 a7) (a7 a6) (a6 b7) (b7 c8) (c8 d9) (d9 e10))
+     (links ny (j10 j9) (j9 i10) (i10 h10) (h10 i9) (i9 j8) (j8 j7) (j7 i8) (i8 h9) (h9 g10) (g10 f10) (f10 g9) (g9 h8) (h8 i7) (i7 j6))
+     (links nr (j1 j2) (j2 i1) (i1 h1) (h1 i2) (i2 j3) (j3 j4) (j4 i3) (i3 h2) (h2 g1) (g1 f1) (f1 g2) (g2 h3) (h3 i4) (i4 j5))
+     (links nb (a1 a2) (a2 b1) (b1 c1) (c1 b2) (b2 a3) (a3 a4) (a4 b3) (b3 c2) (c2 d1) (d1 e1) (e1 d2) (d2 c3) (c3 b4) (b4 a5))
+     (symmetry White (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (ny nx) (nx ny) (nr nr) (nb nb))
+     (symmetry Red   (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (nr nx) (nx nr) (ny ny) (nb nb))
+     (symmetry Black (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (nb nx) (nx nb) (nr nr) (ny ny))
+  )
+
+  (piece
+     (name Man)
+     (image White "images/halma/wman.bmp"
+            Red   "images/halma/rman.bmp"
+            Black "images/halma/bman.bmp"
+            Blue  "images/halma/uman.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step nw)
+         (step e) (step ne)
+         (step w) (step sw)
+         (step s) (step se)
+         (move-type continue-type)
+         (jump n) (jump nw)
+         (jump e) (jump ne)
+         (jump w) (jump sw)
+         (jump s) (jump se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 a2 b2 c2 d2 a3 b3 c3 a4 b4 a5))
+    (Red   (Man a10 b10 c10 d10 e10 a9 b9 c9 d9 a8 b8 c8 a7 b7 a6))
+    (Black (Man f10 g10 h10 i10 j10 g9 h9 i9 j9 h8 i8 j8 i7 j7 j6))
+    (Blue  (Man f1 g1 h1 i1 j1 g2 h2 i2 j2 h3 i3 j3 i4 j4 j5))
+  )
+)
+
+(variant
+  (title "Halma 8x8")
+
+  (board
+     (image "images/halma/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions f8 g8 h8 f7 g7 h7 f6 g6 h6)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 b1 c1 a2 b2 c2 a3 b3 c3)
+     )
+     (zone (name target-zone) (players White)
+           (positions h8)
+     )
+     (zone (name target-zone) (players Black)
+           (positions a1)
+     )
+     (links nx (h8 h7) (h7 g8) (g8 f8) (f8 g7) (g7 h6) (h6 g6) (g6 f7) (f7 f6))
+     (links nb (a1 a2) (a2 b1) (b1 c1) (c1 b2) (b2 a3) (a3 b3) (b3 c2) (c2 c3))
+     (symmetry Black (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (nb nx) (nx nb))
+  )
+
+  (piece
+     (name Man)
+     (image White "images/halma/rman.bmp"
+            Black "images/halma/uman.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step nw)
+         (step e) (step ne)
+         (step w) (step sw)
+         (step s) (step se)
+         (move-type continue-type)
+         (jump n) (jump nw)
+         (jump e) (jump ne)
+         (jump w) (jump sw)
+         (jump s) (jump se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+    (Black (Man f8 g8 h8 f7 g7 h7 f6 g6 h6))
+  )
+)

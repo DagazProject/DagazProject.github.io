@@ -1,0 +1,303 @@
+(define step (
+  $1 (verify not-friend?)
+  (verify (in-zone? $2))
+  add
+))
+
+(define step-pawn (
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define step-e (
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (in-zone? $2))
+  add
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(define step-elephant (
+  $1 (verify empty?)
+  $2 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define step-fortress (
+  (verify (in-zone? fortress))
+  $1 (verify not-friend?)
+  (verify (in-zone? fortress))
+  add
+))
+
+(define shootm (
+  $1 (while empty? $1)
+  (verify (not-piece? Cannon)) $1
+  (while empty? add $1)
+  (verify not-friend?)
+  (verify (not-piece? Cannon))
+  add
+))
+
+(game
+   (title "Xiang Hex")
+
+   (players Red Black)
+   (turn-order Red Black)
+
+   (board
+      (image "images/hex.bmp")
+      (grid
+         (start-rectangle 22 158 71 207)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (60 -35)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 70)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 2 1) (w -2 -1)
+              (nw -1 -1) (se 1 1) (ne 1 0) (sw -1 0)
+              (nnw -1 -2) (sse 1 2) (nne 1 -1) (ssw -1 1)
+         )
+      )
+      (symmetry Black (n s) (s n) (e w) (w e) (nw se) (sw ne) (ne sw) (se nw) (nnw sse) (sse nnw) (nne ssw) (ssw nne))
+      (kill-positions a1 a2 a3 a4 b1 b2 b3 c1 c2 d1 f11 g10 g11 h9 h10 h11 i8 i9 i10 i11)
+      (zone
+         (name fortress)
+         (players Red)
+         (positions d2 d3 e1 e2 e3 f1 f2)
+      )
+      (zone
+         (name fortress)
+         (players Black)
+         (positions d10 d11 e9 e10 e11 f9 f10)
+      )
+      (zone
+         (name home)
+         (players Red)
+         (positions a5 a6 a7 b4 b5 b6 b7 c3 c4 c5 c6 d2 d3 d4 d5 d6 e1 e2 e3 e4 e5 f1 f2 f3 f4 f5 g1 g2 g3 g4 h1 h2 h3 h4 i1 i2 i3)
+      )
+      (zone
+         (name home)
+         (players Black)
+         (positions a9 a10 a11 b8 b9 b10 b11 c8 c9 c10 c11 d7 d8 d9 d10 d11 e7 e8 e9 e10 e11 f6 f7 f8 f9 f10 g6 g7 g8 g9 h5 h6 h7 h8 i5 i6 i7)
+      )
+      (zone
+         (name enemy)
+         (players Red)
+         (positions a8 c7 e6 g5 i4 a9 a10 a11 b8 b9 b10 b11 c8 c9 c10 c11 d7 d8 d9 d10 d11 e7 e8 e9 e10 e11 f6 f7 f8 f9 f10 g6 g7 g8 g9 h5 h6 h7 h8 i5 i6 i7)
+      )
+      (zone
+         (name enemy)
+         (players Black)
+         (positions a8 c7 e6 g5 i4 a5 a6 a7 b4 b5 b6 b7 c3 c4 c5 c6 d2 d3 d4 d5 d6 e1 e2 e3 e4 e5 f1 f2 f3 f4 f5 g1 g2 g3 g4 h1 h2 h3 h4 i1 i2 i3)
+      )
+   )
+
+   (piece
+      (name Soldier)
+      (image Red "images/rsoldier.bmp" 
+             Black "images/bsoldier.bmp")
+      (moves
+         (step-pawn n) (step nw enemy) (step ne enemy) (step w enemy) (step e enemy)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red "images/rhorse.bmp" 
+             Black "images/bhorse.bmp")
+      (moves
+         (step-2 n nnw) (step-2 n nne) (step-2 s ssw) (step-2 s sse)
+         (step-2 nw nnw) (step-2 nw w) (step-2 ne nne) (step-2 ne e)
+         (step-2 sw ssw) (step-2 sw w) (step-2 se sse) (step-2 se e)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red "images/relephant.bmp" 
+             Black "images/belephant.bmp")
+      (moves
+         (step-e nnw home) (step-e ssw home) (step-e nne home) (step-e sse home)
+         (step-e w home) (step-e e home)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red "images/rchariot.bmp" 
+             Black "images/bchariot.bmp")
+      (moves
+         (slide n) (slide s) (slide nw) (slide ne) (slide sw) (slide se)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red "images/rcannon.bmp" 
+             Black "images/bcannon.bmp")
+      (moves
+         (shoot n) (shoot s) (shoot nw) (shoot ne) (shoot sw) (shoot se)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Red "images/rmandarin.bmp" 
+             Black "images/bmandarin.bmp")
+      (moves
+         (step nnw fortress) (step ssw fortress) (step nne fortress) (step sse fortress)
+         (step w fortress) (step e fortress)
+      )
+   )
+   (piece
+      (name General)
+      (image Red "images/rgeneral.bmp"  
+             Black "images/bgeneral.bmp")
+      (moves
+         (step n fortress) (step s fortress) (step nw fortress) (step sw fortress) (step ne fortress) (step se fortress)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Soldier a6 c5 e4 g3 i2)
+         (Horse b4 h1)
+         (Elephant c3 g1)
+         (Chariot a5 i1)
+         (Mandarin d2 f1)
+         (Cannon b5 h2)
+         (General e1)
+      )
+      (Black
+         (Soldier a10 c9 e8 g7 i6)
+         (Horse b11 h8)
+         (Elephant c11 g9)
+         (Chariot a11 i7)
+         (Mandarin d11 f10)
+         (Cannon b10 h7)
+         (General e11)
+      )
+   )
+
+   (loss-condition (Red Black) (checkmated General))
+   (loss-condition (Red Black) stalemated)
+   (loss-condition (Red Black) repetition)
+)
+
+(variant
+   (title "Janggi Hex")
+   (default)
+
+   (piece
+      (name Soldier)
+      (image Red "images/rsoldier.bmp" 
+             Black "images/bsoldier.bmp")
+      (moves
+         (step-pawn n) (step-pawn nw) (step-pawn ne)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red "images/rhorse.bmp" 
+             Black "images/bhorse.bmp")
+      (moves
+         (step-2 n nnw) (step-2 n nne) (step-2 s ssw) (step-2 s sse)
+         (step-2 nw nnw) (step-2 nw w) (step-2 ne nne) (step-2 ne e)
+         (step-2 sw ssw) (step-2 sw w) (step-2 se sse) (step-2 se e)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red "images/relephant.bmp" 
+             Black "images/belephant.bmp")
+      (moves
+         (step-elephant n nnw) (step-elephant n nne) (step-elephant s ssw) (step-elephant s sse)
+         (step-elephant nw nnw) (step-elephant nw w) (step-elephant ne nne) (step-elephant ne e)
+         (step-elephant sw ssw) (step-elephant sw w) (step-elephant se sse) (step-elephant se e)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red "images/rchariot.bmp" 
+             Black "images/bchariot.bmp")
+      (moves
+         (slide n) (slide s) (slide nw) (slide ne) (slide sw) (slide se)
+;        (step-fortress w) (step-fortress e) 
+;        (step-fortress nne) (step-fortress nnw)
+;        (step-fortress sse) (step-fortress ssw)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red "images/rcannon.bmp" 
+             Black "images/bcannon.bmp")
+      (moves
+         (shootm n) (shootm s) (shootm nw) (shootm ne) (shootm sw) (shootm se)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Red "images/rmandarin.bmp" 
+             Black "images/bmandarin.bmp")
+      (moves
+         (step n fortress) (step s fortress) (step nw fortress) (step sw fortress) (step ne fortress) (step se fortress)
+;        (step nnw fortress) (step ssw fortress) (step nne fortress) (step sse fortress)
+;        (step w fortress) (step e fortress)
+      )
+   )
+   (piece
+      (name General)
+      (image Red "images/rgeneral.bmp"  
+             Black "images/bgeneral.bmp")
+      (moves
+         (step n fortress) (step s fortress) (step nw fortress) (step sw fortress) (step ne fortress) (step se fortress)
+;        (step nnw fortress) (step ssw fortress) (step nne fortress) (step sse fortress)
+;        (step w fortress) (step e fortress)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Soldier a6 c5 e4 g3 i2)
+         (Horse b4 h1)
+         (Elephant c3 g1)
+         (Chariot a5 i1)
+         (Mandarin d2 f1)
+         (Cannon b5 h2)
+         (General e2)
+      )
+      (Black
+         (Soldier a10 c9 e8 g7 i6)
+         (Horse b11 h8)
+         (Elephant c11 g9)
+         (Chariot a11 i7)
+         (Mandarin d11 f10)
+         (Cannon b10 h7)
+         (General e10)
+      )
+   )
+)

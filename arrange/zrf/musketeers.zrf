@@ -1,0 +1,62 @@
+(define step (
+  $1 (verify enemy?)
+  add
+))
+
+(define shift (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Three Musketeers")
+  (history "Invented by Haar Hoolim.")
+
+  (option "animate captures"     false)
+  (option "musketeers-extension" true)
+
+  (players Red White)
+  (turn-order White Red)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/musketeers/board.bmp")
+     (grid
+         (start-rectangle 2 2 92 92)
+         (dimensions
+           ("a/b/c/d/e" (90 0)) ; files
+           ("5/4/3/2/1" (0 90)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Soldier)
+     (image Red "images/musketeers/red.bmp")
+     (moves
+        (shift n) (shift s) (shift e) (shift w)
+     )
+  )
+  (piece
+     (name Musketeer)
+     (image White "images/musketeers/white.bmp")
+     (moves
+        (step n) (step s) (step e) (step w)
+     )
+  )
+
+  (board-setup
+    (White (Musketeer a1 c3 e5))
+    (Red (Soldier a2 a3 a4 a5 b1 b2 b3 b4 b5 c1 c2 c4 c5 d1 d2 d3 d4 d5 e1 e2 e3 e4))
+  )
+
+  (win-condition (White) stalemated)
+  (loss-condition (Red) stalemated)
+)

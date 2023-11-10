@@ -1,0 +1,86 @@
+(define slide (
+  $1 (while empty? add $1)
+))
+
+(game
+  (title "Ming-Mang (9x9)")
+  (description "http://homepages.di.fc.ul.pt/~jpn/gv/mingmang.htm")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"    false)
+  (option "smart moves"         false)
+  (option "ming-mang-extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/ming-mang/9x9.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (61 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 61)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/ming-mang/wbig.bmp"
+            Black "images/ming-mang/bbig.bmp")
+     (moves
+         (slide n) (slide s)
+         (slide e) (slide w)
+     )
+  )
+
+  (board-setup
+     (White (Stone a2 a3 a4 a5 a6 a7 a8 a9 b9 c9 d9 e9 f9 g9 h9 i9)) 
+     (Black (Stone a1 b1 c1 d1 e1 f1 g1 h1 i1 i2 i3 i4 i5 i6 i7 i8))
+  )
+
+  (loss-condition (White Black) repetition)
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+)
+
+(variant
+  (title "Ming-Mang (17x17)")
+  (default)
+  (board
+     (image "images/ming-mang/17x17.bmp")
+     (grid
+         (start-rectangle 6 5 37 36)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (31 0)) ; files
+           ("17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 31)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/ming-mang/wsmall.bmp"
+            Black "images/ming-mang/bsmall.bmp")
+     (moves
+         (slide n) (slide s)
+         (slide e) (slide w)
+     )
+  )
+
+  (board-setup
+     (White (Stone a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 b17 c17 d17 e17 f17 g17 h17 i17 j17 k17 l17 m17 n17 o17 p17 q17)) 
+     (Black (Stone a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1 q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12 q13 q14 q15 q16))
+  )
+)

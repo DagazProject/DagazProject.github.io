@@ -1,0 +1,116 @@
+(define checker-shift (
+   $1 (verify empty?)
+  (if (in-zone? promotion)
+      (add King)
+   else
+      add
+  )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define king-cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(game
+  (title "Pskov Checkers")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/pskov/4x4.bmp")
+     (grid
+         (start-rectangle -417 10 -375 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (96 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (48 28)) ; ranks
+         )         
+         (directions (nw 0 -1) (ne 1 -1) (n 1 -2) (se 0 1) (sw -1 1) (s -1 2))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (n s) (s n))
+     (kill-positions a13 b13 c13 d13 e13 f13 a12 b12 c12 d12 e12 a11 b11 c11 d11 a10 b10 c10 a9 b9 c9 g9 a8 b8 g8 a7 b7 f7 g7 a6 f6 g6 a5 e5 f5 g5 e4 f4 g4 d3 e3 f3 g3 c2 d2 e2 f2 g2 b1 c1 d1 e1 f1 g1)
+     (zone (name promotion) (players White)
+           (positions g13)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/pskov/wman.bmp"
+            Black "images/pskov/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se) (checker-jump n) (checker-jump s)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne) (checker-shift n)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/pskov/wking.bmp"
+            Black "images/pskov/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se) (king-jump n) (king-jump s)
+         (move-type cont-type)
+         (king-cont nw) (king-cont ne) (king-cont sw) (king-cont se) (king-cont n) (king-cont s)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se) (king-shift n) (king-shift s)
+     )
+  )
+
+  (board-setup
+    (White (Man b5 c5 d5 a4 b4 c4 d4 a3 b3 c3 a2 b2 a1))
+    (Black (Man d9 e9 f9 d10 e10 f10 g10 e11 f11 g11 f12 g12 g13))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0) )
+  (loss-condition (White Black) stalemated )
+)

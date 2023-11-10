@@ -1,0 +1,76 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Abalala'e")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+; (option "smart moves"       from)
+; (option "show blink"        false)
+; (option "show hints"        false)
+; (option "mancala setup"     3)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/gabata.bmp")
+     (grid
+         (start-rectangle 168 8 248 88)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("3/2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X1  768 8 908 288)
+         (X2    8 8 148 288)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 f2) 
+         (f2 e2) (e2 d2) (d2 f3) (f3 e3) (e3 d3) (d3 c3) 
+         (c3 b3) (b3 a3) (a3 a2) (a2 b2) (b2 c2) (c2 a1)
+     )
+     (links fr (a3 X1))
+     (links er (a3 X2))
+     (links up
+         (a1 a2) (a2 a3) (a3 a1) (b1 b2) (b2 b3) (b3 b1)
+         (c1 c2) (c2 c3) (c3 c1) (d1 d2) (d2 d3) (d3 d1)
+         (e1 e2) (e2 e3) (e3 e1) (f1 f2) (f2 f3) (f3 f1)
+     )
+     (symmetry North (fr er) (er fr) (nx nx) (up up))
+     (zone (name home) (players North)
+           (positions a3 b3 c3 d3 e3 f3 a2 b2 c2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1 d1 e1 f1 d2 e2 f2)
+     )
+     (zone (name pool) (players North South)
+           (positions X1 X2)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves (step nx))
+  )
+
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1 d2 e2 f2))
+    (North (Seed a3 b3 c3 d3 e3 f3 a2 b2 c2))
+  )
+)

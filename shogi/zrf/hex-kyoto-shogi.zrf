@@ -1,0 +1,284 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a4
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?) add
+))
+
+(define step-1 (
+  $1 (verify not-friend?)
+  (add $2)
+))
+
+(define step-2 (
+  $1 $2 (verify not-friend?)
+  (add $3)
+))
+
+(define step-3 (
+  $1 $2 $3 (verify not-friend?)
+  (add $4)
+))
+
+(define slide-1 (
+  $1
+  (while empty?
+     (add $2)
+     $1
+  )
+  (verify enemy?)
+  (add $2)
+))
+
+(define slide-2 (
+  $1 $2
+  (while empty?
+     (add $3)
+     $1 $2
+  )
+  (verify enemy?)
+  (add $3)
+))
+
+(game
+  (title "Hexagonal Kyoto Shogi")
+
+  (option "animate captures"      false)
+  (option "smart moves"           false)
+
+  (players South North)
+  (turn-order South North)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/hex/hex-4.bmp")
+        (grid
+             (start-rectangle 171 11 210 50)
+             (dimensions ("b/d/f" (105 0))
+                         ("13/11/9/7/5/3/1" (0 61))
+             )
+	     (directions (n 0 -1) (s 0 1))
+        )
+        (grid
+             (start-rectangle 119 43 158 82)
+             (dimensions ("a/c/e/g" (105 0))
+                         ("12/10/8/6/4/2" (0 61))
+             )
+	     (directions (n 0 -1) (s 0 1))
+        )
+        (grid
+             (start-rectangle 12 12 51 51)
+             (dimensions ("X/Y" (41 0))
+                         ("10/9/8/7/6/5/4/3/2/1" (0 41))
+             )
+        )
+        (grid
+             (start-rectangle 502 12 541 51)
+             (dimensions ("Z/T" (41 0))
+                         ("10/9/8/7/6/5/4/3/2/1" (0 41))
+             )
+        )
+        (kill-positions a2 a12 b1 b13 f1 f13 g2 g12)
+        (links nw
+             (d1 c2) (c2 b3) (b3 a4) (e2 d3) (d3 c4) (c4 b5) (b5 a6)
+             (f3 e4) (e4 d5) (d5 c6) (c6 b7) (b7 a8) (g4 f5) (f5 e6)
+             (e6 d7) (d7 c8) (c8 b9) (b9 a10) (g6 f7) (f7 e8) (e8 d9)
+             (d9 c10) (c10 b11) (g8 f9) (f9 e10) (e10 d11) (d11 c12)
+             (g10 f11) (f11 e12) (e12 d13)
+        )
+        (links se
+             (c2 d1) (b3 c2) (a4 b3) (d3 e2) (c4 d3) (b5 c4) (a6 b5)
+             (e4 f3) (d5 e4) (c6 d5) (b7 c6) (a8 b7) (f5 g4) (e6 f5)
+             (d7 e6) (c8 d7) (b9 c8) (a10 b9) (f7 g6) (e8 f7) (d9 e8)
+             (c10 d9) (b11 c10) (f9 g8) (e10 f9) (d11 e10) (c12 d11)
+             (f11 g10) (e12 f11) (d13 e12)
+        )
+        (links ne
+             (d1 e2) (e2 f3) (f3 g4) (c2 d3) (d3 e4) (e4 f5) (f5 g6)
+             (b3 c4) (c4 d5) (d5 e6) (e6 f7) (f7 g8) (a4 b5) (b5 c6)
+             (c6 d7) (d7 e8) (e8 f9) (f9 g10) (a6 b7) (b7 c8) (c8 d9)
+             (d9 e10) (e10 f11) (a8 b9) (b9 c10) (c10 d11) (d11 e12)
+             (a10 b11) (b11 c12) (c12 d13)
+        )
+        (links sw
+             (e2 d1) (f3 e2) (g4 f3) (d3 c2) (e4 d3) (f5 e4) (g6 f5)
+             (c4 b3) (d5 c4) (e6 d5) (f7 e6) (g8 f7) (b5 a4) (c6 b5)
+             (d7 c6) (e8 d7) (f9 e8) (g10 f9) (b7 a6) (c8 b7) (d9 c8)
+             (e10 d9) (f11 e10) (b9 a8) (c10 b9) (d11 c10) (e12 d11)
+             (b11 a10) (c12 b11) (d13 c12)
+        )
+        (links sr
+             (d1 Z1) (e2 Z1) (f3 Z1) (g4 Z1) (c2 Z1) (d3 Z1) (e4 Z1)
+             (f5 Z1) (g6 Z1) (b3 Z1) (c4 Z1) (d5 Z1) (e6 Z1) (f7 Z1)
+             (g8 Z1) (a4 Z1) (b5 Z1) (c6 Z1) (d7 Z1) (e8 Z1) (f9 Z1)
+             (g10 Z1) (a6 Z1) (b7 Z1) (c8 Z1) (d9 Z1) (e10 Z1) (f11 Z1)
+             (a8 Z1) (b9 Z1) (c10 Z1) (d11 Z1) (e12 Z1) (a10 Z1) (b11 Z1)
+             (c12 Z1) (d13 Z1) (Z1 Z2) (Z2 Z3) (Z3 Z4) (Z4 Z5) (Z5 Z6)
+             (Z6 Z7) (Z7 Z8) (Z8 Z9) (Z9 Z10)
+        )
+        (links nr
+             (d1 Y10) (e2 Y10) (f3 Y10) (g4 Y10) (c2 Y10) (d3 Y10) (e4 Y10)
+             (f5 Y10) (g6 Y10) (b3 Y10) (c4 Y10) (d5 Y10) (e6 Y10) (f7 Y10)
+             (g8 Y10) (a4 Y10) (b5 Y10) (c6 Y10) (d7 Y10) (e8 Y10) (f9 Y10)
+             (g10 Y10) (a6 Y10) (b7 Y10) (c8 Y10) (d9 Y10) (e10 Y10) (f11 Y10)
+             (a8 Y10) (b9 Y10) (c10 Y10) (d11 Y10) (e12 Y10) (a10 Y10) (b11 Y10)
+             (c12 Y10) (d13 Y10) (Y10 Y9) (Y9 Y8) (Y8 Y7) (Y7 Y6) (Y6 Y5)
+             (Y5 Y4) (Y4 Y3) (Y3 Y2) (Y2 Y1)
+        )
+        (links nx
+             (a4 a6) (a6 a8) (a8 a10) (a10 b3) (b3 b5) (b5 b7) (b7 b9) (b9 b11)
+             (b11 c2) (c2 c4) (c4 c6) (c6 c8) (c8 c10) (c10 c12) (c12 d1) (d1 d3)
+             (d3 d5) (d5 d7) (d7 d9) (d9 d11) (d11 d13) (d13 e2) (e2 e4) (e4 e6)
+             (e6 e8) (e8 e10) (e10 e12) (e12 f3) (f3 f5) (f5 f7) (f7 f9) (f9 f11)
+             (f11 g4) (g4 g6) (g6 g8) (g8 g10)
+        )
+        (links pr
+               (Z1 T1) (T1 Z1) (Z2 T2) (T2 Z2) (Z3 T3) 
+               (T3 Z3) (Z4 T4) (T4 Z4) (Z5 T5) (T5 Z5)
+               (Z6 T6) (T6 Z6) (Z7 T7) (T7 Z7) (Z8 T8)
+               (T8 Z8) (Z9 T9) (T9 Z9) (Z10 T10) (T10 Z10)
+               (X1 Y1) (Y1 X1) (X2 Y2) (Y2 X2) (X3 Y3) 
+               (Y3 X3) (X4 Y4) (Y4 X4) (X5 Y5) (Y5 X5)
+               (X6 Y6) (Y6 X6) (X7 Y7) (Y7 X7) (X8 Y8)
+               (Y8 X8) (X9 Y9) (Y9 X9) (X10 Y10) (Y10 X10)
+        )
+        (symmetry North (n s) (s n) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx) (pr pr))
+        (zone (name board-zone) (players South North)
+              (positions     d1
+                         c2      e2
+                     b3      d3      f3
+                a4       c4      e4       g4
+                     b5      d5      f5
+                a6       c6      e6       g6
+                     b7      d7      f7
+                a8       c8      e8       g8
+                     b9      d9      f9
+                a10      c10     e10      g10
+                     b11     d11     f11
+                         c12     e12
+                             d13
+
+              )
+        )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (step-1 n King) (step-1 nw King) (step-1 ne King)
+           (step-1 s King) (step-1 sw King) (step-1 se King)
+           (step-2 n nw King) (step-2 n ne King)
+           (step-2 s sw King) (step-2 s se King)
+           (step-2 nw sw King) (step-2 se ne King)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              North "images/ngold.bmp")
+       (moves
+           (step-1 n Knight) (step-1 nw Knight) (step-1 ne Knight)
+           (step-1 s Knight) (step-1 sw Knight) (step-1 se Knight)
+           (step-2 n nw Knight) (step-2 n ne Knight)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknight.bmp" 
+              North "images/nknight.bmp")
+       (moves
+           (step-3 n n nw Gold) (step-3 n n ne Gold)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              North "images/nsilver.bmp")
+       (moves
+           (step-1 n Bishop)
+           (step-2 n nw Bishop) (step-2 n ne Bishop)
+           (step-2 s sw Bishop) (step-2 s se Bishop)
+           (step-2 nw sw Bishop) (step-2 se ne Bishop)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/sbishop.bmp" 
+              North "images/nbishop.bmp")
+       (moves
+           (slide-2 n nw Silver) (slide-2 n ne Silver)
+           (slide-2 s sw Silver) (slide-2 s se Silver)
+           (slide-2 nw sw Silver) (slide-2 se ne Silver)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/spawn.bmp" 
+              North "images/npawn.bmp")
+       (moves
+           (step-1 n Rook)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/srook.bmp" 
+              North "images/nrook.bmp")
+       (moves
+           (slide-1 n Pawn) (slide-1 nw Pawn) (slide-1 ne Pawn)
+           (slide-1 s Pawn) (slide-1 sw Pawn) (slide-1 se Pawn)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Tokin)
+       (image South "images/stokin.bmp" 
+              North "images/ntokin.bmp")
+       (moves
+           (step-1 n Lance) (step-1 nw Lance) (step-1 ne Lance)
+           (step-1 s Lance) (step-1 sw Lance) (step-1 se Lance)
+           (step-2 n nw Lance) (step-2 n ne Lance)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slance.bmp" 
+              North "images/nlance.bmp")
+       (moves
+           (slide-1 n Tokin)
+           (drop-piece nx)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   d1)
+            (Gold   e2)
+            (Silver c2)
+            (Pawn   f3)
+            (Tokin  b3)
+        )
+        ( North
+            (King   d13)
+            (Gold   c12)
+            (Silver e12)
+            (Pawn   b11)
+            (Tokin  f11)
+        )
+  )
+
+  (loss-condition (South North) (pieces-remaining 0 King))
+  (loss-condition (South North) repetition)
+)

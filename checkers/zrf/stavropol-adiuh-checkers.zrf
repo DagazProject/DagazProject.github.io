@@ -1,0 +1,101 @@
+(define man-shift (
+   $1 (verify empty?)
+   (if (in-zone? $2Promotion)
+      (add $2King)
+    else
+      add
+   )
+))
+
+(define man-jump (
+   $1 (verify (or (piece? $2Man) (piece? $2King)))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? $3Promotion)
+       (add $3King)
+    else
+       add
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify (or (piece? $2Man) (piece? $2King)))
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       add $1
+   )
+))
+
+(game
+  (title "Stavropol Adiuh Checkers")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/adiuh/8x8.bmp")
+     (grid
+         (start-rectangle 2 44 70 112)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (zone (name WhitePromotion) (players White Black)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name BlackPromotion) (players White Black)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (piece
+     (name WhiteMan)
+     (image White "images/adiuh/wman.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw Black White) (man-jump ne Black White) (man-jump sw Black White) (man-jump se Black White)
+         (move-type normal-type)
+         (man-shift nw White) (man-shift ne White)
+     )
+  )
+  (piece
+     (name BlackMan)
+     (image Black "images/adiuh/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw White Black) (man-jump ne White Black) (man-jump sw White Black) (man-jump se White Black)
+         (move-type normal-type)
+         (man-shift sw Black) (man-shift se Black)
+     )
+  )
+  (piece
+     (name WhiteKing)
+     (image White "images/adiuh/wking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw Black) (king-jump ne Black) (king-jump sw Black) (king-jump se Black)
+     )
+  )
+  (piece
+     (name BlackKing)
+     (image Black "images/adiuh/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw White) (king-jump ne White) (king-jump sw White) (king-jump se White)
+     )
+  )
+
+  (board-setup
+    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)

@@ -1,0 +1,57 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Hawalis")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/7x4.bmp")
+     (grid
+         (start-rectangle 168 8 248 88)
+         (dimensions
+           ("a/b/c/d/e/f/g" (100 0)) ; files
+           ("4/3/2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X1    8 8  148 388)
+         (X2  868 8 1008 388)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) (g1 g2)
+         (g2 f2) (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+         (a3 b3) (b3 c3) (c3 d3) (d3 e3) (e3 f3) (f3 g3) (g3 g4)
+         (g4 f4) (f4 e4) (e4 d4) (d4 c4) (c4 b4) (b4 a4) (a4 a3)
+     )
+     (links fr (a4 X2))
+     (links er (a4 X1))
+     (links su
+         (a2 a3) (a3 a4) (b2 b3) (b3 b4) (c2 c3) (c3 c4) (d2 d3) 
+         (d3 d4) (e2 e3) (e3 e4) (f2 f3) (f3 f4) (g2 g3) (g3 g4) 
+     )
+     (links nu
+         (a3 a2) (a2 a1) (b3 b2) (b2 b1) (c3 c2) (c2 c1) (d3 d2) 
+         (d2 d1) (e3 e2) (e2 e1) (f3 f2) (f2 f1) (g3 g2) (g2 g1)
+     )
+     (symmetry North (nx nx) (su nu) (nu su) (fr er) (er fr))
+     (zone (name pool) (players North South)
+           (positions X1 X2)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves (step nx))
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1 g1 a2 b2 c2 d2 e2 f2 g2))
+    (North (Seed a3 b3 c3 d3 e3 f3 g3 a4 b4 c4 d4 e4 f4 g4))
+  )
+)

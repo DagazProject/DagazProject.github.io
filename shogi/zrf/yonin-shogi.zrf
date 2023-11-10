@@ -1,0 +1,431 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Yonin Shogi")
+
+  (option "animate captures"      false)
+  (option "smart moves"           false)
+  (option "pass turn"             forced)
+
+  (players South West North East)
+  (turn-order South West North East)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "Images/yonin/board.bmp")
+        (grid
+               (start-rectangle 13 13 53 58)
+               (dimensions ("x/y/o/a/b/c/d/e/f/g/h/i/u/z/t" (41 0))
+                           ("12/11/10/9/8/7/6/5/4/3/2/1/0/13/14" (0 41))
+               )
+               (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+               )
+        )
+        (links sr
+               (a1 a13)  (b1 a13)  (c1 a13)  (d1 a13)  (e1 a13)  (f1 a13)  (g1 a13)  (h1 a13)  (i1 a13)
+               (a2 a13)  (b2 a13)  (c2 a13)  (d2 a13)  (e2 a13)  (f2 a13)  (g2 a13)  (h2 a13)  (i2 a13)
+               (a3 a13)  (b3 a13)  (c3 a13)  (d3 a13)  (e3 a13)  (f3 a13)  (g3 a13)  (h3 a13)  (i3 a13)
+               (a4 a13)  (b4 a13)  (c4 a13)  (d4 a13)  (e4 a13)  (f4 a13)  (g4 a13)  (h4 a13)  (i4 a13)
+               (a5 a13)  (b5 a13)  (c5 a13)  (d5 a13)  (e5 a13)  (f5 a13)  (g5 a13)  (h5 a13)  (i5 a13)
+               (a6 a13)  (b6 a13)  (c6 a13)  (d6 a13)  (e6 a13)  (f6 a13)  (g6 a13)  (h6 a13)  (i6 a13)
+               (a7 a13)  (b7 a13)  (c7 a13)  (d7 a13)  (e7 a13)  (f7 a13)  (g7 a13)  (h7 a13)  (i7 a13)
+               (a8 a13)  (b8 a13)  (c8 a13)  (d8 a13)  (e8 a13)  (f8 a13)  (g8 a13)  (h8 a13)  (i8 a13)
+               (a9 a13)  (b9 a13)  (c9 a13)  (d9 a13)  (e9 a13)  (f9 a13)  (g9 a13)  (h9 a13)  (i9 a13)
+               (a13 a14) (a14 b13) (b13 b14) (b14 c13) (c13 c14) (c14 d13) (d13 d14) (d14 e13) (e13 e14)
+               (e14 f13) (f13 f14) (f14 g13) (g13 g14) (g14 h13) (h13 h14) (h14 i13) (i13 i14) (i14 u13) 
+               (u13 u14) (u14 z13) (z13 z14) (z14 t13) (t13 t14) (t14  z1) (z1  t1)  (t1  z2)  (z2  t2)  
+               (t2  z3)  (z3  t3)  (t3  z4)  (z4  t4)  (t4  z5)  (z5  t5)  (t5  z6)  (z6  t6)  (t6  z7)  
+               (z7  t7)  (t7  z8)  (z8  t8)  (t8  z9)  (z9  t9)  (t9 z10)  (z10 t10) (t10 z11) (z11 t11) 
+               (t11 z12) (z12 t12)
+        )
+        (links wr
+               (a1  y9)  (b1  y9)  (c1  y9)  (d1  y9)  (e1  y9)  (f1  y9)  (g1  y9)  (h1  y9)  (i1  y9)
+               (a2  y9)  (b2  y9)  (c2  y9)  (d2  y9)  (e2  y9)  (f2  y9)  (g2  y9)  (h2  y9)  (i2  y9)
+               (a3  y9)  (b3  y9)  (c3  y9)  (d3  y9)  (e3  y9)  (f3  y9)  (g3  y9)  (h3  y9)  (i3  y9)
+               (a4  y9)  (b4  y9)  (c4  y9)  (d4  y9)  (e4  y9)  (f4  y9)  (g4  y9)  (h4  y9)  (i4  y9)
+               (a5  y9)  (b5  y9)  (c5  y9)  (d5  y9)  (e5  y9)  (f5  y9)  (g5  y9)  (h5  y9)  (i5  y9)
+               (a6  y9)  (b6  y9)  (c6  y9)  (d6  y9)  (e6  y9)  (f6  y9)  (g6  y9)  (h6  y9)  (i6  y9)
+               (a7  y9)  (b7  y9)  (c7  y9)  (d7  y9)  (e7  y9)  (f7  y9)  (g7  y9)  (h7  y9)  (i7  y9)
+               (a8  y9)  (b8  y9)  (c8  y9)  (d8  y9)  (e8  y9)  (f8  y9)  (g8  y9)  (h8  y9)  (i8  y9)
+               (a9  y9)  (b9  y9)  (c9  y9)  (d9  y9)  (e9  y9)  (f9  y9)  (g9  y9)  (h9  y9)  (i9  y9)
+               (y9  x9)  (x9  y8)  (y8  x8)  (x8  y7)  (y7  x7)  (x7  y6)  (y6  x6)  (x6  y5)  (y5  x5)
+               (x5  y4)  (y4  x4)  (x4  y3)  (y3  x3)  (x3  y2)  (y2  x2)  (x2  y1)  (y1  x1)  (x1  y0)
+               (y0  x0)  (x0  y13) (y13 x13) (x13 y14) (y14 x14) (x14 a13) (a13 a14) (a14 b13) (b13 b14) 
+               (b14 c13) (c13 c14) (c14 d13) (d13 d14) (d14 e13) (e13 e14) (e14 f13) (f13 f14) (f14 g13) 
+               (g13 g14) (g14 h13) (h13 h14) (h14 i13) (i13 i14) (i14 u13) (u13 u14) (u14 z13) (z13 z14) 
+               (z14 t13) (t13 t14) 
+        )
+        (links nr
+               (a1 i11)  (b1 i11)  (c1 i11)  (d1 i11)  (e1 i11)  (f1 i11)  (g1 i11)  (h1 i11)  (i1 i11)
+               (a2 i11)  (b2 i11)  (c2 i11)  (d2 i11)  (e2 i11)  (f2 i11)  (g2 i11)  (h2 i11)  (i2 i11)
+               (a3 i11)  (b3 i11)  (c3 i11)  (d3 i11)  (e3 i11)  (f3 i11)  (g3 i11)  (h3 i11)  (i3 i11)
+               (a4 i11)  (b4 i11)  (c4 i11)  (d4 i11)  (e4 i11)  (f4 i11)  (g4 i11)  (h4 i11)  (i4 i11)
+               (a5 i11)  (b5 i11)  (c5 i11)  (d5 i11)  (e5 i11)  (f5 i11)  (g5 i11)  (h5 i11)  (i5 i11)
+               (a6 i11)  (b6 i11)  (c6 i11)  (d6 i11)  (e6 i11)  (f6 i11)  (g6 i11)  (h6 i11)  (i6 i11)
+               (a7 i11)  (b7 i11)  (c7 i11)  (d7 i11)  (e7 i11)  (f7 i11)  (g7 i11)  (h7 i11)  (i7 i11)
+               (a8 i11)  (b8 i11)  (c8 i11)  (d8 i11)  (e8 i11)  (f8 i11)  (g8 i11)  (h8 i11)  (i8 i11)
+               (a9 i11)  (b9 i11)  (c9 i11)  (d9 i11)  (e9 i11)  (f9 i11)  (g9 i11)  (h9 i11)  (i9 i11)
+               (i11 i12) (i12 h11) (h11 h12) (h12 g11) (g11 g12) (g12 f11) (f11 f12) (f12 e11) (e11 e12)
+               (e12 d11) (d11 d12) (d12 c11) (c11 c12) (c12 b11) (b11 b12) (b12 a11) (a11 a12) (a12 o11)
+               (o11 o12) (o12 y11) (y11 y12) (y12 x11) (x11 x12) (x12 y9)  (y9  x9)  (x9  y8)  (y8  x8)  
+               (x8  y7)  (y7  x7)  (x7  y6)  (y6  x6)  (x6  y5)  (y5  x5)  (x5  y4)  (y4  x4)  (x4  y3)  
+               (y3  x3)  (x3  y2)  (y2  x2)  (x2  y1)  (y1  x1)  (x1  y0)  (y0  x0)  (x0  y13) (y13 x13)
+               (x13 y14) (y14 x14) 
+        )
+        (links er
+               (a1  z1)  (b1  z1)  (c1  z1)  (d1  z1)  (e1  z1)  (f1  z1)  (g1  z1)  (h1  z1)  (i1  z1)
+               (a2  z1)  (b2  z1)  (c2  z1)  (d2  z1)  (e2  z1)  (f2  z1)  (g2  z1)  (h2  z1)  (i2  z1)
+               (a3  z1)  (b3  z1)  (c3  z1)  (d3  z1)  (e3  z1)  (f3  z1)  (g3  z1)  (h3  z1)  (i3  z1)
+               (a4  z1)  (b4  z1)  (c4  z1)  (d4  z1)  (e4  z1)  (f4  z1)  (g4  z1)  (h4  z1)  (i4  z1)
+               (a5  z1)  (b5  z1)  (c5  z1)  (d5  z1)  (e5  z1)  (f5  z1)  (g5  z1)  (h5  z1)  (i5  z1)
+               (a6  z1)  (b6  z1)  (c6  z1)  (d6  z1)  (e6  z1)  (f6  z1)  (g6  z1)  (h6  z1)  (i6  z1)
+               (a7  z1)  (b7  z1)  (c7  z1)  (d7  z1)  (e7  z1)  (f7  z1)  (g7  z1)  (h7  z1)  (i7  z1)
+               (a8  z1)  (b8  z1)  (c8  z1)  (d8  z1)  (e8  z1)  (f8  z1)  (g8  z1)  (h8  z1)  (i8  z1)
+               (a9  z1)  (b9  z1)  (c9  z1)  (d9  z1)  (e9  z1)  (f9  z1)  (g9  z1)  (h9  z1)  (i9  z1)
+               (z1  t1)  (t1  z2)  (z2  t2)  (t2  z3)  (z3  t3)  (t3  z4)  (z4  t4)  (t4  z5)  (z5  t5)
+               (t5  z6)  (z6  t6)  (t6  z7)  (z7  t7)  (t7  z8)  (z8  t8)  (t8  z9)  (z9  t9)  (t9 z10)
+               (z10 t10) (t10 z11) (z11 t11) (t11 z12) (z12 t12) (t12 i11) (i11 i12) (i12 h11) (h11 h12) 
+               (h12 g11) (g11 g12) (g12 f11) (f11 f12) (f12 e11) (e11 e12) (e12 d11) (d11 d12) (d12 c11) 
+               (c11 c12) (c12 b11) (b11 b12) (b12 a11) (a11 a12) (a12 o11) (o11 o12) (o12 y11) (y11 y12) 
+               (y12 x11) (x11 x12) 
+        )
+        (links nx 
+               (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 a6) (a6 a7) (a7 a8) (a8 a9) (a9 b1)
+               (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 b6) (b6 b7) (b7 b8) (b8 b9) (b9 c1)
+               (c1 c2) (c2 c3) (c3 c4) (c4 c5) (c5 c6) (c6 c7) (c7 c8) (c8 c9) (c9 d1)
+               (d1 d2) (d2 d3) (d3 d4) (d4 d5) (d5 d6) (d6 d7) (d7 d8) (d8 d9) (d9 e1)
+               (e1 e2) (e2 e3) (e3 e4) (e4 e5) (e5 e6) (e6 e7) (e7 e8) (e8 e9) (e9 f1)
+               (f1 f2) (f2 f3) (f3 f4) (f4 f5) (f5 f6) (f6 f7) (f7 f8) (f8 f9) (f9 g1)
+               (g1 g2) (g2 g3) (g3 g4) (g4 g5) (g5 g6) (g6 g7) (g7 g8) (g8 g9) (g9 h1)
+               (h1 h2) (h2 h3) (h3 h4) (h4 h5) (h5 h6) (h6 h7) (h7 h8) (h8 h9) (h9 i1)
+               (i1 i2) (i2 i3) (i3 i4) (i4 i5) (i5 i6) (i6 i7) (i7 i8) (i8 i9)
+        )
+        (symmetry North (n s) (s n) (e w) (w e)
+                        (ne sw) (sw ne) (nw se) (se nw) (nx nx) (sr nr)
+        )
+        (symmetry West  (n e) (s w) (e s) (w n)
+                        (nw ne) (sw nw) (ne se) (se sw) (nx nx) (sr wr)
+        )
+        (symmetry East  (n w) (s e) (e n) (w s)
+                        (nw sw) (sw se) (ne nw) (se ne) (nx nx) (sr er)
+        )
+        (kill-positions x10 y10 a10 b10 c10 d10 e10 f10 g10 h10 i10 u10
+                        u12 u11  u9  u8  u7  u6  u5  u4  u3  u2  u1  u0
+                         t0  z0  i0  h0  g0  f0  e0  d0  c0  b0  a0  o0
+                        o14 o13  o1  o2  o3  o4  o5  o6  o7  o8  o9  o10)
+        (zone (name board-zone) (players South West North East)
+              (positions a1 b1 c1 d1 e1 f1 g1 h1 i1
+                         a2 b2 c2 d2 e2 f2 g2 h2 i2
+                         a3 b3 c3 d3 e3 f3 g3 h3 i3
+                         a4 b4 c4 d4 e4 f4 g4 h4 i4
+                         a5 b5 c5 d5 e5 f5 g5 h5 i5
+                         a6 b6 c6 d6 e6 f6 g6 h6 i6
+                         a7 b7 c7 d7 e7 f7 g7 h7 i7
+                         a8 b8 c8 d8 e8 f8 g8 h8 i8
+                         a9 b9 c9 d9 e9 f9 g9 h9 i9
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a9 b9 c9 d9 e9 f9 g9 h9 i9 
+                         a8 b8 c8 d8 e8 f8 g8 h8 i8 
+                         a7 b7 c7 d7 e7 f7 g7 h7 i7)
+        )
+        (zone (name promotion-zone) (players West)
+              (positions g1 g2 g3 g4 g5 g6 g7 g8 g9
+                         h1 h2 h3 h4 h5 h6 h7 h8 h9
+                         i1 i2 i3 i4 i5 i6 i7 i8 i9)
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 
+                         a2 b2 c2 d2 e2 f2 g2 h2 i2 
+                         a3 b3 c3 d3 e3 f3 g3 h3 i3)
+        )
+        (zone (name promotion-zone) (players East)
+              (positions a1 a2 a3 a4 a5 a6 a7 a8 a9
+                         b1 b2 b3 b4 b5 b6 b7 b8 b9
+                         c1 c2 c3 c4 c5 c6 c7 c8 c9)
+        )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              West  "images/yonin/wking.bmp" 
+              North "images/nking.bmp"
+              East  "images/yonin/eking.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              West  "images/yonin/wgold.bmp" 
+              North "images/ngold.bmp"
+              East  "images/yonin/egold.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              West  "images/yonin/wsilver.bmp" 
+              North "images/nsilver.bmp"
+              East  "images/yonin/esilver.bmp")
+       (moves
+           (step nw) (step sw)
+           (step se) (step ne)
+           (step n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknight.bmp" 
+              West  "images/yonin/wknight.bmp" 
+              North "images/nknight.bmp"
+              East  "images/yonin/eknight.bmp")
+       (moves
+           (jump n nw)
+           (jump n ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slance.bmp" 
+              West  "images/yonin/wlance.bmp" 
+              North "images/nlance.bmp"
+              East  "images/yonin/elance.bmp")
+       (moves
+           (slide n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/sbishop.bmp" 
+              West  "images/yonin/wbishop.bmp" 
+              North "images/nbishop.bmp"
+              East  "images/yonin/ebishop.bmp")
+       (moves
+           (slide nw)
+           (slide se)
+           (slide sw)
+           (slide ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/srook.bmp" 
+              West  "images/yonin/wrook.bmp" 
+              North "images/nrook.bmp"
+              East  "images/yonin/erook.bmp")
+       (moves
+           (slide n)
+           (slide e)
+           (slide w)
+           (slide s)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/spawn.bmp" 
+              West  "images/yonin/wpawn.bmp" 
+              North "images/npawn.bmp"
+              East  "images/yonin/epawn.bmp")
+       (moves
+           (step n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SilverP)
+       (image South "images/ssilverp.bmp" 
+              West  "images/yonin/wsilverp.bmp" 
+              North "images/nsilverp.bmp"
+              East  "images/yonin/esilverp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name KnightP)
+       (image South "images/sknightp.bmp" 
+              West  "images/yonin/wknightp.bmp" 
+              North "images/nknightp.bmp"
+              East  "images/yonin/eknightp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name LanceP)
+       (image South "images/slancep.bmp" 
+              West  "images/yonin/wlancep.bmp" 
+              North "images/nlancep.bmp"
+              East  "images/yonin/elancep.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name BishopP)
+       (image South "images/sbishopp.bmp" 
+              West  "images/yonin/wbishopp.bmp" 
+              North "images/nbishopp.bmp"
+              East  "images/yonin/ebishopp.bmp")
+       (moves
+           (slide nw) (step n)
+           (slide se) (step s)
+           (slide sw) (step w)
+           (slide ne) (step e)
+       )
+  )
+  (piece 
+       (name RookP)
+       (image South "images/srookp.bmp" 
+              West  "images/yonin/wrookp.bmp" 
+              North "images/nrookp.bmp"
+              East  "images/yonin/erookp.bmp")
+       (moves
+           (slide n) (step nw)
+           (slide e) (step ne)
+           (slide w) (step sw)
+           (slide s) (step se)
+       )
+  )
+  (piece 
+       (name PawnP)
+       (image South "images/spawnp.bmp" 
+              West  "images/yonin/wpawnp.bmp" 
+              North "images/npawnp.bmp"
+              East  "images/yonin/epawnp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+
+  (board-setup
+        (South (King e1)
+               (Gold d1 f1)
+               (Silver c1 g1)
+               (Rook e2)
+               (Pawn d2 e3 f2)
+        )
+        (West  (King a5)
+               (Gold a4 a6)
+               (Silver a3 a7)
+               (Rook b5)
+               (Pawn b4 c5 b6)
+        )
+        (North (King e9)
+               (Gold d9 f9)
+               (Silver c9 g9)
+               (Rook e8)
+               (Pawn d8 e7 f8)
+        )
+        (East  (King i5)
+               (Gold i4 i6)
+               (Silver i3 i7)
+               (Rook h5)
+               (Pawn h4 g5 h6)
+        )
+  )
+
+  (win-condition  (South North West East) (pieces-remaining 4 King))
+)
+
+(variant
+  (title "Yonin Shogi (variant)")
+  (board-setup
+        (South (King e1)
+               (Gold d1 f1)
+               (Silver c1 g1)
+               (Knight b1 h1)
+               (Lance a1)
+               (Rook g2)
+               (Bishop b2)
+               (Pawn d3 e3 f3 g3 h3)
+        )
+        (West  (King a5)
+               (Gold a4 a6)
+               (Silver a3 a7)
+               (Knight a8 a2)
+               (Lance a9)
+               (Rook b3)
+               (Bishop b8)
+               (Pawn c6 c5 c4 c3 c2)
+        )
+        (North (King e9)
+               (Gold d9 f9)
+               (Silver c9 g9)
+               (Knight b9 h9)
+               (Lance i9)
+               (Rook c8)
+               (Bishop h8)
+               (Pawn b7 c7 d7 e7 f7)
+        )
+        (East  (King i5)
+               (Gold i4 i6)
+               (Silver i3 i7)
+               (Knight i8 i2)
+               (Lance i1)
+               (Rook h7)
+               (Bishop h2)
+               (Pawn g4 g5 g6 g7 g8)
+        )
+  )
+)

@@ -1,0 +1,336 @@
+(define step (
+  (verify friend?)
+  up $1 (verify empty?)
+  dn (while not-empty? dn)
+  add
+))
+
+(define split (
+  (verify friend?)
+  $1 (verify empty?)
+  dn (while not-empty? dn)
+  add
+))
+
+(define drop-piece (
+  (verify empty?)
+  (verify (in-zone? board-zone))
+  add
+))
+
+(define collapse (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Quantum tic-tac-toe")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+  (option "smart moves"      true)
+  (option "pass turn"        forced)
+
+  (players X O)
+  (turn-order X O)
+; (move-priorities type-1 type-2 type-3 type-4)
+
+  (board
+     (image "images/qxo/board.bmp")
+     (positions
+             (a3a3  20  50  70 100)
+             (b3a3  73  47 123  97)
+             (c3a3 126  44 176  94)
+             (a2a3  20 100  70 150)
+             (b2a3  73  97 123 147)
+             (c2a3 126  94 176 144)
+             (a1a3  20 150  70 200)
+             (b1a3  73 147 123 197)
+             (c1a3 126 144 176 194)
+
+             (a3b3 210  40 260  90)
+             (b3b3 263  37 313  87)
+             (c3b3 316  34 366  84)
+             (a2b3 210  90 260 140)
+             (b2b3 263  87 313 137)
+             (c2b3 316  84 366 134)
+             (a1b3 210 140 260 190)
+             (b1b3 263 137 313 187)
+             (c1b3 316 134 366 184)
+
+             (a3c3 400  30 450  80)
+             (b3c3 453  27 503  77)
+             (c3c3 506  24 556  74)
+             (a2c3 400  80 450 130)
+             (b2c3 453  77 503 127)
+             (c2c3 506  74 556 124)
+             (a1c3 400 130 450 180)
+             (b1c3 453 127 503 177)
+             (c1c3 506 124 556 174)
+
+             (a3a2  20 235  70 285)
+             (b3a2  73 232 123 282)
+             (c3a2 126 229 176 279)
+             (a2a2  20 285  70 335)
+             (b2a2  73 282 123 332)
+             (c2a2 126 279 176 329)
+             (a1a2  20 335  70 385)
+             (b1a2  73 332 123 382)
+             (c1a2 126 329 176 379)
+
+             (a3b2 215 220 265 270)
+             (b3b2 268 217 318 267)
+             (c3b2 321 214 371 264)
+             (a2b2 215 270 265 320)
+             (b2b2 268 267 318 317)
+             (c2b2 321 264 371 314)
+             (a1b2 215 320 265 370)
+             (b1b2 268 317 318 367)
+             (c1b2 321 314 371 364)
+
+             (a3c2 405 210 455 260)
+             (b3c2 458 207 508 257)
+             (c3c2 511 204 561 254)
+             (a2c2 405 260 455 310)
+             (b2c2 458 257 508 307)
+             (c2c2 511 254 561 304)
+             (a1c2 405 310 455 360)
+             (b1c2 458 307 508 357)
+             (c1c2 511 304 561 354)
+
+             (a3a1  23 410  73 460)
+             (b3a1  76 407 126 457)
+             (c3a1 129 404 179 454)
+             (a2a1  23 460  73 510)
+             (b2a1  76 457 126 507)
+             (c2a1 129 454 179 504)
+             (a1a1  23 510  73 560)
+             (b1a1  76 507 126 557)
+             (c1a1 129 504 179 554)
+
+             (a3b1 210 400 260 450)
+             (b3b1 263 397 313 447)
+             (c3b1 316 394 366 444)
+             (a2b1 210 450 260 500)
+             (b2b1 263 447 313 497)
+             (c2b1 316 444 366 494)
+             (a1b1 210 500 260 550)
+             (b1b1 263 497 313 547)
+             (c1b1 316 494 366 544)
+
+             (a3c1 403 390 453 440)
+             (b3c1 456 387 506 437)
+             (c3c1 509 384 559 434)
+             (a2c1 403 440 453 490)
+             (b2c1 456 437 506 487)
+             (c2c1 509 434 559 484)
+             (a1c1 403 490 453 540)
+             (b1c1 456 487 506 537)
+             (c1c1 509 484 559 534)
+
+             (a3  20  50 170 200)
+             (b3 210  40 360 190)
+             (c3 400  30 550 180)
+             (a2  20 230 170 380)
+             (b2 210 220 360 370)
+             (c2 400 210 550 360)
+             (a1  20 410 170 560)
+             (b1 210 400 360 550)
+             (c1 400 390 550 540)
+     )
+     (links n  (a1 a2) (a2 a3) (b1 b2) (b2 b3) (c1 c2) (c2 c3))
+     (links e  (a1 b1) (b1 c1) (a2 b2) (b2 c2) (a3 b3) (b3 c3))
+     (links w  (b1 a1) (c1 b1) (b2 a2) (c2 b2) (b3 a3) (c3 b3))
+     (links s  (a2 a1) (a3 a2) (b2 b1) (b3 b2) (c2 c1) (c3 c2))
+     (links ne (a1 b2) (b2 c3)) (links nw (c1 b2) (b2 a3))
+     (links sw (b2 a1) (c3 b2)) (links se (b2 c1) (a3 b2))
+     (links dn 
+             (a3 a3a3) (a3a3 a2a3) (a2a3 a1a3) (a1a3 b3a3) (b3a3 b2a3) (b2a3 b1a3) (b1a3 c3a3) (c3a3 c2a3) (c2a3 c1a3)
+             (b3 a3b3) (a3b3 a2b3) (a2b3 a1b3) (a1b3 b3b3) (b3b3 b2b3) (b2b3 b1b3) (b1b3 c3b3) (c3b3 c2b3) (c2b3 c1b3)
+             (c3 a3c3) (a3c3 a2c3) (a2c3 a1c3) (a1c3 b3c3) (b3c3 b2c3) (b2c3 b1c3) (b1c3 c3c3) (c3c3 c2c3) (c2c3 c1c3)
+             (a2 a3a2) (a3a2 a2a2) (a2a2 a1a2) (a1a2 b3a2) (b3a2 b2a2) (b2a2 b1a2) (b1a2 c3a2) (c3a2 c2a2) (c2a2 c1a2)
+             (b2 a3b2) (a3b2 a2b2) (a2b2 a1b2) (a1b2 b3b2) (b3b2 b2b2) (b2b2 b1b2) (b1b2 c3b2) (c3b2 c2b2) (c2b2 c1b2)
+             (c2 a3c2) (a3c2 a2c2) (a2c2 a1c2) (a1c2 b3c2) (b3c2 b2c2) (b2c2 b1c2) (b1c2 c3c2) (c3c2 c2c2) (c2c2 c1c2)
+             (a1 a3a1) (a3a1 a2a1) (a2a1 a1a1) (a1a1 b3a1) (b3a1 b2a1) (b2a1 b1a1) (b1a1 c3a1) (c3a1 c2a1) (c2a1 c1a1)
+             (b1 a3b1) (a3b1 a2b1) (a2b1 a1b1) (a1b1 b3b1) (b3b1 b2b1) (b2b1 b1b1) (b1b1 c3b1) (c3b1 c2b1) (c2b1 c1b1)
+             (c1 a3c1) (a3c1 a2c1) (a2c1 a1c1) (a1c1 b3c1) (b3c1 b2c1) (b2c1 b1c1) (b1c1 c3c1) (c3c1 c2c1) (c2c1 c1c1)
+     )
+     (links up 
+             (a3a3 a3) (a2a3 a3) (a1a3 a3) (b3a3 a3) (b2a3 a3) (b1a3 a3) (c3a3 a3) (c2a3 a3) (c1a3 a3)
+             (a3b3 b3) (a2b3 b3) (a1b3 b3) (b3b3 b3) (b2b3 b3) (b1b3 b3) (c3b3 b3) (c2b3 b3) (c1b3 b3)
+             (a3c3 c3) (a2c3 c3) (a1c3 c3) (b3c3 c3) (b2c3 c3) (b1c3 c3) (c3c3 c3) (c2c3 c3) (c1c3 c3)
+             (a3a2 a2) (a2a2 a2) (a1a2 a2) (b3a2 a2) (b2a2 a2) (b1a2 a2) (c3a2 a2) (c2a2 a2) (c1a2 a2)
+             (a3b2 b2) (a2b2 b2) (a1b2 b2) (b3b2 b2) (b2b2 b2) (b1b2 b2) (c3b2 b2) (c2b2 b2) (c1b2 b2)
+             (a3c2 c2) (a2c2 c2) (a1c2 c2) (b3c2 c2) (b2c2 c2) (b1c2 c2) (c3c2 c2) (c2c2 c2) (c1c2 c2)
+             (a3a1 a1) (a2a1 a1) (a1a1 a1) (b3a1 a1) (b2a1 a1) (b1a1 a1) (c3a1 a1) (c2a1 a1) (c1a1 a1)
+             (a3b1 b1) (a2b1 b1) (a1b1 b1) (b3b1 b1) (b2b1 b1) (b1b1 b1) (c3b1 b1) (c2b1 b1) (c1b1 b1)
+             (a3c1 c1) (a2c1 c1) (a1c1 c1) (b3c1 c1) (b2c1 c1) (b1c1 c1) (c3c1 c1) (c2c1 c1) (c1c1 c1)
+     )
+     (zone (name board-zone) (players X O) (positions a1 b1 c1 a2 b2 c2 a3 b3 c3))
+     (zone (name goal-zone) (players X O) (positions a1 b1 c1 a2 a3))
+  )
+
+  (piece
+     (name  B1)
+     (image X "images/qxo/bigx1.bmp"
+            O "images/qxo/bigo1.bmp")
+     (drops 
+         (move-type type-1)
+         (drop-piece)
+     )
+  )  
+  (piece
+     (name  B2)
+     (image X "images/qxo/bigx2.bmp"
+            O "images/qxo/bigo2.bmp")
+     (drops 
+         (move-type type-2)
+         (drop-piece)
+     )
+  )  
+  (piece
+     (name  B3)
+     (image X "images/qxo/bigx3.bmp"
+            O "images/qxo/bigo3.bmp")
+     (drops 
+         (move-type type-3)
+         (drop-piece)
+     )
+  )  
+  (piece
+     (name  B4)
+     (image X "images/qxo/bigx4.bmp"
+            O "images/qxo/bigo1.bmp")
+     (drops 
+         (move-type type-4)
+         (drop-piece)
+     )
+  )  
+  (piece
+     (name  S1)
+     (image X "images/qxo/smallx1.bmp"
+            O "images/qxo/smallo1.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+     )
+  )  
+  (piece
+     (name  S2)
+     (image X "images/qxo/smallx2.bmp"
+            O "images/qxo/smallo2.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+     )
+  )  
+  (piece
+     (name  S3)
+     (image X "images/qxo/smallx3.bmp"
+            O "images/qxo/smallo3.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+     )
+  )  
+  (piece
+     (name  S4)
+     (image X "images/qxo/smallx4.bmp"
+            O "images/qxo/smallo4.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+     )
+  )  
+
+  (board-setup
+     (X (B1 off 1) (B2 off 1) (B3 off 1) (B4 off 1))
+     (O (B1 off 1) (B2 off 1) (B3 off 1) (B4 off 1))
+  )
+)
+
+(variant
+  (title "Quantum Morris")
+  (default)
+  (piece
+     (name  B1)
+     (image X "images/qxo/bigx1.bmp"
+            O "images/qxo/bigo1.bmp")
+     (drops 
+         (move-type type-1)
+         (drop-piece)
+     )
+     (moves
+         (move-type split-type)
+         (split n) (split e) (split w) (split s)
+     )
+  )  
+  (piece
+     (name  B2)
+     (image X "images/qxo/bigx2.bmp"
+            O "images/qxo/bigo2.bmp")
+     (drops 
+         (move-type type-2)
+         (drop-piece)
+     )
+     (moves
+         (move-type split-type)
+         (split n) (split e) (split w) (split s)
+     )
+  )  
+  (piece
+     (name  B3)
+     (image X "images/qxo/bigx3.bmp"
+            O "images/qxo/bigo3.bmp")
+     (drops 
+         (move-type type-3)
+         (drop-piece)
+     )
+     (moves
+         (move-type split-type)
+         (split n) (split e) (split w) (split s)
+     )
+  )  
+  (piece
+     (name  S1)
+     (image X "images/qxo/smallx1.bmp"
+            O "images/qxo/smallo1.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+         (move-type step-type)
+         (step n) (step e) (step w) (step s)
+     )
+  )  
+  (piece
+     (name  S2)
+     (image X "images/qxo/smallx2.bmp"
+            O "images/qxo/smallo2.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+         (move-type step-type)
+         (step n) (step e) (step w) (step s)
+     )
+  )  
+  (piece
+     (name  S3)
+     (image X "images/qxo/smallx3.bmp"
+            O "images/qxo/smallo3.bmp")
+     (moves
+         (move-type collision-type)
+         (collapse up)
+         (move-type step-type)
+         (step n) (step e) (step w) (step s)
+     )
+  )  
+  (board-setup
+     (X (B1 off 1) (B2 off 1) (B3 off 1))
+     (O (B1 off 1) (B2 off 1) (B3 off 1))
+  )
+)

@@ -1,0 +1,73 @@
+(define slide-ball (
+   $1 (verify empty?)
+   (while (and (on-board? $1) empty?) $1)
+   (if not-empty? $2)
+   add
+))
+
+(define slide-man (
+   (verify friend?)
+   $1 (verify empty?)
+   (while (and (on-board? $1) empty?) $1)
+   (if not-empty? $2)
+   add
+))
+
+(game
+  (title "Neutron")
+
+  (players White Black N)
+  (turn-order White repeat Black Black White White)
+
+  (board
+     (image "images/neutron/7x7.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a7 b7 c7 d7 e7 f7 g7)
+     )
+  )
+
+  (piece
+     (name Ball)
+     (image N "images/neutron/ball.bmp")
+     (moves
+         (move-type ball-type)
+         (slide-ball n s) (slide-ball nw se) 
+         (slide-ball e w) (slide-ball ne sw) 
+         (slide-ball w e) (slide-ball sw ne) 
+         (slide-ball s n) (slide-ball se nw) 
+     )
+  )
+  (piece
+     (name Man)
+     (image White "images/neutron/wpawn.bmp"
+            Black "images/neutron/bpawn.bmp")
+     (moves
+         (move-type man-type)
+         (slide-man n s) (slide-man nw se) 
+         (slide-man e w) (slide-man ne sw) 
+         (slide-man w e) (slide-man sw ne) 
+         (slide-man s n) (slide-man se nw) 
+     )
+  )
+
+
+  (board-setup
+     (N (Ball d4))
+     (White (Man a1 b1 c1 d1 e1 f1 g1))
+     (Black (Man a7 b7 c7 d7 e7 f7 g7))
+  )
+)

@@ -1,0 +1,174 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-jump (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define en-passant (
+  $1
+  (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture
+  n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Glinski Chess")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/hex/glinski.bmp")
+     (grid
+         (start-rectangle 48 192 97 241)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/k/l" (60 -35)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 70)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 2 1) (w -2 -1)
+              (nw -1 -1) (se 1 1) (ne 1 0) (sw -1 0)
+              (nnw -1 -2) (sse 1 2) (nne 1 -1) (ssw -1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (e w) (w e) (nw se) (sw ne) (ne sw) (se nw) (nnw sse) (sse nnw) (nne ssw) (ssw nne))
+     (kill-positions a1 a2 a3 a4 a5 b1 b2 b3 b4 c1 c2 c3 d1 d2 e1 g11 h10 h11 i9 i10 i11 k8 k9 k10 k11 l7 l8 l9 l10 l11)
+     (zone (name last-rank) (players White)
+           (positions a11 b11 c11 d11 e11 f11 g10 h9 i8 k7 l6)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a6 b5 c4 d3 e2 f1 g1 h1 i1 k1 l1)
+     )
+     (zone (name third-rank) (players White)
+           (positions b6 c6 d6 e6 f6 g5 h4 i3 k2)
+     )
+     (zone (name third-rank) (players Black)
+           (positions b10 c9 d8 e7 f6 g6 h6 i6 k6)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant se) (en-passant sw)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) 
+         (slide nw) (slide ne)
+         (slide sw) (slide se)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (leap e ne) (leap e se) (leap w nw) (leap w sw) 
+         (leap nnw n) (leap nnw nw) (leap nne n) (leap nne ne) 
+         (leap ssw s) (leap ssw sw) (leap sse s) (leap sse se) 
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nnw) (slide ssw) (slide nne) (slide sse)
+         (slide e) (slide w) 
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide se) (slide sw) (slide ne)
+         (slide nnw) (slide sse) (slide ssw) (slide nne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step se) (step sw) (step ne)
+         (step nnw) (step sse) (step ssw) (step nne)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn b5 c5 d5 e5 f5 g4 h3 i2 k1)
+         (Rook c4 i1)
+         (Knight d3 h1)
+         (Bishop f1 f2 f3)
+         (Queen e2)
+         (King g1)
+    )
+    (Black 
+         (Pawn b11 c10 d9 e8 f7 g7 h7 i7 k7)
+         (Rook c11 i8)
+         (Knight d11 h9)
+         (Bishop f11 f10 f9)
+         (Queen e11)
+         (King g10)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated King))
+  (draw-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

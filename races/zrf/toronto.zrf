@@ -1,0 +1,259 @@
+(define step (
+  $1 (while not-empty? up)
+  add
+))
+
+(game
+  (title "Towers of Torornto")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+  (option "pass turn"         forced)
+
+  (players You)
+  (turn-order You)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/toronto/board.bmp")
+     (grid
+         (start-rectangle 8 0 158 20)
+         (dimensions
+           ("a/b/c/d" (172 0)) ; files
+           ("6/5/4/3/2/1" (0 21)) ; ranks
+         )
+     )
+     (links up 
+         (a1 a2) (a2 a3) (a3 a4) (a4 a5)
+         (b1 b2) (b2 b3) (b3 b4) (b4 b5)
+         (c1 c2) (c2 c3) (c3 c4) (c4 c5)
+         (d1 d2) (d2 d3) (d3 d4) (d4 d5)
+     )
+     (links dn 
+         (a2 a1) (a3 a2) (a4 a3) (a5 a4)
+         (b2 b1) (b3 b2) (b4 b3) (b5 b4)
+         (c2 c1) (c3 c2) (c4 c3) (c5 c4)
+         (d2 d1) (d3 d2) (d4 d3) (d5 d4)
+     )
+     (links a
+         (b1 a1) (b2 a1) (b3 a1) (b4 a1) (b5 a1)
+         (c1 a1) (c2 a1) (c3 a1) (c4 a1) (c5 a1)
+         (d1 a1) (d2 a1) (d3 a1) (d4 a1) (d5 a1)
+     )
+     (links b
+         (a1 b1) (a2 b1) (a3 b1) (a4 b1) (a5 b1)
+         (c1 b1) (c2 b1) (c3 b1) (c4 b1) (c5 b1)
+         (d1 b1) (d2 b1) (d3 b1) (d4 b1) (d5 b1)
+     )
+     (links c
+         (a1 c1) (a2 c1) (a3 c1) (a4 c1) (a5 c1)
+         (b1 c1) (b2 c1) (b3 c1) (b4 c1) (b5 c1)
+         (d1 c1) (d2 c1) (d3 c1) (d4 c1) (d5 c1)
+     )
+     (links d
+         (a1 d1) (a2 d1) (a3 d1) (a4 d1) (a5 d1)
+         (b1 d1) (b2 d1) (b3 d1) (b4 d1) (b5 d1)
+         (c1 d1) (c2 d1) (c3 d1) (c4 d1) (c5 d1)
+     )
+  )
+  (piece
+     (name R1)
+     (image You "images/toronto/r1.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name B1)
+     (image You "images/toronto/b1.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name R2)
+     (image You "images/toronto/r2.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name B2)
+     (image You "images/toronto/b2.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name R3)
+     (image You "images/toronto/r3.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name B3)
+     (image You "images/toronto/b3.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name R4)
+     (image You "images/toronto/r4.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name B4)
+     (image You "images/toronto/b4.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name R5)
+     (image You "images/toronto/r5.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+  (piece
+     (name B5)
+     (image You "images/toronto/b5.bmp")
+     (moves
+         (step a) (step b) (step c) (step d)
+     )
+  )
+
+  (board-setup
+    (You
+       (R5 d1) (B5 a1)
+       (B4 d2) (R4 a2)
+       (R3 d3) (B3 a3)
+       (B2 d4) (R2 a4)
+       (R1 d5) (B1 a5)
+    )
+  )
+)
+
+(variant
+  (title "Hanoi Tower")
+  (default)
+  (board
+     (image "images/toronto/hanoi.bmp")
+     (grid
+         (start-rectangle 8 0 158 20)
+         (dimensions
+           ("a/b/c" (172 0)) ; files
+           ("6/5/4/3/2/1" (0 21)) ; ranks
+         )
+     )
+     (links up 
+         (a1 a2) (a2 a3) (a3 a4) (a4 a5)
+         (b1 b2) (b2 b3) (b3 b4) (b4 b5)
+         (c1 c2) (c2 c3) (c3 c4) (c4 c5)
+     )
+     (links dn 
+         (a2 a1) (a3 a2) (a4 a3) (a5 a4)
+         (b2 b1) (b3 b2) (b4 b3) (b5 b4)
+         (c2 c1) (c3 c2) (c4 c3) (c5 c4)
+     )
+     (links a
+         (b1 a1) (b2 a1) (b3 a1) (b4 a1) (b5 a1)
+         (c1 a1) (c2 a1) (c3 a1) (c4 a1) (c5 a1)
+     )
+     (links b
+         (a1 b1) (a2 b1) (a3 b1) (a4 b1) (a5 b1)
+         (c1 b1) (c2 b1) (c3 b1) (c4 b1) (c5 b1)
+     )
+     (links c
+         (a1 c1) (a2 c1) (a3 c1) (a4 c1) (a5 c1)
+         (b1 c1) (b2 c1) (b3 c1) (b4 c1) (b5 c1)
+     )
+  )
+  (piece
+     (name R1)
+     (image You "images/toronto/r1.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name B1)
+     (image You "images/toronto/b1.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name R2)
+     (image You "images/toronto/r2.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name B2)
+     (image You "images/toronto/b2.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name R3)
+     (image You "images/toronto/r3.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name B3)
+     (image You "images/toronto/b3.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name R4)
+     (image You "images/toronto/r4.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name B4)
+     (image You "images/toronto/b4.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name R5)
+     (image You "images/toronto/r5.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (piece
+     (name B5)
+     (image You "images/toronto/b5.bmp")
+     (moves
+         (step a) (step b) (step c)
+     )
+  )
+  (board-setup
+    (You
+       (B5 a1)
+       (B4 a2)
+       (B3 a3)
+       (B2 a4)
+       (B1 a5)
+    )
+  )
+)

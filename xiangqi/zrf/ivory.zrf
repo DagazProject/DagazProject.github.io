@@ -1,0 +1,361 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define shift (
+  (verify (not-in-zone? home-zone))
+  $1 (verify (not-in-zone? home-zone))
+  (verify empty?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define step-3 (
+  $1 (verify empty?)
+  $2 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (not-in-zone? home-zone))
+  $1 (verify empty?)
+  $2 (verify (not-in-zone? home-zone))
+  (verify enemy?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $2
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $2
+  )
+  (verify not-empty?) $2
+  (while empty? $2)
+  (verify not-friend?)
+  add
+))
+
+(define shoot-v (
+  $1 (while empty? $2)
+  (verify (not-piece? Clodhopper)) $2
+  (while empty? add $2)
+  (verify not-friend?)
+  (verify (not-piece? Clodhopper))
+  add
+))
+
+(game
+   (title "Storm the Ivory Tower")
+   (history "Invented by Fergus Duniho in March 2003.")
+
+   (players Red Blue)
+   (turn-order Red Blue)
+
+   (board
+     (image "images/ivory/board.bmp")
+     (grid
+       (start-rectangle 2 2 61 61)
+       (dimensions
+           ("a/b/c/d/e/f/g/h/i" (60 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 60)) ; ranks
+       )
+       (directions 
+           (n 0 -1) (e 1 0) (w -1 0) (s 0 1) 
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+       )
+     )
+     (links fn
+       (a1 a2) (a2 a3) (a4 a5) (a7 a8) (a9 a10)
+       (b1 b2) (b2 b3) (b3 b4) (b6 b7) (b8 b9)
+       (c3 c4) (c4 c5) (c7 c8) (c8 c9)
+       (d1 d2) (d2 d3) (d4 d5) (d5 d6) (d6 d7) (d8 d9) (d9 d10)
+       (e1 e2) (e2 e3) (e4 e5) (e5 e6) (e6 e7) (e8 e9) (e9 e10)
+       (f1 f2) (f2 f3) (f4 f5) (f5 f6) (f6 f7) (f8 f9) (f9 f10)
+       (g3 g4) (g4 g5) (g7 g8) (g8 g9)
+       (h1 h2) (h2 h3) (h3 h4) (h8 h9)
+       (i1 i2) (i2 i3) (i4 i5) (i7 i8) (i9 i10)
+     )
+     (links fe
+       (a1 b1) (c1 d1) (d1 e1) (e1 f1) (g1 h1)
+       (a2 b2) (b2 c2) (d2 e2) (e2 f2)
+       (b3 c3) (d3 e3) (e3 f3) (g3 h3) (h3 i3)
+       (b4 c4) (c4 d4) (d4 e4) (e4 f4) (f4 g4) (g4 h4) (h4 i4)
+       (a5 b5) (b5 c5) (d5 e5) (e5 f5) (f5 g5)
+       (a6 b6) (e6 f6)
+       (b7 c7) (c7 d7) (d7 e7) (e7 f7) (f7 g7) (g7 h7) (h7 i7)
+       (b8 c8) (d8 e8) (e8 f8) (g8 h8) (h8 i8)
+       (a9 b9) (b9 c9) (d9 e9) (e9 f9)
+       (a10 b10) (c10 d10) (d10 e10) (e10 f10) (g10 h10)
+     )
+     (links fw
+       (c1 b1) (e1 d1) (f1 e1) (g1 f1) (i1 h1)
+       (e2 d2) (f2 e2) (h2 g2) (i2 h2)
+       (b3 a3) (c3 b3) (e3 d3) (f3 e3) (h3 g3)
+       (b4 a4) (c4 b4) (d4 c4) (e4 d4) (f4 e4) (g4 f4) (h4 g4)
+       (e5 d5) (i5 h5)
+       (d6 c6) (e6 d6) (f6 e6) (h6 g6) (i6 h6)
+       (b7 a7) (c7 b7) (d7 c7) (e7 d7) (f7 e7) (g7 f7) (h7 g7)
+       (b8 a8) (c8 b8) (e8 d8) (f8 e8) (h8 g8)
+       (e9 d9) (f9 e9) (h9 g9) (i9 h9)
+       (c10 b10) (e10 d10) (f10 e10) (g10 f10) (i10 h10)
+     )
+     (links fs
+       (a2 a1) (a4 a3) (a7 a6) (a9 a8) (a10 a9)
+       (b3 b2) (b8 b7) (b9 b8) (b10 b9)
+       (c3 c2) (c4 c3) (c7 c6) (c8 c7)
+       (d2 d1) (d3 d2) (d5 d4) (d6 d5) (d7 d6) (d9 d8) (d10 d9)
+       (e2 e1) (e3 e2) (e5 e4) (e6 e5) (e7 e6) (e9 e8) (e10 e9)
+       (f2 f1) (f3 f2) (f5 f4) (f6 f5) (f7 f6) (f9 f8) (f10 f9)
+       (g3 g2) (g4 g3) (g7 g6) (g8 g7)
+       (h3 h2) (h5 h4) (h8 h7) (h9 h8) (h10 h9)
+       (i2 i1) (i4 i3) (i7 i6) (i9 i8) (i10 i9)
+     )
+     (links fnw
+       (b1 a2) (b9 a10)
+       (c1 b2) (c2 b3) (c5 b6) (c6 b7) (c9 b10)
+       (e2 d3) (e5 d6) (e6 d7) (e9 d10)
+       (f1 e2) (f8 e9)
+       (g1 f2) (g5 f6) (g6 f7)
+       (h1 g2) 
+       (i3 h4) (i5 h6) (i6 h7) (i8 h9)
+     )
+     (links fne
+       (a3 b4) (a5 b6) (a6 b7) (a8 b9)
+       (b1 c2)
+       (c1 d2) (c5 d6) (c6 d7)
+       (d1 e2) (d8 e9)
+       (e2 f3) (e5 f6) (e6 f7) (e9 f10)
+       (g1 h2) (g2 h3) (g5 h6) (g6 h7) (g9 h10)
+       (h1 i2) (h9 i10)
+     )
+     (links fsw
+       (b2 a1) (b10 a9) 
+       (c2 b1) (c5 b4) (c6 b5) (c9 b8) (c10 b9)
+       (e2 d1) (e5 d4) (e6 d5) (e9 d8)
+       (f3 e2) (f10 e9)
+       (g5 f4) (g6 f5) (g10 f9)
+       (h10 g9)
+       (i3 h2) (i5 h4) (i6 h5) (i8 h7)
+     )
+     (links fse
+       (a3 b2) (a5 b4) (a6 b5) (a8 b7)
+       (b10 c9)
+       (c5 d4) (c6 d5) (c10 d9) 
+       (d3 e2) (d10 e9)
+       (e2 f1) (e5 f4) (e6 f5) (e9 f8)
+       (g2 h1) (g5 h4) (g6 h5) (g9 h8) (g10 h9)
+       (h2 i1) (h10 i9)
+     )
+     (zone (name home-zone) (players Red)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 a2 b2 c2 d2 e2 f2 g2 h2 i2 a3 b3 c3 d3 e3 f3 g3 h3 i3 a4 b4 c4 d4 e4 f4 g4 h4 i4 a5 b5 c5 d5 e5 f5 g5 h5 i5)
+     )
+     (zone (name home-zone) (players Blue)
+           (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 a9 b9 c9 d9 e9 f9 g9 h9 i9 a8 b8 c8 d8 e8 f8 g8 h8 i8 a7 b7 c7 d7 e7 f7 g7 h7 i7 a6 b6 c6 d6 e6 f6 g6 h6 i6)
+     )
+   )
+
+   (piece
+      (name Ninny)
+      (image Red "images/ivory/rninny.bmp" 
+             Blue "images/ivory/bninny.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+         (jump fn n) (jump fe e) (jump fw w) (jump fs s)
+         (jump fnw nw) (jump fne ne) (jump fsw sw) (jump fse se)
+      )
+   )
+   (piece
+      (name Yahoo)
+      (image Red "images/ivory/ryahoo.bmp" 
+             Blue "images/ivory/byahoo.bmp")
+      (moves
+         (step-2 fn nw) (step-2 fn ne) (step-2 fs sw) (step-2 fs se)
+         (step-2 fw nw) (step-2 fe ne) (step-2 fw sw) (step-2 fe se)
+         (step-2 fnw n) (step-2 fnw w) (step-2 fne n) (step-2 fne e)
+         (step-2 fsw s) (step-2 fsw w) (step-2 fse s) (step-2 fse e)
+      )
+   )
+   (piece
+      (name Fuddy-Duddy)
+      (image Red "images/ivory/rfuddyduddy.bmp" 
+             Blue "images/ivory/bfuddyduddy.bmp")
+      (moves
+         (step-2 fn n) (step-2 fe e) (step-2 fw w) (step-2 fs s)
+         (step-2 fnw nw) (step-2 fne ne) (step-2 fsw sw) (step-2 fse se)
+         (shift fn) (shift fe) (shift fw) (shift fs)
+         (shift fnw) (shift fne) (shift fsw) (shift fse)
+      )
+   )
+   (piece
+      (name Numskull)
+      (image Red "images/ivory/rnumskull.bmp" 
+             Blue "images/ivory/bnumskull.bmp")
+      (moves
+         (slide fn n) (slide fe e) (slide fw w) (slide fs s)
+         (slide fnw nw) (slide fne ne) (slide fsw sw) (slide fse se)
+      )
+   )
+   (piece
+      (name Clodhopper)
+      (image Red "images/ivory/rclodhopper.bmp" 
+             Blue "images/ivory/bclodhopper.bmp")
+      (moves
+         (shoot fn n) (shoot fe e) (shoot fw w) (shoot fs s)
+         (shoot fnw nw) (shoot fne ne) (shoot fsw sw) (shoot fse se)
+      )
+   )
+   (piece
+      (name Toady)
+      (image Red "images/ivory/rtoady.bmp" 
+             Blue "images/ivory/btoady.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+      )
+   )
+   (piece
+      (name Brain)
+      (image Red "images/ivory/rbrain.bmp" 
+             Blue "images/ivory/bbrain.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Ninny a4 c4 e4 g4 i4)
+         (Yahoo b1 h1)
+         (Fuddy-Duddy c1 g1)
+         (Numskull a1 i1)
+         (Toady d1 f1)
+	 (Clodhopper b3 h3)
+         (Brain e1)
+      )
+      (Blue
+         (Ninny a7 c7 e7 g7 i7)
+         (Yahoo b10 h10)
+         (Fuddy-Duddy c10 g10)
+         (Numskull a10 i10)
+         (Toady d10 f10)
+	 (Clodhopper b8 h8)
+         (Brain e10)
+      )
+   )
+)
+
+(variant
+   (title "Storm the Ivory Tower (variant)")
+   (default)
+
+   (piece
+      (name Ninny)
+      (image Red "images/ivory/rninny.bmp" 
+             Blue "images/ivory/bninny.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+         (jump fn n) (jump fe e) (jump fw w) (jump fs s)
+         (jump fnw nw) (jump fne ne) (jump fsw sw) (jump fse se)
+      )
+   )
+   (piece
+      (name Yahoo)
+      (image Red "images/ivory/ryahoo.bmp" 
+             Blue "images/ivory/byahoo.bmp")
+      (moves
+         (step-2 fn nw) (step-2 fn ne) (step-2 fs sw) (step-2 fs se)
+         (step-2 fw nw) (step-2 fe ne) (step-2 fw sw) (step-2 fe se)
+         (step-2 fnw n) (step-2 fnw w) (step-2 fne n) (step-2 fne e)
+         (step-2 fsw s) (step-2 fsw w) (step-2 fse s) (step-2 fse e)
+      )
+   )
+   (piece
+      (name Fuddy-Duddy)
+      (image Red "images/ivory/rfuddyduddy.bmp" 
+             Blue "images/ivory/bfuddyduddy.bmp")
+      (moves
+         (step-3 fn nw) (step-3 fn ne) (step-3 fs sw) (step-3 fs se)
+         (step-3 fw nw) (step-3 fe ne) (step-3 fw sw) (step-3 fe se)
+         (step-3 fnw n) (step-3 fnw w) (step-3 fne n) (step-3 fne e)
+         (step-3 fsw s) (step-3 fsw w) (step-3 fse s) (step-3 fse e)
+      )
+   )
+   (piece
+      (name Numskull)
+      (image Red "images/ivory/rnumskull.bmp" 
+             Blue "images/ivory/bnumskull.bmp")
+      (moves
+         (slide fn n) (slide fe e) (slide fw w) (slide fs s)
+         (slide fnw nw) (slide fne ne) (slide fsw sw) (slide fse se)
+      )
+   )
+   (piece
+      (name Clodhopper)
+      (image Red "images/ivory/rclodhopper.bmp" 
+             Blue "images/ivory/bclodhopper.bmp")
+      (moves
+         (shoot-v fn n) (shoot-v fe e) (shoot-v fw w) (shoot-v fs s)
+         (shoot-v fnw nw) (shoot-v fne ne) (shoot-v fsw sw) (shoot-v fse se)
+      )
+   )
+   (piece
+      (name Toady)
+      (image Red "images/ivory/rtoady.bmp" 
+             Blue "images/ivory/btoady.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+      )
+   )
+   (piece
+      (name Brain)
+      (image Red "images/ivory/rbrain.bmp" 
+             Blue "images/ivory/bbrain.bmp")
+      (moves
+         (step fn) (step fe) (step fw) (step fs)
+         (step fnw) (step fne) (step fsw) (step fse)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Ninny a4 c4 e4 g4 i4)
+         (Yahoo b1 h1)
+         (Fuddy-Duddy c1 g1)
+         (Numskull a1 i1)
+         (Toady d1 f1)
+	 (Clodhopper b3 h3)
+         (Brain e2)
+      )
+      (Blue
+         (Ninny a7 c7 e7 g7 i7)
+         (Yahoo b10 h10)
+         (Fuddy-Duddy c10 g10)
+         (Numskull a10 i10)
+         (Toady d10 f10)
+	 (Clodhopper b8 h8)
+         (Brain e9)
+      )
+   )
+)

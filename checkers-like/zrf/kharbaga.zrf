@@ -1,0 +1,183 @@
+(define man-step (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define man-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Kharbaga")
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/dablot/5x5.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i" (44 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7)
+     )
+     (symmetry White (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players Black)
+           (positions a9 c9 e9 g9 i9)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/dablot/wman.bmp"
+            Black "images/dablot/bman.bmp")
+     (moves
+         (move-type normal-type)
+         (man-step n) (man-step nw) (man-step ne)
+         (move-type jump-type)
+         (man-jump n) (man-jump w) (man-jump s) (man-jump e)
+         (man-jump nw) (man-jump sw) (man-jump se) (man-jump ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/dablot/wprince.bmp"
+            Black "images/dablot/bprince.bmp")
+     (moves
+         (move-type normal-type)
+         (king-shift n) (king-shift s) (king-shift w) (king-shift e) 
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+         (move-type jump-type)
+         (king-jump n) (king-jump w) (king-jump s) (king-jump e)
+         (king-jump nw) (king-jump sw) (king-jump se) (king-jump ne)
+         (move-type continue-type)
+         (king-continue n) (king-continue w) (king-continue s) (king-continue e)
+         (king-continue nw) (king-continue sw) (king-continue se) (king-continue ne)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 c1 e1 g1 i1 b2 d2 f2 h2 a3 c3 e3 g3 i3 b4 d4 f4 h4 g5 i5))
+    (White (Man a9 c9 e9 g9 i9 b8 d8 f8 h8 a7 c7 e7 g7 i7 b6 d6 f6 h6 a5 c5))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

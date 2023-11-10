@@ -1,0 +1,51 @@
+(version "3.0")
+
+(define drop-stone (
+  (verify empty?) add
+))
+
+(game
+  (title "Boku")
+
+  (option "pass turn"          true)
+  (option "ko"                 true)
+  (option "boku-extension"     true)
+  (option "pente-restrictions" true)
+  (option "renju-extension"    true)
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+      (image "images/19x19.bmp")
+      (grid
+          (start-rectangle 15 15 46 46)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (32 0)) ; files
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (0 32)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+      (zone (name first-move)  
+          (players White Black) 
+          (positions jj)
+      )
+      (zone (name third-move)  
+          (players White) 
+          (positions jh ji jk jl ih ii ij ik il hh hi hj hk hl kh ki kj kk kl lh li lj lk ll)
+      )
+  )
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/bs.bmp"
+            White "images/ws.bmp")
+     (drops (drop-stone))
+  )  
+)

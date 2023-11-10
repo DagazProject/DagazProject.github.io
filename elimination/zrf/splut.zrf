@@ -1,0 +1,115 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define troll-step (
+  $1 (verify (or empty? (piece? Stone)))
+  add
+))
+
+(define push (
+  $1 (while not-empty? cascade $1)
+  add
+))
+
+(game
+  (title "Splut")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "pass turn"         forced)
+
+  (players South West North East)
+  (turn-order 
+      South
+      West West
+      repeat
+      North North North
+      East East East
+      South South South
+      West West West
+  )
+
+  (board 
+     (image "images/splut/board.bmp")
+     (grid
+        (start-rectangle 8 8 56 56)
+        (dimensions
+            ("a/b/c/d/e/f/g/h/i" (40 0)) ; files
+            ("9/8/7/6/5/4/3/2/1" (0 40)) ; ranks
+        )    
+        (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+     )
+     (kill-positions d9 f9 c8 g8 b7 h7 a6 i6 a4 i4 b3 h3 c2 g2 d1 f1 a7 a8 a9 b8 b9 c9 a1 a2 a3 b1 b2 c1 g1 h1 h2 i1 i2 i3 g9 h8 h9 i7 i8 i9)
+  )
+
+  (piece
+      (name  Wizard)
+      (image South "Images/splut/swizard.bmp"
+             North "Images/splut/nwizard.bmp"
+             West  "Images/splut/wwizard.bmp"
+             East  "Images/splut/ewizard.bmp")
+      (moves
+          (step n) (step s) (step w) (step e)
+      )
+  )
+  (piece
+      (name  Dwarf)
+      (image North "Images/splut/ndwarf.bmp"
+             South "Images/splut/sdwarf.bmp"
+             West  "Images/splut/wdwarf.bmp"
+             East  "Images/splut/edwarf.bmp")
+      (moves
+          (push n) (push s) (push w) (push e)
+      )
+  )
+  (piece
+      (name  Troll)
+      (image North "Images/splut/ntroll.bmp"
+             South "Images/splut/stroll.bmp"
+             West  "Images/splut/wtroll.bmp"
+             East  "Images/splut/etroll.bmp")
+      (moves
+          (troll-step n) (troll-step s) (troll-step w) (troll-step e)
+      )
+  )
+  (piece
+      (name  Stone)
+      (image North "Images/splut/stone.bmp"
+             South "Images/splut/stone.bmp"
+             West  "Images/splut/stone.bmp"
+             East  "Images/splut/stone.bmp")
+  )
+
+  (board-setup
+     (South (Stone e1) (Wizard d2) (Dwarf e2) (Troll f2))
+     (North (Stone e9) (Wizard f8) (Dwarf e8) (Troll d8))
+     (West  (Stone a5) (Wizard b6) (Dwarf b5) (Troll b4))
+     (East  (Stone i5) (Wizard h4) (Dwarf h5) (Troll h6))
+  )
+)
+
+(variant
+  (title "Splut (duel)")
+
+  (turn-order 
+      South
+      North North
+      repeat
+      South South South
+      North North North
+  )
+
+  (board-setup
+     (South (Stone e1) (Wizard d2) (Dwarf e2) (Troll f2))
+     (North (Stone e9) (Wizard f8) (Dwarf e8) (Troll d8))
+     (West  (Stone a5))
+     (East  (Stone i5))
+  )
+)

@@ -1,0 +1,161 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+   (title "Passive Chess (Chinese)")
+
+   (option "smart moves"       false)
+   (option "animate captures"  false)
+
+   (move-sound "Audio\Pickup.wav")
+   (release-sound "Audio\Pickup.wav")
+   (capture-sound "")
+
+   (players Red Black)
+   (turn-order Red Black)
+
+   (board
+      (image "images/passive/board.bmp")
+      (grid
+         (start-rectangle 26 27 68 69)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (45 0)) ; files
+             ("8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (zone
+         (name general-zone)
+         (players Red Black)
+         (positions e1 h3 a6 d8)
+      )
+      (zone
+         (name mandarin-zone)
+         (players Red Black)
+         (positions d1 c2 f2 a3 h6 c7 f7 e8)
+      )
+      (zone
+         (name elephant-zone)
+         (players Red Black)
+         (positions c1 f1 d2 h2 c3 f3 c6 f6 a7 e7 c8 f8)
+      )
+      (zone
+         (name horse-zone)
+         (players Red Black)
+         (positions b1 g1 a2 e2 h4 a5 d7 h7 b8 g8)
+      )
+      (zone
+         (name cannon-zone)
+         (players Red Black)
+         (positions b2 g2 b4 d4 e5 g5 b7 g7)
+      )
+      (zone
+         (name chariot-zone)
+         (players Red Black)
+         (positions a1 h1 f4 c5 a8 h8)
+      )
+   )
+
+   (piece
+      (name General)
+      (image Red   "images/passive/rgeneral.bmp"  
+             Black "images/passive/bgeneral.bmp")
+      (moves
+         (step n) (step s) (step w) (step e)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Red   "images/passive/rmandarin.bmp" 
+             Black "images/passive/bmandarin.bmp")
+      (moves
+         (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red   "images/passive/relephant.bmp" 
+             Black "images/passive/belephant.bmp")
+      (moves
+         (jump nw nw) (jump sw sw) (jump ne ne) (jump se se)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red   "images/passive/rhorse.bmp" 
+             Black "images/passive/bhorse.bmp")
+      (moves
+         (jump n nw) (jump n ne) (jump s sw) (jump s se)
+         (jump w nw) (jump e ne) (jump w sw) (jump e se)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red   "images/passive/rcannon.bmp" 
+             Black "images/passive/bcannon.bmp")
+      (moves
+         (shoot n) (shoot s) (shoot w) (shoot e)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red   "images/passive/rchariot.bmp" 
+             Black "images/passive/bchariot.bmp")
+      (moves
+         (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Horse b1 g1 a2 e2)
+         (Elephant c1 f1 d2 h2)
+         (Chariot a1 h1)
+         (Mandarin d1 c2 f2)
+         (Cannon b2 g2)
+         (General e1)
+      )
+      (Black
+         (Horse d7 h7 b8 g8)
+         (Elephant a7 e7 c8 f8)
+         (Chariot a8 h8)
+         (Mandarin c7 f7 e8)
+         (Cannon b7 g7)
+         (General d8)
+      )
+   )
+
+   (loss-condition (Red Black) stalemated)
+)

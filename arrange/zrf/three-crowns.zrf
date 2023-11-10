@@ -1,0 +1,86 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define first-jump (
+  $1 (verify enemy?)
+  (verify (piece? $2))
+  $1 (verify empty?)
+  (add-partial left-1-type)
+))
+
+(define second-jump (
+  $1 (verify enemy?)
+  (verify (piece? $2))
+  capture
+  $1 (verify empty?)
+  (verify not-last-from?)
+  add
+))
+
+(game
+  (title "Three Crowns")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-priorities normal-type)
+
+  (board
+     (image "images/three-crowns/board.bmp")
+     (grid
+         (start-rectangle 4 4 54 54)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+            (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/three-crowns/wstone.bmp"
+            Black "images/three-crowns/bstone.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e)
+        (step nw) (step se) (step sw) (step ne)
+        (first-jump n Crown) (first-jump s Crown) (first-jump w Crown) (first-jump e Crown)
+        (first-jump nw Crown) (first-jump se Crown) (first-jump sw Crown) (first-jump ne Crown)
+        (move-type left-1-type)
+        (second-jump n Crown) (second-jump s Crown) (second-jump w Crown) (second-jump e Crown)
+        (second-jump nw Crown) (second-jump se Crown) (second-jump sw Crown) (second-jump ne Crown)
+     )
+  )
+  (piece
+     (name Crown)
+     (image White "images/three-crowns/wcrown.bmp"
+            Black "images/three-crowns/bcrown.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e)
+        (step nw) (step se) (step sw) (step ne)
+        (first-jump n Stone) (first-jump s Stone) (first-jump w Stone) (first-jump e Stone)
+        (first-jump nw Stone) (first-jump se Stone) (first-jump sw Stone) (first-jump ne Stone)
+        (move-type left-1-type)
+        (second-jump n Stone) (second-jump s Stone) (second-jump w Stone) (second-jump e Stone)
+        (second-jump nw Stone) (second-jump se Stone) (second-jump sw Stone) (second-jump ne Stone)
+     )
+  )
+
+  (board-setup
+    (White (Stone b1 g1 a3 h3 a5 h5 a8 c8 f8 h8))
+    (Black (Stone a1 c1 f1 h1 a4 h4 a6 h6 b8 g8))
+  )
+)

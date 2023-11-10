@@ -1,0 +1,110 @@
+(define step-king (
+  $1 (verify not-friend?)
+  (verify (not-piece? Hole))
+  add
+))
+
+(define step-warrior (
+  $1 (verify not-friend?)
+  (if not-empty?
+      (verify (piece? King))
+  )
+  add
+))
+
+(define slide-king (
+  $1 (verify (piece? Hole))
+  (while (piece? Hole) $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-warrior (
+  $1 (verify (piece? Hole))
+  (while (piece? Hole) $1)
+  (verify not-friend?)
+  (verify (piece? King))
+  add
+))
+
+(define jump (
+  $1 (while (piece? Hole) $1)
+  (verify empty?) (create Hole)
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Shakti")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/shakti.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (kill-positions a1 a7 g1 g7)
+  )
+
+  (piece
+     (name Hole)
+     (image White "images/hole.bmp"
+            Black "images/hole.bmp")
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (step-king n) (step-king s) (step-king w) (step-king e)
+         (step-king nw) (step-king sw) (step-king ne) (step-king se)
+         (move-type jump-type)
+         (slide-king n) (slide-king s) (slide-king w) (slide-king e)
+         (slide-king nw) (slide-king sw) (slide-king ne) (slide-king se)
+     )
+  )
+  (piece
+     (name Warrior)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (step-warrior n) (step-warrior s) (step-warrior w) (step-warrior e)
+         (step-warrior nw) (step-warrior sw) (step-warrior ne) (step-warrior se)
+         (slide-warrior n) (slide-warrior s) (slide-warrior w) (slide-warrior e)
+         (slide-warrior nw) (slide-warrior sw) (slide-warrior ne) (slide-warrior se)
+         (jump n) (jump s) (jump w) (jump e)
+         (jump nw) (jump sw) (jump ne) (jump se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (King d2)
+         (Warrior b2 f2)
+    )
+    (Black 
+         (King d6)
+         (Warrior b6 f6)
+    )
+  )
+)

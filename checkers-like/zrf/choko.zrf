@@ -1,0 +1,77 @@
+(define drop-piece (
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  (verify friend?)
+  $1 (verify enemy?)
+  capture
+  $1 (verify empty?)
+  add
+))
+
+(define kill-piece (
+  (verify enemy?)
+  capture add
+))
+
+(game
+  (title "Choko")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"       false)
+  (option "smart moves"            false)
+; (option "shared pieces"       true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/choko/board.bmp")
+     (grid
+         (start-rectangle 1 1 55 55)
+         (dimensions
+           ("a/b/c/d/e" (54 0)) ; files
+           ("5/4/3/2/1" (0 54)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/choko/white.bmp"
+            Black "images/choko/black.bmp")
+     (drops
+        (move-type normal-type)
+        (drop-piece)
+     )
+     (moves
+        (move-type normal-type)
+        (jump n) (jump s) (jump w) (jump e)
+        (step n) (step s) (step w) (step e)
+        (move-type capture-type)
+        (kill-piece)
+     )
+  )
+
+  (board-setup
+     (Black (Stone off 12))
+     (White (Stone off 12))
+  )
+
+  (loss-condition (White Black) stalemated)
+)

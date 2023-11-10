@@ -1,0 +1,251 @@
+(define drop-stone (
+  (verify empty?)
+  add
+))
+
+(define drop-piece (
+  (verify friend?)
+  (verify (piece? Stone))
+  add
+))
+
+(define general-step (
+  $1 (verify friend?)
+  (verify (piece? Stone))
+  add
+))
+
+(define mandarin-step (
+  $1 (verify not-empty?)
+  (verify (piece? Stone))
+  add
+))
+
+(define step (
+  $1 add
+))
+
+(define step-2 (
+  $1 (verify (or empty? (piece? Stone)))
+  $2 add
+))
+
+(define slide (
+  $1 (while (or empty? (piece? Stone)) add $1)
+  add
+))
+
+(define shoot (
+  $1 (while (or empty? (piece? Stone)) add $1)
+  $1 (while (or empty? (piece? Stone)) $1)
+  add
+))
+
+(game
+   (title "Chess Go")
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/chessgo/9x9.bmp")
+      (grid
+         (start-rectangle 4 5 46 47)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i" (45 0)) ; files
+             ("9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+   )
+
+   (piece
+      (name Stone)
+      (image Black "images/chessgo/bstone.bmp"
+             White "images/chessgo/wstone.bmp")
+      (drops
+         (drop-stone)
+      )
+   )
+   (piece
+      (name Soldier)
+      (image Black "images/chessgo/bsoldier.bmp"
+             White "images/chessgo/wsoldier.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Black "images/chessgo/bhorse.bmp"
+             White "images/chessgo/whorse.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (step-2 n nw) (step-2 n ne) (step-2 s sw) (step-2 s se)
+         (step-2 w nw) (step-2 e ne) (step-2 w sw) (step-2 e se)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Black "images/chessgo/belephant.bmp"
+             White "images/chessgo/welephant.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (step-2 nw nw) (step-2 ne ne)
+         (step-2 sw sw) (step-2 se se)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Black "images/chessgo/bchariot.bmp"
+             White "images/chessgo/wchariot.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (slide n) (slide e) (slide w) (slide s)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Black "images/chessgo/bcannon.bmp"
+             White "images/chessgo/wcannon.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (shoot n) (shoot e) (shoot w) (shoot s)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Black "images/chessgo/bmandarin.bmp"
+             White "images/chessgo/wmandarin.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (mandarin-step nw) (mandarin-step ne) 
+         (mandarin-step sw) (mandarin-step se)
+      )
+   )
+   (piece
+      (name General)
+      (image Black "images/chessgo/bgeneral.bmp"
+             White "images/chessgo/wgeneral.bmp")
+      (drops
+         (drop-piece)
+      )
+      (moves
+         (general-step n) (general-step e) (general-step w) (general-step s)
+      )
+   )
+
+   (board-setup
+      (White
+         (Soldier off 2)
+         (Horse off 1)
+         (Elephant off 1)
+         (Chariot off 1)
+         (Mandarin off 2)
+         (Cannon off 1)
+         (General off 1)
+      )
+      (Black
+         (Soldier off 2)
+         (Horse off 1)
+         (Elephant off 1)
+         (Chariot off 1)
+         (Mandarin off 2)
+         (Cannon off 1)
+         (General off 1)
+      )
+   )
+)
+
+(variant
+   (title "Chess Go (19x19)")
+
+   (board
+      (image "images/chessgo/19x19.bmp")
+      (grid
+          (start-rectangle 6 6 36 36)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (30 0)) ; files
+            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 30)) ; ranks
+          )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+   )
+
+   (board-setup
+      (White
+         (Soldier off 5)
+         (Horse off 2)
+         (Elephant off 2)
+         (Chariot off 2)
+         (Mandarin off 2)
+         (Cannon off 2)
+         (General off 1)
+      )
+      (Black
+         (Soldier off 5)
+         (Horse off 2)
+         (Elephant off 2)
+         (Chariot off 2)
+         (Mandarin off 2)
+         (Cannon off 2)
+         (General off 1)
+      )
+   )
+)
+
+(variant
+   (title "Chess Go (17x17)")
+
+   (board
+      (image "images/chessgo/17x17.bmp")
+      (grid
+          (start-rectangle 5 5 36 36)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (31 0)) ; files
+            ("17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 31)) ; ranks
+          )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+   )
+
+   (board-setup
+      (White
+         (Soldier off 5)
+         (Horse off 2)
+         (Elephant off 2)
+         (Chariot off 2)
+         (Mandarin off 2)
+         (Cannon off 2)
+         (General off 1)
+      )
+      (Black
+         (Soldier off 5)
+         (Horse off 2)
+         (Elephant off 2)
+         (Chariot off 2)
+         (Mandarin off 2)
+         (Cannon off 2)
+         (General off 1)
+      )
+   )
+)

@@ -1,0 +1,77 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Toguz Kumalak")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+  (option "pass turn"         forced)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/toguz-kumalak.bmp")
+     (grid
+         (start-rectangle 4 9 74 279)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (71 0)) ; files
+           ("2/1" (0 534)) ; ranks
+         )
+     )
+     (positions
+           (X2   4 288 638 408)
+           (X1   4 416 638 536)
+     )
+     (links nx 
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) (g1 h1) (h1 i1) (i1 i2)
+         (i2 h2) (h2 g2) (g2 f2) (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links sm (a2 i1) (i1 a2) (b2 h1) (h1 b2) (c2 g1) (g1 c2) (d2 f1) (f1 d2) (e2 e1) (e1 e2) (f2 d1) (d1 f2) (g2 c1) (c1 g2) (h2 b1) (b1 h2) (i2 a1) (a1 i2))
+     (links fr (a2 X1))
+     (links er (a2 X2))
+     (zone (name home) (players North)
+           (positions a2 b2 c2 d2 e2 f2 g2 h2 i2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1)
+     )
+     (zone (name restricted) (players South North)
+           (positions a2 i1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/seed.bmp"
+            North "images/seed.bmp")
+     (moves (step nx))
+  )
+  (piece
+     (name Tuzdyk)
+     (image South "images/tuzdyk.bmp"
+            North "images/tuzdyk.bmp")
+  )
+  (piece
+     (name Kazan)
+     (image South "images/seed.bmp"
+            North "images/seed.bmp")
+  )
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1 g1 h1 i1))
+    (North (Seed a2 b2 c2 d2 e2 f2 g2 h2 i2))
+  )
+)

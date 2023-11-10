@@ -1,0 +1,111 @@
+(define step (
+  $1 (verify (piece? Ball))
+  (add-partial continue-type)
+))
+
+(define slide (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define shoot (
+   $1 (while empty?
+       (add Ball) $1
+   )
+))
+
+(game
+  (title "Chessball")
+
+  (option "smart moves" false)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities priority-type normal-type)
+
+  (board
+     (image "images/chessball/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions a8 b8 c8 d8 e8)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 b1 c1 d1 e1)
+     )
+  )
+
+  (piece
+     (name Ball)
+     (image White "images/chessball/ball.bmp"
+            Black "images/chessball/ball.bmp")
+  )
+  (piece
+     (name King)
+     (image White "images/chessball/wking.bmp"
+            Black "images/chessball/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/chessball/wbishop.bmp"
+            Black "images/chessball/bbishop.bmp")
+     (moves
+         (move-type priority-type)
+         (step n) (step nw) 
+         (step e) (step ne)
+         (step w) (step sw)
+         (step s) (step se)
+         (move-type normal-type)
+         (slide n) (slide nw) 
+         (slide e) (slide ne)
+         (slide w) (slide sw)
+         (slide s) (slide se)
+         (move-type continue-type)
+         (shoot n) (shoot nw) 
+         (shoot e) (shoot ne)
+         (shoot w) (shoot sw)
+         (shoot s) (shoot se)
+     )
+  )
+  (piece
+     (name Pawn)
+     (image White "images/chessball/wpawn.bmp"
+            Black "images/chessball/bpawn.bmp")
+     (moves
+         (move-type priority-type)
+         (step n) (step nw) 
+         (step e) (step ne)
+         (step w) (step sw)
+         (step s) (step se)
+         (move-type normal-type)
+         (slide n) (slide nw) 
+         (slide e) (slide ne)
+         (slide w) (slide sw)
+         (slide s) (slide se)
+         (move-type continue-type)
+         (shoot n) (shoot nw) 
+         (shoot e) (shoot ne)
+         (shoot w) (shoot sw)
+         (shoot s) (shoot se)
+     )
+  )
+
+  (board-setup
+     (White (Ball c4) (King c1) (Bishop b3 c3 d3) (Pawn b2 c2 d2))
+     (Black (King c8) (Bishop b6 c6 d6) (Pawn b7 c7 d7))
+  )
+)

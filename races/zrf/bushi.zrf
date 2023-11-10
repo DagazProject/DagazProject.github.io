@@ -1,0 +1,245 @@
+(define step (
+  (verify (not-in-zone? last-rank))
+  $1 (verify empty?)
+  add
+))
+
+(define jump-large (
+  (verify (not-in-zone? last-rank))
+  $1 (verify not-empty?)
+  (if enemy?
+      capture
+      $1 (verify empty?)
+      add
+   else
+      $1 (verify empty?)
+      (if (not-in-zone? last-rank)
+          (add-partial jump-type)
+       else
+          add
+      )
+  )
+))
+
+(define jump-medium (
+  (verify (not-in-zone? last-rank))
+  $1 (verify not-empty?)
+  (verify (not-piece? Large))
+  (if enemy?
+      capture
+      $1 (verify empty?)
+      add
+   else
+      $1 (verify empty?)
+      (if (not-in-zone? last-rank)
+          (add-partial jump-type)
+       else
+          add
+      )
+  )
+))
+
+(define jump-small (
+  (verify (not-in-zone? last-rank))
+  $1 (verify not-empty?)
+  (verify (piece? Small))
+  (if enemy?
+      capture
+      $1 (verify empty?)
+      add
+   else
+      $1 (verify empty?)
+      (if (not-in-zone? last-rank)
+          (add-partial jump-type)
+       else
+          add
+      )
+  )
+))
+
+(game
+  (title "Bushi")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/bushi/board.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (88 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+        )
+     )
+     (kill-positions a1 a10 j1 j10)
+     (zone (name last-rank) (players Black)
+           (positions b10 c10 d10 e10 f10 g10 h10 i10)
+     )
+     (zone (name last-rank) (players White)
+           (positions b1 c1 d1 e1 f1 g1 h1 i1)
+     )
+  )
+
+  (piece
+     (name Small)
+     (image White "images/bushi/wsmall.bmp"
+            Black "images/bushi/bsmall.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-small n) (jump-small s) (jump-small w) (jump-small e)
+         (jump-small nw) (jump-small sw) (jump-small ne) (jump-small se)
+     )
+  )
+  (piece
+     (name Medium)
+     (image White "images/bushi/wmedium.bmp"
+            Black "images/bushi/bmedium.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-medium n) (jump-medium s) (jump-medium w) (jump-medium e)
+         (jump-medium nw) (jump-medium sw) (jump-medium ne) (jump-medium se)
+     )
+  )
+  (piece
+     (name Large)
+     (image White "images/bushi/wlarge.bmp"
+            Black "images/bushi/blarge.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-large n) (jump-large s) (jump-large w) (jump-large e)
+         (jump-large nw) (jump-large sw) (jump-large ne) (jump-large se)
+     )
+  )
+
+  (board-setup
+    (Black 
+         (Small d2 e2 f2 g2)
+         (Medium b1 c1 h1 i1)
+         (Large d1 e1 f1 g1)
+    )
+    (White 
+         (Small d9 e9 f9 g9)
+         (Medium b10 c10 h10 i10)
+         (Large d10 e10 f10 g10)
+    )
+  )
+)
+
+(variant
+  (title "Bushi (4 players)")
+  (default)
+
+  (players Black White Blue Red)
+  (turn-order Black White Blue Red)
+
+  (board
+     (image "images/bushi/board.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (88 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+        )
+     )
+     (kill-positions a1 a10 j1 j10)
+     (zone (name last-rank) (players Black)
+           (positions b10 c10 d10 e10 f10 g10 h10 i10)
+     )
+     (zone (name last-rank) (players Red)
+           (positions a2 a3 a4 a5 a6 a7 a8 a9)
+     )
+     (zone (name last-rank) (players Blue)
+           (positions b1 c1 d1 e1 f1 g1 h1 i1)
+     )
+     (zone (name last-rank) (players White)
+           (positions j2 j3 j4 j5 j6 j7 j8 j9)
+     )
+  )
+
+  (piece
+     (name Small)
+     (image White "images/bushi/wsmall.bmp"
+            Red   "images/bushi/rsmall.bmp"
+            Blue  "images/bushi/ismall.bmp"
+            Black "images/bushi/bsmall.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-small n) (jump-small s) (jump-small w) (jump-small e)
+         (jump-small nw) (jump-small sw) (jump-small ne) (jump-small se)
+     )
+  )
+  (piece
+     (name Medium)
+     (image White "images/bushi/wmedium.bmp"
+            Red   "images/bushi/rmedium.bmp"
+            Blue  "images/bushi/imedium.bmp"
+            Black "images/bushi/bmedium.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-medium n) (jump-medium s) (jump-medium w) (jump-medium e)
+         (jump-medium nw) (jump-medium sw) (jump-medium ne) (jump-medium se)
+     )
+  )
+  (piece
+     (name Large)
+     (image White "images/bushi/wlarge.bmp"
+            Red   "images/bushi/rlarge.bmp"
+            Blue  "images/bushi/ilarge.bmp"
+            Black "images/bushi/blarge.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type jump-type)
+         (jump-large n) (jump-large s) (jump-large w) (jump-large e)
+         (jump-large nw) (jump-large sw) (jump-large ne) (jump-large se)
+     )
+  )
+
+  (board-setup
+    (Black 
+         (Small d2 e2 f2 g2)
+         (Medium b1 c1 h1 i1)
+         (Large d1 e1 f1 g1)
+    )
+    (White 
+         (Small b4 b5 b6 b7)
+         (Medium a2 a3 a8 a9)
+         (Large a4 a5 a6 a7)
+    )
+    (Blue
+         (Small d9 e9 f9 g9)
+         (Medium b10 c10 h10 i10)
+         (Large d10 e10 f10 g10)
+    )
+    (Red
+         (Small i4 i5 i6 i7)
+         (Medium j2 j3 j8 j9)
+         (Large  j4 j5 j6 j7)
+    )
+  )
+)

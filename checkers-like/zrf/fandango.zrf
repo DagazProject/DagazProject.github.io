@@ -1,0 +1,103 @@
+(define step (
+  $1 (verify empty?)
+  (if (in-zone? promotion)
+      (add King)
+    else
+      add
+  )
+))
+
+(define bump (
+  $1 (verify empty?)
+  mark
+  $1 (verify enemy?) 
+  capture $2
+  back
+  (if (in-zone? promotion)
+      (add-partial King continue-type)
+   else
+      (add-partial jump-type)
+  )
+))
+
+(define pull (
+  $1 (verify enemy?) capture
+  $2 $2 (verify empty?)
+  (if (in-zone? promotion)
+      (add-partial King continue-type)
+   else
+      (add-partial jump-type)
+  )
+))
+
+(define king-bump (
+  $1 (verify empty?)
+  $1 (verify enemy?) 
+  capture $2
+  (add-partial priority-type)
+))
+
+(define king-pull (
+  $1 (verify enemy?) capture
+  $2 $2 (verify empty?)
+  (add-partial priority-type)
+))
+
+(game
+  (title "Fandango")
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/makyek/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+     (zone (name promotion) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+  )
+
+  (piece
+     (name  Man)
+     (image White "images/makyek/white.bmp"
+            Black "images/makyek/black.bmp")
+     (moves
+         (move-type jump-type)
+         (bump n) (bump w) (bump e) (bump nw) (bump ne)
+         (pull n) (pull w) (pull e) (pull nw) (pull ne)
+         (move-type normal-type)
+         (step nw) (step ne)
+     )
+  )
+  (piece
+     (name  King)
+     (image White "images/makyek/wdamone.bmp"
+            Black "images/makyek/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-bump n) (king-bump w) (king-bump e) (king-bump nw) (king-bump ne) (king-bump s) (king-bump sw) (king-bump se)
+         (king-pull n) (king-pull w) (king-pull e) (king-pull nw) (king-pull ne) (king-pull s) (king-pull sw) (king-pull se)
+         (move-type normal-type)
+         (step nw) (step ne) (step sw) (step se)
+     )
+  )
+
+  (board-setup
+    (White (Man a7 b7 c7 d7 e7 f7 g7 h7  a8 b8 c8 d8 e8 f8 g8 h8))
+    (Black (Man a1 b1 c1 d1 e1 f1 g1 h1  a2 b2 c2 d2 e2 f2 g2 h2))
+  )
+)
+

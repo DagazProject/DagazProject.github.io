@@ -1,0 +1,191 @@
+(define shift (
+  $1 (verify empty?)
+  add
+))
+
+(define jump-1 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(define jump-2 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(define jump-3 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Gauntlet (8x8)")
+  (history "Copyright (c) 1980 Phillip L. Leduc.")
+
+  (option "animate captures" false)
+  (option "highlight goals"  false)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type shift-type)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+    (image "images/gauntlet/8x8.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (62 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+    )
+  )
+
+  (piece
+     (name Runner)
+     (image White "images/gauntlet/white.bmp")
+     (moves
+        (move-type shift-type)
+        (shift n)
+        (move-type jump-type)
+        (jump-1 n) (jump-2 n) (jump-3 n)
+     )
+  )
+  (piece
+     (name Left)
+     (image Black "images/gauntlet/black.bmp")
+     (moves
+        (move-type shift-type)
+        (shift e)
+        (move-type jump-type)
+        (jump-1 e) (jump-2 e) (jump-3 e)
+     )
+  )
+  (piece
+     (name Right)
+     (image Black "images/gauntlet/black.bmp")
+     (moves
+        (move-type shift-type)
+        (shift w)
+        (move-type jump-type)
+        (jump-1 w) (jump-2 w) (jump-3 w)
+     )
+  )
+
+  (board-setup
+    (White (Runner b1 c1 d1 e1 f1 g1))
+    (Black (Left   a2 a3 a4 a5 a6 a7)
+           (Right  h2 h3 h4 h5 h6 h7))
+  )
+
+  (win-condition (White) (absolute-config Runner (b8)))
+  (win-condition (White) (absolute-config Runner (c8)))
+  (win-condition (White) (absolute-config Runner (d8)))
+  (win-condition (White) (absolute-config Runner (e8)))
+  (win-condition (White) (absolute-config Runner (f8)))
+  (win-condition (White) (absolute-config Runner (g8)))
+  (loss-condition (White) (pieces-remaining 0 Runner))
+  (loss-condition (White) stalemated)
+)
+
+(variant
+  (title "Gauntlet (7x7)")
+  (default)
+
+  (board
+    (image "images/gauntlet/7x7.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f/g" (62 0)) ; files
+        ("7/6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+    )
+  )
+
+  (board-setup
+    (White (Runner b1 c1 d1 e1 f1))
+    (Black (Left   a2 a3 a4 a5 a6)
+           (Right  g2 g3 g4 g5 g6))
+  )
+
+  (win-condition (White) (absolute-config Runner (b7)))
+  (win-condition (White) (absolute-config Runner (c7)))
+  (win-condition (White) (absolute-config Runner (d7)))
+  (win-condition (White) (absolute-config Runner (e7)))
+  (win-condition (White) (absolute-config Runner (f7)))
+  (loss-condition (White) (pieces-remaining 0 Runner))
+  (loss-condition (White) stalemated)
+)
+
+(variant
+  (title "Gauntlet (6x6)")
+
+  (board
+    (image "images/gauntlet/6x6.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f" (62 0)) ; files
+        ("6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+    )
+  )
+
+  (board-setup
+    (White (Runner b1 c1 d1 e1))
+    (Black (Left   a2 a3 a4 a5)
+           (Right  f2 f3 f4 f5))
+  )
+
+  (win-condition (White) (absolute-config Runner (b6)))
+  (win-condition (White) (absolute-config Runner (c6)))
+  (win-condition (White) (absolute-config Runner (d6)))
+  (win-condition (White) (absolute-config Runner (e6)))
+  (loss-condition (White) (pieces-remaining 0 Runner))
+  (loss-condition (White) stalemated)
+)
+
+(variant
+  (title "Gauntlet (5x5)")
+
+  (board
+    (image "images/gauntlet/5x5.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e" (62 0)) ; files
+        ("5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+    )
+  )
+
+  (board-setup
+    (White (Runner b1 c1 d1))
+    (Black (Left   a2 a3 a4)
+           (Right  e2 e3 e4))
+  )
+
+  (win-condition (White) (absolute-config Runner (b5)))
+  (win-condition (White) (absolute-config Runner (c5)))
+  (win-condition (White) (absolute-config Runner (d5)))
+  (loss-condition (White) (pieces-remaining 0 Runner))
+  (loss-condition (White) stalemated)
+)

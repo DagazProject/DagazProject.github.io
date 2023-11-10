@@ -1,0 +1,1738 @@
+(define slide (
+  $1 (while empty? add $1)
+))
+
+(define push-1 (
+  $1 (verify (piece? Box))
+  cascade $1 (verify empty?)
+  add
+))
+
+(define push-2 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?) to back
+  cascade $1 $1 (verify empty?)
+  add
+))
+
+(define push-3 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 (verify empty?)
+  add
+))
+
+(define push-4 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 $1 (verify empty?)
+  add
+))
+
+(define push-5 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 $1 $1 (verify empty?)
+  add
+))
+
+(define push-6 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 $1 $1 $1 (verify empty?)
+  add
+))
+
+(define push-7 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 $1 $1 $1 $1 (verify empty?)
+  add
+))
+
+(define push-8 (
+  $1 (verify (piece? Box))
+  mark 
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?) to back
+  cascade $1 $1 $1 $1 $1 $1 $1 $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Sokoban (Level 01)")
+  (history "Copyright (c) 1981 Hiroyuki Imabayashi.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"     false)
+; (option "smart to"             true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (image "images/l-01.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+             ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+             ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions u9 u7 t8 u8 t7 t9)
+     )
+  )
+
+  (piece
+     (name Box)
+     (image You "images/box.bmp")
+  )
+  (piece
+     (name Wall)
+     (image You "images/wall.bmp")
+  )
+  (piece
+     (name Ball)
+     (image You "images/ball.bmp")
+     (moves
+        (slide n) (push-1 n) (push-2 n) (push-3 n) (push-4 n) (push-5 n) (push-6 n) (push-7 n) (push-8 n)
+        (slide s) (push-1 s) (push-2 s) (push-3 s) (push-4 s) (push-5 s) (push-6 s) (push-7 s) (push-8 s)
+        (slide w) (push-1 w) (push-2 w) (push-3 w) (push-4 w) (push-5 w) (push-6 w) (push-7 w) (push-8 w)
+        (slide e) (push-1 e) (push-2 e) (push-3 e) (push-4 e) (push-5 e) (push-6 e) (push-7 e) (push-8 e)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 c4 i11 s6 j9 l7 e3 g1 s10 n7 e1 k5 r6 u10 i4 i7 o9 v10 a6 c9 b6 a8 j11 t10 u6 b9 v9 g9 e9 k4 d9 j4 d4 h11 i2 i6 p9 g6 l11 e6 l9 g7 k11 f1 i3 e4 t6 q9 h6 v6 o7 m10 i1 h1 a9 k6 q10 c6 k7 n9 q7 m7 l10 q6 v7 p7 e10 c5 h9 f11 a7 n10 g11 e7 v8 e11 h7 r10 i9)
+        (Box  i5 h4 c8 f8 f3 f5)
+        (Ball m9)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 02)")
+  (board
+     (image "images/l-02.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+             ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (24 0)) ; files
+             ("1/2/3/4/5/6/7/8/9/10" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c4 b3 b6 b4 b5 c2 c6 b2 c3 c5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n8 n2 c10 n4 a2 g1 n7 e1 k5 d1 h10 j10 h4 i4 i7 a6 c9 i10 a3 l1 c7 k4 a1 j4 b7 l2 n3 c1 c8 f10 k1 m2 f1 h6 m10 i1 h1 k10 n5 n9 j5 d7 a5 b1 l10 f4 e10 j1 f3 h9 f2 d10 a7 n10 e7 h7 m6 a4 f6 n6 f7)
+        (Box  l7 g4 h8 k3 e8 l8 h3 j8 k6 j7)
+        (Ball h5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 03)")
+  (board
+     (image "images/l-03.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c9 d8 b9 c7 e9 e8 d9 b7 c8 d7 e7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall o5 g10 c10 i5 a10 j9 p6 h10 p1 i4 i7 l3 o1 o9 a6 b6 a8 n1 b8 l1 q8 o4 i2 p2 p3 m1 i6 p9 g6 f10 e6 k1 l9 i3 q9 h6 o3 i1 a9 c6 n9 j5 m9 q7 d6 q6 o6 e10 j1 h9 d10 k9 a7 h7 m6 f6 b10 i9)
+        (Box  n4 n7 k5 k3 k4 j8 m3 k6 k7 m5 m8)
+        (Ball o2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 04)")
+  (board
+     (image "images/l-04.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions s6 r4 u2 t5 t3 r6 r5 r2 r3 u6 t2 s5 t6 s3 s4 t4 u5 s2 u4 u3)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall o5 i5 a10 j9 e3 s1 u7 p1 j10 s7 i4 i7 d3 l3 o1 o9 r7 f13 t7 o2 i10 a13 a8 j11 d8 b8 v5 a12 b13 g9 e9 k3 e12 j12 i13 h13 d5 d4 j3 v1 v2 n3 h3 c8 v4 l9 d13 g3 a11 i3 o7 v6 o3 r1 m3 a9 v3 u1 q1 i12 n9 m9 g13 q7 d7 d6 o6 v7 p7 t1 e13 f3 h9 k9 c13 e11 i8 o8 i9)
+        (Box  h5 n4 l7 n7 g5 g6 f10 g7 l4 g8 j5 c11 d11 j7 f11 m5 f5 g11 m6 f7)
+        (Ball i11)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 05)")
+  (board
+     (image "images/l-05.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions b6 d8 b8 c7 e8 b7 c8 e6 c6 d7 d6 e7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall n2 i11 l13 i5 h5 o13 p10 p6 k5 i4 o9 a6 o2 c9 i10 a8 j11 b9 h8 l1 g9 p13 e9 k3 d9 d5 n11 i2 p8 g5 p2 m1 i6 b5 n3 p9 q5 k1 m2 k11 q2 i3 o7 h6 q3 i1 m3 a9 a5 m13 p12 q6 o6 f9 p7 p11 m11 j1 h9 c5 e5 a7 m5 l5 k13 f5 q4 i8 n13 k12 i9)
+        (Box  l7 l3 o4 l9 m10 j8 k10 k6 m7 j7 n6 m8)
+        (Ball o8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 06)")
+  (board
+     (image "images/l-06.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c4 b3 b6 b4 b5 c2 c6 b2 c3 c5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 i11 h5 a2 l7 e1 d1 h10 l3 a6 j11 d8 a3 h8 c7 a1 d9 h11 b7 i2 l8 k2 l2 h3 c1 l11 e6 k1 l9 g3 k11 f1 h6 l4 i1 l6 d7 d11 a5 b1 l10 d6 j1 f3 f2 f11 d10 a7 l5 f5 g11 e11 h7 h2 a4 f6)
+        (Box  i4 i7 j6 j4 j8 g8 j5 f9 f7 i9)
+        (Ball j2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 07)")
+  (board
+     (image "images/l-07.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions j9 j10 i10 j8 k10 k7 k8 j7 k9 i8 i9)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 d2 i11 m4 i5 h5 c12 a10 l7 h10 d3 b3 a6 b6 a8 j11 a3 l1 a12 g9 h11 g5 l8 l2 i6 h3 b12 g6 f10 l11 e6 k1 c2 l9 g7 m2 g3 k11 a11 h6 i1 h1 m3 a9 k6 l6 c6 g2 d11 a5 b2 l10 f9 j1 h9 f2 f11 a7 m5 e11 h7 h2 d12 m6 a4 f6 f7)
+        (Box  c10 j6 c7 k3 e8 d5 j3 c8 g8 f4 d10)
+        (Ball f3)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 08)")
+  (board
+     (image "images/l-08.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions d16 h16 i15 g16 f14 h14 i16 d14 d15 f15 g15 e16 e14 e15 g14 h15 i14 f16)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c4 n8 n2 i11 c10 c15 c12 h17 p10 l7 p6 e1 k5 d1 h10 j10 c14 j2 a6 c17 o2 j16 i10 b6 a8 j11 b9 h8 c7 j17 j15 j12 j4 h11 i2 p8 p2 k2 l2 p3 c16 c1 p9 c2 m2 f1 h6 m10 j8 j13 k10 d17 a9 k6 p4 k7 l6 c6 c11 g2 j14 d11 l10 g17 c3 p5 i17 p7 f4 o10 e10 c5 f2 d10 a7 c13 n10 f17 e17 e11 h2 m6 f6 b10 n6)
+        (Box  m4 h5 j9 h4 l3 e9 n3 h3 e6 l9 e4 f8 n9 d7 f5 h7 i8 f7)
+        (Ball b7)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 09)")
+  (board
+     (image "images/l-09.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions o5 n2 n4 p6 o2 o4 p2 p3 n3 o3 n5 p4 o6 p5 n6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c12 a10 l7 g4 l16 n7 l15 m14 k5 p1 k14 o1 o9 j6 f13 c9 j18 n1 b9 l1 i15 f12 a12 e9 k3 e12 d9 o12 f14 j3 g5 l8 k2 m1 h14 q12 h3 q11 p9 b12 g6 f10 q5 k1 g7 i16 g3 q2 a11 i3 q9 o7 h6 q3 k18 i18 m10 l18 f8 k6 q10 k7 q1 n9 j5 m9 q7 n12 m7 m13 p12 q6 f9 i17 p7 j7 l17 l14 q4 g14 h7 d12 m12 b10 m8 f7 i14)
+        (Box  g10 i10 h8 h13 l11 j8 o11 i12 d11 k9 g11 h12 i8 k12 i9)
+        (Ball b11)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 10)")
+  (board
+     (image "images/l-10.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions s8 p10 s10 t8 t12 s12 q8 p13 r13 q12 p9 q10 p12 r9 p7 r11 t11 s7 r7 t9 t10 t13 p8 q13 s9 s13 q11 q9 r12 q7 s11 r8 p11 r10)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n2 m4 c10 i5 r4 o13 c12 n18 n4 q15 t5 s14 k5 u10 p1 c14 u8 j2 o14 e18 r2 o2 j18 b6 e20 g9 g16 o4 e12 u12 j12 o12 l20 o17 g5 k20 k2 b5 g6 m2 q19 k18 i18 t14 r1 s4 a9 p4 g13 c11 n12 d6 n20 g15 g17 o6 e16 m20 o10 c5 q20 e15 p14 a7 m5 c13 g11 h12 j20 m12 b10 o5 h5 g18 u9 a10 g20 h18 q16 q14 u7 e19 o1 o9 a6 t7 r3 a8 f12 o18 j4 d5 u13 j3 o20 l2 q18 e6 g12 p20 i20 t6 o7 d14 f20 u14 l18 n5 m18 o11 q1 g8 j5 i12 u11 t4 e14 q17 r14 g14 h20 e17 f6 k12 o8)
+        (Box  n16 j10 i7 o16 n14 j15 e8 l8 i16 k11 j13 k7 k16 h7 i14 i11 l13 j9 c9 j16 d8 c7 l9 f8 k6 l6 m9 d7 j14 m11 l14 m16 m6 i9)
+        (Ball c6)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 11)")
+  (board
+     (image "images/l-11.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c12 c14 f13 b13 e12 b12 c13 b14 f12 f14 d13 d14 e14 b11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 c4 g10 n2 c10 n4 s10 k5 b6 a13 n1 h8 b8 q8 j12 d9 d4 n11 i2 l12 k2 m1 b5 g6 f10 l11 k1 d15 a15 a9 k7 f15 g13 m7 g15 r11 c5 f2 e15 m5 g11 b10 i11 c15 a10 e3 n7 a14 d3 o9 c9 b9 l1 a12 k3 h11 b7 j3 p8 s9 n3 q11 e6 g12 a11 i3 o7 h6 b15 n5 o11 i12 j5 s11 d7 g2 k8 e13 p11 r8 m11 f3 d10 g14 h2 n6 k12 o8 i9)
+        (Box  i5 i7 l3 i10 h7 m8 f7 h5 k4 l9 f8 m9 f5 f6)
+        (Ball h4)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 12)")
+  (board
+     (image "images/l-12.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 i2 g6 h5 g4 i4 d3 d5 j3 i6 h3 e6 e4 j5 f3 f5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c4 g1 l15 k5 i7 i15 b13 e8 d9 l12 k2 c16 c1 b12 b16 k1 i16 m10 h1 a9 k7 c6 f15 g15 c3 e16 h9 c5 e15 k9 k16 e7 m12 i8 l13 a10 j9 l16 e1 d1 b14 d16 c9 j16 b9 a12 c7 e9 k3 k4 c2 l9 f1 a11 b15 i1 k6 m9 d7 g2 f9 j7 m11 j1 l14 h15 i9)
+        (Box  j12 i13 h14 k11 g13 c11 c13 k13 g11 h12 e11 d12 i11 f12 f14 e13)
+        (Ball g14)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 13)")
+  (board
+     (image "images/l-13.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions r4 p10 p6 r6 q8 p9 q10 p4 q6 r9 p7 q4 r5 r7 p8 p5 r8 r10)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n2 m4 t5 g1 k5 t3 t8 t12 j2 f13 o2 s12 b13 o12 i2 l12 g5 p2 m1 q12 b12 g6 k1 m2 k11 q2 j8 h1 a9 k7 n12 m7 a5 p12 d6 c3 c5 a7 m5 c13 g11 m12 b10 o5 d2 i11 t11 a10 j9 g4 e1 o9 b3 a6 t7 r3 t9 a8 j11 t10 a3 l1 f12 e9 j4 h11 j3 q11 q5 e6 c2 d13 f1 t6 q9 o7 q3 s3 r12 i1 f8 m3 k6 g8 j5 m9 q7 d7 f9 k8 t4 e13 p11 j1 f11 b11 a4 k12)
+        (Box  n8 i5 h4 i7 d4 l8 n9 c11 o10 h10 c9 c7 e4 h6 l10 e10 d10 f5)
+        (Ball h5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 14)")
+  (board
+     (image "images/l-14.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n8 p10 p6 p9 n9 o6 p7 o10 n10 n7 o9 p8 o7 n6 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c4 m4 c10 o13 a2 l7 g1 p1 j10 i10 n1 q8 g9 a1 e8 o12 i13 p2 l8 m1 c1 c8 k1 g3 m10 h1 j13 a9 q10 p4 c6 m7 a5 b1 q6 c3 c5 a7 m5 k13 g11 e11 b10 m8 i11 l13 a10 j9 e3 e1 d1 o1 a6 a8 d8 a3 l1 c7 h11 j3 p3 h3 q11 q5 e6 l9 f1 i3 q9 i1 n5 k6 o11 l6 i12 m9 q7 m13 l10 p5 p11 e10 j1 f3 f11 d10 m6 a4 n13 i9)
+        (Box  i5 h4 i7 j6 h8 g5 l4 j8 f4 j4 g7 h6 f8 g8 f6)
+        (Ball h5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 15)")
+  (board
+     (image "images/l-15.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions g10 j10 i10 j12 f10 g11 h12 h10 j11 f12 h11 g12 i12 f11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 o13 h17 k5 f13 b6 a13 a16 b8 q8 g9 e12 j15 e8 o12 i13 d4 k2 b5 c16 b12 b16 k1 d15 m10 h1 a15 j13 q10 k7 g13 g17 e16 h9 c5 f2 k9 m5 k13 f17 e7 b10 l13 j9 e3 n7 a14 d3 d16 c9 j16 b9 a12 e9 k3 k4 j17 d5 b7 p8 i6 h3 q11 q9 h6 i1 k10 n5 o11 g2 j14 m13 f9 i17 e13 p11 e10 m11 j1 l5 b11 f5 g14 h2 n13 n6 k12 o8 f16)
+        (Box  c14 i7 j6 g5 l8 l11 m7 e11 g4 i4 e6 d14 d10 i9)
+        (Ball g7)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 16)")
+  (board
+     (image "images/l-16.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions j10 i10 j12 l12 l11 k11 m10 m12 m8 i11 i12 m9 m11 k12)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 c10 c12 a2 h4 c14 l3 f13 b6 h8 b8 g9 a1 i13 n11 c1 l4 d15 j8 j13 c6 n9 f15 g13 c11 n12 m7 a5 b1 f4 h9 f2 e15 c13 k13 n10 e7 h12 b10 f7 l13 c15 g4 n7 e1 d1 i4 a6 a3 b9 e9 k3 h13 f14 h11 b7 j3 l9 i3 k10 l6 g8 m13 l10 k8 f3 d10 l5 m6 a4 f6 n13)
+        (Box  c4 k5 i7 e12 g5 g6 k7 e5 h10 d8 f12 d5 f9 i9)
+        (Ball d6)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 17)")
+  (board
+     (image "images/l-17.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i5 l7 k5 i7 j6 g5 g6 k7 h7 h5 i6 g7 h6 k6 l6 j5 j7 l5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n2 m4 m15 r4 o13 c12 n4 q15 p6 l15 n16 r6 o16 f13 b6 n1 h8 b8 i15 q8 o4 e12 j15 d9 o12 i13 b4 l8 m1 q12 b5 b12 k1 k11 l4 h1 j13 a9 q10 p4 g13 g15 f4 o10 f2 e5 m5 k13 n10 q4 e7 d12 i8 m8 f7 d2 i11 a10 q16 m14 q14 r5 o9 b3 k15 r7 a8 j11 l1 a12 k4 d5 j4 b7 q13 n3 h3 q11 c2 a11 q9 i1 k10 f8 n5 o11 g8 d7 g2 n15 b2 k8 p16 e13 r8 j1 f5 g14 h15 h2 m6 n6 o8 i9)
+        (Box  c4 g10 l3 d4 f10 l11 m10 g11 e11 h10 e9 j3 p8 l9 m11 d10 f6 k12)
+        (Ball k3)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 18)")
+  (board
+     (image "images/l-18.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions m4 i5 j2 g5 g6 l4 h7 h5 k4 j3 i6 g7 h6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 c4 n2 r4 c12 n4 t5 g1 s10 p6 k5 u10 p1 u8 r2 i10 n1 h8 b8 g9 e12 u12 j12 d9 r13 o12 d4 b4 l12 m1 q12 b5 c8 b12 k1 m2 s5 g3 v6 r1 j8 h1 s4 p4 k7 n12 m7 a5 p12 p7 f4 o10 e5 a7 m5 q4 v8 h12 d12 m12 b10 u9 g4 s7 i4 o1 a6 r7 c9 r3 a8 d8 b9 v5 l1 f12 t13 j4 u13 s9 s13 e6 g12 l9 e4 i3 o7 r12 i1 k10 f8 g8 q1 i12 j5 m9 g2 u11 v7 j7 u5 j1 l5 b11 f5 f6 k12 r10 o8)
+        (Box  g10 s6 e8 l8 p9 f10 m10 q10 c6 n9 i8 q9 n6)
+        (Ball p3)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 19)")
+  (board
+     (image "images/l-19.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/A/B" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions A15 A18 z14 y15 w15 z18 x15 w14 A14 y17 z15 x17 y14 A17 x18 A16 x14 x16 z17 y18)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall x19 g10 n8 n2 y13 r4 n18 h17 t5 p6 s14 k5 n16 r6 t8 t12 c14 i7 p18 o14 A19 o16 f13 o2 B14 j18 i10 e20 n1 a16 y12 B19 g9 o12 i2 l12 g5 p2 m1 h14 t19 p9 g6 B17 f19 l11 k1 u19 g3 k11 q2 l4 k18 i18 a15 w16 s4 d20 r15 x20 n12 p12 s16 g15 q6 g17 o6 A20 r9 B15 r11 w12 B13 v12 n10 q4 g11 k16 m12 b18 i14 z16 y20 o5 i11 g18 c18 t11 g4 h18 l16 y16 a14 t18 w17 B18 a17 b14 c19 r7 t7 t9 j11 t10 o15 l1 f12 o18 k3 k4 t13 s15 x12 u13 j3 p8 A13 v13 h3 q18 v15 g7 t6 i3 q3 d14 f20 c20 l18 r12 i1 n5 m18 k6 f18 v19 g8 j5 z20 B16 j14 l10 r18 t4 p16 e13 p11 r8 w19 e14 j1 s18 f11 b17 h15 m16 r16 n6 z13 r10 o8 i9)
+        (Box  i5 n14 l8 c16 m10 j8 k7 m7 e16 k13 q16 q14 d16 q13 m3 i12 m9 j7 l14 f16)
+        (Ball m2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 20)")
+  (board
+     (image "images/l-20.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n2 m4 r4 n4 j2 r2 o2 o4 i2 p2 k2 m2 q2 o3 l4 p4 q4 r5 r3 k3 k4 j4 l2 i3 q3 m3 p5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 n8 s6 n18 h17 m17 p6 s1 l15 r6 t12 p1 i7 l3 j6 j18 a13 n1 n14 b8 b13 d9 l20 l12 k20 m1 h14 q12 g6 f19 k1 s5 g3 t15 q19 k18 i18 d15 t14 r1 h1 s4 a9 n9 g13 n12 p12 n20 s16 q6 o6 e16 r17 f4 m20 s2 h9 q20 c13 f17 e7 h12 j20 m12 i8 i11 l13 t11 a10 j9 g20 h18 n7 o1 r7 d16 t9 h16 a8 t10 l1 f12 a12 c7 o18 t13 h13 h11 b7 j3 o20 q13 p3 s9 i6 n3 h3 q11 q18 e6 g12 l9 p20 d13 i20 t16 a11 o7 h6 d14 s3 f20 l18 i1 m18 k6 f18 q1 i12 m9 d7 d11 l10 f9 r8 j1 f3 q17 l14 f5 g14 h20 h15 h2 m16 m6 r16 f6 n6 k12 f16 i9)
+        (Box  c10 i5 p10 k5 e12 j15 j12 o12 o17 f10 r11 p14 m5 n10 k16 q14 h10 o9 j16 o15 e9 p8 g8 p16 e14 f11 r10)
+        (Ball g5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 21)")
+  (board
+     (image "images/l-21.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 f4 f2 e3 e4 f3)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall m4 c10 i5 c12 n4 p10 g1 p6 i7 b8 g9 o4 j12 o12 i13 d4 i2 l12 g5 l8 m1 h14 p9 c8 b12 k1 m2 k11 l4 j8 h1 a9 c6 n12 m7 p7 h9 c5 e5 k9 d12 m12 m8 f7 i14 o5 d2 h5 a10 j9 e1 d1 i4 d3 a8 d8 l1 f12 a12 c7 d5 f14 p8 g12 d13 f1 a11 d14 i1 k10 f8 m3 o11 g8 i12 m9 p5 k8 j7 p11 e14 j1 l5 f5 g14 k12 o8 i9)
+        (Box  d9 m10 g11 h10 d11 e10)
+        (Ball c11)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 22)")
+  (board
+     (image "images/l-22.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n8 p10 l7 o12 n11 l12 l8 p9 l11 k11 m10 k7 n9 n12 m7 p12 p7 o10 n10 m12 m8 n7 o9 p8 l9 o7 k10 o11 m9 l10 k8 p11 m11 k12 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall t17 e2 m4 c10 o13 p6 t3 r6 t8 t12 p1 j2 j6 e18 r2 r19 j18 b6 a13 n1 u6 q8 g9 g16 p13 j12 d9 l20 o17 b4 i2 p2 k20 o19 k2 m1 h14 t19 q12 b5 c8 g6 p17 b16 u19 m2 i16 g3 q2 t15 q19 d15 t14 j8 a15 j13 a9 m19 c6 g13 c11 q6 l19 o6 e16 r17 s2 l17 h9 c5 u4 u3 f2 a7 m5 k13 g11 j20 u15 b18 i14 d2 g18 c18 t11 a10 n19 j9 h18 a14 s19 o1 b3 a6 h19 t7 j16 t9 n17 h16 a8 j11 t10 a12 t2 e9 v18 t13 p19 h11 j3 q13 l2 p3 i6 v16 q11 v15 g12 c2 g7 i20 s17 a11 t6 q9 h6 b15 k6 f18 l6 v19 g8 j5 d18 q7 g2 j14 b2 m13 j7 u5 r8 v17 q17 b17 g14 h20 h2 m6 n13 n6 f16)
+        (Box  l15 s14 j10 h4 c14 n14 s12 o4 j15 d4 s5 k18 p15 f4 c13 q4 e11 d12 f7 o5 l13 q16 l16 q14 s7 f12 k4 d5 m3 d7 n15 e14 l14 f5 r10)
+        (Ball l5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 23)")
+  (board
+     (image "images/l-23.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions b6 b8 d9 b5 c8 c6 d6 c5 e5 e7 c9 d8 b9 c7 e9 d5 b7 e6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall w4 c4 g10 n8 n2 c10 r4 o13 n4 y4 k5 r6 h4 u8 k14 o2 n1 n14 h8 g9 p13 y9 r13 i13 d4 n11 b4 p2 y7 k2 m1 x9 f10 k1 y6 k11 q2 h1 j13 s4 a9 k7 n12 a5 r9 f4 r11 h9 u4 k9 a7 k13 n10 h12 b10 y8 h5 a10 u9 g4 n7 m14 h10 u7 r5 a6 w9 r3 t9 a8 l1 v9 k3 k4 h13 h11 q13 s9 n3 h3 v4 e4 h6 q3 r12 i1 k10 n5 g8 d7 x4 k8 t4 u5 e10 r8 j1 d10 l14 y5 h2 a4 f6 n13 n6 k12 r10)
+        (Box  l3 l8 m10 o6 p7 o10 j9 j11 j3 q11 q5 q9 j5 l10 v7 j7 l5 o8)
+        (Ball f8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 24)")
+  (board
+     (image "images/l-24.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 h4 l3 j2 i2 k2 g3 l4 f4 f2 g4 e3 i4 k3 k4 j4 j3 l2 e4 i3 j5 g2 h2)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall t17 s8 n2 s6 n18 p10 g1 s10 k5 t12 j10 c14 o14 j6 o2 b6 a13 s12 b8 i15 g9 g16 p13 e8 j12 d4 p2 o19 m1 p9 g6 l11 k1 m2 s5 q19 k18 t14 j8 h1 j13 q10 p4 m19 c6 p12 d6 g15 l19 g17 o6 u17 e16 r17 o10 h9 e15 m5 n10 f17 k16 u15 b10 d2 u16 g18 n19 h18 q16 e1 m14 d1 q14 a14 r5 s7 b14 d3 h19 c9 j11 b9 l1 f12 a12 e9 t13 d5 p19 b7 p8 p3 s9 i6 h3 q18 q5 e6 g12 f1 s17 a11 k19 h6 d14 u14 i1 j19 m3 i12 m9 s11 j14 m13 p5 f9 p11 e14 m11 j1 f3 f11 q17 l14 l5 b11 r14 e17 f6 k12 i19 i9)
+        (Box  m4 n4 q15 l7 l15 n16 f15 c13 h12 e11 h7 m8 l16 n7 j16 o15 j17 h13 q7 d10 m16 m6 o8)
+        (Ball f16)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 25)")
+  (board
+     (image "images/l-25.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions t8 t12 v10 u12 v6 t14 v12 v14 t11 v11 t7 t9 t10 v5 v9 t13 u13 v13 t6 u14 v7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 w4 n2 m15 c10 s6 i5 c12 h17 s10 p6 s1 l15 s14 k5 r6 u10 p1 j10 w2 c14 u8 i7 k14 w10 w15 c17 o16 o2 a13 a16 w14 u6 q8 e12 j15 e8 r13 o17 p2 k2 v2 h14 p9 f10 p17 m2 g3 t15 w6 d15 r1 a15 d17 s4 p4 k7 n9 r15 f15 g15 g17 r17 s2 r11 w12 u4 e5 e15 k9 c13 q4 f17 v8 e7 h12 h7 d12 u15 b10 f7 h5 c15 a10 u9 u2 w11 w3 e3 q14 a14 u7 s7 a17 o9 k15 r7 w9 j16 o15 f12 a12 t2 e9 k3 j17 s15 h11 w5 j3 p8 l2 s9 h3 q11 e6 v15 l9 a11 e4 i3 s3 r12 k10 o11 w8 q1 j5 m9 s11 n15 j14 p5 k8 i17 j7 e10 r8 m11 w7 f3 d10 q17 b17 r14 g14 e17 h15 r16 w13 n13 n6)
+        (Box  g10 n4 l7 i10 i15 g9 j12 n11 l12 l4 p7 m5 m12 n7 h10 h13 g7 l6 i12 p11 k12)
+        (Ball r10)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 26)")
+  (board
+     (image "images/l-26.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n11 l12 l11 k11 m10 n12 n10 m12 l13 k10 m13 l10 n13)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n8 o13 a2 l7 g1 k14 l3 o14 f13 n14 i15 b13 j15 a1 j12 d9 o12 d4 b4 i2 g5 l8 b5 c1 b12 f10 l4 h1 a9 a5 b1 g15 f4 o10 a7 c13 k13 h12 b10 m8 f7 g4 e1 m14 d1 i4 o9 k15 a6 c9 a8 j11 d8 a3 b9 f12 k3 d5 f14 h11 j3 l9 g7 d13 f1 e4 i3 i1 f8 o11 l6 g8 d7 d11 e13 l14 l5 b11 f5 g14 h15 a4 k12 o8)
+        (Box  i7 j6 g9 g6 j8 c6 d6 h9 k9 h13 e6 k6 i9)
+        (Ball e5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 27)")
+  (board
+     (image "images/l-27.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 c4 d4 b4 g5 b5 g3 c3 f4 c5 e5 d2 g4 e3 d3 d5 c2 e4 f3 f5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall n2 c12 n4 l7 t5 g1 p6 k5 t3 r6 p1 h4 u8 i7 w10 l3 r2 b6 n1 u6 b8 e12 u12 i13 n11 i2 l8 m1 c1 p9 c8 b12 g6 k1 k11 v6 w6 r1 h1 j13 k7 c6 n12 a5 b1 d6 r9 p7 s2 r11 w12 h9 v12 k13 h12 d12 m12 b10 l13 h5 t11 u9 w11 j9 e1 d1 r5 s7 o1 o9 b3 a6 r7 w9 j11 a3 b9 l1 f12 t2 c7 e9 k3 h13 p3 s9 i6 n3 q11 e6 g12 l9 f1 q9 o7 h6 i1 n5 o11 w8 q1 s11 b2 m13 u11 p5 f9 t4 u5 p11 j1 w7 b11 a4 f6 i9)
+        (Box  g10 n8 q8 f10 l11 m10 q10 m7 q4 i11 r3 t9 k4 j3 k6 g8 d11 j7 d10 n6)
+        (Ball k12)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 28)")
+  (board
+     (image "images/l-28.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i15 g16 j15 i13 h14 f15 g15 e16 e15 k16 i14 l16 k15 d16 h13 j14 e14 g14 h15 f16)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n8 m15 o13 h17 m17 g1 l15 c14 i7 k14 l3 o14 j6 c17 f13 b6 a13 n14 b8 j12 o12 i2 b5 c16 k1 l4 j8 h1 j13 d17 n9 g13 g17 f4 o10 l17 c5 f2 e5 m5 k13 n10 f17 g11 h12 h7 b10 c15 a10 j9 g4 n7 m14 a14 i4 b14 j11 b9 l1 a12 j17 d5 j4 f14 b7 l2 g12 g7 d13 f1 a11 e4 i1 o11 g8 i12 j5 k17 i17 j7 j1 f3 l14 l5 e17 m16 m6 n6)
+        (Box  l7 e8 l12 g5 f10 c11 k9 m8 f7 c9 d8 h3 k10 d7 d11 l10 f9 e13 e10 m11)
+        (Ball g2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 29)")
+  (board
+     (image "images/l-29.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions b6 b8 e8 b5 c8 c6 c5 e5 e7 c9 d8 b9 c7 d5 b7 d7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 c4 x6 c10 s6 l7 p6 s1 r6 t8 h4 w2 u8 w10 j2 j6 o2 x8 i10 u6 g9 d9 d4 n11 b4 i2 x3 p2 l8 k2 v2 x9 g6 l11 m2 g3 k11 q2 o3 m10 r1 j8 a9 u1 m7 a5 o6 r9 o10 r11 h9 a7 n10 b10 m8 i11 t11 a10 u9 u2 w11 g4 e3 n7 v11 s7 d3 o9 a6 w9 t9 a8 j11 e9 x5 j4 w5 x7 l2 s9 n3 h3 q11 e6 h6 m3 o11 q1 s11 x4 u11 f9 t4 j7 t1 u5 p11 m11 f3 d10 x2 h2 a4 n6 i9)
+        (Box  m4 i5 r4 v3 q6 v8 v5 k4 p8 q5 l9 q3 s3 n5 j5 l5)
+        (Ball t10)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 30)")
+  (board
+     (image "images/l-30.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e18 c17 c16 b16 d15 f15 e16 e15 f17 b18 c18 c15 d16 f18 d18 b17 e17 f16)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 c10 b20 n18 n16 c14 k14 l3 j2 j6 b6 e20 a16 n14 b13 g9 g16 i13 n11 b4 i2 g5 k2 h14 b5 c1 b12 f19 g3 g19 l4 k18 a15 j13 a9 m19 k7 c6 d20 a19 n9 g13 n12 b1 g15 l19 g17 c5 f2 e5 k9 a7 c13 k13 n10 g11 k16 e7 h7 b10 i14 a18 i11 h5 a10 n19 e1 d1 a17 b14 e19 b3 a6 h19 n17 a8 j11 b19 e9 h13 f14 h11 l2 h3 e6 l9 f1 k19 h6 d14 b15 c20 k10 j19 k6 l6 m9 g2 n15 j14 b2 m13 k8 j7 e10 e14 f3 d10 l5 b11 f5 g14 h2 n13 i19)
+        (Box  l15 i15 e12 d4 c8 i16 l17 i8 g18 i4 d3 j16 d8 j4 i17 f11 k12 i9)
+        (Ball i7)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 31)")
+  (board
+     (image "images/l-31.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i5 k5 j6 i4 k3 k4 j4 j3 i6 i3 k6 j5 m6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 g10 c10 n4 l7 g1 j10 h4 i7 l3 j2 b8 j12 n11 i2 l12 k2 c1 f10 h1 a9 k7 n12 m7 a5 b1 o10 e5 k9 a7 g11 e7 h12 h7 m12 b10 e3 n7 e1 d1 o9 b3 a6 a8 a3 b9 e9 l2 n3 h3 e6 g12 f1 e4 o7 h6 k10 n5 m3 o11 i12 b2 j7 e10 d10 h2 a4 n6 k12 o8)
+        (Box  d4 g5 c8 m10 d6 h9 c5 m8 g7 l10 k8 f5 i9)
+        (Ball n10)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 32)")
+  (board
+     (image "images/l-32.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions f13 j12 f15 g13 g15 e15 g11 h12 i11 f12 h13 f14 h11 g12 i12 e13 e14 f11 g14 k12)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n2 i5 c12 n4 r6 j10 i7 j2 b6 q8 g9 g16 o4 e12 o12 i13 b4 i2 l12 l8 k2 h14 b5 c1 b12 g6 f10 m2 g3 d15 j13 a9 p4 n12 c3 e16 f4 o10 f2 a7 k13 q4 e11 d12 m12 b10 m8 i14 l13 a10 e1 d1 r5 o9 b3 a6 r7 d16 h16 a8 j3 p8 l2 i6 n3 q5 c2 l9 g7 d13 f1 d14 k10 n5 o11 d7 g2 l10 e10 r8 f3 b11 h15 h2 f6 o8 f16 i9)
+        (Box  k5 h4 j6 h8 c8 m10 m7 h9 c5 m5 n7 c9 e9 j4 e6 e4 o7 l6 k8 f5)
+        (Ball i3)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 33)")
+  (board
+     (image "images/l-33.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c10 e8 d9 c8 e7 f7 c9 d8 c7 e9 f8 d7 f9 e10 d10)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 g10 l7 g1 h4 j2 b6 b8 i15 j15 b4 l12 g5 l8 g6 l4 m10 h1 j13 c6 g13 c11 a5 d6 g15 c3 f2 k13 g11 e11 m12 b10 d2 l13 g4 b3 a6 b9 k4 j4 b7 j3 g12 c2 l9 g7 i1 l6 g8 m9 g2 j14 d11 m11 j1 f11 l5 b11 g14 h15 a4 f6 k12)
+        (Box  i5 i10 d4 c5 e5 h7 j9 j11 h13 h11 i3 k6 k8 j7 i9)
+        (Ball b5)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 34)")
+  (board
+     (image "images/l-34.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c12 f13 e12 b12 f10 c13 e11 d12 f12 d13 d14 e13 e10 e14 f11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c4 g10 a2 l7 g1 l15 j10 c14 l3 j6 i10 a13 i15 b13 g9 j15 a1 j12 d9 d4 b4 i2 l12 g5 l8 c1 g6 l11 k1 l4 d15 h1 a15 a9 k7 f15 g13 c11 a5 b1 g15 f4 e15 a7 e7 l13 c15 a10 g4 e1 d1 a14 b14 b3 k15 a6 a8 j11 d8 a3 l1 a12 f14 l2 i6 g12 l9 g7 f1 a11 b15 i1 k10 k6 l6 g8 d11 b2 l10 j1 l14 l5 b11 g14 h15 h2 a4)
+        (Box  i7 j8 j13 c6 d6 e5 i4 c9 j4 h11 j3 e6 i12 f9 f3)
+        (Ball k11)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 35)")
+  (board
+     (image "images/l-35.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions r4 r2 p2 s5 q2 o3 s4 p4 s2 q4 r5 r3 p3 q5 q3 s3 p5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 n2 m4 s6 i5 n4 a2 p10 l7 t5 g1 s10 s1 t3 n16 r6 t8 p1 h4 i7 j2 o2 i10 b6 a13 n14 b8 i15 q8 g16 a1 j12 d9 n11 l12 g5 l8 h14 b5 c16 c1 c8 l11 b16 k1 m2 i16 g3 r1 j8 h1 a9 q10 n9 c11 n12 a5 b1 g15 q6 o6 e16 o10 e5 k9 n10 k16 h7 i8 i14 h5 a10 g4 l16 e1 d1 a14 i4 b14 o1 o9 t7 d16 j16 t9 a8 t10 d8 a3 l1 f12 a12 t2 d5 b7 l2 g12 l9 f1 a11 t6 e4 d14 b15 i1 k10 f8 l6 q1 i12 n15 l10 f9 k8 t4 t1 r8 e14 j1 l5 g14 m16 a4 n13 n6 r10 o8 f16)
+        (Box  c10 k14 g9 f10 j13 d6 c13 k13 g11 e7 e11 d12 e3 g7 d13 f3 f6)
+        (Ball k2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 36)")
+  (board
+     (image "images/l-36.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions p10 p6 q8 p13 o12 q12 p9 q10 p12 q6 p7 o10 p14 q14 p8 q13 q11 q9 q7 p11 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 m4 m15 o13 c12 h17 q15 m17 l7 g1 r6 c14 i7 j2 o14 j18 h8 b8 g9 d19 d9 r13 i13 i2 l12 g5 l8 h14 b12 g6 f19 l11 b16 k11 l4 k18 i18 j8 h1 j13 r15 p15 g13 m7 a5 d6 g15 g17 c3 o6 r9 r11 f2 a7 m5 c13 f17 g11 h7 d12 m12 i8 b10 b18 m8 o5 d2 i11 c15 j9 h18 n7 m14 r5 d3 e19 b3 c19 a6 r7 a3 o15 b9 f12 b19 k4 h13 j4 h11 b7 j3 q5 g12 l9 g7 d13 f1 o7 b15 l18 r12 i1 f8 m18 f18 g8 i12 m9 d7 m13 p5 f9 j7 r8 m11 f11 d10 b17 b11 r14 g14 h15 m16 m6 a4 n13 r10 i9)
+        (Box  i5 i10 i16 g3 d17 k7 f15 c5 e15 k13 k16 e7 g4 k15 c9 j16 h16 c7 e4 k6 e13)
+        (Ball h9)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 37)")
+  (board
+     (image "images/l-37.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 c4 b6 b4 b5 g3 c6 d6 c3 c5 f2 d2 e3 d3 b3 d5 c2 g2 b2 f3)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n2 c10 s6 o13 a2 p10 l7 g1 s10 p6 u10 j10 u8 k14 o14 j6 r2 o2 n14 i15 j15 a1 o12 i13 d4 n11 p2 k2 h14 c1 p9 c8 g6 l11 k1 m2 s5 k11 q2 o3 h1 s4 q10 a5 b1 p7 f4 s2 o10 a7 m5 k13 h7 d12 i14 o5 u9 j9 e1 m14 d1 h10 u7 s7 o9 k15 a6 t7 c9 t10 a3 c7 k3 f14 b7 p8 l2 i6 n3 e6 l9 d13 f1 e4 h6 s3 i1 n5 k6 o11 j5 d11 e13 e10 e14 j1 d10 l14 g14 a4 r10 o8)
+        (Box  s8 n8 m4 h4 l12 m10 m7 k9 g11 i8 i11 h5 r7 f8 g8 i12 f9 k8 f5 f6)
+        (Ball j14)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 38)")
+  (board
+     (image "images/l-38.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions e2 c4 d4 c3 f4 c5 f2 e5 d2 e3 d5 c2 e4 f5)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 n8 m4 g1 j10 k14 l3 j2 j6 b8 b13 d9 n11 b4 g5 k2 h14 c1 b12 g6 f10 k11 l4 d15 h1 n9 f15 a5 b1 g15 e15 k9 a7 m5 c13 k13 n10 g11 e7 m12 b10 f7 i14 l13 g4 n7 e1 d1 i4 d3 b3 a6 j11 b9 k3 h11 b7 g12 l9 d13 f1 d14 i1 k10 n5 k6 j5 d7 j14 b2 m13 k8 e10 m11 j1 f3 b11 g14 a4 n6)
+        (Box  i7 h8 g9 e12 j12 c8 j8 g13 i3 h6 f8 l6 e13 i9)
+        (Ball k4)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 39)")
+  (board
+     (image "images/l-39.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions r4 p6 r6 q8 o4 p2 o3 p4 q6 o6 p7 q4 o5 r5 r7 r3 p8 p3 q5 o7 q3 q7 p5 r8 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 c4 g10 n8 n2 m4 n4 q15 l7 t5 l15 t12 p1 j10 h4 v10 r2 c17 o2 j18 a13 a16 n14 s12 g9 e12 u12 o12 i13 d4 n11 b4 l12 g5 l8 q12 b5 g6 f10 l11 s5 k11 q2 l4 w6 i18 a15 d17 s4 a9 n9 f15 p15 n12 a5 r9 f4 s2 r11 l17 v12 a7 m5 f17 v8 d12 m12 b10 g18 a10 g4 h18 l16 m14 q14 a14 v11 h10 s7 i4 a17 o1 o9 a6 a8 o15 v5 f12 a12 v9 k4 j17 j4 f14 w5 q13 s9 n3 q11 l9 a11 e4 q9 s3 k10 f8 n5 o11 f18 w8 g8 q1 i12 s11 n15 l10 k17 f9 u5 e10 m11 w7 d10 l14 b17 b11 f5 e17 m6 f6 n6 k12 f16)
+        (Box  c12 i7 k14 j6 d9 i16 d15 j8 k7 d6 e15 h7 i8 i14 i11 c15 j16 d8 e6 d14 e13 f11 g14 h15 i9)
+        (Ball l6)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 40)")
+  (board
+     (image "images/l-40.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions g5 g6 e5 e7 e6 g7 f5 f6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 g10 a2 g1 j10 j2 j6 i10 b6 h8 b8 b5 f10 h1 k7 c11 a5 f4 f2 k9 e11 h7 b10 d2 h5 g4 h10 a3 b9 d5 j4 b7 j3 c2 i1 k10 f8 j5 d7 g2 d11 b2 k8 j7 e10 j1 b11 a4)
+        (Box  g3 d6 c5 i8 i4 c9 e4 f9)
+        (Ball i2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 41)")
+  (board
+     (image "images/l-41.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c12 e12 j12 l12 b12 l11 h12 d12 b10 c9 b9 f12 g12 i12 b11 k12)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 g10 n8 c10 i5 q15 s10 s14 t12 p1 j10 o14 f13 i10 a13 n1 n14 h8 b13 e8 i13 n11 p2 k2 m1 f10 k11 q2 t14 m10 j8 j13 a9 r15 p15 g13 c11 n12 q6 p7 r11 a7 c13 k13 n10 q4 g11 e11 h7 i8 m8 i11 l13 h5 t11 a10 h10 s7 i4 o1 r7 a8 j11 d8 o15 l1 a12 c7 k3 t13 h13 j4 h11 b7 j3 l2 s9 q5 d13 a11 o7 h6 q3 k10 f8 g8 s11 q7 d7 m13 k8 e13 e10 f11 r14 n13 r10)
+        (Box  m4 n4 l7 k5 j6 p9 m7 o6 o5 o9 q13 q11 q9 r12 o11 l5)
+        (Ball r9)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 42)")
+  (board
+     (image "images/l-42.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions g10 f13 g9 e12 h14 f10 g13 h9 g11 h12 e11 h10 f12 e9 h13 f14 h11 g12 f9 e13 e10 e14 f11 g14)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 c10 l7 g1 l15 l3 j2 e18 j18 i10 b6 a13 b13 g16 e8 i13 b4 i2 l12 k2 b5 c16 c1 l11 b16 l4 i18 m10 h1 a9 c11 m7 b1 e16 a7 k16 i8 m8 i14 d2 l13 h5 g18 a10 h18 l16 e1 d1 b14 b3 a6 d16 j16 h16 a8 d8 a12 j17 l2 d13 f1 a11 d14 b15 i1 f8 f18 l6 g8 i12 m9 d11 b2 m11 d10 l14 l5 f5 e17 i9)
+        (Box  j10 i7 d9 c8 i16 j13 k7 c6 e5 k13 h7 g4 i4 d3 k4 d5 j4 h3 g7 e4 h6 k10 d7 j7)
+        (Ball c2)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 43)")
+  (board
+     (image "images/l-43.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c12 c14 f13 b13 e12 b12 d15 e15 d12 c15 b14 d13 d14 b15 e13 e14)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 m4 n4 p10 g1 p6 p1 j10 h4 j6 i10 a13 n1 a16 i15 g9 g16 e8 j12 d9 o12 i13 l12 g5 p2 m1 c16 p9 l11 b16 k1 i16 q2 h1 a15 c11 n12 p12 d6 e16 p7 e5 k9 c13 n10 q4 e11 h7 m12 m8 i14 h5 j9 e3 n7 e1 a14 o1 d16 h16 d8 l1 f12 a12 h13 d5 j4 j3 p8 h3 q5 f1 a11 e4 q3 i1 n5 i12 j5 d7 d11 p5 p11 j1 f11 d10 b11 n6 k12 f16)
+        (Box  l3 m10 n9 f4 g11 i8 i4 k3 h11 n3 h6 k6 g8 l10 j7 l5)
+        (Ball p4)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 44)")
+  (board
+     (image "images/l-44.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions o13 p10 o14 o16 p13 o12 o17 p17 p15 p12 o10 p14 o15 o11 p16 p11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 x6 m15 i5 y13 r4 n18 q15 g1 p6 l15 s14 n16 t8 t12 j10 h4 l3 w15 r19 x15 i10 b6 n14 y12 u6 h8 i15 b13 y9 e12 j15 u12 e8 d9 i13 d4 n11 o19 y7 h14 y10 t19 q12 p9 b12 f10 k1 u19 y6 k11 q19 v6 o3 w6 m10 j8 h1 s4 a9 p4 c6 n9 m7 s16 q6 r9 p7 x11 r11 c5 u4 f2 a7 m5 c13 k13 n10 q4 x17 w18 u15 i8 b10 m8 i14 d2 y8 l13 u16 h5 t11 y14 q16 n7 q14 h10 u7 t18 x18 d3 s19 o9 k15 a6 r7 t7 t9 n17 a8 d8 b9 l1 y11 v9 o18 e9 d5 p19 f14 j3 q13 l2 p3 x14 n3 h3 g12 d13 t16 x10 o7 u14 r12 i1 k10 f8 m3 v19 w8 g8 i12 j5 m9 x16 q7 g2 n15 u11 r18 f9 k8 t4 e13 u5 e10 r8 w19 e14 m11 j1 s18 d10 l5 b11 g14 h2 m6 r16 n13 r10)
+        (Box  i7 v10 g6 l11 f4 w12 e5 e11 k4 h11 s9 i6 v13 k6 s11 f6)
+        (Ball n8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 45)")
+  (board
+     (image "images/l-45.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions b8 d9 c8 c9 d8 b9 c7 b7 d7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 e2 c4 g10 n8 c10 s6 i5 r4 n4 l7 s10 k5 j10 i7 r2 o2 n1 o4 e8 d4 n11 b4 i2 p2 l8 m1 b5 f10 l11 k1 s5 k11 q2 l4 a9 k7 a5 d6 o10 r11 h9 f2 a7 b10 o5 a10 j9 g4 e3 h10 r5 s7 o1 a6 r3 a8 l1 e9 k4 p8 l2 s9 i6 q11 q5 e6 e4 i3 o7 i1 k10 n5 o11 s11 g2 p11 e10 r8 m11 j1 d10 h2 f6 o8 i9)
+        (Box  p6 h4 j6 p9 i4 h6 m3 m9 m6)
+        (Ball j8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 46)")
+  (board
+     (image "images/l-46.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions s8 s10 t8 u10 u8 q8 r9 t11 u9 u7 s7 t7 t9 t10 s9 q9 s11 u11 r8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 n2 m4 m15 c10 c12 h17 p10 m17 g1 s1 t12 p1 h4 i7 k14 j2 v10 o2 s12 h8 i15 b13 u12 e8 r13 i13 n11 i2 p2 m1 c16 p9 g6 f10 b16 k1 m2 i16 k11 v6 r1 h1 s4 a9 q10 k7 p15 p12 g17 e16 p7 s2 r11 l17 h9 u4 v12 e5 p14 k9 a7 c13 f17 v8 e7 h7 d12 b10 m8 i14 i11 l13 a10 e3 e1 m14 q14 v11 h10 r5 b14 o9 r7 d16 a8 o15 v5 l1 v9 c7 k4 j17 h13 j4 f14 h11 b7 p8 v4 e6 f1 e4 h6 s3 b15 r12 i1 k10 m3 k6 q1 m9 q7 d7 n15 d11 k17 p5 k8 v7 t4 i17 j7 e10 j1 d10 l14 f5 r14 m16 f6 n6 r10 o8 f16)
+        (Box  p6 r6 f13 j15 o12 l12 f15 g13 o5 h5 p3 i3 f8 n5 l10 e13 m11 l5 n13)
+        (Ball l15)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 47)")
+  (board
+     (image "images/l-47.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions p10 o12 n11 n12 p12 o10 n10 o11 p11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 m4 m15 o13 n4 q15 s10 p6 l15 s14 k5 k14 b6 s12 h8 b8 o4 e8 b4 g5 q12 b5 c1 p9 g6 g3 k11 l4 m10 j8 a9 q10 p4 n9 r15 p15 c11 m7 b1 d6 p7 f2 k9 k13 e7 h12 e11 h7 m12 f7 i11 a10 e1 d1 s7 d3 b3 k15 r7 a8 j11 o15 f12 e9 k3 k4 s15 b7 j3 q13 s9 s13 h3 e6 g12 g7 f1 a11 i3 q9 k10 f8 g8 i12 j5 m9 s11 q7 d7 n15 d11 b2 m13 p5 k8 j7 f3 f11 l5 b11 f5 f6 n13 k12)
+        (Box  d9 l8 h9 h5 n7 i4 d5 i6 n6)
+        (Ball j4)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 48)")
+  (board
+     (image "images/l-48.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i10 l8 j8 k9 i8 j9 l9 k10 l10 k8 i9)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall m4 m15 c12 n4 l7 l15 h4 i7 k14 l3 f13 h8 i15 p13 e12 j15 o12 l12 g5 k2 h14 f10 l11 k1 k11 m10 h1 a9 k7 c6 p15 g13 c11 p12 d6 o6 o10 p14 a7 g11 h7 d12 m12 f7 o5 i11 h5 a10 h10 o9 k15 c9 a8 o15 f12 c7 h13 h11 b7 l2 h3 e6 a11 o7 i1 f8 n5 m3 o11 m9 n15 j7 m11 j1 f11 l14 b11 f5 h15 h2 f6 o8)
+        (Box  i5 g9 j13 n12 m8 k4 j4 k6 i12 d10 l5)
+        (Ball h12)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 49)")
+  (board
+     (image "images/l-49.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i2 g6 g3 f4 e5 h5 g4 i4 h3 e6 f5 h2 f6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall n2 m15 c10 i5 r4 c12 n4 g1 p6 s14 k5 n16 r6 p1 c14 r2 o16 i10 b6 n1 s12 h8 q8 p13 j12 d4 l12 m1 h14 c16 k1 k11 l4 m10 r1 j8 h1 a9 q10 c6 r15 f15 c11 d6 e16 o10 r11 f2 k9 a7 m5 c13 q4 e7 h12 i8 b10 m8 l13 c15 a10 e3 q16 m14 r5 o1 a6 r7 d16 r3 a8 l1 f12 h13 d5 j4 s15 f14 s13 q11 g7 e4 q9 h6 i1 k10 k6 o11 q1 i12 m9 s11 d7 g2 p16 p11 r8 m11 j1 f3 l14 g14 m16 r16 k12 o8 f16)
+        (Box  g9 o4 e12 g11 o5 c9 d8 k3 p3 d13 f8 e10 d10)
+        (Ball c8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 50)")
+  (board
+     (image "images/l-50.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions f13 i15 e12 j15 i13 h14 d15 j13 f15 g13 g15 e15 d12 i14 f12 h13 f14 d13 d14 j14 e13 e14 g14 h15)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 m15 i5 c12 q15 t5 g1 s10 l15 k5 t3 t8 u10 p1 c14 u8 i7 k14 r2 b6 n1 s12 h8 g9 g16 p13 u12 j12 d9 d4 l12 k2 m1 c16 c8 g6 l11 k1 m2 i16 k11 t15 r1 h1 a9 c6 p15 c11 p12 s16 o6 e16 f4 o10 r11 h9 c5 f2 k9 a7 m5 c13 k13 k16 h12 e11 u15 i8 m8 c15 a10 u9 g4 q16 s7 i4 o1 o9 k15 a6 r7 t7 d16 c9 j16 r3 h16 a8 d8 o15 l1 d5 h11 u13 l2 i6 s13 t16 f1 a11 t6 e4 o7 q3 s3 u14 i1 f8 n5 o11 g8 q1 i12 m9 q7 n15 d11 u11 k8 t4 j1 f3 l5 b11 m6 r16 n6 k12 f16 i9)
+        (Box  g10 m4 l7 r6 l3 o4 e8 l8 q10 r9 m12 f7 r5 c7 p8 q13 n3 q11 k10 j5 m13 p5 f5 n13)
+        (Ball f10)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 51)")
+  (board
+     (image "images/l-51.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c4 d4 b4 d6 c3 c5 e5 d2 d3 b3 d5 e6 c2 e4 b2 f5 f6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 m4 n4 a2 p10 g1 c14 i7 j2 b6 a13 g9 o4 e12 a1 e8 i13 n11 l12 g5 k2 b5 c1 p9 m2 g3 j8 h1 j13 a9 c6 n12 a5 b1 o6 f4 a7 c13 k13 h12 e11 d12 m12 i8 m8 o5 l13 h5 a10 g4 e3 e1 d1 a14 b14 a6 a8 d8 a3 f12 a12 c7 e9 p8 l2 i6 g12 d13 a11 o7 h6 i1 m3 o11 g8 i12 d7 g2 k8 p11 j1 f3 a4 o8)
+        (Box  l7 l11 l4 m10 h9 k9 g11 i11 h10 i4 c9 j11 j3 k6 d10 l5 m6)
+        (Ball f10)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 52)")
+  (board
+     (image "images/l-52.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c10 c12 b6 b8 b5 c8 b12 c6 c5 b10 b9 b7 b11)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 n8 a2 p10 s10 p6 u10 c14 u8 i7 l3 a13 h8 q8 o4 j12 d4 n11 i2 l12 h14 c1 l11 o3 a9 q10 a5 b1 d6 q6 o6 f4 f2 k9 a7 m5 g11 h12 e11 f7 o5 h5 a10 u9 e1 d1 a14 u7 s7 i4 b14 a6 r7 t7 a8 t10 d8 a3 a12 k3 k4 h13 d5 j4 f14 h11 n3 l9 d13 a11 e4 i3 d14 m3 o11 g8 i12 j5 q7 d7 g2 d11 b2 l10 p11 e10 e14 m11 d10 g14 h2 m6 a4 k12 r10 o8 i9)
+        (Box  c4 l7 g9 d9 g5 h10 o9 f12 p8 k6 l6 j7 f11)
+        (Ball f13)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 53)")
+  (board
+     (image "images/l-53.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i7 i10 h8 h9 h12 h7 h10 h13 h6 i12 i9)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall g10 m4 m15 c10 c12 m17 g1 j10 h4 c14 e18 a16 i15 g9 g16 j15 d19 j12 d4 i2 l12 g5 l8 m1 c8 g6 f19 k1 m2 i16 g19 l4 i18 m10 j8 h1 a15 j13 m19 c6 a19 c11 m7 d6 g15 l19 e16 e5 m5 c13 g11 e11 m12 m8 f7 d2 a18 j9 g4 l16 e1 m14 d1 i4 a17 b14 d3 e19 c19 h19 d16 c9 j16 h16 j11 l1 b19 c7 e9 d5 j4 g12 g7 f1 k19 d14 b15 i1 j19 m3 m18 g8 j5 m9 d18 g2 j14 m13 j7 m11 j1 g14 h15 h2 m16 m6 i19 f16)
+        (Box  c17 e12 k9 k16 k4 j17 j3 f9 e10 f3 k12)
+        (Ball e8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 54)")
+  (board
+     (image "images/l-54.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n8 l7 i7 j6 n11 m10 k7 n9 n12 m7 n10 m12 m8 n7 i6 k6 l6 m9 j7 m11 m6 n6)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 w4 c4 g10 n2 c10 s6 b20 r4 o13 n4 p10 m17 g1 s1 l15 s14 k5 u10 p1 j10 c14 u8 k14 w10 j2 o14 w15 v10 r2 c17 j18 e20 a13 n1 a16 w14 n14 h8 b8 o4 e8 o12 d4 l20 o17 b4 g5 v1 k20 l8 v2 m1 h14 c1 g6 f10 p17 l11 k1 u18 s5 k11 w6 k18 i18 t14 r1 r20 j8 h1 a15 w16 s4 a9 p4 v3 u1 d20 a19 p15 g13 c11 a5 b1 n20 l19 o6 u17 v20 p7 m20 o10 r11 l17 w12 u4 f2 q20 e5 p14 a7 m5 w20 c13 k13 f17 g11 v8 j20 w18 v14 i8 i14 o5 u20 a18 l13 h5 t11 a10 u9 w11 w3 g20 g4 e1 m14 d1 q14 a14 h10 w17 s7 a17 b14 s20 o1 t20 o9 b3 a6 r7 a8 d8 l1 a12 t13 j4 p19 b7 w5 o20 s13 v4 l9 g7 p20 i20 f1 a11 e4 o7 d14 f20 c20 l18 i1 k10 f8 n5 o11 w8 g8 q1 j5 s11 q7 d7 g2 j14 b2 l10 a20 k8 i17 p16 t1 p11 w19 e14 j1 w7 s18 d10 l14 l5 r14 g14 h20 e17 a4 r16 w13 r10 o8 f16)
+        (Box  i5 n18 h17 u6 l12 c16 d17 c6 u15 g18 l16 d3 j16 r3 h16 j3 n3 q18 q9 f18 d18 t4)
+        (Ball e12)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 55)")
+  (board
+     (image "images/l-55.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n8 l7 l8 m10 n9 m7 o6 o10 m5 n10 m8 o5 n7 o9 l9 o7 n5 l6 m9 l10 l5 m6 n6 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 m4 m15 s6 i5 r4 o13 a2 p10 g1 p6 s1 l15 s14 k5 t12 u10 p1 h4 c14 u8 i7 o14 a13 n1 n14 u6 i15 q8 b13 p13 e12 j15 e8 d4 n11 v1 v2 m1 b5 c1 p9 b12 l11 k1 s5 k11 o3 l4 t14 r1 h1 s4 a9 p4 v3 k7 u1 f15 a5 b1 d6 g15 q6 p7 f4 h9 u4 p14 k9 a7 e7 h12 e11 i11 h5 t11 a10 u9 g4 e1 d1 q14 u7 i4 b14 o1 k15 a6 c9 r3 a8 a3 l1 a12 k4 t13 h13 d5 f14 p8 p3 h3 v4 g12 g7 f1 a11 e4 q9 d14 i1 k10 k6 o11 q1 i12 s11 q7 n15 j14 b2 u11 k8 t1 u5 p11 e14 m11 j1 r14 h15 a4 i9)
+        (Box  g10 g9 j12 c8 f10 j13 n12 r11 c5 q4 j9 c7 e9 i6 r12 f8 g8 j5 d11 m13 e10 r8 f3 k12)
+        (Ball f9)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 56)")
+  (board
+     (image "images/l-56.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions i15 j15 h14 d15 f15 g15 e15 i14 f14 d14 j14 e14 g14 h15)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall c4 i5 c12 n4 a2 l7 g1 c14 i7 k14 j2 b6 g16 a1 j12 d9 k2 c16 c1 c8 f10 m2 i16 g3 k11 m10 h1 c6 m7 a5 b1 c3 e16 k9 c13 g11 k16 h12 d12 m12 m8 f7 c15 e3 e1 m14 d1 d3 k15 a6 d16 j16 h16 d8 a3 c7 j3 l2 i6 n3 h3 g12 l9 g7 f1 i1 f8 n5 m3 l6 i12 m9 d11 m13 m11 j1 f3 f11 d10 l14 m6 a4 n6 k12 f16)
+        (Box  j10 g9 e8 g6 l4 j8 k7 d6 g4 i4 e4 h6 j5 i9)
+        (Ball l8)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 57)")
+  (board
+     (image "images/l-57.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions n8 p6 q8 o4 p4 q6 o6 p7 q4 o5 p8 q5 o7 q7 p5 o8)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall e2 g10 n2 m4 c10 r4 n4 k5 r6 j10 h4 i7 j2 i10 i2 l8 m1 p9 f10 k1 m2 o3 a9 c6 n9 c11 a5 r9 f4 c5 f2 a7 m5 e7 e11 h7 m8 d2 h10 r5 i4 o9 b3 a6 r7 c9 r3 a8 a3 b9 l1 p3 n3 c2 l9 g7 e4 q9 q3 k10 n5 k6 m9 g2 d11 b2 l10 r8 j1 f11 h2 a4)
+        (Box  i5 l3 d9 g5 c8 j8 k7 e5 e3 d5 f8 g8 j5 d7 j7 l5)
+        (Ball h6)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 58)")
+  (board
+     (image "images/l-58.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/A" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions s6 r4 p10 p6 r6 p9 s5 s4 p4 q6 p7 o5 r5 s7 o9 r7 p8 q5 o7)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall s8 n8 n2 x6 m15 i5 o13 q15 A15 l7 s1 A18 l15 k5 t3 t8 t12 u10 p1 c14 u8 p18 w10 y15 w15 c17 r19 o16 z18 f13 o2 j18 x15 b6 e20 a16 w14 u6 h8 b8 q8 b13 p13 j15 u12 e8 d19 j12 r13 o12 n11 l12 x3 o19 l8 k2 t19 q12 b5 c8 b12 g6 l11 u18 m2 k11 q19 o3 w6 r1 a15 j13 d17 w16 a9 v3 m19 k7 n9 r15 f15 p15 g13 n12 p12 r9 r11 l17 w12 h9 c5 u3 e5 p14 z15 c13 k13 n10 q4 f17 e11 w18 u15 l13 u16 h5 a10 u9 n19 w11 j9 w3 g20 q16 l16 n7 q14 a14 u7 t18 A17 x18 a17 b14 s19 e19 A16 o1 k15 h19 t7 w9 j16 t9 a8 j11 d8 t2 e9 k3 k4 j17 x5 v18 t13 h13 d5 p19 f14 b7 u13 q13 l2 s9 n3 q11 q18 l9 d13 a11 t6 q9 h6 q3 d14 f20 u14 l18 r12 f8 j19 n5 m18 k6 l6 w8 q1 j5 d18 q7 d11 x4 l10 u11 p5 t4 p16 t1 r8 w7 b17 b11 f5 r14 h20 y18 r16 f6 w13 n6 k12 i19)
+        (Box  c10 i15 g9 e12 i13 f10 t15 d15 m5 h12 g18 h16 s15 h11 v16 d7 i17 e13 i9)
+        (Ball v15)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 59)")
+  (board
+     (image "images/l-59.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/A/B/C" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions t17 z14 y15 w15 r19 B14 x15 A14 t19 q19 w16 u17 B15 z15 x17 z16 u16 y14 t18 v18 A13 v16 q18 s17 x16 r18 v17 s18 B12 A12)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall m4 b20 y13 x13 c12 t5 C8 p6 t3 t8 j10 h4 j2 o16 z8 x8 j18 C12 e20 a13 a16 w14 z11 u6 i15 o12 i13 d4 l20 o17 n11 k20 y7 m1 h14 p9 c8 b12 x9 b16 k1 u19 z9 m2 o3 k18 i18 d15 m10 r20 C16 a15 j13 d17 q10 z7 d20 a19 C13 r15 p15 n12 m7 d6 n20 s16 o6 r17 f4 m20 x11 y17 r11 q20 e15 k13 n10 C7 e7 h7 d12 w18 u15 i8 b10 m8 u20 a18 i11 h5 C11 n19 g20 g4 h18 l16 a14 u7 A17 z10 x18 i4 a17 s20 e19 A16 t20 o9 h19 d16 c9 j16 r3 t10 b9 l1 a12 c7 o18 e9 B11 t13 d5 j4 h11 u13 x7 j3 B7 o20 p3 C15 x14 s13 n3 v15 p20 d13 t16 x10 e4 k19 q9 o7 q3 s3 f20 c20 r12 n5 m3 v19 i12 C10 j5 s11 d7 B16 m13 l10 C9 a20 k17 p5 v7 t4 p16 j7 u5 e10 w19 z17 C14 j1 w7 A7 b17 l5 b11 g14 h20 y18 e17 h15 z13 o8 i9)
+        (Box  m15 s6 o13 h17 q15 m17 n16 k14 w10 v10 q8 g16 e12 l8 f10 k11 v12 g11 q14 v9 q13 g12 g7 f8 f18 l6 u11 r8 l14 f6)
+        (Ball n14)
+     )
+  )
+)
+
+(variant
+  (title "Sokoban (Level 60)")
+  (board
+     (image "images/l-60.bmp")
+     (grid
+        (start-rectangle 0 0 24 24)
+        (dimensions
+              ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z" (24 0)) ; files
+              ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" (0 24)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0))
+     )
+     (zone (name goal)  
+         (players You) 
+         (positions c10 c12 w10 y15 x15 b6 b8 b13 b12 c6 w12 c13 b10 w11 w9 c9 b9 c7 b7 x14 w8 w7 b11 w13)
+     )
+  )
+
+  (board-setup
+     (You
+        (Wall n2 m4 m15 s6 i5 y13 x13 o13 q15 p10 y4 p6 l15 k5 u10 z14 f13 o2 x8 a13 a16 i15 q8 j15 d9 r13 i13 i2 l12 g5 x3 p2 l8 y7 m1 b5 c16 x9 b16 k1 y6 m2 t15 v6 d15 a15 j13 w16 s4 a9 p4 v3 n9 r15 f15 p15 g13 a5 p12 g15 q6 o6 x11 o10 r11 c5 u4 v12 e5 e15 z15 a7 m5 g11 v8 d12 u15 m8 z16 i11 u16 h5 a10 y14 w3 n7 y16 a14 v11 s7 i4 k15 a6 d16 r3 a8 j11 t10 d8 o15 l1 a12 v9 y3 t13 h13 d5 s15 x12 u13 x7 p8 q13 p3 i6 v13 s13 v16 v4 g7 d13 a11 x10 i3 q3 s3 i1 f8 j5 m9 x16 n15 m13 t4 e13 u5 p11 j1 d10 f5 y5 h15 n13 n6 k12 i9)
+        (Box  c14 h8 o4 n11 f10 m10 j8 k7 e11 t11 h10 u7 t9 e9 k3 s9 q11 q5 d14 k10 k6 q7 d7 d11)
+        (Ball g9)
+     )
+  )
+)

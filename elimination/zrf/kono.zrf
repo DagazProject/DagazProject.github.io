@@ -1,0 +1,74 @@
+(define step (
+   $1 (verify empty?) 
+   add
+))
+
+(define jump (
+   $1 (verify friend?) 
+   $1 (verify enemy?) 
+   add
+))
+
+(game
+   (title "4-line Kono")
+   (description "Capture or block in all of your opponent's pieces. \ 
+                 You can only capture a piece by first jumping over \
+                 one of your own pieces then landing on it.")
+   (history "Four Field Kono comes from Korea.")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+   (option "show hints"       false)
+   (option "kono extension"   true)
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/gonu/board.bmp")
+      (grid
+          (start-rectangle 2 2 63 63)
+          (dimensions
+                ("a/b/c/d" (61 0)) ; files
+                ("4/3/2/1" (0 61)) ; ranks
+          )
+          (directions 
+                (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (nn 0 -2) (ee 2 0) (ss 0 2) (ww -2 0)
+          )
+      )
+      (zone
+          (name center) (players White Black)
+          (positions b2 b3 c2 c3)
+      )
+   )
+
+   (piece
+      (image White "images/gonu/white.bmp"
+             Black "images/gonu/black.bmp")
+      (name Ball)
+      (help "Ball")
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+            (jump n) (jump e)
+            (jump s) (jump w)
+      )
+   )
+
+   (board-setup
+        (White (Ball a3 b3 c3 d3 a4 b4 c4 d4))
+        (Black (Ball a1 b1 c1 d1 a2 b2 c2 d2))
+   )
+
+   (loss-condition (Black White) stalemated)
+   (loss-condition (Black White) repetition)
+)

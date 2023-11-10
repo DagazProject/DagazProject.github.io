@@ -1,0 +1,366 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial King continue-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define short-king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   capture 
+   $1 (verify empty?)
+   (add-partial continue-type)
+))
+
+(define short-king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial continue-type)
+))
+
+(game
+  (title "Russian Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+; (option "deferred captures" true)
+; (option "ko"                situation)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+     (zone (name best) (players White)
+           (positions c5 f6)
+     )
+     (zone (name best) (players Black)
+           (positions f4 c3)
+     )
+     (zone (name road) (players White Black)
+           (positions a1 b2 c3 d4 e5 f6 g7 h8)
+     )
+     (zone (name black) (players White Black)
+           (positions a1 c1 e1 g1 b2 d2 f2 h2 a3 c3 e3 g3 b4 d4 f4 h4 a5 c5 e5 g5 b6 d6 f6 h6 a7 c7 e7 g7 b8 d8 f8 h8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type continue-type)
+         (king-continue nw) (king-continue ne) (king-continue sw) (king-continue se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (Man b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "80 Cells Checkers")
+  (history  "Copyright (c) Nikolay Spancireti (1916-1991).")
+
+  (board
+     (image "images/10x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8 j8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
+     )
+     (zone (name best) (players White)
+           (positions c5 h6)
+     )
+     (zone (name best) (players Black)
+           (positions c3 h4)
+     )
+     (zone (name black) (players White Black)
+           (positions a1 c1 e1 g1 i1 b2 d2 f2 h2 j2 a3 c3 e3 g3 i3 b4 d4 f4 h4 j4 a5 c5 e5 g5 i5 b6 d6 f6 h6 j6 a7 c7 e7 g7 i7 b8 d8 f8 h8 j8)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3) )
+    (Black (Man b8 d8 f8 h8 j8  a7 c7 e7 g7 i7  b6 d6 f6 h6 j6) )
+  )
+)
+
+(variant
+  (title "Northern Checkers (variant)")
+
+  (option "animate captures"   false)
+  (option "smart moves"        true)
+  (option "northern-extension" true)
+; (option "ko"                 situation)
+
+  (board-setup
+    (White (King a1 c1 e1 g1) (Man b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (King b8 d8 f8 h8) (Man a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)
+
+(variant
+  (title "Northern Kings")
+
+  (option "animate captures"   false)
+  (option "smart moves"        true)
+  (option "northern-extension" true)
+; (option "ko"                 situation)
+
+  (board-setup
+    (White (King a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (King b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)
+
+(variant
+  (title "9x9")
+
+  (board
+     (image "images/9x9_1.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b9 d9 f9 h9)
+     )
+     (zone (name promotion) (players Black)
+           (positions b1 d1 f1 h1)
+     )
+  )
+
+  (board-setup
+    (White (Man b1 d1 f1 h1 a2 c2 e2 g2 i2 b3 d3 f3 h3))
+    (Black (Man b9 d9 f9 h9 a8 c8 e8 g8 i8 b7 d7 f7 h7))
+  )
+)
+
+(variant
+  (title "Kentish Draughts")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1) 
+                     (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w w) (e e))
+     (zone (name promotion) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump w) (checker-jump e)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (short-king-jump nw) (short-king-jump ne) (short-king-jump sw) (short-king-jump se)
+         (short-king-jump n) (short-king-jump e) (short-king-jump w) (short-king-jump s)
+         (move-type continue-type)
+         (short-king-continue nw) (short-king-continue ne) (short-king-continue sw) (short-king-continue se)
+         (short-king-continue n) (short-king-continue e) (short-king-continue w) (short-king-continue s)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+         (king-shift n) (king-shift e) (king-shift w) (king-shift s)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2 a3 b3 c3 d3 e3 f3 g3 h3))
+    (White (Man a6 b6 c6 d6 e6 f6 g6 h6 a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8))
+  )
+)
+
+(variant
+  (title "Cossacs")
+  (default)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                     (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w w) (e e))
+     (zone (name promotion) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump n) (checker-jump e) (checker-jump w) (checker-jump s)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump n) (king-jump e) (king-jump w) (king-jump s)
+         (move-type continue-type)
+         (king-continue n) (king-continue e) (king-continue w) (king-continue s)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2))
+    (White (Man a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8))
+  )
+)

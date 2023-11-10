@@ -1,0 +1,104 @@
+Zillions Save Game File Version 0.02 CC
+RulesFile=elementals.zrf
+VariantName=Elementals
+1. GA e2 - d3 = GB
+1. GA f9 - e8 = GD
+2. GA d2 x d3 GB d3 - d4
+2. RA f10 - f6
+3. BYA e1 - e6
+3. GA h9 - g8 = GD
+4. GBB d1 - d2 = GBA
+4. GA g9 x g8 GD g8 - g7
+5. GBA d2 x d3 GA d3 x d4 GB d4 - d5
+5. BGB h10 - h9 = BGA
+6. GA d4 - e5 = GD
+6. GD g7 x f6 RA f6 x e5 GD e5 - d4
+7. BYA e6 - d7 = BYB
+7. GD f6 x e5 RA e5 x d4 GD d4 - c3
+8. GA c2 x c3 GD c3 - c4
+8. RA d4 - e3 = RB
+9. GB d5 x e5 = GC
+9. RB e3 x d3 = RC
+10. GA c3 - d4 = GD
+10. RC d3 x c4 = RB
+11. GD d4 x c4 = GC
+11. GC b10 x c10 GBD c10 x d10 GRD d10 x e10 RA e10 - f10
+12. GA f2 - e3 = GB
+12. GA c9 - d8 = GB
+13. BYB d7 - c7 = BYC
+13. GB d8 - e7
+14. BYC c7 - b6 = BYD
+14. GA e9 - d8 = GD
+15. BYA f1 - f5
+15. RA f10 - f7
+16. GB e3 - e4 = GA
+16. GA g8 - g7
+17. BGD g1 - f1 = BGC
+17. RGB g10 - g9 = RGA
+18. BYD b6 - d6 = BYC
+18. BGA h9 - h8
+19. BYC d6 - c5 = BYD
+19. GB e7 x d8 GD d8 - c9
+20. GC e5 - f6 = GD
+20. RA f7 - f9
+21. GD f6 x g7 GA g7 x h8 BGA h8 x i9 GB i9 - j10
+21. BGA i9 - h10 = BGB
+22. GD g7 - f7 = GC
+22. GD e8 - e9 = GA
+23. BYA f5 - f6
+23. RGA g9 - f10 = RGB
+24. GA e4 - f5 = GD
+24. RA f9 - f8 x f7
+25. partial 2 BYD c5 x f8
+25. partial 2 BYD f8 x h8 = BYC
+25. partial 2 BYC h8 x j10 = BYD
+25. GA d9 x d8 GB d8 - d7
+26. GC c4 - d5 = GD
+26. GA d8 - e7 = GB
+27. BGC f1 - e2 = BGB
+27. GB d7 - e6
+28. BYA f6 - f4
+28. GBD d10 - d9 = BGA
+29. BGB e2 - e3 = BGA
+29. GB e7 - f7 = GC
+30. GD d5 x e6 GB e6 x f7 GC f7 - g8
+30. GC i10 - h9 = GD
+31. BYD j10 - e5
+31. GD h9 x g8 GC g8 x f7 GB f7 x e6 GD e6 - d5
+32. BYD e5 - e4 = YBA
+32. GB e6 - e7 = GA
+33. GA h2 - g3 = GB
+33. BGB h10 - h9 = BGA
+34. GA g2 x g3 GB g3 - g4
+34. GA e9 - e8
+35. YBA e4 - e5
+35. GRD e10 - e9 = RGA
+36. GD f5 - f6 = GA
+36. GA e7 x f6 = GB
+37. BYA f4 x f6
+37. GC f7 - e6 = GD
+38. GD d5 x e6 GD e6 - f7
+38. GD g8 x f7 GD f7 x e6 GD e6 - d5
+39. BYA f6 x f7
+39. GD e6 x d5 GD d5 - c4
+40. BYA f7 x e8 = BYB
+40. GD d5 x e5 = GC
+41. BGA e3 x e5
+41. BGA d9 - d8
+42. GB g4 - f5
+42. RGB f10 - f9 = RGA
+43. BYB e8 - f7
+43. RGA e9 - e8
+44. BYB f7 - f6 = BYA
+44. RGA e8 - e7
+45. BYA f6 x e7 = BYB
+45. BGA d8 - d7
+46. BYB e7 x d7 = BYC
+46. GC c10 - d9 = GB
+47. GD c4 - d5
+47. RGA f9 - f8
+48. GB f5 - f6 = GA
+48. BGA h9 - h8
+49. BYC d7 - f5 = BYB
+49. BGA h8 - h7
+50. GD d5 - e6

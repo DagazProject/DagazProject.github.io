@@ -1,0 +1,206 @@
+(define change (
+  (verify not-empty?)
+  (add $1)
+))
+
+(game
+   (title "Hex Light Off")
+   (history "Copyright (c) 2010 K. Franklin.")
+
+   (drop-sound "")
+   (capture-sound "")
+   (change-sound "")
+
+   (option "progressive levels" true)
+
+   (players You)
+   (turn-order You)
+
+   (board
+        (image "images/hex.bmp")
+;       (grid
+;           (start-rectangle 7 2 107 92)
+;           (dimensions 
+;               ("a/b/c" (158 0)) ; columns
+;               ("9/7/5/3/1" (0 91)) ; rows
+;           )
+;       )
+;       (grid
+;           (start-rectangle 86 47 186 137)
+;           (dimensions 
+;               ("a/b" (158 0)) ; columns
+;               ("8/6/4/2" (0 91)) ; rows
+;           )
+;       )
+;       (kill-positions a1 c1 a9 c9)
+        (positions
+             (a7   7  93 107 183)
+             (a5   7 184 107 274)
+             (a3   7 275 107 365)
+             (b9 165   2 265  92)
+             (b7 165  93 265 183)
+             (b5 165 184 265 274)
+             (b3 165 275 265 365)
+             (b1 165 366 265 456)
+             (c7 323  93 423 183)
+             (c5 323 184 423 274)
+             (c3 323 275 423 365)
+
+             (a8  86  47 186 137)
+             (a6  86 138 186 228)
+             (a4  86 229 186 319)
+             (a2  86 320 186 410)
+             (b8 244  47 344 137)
+             (b6 244 138 344 228)
+             (b4 244 229 344 319)
+             (b2 244 320 344 410)
+        )
+        (links n
+           (a3 a5) (a5 a7) (a2 a4) (a4 a6) (a6 a8) (b1 b3) (b3 b5)
+           (b5 b7) (b7 b9) (b2 b4) (b4 b6) (b6 b8) (c3 c5) (c5 c7)
+        )
+        (links s
+           (a5 a3) (a7 a5) (a4 a2) (a6 a4) (a8 a6) (b3 b1) (b5 b3)
+           (b7 b5) (b9 b7) (b4 b2) (b6 b4) (b8 b6) (c5 c3) (c7 c5)
+        )
+        (links nw
+           (b1 a2) (a2 a3) (b2 b3) (b3 a4) (a4 a5) (c3 b4) (b4 b5)
+           (b5 a6) (a6 a7) (c5 b6) (b6 b7) (b7 a8) (c7 b8) (b8 b9)
+        )
+        (links se
+           (a2 b1) (a3 a2) (b3 b2) (a4 b3) (a5 a4) (b4 c3) (b5 b4)
+           (a6 b5) (a7 a6) (b6 c5) (b7 b6) (a8 b7) (b8 c7) (b9 b8)
+        )
+        (links ne
+           (b1 b2) (b2 c3) (a2 b3) (b3 b4) (b4 c5) (a3 a4) (a4 b5)
+           (b5 b6) (b6 c7) (a5 a6) (a6 b7) (b7 b8) (a7 a8) (a8 b9)
+        )
+        (links sw
+           (b2 b1) (c3 b2) (b3 a2) (b4 b3) (c5 b4) (a4 a3) (b5 a4)
+           (b6 b5) (c7 b6) (a6 a5) (b7 a6) (b8 b7) (a8 a7) (b9 a8)
+        )
+   )
+
+   (piece
+        (name light)
+        (image You "images/on.bmp")
+        (moves
+           (change dark)
+        )
+   )
+   (piece
+        (name dark)
+        (image You "images/off.bmp")
+        (moves
+           (change light)
+        )
+   )
+
+   (board-setup
+        (You (light b1 a2 b2 a3 b3 c3 a4 b4 a5 b5 c5 a6 b6 a7 b7 c7 a8 b8 b9))
+   )
+
+   (win-condition (You) (pieces-remaining 0 light))
+)
+
+(variant
+   (title "-")
+)
+
+(variant
+   (title "Hex Light Off (01)")
+   (board-setup
+        (You (light a5 a7 a8 b8 c7 c5 a2 b1 b2) (dark a3 b3 c3 a4 b4 b5 a6 b6 b7 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (02)")
+   (board-setup
+        (You (light a3 b9 c3) (dark b1 a2 b2 b3 a4 b4 a5 b5 c5 a6 b6 a7 b7 c7 a8 b8))
+   )
+)
+
+(variant
+   (title "Hex Light Off (03)")
+   (board-setup
+        (You (light a3 b9 c3 a7 b1 c7) (dark a2 b2 b3 a4 b4 a5 b5 c5 a6 b6 b7 a8 b8))
+   )
+)
+
+(variant
+   (title "Hex Light Off (04)")
+   (board-setup
+        (You (light a5 b1 b5 b9 c5) (dark a2 b2 a3 b3 c3 a4 b4 a6 b6 a7 b7 c7 a8 b8))
+   )
+)
+
+(variant
+   (title "Hex Light Off (05)")
+   (board-setup
+        (You (light a6 b5 b7 b6) (dark b1 a2 b2 a3 b3 c3 a4 b4 a5 c5 a7 c7 a8 b8 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (06)")
+   (board-setup
+        (You (light b5) (dark b1 a2 b2 a3 b3 c3 a4 b4 a5 c5 a6 b6 a7 b7 c7 a8 b8 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (07)")
+   (board-setup
+        (You (light b5 a4 a6 b3 b7 b4 b6) (dark b1 a2 b2 a3 c3 a5 c5 a7 c7 a8 b8 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (08)")
+   (board-setup
+        (You (light a4 a6 b3 b7 b4 b6) (dark b1 a2 b2 a3 c3 a5 b5 c5 a7 c7 a8 b8 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (09)")
+   (board-setup
+        (You (light b1 a2 b2 a3 b3 c3 a4 b4 a5 c5 a6 b6 a7 b7 c7 a8 b8 b9) (dark b5))
+   )
+)
+
+(variant
+   (title "Hex Light Off (10)")
+   (board-setup
+        (You (light b1 a3 b3 c3 a4 b4 b5 a6 b6 a7 b7 c7 b9) (dark a2 b2 a5 c5 a8 b8))
+   )
+)
+
+(variant
+   (title "Hex Light Off (11)")
+   (board-setup
+        (You (light a2 a8 b2 b8) (dark b1 a3 b3 c3 a4 b4 a5 b5 c5 a6 b6 a7 b7 c7 b9))
+   )
+)
+
+(variant
+   (title "Hex Light Off (12)")
+   (board-setup
+        (You (light a7 a8 b9 b8 c7 b3 b5 b7) (dark b1 a2 b2 a3 c3 a4 b4 a5 c5 a6 b6))
+   )
+)
+
+(variant
+   (title "Hex Light Off (13)")
+   (board-setup
+        (You (light a3 a5 a7 a2 a8 b2 b8 b1 b9 c3 c5 c7) (dark b3 a4 b4 b5 a6 b6 b7))
+   )
+)
+
+(variant
+   (title "Hex Light Off (14)")
+   (board-setup
+        (You (light b1 b3 b5 b7 b9 a2 a8 b2 b8) (dark a3 c3 a4 b4 a5 c5 a6 b6 a7 c7))
+   )
+)

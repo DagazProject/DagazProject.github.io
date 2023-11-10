@@ -1,0 +1,237 @@
+(define boom (
+  capture add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+))
+
+(define leap (
+  $1 
+  (while not-friend? (if empty? add) $1)
+))
+
+(define leap-2 (
+  $1 (verify empty?)
+  $1 (while not-friend? (if empty? add) $1)
+))
+
+(game
+  (title "Ultima")
+  (description "http://www.chessvariants.com/other.dir/ultima.html")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/ultima/board.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+  )
+
+  (piece
+     (name King)
+     (image White "images/ultima/wking.bmp"
+            Black "images/ultima/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name Withdrawer)
+     (image White "images/ultima/wwithdrawer.bmp"
+            Black "images/ultima/bwithdrawer.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (boom)
+     )
+  )
+  (piece
+     (name Chameleon)
+     (image White "images/ultima/wchameleon.bmp"
+            Black "images/ultima/bchameleon.bmp")
+     (moves
+         (leap-2 n) (leap-2 s) (leap-2 w) (leap-2 e)
+         (leap-2 nw) (leap-2 sw) (leap-2 ne) (leap-2 se)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (boom)
+     )
+  )
+  (piece
+     (name LongLeaper)
+     (image White "images/ultima/wlongleaper.bmp"
+            Black "images/ultima/blongleaper.bmp")
+     (moves
+         (leap n) (leap s) (leap w) (leap e)
+         (leap nw) (leap sw) (leap ne) (leap se)
+         (boom)
+     )
+  )
+  (piece
+     (name Coordinator)
+     (image White "images/ultima/wcoordinator.bmp"
+            Black "images/ultima/bcoordinator.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (boom)
+     )
+  )
+  (piece
+     (name Immobilizer)
+     (image White "images/ultima/wimmobilizer.bmp"
+            Black "images/ultima/bimmobilizer.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (boom)
+     )
+  )
+  (piece
+     (name Pawn)
+     (image White "images/ultima/wpawn.bmp"
+            Black "images/ultima/bpawn.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (boom)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a2 b2 c2 d2 e2 f2 g2 h2)
+         (Immobilizer a1)
+         (Coordinator h1)
+         (LongLeaper b1 g1)
+         (Chameleon c1 f1)
+         (Withdrawer e1)
+         (King d1)
+    )
+    (Black 
+         (Pawn a7 b7 c7 d7 e7 f7 g7 h7)
+         (Immobilizer h8)
+         (Coordinator a8)
+         (LongLeaper b8 g8)
+         (Chameleon c8 f8)
+         (Withdrawer d8)
+         (King e8)
+    )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0 King))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "-")
+)
+
+(variant
+  (title "Ultima Problem 01")
+  (description "Mate in 1 (http://www.logicmazes.com/games/puz1to4.html)")
+  (board-setup
+    (White 
+         (Pawn a6 f6)
+         (Coordinator c6)
+         (LongLeaper d8 h6)
+         (Withdrawer f3)
+         (King f8)
+    )
+    (Black 
+         (Pawn a5 g5)
+         (LongLeaper c7 g6)
+         (Coordinator e2)
+         (Chameleon a4 e5)
+         (Withdrawer f7)
+         (King e6)
+    )
+  )
+)
+
+(variant
+  (title "Ultima Problem 02")
+  (description "Mate in 2 (http://www.logicmazes.com/games/puz1to4.html)")
+  (board-setup
+    (White 
+         (Pawn b7 e6)
+         (Immobilizer f6)
+         (LongLeaper a1 b5)
+         (Withdrawer e3)
+         (King h1)
+    )
+    (Black 
+         (Pawn c3 d8 f5)
+         (LongLeaper b2)
+         (King e5)
+    )
+  )
+)
+
+(variant
+  (title "Ultima Problem 03")
+  (description "Mate in 2 (http://www.logicmazes.com/games/puz1to4.html)")
+  (board-setup
+    (White 
+         (Pawn e4 e8 g2)
+         (Coordinator h4)
+         (LongLeaper f1 h2)
+         (Chameleon f3 h5)
+         (King c6)
+    )
+    (Black 
+         (Pawn b2)
+         (Immobilizer g3)
+         (King e6)
+    )
+  )
+)
+
+(variant
+  (title "Ultima Problem 04")
+  (description "Mate in 2 (http://www.logicmazes.com/games/puz1to4.html)")
+  (default)
+  (board-setup
+    (White 
+         (Pawn h5)
+         (Immobilizer d6)
+         (LongLeaper h7)
+         (Chameleon g4)
+         (Withdrawer f5)
+         (King a2)
+    )
+    (Black 
+         (Pawn c8 g5)
+         (LongLeaper e7)
+         (Chameleon f7)
+         (Withdrawer c4)
+         (King c6)
+    )
+  )
+)

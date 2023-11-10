@@ -1,0 +1,86 @@
+(define step (
+  $1 (verify empty?) add
+))
+
+(define T
+  (piece
+     (name  $1$2)
+     (help  " ")
+     (image You "images/triangle/$1.bmp")
+     (attribute value $2)
+     (attribute key '$1')
+     (moves
+        (step nw) (step sw) (step ne) (step se) (step ee) (step ww)
+     )
+  )
+)
+
+(game
+  (title "Triangle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 92 90)
+         (dimensions
+             ("a/b/c/d/e/f/g" (46 0)) ; files
+             ("4/3/2/1" (0 90)) ; ranks
+         )
+         (directions
+             (nw -1 -1) (ne 1 -1) (se 1 1) (sw -1 1) (ee 2 0) (ww -2 0)
+             (e 1 0) (w -1 0) (n 0 -1) (s 0 1)
+         )
+     )
+     (kill-positions a2 a3 a4 b3 b4 c4 e4 f3 f4 g2 g3 g4)
+     (zone (name up) (players You)
+           (positions a1 c1 e1 g1 b2 d2 f2 c3 e3 d4)
+     )
+  )
+
+  (T bu 1)
+  (T bb 2) (T bt 2)
+  (T bu 3)
+  (T bb 4) (T bt 4)
+  (T gd 5)
+  (T gu 6)
+  (T ru 7)
+  (T rb 8) (T rt 8)
+  (T rb 9) (T rt 9)
+  (T ru A)
+
+  (board-setup
+     (You 
+         (bu1 a1)
+         (bb2 b1) (bt2 b2)
+         (bu3 c1)
+         (bb4 c2) (bt4 c3)
+         (gd5 d3)
+         (gu6 d4)
+         (ru7 e1)
+         (rb8 e2) (rt8 e3)
+         (rb9 f1) (rt9 f2)
+         (ruA g1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config bu1 (g1))
+     (absolute-config bb2 (f1))
+     (absolute-config bt2 (f2))
+     (absolute-config bu3 (e1))
+     (absolute-config bb4 (e2))
+     (absolute-config bt4 (e3))
+     (absolute-config gd5 (d3))
+     (absolute-config gu6 (d4))
+     (absolute-config ru7 (c1))
+     (absolute-config rb8 (c2))
+     (absolute-config rt8 (c3))
+     (absolute-config rb9 (b1))
+     (absolute-config rt9 (b2))
+     (absolute-config ruA (a1))
+  ))
+)

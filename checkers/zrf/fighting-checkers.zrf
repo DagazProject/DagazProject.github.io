@@ -1,0 +1,129 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? last-rank)
+       (add King)
+    else
+        add
+   )
+))
+
+(define checker-leap (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (if (in-zone? last-rank)
+       (add King)
+    else
+        add
+   )
+))
+
+(define checker-capture (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? last-rank)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define checker-jump (
+   $1 (verify friend?) 
+   $1 (verify empty?)
+   (if (in-zone? last-rank)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define king-leap (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   add
+))
+
+(define king-capture (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define king-jump (
+   $1 (verify friend?) 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Fighting Checkers")
+
+  (players White Black)
+  (turn-order White repeat Black Black White White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name last-rank) (players White)
+           (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-capture nw) (checker-capture ne) (checker-capture n)
+         (checker-jump nw) (checker-jump ne) (checker-jump n)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne) (checker-shift n)
+         (checker-leap nw) (checker-leap ne) (checker-leap n)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-capture nw) (king-capture ne) (king-capture sw) (king-capture se)
+         (king-capture n) (king-capture e) (king-capture s) (king-capture w)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (king-jump n) (king-jump e) (king-jump s) (king-jump w)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+         (king-shift n) (king-shift e) (king-shift s) (king-shift w)
+         (king-leap nw) (king-leap ne) (king-leap sw) (king-leap se)
+         (king-leap n) (king-leap e) (king-leap s) (king-leap w)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 g1 h1 i1 j1  a2 b2 c2 d2 e2 f2 g2 h2 i2 j2  a3 b3 c3 d3 e3 f3 g3 h3 i3 j3  a4 b4 c4 d4 e4 f4 g4 h4 i4 j4) )
+    (Black (Man a10 b10 c10 d10 e10 f10 g10 h10 i10 j10  a9 b9 c9 d9 e9 f9 g9 h9 i9 j9  a8 b8 c8 d8 e8 f8 g8 h8 i8 j8  a7 b7 c7 d7 e7 f7 g7 h7 i7 j7) )
+  )
+)

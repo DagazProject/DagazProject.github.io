@@ -1,0 +1,225 @@
+(define swap (
+  $1 add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify friend?)
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify friend?)
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  (verify friend?)
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+   (title "Passive Chess (Chinese)")
+
+   (players Red Black)
+   (turn-order Red Black)
+
+   (board
+      (image "images/passive/custom.bmp")
+      (grid
+         (start-rectangle 27 28 69 70)
+         (dimensions
+             ("A/B/C/D/E/F/G/H" (45 0)) ; files
+             ("8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (grid
+         (start-rectangle 26 27 68 69)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (45 0)) ; files
+             ("8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+   )
+
+  (piece
+     (name BlankTile)
+     (image Red "images/passive/blank.bmp"
+            Black "images/passive/blank.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name HorseTile)
+     (image Red "images/passive/horse.bmp"
+            Black "images/passive/horse.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name ElephantTile)
+     (image Red "images/passive/elephant.bmp"
+            Black "images/passive/elephant.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name ChariotTile)
+     (image Red "images/passive/chariot.bmp"
+            Black "images/passive/chariot.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name CannonTile)
+     (image Red "images/passive/cannon.bmp"
+            Black "images/passive/cannon.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name MandarinTile)
+     (image Red "images/passive/mandarin.bmp"
+            Black "images/passive/mandarin.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name GeneralTile)
+     (image Red "images/passive/general.bmp"
+            Black "images/passive/general.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+
+   (piece
+      (name Horse)
+      (image Red   "images/passive/rhorse.bmp" 
+             Black "images/passive/bhorse.bmp")
+      (moves
+         (jump n nw) (jump n ne) (jump s sw) (jump s se)
+         (jump w nw) (jump e ne) (jump w sw) (jump e se)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red   "images/passive/relephant.bmp" 
+             Black "images/passive/belephant.bmp")
+      (moves
+         (jump nw nw) (jump sw sw) (jump ne ne) (jump se se)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red   "images/passive/rchariot.bmp" 
+             Black "images/passive/bchariot.bmp")
+      (moves
+         (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red   "images/passive/rcannon.bmp" 
+             Black "images/passive/bcannon.bmp")
+      (moves
+         (shoot n) (shoot s) (shoot w) (shoot e)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Red   "images/passive/rmandarin.bmp" 
+             Black "images/passive/bmandarin.bmp")
+      (moves
+         (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name General)
+      (image Red   "images/passive/rgeneral.bmp"  
+             Black "images/passive/bgeneral.bmp")
+      (moves
+         (step n) (step s) (step w) (step e)
+      )
+   )
+
+   (board-setup
+      (Red
+         (BlankTile B3 D3 E3 G3 A4 C4 E4 G4)
+         (HorseTile B1 G1 A2 E2 H4)
+         (Horse b1 g1 a2 e2)
+         (ElephantTile C1 F1 D2 H2 C3 F3)
+         (Elephant c1 f1 d2 h2)
+         (ChariotTile A1 H1 F4)
+         (Chariot a1 h1)
+         (MandarinTile D1 C2 F2 A3)
+         (Mandarin d1 c2 f2)
+         (CannonTile B2 G2 B4 D4)
+         (Cannon b2 g2)
+         (GeneralTile E1 H3)
+         (General e1)
+      )
+      (Black
+         (BlankTile B6 D6 E6 G6 B5 D5 F5 H5)
+         (HorseTile D7 H7 B8 G8 A5)
+         (Horse d7 h7 b8 g8)
+         (ElephantTile A7 E7 C8 F8 C6 F6)
+         (Elephant a7 e7 c8 f8)
+         (ChariotTile A8 H8 C5)
+         (Chariot a8 h8)
+         (MandarinTile C7 F7 E8 H6)
+         (Mandarin c7 f7 e8)
+         (CannonTile B7 G7 E5 G5)
+         (Cannon b7 g7)
+         (GeneralTile D8 A6)
+         (General d8)
+      )
+   )
+)

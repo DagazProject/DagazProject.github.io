@@ -1,0 +1,76 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Kolowisi Awithlaknannai")
+  (description "http://www.bead.game/games/traditional/fighting-serpents")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "pass partial"      true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/serpents/board.bmp")
+     (grid
+        (start-rectangle 118 37 163 82)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (46 0)) ; files
+           ("3/2/1" (-23 111)) ; ranks
+        )
+        (directions 
+           (ne  0 -1) (sw 0 1) 
+           (e   1  0) (w -1 0)
+           (nw -1 -1) (se 1 1)
+        )
+     )
+     (positions
+           (a0   6 148  51 193)
+           (q0 919 148 964 193)
+     )
+     (kill-positions a1 a2 q2 q3)
+     (links w  (b2 a0) (q0 p2))
+     (links e  (a0 b2) (p2 q0))
+     (links cw (o3 p3) (p3 q0) (q0 q1) (q1 p1) (c1 b1) (b1 a0) (a0 a3) (a3 b3))
+     (links cc (p3 o3) (q0 p3) (q1 q0) (p1 q1) (b1 c1) (a0 b1) (a3 a0) (b3 a3))
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/serpents/white.bmp"
+            Black "images/serpents/black.bmp")
+     (moves
+         (move-type jump-type)
+         (jump nw) (jump ne) 
+         (jump sw) (jump se) 
+         (jump  w) (jump  e)
+         (jump cw) (jump cc) 
+         (move-type normal-type)
+         (step nw) (step ne) 
+         (step sw) (step se) 
+         (step  w) (step  e)
+     )
+  )
+
+  (board-setup
+     (Black (Stone a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3 o3 p3 b2 c2 d2 e2 f2 g2 h2 a0))
+     (White (Stone b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1 q1 j2 k2 l2 m2 n2 o2 p2 q0))
+  )
+)

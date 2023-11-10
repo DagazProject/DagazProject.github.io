@@ -1,0 +1,87 @@
+(define drop-man (
+  (verify (not-in-zone? board-zone))
+  (if (on-board? $1)
+       $1 (verify empty?)
+  )
+  a1 (while (on-board? $1) (if empty? add) $1)
+  (verify empty?) add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify enemy?)
+  capture $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Liberian Queah")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (players Black White)
+  (turn-order Black White)
+; (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/queah/board.bmp")
+     (grid
+         (start-rectangle 14 53 64 103)
+         (dimensions
+             ("x/y/z/t/a/b/c/d/e/k/u/v/w" (49 0)) ; files
+             ("5/4/3/2/1" (0 49)) ; ranks
+         )
+         (directions 
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (kill-positions 
+             a2 a4 b1 b3 b5 c2 c4 d1 d3 d5 e2 e4
+             x2 x4 y1 y2 y3 y4 y5 z2 z4 t1 t2 t3
+             t4 t5 k1 k2 k3 k4 k5 u2 u4 v1 v2 v3
+             v4 v5 w2 w4
+     )
+     (links next
+             (a1 a3) (a3 a5) (a5 b2) (b2 b4) (b4 c1) (c1 c3) 
+             (c3 c5) (c5 d2) (d2 d4) (d4 e1) (e1 e3) (e3 e5)
+             (u3 u5) (u1 u3) (w5 u1) (w3 w5) (w1 w3) (x3 x5)
+             (x1 x3) (z5 x1) (z3 z5) (z1 z3)
+     )
+    (zone (name board-zone) (players White Black)
+          (positions a1 a3 a5 b2 b4 c1 c3 c5 d2 d4 e1 e3 e5)
+    )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/queah/white.bmp"
+            Black "images/queah/black.bmp")
+     (moves
+         (move-type normal-type)
+         (step ne) (step nw) (step se) (step sw)
+         (move-type jump-type)
+         (jump ne) (jump nw) (jump se) (jump sw)
+         (move-type drop-type)
+         (drop-man next)
+     )
+  )
+
+  (board-setup
+     (White (Man a1 a3 b2 b4 x1 x3 x5 z1 z3 z5))
+     (Black (Man d2 d4 e3 e5 u1 u3 u5 w1 w3 w5))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

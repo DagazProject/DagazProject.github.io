@@ -1,0 +1,270 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define push-1 (
+  $1 (verify friend?)
+  (while friend?
+      cascade 
+      $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define push-2 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  add
+))
+
+(define push-3 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define push-4 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define push-5 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define push-6 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define push-7 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Epaminondas (8x8)")
+  (description "https://en.wikipedia.org/wiki/Epaminondas_(game)")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"    false)
+  (option "smart moves"         false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/epaminondas/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 37 37)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (35 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name first-rank) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+     (zone (name first-rank) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/epaminondas/white.bmp"
+            Black "images/epaminondas/black.bmp")
+     (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+
+           (push-1 n) (push-1 nw)
+           (push-1 s) (push-1 se)
+           (push-1 w) (push-1 sw)
+           (push-1 e) (push-1 ne)
+
+           (push-2 n) (push-2 nw)
+           (push-2 s) (push-2 se)
+           (push-2 w) (push-2 sw)
+           (push-2 e) (push-2 ne)
+
+           (push-3 n) (push-3 nw)
+           (push-3 s) (push-3 se)
+           (push-3 w) (push-3 sw)
+           (push-3 e) (push-3 ne)
+
+           (push-4 n) (push-4 nw)
+           (push-4 s) (push-4 se)
+           (push-4 w) (push-4 sw)
+           (push-4 e) (push-4 ne)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2))
+    (Black (Man a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Epaminondas (14x12)")
+  (board
+     (image "images/epaminondas/14x12.bmp")
+     (grid
+         (start-rectangle 2 2 37 37)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (35 0)) ; files
+           ("12/11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name first-rank) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1)
+     )
+     (zone (name first-rank) (players Black)
+           (positions a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12 m12 n12)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/epaminondas/white.bmp"
+            Black "images/epaminondas/black.bmp")
+     (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+
+           (push-1 n) (push-1 nw)
+           (push-1 s) (push-1 se)
+           (push-1 w) (push-1 sw)
+           (push-1 e) (push-1 ne)
+
+           (push-2 n) (push-2 nw)
+           (push-2 s) (push-2 se)
+           (push-2 w) (push-2 sw)
+           (push-2 e) (push-2 ne)
+
+           (push-3 n) (push-3 nw)
+           (push-3 s) (push-3 se)
+           (push-3 w) (push-3 sw)
+           (push-3 e) (push-3 ne)
+
+           (push-4 n) (push-4 nw)
+           (push-4 s) (push-4 se)
+           (push-4 w) (push-4 sw)
+           (push-4 e) (push-4 ne)
+
+           (push-5 n) (push-5 nw)
+           (push-5 s) (push-5 se)
+           (push-5 w) (push-5 sw)
+           (push-5 e) (push-5 ne)
+
+           (push-6 n) (push-6 nw)
+           (push-6 s) (push-6 se)
+           (push-6 w) (push-6 sw)
+           (push-6 e) (push-6 ne)
+
+           (push-7 n) (push-7 nw)
+           (push-7 s) (push-7 se)
+           (push-7 w) (push-7 sw)
+           (push-7 e) (push-7 ne)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2 m2 n2))
+    (Black (Man a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11 l11 m11 n11 a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12 m12 n12))
+  )
+)

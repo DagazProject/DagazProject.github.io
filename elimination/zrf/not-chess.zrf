@@ -1,0 +1,98 @@
+(define step (
+  $1 (verify not-friend?)
+  (add $2)
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  (add $3)
+))
+
+(game
+  (title "Not Chess")
+  (history "Copyright (c) 2003 Ronald Brierley.")
+
+  (option "animate captures"   false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+    (image "images/notchess/board.bmp")
+    (grid
+      (start-rectangle 2 2 82 82)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (80 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 80)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+          (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+      )
+    )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/notchess/wman.bmp"
+            Black "images/notchess/bman.bmp")
+     (moves
+         (step n Knight) (step s Knight) 
+         (step w Knight) (step e Knight) 
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/notchess/wknight.bmp"
+            Black "images/notchess/bknight.bmp")
+     (moves
+         (leap n nw Man) (leap n ne Man) (leap s sw Man) (leap s se Man)
+         (leap w nw Man) (leap w sw Man) (leap e ne Man) (leap e se Man)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Man c1 e1 g1)
+         (Knight b1 d1 f1)
+    )
+    (Black
+         (Man b8 d8 f8)
+         (Knight c8 e8 g8)
+    )
+  )
+
+  (loss-condition (White Black) stalemated)
+)
+
+(variant
+  (title "Not Chess (easy)")
+  (board-setup
+    (White 
+         (Man a1 c1 e1 g1)
+         (Knight b1 d1 f1 h1)
+    )
+    (Black
+         (Man b8 d8 f8)
+         (Knight c8 e8 g8)
+    )
+  )
+)
+
+(variant
+  (title "Not Chess (hard)")
+  (board-setup
+    (White 
+         (Man c1 e1 g1)
+         (Knight b1 d1 f1)
+    )
+    (Black
+         (Man b8 d8 f8 h8)
+         (Knight a8 c8 e8 g8)
+    )
+  )
+)

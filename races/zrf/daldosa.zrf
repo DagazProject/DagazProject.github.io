@@ -1,0 +1,174 @@
+(define activate (
+  (verify friend?)
+  next (verify not-friend?)
+  (add On)
+))
+
+(define step-1 (
+  (verify friend?)
+  next (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  (verify friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  add
+))
+
+(define step-3 (
+  (verify friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  add
+))
+
+(define step-4 (
+  (verify friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  next (verify not-friend?)
+  add
+))
+
+(define drop-dice (
+  (verify (in-zone? dices))
+  (verify not-friend?)
+  add
+))
+
+(define D
+  (piece
+     (name D$1)
+     (image White "images/Daldosa/D$1.bmp"
+            Black "images/Daldosa/D$1.bmp")
+     (drops
+        (move-type dice-mode)
+        (drop-dice)
+     )
+  )
+)
+
+(game
+  (title "Daldosa")
+
+  (option "smart moves" true)
+  (option "pass turn"   forced)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/daldosa/board.bmp")
+     (positions
+             (X   592 27  684 48)
+             (Y   592 73  684 94)
+             (a3  18  13  47  43)
+             (a2  18  42  47  72)
+             (a1  18  71  47 101)
+             (b3  47  13  76  43)
+             (b2  47  42  76  72)
+             (b1  47  71  76 101)
+             (c3  76  13 105  43)
+             (c2  77  42 105  72)
+             (c1  76  71 105 101)
+             (d3 106  13 135  43)
+             (d2 105  42 134  72)
+             (d1 105  71 134 101)
+             (e3 135  13 164  43)
+             (e2 134  42 163  72)
+             (e1 134  71 163 101)
+             (f3 163  13 192  43)
+             (f2 163  42 192  72)
+             (f1 163  71 192 101)
+             (g3 193  13 222  43)
+             (g2 192  42 221  72)
+             (g1 192  71 221 101)
+             (h3 222  13 251  43)
+             (h2 222  42 251  72)
+             (h1 222  71 251 101)
+             (i3 251  13 280  43)
+             (i2 251  42 280  72)
+             (i1 251  71 280 101)
+             (j3 280  13 309  43)
+             (j2 280  42 309  72)
+             (j1 280  71 309 101)
+             (k3 309  13 338  43)
+             (k2 309  42 338  72)
+             (k1 309  71 338 101)
+             (l3 338  14 367  44)
+             (l2 338  43 367  73)
+             (l1 338  72 367 102)
+             (m3 367  13 396  43)
+             (m2 367  43 396  73)
+             (m1 367  72 396 102)
+             (n3 396  14 425  44)
+             (n2 396  43 425  73)
+             (n1 396  72 425 102)
+             (o3 425  14 454  44)
+             (o2 425  43 454  73)
+             (o1 425  72 454 102)
+             (p3 454  14 483  44)
+             (p2 454  43 483  73)
+             (p1 454  72 483 102)
+             (q2 483  43 512  73)
+     )
+     (zone (name dices) (players White Black) (positions X Y))
+     (zone (name center) (players White) (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1))
+     (zone (name center) (players Black) (positions a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3 o3 p3))
+     (links next
+        (p1 o1) (o1 n1) (n1 m1) (m1 l1) (l1 k1) (k1 j1) (j1 i1) (i1 h1)
+        (h1 g1) (g1 f1) (f1 e1) (e1 d1) (d1 c1) (c1 b1) (b1 a1) (a1 a2)
+        (a2 b2) (b2 c2) (c2 d2) (d2 e2) (e2 f2) (f2 g2) (g2 h2) (h2 i2)
+        (i2 j2) (j2 k2) (k2 l2) (l2 m2) (m2 n2) (n2 o2) (o2 p2) (p2 q2)
+        (q2 p3) (p3 o3) (o3 n3) (n3 m3) (m3 l3) (l3 k3) (k3 j3) (j3 i3) 
+        (i3 h3) (h3 g3) (g3 f3) (f3 e3) (e3 d3) (d3 c3) (c3 b3) (b3 a3) 
+        (a3 a2)
+     )
+     (links next-white
+        (p3 o3) (o3 n3) (n3 m3) (m3 l3) (l3 k3) (k3 j3) (j3 i3) (i3 h3)
+        (h3 g3) (g3 f3) (f3 e3) (e3 d3) (d3 c3) (c3 b3) (b3 a3) (a3 a2)
+        (a2 b2) (b2 c2) (c2 d2) (d2 e2) (e2 f2) (f2 g2) (g2 h2) (h2 i2)
+        (i2 j2) (j2 k2) (k2 l2) (l2 m2) (m2 n2) (n2 o2) (o2 p2) (p2 q2)
+        (q2 p1) (p1 o1) (o1 n1) (n1 m1) (m1 l1) (l1 k1) (k1 j1) (j1 i1) 
+        (i1 h1) (h1 g1) (g1 f1) (f1 e1) (e1 d1) (d1 c1) (c1 b1) (b1 a1)
+        (a1 a2)
+     )
+     (symmetry White (next next-white) (next-white next))
+  )
+
+  (piece
+     (name Off)
+     (image White "images/Daldosa/w0.bmp"
+            Black "images/Daldosa/b0.bmp")
+     (moves
+        (move-type normal-mode)
+        (activate)
+     )
+  )
+  (piece
+     (name On)
+     (image White "images/Daldosa/w1.bmp"
+            Black "images/Daldosa/b1.bmp")
+     (moves
+        (move-type normal-mode)
+        (step-1) (step-2) (step-3) (step-4)
+     )
+  )
+
+  (D 1) (D 2) (D 3) (D 4) 
+
+  (board-setup
+     (White
+       (Off a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3 o3 p3) 
+     )
+     (Black
+       (Off a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1)
+     )
+  )
+
+  (loss-condition (Black White) (and (pieces-remaining 0 Off) (pieces-remaining 0 On)) )
+)

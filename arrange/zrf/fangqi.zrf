@@ -1,0 +1,116 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(define slide (
+  (verify friend?)
+  $1 (while empty? add $1)
+))
+
+(define kill (
+  (verify enemy?)
+  capture add
+))
+
+(game
+  (title "Ningxia Fangqi")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       false)
+; (option "shared pieces"     true)
+; (option "ko"                true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities drop-type normal-type)
+
+  (board
+     (image "images/fangqi/board.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f/g" (60 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 60)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/fangqi/white.bmp"
+            Black "images/fangqi/black.bmp")
+     (drops
+         (move-type drop-type)
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (slide n) (slide w) (slide s) (slide e)
+         (kill)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 28))
+     (Black (Stone off 28))
+  )
+)
+
+(variant
+  (title "Xinjiang Fangqi")
+  (default)
+
+  (board
+     (image "images/fangqi/7x7.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f/g" (60 0)) ; files
+           ("7/6/5/4/3/2/1" (0 60)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (links ne (c3 d4) (d4 e5))
+     (links sw (d4 c3) (e5 d4))
+     (links se (c5 d4) (d4 e3))
+     (links nw (d4 c5) (e3 d4))
+     (zone (name first-move)  
+         (players Black) 
+         (positions d4)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/fangqi/white.bmp"
+            Black "images/fangqi/black.bmp")
+     (drops
+         (move-type drop-type)
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (slide n) (slide w) (slide s) (slide e)
+         (slide nw) (slide sw) (slide se) (slide ne)
+         (kill)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 24))
+     (Black (Stone off 25))
+  )
+)

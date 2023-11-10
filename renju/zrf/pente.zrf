@@ -1,0 +1,84 @@
+(define drop-stone (
+  (verify empty?) add
+))
+
+(game
+  (title "Ninuki Renju")
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (option "pass turn" forced)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+      (image "images/pente.bmp")
+      (grid
+          (start-rectangle 66 6 96 36)
+          (dimensions
+             ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (30 0)) ; files
+             ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 30)) ; ranks
+          )
+          (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+          )
+      )
+      (positions
+             (Y0   7   2  37  32)
+             (Y1  27   2  57  32)
+             (Y2   7  36  37  66)
+             (Y3  27  36  57  66)
+             (Y4   7  70  37 100)
+             (Y5  27  70  57 100)
+             (Y6   7 104  37 134)
+             (Y7  27 104  57 134)
+             (Y8   7 138  37 168)
+             (Y9  27 138  57 168)
+
+             (X0 645 551 675 581)
+             (X1 665 551 695 581)
+             (X2 645 517 675 547)
+             (X3 665 517 695 547)
+             (X4 645 483 675 513)
+             (X5 665 483 695 513)
+             (X6 645 449 675 479)
+             (X7 665 449 695 479)
+             (X8 645 415 675 445)
+             (X9 665 415 695 445)
+      )
+      (links bc (a19 X0) (X0 X1) (X1 X2) (X2 X3) (X3 X4) (X4 X5) (X5 X6) (X6 X7) (X7 X8) (X8 X9))
+      (links wc (a19 Y0) (Y0 Y1) (Y1 Y2) (Y2 Y3) (Y3 Y4) (Y4 Y5) (Y5 Y6) (Y6 Y7) (Y7 Y8) (Y8 Y9))
+      (symmetry White (bc wc) (wc bc) (e e) (w w) (n n) (s s) (ne ne) (sw sw) (nw nw) (se se))
+      (zone (name first-move)  
+          (players Black) 
+          (positions j10)
+      )
+      (zone (name third-move)  
+          (players Black) 
+          (positions h8 h9 h10 h11 h12 i8 i9 i10 i11 i12 j8 j9 j11 j12 k8 k9 k10 k11 k12 l8 l9 l10 l11 l12)
+      )
+      (zone (name off-zone) 
+          (players Black White)
+          (positions X0 X1 X2 X3 X4 X5 X6 X7 X8 X9 Y0 Y1 Y2 Y3 Y4 Y5 Y6 Y7 Y8 Y9)
+      )
+  )
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/bsmall.bmp"
+            White "images/wsmall.bmp")
+     (drops (drop-stone))
+  )  
+  (piece
+     (name Captured)
+     (help " ")
+     (image Black "images/wsmall.bmp"
+            White "images/bsmall.bmp")
+  )  
+)

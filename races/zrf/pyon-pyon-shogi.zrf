@@ -1,0 +1,153 @@
+(define step (
+  $1 (verify empty?) add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  (while not-empty? $1)
+  (verify empty?) 
+  (add-partial continue-type)
+))
+
+(game
+  (title "Pyon-Pyon Shogi")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      false)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/pyon/board.bmp")
+     (grid
+         (start-rectangle 8 9 49 55)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (41 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 46)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) 
+         )
+     )
+     (symmetry North (n s) (s n))
+     (zone (name goal-zone) (players South)
+         (positions 
+             d9 e9 f9 d8 e8 f8 d7 e7 f7
+         )
+     )
+     (zone (name goal-zone) (players North)
+         (positions 
+             d1 e1 f1 d2 e2 f2 d3 e3 f3
+         )
+     )
+  )
+
+  (piece
+     (name  Pawn)
+     (image South "images/pyon/spawn.bmp"
+            North "images/pyon/ntokin.bmp")
+     (moves
+           (move-type normal-type)
+           (step n)
+           (move-type continue-type)
+           (jump n)
+     )
+  )
+
+  (board-setup
+    (South (Pawn d1 e1 f1 d2 e2 f2 d3 e3 f3))
+    (North (Pawn d9 e9 f9 d8 e8 f8 d7 e7 f7))
+  )
+)
+
+(variant
+  (title "Pyon-Pyon Shogi (variant)")
+  (default)
+  (board
+     (image "images/pyon/board.bmp")
+     (grid
+         (start-rectangle 8 9 49 55)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (41 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 46)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (symmetry North (n s) (s n) (w e) (e w))
+     (zone (name goal-zone) (players South)
+         (positions 
+             g9 h9 i9 g8 h8 i8 g7 h7 i7
+         )
+     )
+     (zone (name goal-zone) (players North)
+         (positions 
+             a1 b1 c1 a2 b2 c2 a3 b3 c3
+         )
+     )
+     (zone (name top-last) (players South)
+         (positions 
+             a9 b9 c9 d9 e9 f9 g9 h9 i9
+         )
+     )
+     (zone (name top-first) (players South)
+         (positions 
+             a8 b8 c8 d8 e8 f8 g8 h8 i8
+         )
+     )
+     (zone (name top-last) (players North)
+         (positions 
+             a1 b1 c1 d1 e1 f1 g1 h1 i1
+         )
+     )
+     (zone (name top-first) (players North)
+         (positions 
+             a2 b2 c2 d2 e2 f2 g2 h2 i2
+         )
+     )
+     (zone (name east-last) (players South)
+         (positions 
+             i1 i2 i3 i4 i5 i6 i7 i8 i9
+         )
+     )
+     (zone (name east-first) (players South)
+         (positions 
+             h1 h2 h3 h4 h5 h6 h7 h8 h9
+         )
+     )
+     (zone (name east-last) (players North)
+         (positions 
+             a1 a2 a3 a4 a5 a6 a7 a8 a9
+         )
+     )
+     (zone (name east-first) (players North)
+         (positions 
+             b1 b2 b3 b4 b5 b6 b7 b8 b9
+         )
+     )
+  )
+
+  (piece
+     (name  Pawn)
+     (image South "images/pyon/spawn.bmp"
+            North "images/pyon/ntokin.bmp")
+     (moves
+           (move-type normal-type)
+           (step n) (step e)
+           (move-type continue-type)
+           (jump n) (jump e)
+     )
+  )
+
+  (board-setup
+    (South (Pawn a1 b1 c1 a2 b2 c2 a3 b3 c3))
+    (North (Pawn g9 h9 i9 g8 h8 i8 g7 h7 i7))
+  )
+)

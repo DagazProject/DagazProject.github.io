@@ -1,0 +1,88 @@
+(define drop-piece (
+   (verify empty?)
+   (verify (in-zone? board-zone))
+   add
+))
+
+(define p
+  (piece
+     (name $1)
+     (image You "images/mastermind/$1.bmp"
+            Computer "images/mastermind/gray.bmp")
+     (drops
+        (drop-piece)
+     )
+  )
+)
+
+(define m
+  (piece
+     (name $1)
+     (image You "images/mastermind/$1.bmp")
+  )
+)
+
+(game
+  (title "Mastermind")
+
+  (players You Computer)
+  (turn-order You)
+
+  (board
+     (image "images/mastermind/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (down 0 1))
+     )
+     (grid
+         (start-rectangle 210 10 220 20)
+         (dimensions
+           ("x/y" (25 0)) ; files
+           ("16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 25)) ; ranks
+         )
+     )
+     (links left
+         (b1 a1) (c1 a1) (d1 a1)
+         (b2 a2) (c2 a2) (d2 a2)
+         (b3 a3) (c3 a3) (d3 a3)
+         (b4 a4) (c4 a4) (d4 a4)
+         (b5 a5) (c5 a5) (d5 a5)
+         (b6 a6) (c6 a6) (d6 a6)
+         (b7 a7) (c7 a7) (d7 a7)
+     )
+     (links right
+         (a1 b1) (b1 c1) (c1 d1)
+         (a2 b2) (b2 c2) (c2 d2)
+         (a3 b3) (b3 c3) (c3 d3)
+         (a4 b4) (b4 c4) (c4 d4)
+         (a5 b5) (b5 c5) (c5 d5)
+         (a6 b6) (b6 c6) (c6 d6)
+         (a7 b7) (b7 c7) (c7 d7)
+         (a8 b8) (b8 c8) (c8 d8)
+     )
+     (links next
+         (a1  x2) (x2   y2) (y2   x1) (x1   y1)
+         (a2  x4) (x4   y4) (y4   x3) (x3   y3)
+         (a3  x6) (x6   y6) (y6   x5) (x5   y5)
+         (a4  x8) (x8   y8) (y8   x7) (x7   y7)
+         (a5 x10) (x10 y10) (y10  x9) (x9   y9)
+         (a6 x12) (x12 y12) (y12 x11) (x11 y11)
+         (a7 x14) (x14 y14) (y14 x13) (x13 y13)
+     )
+     (zone (name last-rank) (players You)
+           (positions a8 b8 c8 d8)
+     )
+     (zone (name board-zone) (players You)
+           (positions a7 b7 c7 d7 a6 b6 c6 d6 a5 b5 c5 d5 a4 b4 c4 d4 a3 b3 c3 d3 a2 b2 c2 d2 a1 b1 c1 d1)
+     )
+  )
+
+  (p red) (p blue) (p green) (p yellow) (p purple) (p cyan)
+  (m white) (m black)
+
+  (board-setup (You (green a8) (yellow b8) (purple c8) (red d8)))
+)

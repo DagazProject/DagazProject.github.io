@@ -1,0 +1,66 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Maneuvers puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T B0100  1) (T B0011  1) (T B0011  1) (T B1000  1)
+  (T B0100  2) (T B0011  2) (T B0011  2) (T B1000  2)
+  (T B0100  3) (T B1000  3)
+  (T B0100  4) (T B1000  4)
+  (T B0100  5) (T B1000  5)
+  (T B0110F 6) (T B1010F 6) (T B0101F 6) (T B1001F 6)
+  (T B0110F 7) (T B1010F 7) (T B0101F 7) (T B1001F 7)
+  (T B0110F 8) (T B1010F 8) (T B0101F 8) (T B1001F 8)
+
+  (board-setup
+     (You 
+         (B01001  b5) (B00111  c5) (B00111  d5) (B10001  e5)
+         (B01002  b4) (B00112  c4) (B00112  d4) (B10002  e4)
+         (B01003  a3) (B10003  b3)
+         (B01004  c3) (B10004  d3)
+         (B01005  e3) (B10005  f3)
+         (B0110F6 a2) (B1010F6 b2) (B0101F6 a1) (B1001F6 b1)
+         (B0110F7 c2) (B1010F7 d2) (B0101F7 c1) (B1001F7 d1)
+         (B0110F8 e2) (B1010F8 f2) (B0101F8 e1) (B1001F8 f1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config B01003  (a1 c1 e1))
+     (absolute-config B10003  (b1 d1 f1))
+     (absolute-config B01004  (a1 c1 e1))
+     (absolute-config B10004  (b1 d1 f1))
+     (absolute-config B01005  (a1 c1 e1))
+     (absolute-config B10005  (b1 d1 f1))
+     (absolute-config B0110F6 (a3 c3 e3))
+     (absolute-config B1010F6 (b3 d3 f3))
+     (absolute-config B0101F6 (a2 c2 e2))
+     (absolute-config B1001F6 (b2 d2 f2))
+     (absolute-config B0110F7 (a3 c3 e3))
+     (absolute-config B1010F7 (b3 d3 f3))
+     (absolute-config B0101F7 (a2 c2 e2))
+     (absolute-config B1001F7 (b2 d2 f2))
+     (absolute-config B0110F8 (a3 c3 e3))
+     (absolute-config B1010F8 (b3 d3 f3))
+     (absolute-config B0101F8 (a2 c2 e2))
+     (absolute-config B1001F8 (b2 d2 f2))
+  ))
+)

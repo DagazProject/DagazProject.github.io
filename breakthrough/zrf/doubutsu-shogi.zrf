@@ -1,0 +1,186 @@
+(define check-piece
+  (set-flag is-za? (or (piece? Za) (piece? Hu)))
+  (set-flag is-sang? (piece? Sang))
+  (set-flag is-jang? (piece? Jang))
+)
+
+(define create-piece
+  (if (flag? is-za?) (create Za))
+  (if (flag? is-sang?) (create Sang))
+  (if (flag? is-jang?) (create Jang))
+)
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if (and not-empty? (not-piece? King))
+      (check-piece)
+      mark th
+      (while not-empty? th)
+      (create-piece)
+      back
+  )
+  add
+))
+
+(define step-za (
+  (verify (in-zone? board-zone))
+  n (verify not-friend?)
+  (if (and not-empty? (not-piece? King))
+      (check-piece)
+      mark th
+      (while not-empty? th)
+      (create-piece)
+      back
+  )
+  (if (in-zone? promotion-zone)
+      (add Hu)
+   else
+      add
+  )
+))
+
+(define drop-piece (
+  (verify (not-in-zone? board-zone))
+  a1
+  (while (on-board? nx)
+     (if empty? add)
+     nx
+  )
+))
+
+(game
+  (title "Doubutsu Shogi")
+
+  (option "animate captures" false)
+  (option "highlight goals"  false)
+; (option "ko" situation)
+; (option "doubutsu-shogi-extension" true)
+
+  (players Green Red)
+  (turn-order Green Red)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/doubutsu-shogi/board.BMP")
+        (grid
+               (start-rectangle 12 12 115 105)
+               (dimensions ("r/a/b/c/g" (93 0))
+                           ("4/3/2/1" (0 94))
+               )
+        )
+        (links nx (a1 a2) (a2 a3) (a3 a4) (b1 b2) (b2 b3) (b3 b4) (c1 c2) (c2 c3) (c3 c4) (a4 b1) (b4 c1) (c4 g1))
+        (links n  (a1 a2) (a2 a3) (a3 a4) (b1 b2) (b2 b3) (b3 b4) (c1 c2) (c2 c3) (c3 c4))
+        (links s  (a2 a1) (a3 a2) (a4 a3) (b2 b1) (b3 b2) (b4 b3) (c2 c1) (c3 c2) (c4 c3))
+        (links w  (a1 b1) (b1 c1) (a2 b2) (b2 c2) (a3 b3) (b3 c3) (a4 b4) (b4 c4))
+        (links e  (b1 a1) (c1 b1) (b2 a2) (c2 b2) (b3 a3) (c3 b3) (b4 a4) (c4 b4))
+        (links ne (a1 b2) (a2 b3) (a3 b4) (b1 c2) (b2 c3) (b3 c4))
+        (links sw (b2 a1) (b3 a2) (b4 a3) (c2 b1) (c3 b2) (c4 b3))
+        (links nw (b1 a2) (b2 a3) (b3 a4) (c1 b2) (c2 b3) (c3 b4))
+        (links se (a2 b1) (a3 b2) (a4 b3) (b2 c1) (b3 c2) (b4 c3))
+        (links th (a1 g4) (a2 g4) (a3 g4) (a4 g4)
+                  (b1 g4) (b2 g4) (b3 g4) (b4 g4)
+                  (c1 g4) (c2 g4) (c3 g4) (c4 g4)
+                  (g4 g3) (g3 g2) (g2 g1) (g1 r4)
+                  (r4 r3) (r3 r2) (r2 r1)
+        )
+        (links tn (a1 r4) (a2 r4) (a3 r4) (a4 r4)
+                  (b1 r4) (b2 r4) (b3 r4) (b4 r4)
+                  (c1 r4) (c2 r4) (c3 r4) (c4 r4)
+                  (r4 r3) (r3 r2) (r2 r1) (r1 g4)
+                  (g4 g3) (g3 g2) (g2 g1)
+        )
+        (zone (name board-zone) (players Green Red)
+              (positions a1 b1 c1
+                         a2 b2 c2
+                         a3 b3 c3
+                         a4 b4 c4
+              )
+        )
+        (zone (name promotion-zone) (players Green)
+              (positions a4 b4 c4)
+        )
+        (zone (name promotion-zone) (players Red)
+              (positions a1 b1 c1)
+        )
+        (symmetry Red (n s) (s n) (w w) (e e) (nw sw) (sw nw) (ne se) (se ne) (th tn) (tn th))
+  )
+
+  (piece
+        (name  King)
+        (help  "Lion: steps 1 square in any direction to a safe square")
+        (image Green "images/doubutsu-shogi/king-green.BMP"
+               Red   "images/doubutsu-shogi/king-red.BMP"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step sw) (step ne) (step se) 
+        )
+  )
+  (piece
+        (name  Za)
+        (help  "Chick: steps 1 square to forward, promote on last row")
+        (image Green "images/doubutsu-shogi/za-green.BMP"
+               Red   "images/doubutsu-shogi/za-red.BMP"
+        )
+        (moves
+               (step-za) (drop-piece)
+        )
+  )
+  (piece
+        (name  Sang)
+        (help  "Elephant: steps 1 square on any diagonal")
+        (image Green "images/doubutsu-shogi/sang-green.BMP"
+               Red   "images/doubutsu-shogi/sang-red.BMP"
+        )
+        (moves
+               (step nw) (step sw) (step ne) (step se) 
+               (drop-piece)
+        )
+  )
+  (piece
+        (name  Jang)
+        (help  "Giraffe: steps 1 square on any orthogonal")
+        (image Green "images/doubutsu-shogi/jang-green.BMP"
+               Red   "images/doubutsu-shogi/jang-red.BMP"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (drop-piece)
+        )
+  )
+  (piece
+        (name  Hu)
+        (help  "Hen: steps 1 square in any direction except diagonally backwards")
+        (image Green "images/doubutsu-shogi/hu-green.BMP"
+               Red   "images/doubutsu-shogi/hu-red.BMP"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step ne)
+        )
+  )
+
+  (board-setup
+        ( Green (Sang a1)
+                (King b1)
+                (Jang c1)
+                (Za   b2)
+        )
+        ( Red   (Sang c4)
+                (King b4)
+                (Jang a4)
+                (Za   b3)
+        )
+  )
+
+  (loss-condition (Green Red) (pieces-remaining 0 King))
+  (loss-condition (Green Red) repetition)
+
+  (win-condition  (Green) (absolute-config King (a4 b4 c4)))
+  (win-condition  (Red)   (absolute-config King (a1 b1 c1)))
+)

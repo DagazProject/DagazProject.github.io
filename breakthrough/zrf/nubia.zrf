@@ -1,0 +1,60 @@
+(define slide (
+  $1 (while empty? add $1)
+))
+
+(game
+  (title "Nubia")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/nubia/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name goal) (players White)
+           (positions h8)
+     )
+     (zone (name goal) (players Black)
+           (positions a1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/nubia/white.bmp"
+            Black "images/nubia/black.bmp")
+     (moves
+         (slide n) (slide s)
+         (slide e) (slide w)
+     )
+  )
+
+  (board-setup
+     (White (Man b4 c4 a3 b3 c3 d3 a2 b2 c2 d2 b1 c1)) 
+     (Black (Man f8 g8 e7 f7 g7 h7 e6 f6 g6 h6 f5 g5))
+  )
+
+  (win-condition  (Black) (absolute-config Man (a1)))
+  (win-condition  (White) (absolute-config Man (h8)))
+
+  (loss-condition (White Black) repetition)
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+)

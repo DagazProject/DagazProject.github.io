@@ -1,0 +1,96 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Washington puzzle (Presidency)")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T B0100 1)  (T B1000 1) 
+  (T B0000 2)
+  (T B0000 3)
+  (T B0100 4)  (T B1000 4) 
+  (T B0100 5)  (T B1000 5) 
+  (T R0110F 6) (T R1010F 6) (T R0101F 6) (T R1001F 6)
+  (T B0100 7)  (T B1000 7) 
+  (T B0010 8)  (T B0001 8) 
+  (T B0010 9)  (T B0001 9) 
+  (T B0010 10) (T B0001 10) 
+  (T B0010 11) (T B0001 11) 
+  (T B0000 12)
+  (T B0000 13)
+  (T B0100 14) (T B1000 14) 
+  (T B0100 15) (T B1000 15) 
+
+  (board-setup
+     (You 
+         (B01001  a5) (B10001  b5) 
+         (B00002  c5)
+         (B00003  d5)
+         (B01004  e5) (B10004  f5) 
+         (B01005  a4) (B10005  b4) 
+         (R0110F6 c4) (R1010F6 d4) (R0101F6 c3) (R1001F6 d3)
+         (B01007  e4) (B10007  f4) 
+         (B00108  a3) (B00018  a2) 
+         (B00109  b3) (B00019  b2) 
+         (B001010 e3) (B000110 e2) 
+         (B001011 f3) (B000111 f2) 
+         (B000012 c2)
+         (B000013 d2)
+         (B010014 a1) (B100014 b1) 
+         (B010015 e1) (B100015 f1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F6 (a5))
+     (absolute-config R1010F6 (b5))
+     (absolute-config R0101F6 (a4))
+     (absolute-config R1001F6 (b4))
+  ))
+)
+
+(variant
+  (title "Washington puzzle (Trenton)")
+  (win-condition (You) (and 
+     (absolute-config R0110F6 (e5))
+     (absolute-config R1010F6 (f5))
+     (absolute-config R0101F6 (e4))
+     (absolute-config R1001F6 (f4))
+  ))
+)
+
+(variant
+  (title "Washington puzzle (Burgoyne's Surrender)")
+  (win-condition (You) (and 
+     (absolute-config R0110F6 (a2))
+     (absolute-config R1010F6 (b2))
+     (absolute-config R0101F6 (a1))
+     (absolute-config R1001F6 (b1))
+  ))
+)
+
+(variant
+  (title "Washington puzzle (Valley Forge)")
+  (win-condition (You) (and 
+     (absolute-config R0110F6 (e2))
+     (absolute-config R1010F6 (f2))
+     (absolute-config R0101F6 (e1))
+     (absolute-config R1001F6 (f1))
+  ))
+)

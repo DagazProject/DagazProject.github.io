@@ -1,0 +1,153 @@
+(define shift (
+  $1 (verify empty?)
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Breakthrough (8x8)")
+  (history "Copyright (c) 2000 Dan Troyka.")
+  (description "https://en.wikipedia.org/wiki/Breakthrough_(board_game)")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/breakthrough/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw se) (se nw) (ne sw) (sw ne) (w e) (e w))
+     (zone (name last-rank) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/breakthrough/wsoldier.bmp"
+            Black "images/breakthrough/bsoldier.bmp")
+     (moves
+         (shift n)
+         (step nw) (step ne)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a2 b2 c2 d2 e2 f2 g2 h2 a1 b1 c1 d1 e1 f1 g1 h1))
+    (Black (Pawn a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8))
+  )
+
+  (win-condition  (White) (absolute-config Pawn (a8 b8 c8 d8 e8 f8 g8 h8)))
+  (win-condition  (Black) (absolute-config Pawn (a1 b1 c1 d1 e1 f1 g1 h1)))
+)
+
+(variant
+  (title "Breakthrough (7x7)")
+  (board
+     (image "images/breakthrough/7x7.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g" (68 0)) ; files
+           ("7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw se) (se nw) (ne sw) (sw ne) (w e) (e w))
+  )
+
+  (board-setup
+    (White (Pawn a2 b2 c2 d2 e2 f2 g2 a1 b1 c1 d1 e1 f1 g1))
+    (Black (Pawn a6 b6 c6 d6 e6 f6 g6 a7 b7 c7 d7 e7 f7 g7))
+  )
+
+  (win-condition  (White) (absolute-config Pawn (a7 b7 c7 d7 e7 f7 g7)))
+  (win-condition  (Black) (absolute-config Pawn (a1 b1 c1 d1 e1 f1 g1)))
+)
+
+(variant
+  (title "Breakthrough (6x6)")
+  (board
+     (image "images/breakthrough/6x6.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f" (68 0)) ; files
+           ("6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw se) (se nw) (ne sw) (sw ne) (w e) (e w))
+  )
+
+  (board-setup
+    (White (Pawn a2 b2 c2 d2 e2 f2 a1 b1 c1 d1 e1 f1))
+    (Black (Pawn a5 b5 c5 d5 e5 f5 a6 b6 c6 d6 e6 f6))
+  )
+
+  (win-condition  (White) (absolute-config Pawn (a6 b6 c6 d6 e6 f6)))
+  (win-condition  (Black) (absolute-config Pawn (a1 b1 c1 d1 e1 f1)))
+)
+
+(variant
+  (title "Breakthrough (5x5)")
+  (board
+     (image "images/breakthrough/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw se) (se nw) (ne sw) (sw ne) (w e) (e w))
+     (zone (name last-rank) (players White)
+           (positions a5 b5 c5 d5 e5)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a2 b2 c2 d2 e2 a1 b1 c1 d1 e1))
+    (Black (Pawn a4 b4 c4 d4 e4 a5 b5 c5 d5 e5))
+  )
+
+  (win-condition  (White) (absolute-config Pawn (a5 b5 c5 d5 e5)))
+  (win-condition  (Black) (absolute-config Pawn (a1 b1 c1 d1 e1)))
+)

@@ -1,0 +1,100 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define man-jump (
+  $1 (verify friend?)
+  $1 (verify enemy?)
+  (verify (piece? Man))
+  add
+))
+
+(define king-jump (
+  $1 (verify friend?)
+  $1 (verify enemy?)
+  add
+))
+
+(game
+  (title "Nam Dinh")
+  (history "This a traditional game from Vietnam. \
+            It has been reported to have been played in Nam Dinh, a province in the Red River Delta region of northern Vietnam.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"   false)
+  (option "smart moves"        true)
+  (option "nam-dinh-invariant" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/nam-dinh/board.bmp")
+     (grid
+        (start-rectangle 6 4 65 63)
+        (dimensions
+           ("a/b/c/d/e" (88 0)) ; files
+           ("5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links ne
+        (a1 b2) (a3 b4) (b2 c3) (b4 c5)
+        (c1 d2) (c3 d4) (d2 e3) (d4 e5)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (c3 b2) (c5 b4)
+        (d2 c1) (d4 c3) (e3 d2) (e5 d4)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (c1 b2) (c3 b4)
+        (d2 c3) (d4 c5) (e1 d2) (e3 d4)
+     )
+     (links se
+        (a3 b2) (a5 b4) (b2 c1) (b4 c3)
+        (c3 d2) (c5 d4) (d2 e1) (d4 e3)
+     )
+     (zone
+        (name center) (players White Black)
+        (positions b2 b4 c3 d2 d4)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/nam-dinh/wsoldier.bmp"
+            Black "images/nam-dinh/bsoldier.bmp")
+     (moves
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (man-jump n) (man-jump w) (man-jump s) (man-jump e)
+         (man-jump nw) (man-jump sw) (man-jump se) (man-jump ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/nam-dinh/wking.bmp"
+            Black "images/nam-dinh/bking.bmp")
+     (moves
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (king-jump n) (king-jump w) (king-jump s) (king-jump e)
+         (king-jump nw) (king-jump sw) (king-jump se) (king-jump ne)
+     )
+  )
+
+  (board-setup
+    (Black (King c1) (Man a1 b1 d1 e1 a2 b2 c2 d2 e2 d3 e3))
+    (White (King c5) (Man a5 b5 d5 e5 a4 b4 c4 d4 e4 a3 b3))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) (checkmated King))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

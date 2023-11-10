@@ -1,0 +1,944 @@
+(define drop-dice (
+  (verify (in-zone? dice-zone))
+  (verify not-friend?)
+  add
+))
+
+(define step-1 (
+  $1 (while friend? up) add
+))
+
+(define step-2 (
+  $1 $1 (while friend? up) add
+))
+
+(define step-3 (
+  $1 $1 $1 (while friend? up) add
+))
+
+(define step-4 (
+  $1 $1 $1 $1 (while friend? up) add
+))
+
+(define step-5 (
+  $1 $1 $1 $1 $1 (while friend? up) add
+))
+
+(define step-6 (
+  $1 $1 $1 $1 $1 $1 (while friend? up) add
+))
+
+(define d
+  (piece
+     (name D$1)
+     (image White "images/backgammon/$1.bmp"
+            Green "images/backgammon/$1.bmp"
+            Red   "images/backgammon/$1.bmp"
+            Black "images/backgammon/$1.bmp")
+     (drops
+        (move-type drop-type)
+        (drop-dice)
+     )
+  )
+)
+
+(game
+  (title "Tavola delle stagioni")
+
+  (option "smart moves" true)
+  (option "pass turn"   forced)
+
+  (players White Green Red Black)
+  (turn-order White Green Red Black)
+
+  (board
+     (image "images/backgammon/tavola.bmp")
+     (positions  
+         (m1a 59 50 93 82)
+         (m1b 59 58 93 90)
+         (m1c 59 66 93 98)
+         (m1d 59 74 93 106)
+         (m1e 59 82 93 114)
+         (m1f 59 90 93 122)
+         (m1g 59 98 93 130)
+         (m1h 59 106 93 138)
+         (m1i 59 114 93 146)
+         (m1j 59 122 93 154)
+         (m1k 59 130 93 162)
+         (m1l 59 138 93 170)
+         (m1m 59 146 93 178)
+         (m1n 59 154 93 186)
+         (m1o 59 162 93 194)
+         (m1p 59 170 93 202)
+         (m1q 59 178 93 210)
+
+         (l1a 93 50 127 82)
+         (l1b 93 58 127 90)
+         (l1c 93 66 127 98)
+         (l1d 93 74 127 106)
+         (l1e 93 82 127 114)
+         (l1f 93 90 127 122)
+         (l1g 93 98 127 130)
+         (l1h 93 106 127 138)
+         (l1i 93 114 127 146)
+         (l1j 93 122 127 154)
+         (l1k 93 130 127 162)
+         (l1l 93 138 127 170)
+         (l1m 93 146 127 178)
+         (l1n 93 154 127 186)
+         (l1o 93 162 127 194)
+         (l1p 93 170 127 202)
+         (l1q 93 178 127 210)
+
+         (k1a 127 50 161 82)
+         (k1b 127 58 161 90)
+         (k1c 127 66 161 98)
+         (k1d 127 74 161 106)
+         (k1e 127 82 161 114)
+         (k1f 127 90 161 122)
+         (k1g 127 98 161 130)
+         (k1h 127 106 161 138)
+         (k1i 127 114 161 146)
+         (k1j 127 122 161 154)
+         (k1k 127 130 161 162)
+         (k1l 127 138 161 170)
+         (k1m 127 146 161 178)
+         (k1n 127 154 161 186)
+         (k1o 127 162 161 194)
+         (k1p 127 170 161 202)
+         (k1q 127 178 161 210)
+
+         (j1a 161 50 195 82)
+         (j1b 161 58 195 90)
+         (j1c 161 66 195 98)
+         (j1d 161 74 195 106)
+         (j1e 161 82 195 114)
+         (j1f 161 90 195 122)
+         (j1g 161 98 195 130)
+         (j1h 161 106 195 138)
+         (j1i 161 114 195 146)
+         (j1j 161 122 195 154)
+         (j1k 161 130 195 162)
+         (j1l 161 138 195 170)
+         (j1m 161 146 195 178)
+         (j1n 161 154 195 186)
+         (j1o 161 162 195 194)
+         (j1p 161 170 195 202)
+         (j1q 161 178 195 210)
+
+         (h1a 195 50 229 82)
+         (h1b 195 58 229 90)
+         (h1c 195 66 229 98)
+         (h1d 195 74 229 106)
+         (h1e 195 82 229 114)
+         (h1f 195 90 229 122)
+         (h1g 195 98 229 130)
+         (h1h 195 106 229 138)
+         (h1i 195 114 229 146)
+         (h1j 195 122 229 154)
+         (h1k 195 130 229 162)
+         (h1l 195 138 229 170)
+         (h1m 195 146 229 178)
+         (h1n 195 154 229 186)
+         (h1o 195 162 229 194)
+         (h1p 195 170 229 202)
+         (h1q 195 178 229 210)
+
+         (g1a 229 50 263 82)
+         (g1b 229 58 263 90)
+         (g1c 229 66 263 98)
+         (g1d 229 74 263 106)
+         (g1e 229 82 263 114)
+         (g1f 229 90 263 122)
+         (g1g 229 98 263 130)
+         (g1h 229 106 263 138)
+         (g1i 229 114 263 146)
+         (g1j 229 122 263 154)
+         (g1k 229 130 263 162)
+         (g1l 229 138 263 170)
+         (g1m 229 146 263 178)
+         (g1n 229 154 263 186)
+         (g1o 229 162 263 194)
+         (g1p 229 170 263 202)
+         (g1q 229 178 263 210)
+
+         (f1a 287 50 321 82)
+         (f1b 287 58 321 90)
+         (f1c 287 66 321 98)
+         (f1d 287 74 321 106)
+         (f1e 287 82 321 114)
+         (f1f 287 90 321 122)
+         (f1g 287 98 321 130)
+         (f1h 287 106 321 138)
+         (f1i 287 114 321 146)
+         (f1j 287 122 321 154)
+         (f1k 287 130 321 162)
+         (f1l 287 138 321 170)
+         (f1m 287 146 321 178)
+         (f1n 287 154 321 186)
+         (f1o 287 162 321 194)
+         (f1p 287 170 321 202)
+         (f1q 287 178 321 210)
+
+         (e1a 321 50 355 82)
+         (e1b 321 58 355 90)
+         (e1c 321 66 355 98)
+         (e1d 321 74 355 106)
+         (e1e 321 82 355 114)
+         (e1f 321 90 355 122)
+         (e1g 321 98 355 130)
+         (e1h 321 106 355 138)
+         (e1i 321 114 355 146)
+         (e1j 321 122 355 154)
+         (e1k 321 130 355 162)
+         (e1l 321 138 355 170)
+         (e1m 321 146 355 178)
+         (e1n 321 154 355 186)
+         (e1o 321 162 355 194)
+         (e1p 321 170 355 202)
+         (e1q 321 178 355 210)
+
+         (d1a 355 50 389 82)
+         (d1b 355 58 389 90)
+         (d1c 355 66 389 98)
+         (d1d 355 74 389 106)
+         (d1e 355 82 389 114)
+         (d1f 355 90 389 122)
+         (d1g 355 98 389 130)
+         (d1h 355 106 389 138)
+         (d1i 355 114 389 146)
+         (d1j 355 122 389 154)
+         (d1k 355 130 389 162)
+         (d1l 355 138 389 170)
+         (d1m 355 146 389 178)
+         (d1n 355 154 389 186)
+         (d1o 355 162 389 194)
+         (d1p 355 170 389 202)
+         (d1q 355 178 389 210)
+
+         (c1a 389 50 423 82)
+         (c1b 389 58 423 90)
+         (c1c 389 66 423 98)
+         (c1d 389 74 423 106)
+         (c1e 389 82 423 114)
+         (c1f 389 90 423 122)
+         (c1g 389 98 423 130)
+         (c1h 389 106 423 138)
+         (c1i 389 114 423 146)
+         (c1j 389 122 423 154)
+         (c1k 389 130 423 162)
+         (c1l 389 138 423 170)
+         (c1m 389 146 423 178)
+         (c1n 389 154 423 186)
+         (c1o 389 162 423 194)
+         (c1p 389 170 423 202)
+         (c1q 389 178 423 210)
+
+         (b1a 423 50 457 82)
+         (b1b 423 58 457 90)
+         (b1c 423 66 457 98)
+         (b1d 423 74 457 106)
+         (b1e 423 82 457 114)
+         (b1f 423 90 457 122)
+         (b1g 423 98 457 130)
+         (b1h 423 106 457 138)
+         (b1i 423 114 457 146)
+         (b1j 423 122 457 154)
+         (b1k 423 130 457 162)
+         (b1l 423 138 457 170)
+         (b1m 423 146 457 178)
+         (b1n 423 154 457 186)
+         (b1o 423 162 457 194)
+         (b1p 423 170 457 202)
+         (b1q 423 178 457 210)
+
+         (a1a 457 50 491 82)
+         (a1b 457 58 491 90)
+         (a1c 457 66 491 98)
+         (a1d 457 74 491 106)
+         (a1e 457 82 491 114)
+         (a1f 457 90 491 122)
+         (a1g 457 98 491 130)
+         (a1h 457 106 491 138)
+         (a1i 457 114 491 146)
+         (a1j 457 122 491 154)
+         (a1k 457 130 491 162)
+         (a1l 457 138 491 170)
+         (a1m 457 146 491 178)
+         (a1n 457 154 491 186)
+         (a1o 457 162 491 194)
+         (a1p 457 170 491 202)
+         (a1q 457 178 491 210)
+
+         (m2a 59 348 93 380)
+         (m2b 59 340 93 372)
+         (m2c 59 332 93 364)
+         (m2d 59 324 93 356)
+         (m2e 59 316 93 348)
+         (m2f 59 308 93 340)
+         (m2g 59 300 93 332)
+         (m2h 59 292 93 324)
+         (m2i 59 284 93 316)
+         (m2j 59 276 93 308)
+         (m2k 59 268 93 300)
+         (m2l 59 260 93 292)
+         (m2m 59 252 93 284)
+         (m2n 59 244 93 276)
+         (m2o 59 236 93 268)
+         (m2p 59 228 93 260)
+         (m2q 59 220 93 252)
+
+         (l2a 93 348 127 380)
+         (l2b 93 340 127 372)
+         (l2c 93 332 127 364)
+         (l2d 93 324 127 356)
+         (l2e 93 316 127 348)
+         (l2f 93 308 127 340)
+         (l2g 93 300 127 332)
+         (l2h 93 292 127 324)
+         (l2i 93 284 127 316)
+         (l2j 93 276 127 308)
+         (l2k 93 268 127 300)
+         (l2l 93 260 127 292)
+         (l2m 93 252 127 284)
+         (l2n 93 244 127 276)
+         (l2o 93 236 127 268)
+         (l2p 93 228 127 260)
+         (l2q 93 220 127 252)
+
+         (k2a 127 348 161 380)
+         (k2b 127 340 161 372)
+         (k2c 127 332 161 364)
+         (k2d 127 324 161 356)
+         (k2e 127 316 161 348)
+         (k2f 127 308 161 340)
+         (k2g 127 300 161 332)
+         (k2h 127 292 161 324)
+         (k2i 127 284 161 316)
+         (k2j 127 276 161 308)
+         (k2k 127 268 161 300)
+         (k2l 127 260 161 292)
+         (k2m 127 252 161 284)
+         (k2n 127 244 161 276)
+         (k2o 127 236 161 268)
+         (k2p 127 228 161 260)
+         (k2q 127 220 161 252)
+
+         (j2a 161 348 195 380)
+         (j2b 161 340 195 372)
+         (j2c 161 332 195 364)
+         (j2d 161 324 195 356)
+         (j2e 161 316 195 348)
+         (j2f 161 308 195 340)
+         (j2g 161 300 195 332)
+         (j2h 161 292 195 324)
+         (j2i 161 284 195 316)
+         (j2j 161 276 195 308)
+         (j2k 161 268 195 300)
+         (j2l 161 260 195 292)
+         (j2m 161 252 195 284)
+         (j2n 161 244 195 276)
+         (j2o 161 236 195 268)
+         (j2p 161 228 195 260)
+         (j2q 161 220 195 252)
+
+         (h2a 195 348 229 380)
+         (h2b 195 340 229 372)
+         (h2c 195 332 229 364)
+         (h2d 195 324 229 356)
+         (h2e 195 316 229 348)
+         (h2f 195 308 229 340)
+         (h2g 195 300 229 332)
+         (h2h 195 292 229 324)
+         (h2i 195 284 229 316)
+         (h2j 195 276 229 308)
+         (h2k 195 268 229 300)
+         (h2l 195 260 229 292)
+         (h2m 195 252 229 284)
+         (h2n 195 244 229 276)
+         (h2o 195 236 229 268)
+         (h2p 195 228 229 260)
+         (h2q 195 220 229 252)
+
+         (g2a 229 348 263 380)
+         (g2b 229 340 263 372)
+         (g2c 229 332 263 364)
+         (g2d 229 324 263 356)
+         (g2e 229 316 263 348)
+         (g2f 229 308 263 340)
+         (g2g 229 300 263 332)
+         (g2h 229 292 263 324)
+         (g2i 229 284 263 316)
+         (g2j 229 276 263 308)
+         (g2k 229 268 263 300)
+         (g2l 229 260 263 292)
+         (g2m 229 252 263 284)
+         (g2n 229 244 263 276)
+         (g2o 229 236 263 268)
+         (g2p 229 228 263 260)
+         (g2q 229 220 263 252)
+
+         (f2a 287 348 321 380)
+         (f2b 287 340 321 372)
+         (f2c 287 332 321 364)
+         (f2d 287 324 321 356)
+         (f2e 287 316 321 348)
+         (f2f 287 308 321 340)
+         (f2g 287 300 321 332)
+         (f2h 287 292 321 324)
+         (f2i 287 284 321 316)
+         (f2j 287 276 321 308)
+         (f2k 287 268 321 300)
+         (f2l 287 260 321 292)
+         (f2m 287 252 321 284)
+         (f2n 287 244 321 276)
+         (f2o 287 236 321 268)
+         (f2p 287 228 321 260)
+         (f2q 287 220 321 252)
+
+         (e2a 321 348 355 380)
+         (e2b 321 340 355 372)
+         (e2c 321 332 355 364)
+         (e2d 321 324 355 356)
+         (e2e 321 316 355 348)
+         (e2f 321 308 355 340)
+         (e2g 321 300 355 332)
+         (e2h 321 292 355 324)
+         (e2i 321 284 355 316)
+         (e2j 321 276 355 308)
+         (e2k 321 268 355 300)
+         (e2l 321 260 355 292)
+         (e2m 321 252 355 284)
+         (e2n 321 244 355 276)
+         (e2o 321 236 355 268)
+         (e2p 321 228 355 260)
+         (e2q 321 220 355 252)
+
+         (d2a 355 348 389 380)
+         (d2b 355 340 389 372)
+         (d2c 355 332 389 364)
+         (d2d 355 324 389 356)
+         (d2e 355 316 389 348)
+         (d2f 355 308 389 340)
+         (d2g 355 300 389 332)
+         (d2h 355 292 389 324)
+         (d2i 355 284 389 316)
+         (d2j 355 276 389 308)
+         (d2k 355 268 389 300)
+         (d2l 355 260 389 292)
+         (d2m 355 252 389 284)
+         (d2n 355 244 389 276)
+         (d2o 355 236 389 268)
+         (d2p 355 228 389 260)
+         (d2q 355 220 389 252)
+
+         (c2a 389 348 423 380)
+         (c2b 389 340 423 372)
+         (c2c 389 332 423 364)
+         (c2d 389 324 423 356)
+         (c2e 389 316 423 348)
+         (c2f 389 308 423 340)
+         (c2g 389 300 423 332)
+         (c2h 389 292 423 324)
+         (c2i 389 284 423 316)
+         (c2j 389 276 423 308)
+         (c2k 389 268 423 300)
+         (c2l 389 260 423 292)
+         (c2m 389 252 423 284)
+         (c2n 389 244 423 276)
+         (c2o 389 236 423 268)
+         (c2p 389 228 423 260)
+         (c2q 389 220 423 252)
+
+         (b2a 423 348 457 380)
+         (b2b 423 340 457 372)
+         (b2c 423 332 457 364)
+         (b2d 423 324 457 356)
+         (b2e 423 316 457 348)
+         (b2f 423 308 457 340)
+         (b2g 423 300 457 332)
+         (b2h 423 292 457 324)
+         (b2i 423 284 457 316)
+         (b2j 423 276 457 308)
+         (b2k 423 268 457 300)
+         (b2l 423 260 457 292)
+         (b2m 423 252 457 284)
+         (b2n 423 244 457 276)
+         (b2o 423 236 457 268)
+         (b2p 423 228 457 260)
+         (b2q 423 220 457 252)
+
+         (a2a 457 348 491 380)
+         (a2b 457 340 491 372)
+         (a2c 457 332 491 364)
+         (a2d 457 324 491 356)
+         (a2e 457 316 491 348)
+         (a2f 457 308 491 340)
+         (a2g 457 300 491 332)
+         (a2h 457 292 491 324)
+         (a2i 457 284 491 316)
+         (a2j 457 276 491 308)
+         (a2k 457 268 491 300)
+         (a2l 457 260 491 292)
+         (a2m 457 252 491 284)
+         (a2n 457 244 491 276)
+         (a2o 457 236 491 268)
+         (a2p 457 228 491 260)
+         (a2q 457 220 491 252)
+
+         (W2a 506 50 546 82)
+         (W2b 506 58 546 90)
+         (W2c 506 66 546 98)
+         (W2d 506 74 546 106)
+         (W2e 506 82 546 114)
+         (W2f 506 90 546 122)
+         (W2g 506 98 546 130)
+         (W2h 506 106 546 138)
+         (W2i 506 114 546 146)
+         (W2j 506 122 546 154)
+         (W2k 506 130 546 162)
+         (W2l 506 138 546 170)
+         (W2m 506 146 546 178)
+         (W2n 506 154 546 186)
+         (W2o 506 162 546 194)
+         (W2p 506 170 546 202)
+         (W2q 506 178 546 210)
+
+         (G2a 506 348 546 380)
+         (G2b 506 340 546 372)
+         (G2c 506 332 546 364)
+         (G2d 506 324 546 356)
+         (G2e 506 316 546 348)
+         (G2f 506 308 546 340)
+         (G2g 506 300 546 332)
+         (G2h 506 292 546 324)
+         (G2i 506 284 546 316)
+         (G2j 506 276 546 308)
+         (G2k 506 268 546 300)
+         (G2l 506 260 546 292)
+         (G2m 506 252 546 284)
+         (G2n 506 244 546 276)
+         (G2o 506 236 546 268)
+         (G2p 506 228 546 260)
+         (G2q 506 220 546 252)
+
+         (R2a 10 348 50 380)
+         (R2b 10 340 50 372)
+         (R2c 10 332 50 364)
+         (R2d 10 324 50 356)
+         (R2e 10 316 50 348)
+         (R2f 10 308 50 340)
+         (R2g 10 300 50 332)
+         (R2h 10 292 50 324)
+         (R2i 10 284 50 316)
+         (R2j 10 276 50 308)
+         (R2k 10 268 50 300)
+         (R2l 10 260 50 292)
+         (R2m 10 252 50 284)
+         (R2n 10 244 50 276)
+         (R2o 10 236 50 268)
+         (R2p 10 228 50 260)
+         (R2q 10 220 50 252)
+
+         (B2a 10 50 50 82)
+         (B2b 10 58 50 90)
+         (B2c 10 66 50 98)
+         (B2d 10 74 50 106)
+         (B2e 10 82 50 114)
+         (B2f 10 90 50 122)
+         (B2g 10 98 50 130)
+         (B2h 10 106 50 138)
+         (B2i 10 114 50 146)
+         (B2j 10 122 50 154)
+         (B2k 10 130 50 162)
+         (B2l 10 138 50 170)
+         (B2m 10 146 50 178)
+         (B2n 10 154 50 186)
+         (B2o 10 162 50 194)
+         (B2p 10 170 50 202)
+         (B2q 10 178 50 210)
+
+         (B1a  59 391  93 423)
+         (B1b  93 391 127 423)
+         (B1c 127 391 161 423)
+         (B1d 161 391 195 423)
+         (B1e 195 391 229 423)
+         (B1f 229 391 263 423)
+         (B1g  64 386  98 418)
+         (B1h  98 386 132 418)
+         (B1j 132 386 166 418)
+         (B1k 166 386 200 418)
+         (B1l 200 386 234 418)
+         (B1m 234 386 268 418)
+
+         (W1a 287 391 321 423)
+         (W1b 321 391 355 423)
+         (W1c 355 391 389 423)
+         (W1d 389 391 423 423)
+         (W1e 423 391 457 423)
+         (W1f 457 391 491 423)
+         (W1g 292 386 326 418)
+         (W1h 326 386 360 418)
+         (W1j 360 386 394 418)
+         (W1k 394 386 428 418)
+         (W1l 428 386 462 418)
+         (W1m 462 386 496 418)
+
+         (R1a  59   7  93  39)
+         (R1b  93   7 127  39)
+         (R1c 127   7 161  39)
+         (R1d 161   7 195  39)
+         (R1e 195   7 229  39)
+         (R1f 229   7 263  39)
+         (R1g  64   2  98  34)
+         (R1h  98   2 132  34)
+         (R1j 132   2 166  34)
+         (R1k 166   2 200  34)
+         (R1l 200   2 234  34)
+         (R1m 234   2 268  34)
+
+         (G1a 287   7 321  39)
+         (G1b 321   7 355  39)
+         (G1c 355   7 389  39)
+         (G1d 389   7 423  39)
+         (G1e 423   7 457  39)
+         (G1f 457   7 491  39)
+         (G1g 292   2 326  34)
+         (G1h 326   2 360  34)
+         (G1j 360   2 394  34)
+         (G1k 394   2 428  34)
+         (G1l 428   2 462  34)
+         (G1m 462   2 496  34)
+
+         (D1 110 160 144 189) 
+         (D2 144 160 178 189) 
+         (D3 178 160 212 189) 
+         (D4 338 160 372 189) 
+         (D5 372 160 406 189) 
+         (D6 406 160 440 189) 
+     )
+     (links nx
+         (m1a D1) (D1 D2) (D2 D3) (D3 D4) (D4 D5) (D5 D6)
+     )
+     (links up
+         (W1a W1g) (W1b W1h) (W1c W1j) (W1d W1k) (W1e W1l) (W1f W1m) (G1a G1g) (G1b G1h) (G1c G1j) (G1d G1k) (G1e G1l) (G1f G1m) (R1a R1g) (R1b R1h) (R1c R1j) (R1d R1k) (R1e R1l) (R1f R1m) (B1a B1g) (B1b B1h) (B1c B1j) (B1d B1k) (B1e B1l) (B1f B1m)
+         (a1a a1b) (a1b a1c) (a1c a1d) (a1d a1e) (a1e a1f) (a1f a1g) (a1g a1h) (a1h a1i) (a1i a1j) (a1j a1k) (a1k a1l) (a1l a1m) (a1m a1n) (a1n a1o) (a1o a1p) (a1p a1q)
+         (a2a a2b) (a2b a2c) (a2c a2d) (a2d a2e) (a2e a2f) (a2f a2g) (a2g a2h) (a2h a2i) (a2i a2j) (a2j a2k) (a2k a2l) (a2l a2m) (a2m a2n) (a2n a2o) (a2o a2p) (a2p a2q)
+         (b1a b1b) (b1b b1c) (b1c b1d) (b1d b1e) (b1e b1f) (b1f b1g) (b1g b1h) (b1h b1i) (b1i b1j) (b1j b1k) (b1k b1l) (b1l b1m) (b1m b1n) (b1n b1o) (b1o b1p) (b1p b1q) 
+         (b2a b2b) (b2b b2c) (b2c b2d) (b2d b2e) (b2e b2f) (b2f b2g) (b2g b2h) (b2h b2i) (b2i b2j) (b2j b2k) (b2k b2l) (b2l b2m) (b2m b2n) (b2n b2o) (b2o b2p) (b2p b2q)
+         (c1a c1b) (c1b c1c) (c1c c1d) (c1d c1e) (c1e c1f) (c1f c1g) (c1g c1h) (c1h c1i) (c1i c1j) (c1j c1k) (c1k c1l) (c1l c1m) (c1m c1n) (c1n c1o) (c1o c1p) (c1p c1q) 
+         (c2a c2b) (c2b c2c) (c2c c2d) (c2d c2e) (c2e c2f) (c2f c2g) (c2g c2h) (c2h c2i) (c2i c2j) (c2j c2k) (c2k c2l) (c2l c2m) (c2m c2n) (c2n c2o) (c2o c2p) (c2p c2q)
+         (d1a d1b) (d1b d1c) (d1c d1d) (d1d d1e) (d1e d1f) (d1f d1g) (d1g d1h) (d1h d1i) (d1i d1j) (d1j d1k) (d1k d1l) (d1l d1m) (d1m d1n) (d1n d1o) (d1o d1p) (d1p d1q) 
+         (d2a d2b) (d2b d2c) (d2c d2d) (d2d d2e) (d2e d2f) (d2f d2g) (d2g d2h) (d2h d2i) (d2i d2j) (d2j d2k) (d2k d2l) (d2l d2m) (d2m d2n) (d2n d2o) (d2o d2p) (d2p d2q)
+         (e1a e1b) (e1b e1c) (e1c e1d) (e1d e1e) (e1e e1f) (e1f e1g) (e1g e1h) (e1h e1i) (e1i e1j) (e1j e1k) (e1k e1l) (e1l e1m) (e1m e1n) (e1n e1o) (e1o e1p) (e1p e1q) 
+         (e2a e2b) (e2b e2c) (e2c e2d) (e2d e2e) (e2e e2f) (e2f e2g) (e2g e2h) (e2h e2i) (e2i e2j) (e2j e2k) (e2k e2l) (e2l e2m) (e2m e2n) (e2n e2o) (e2o e2p) (e2p e2q)
+         (f1a f1b) (f1b f1c) (f1c f1d) (f1d f1e) (f1e f1f) (f1f f1g) (f1g f1h) (f1h f1i) (f1i f1j) (f1j f1k) (f1k f1l) (f1l f1m) (f1m f1n) (f1n f1o) (f1o f1p) (f1p f1q) 
+         (f2a f2b) (f2b f2c) (f2c f2d) (f2d f2e) (f2e f2f) (f2f f2g) (f2g f2h) (f2h f2i) (f2i f2j) (f2j f2k) (f2k f2l) (f2l f2m) (f2m f2n) (f2n f2o) (f2o f2p) (f2p f2q)
+         (g1a g1b) (g1b g1c) (g1c g1d) (g1d g1e) (g1e g1f) (g1f g1g) (g1g g1h) (g1h g1i) (g1i g1j) (g1j g1k) (g1k g1l) (g1l g1m) (g1m g1n) (g1n g1o) (g1o g1p) (g1p g1q) 
+         (g2a g2b) (g2b g2c) (g2c g2d) (g2d g2e) (g2e g2f) (g2f g2g) (g2g g2h) (g2h g2i) (g2i g2j) (g2j g2k) (g2k g2l) (g2l g2m) (g2m g2n) (g2n g2o) (g2o g2p) (g2p g2q)
+         (h1a h1b) (h1b h1c) (h1c h1d) (h1d h1e) (h1e h1f) (h1f h1g) (h1g h1h) (h1h h1i) (h1i h1j) (h1j h1k) (h1k h1l) (h1l h1m) (h1m h1n) (h1n h1o) (h1o h1p) (h1p h1q) 
+         (h2a h2b) (h2b h2c) (h2c h2d) (h2d h2e) (h2e h2f) (h2f h2g) (h2g h2h) (h2h h2i) (h2i h2j) (h2j h2k) (h2k h2l) (h2l h2m) (h2m h2n) (h2n h2o) (h2o h2p) (h2p h2q)
+         (j1a j1b) (j1b j1c) (j1c j1d) (j1d j1e) (j1e j1f) (j1f j1g) (j1g j1h) (j1h j1i) (j1i j1j) (j1j j1k) (j1k j1l) (j1l j1m) (j1m j1n) (j1n j1o) (j1o j1p) (j1p j1q) 
+         (j2a j2b) (j2b j2c) (j2c j2d) (j2d j2e) (j2e j2f) (j2f j2g) (j2g j2h) (j2h j2i) (j2i j2j) (j2j j2k) (j2k j2l) (j2l j2m) (j2m j2n) (j2n j2o) (j2o j2p) (j2p j2q)
+         (k1a k1b) (k1b k1c) (k1c k1d) (k1d k1e) (k1e k1f) (k1f k1g) (k1g k1h) (k1h k1i) (k1i k1j) (k1j k1k) (k1k k1l) (k1l k1m) (k1m k1n) (k1n k1o) (k1o k1p) (k1p k1q) 
+         (k2a k2b) (k2b k2c) (k2c k2d) (k2d k2e) (k2e k2f) (k2f k2g) (k2g k2h) (k2h k2i) (k2i k2j) (k2j k2k) (k2k k2l) (k2l k2m) (k2m k2n) (k2n k2o) (k2o k2p) (k2p k2q)
+         (l1a l1b) (l1b l1c) (l1c l1d) (l1d l1e) (l1e l1f) (l1f l1g) (l1g l1h) (l1h l1i) (l1i l1j) (l1j l1k) (l1k l1l) (l1l l1m) (l1m l1n) (l1n l1o) (l1o l1p) (l1p l1q) 
+         (l2a l2b) (l2b l2c) (l2c l2d) (l2d l2e) (l2e l2f) (l2f l2g) (l2g l2h) (l2h l2i) (l2i l2j) (l2j l2k) (l2k l2l) (l2l l2m) (l2m l2n) (l2n l2o) (l2o l2p) (l2p l2q)
+         (m1a m1b) (m1b m1c) (m1c m1d) (m1d m1e) (m1e m1f) (m1f m1g) (m1g m1h) (m1h m1i) (m1i m1j) (m1j m1k) (m1k m1l) (m1l m1m) (m1m m1n) (m1n m1o) (m1o m1p) (m1p m1q) 
+         (m2a m2b) (m2b m2c) (m2c m2d) (m2d m2e) (m2e m2f) (m2f m2g) (m2g m2h) (m2h m2i) (m2i m2j) (m2j m2k) (m2k m2l) (m2l m2m) (m2m m2n) (m2n m2o) (m2o m2p) (m2p m2q)
+         (W2a W2b) (W2b W2c) (W2c W2d) (W2d W2e) (W2e W2f) (W2f W2g) (W2g W2h) (W2h W2i) (W2i W2j) (W2j W2k) (W2k W2l) (W2l W2m) (W2m W2n) (W2n W2o) (W2o W2p) (W2p W2q)
+         (G2a G2b) (G2b G2c) (G2c G2d) (G2d G2e) (G2e G2f) (G2f G2g) (G2g G2h) (G2h G2i) (G2i G2j) (G2j G2k) (G2k G2l) (G2l G2m) (G2m G2n) (G2n G2o) (G2o G2p) (G2p G2q)
+         (R2a R2b) (R2b R2c) (R2c R2d) (R2d R2e) (R2e R2f) (R2f R2g) (R2g R2h) (R2h R2i) (R2i R2j) (R2j R2k) (R2k R2l) (R2l R2m) (R2m R2n) (R2n R2o) (R2o R2p) (R2p R2q)
+         (B2a B2b) (B2b B2c) (B2c B2d) (B2d B2e) (B2e B2f) (B2f B2g) (B2g B2h) (B2h B2i) (B2i B2j) (B2j B2k) (B2k B2l) (B2l B2m) (B2m B2n) (B2n B2o) (B2o B2p) (B2p B2q)
+     )
+     (links wx
+         (W1a g1a) (W1b g1a) (W1c g1a) (W1d g1a) (W1e g1a) (W1f g1a) (W1g g1a) (W1h g1a) (W1j g1a) (W1k g1a) (W1l g1a) (W1m g1a)
+         (g1a h1a) (g1b h1a) (g1c h1a) (g1d h1a) (g1e h1a) (g1f h1a) (g1g h1a) (g1h h1a) (g1i h1a) (g1j h1a) (g1k h1a) (g1l h1a) (g1m h1a) (g1n h1a) (g1o h1a) (g1p h1a) (g1q h1a)
+         (h1a j1a) (h1b j1a) (h1c j1a) (h1d j1a) (h1e j1a) (h1f j1a) (h1g j1a) (h1h j1a) (h1i j1a) (h1j j1a) (h1k j1a) (h1l j1a) (h1m j1a) (h1n j1a) (h1o j1a) (h1p j1a) (h1q j1a)
+         (j1a k1a) (j1b k1a) (j1c k1a) (j1d k1a) (j1e k1a) (j1f k1a) (j1g k1a) (j1h k1a) (j1i k1a) (j1j k1a) (j1k k1a) (j1l k1a) (j1m k1a) (j1n k1a) (j1o k1a) (j1p k1a) (j1q k1a)
+         (k1a l1a) (k1b l1a) (k1c l1a) (k1d l1a) (k1e l1a) (k1f l1a) (k1g l1a) (k1h l1a) (k1i l1a) (k1j l1a) (k1k l1a) (k1l l1a) (k1m l1a) (k1n l1a) (k1o l1a) (k1p l1a) (k1q l1a)
+         (l1a m1a) (l1b m1a) (l1c m1a) (l1d m1a) (l1e m1a) (l1f m1a) (l1g m1a) (l1h m1a) (l1i m1a) (l1j m1a) (l1k m1a) (l1l m1a) (l1m m1a) (l1n m1a) (l1o m1a) (l1p m1a) (l1q m1a)
+         (m1a m2a) (m1b m2a) (m1c m2a) (m1d m2a) (m1e m2a) (m1f m2a) (m1g m2a) (m1h m2a) (m1i m2a) (m1j m2a) (m1k m2a) (m1l m2a) (m1m m2a) (m1n m2a) (m1o m2a) (m1p m2a) (m1q m2a)
+         (m2a l2a) (m2b l2a) (m2c l2a) (m2d l2a) (m2e l2a) (m2f l2a) (m2g l2a) (m2h l2a) (m2i l2a) (m2j l2a) (m2k l2a) (m2l l2a) (m2m l2a) (m2n l2a) (m2o l2a) (m2p l2a) (m2q l2a)
+         (l2a k2a) (l2b k2a) (l2c k2a) (l2d k2a) (l2e k2a) (l2f k2a) (l2g k2a) (l2h k2a) (l2i k2a) (l2j k2a) (l2k k2a) (l2l k2a) (l2m k2a) (l2n k2a) (l2o k2a) (l2p k2a) (l2q k2a)
+         (k2a j2a) (k2b j2a) (k2c j2a) (k2d j2a) (k2e j2a) (k2f j2a) (k2g j2a) (k2h j2a) (k2i j2a) (k2j j2a) (k2k j2a) (k2l j2a) (k2m j2a) (k2n j2a) (k2o j2a) (k2p j2a) (k2q j2a)
+         (j2a h2a) (j2b h2a) (j2c h2a) (j2d h2a) (j2e h2a) (j2f h2a) (j2g h2a) (j2h h2a) (j2i h2a) (j2j h2a) (j2k h2a) (j2l h2a) (j2m h2a) (j2n h2a) (j2o h2a) (j2p h2a) (j2q h2a)
+         (h2a g2a) (h2b g2a) (h2c g2a) (h2d g2a) (h2e g2a) (h2f g2a) (h2g g2a) (h2h g2a) (h2i g2a) (h2j g2a) (h2k g2a) (h2l g2a) (h2m g2a) (h2n g2a) (h2o g2a) (h2p g2a) (h2q g2a)
+         (g2a f2a) (g2b f2a) (g2c f2a) (g2d f2a) (g2e f2a) (g2f f2a) (g2g f2a) (g2h f2a) (g2i f2a) (g2j f2a) (g2k f2a) (g2l f2a) (g2m f2a) (g2n f2a) (g2o f2a) (g2p f2a) (g2q f2a)
+         (f2a e2a) (f2b e2a) (f2c e2a) (f2d e2a) (f2e e2a) (f2f e2a) (f2g e2a) (f2h e2a) (f2i e2a) (f2j e2a) (f2k e2a) (f2l e2a) (f2m e2a) (f2n e2a) (f2o e2a) (f2p e2a) (f2q e2a)
+         (e2a d2a) (e2b d2a) (e2c d2a) (e2d d2a) (e2e d2a) (e2f d2a) (e2g d2a) (e2h d2a) (e2i d2a) (e2j d2a) (e2k d2a) (e2l d2a) (e2m d2a) (e2n d2a) (e2o d2a) (e2p d2a) (e2q d2a)
+         (d2a c2a) (d2b c2a) (d2c c2a) (d2d c2a) (d2e c2a) (d2f c2a) (d2g c2a) (d2h c2a) (d2i c2a) (d2j c2a) (d2k c2a) (d2l c2a) (d2m c2a) (d2n c2a) (d2o c2a) (d2p c2a) (d2q c2a)
+         (c2a b2a) (c2b b2a) (c2c b2a) (c2d b2a) (c2e b2a) (c2f b2a) (c2g b2a) (c2h b2a) (c2i b2a) (c2j b2a) (c2k b2a) (c2l b2a) (c2m b2a) (c2n b2a) (c2o b2a) (c2p b2a) (c2q b2a)
+         (b2a a2a) (b2b a2a) (b2c a2a) (b2d a2a) (b2e a2a) (b2f a2a) (b2g a2a) (b2h a2a) (b2i a2a) (b2j a2a) (b2k a2a) (b2l a2a) (b2m a2a) (b2n a2a) (b2o a2a) (b2p a2a) (b2q a2a)
+         (a2a W2a) (a2b W2a) (a2c W2a) (a2d W2a) (a2e W2a) (a2f W2a) (a2g W2a) (a2h W2a) (a2i W2a) (a2j W2a) (a2k W2a) (a2l W2a) (a2m W2a) (a2n W2a) (a2o W2a) (a2p W2a) (a2q W2a)
+     )
+     (links gx
+         (G1a m2a) (G1b m2a) (G1c m2a) (G1d m2a) (G1e m2a) (G1f m2a) (G1g m2a) (G1h m2a) (G1j m2a) (G1k m2a) (G1l m2a) (G1m m2a)
+         (m2a l2a) (m2b l2a) (m2c l2a) (m2d l2a) (m2e l2a) (m2f l2a) (m2g l2a) (m2h l2a) (m2i l2a) (m2j l2a) (m2k l2a) (m2l l2a) (m2m l2a) (m2n l2a) (m2o l2a) (m2p l2a) (m2q l2a)
+         (l2a k2a) (l2b k2a) (l2c k2a) (l2d k2a) (l2e k2a) (l2f k2a) (l2g k2a) (l2h k2a) (l2i k2a) (l2j k2a) (l2k k2a) (l2l k2a) (l2m k2a) (l2n k2a) (l2o k2a) (l2p k2a) (l2q k2a)
+         (k2a j2a) (k2b j2a) (k2c j2a) (k2d j2a) (k2e j2a) (k2f j2a) (k2g j2a) (k2h j2a) (k2i j2a) (k2j j2a) (k2k j2a) (k2l j2a) (k2m j2a) (k2n j2a) (k2o j2a) (k2p j2a) (k2q j2a)
+         (j2a h2a) (j2b h2a) (j2c h2a) (j2d h2a) (j2e h2a) (j2f h2a) (j2g h2a) (j2h h2a) (j2i h2a) (j2j h2a) (j2k h2a) (j2l h2a) (j2m h2a) (j2n h2a) (j2o h2a) (j2p h2a) (j2q h2a)
+         (h2a g2a) (h2b g2a) (h2c g2a) (h2d g2a) (h2e g2a) (h2f g2a) (h2g g2a) (h2h g2a) (h2i g2a) (h2j g2a) (h2k g2a) (h2l g2a) (h2m g2a) (h2n g2a) (h2o g2a) (h2p g2a) (h2q g2a)
+         (g2a f2a) (g2b f2a) (g2c f2a) (g2d f2a) (g2e f2a) (g2f f2a) (g2g f2a) (g2h f2a) (g2i f2a) (g2j f2a) (g2k f2a) (g2l f2a) (g2m f2a) (g2n f2a) (g2o f2a) (g2p f2a) (g2q f2a)
+         (f2a e2a) (f2b e2a) (f2c e2a) (f2d e2a) (f2e e2a) (f2f e2a) (f2g e2a) (f2h e2a) (f2i e2a) (f2j e2a) (f2k e2a) (f2l e2a) (f2m e2a) (f2n e2a) (f2o e2a) (f2p e2a) (f2q e2a)
+         (e2a d2a) (e2b d2a) (e2c d2a) (e2d d2a) (e2e d2a) (e2f d2a) (e2g d2a) (e2h d2a) (e2i d2a) (e2j d2a) (e2k d2a) (e2l d2a) (e2m d2a) (e2n d2a) (e2o d2a) (e2p d2a) (e2q d2a)
+         (d2a c2a) (d2b c2a) (d2c c2a) (d2d c2a) (d2e c2a) (d2f c2a) (d2g c2a) (d2h c2a) (d2i c2a) (d2j c2a) (d2k c2a) (d2l c2a) (d2m c2a) (d2n c2a) (d2o c2a) (d2p c2a) (d2q c2a)
+         (c2a b2a) (c2b b2a) (c2c b2a) (c2d b2a) (c2e b2a) (c2f b2a) (c2g b2a) (c2h b2a) (c2i b2a) (c2j b2a) (c2k b2a) (c2l b2a) (c2m b2a) (c2n b2a) (c2o b2a) (c2p b2a) (c2q b2a)
+         (b2a a2a) (b2b a2a) (b2c a2a) (b2d a2a) (b2e a2a) (b2f a2a) (b2g a2a) (b2h a2a) (b2i a2a) (b2j a2a) (b2k a2a) (b2l a2a) (b2m a2a) (b2n a2a) (b2o a2a) (b2p a2a) (b2q a2a)
+         (a2a a1a) (a2b a1a) (a2c a1a) (a2d a1a) (a2e a1a) (a2f a1a) (a2g a1a) (a2h a1a) (a2i a1a) (a2j a1a) (a2k a1a) (a2l a1a) (a2m a1a) (a2n a1a) (a2o a1a) (a2p a1a) (a2q a1a)
+         (a1a b1a) (a1b b1a) (a1c b1a) (a1d b1a) (a1e b1a) (a1f b1a) (a1g b1a) (a1h b1a) (a1i b1a) (a1j b1a) (a1k b1a) (a1l b1a) (a1m b1a) (a1n b1a) (a1o b1a) (a1p b1a) (a1q b1a) 
+         (b1a c1a) (b1b c1a) (b1c c1a) (b1d c1a) (b1e c1a) (b1f c1a) (b1g c1a) (b1h c1a) (b1i c1a) (b1j c1a) (b1k c1a) (b1l c1a) (b1m c1a) (b1n c1a) (b1o c1a) (b1p c1a) (b1q c1a)
+         (c1a d1a) (c1b d1a) (c1c d1a) (c1d d1a) (c1e d1a) (c1f d1a) (c1g d1a) (c1h d1a) (c1i d1a) (c1j d1a) (c1k d1a) (c1l d1a) (c1m d1a) (c1n d1a) (c1o d1a) (c1p d1a) (c1q d1a)
+         (d1a e1a) (d1b e1a) (d1c e1a) (d1d e1a) (d1e e1a) (d1f e1a) (d1g e1a) (d1h e1a) (d1i e1a) (d1j e1a) (d1k e1a) (d1l e1a) (d1m e1a) (d1n e1a) (d1o e1a) (d1p e1a) (d1q e1a)
+         (e1a f1a) (e1b f1a) (e1c f1a) (e1d f1a) (e1e f1a) (e1f f1a) (e1g f1a) (e1h f1a) (e1i f1a) (e1j f1a) (e1k f1a) (e1l f1a) (e1m f1a) (e1n f1a) (e1o f1a) (e1p f1a) (e1q f1a)
+         (f1a G2a) (f1b G2a) (f1c G2a) (f1d G2a) (f1e G2a) (f1f G2a) (f1g G2a) (f1h G2a) (f1i G2a) (f1j G2a) (f1k G2a) (f1l G2a) (f1m G2a) (f1n G2a) (f1o G2a) (f1p G2a) (f1q G2a)
+     )
+     (links rx
+         (R1a f2a) (R1b f2a) (R1c f2a) (R1d f2a) (R1e f2a) (R1f f2a) (R1g f2a) (R1h f2a) (R1j f2a) (R1k f2a) (R1l f2a) (R1m f2a)
+         (f2a e2a) (f2b e2a) (f2c e2a) (f2d e2a) (f2e e2a) (f2f e2a) (f2g e2a) (f2h e2a) (f2i e2a) (f2j e2a) (f2k e2a) (f2l e2a) (f2m e2a) (f2n e2a) (f2o e2a) (f2p e2a) (f2q e2a)
+         (e2a d2a) (e2b d2a) (e2c d2a) (e2d d2a) (e2e d2a) (e2f d2a) (e2g d2a) (e2h d2a) (e2i d2a) (e2j d2a) (e2k d2a) (e2l d2a) (e2m d2a) (e2n d2a) (e2o d2a) (e2p d2a) (e2q d2a)
+         (d2a c2a) (d2b c2a) (d2c c2a) (d2d c2a) (d2e c2a) (d2f c2a) (d2g c2a) (d2h c2a) (d2i c2a) (d2j c2a) (d2k c2a) (d2l c2a) (d2m c2a) (d2n c2a) (d2o c2a) (d2p c2a) (d2q c2a)
+         (c2a b2a) (c2b b2a) (c2c b2a) (c2d b2a) (c2e b2a) (c2f b2a) (c2g b2a) (c2h b2a) (c2i b2a) (c2j b2a) (c2k b2a) (c2l b2a) (c2m b2a) (c2n b2a) (c2o b2a) (c2p b2a) (c2q b2a)
+         (b2a a2a) (b2b a2a) (b2c a2a) (b2d a2a) (b2e a2a) (b2f a2a) (b2g a2a) (b2h a2a) (b2i a2a) (b2j a2a) (b2k a2a) (b2l a2a) (b2m a2a) (b2n a2a) (b2o a2a) (b2p a2a) (b2q a2a)
+         (a2a a1a) (a2b a1a) (a2c a1a) (a2d a1a) (a2e a1a) (a2f a1a) (a2g a1a) (a2h a1a) (a2i a1a) (a2j a1a) (a2k a1a) (a2l a1a) (a2m a1a) (a2n a1a) (a2o a1a) (a2p a1a) (a2q a1a)
+         (a1a b1a) (a1b b1a) (a1c b1a) (a1d b1a) (a1e b1a) (a1f b1a) (a1g b1a) (a1h b1a) (a1i b1a) (a1j b1a) (a1k b1a) (a1l b1a) (a1m b1a) (a1n b1a) (a1o b1a) (a1p b1a) (a1q b1a) 
+         (b1a c1a) (b1b c1a) (b1c c1a) (b1d c1a) (b1e c1a) (b1f c1a) (b1g c1a) (b1h c1a) (b1i c1a) (b1j c1a) (b1k c1a) (b1l c1a) (b1m c1a) (b1n c1a) (b1o c1a) (b1p c1a) (b1q c1a)
+         (c1a d1a) (c1b d1a) (c1c d1a) (c1d d1a) (c1e d1a) (c1f d1a) (c1g d1a) (c1h d1a) (c1i d1a) (c1j d1a) (c1k d1a) (c1l d1a) (c1m d1a) (c1n d1a) (c1o d1a) (c1p d1a) (c1q d1a)
+         (d1a e1a) (d1b e1a) (d1c e1a) (d1d e1a) (d1e e1a) (d1f e1a) (d1g e1a) (d1h e1a) (d1i e1a) (d1j e1a) (d1k e1a) (d1l e1a) (d1m e1a) (d1n e1a) (d1o e1a) (d1p e1a) (d1q e1a)
+         (e1a f1a) (e1b f1a) (e1c f1a) (e1d f1a) (e1e f1a) (e1f f1a) (e1g f1a) (e1h f1a) (e1i f1a) (e1j f1a) (e1k f1a) (e1l f1a) (e1m f1a) (e1n f1a) (e1o f1a) (e1p f1a) (e1q f1a)
+         (f1a g1a) (f1b g1a) (f1c g1a) (f1d g1a) (f1e g1a) (f1f g1a) (f1g g1a) (f1h g1a) (f1i g1a) (f1j g1a) (f1k g1a) (f1l g1a) (f1m g1a) (f1n g1a) (f1o g1a) (f1p g1a) (f1q g1a)
+         (g1a h1a) (g1b h1a) (g1c h1a) (g1d h1a) (g1e h1a) (g1f h1a) (g1g h1a) (g1h h1a) (g1i h1a) (g1j h1a) (g1k h1a) (g1l h1a) (g1m h1a) (g1n h1a) (g1o h1a) (g1p h1a) (g1q h1a)
+         (h1a j1a) (h1b j1a) (h1c j1a) (h1d j1a) (h1e j1a) (h1f j1a) (h1g j1a) (h1h j1a) (h1i j1a) (h1j j1a) (h1k j1a) (h1l j1a) (h1m j1a) (h1n j1a) (h1o j1a) (h1p j1a) (h1q j1a)
+         (j1a k1a) (j1b k1a) (j1c k1a) (j1d k1a) (j1e k1a) (j1f k1a) (j1g k1a) (j1h k1a) (j1i k1a) (j1j k1a) (j1k k1a) (j1l k1a) (j1m k1a) (j1n k1a) (j1o k1a) (j1p k1a) (j1q k1a)
+         (k1a l1a) (k1b l1a) (k1c l1a) (k1d l1a) (k1e l1a) (k1f l1a) (k1g l1a) (k1h l1a) (k1i l1a) (k1j l1a) (k1k l1a) (k1l l1a) (k1m l1a) (k1n l1a) (k1o l1a) (k1p l1a) (k1q l1a)
+         (l1a m1a) (l1b m1a) (l1c m1a) (l1d m1a) (l1e m1a) (l1f m1a) (l1g m1a) (l1h m1a) (l1i m1a) (l1j m1a) (l1k m1a) (l1l m1a) (l1m m1a) (l1n m1a) (l1o m1a) (l1p m1a) (l1q m1a)
+         (m1a R2a) (m1b R2a) (m1c R2a) (m1d R2a) (m1e R2a) (m1f R2a) (m1g R2a) (m1h R2a) (m1i R2a) (m1j R2a) (m1k R2a) (m1l R2a) (m1m R2a) (m1n R2a) (m1o R2a) (m1p R2a) (m1q R2a)
+     )
+     (links bx
+         (B1a a1a) (B1b a1a) (B1c a1a) (B1d a1a) (B1e a1a) (B1f a1a) (B1g a1a) (B1h a1a) (B1j a1a) (B1k a1a) (B1l a1a) (B1m a1a)
+         (a1a b1a) (a1b b1a) (a1c b1a) (a1d b1a) (a1e b1a) (a1f b1a) (a1g b1a) (a1h b1a) (a1i b1a) (a1j b1a) (a1k b1a) (a1l b1a) (a1m b1a) (a1n b1a) (a1o b1a) (a1p b1a) (a1q b1a) 
+         (b1a c1a) (b1b c1a) (b1c c1a) (b1d c1a) (b1e c1a) (b1f c1a) (b1g c1a) (b1h c1a) (b1i c1a) (b1j c1a) (b1k c1a) (b1l c1a) (b1m c1a) (b1n c1a) (b1o c1a) (b1p c1a) (b1q c1a)
+         (c1a d1a) (c1b d1a) (c1c d1a) (c1d d1a) (c1e d1a) (c1f d1a) (c1g d1a) (c1h d1a) (c1i d1a) (c1j d1a) (c1k d1a) (c1l d1a) (c1m d1a) (c1n d1a) (c1o d1a) (c1p d1a) (c1q d1a)
+         (d1a e1a) (d1b e1a) (d1c e1a) (d1d e1a) (d1e e1a) (d1f e1a) (d1g e1a) (d1h e1a) (d1i e1a) (d1j e1a) (d1k e1a) (d1l e1a) (d1m e1a) (d1n e1a) (d1o e1a) (d1p e1a) (d1q e1a)
+         (e1a f1a) (e1b f1a) (e1c f1a) (e1d f1a) (e1e f1a) (e1f f1a) (e1g f1a) (e1h f1a) (e1i f1a) (e1j f1a) (e1k f1a) (e1l f1a) (e1m f1a) (e1n f1a) (e1o f1a) (e1p f1a) (e1q f1a)
+         (f1a g1a) (f1b g1a) (f1c g1a) (f1d g1a) (f1e g1a) (f1f g1a) (f1g g1a) (f1h g1a) (f1i g1a) (f1j g1a) (f1k g1a) (f1l g1a) (f1m g1a) (f1n g1a) (f1o g1a) (f1p g1a) (f1q g1a)
+         (g1a h1a) (g1b h1a) (g1c h1a) (g1d h1a) (g1e h1a) (g1f h1a) (g1g h1a) (g1h h1a) (g1i h1a) (g1j h1a) (g1k h1a) (g1l h1a) (g1m h1a) (g1n h1a) (g1o h1a) (g1p h1a) (g1q h1a)
+         (h1a j1a) (h1b j1a) (h1c j1a) (h1d j1a) (h1e j1a) (h1f j1a) (h1g j1a) (h1h j1a) (h1i j1a) (h1j j1a) (h1k j1a) (h1l j1a) (h1m j1a) (h1n j1a) (h1o j1a) (h1p j1a) (h1q j1a)
+         (j1a k1a) (j1b k1a) (j1c k1a) (j1d k1a) (j1e k1a) (j1f k1a) (j1g k1a) (j1h k1a) (j1i k1a) (j1j k1a) (j1k k1a) (j1l k1a) (j1m k1a) (j1n k1a) (j1o k1a) (j1p k1a) (j1q k1a)
+         (k1a l1a) (k1b l1a) (k1c l1a) (k1d l1a) (k1e l1a) (k1f l1a) (k1g l1a) (k1h l1a) (k1i l1a) (k1j l1a) (k1k l1a) (k1l l1a) (k1m l1a) (k1n l1a) (k1o l1a) (k1p l1a) (k1q l1a)
+         (l1a m1a) (l1b m1a) (l1c m1a) (l1d m1a) (l1e m1a) (l1f m1a) (l1g m1a) (l1h m1a) (l1i m1a) (l1j m1a) (l1k m1a) (l1l m1a) (l1m m1a) (l1n m1a) (l1o m1a) (l1p m1a) (l1q m1a)
+         (m1a m2a) (m1b m2a) (m1c m2a) (m1d m2a) (m1e m2a) (m1f m2a) (m1g m2a) (m1h m2a) (m1i m2a) (m1j m2a) (m1k m2a) (m1l m2a) (m1m m2a) (m1n m2a) (m1o m2a) (m1p m2a) (m1q m2a)
+         (m2a l2a) (m2b l2a) (m2c l2a) (m2d l2a) (m2e l2a) (m2f l2a) (m2g l2a) (m2h l2a) (m2i l2a) (m2j l2a) (m2k l2a) (m2l l2a) (m2m l2a) (m2n l2a) (m2o l2a) (m2p l2a) (m2q l2a)
+         (l2a k2a) (l2b k2a) (l2c k2a) (l2d k2a) (l2e k2a) (l2f k2a) (l2g k2a) (l2h k2a) (l2i k2a) (l2j k2a) (l2k k2a) (l2l k2a) (l2m k2a) (l2n k2a) (l2o k2a) (l2p k2a) (l2q k2a)
+         (k2a j2a) (k2b j2a) (k2c j2a) (k2d j2a) (k2e j2a) (k2f j2a) (k2g j2a) (k2h j2a) (k2i j2a) (k2j j2a) (k2k j2a) (k2l j2a) (k2m j2a) (k2n j2a) (k2o j2a) (k2p j2a) (k2q j2a)
+         (j2a h2a) (j2b h2a) (j2c h2a) (j2d h2a) (j2e h2a) (j2f h2a) (j2g h2a) (j2h h2a) (j2i h2a) (j2j h2a) (j2k h2a) (j2l h2a) (j2m h2a) (j2n h2a) (j2o h2a) (j2p h2a) (j2q h2a)
+         (h2a g2a) (h2b g2a) (h2c g2a) (h2d g2a) (h2e g2a) (h2f g2a) (h2g g2a) (h2h g2a) (h2i g2a) (h2j g2a) (h2k g2a) (h2l g2a) (h2m g2a) (h2n g2a) (h2o g2a) (h2p g2a) (h2q g2a)
+         (g2a B2a) (g2b B2a) (g2c B2a) (g2d B2a) (g2e B2a) (g2f B2a) (g2g B2a) (g2h B2a) (g2i B2a) (g2j B2a) (g2k B2a) (g2l B2a) (g2m B2a) (g2n B2a) (g2o B2a) (g2p B2a) (g2q B2a)
+     )
+     (links wc
+         (m1a W1a) (W1a W1b) (W1b W1c) (W1c W1d) (W1d W1e) (W1e W1f) (W1f W1g) (W1g W1h) (W1h W1j) (W1j W1k) (W1k W1l) (W1l W1m)
+     )
+     (links gc
+         (m1a G1a) (G1a G1b) (G1b G1c) (G1c G1d) (G1d G1e) (G1e G1f) (G1f G1g) (G1g G1h) (G1h G1j) (G1j G1k) (G1k G1l) (G1l G1m)
+     )
+     (links rc
+         (m1a R1a) (R1a R1b) (R1b R1c) (R1c R1d) (R1d R1e) (R1e R1f) (R1f R1g) (R1g R1h) (R1h R1j) (R1j R1k) (R1k R1l) (R1l R1m)
+     )
+     (links bc
+         (m1a B1a) (B1a B1b) (B1b B1c) (B1c B1d) (B1d B1e) (B1e B1f) (B1f B1g) (B1g B1h) (B1h B1j) (B1j B1k) (B1k B1l) (B1l B1m)
+     )
+     (links wh (m1a f2a))
+     (links gh (m1a a1a))
+     (links rh (m1a g1a))
+     (links bh (m1a m2a))
+     (links ch
+         (f2a e2a) (e2a d2a) (d2a c2a) (c2a b2a) (b2a a2a)
+         (a1a b1a) (b1a c1a) (c1a d1a) (d1a e1a) (e1a f1a)
+         (g1a h1a) (h1a j1a) (j1a k1a) (k1a l1a) (l1a m1a)
+         (m2a l2a) (l2a k2a) (k2a j2a) (j2a h2a) (h2a g2a)
+     )
+     (symmetry Green (nx nx) (wx gx) (gx wx) (rx rx) (bx bx) (wc gc) (gc wc) (rc rc) (bc bc) (up up) (wh gh) (gh wh) (rh rh) (bh bh) (ch ch))
+     (symmetry Red   (nx nx) (wx rx) (rx wx) (gx gx) (bx bx) (wc rc) (rc wc) (gc gc) (bc bc) (up up) (wh rh) (gh gh) (rh wh) (bh bh) (ch ch))
+     (symmetry Black (nx nx) (wx bx) (bx wx) (rx rx) (gx gx) (wc bc) (bc wc) (rc rc) (gc gc) (up up) (wh bh) (gh gh) (rh rh) (bh wh) (ch ch))
+     (zone (name home-zone) (players White)
+           (positions a2a b2a c2a d2a e2a f2a W2a
+                      a2b b2b c2b d2b e2b f2b W2b
+                      a2c b2c c2c d2c e2c f2c W2c
+                      a2d b2d c2d d2d e2d f2d W2d
+                      a2e b2e c2e d2e e2e f2e W2e
+                      a2f b2f c2f d2f e2f f2f W2f
+                      a2g b2g c2g d2g e2g f2g W2g
+                      a2h b2h c2h d2h e2h f2h W2h
+                      a2i b2i c2i d2i e2i f2i W2i
+                      a2j b2j c2j d2j e2j f2j W2j
+                      a2k b2k c2k d2k e2k f2k W2k
+                      a2l b2l c2l d2l e2l f2l W2l
+                      a2m b2m c2m d2m e2m f2m W2m
+                      a2n b2n c2n d2n e2n f2n W2n
+                      a2o b2o c2o d2o e2o f2o W2o
+                      a2p b2p c2p d2p e2p f2p W2p
+                      a2q b2q c2q d2q e2q f2q W2q
+           )
+     )
+     (zone (name home-zone) (players Green)
+           (positions a1a b1a c1a d1a e1a f1a G2a
+                      a1b b1b c1b d1b e1b f1b G2b
+                      a1c b1c c1c d1c e1c f1c G2c
+                      a1d b1d c1d d1d e1d f1d G2d
+                      a1e b1e c1e d1e e1e f1e G2e
+                      a1f b1f c1f d1f e1f f1f G2f
+                      a1g b1g c1g d1g e1g f1g G2g
+                      a1h b1h c1h d1h e1h f1h G2h
+                      a1i b1i c1i d1i e1i f1i G2i
+                      a1j b1j c1j d1j e1j f1j G2j
+                      a1k b1k c1k d1k e1k f1k G2k
+                      a1l b1l c1l d1l e1l f1l G2l
+                      a1m b1m c1m d1m e1m f1m G2m
+                      a1n b1n c1n d1n e1n f1n G2n
+                      a1o b1o c1o d1o e1o f1o G2o
+                      a1p b1p c1p d1p e1p f1p G2p
+                      a1q b1q c1q d1q e1q f1q G2q
+           )
+     )
+     (zone (name home-zone) (players Red)
+           (positions g1a h1a j1a k1a l1a m1a R2a
+                      g1b h1b j1b k1b l1b m1b R2b
+                      g1c h1c j1c k1c l1c m1c R2c
+                      g1d h1d j1d k1d l1d m1d R2d
+                      g1e h1e j1e k1e l1e m1e R2e
+                      g1f h1f j1f k1f l1f m1f R2f
+                      g1g h1g j1g k1g l1g m1g R2g
+                      g1h h1h j1h k1h l1h m1h R2h
+                      g1i h1i j1i k1i l1i m1i R2i
+                      g1j h1j j1j k1j l1j m1j R2j
+                      g1k h1k j1k k1k l1k m1k R2k
+                      g1l h1l j1l k1l l1l m1l R2l
+                      g1m h1m j1m k1m l1m m1m R2m
+                      g1n h1n j1n k1n l1n m1n R2n
+                      g1o h1o j1o k1o l1o m1o R2o
+                      g1p h1p j1p k1p l1p m1p R2p
+                      g1q h1q j1q k1q l1q m1q R2q
+           )
+     )
+     (zone (name home-zone) (players Black)
+           (positions g2a h2a j2a k2a l2a m2a B2a
+                      g2b h2b j2b k2b l2b m2b B2b
+                      g2c h2c j2c k2c l2c m2c B2c
+                      g2d h2d j2d k2d l2d m2d B2d
+                      g2e h2e j2e k2e l2e m2e B2e
+                      g2f h2f j2f k2f l2f m2f B2f
+                      g2g h2g j2g k2g l2g m2g B2g
+                      g2h h2h j2h k2h l2h m2h B2h
+                      g2i h2i j2i k2i l2i m2i B2i
+                      g2j h2j j2j k2j l2j m2j B2j
+                      g2k h2k j2k k2k l2k m2k B2k
+                      g2l h2l j2l k2l l2l m2l B2l
+                      g2m h2m j2m k2m l2m m2m B2m
+                      g2n h2n j2n k2n l2n m2n B2n
+                      g2o h2o j2o k2o l2o m2o B2o
+                      g2p h2p j2p k2p l2p m2p B2p
+                      g2q h2q j2q k2q l2q m2q B2q
+           )
+     )
+     (zone (name dice-zone) (players Black Green)
+           (positions D1 D2 D3)
+     )
+     (zone (name dice-zone) (players White Red)
+           (positions D4 D5 D6)
+     )
+     (zone (name bar-zone) (players White)
+           (positions W1a W1b W1c W1d W1e W1f W1g W1h W1j W1k W1l W1m)
+     )
+     (zone (name bar-zone) (players Green)
+           (positions G1a G1b G1c G1d G1e G1f G1g G1h G1j G1k G1l G1m)
+     )
+     (zone (name bar-zone) (players Red)
+           (positions R1a R1b R1c R1d R1e R1f R1g R1h R1j R1k R1l R1m)
+     )
+     (zone (name bar-zone) (players Black)
+           (positions B1a B1b B1c B1d B1e B1f B1g B1h B1j B1k B1l B1m)
+     )
+     (zone (name out-zone) (players White Green Red Black)
+           (positions W2a W2b W2c W2d W2e W2f W2g W2h W2i W2j W2k W2l W2m W2n W2o W2p W2q G2a G2b G2c G2d G2e G2f G2g G2h G2i G2j G2k G2l G2m G2n G2o G2p G2q R2a R2b R2c R2d R2e R2f R2g R2h R2i R2j R2k R2l R2m R2n R2o R2p R2q B2a B2b B2c B2d B2e B2f B2g B2h B2i B2j B2k B2l B2m B2n B2o B2p B2q)
+     )
+     (zone (name top-zone) (players White Green Red Black)
+           (positions a1a b1a c1a d1a e1a f1a g1a h1a j1a k1a l1a m1a G2a R2a
+                      a1b b1b c1b d1b e1b f1b g1b h1b j1b k1b l1b m1b G2b R2b
+                      a1c b1c c1c d1c e1c f1c g1c h1c j1c k1c l1c m1c G2c R2c
+                      a1d b1d c1d d1d e1d f1d g1d h1d j1d k1d l1d m1d G2d R2d
+                      a1e b1e c1e d1e e1e f1e g1e h1e j1e k1e l1e m1e G2e R2e
+                      a1f b1f c1f d1f e1f f1f g1f h1f j1f k1f l1f m1f G2f R2f
+                      a1g b1g c1g d1g e1g f1g g1g h1g j1g k1g l1g m1g G2g R2g
+                      a1h b1h c1h d1h e1h f1h g1h h1h j1h k1h l1h m1h G2h R2h
+                      a1i b1i c1i d1i e1i f1i g1i h1i j1i k1i l1i m1i G2i R2i
+                      a1j b1j c1j d1j e1j f1j g1j h1j j1j k1j l1j m1j G2j R2j
+                      a1k b1k c1k d1k e1k f1k g1k h1k j1k k1k l1k m1k G2k R2k
+                      a1l b1l c1l d1l e1l f1l g1l h1l j1l k1l l1l m1l G2l R2l
+                      a1m b1m c1m d1m e1m f1m g1m h1m j1m k1m l1m m1m G2m R2m
+                      a1n b1n c1n d1n e1n f1n g1n h1n j1n k1n l1n m1n G2n R2n
+                      a1o b1o c1o d1o e1o f1o g1o h1o j1o k1o l1o m1o G2o R2o
+                      a1p b1p c1p d1p e1p f1p g1p h1p j1p k1p l1p m1p G2p R2p
+                      a1q b1q c1q d1q e1q f1q g1q h1q j1q k1q l1q m1q G2q R2q
+           )
+     )
+     (zone (name board-zone) (players White Green Red Black)
+           (positions a1a b1a c1a d1a e1a f1a g1a h1a j1a k1a l1a m1a 
+                      a1b b1b c1b d1b e1b f1b g1b h1b j1b k1b l1b m1b 
+                      a1c b1c c1c d1c e1c f1c g1c h1c j1c k1c l1c m1c 
+                      a1d b1d c1d d1d e1d f1d g1d h1d j1d k1d l1d m1d 
+                      a1e b1e c1e d1e e1e f1e g1e h1e j1e k1e l1e m1e 
+                      a1f b1f c1f d1f e1f f1f g1f h1f j1f k1f l1f m1f 
+                      a1g b1g c1g d1g e1g f1g g1g h1g j1g k1g l1g m1g 
+                      a1h b1h c1h d1h e1h f1h g1h h1h j1h k1h l1h m1h 
+                      a1i b1i c1i d1i e1i f1i g1i h1i j1i k1i l1i m1i 
+                      a1j b1j c1j d1j e1j f1j g1j h1j j1j k1j l1j m1j 
+                      a1k b1k c1k d1k e1k f1k g1k h1k j1k k1k l1k m1k 
+                      a1l b1l c1l d1l e1l f1l g1l h1l j1l k1l l1l m1l 
+                      a1m b1m c1m d1m e1m f1m g1m h1m j1m k1m l1m m1m 
+                      a1n b1n c1n d1n e1n f1n g1n h1n j1n k1n l1n m1n 
+                      a1o b1o c1o d1o e1o f1o g1o h1o j1o k1o l1o m1o 
+                      a1p b1p c1p d1p e1p f1p g1p h1p j1p k1p l1p m1p 
+                      a1q b1q c1q d1q e1q f1q g1q h1q j1q k1q l1q m1q 
+                      a2a b2a c2a d2a e2a f2a g2a h2a j2a k2a l2a m2a
+                      a2b b2b c2b d2b e2b f2b g2b h2b j2b k2b l2b m2b
+                      a2c b2c c2c d2c e2c f2c g2c h2c j2c k2c l2c m2c
+                      a2d b2d c2d d2d e2d f2d g2d h2d j2d k2d l2d m2d
+                      a2e b2e c2e d2e e2e f2e g2e h2e j2e k2e l2e m2e
+                      a2f b2f c2f d2f e2f f2f g2f h2f j2f k2f l2f m2f
+                      a2g b2g c2g d2g e2g f2g g2g h2g j2g k2g l2g m2g
+                      a2h b2h c2h d2h e2h f2h g2h h2h j2h k2h l2h m2h
+                      a2i b2i c2i d2i e2i f2i g2i h2i j2i k2i l2i m2i
+                      a2j b2j c2j d2j e2j f2j g2j h2j j2j k2j l2j m2j
+                      a2k b2k c2k d2k e2k f2k g2k h2k j2k k2k l2k m2k
+                      a2l b2l c2l d2l e2l f2l g2l h2l j2l k2l l2l m2l
+                      a2m b2m c2m d2m e2m f2m g2m h2m j2m k2m l2m m2m
+                      a2n b2n c2n d2n e2n f2n g2n h2n j2n k2n l2n m2n
+                      a2o b2o c2o d2o e2o f2o g2o h2o j2o k2o l2o m2o
+                      a2p b2p c2p d2p e2p f2p g2p h2p j2p k2p l2p m2p
+                      a2q b2q c2q d2q e2q f2q g2q h2q j2q k2q l2q m2q
+           )
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/backgammon/white.bmp"
+            Green "images/backgammon/green.bmp"
+            Red   "images/backgammon/Red.bmp"
+            Black "images/backgammon/black.bmp")
+     (moves
+         (move-type normal-type)
+         (step-1 wx) (step-2 wx)
+         (step-3 wx) (step-4 wx)
+         (step-5 wx) (step-6 wx)
+     )
+  )
+  (d 1) (d 2) (d 3) (d 4) (d 5) (d 6)
+
+  (board-setup
+    (White (Man W1a W1b W1c W1d W1e W1f W1g W1h W1j W1k W1l W1m))
+    (Green (Man G1a G1b G1c G1d G1e G1f G1g G1h G1j G1k G1l G1m))
+    (Red   (Man R1a R1b R1c R1d R1e R1f R1g R1h R1j R1k R1l R1m))
+    (Black (Man B1a B1b B1c B1d B1e B1f B1g B1h B1j B1k B1l B1m))
+  )
+)

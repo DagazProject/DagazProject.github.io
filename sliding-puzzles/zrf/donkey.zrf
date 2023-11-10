@@ -1,0 +1,124 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Red Donkey")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T B0010 1) (T B0001 1) 
+  (T R0110F 2) (T R1010F 2) (T R0101F 2) (T R1001F 2)
+  (T B0010 3) (T B0001 3) 
+  (T B0010 4) (T B0001 4) 
+  (T B0100 5) (T B1000 5) 
+  (T B0010 6) (T B0001 6) 
+  (T B0000 7)
+  (T B0000 8)
+  (T B0000 9)
+  (T B0000 10)
+
+  (board-setup
+     (You 
+         (B00101 a5)  (B00011 a4) 
+         (R0110F2 b5) (R1010F2 c5) (R0101F2 b4) (R1001F2 c4)
+         (B00103 d5)  (B00013 d4) 
+         (B00104 a3)  (B00014 a2) 
+         (B01005 b3)  (B10005 c3) 
+         (B00106 d3)  (B00016 d2) 
+         (B00007 b2)
+         (B00008 c2)
+         (B00009 a1)
+         (B000010 d1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F2 (b2))
+     (absolute-config R1010F2 (c2))
+     (absolute-config R0101F2 (b1))
+     (absolute-config R1001F2 (c1))
+  ))
+)
+
+(variant
+  (board-setup
+     (You 
+         (B00101  a4)  (B00011 a3) 
+         (R0110F2 a2)  (R1010F2 b2) (R0101F2 a1) (R1001F2 b1)
+         (B00103  b4)  (B00013  b3) 
+         (B00104  c5)  (B00014  c4) 
+         (B01005  c2)  (B10005  d2) 
+         (B00106  d5)  (B00016  d4) 
+         (B00007  a5)
+         (B00008  b5)
+         (B00009  c3)
+         (B000010 d3)
+     )
+  )
+)
+
+(variant
+  (board-setup
+     (You 
+         (B00101  c5)  (B00011  c4) 
+         (R0110F2 a5)  (R1010F2 b5) (R0101F2 a4) (R1001F2 b4)
+         (B00103  b3)  (B00013  b2) 
+         (B00104  c3)  (B00014  c2) 
+         (B01005  a1)  (B10005  b1) 
+         (B00106  d3)  (B00016  d2) 
+         (B00007  d4)
+         (B00008  a3)
+         (B00009  c1)
+         (B000010 d1)
+     )
+  )
+)
+
+(variant
+  (board-setup
+     (You 
+         (B00101  d5)  (B00011  d4) 
+         (R0110F2 b5)  (R1010F2 c5) (R0101F2 b4) (R1001F2 c4)
+         (B00103  a2)  (B00013  a1) 
+         (B00104  c3)  (B00014  c2) 
+         (B01005  a3)  (B10005  b3) 
+         (B00106  d2)  (B00016  d1) 
+         (B00007  a5)
+         (B00008  a4)
+         (B00009  b2)
+         (B000010 d3)
+     )
+  )
+)
+
+(variant
+  (board-setup
+     (You 
+         (B00101  b5)  (B00011  b4) 
+         (R0110F2 c4)  (R1010F2 d4) (R0101F2 c3) (R1001F2 d3)
+         (B00103  a4)  (B00013  a3) 
+         (B00104  a2)  (B00014  a1) 
+         (B01005  b2)  (B10005  c2) 
+         (B00106  d2)  (B00016  d1) 
+         (B00007  a5)
+         (B00008  b3)
+         (B00009  c5)
+         (B000010 d5)
+     )
+  )
+)

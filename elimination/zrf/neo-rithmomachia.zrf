@@ -1,0 +1,124 @@
+(define step-1 (
+  $1 (verify empty?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define step-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define c
+  (piece
+     (name C$1)
+     (image White "images/rithmomachia/wr$1.bmp"
+            Black "images/rithmomachia/br$1.bmp")
+     (moves
+         (step-1 n) (step-1 nw)
+         (step-1 e) (step-1 ne)
+         (step-1 w) (step-1 sw)
+         (step-1 s) (step-1 se)
+     )
+  )
+)
+
+(define t
+  (piece
+     (name T$1)
+     (image White "images/rithmomachia/wt$1.bmp"
+            Black "images/rithmomachia/bt$1.bmp")
+     (moves
+         (step-1 n) (step-1 nw)
+         (step-1 e) (step-1 ne)
+         (step-1 w) (step-1 sw)
+         (step-1 s) (step-1 se)
+         (step-2 n) (step-2 nw)
+         (step-2 e) (step-2 ne)
+         (step-2 w) (step-2 sw)
+         (step-2 s) (step-2 se)
+     )
+  )
+)
+
+(define r
+  (piece
+     (name S$1)
+     (image White "images/rithmomachia/ws$1.bmp"
+            Black "images/rithmomachia/bs$1.bmp")
+     (moves
+         (step-1 n) (step-1 nw)
+         (step-1 e) (step-1 ne)
+         (step-1 w) (step-1 sw)
+         (step-1 s) (step-1 se)
+         (step-2 n) (step-2 nw)
+         (step-2 e) (step-2 ne)
+         (step-2 w) (step-2 sw)
+         (step-2 s) (step-2 se)
+         (step-3 n) (step-3 nw)
+         (step-3 e) (step-3 ne)
+         (step-3 w) (step-3 sw)
+         (step-3 s) (step-3 se)
+     )
+  )
+)
+
+(define p
+  (piece
+     (name P$1)
+     (image White "images/rithmomachia/wp$1.bmp"
+            Black "images/rithmomachia/bp$1.bmp")
+  )
+)
+
+(game
+  (title "Neo Rithmomachia")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/rithmomachia/8x9.bmp")
+     (grid
+         (start-rectangle 4 4 36 36)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (35 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+  )
+
+  (c 2) (c 4) (c 6) (c 8) (c 16) (c 36) (c 64)
+  (c 3) (c 5) (c 7) (c 9) (c 25) (c 49) (c 81)
+  (t 6) (t 9) (t 16) (t 20) (t 25) (t 42) (t 49) (t 72) (t 81)
+  (t 12) (t 16) (t 30) (t 36) (t 56) (t 64) (t 90) (t 100)
+  (r 15) (r 25) (r 45) (r 81) (r 153) (r 169) (r 289)
+  (r 28) (r 49) (r 66) (r 120) (r 121) (r 225) (r 361)
+  (p 91) (p 190)
+
+  (board-setup
+    (White 
+       (C2 c4) (C4 c3 d4) (C6 e4) (C8 f4) (C16 d3) (C36 e3) (C64 f3)
+       (T6 c2) (T9 a3) (T20 d2) (T25 b3) (T42 e2) (T49 g3) (T72 f2) (T81 h3)
+       (S15 a2) (S25 a1) (S45 b2) (S81 b1) (S153 h2) (S169 g1) (S289 h1)
+       (P91 g2)
+    )
+    (Black 
+       (C3 f6) (C5 e6) (C7 d6) (C9 c6 f7) (C25 e7) (C49 d7) (C81 c7)
+       (T12 f7) (T16 h8) (T30 e7) (T36 g8) (T56 d7) (T64 b8) (T90 c7) (T100 a8)
+       (S28 h8) (S49 h9) (S66 g8) (S120 b8) (S121 g9) (S225 b9) (S361 a9)
+       (P190 a8)
+    )
+  )
+)

@@ -1,0 +1,61 @@
+(define drop-piece (
+  (verify empty?)
+  add
+))
+
+(define step (
+  $1 (while not-empty? $1)
+  add
+))
+
+(game
+  (title "Alak")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/11.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (60 0)) ; files
+           ("1" (0 60)) ; ranks
+         )
+         (directions 
+           (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/wbig.bmp"
+            Black "images/bbig.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+)
+
+(variant
+  (title "Alak Checkers")
+  (default)
+
+  (piece
+     (name Stone)
+     (image White "images/wbig.bmp"
+            Black "images/bbig.bmp")
+     (moves
+         (step e) (step w)
+     )
+  )
+
+  (board-setup
+     (White (Stone a1 b1 c1 d1)) 
+     (Black (Stone h1 i1 j1 k1))
+  )
+)

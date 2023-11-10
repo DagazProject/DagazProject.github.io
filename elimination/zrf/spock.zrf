@@ -1,0 +1,155 @@
+(define init
+  (set-flag is-rock (piece? Rock))
+  (set-flag is-scis (piece? Scissors))
+  (set-flag is-lizr (piece? Lizard))
+  (set-flag is-papr (piece? Paper))
+  (set-flag is-spck (piece? Spock))
+)
+
+(define add-piece
+  (if (flag? is-rock)
+      (create Scissors)
+  )
+  (if (flag? is-scis)
+      (create Lizard)
+  )
+  (if (flag? is-lizr)
+      (create Paper)
+  )
+  (if (flag? is-papr)
+      (create Spock)
+  )
+  (if (flag? is-spck)
+      (create Rock)
+  )
+)
+
+(define step (
+  $1 (while friend? $1)
+  (verify not-friend?)
+  (if not-empty?
+      (verify (or (piece? Scissors) (piece? Lizard)))
+  )
+  add
+))
+
+(define slide (
+  $1 (while 
+     (or friend? empty?) 
+     (if empty? add)
+     $1
+  )
+  (verify not-friend?)
+  (if not-empty?
+      (verify (or (piece? $2) (piece? $3)))
+  )
+  add
+))
+
+(define leap (
+  mark $1 $2 
+  (verify not-empty?)
+  (init) back (add-piece)
+  $1 $2 
+  add
+))
+
+(game
+  (title "Spock")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players Blue Red)
+  (turn-order Blue Red)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/spock/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+  )
+
+  (piece
+     (name Spock) ; 1000
+     (image Blue "images/spock/kb.bmp"
+            Red "images/spock/kr.bmp")
+     (moves
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Rock) ; 4
+     (image Blue "images/spock/rb.bmp"
+            Red "images/spock/rr.bmp")
+     (moves
+         (step n) (step nw)
+         (step s) (step se)
+         (step w) (step sw)
+         (step e) (step ne)
+     )
+  )
+  (piece
+     (name Scissors) ; 8
+     (image Blue "images/spock/sb.bmp"
+            Red "images/spock/sr.bmp")
+     (moves
+         (slide nw Lizard Paper)
+         (slide se Lizard Paper)
+         (slide sw Lizard Paper)
+         (slide ne Lizard Paper)
+     )
+  )
+  (piece
+     (name Lizard) ; 16
+     (image Blue "images/spock/lb.bmp"
+            Red "images/spock/lr.bmp")
+     (moves
+         (slide n Paper Spock) (slide nw Paper Spock)
+         (slide s Paper Spock) (slide se Paper Spock)
+         (slide w Paper Spock) (slide sw Paper Spock)
+         (slide e Paper Spock) (slide ne Paper Spock)
+     )
+  )
+  (piece
+     (name Paper) ; 14
+     (image Blue "images/spock/pb.bmp"
+            Red "images/spock/pr.bmp")
+     (moves
+         (slide n Spock Rock) (slide s Spock Rock)
+         (slide w Spock Rock) (slide e Spock Rock)
+     )
+  )
+
+  (board-setup
+    (Blue
+       (Rock a2 b2 c2 d2 e2)
+       (Spock c1)
+       (Scissors b1 d1)
+       (Paper a1 e1)
+    )
+    (Red
+       (Rock a4 b4 c4 d4 e4)
+       (Spock c5)
+       (Scissors b5 d5)
+       (Paper a5 e5)
+    )
+  )
+
+  (loss-condition (Blue Red) (pieces-remaining 0 Spock))
+  (loss-condition (Blue Red) stalemated)
+)

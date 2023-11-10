@@ -1,0 +1,178 @@
+(define step-1 (
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define join-1 (
+  $1 (verify friend?)
+  (verify (piece? $2))
+  (add $3)
+))
+
+(define join-2 (
+  $1 (verify empty?)
+  $1 (verify friend?)
+  (verify (piece? $2))
+  (add $3)
+))
+
+(game
+  (title "Martian Chess")
+
+  (players Purple Orange Blue Green)
+  (turn-order Purple Orange Blue Green)
+
+  (board
+     (image "images/martian/8x8.bmp")
+     (grid
+         (start-rectangle 20 2 70 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name home) (players Purple)
+           (positions e1 f1 g1 h1 e2 f2 g2 h2 e3 f3 g3 h3 e4 f4 g4 h4)
+     )
+     (zone (name home) (players Orange)
+           (positions a1 b1 c1 d1 a2 b2 c2 d2 a3 b3 c3 d3 a4 b4 c4 d4)
+     )
+     (zone (name home) (players Blue)
+           (positions a5 b5 c5 d5 a6 b6 c6 d6 a7 b7 c7 d7 a8 b8 c8 d8)
+     )
+     (zone (name home) (players Green)
+           (positions e5 f5 g5 h5 e6 f6 g6 h6 e7 f7 g7 h7 e8 f8 g8 h8)
+     )
+  )
+
+  (piece
+     (name Bishop)
+     (image Purple "images/martian/pbishop.bmp"
+            Orange "images/martian/obishop.bmp"
+            Blue   "images/martian/bbishop.bmp"
+            Green  "images/martian/gbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (step-1 nw) (step-1 ne)
+         (step-1 sw) (step-1 se)
+         (move-type join-type)
+         (join-1 nw Bishop Drone) (join-1 ne Bishop Drone)
+         (join-1 sw Bishop Drone) (join-1 se Bishop Drone)
+         (join-1 nw Drone Queen) (join-1 ne Drone Queen)
+         (join-1 sw Drone Queen) (join-1 se Drone Queen)
+     )
+  )
+  (piece
+     (name Drone)
+     (image Purple "images/martian/prook.bmp"
+            Orange "images/martian/orook.bmp"
+            Blue   "images/martian/brook.bmp"
+            Green  "images/martian/grook.bmp")
+     (moves
+         (move-type normal-type)
+         (step-1 n) (step-2 n)
+         (step-1 e) (step-2 e)
+         (step-1 w) (step-2 w)
+         (step-1 s) (step-2 s)
+         (move-type join-type)
+         (join-1 n Bishop Queen) (join-2 n Bishop Queen)
+         (join-1 e Bishop Queen) (join-2 e Bishop Queen)
+         (join-1 w Bishop Queen) (join-2 w Bishop Queen)
+         (join-1 s Bishop Queen) (join-2 s Bishop Queen)
+     )
+  )
+  (piece
+     (name Queen)
+     (image Purple "images/martian/pqueen.bmp"
+            Orange "images/martian/oqueen.bmp"
+            Blue   "images/martian/bqueen.bmp"
+            Green  "images/martian/gqueen.bmp")
+     (moves
+         (move-type normal-type)
+         (slide n) (slide nw)
+         (slide e) (slide ne)
+         (slide w) (slide sw)
+         (slide s) (slide se)
+     )
+  )
+
+  (board-setup
+    (Purple
+         (Bishop f2 f3 g3)
+         (Drone f1 g2 h3)
+         (Queen g1 h1 h2)
+    )
+    (Orange
+         (Bishop b3 c3 c2)
+         (Drone a3 b2 c1)
+         (Queen a1 a2 b1)
+    )
+    (Blue
+         (Bishop b6 c6 c7)
+         (Drone a6 b7 c8)
+         (Queen a8 a7 b8)
+    )
+    (Green
+         (Bishop f7 f6 g6)
+         (Drone f8 g7 h6)
+         (Queen g8 h8 h7)
+    )
+  )
+)
+
+(variant
+  (title "Martian Chess (4x8)")
+
+  (turn-order Orange Blue)
+
+  (board
+     (image "images/martian/4x8.bmp")
+     (grid
+         (start-rectangle 20 2 70 52)
+         (dimensions
+           ("a/b/c/d" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name home) (players Orange)
+           (positions a1 b1 c1 d1 a2 b2 c2 d2 a3 b3 c3 d3 a4 b4 c4 d4)
+     )
+     (zone (name home) (players Blue)
+           (positions a5 b5 c5 d5 a6 b6 c6 d6 a7 b7 c7 d7 a8 b8 c8 d8)
+     )
+  )
+
+  (board-setup
+    (Orange
+         (Bishop b2 b3 c3)
+         (Drone b1 c2 d3)
+         (Queen c1 d1 d2)
+    )
+    (Blue
+         (Bishop b6 c6 c7)
+         (Drone a6 b7 c8)
+         (Queen a8 a7 b8)
+    )
+  )
+)

@@ -1,0 +1,164 @@
+(define jump (
+  $1 (verify enemy?)
+  capture 
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+   (title "Asalto")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+   (option "show hints"       false)
+
+   (players Soldiers Defenders)
+   (turn-order Soldiers Defenders)
+
+   (board
+      (image "images/asalto/asalto.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+      (zone (name fort) (players Soldiers Defenders)
+            (positions c5 c6 c7 d5 d6 d7 e5 e6 e7)
+      )
+   )
+
+   (piece
+      (image Soldiers "images/asalto/soldier.bmp")
+      (name  Soldier)
+      (help "Soldier")
+      (moves
+         (move-type normal-type)
+         (step n) (step e) (step s) (step w)
+         (step nw) (step se) (step sw) (step ne)
+      )
+   )
+   (piece
+      (image Defenders "images/asalto/defender.bmp")
+      (name  Defender)
+      (help "Defender")
+      (moves
+         (move-type normal-type)
+         (step n) (step e) (step s) (step w)
+         (step nw) (step se) (step sw) (step ne)
+         (move-type jump-type)
+         (jump n) (jump e) (jump s) (jump w)
+         (jump nw) (jump se) (jump sw) (jump ne)
+      )
+   )
+
+   (board-setup
+      (Defenders (Defender c6 e6))
+      (Soldiers (Soldier a3 a4 b3 b4 c1 c2 c3 c4 d1 d2 d3 d4 e1 e2 e3 e4 f3 f4 g3 g4))
+   )
+)
+
+(variant
+   (title "Fox and Geese (13 men)")
+
+   (board
+      (image "images/asalto/british.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+   )
+   (board-setup
+      (Defenders (Defender d4))
+      (Soldiers (Soldier a3 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f3 g3))
+   )
+)
+
+(variant
+   (title "Fox and Geese (15 men)")
+
+   (board
+      (image "images/asalto/british.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+   )
+   (board-setup
+      (Defenders (Defender d4))
+      (Soldiers (Soldier a3 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f3 g3 a4 g4))
+   )
+)
+
+(variant
+   (title "Fox and Geese (French)")
+
+   (board
+      (image "images/asalto/british.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+   )
+   (board-setup
+      (Defenders (Defender d4))
+      (Soldiers (Soldier a3 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f3 g3 a4 g4 a5 g5))
+   )
+)
+
+(variant
+   (title "Fox and Geese (British)")
+   (default)
+   (board
+      (image "images/asalto/british.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b2 b6 b7 f1 f2 f6 f7 g1 g2 g6 g7)
+   )
+   (board-setup
+      (Defenders (Defender d4))
+      (Soldiers (Soldier a3 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f3 g3 a4 g4 b4 f4))
+   )
+)

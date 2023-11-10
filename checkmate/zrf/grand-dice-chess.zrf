@@ -1,0 +1,215 @@
+(define drop-dice (
+  (verify (in-zone? dices))
+  (verify not-friend?)
+  add
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Grand Dice Chess")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities normal)
+
+  (board
+     (image "images/granddice/12x12.bmp")
+     (positions
+         (D1 600  10 712 122)
+         (D2 600 142 712 254)
+         (D3 600 274 712 386)
+         (D4 600 406 712 518)
+     )
+     (grid
+         (start-rectangle 2 2 51 51)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (49 0)) ; files
+           ("12/11/10/9/8/7/6/5/4/3/2/1" (0 49)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (links dice (a12 D1) (D1 D2) (D2 D3) (D3 D4))
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e) (dice dice))
+     (zone (name last-rank) (players White)
+           (positions a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1)
+     )
+     (zone (name dices) (players White Black) (positions D1 D2 D3 D4))
+  )
+
+  (piece
+     (name dp)
+     (image White "images/granddice/1.bmp"
+            Black "images/granddice/1.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+  (piece
+     (name dn)
+     (image White "images/granddice/2.bmp"
+            Black "images/granddice/2.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+  (piece
+     (name db)
+     (image White "images/granddice/3.bmp"
+            Black "images/granddice/3.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+  (piece
+     (name dr)
+     (image White "images/granddice/4.bmp"
+            Black "images/granddice/4.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+  (piece
+     (name dq)
+     (image White "images/granddice/5.bmp"
+            Black "images/granddice/5.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+  (piece
+     (name dk)
+     (image White "images/granddice/6.bmp"
+            Black "images/granddice/6.bmp")
+     (drops
+         (move-type dice)
+         (drop-dice) 
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/granddice/wpawn.bmp"
+            Black "images/granddice/bpawn.bmp")
+     (moves
+         (move-type normal)
+         (pawn-shift n)
+         (pawn-step nw) (pawn-step ne)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/granddice/wknight.bmp"
+            Black "images/granddice/bknight.bmp")
+     (moves
+         (move-type normal)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/granddice/wbishop.bmp"
+            Black "images/granddice/bbishop.bmp")
+     (moves
+         (move-type normal)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/granddice/wrook.bmp"
+            Black "images/granddice/brook.bmp")
+     (moves
+         (move-type normal)
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/granddice/wqueen.bmp"
+            Black "images/granddice/bqueen.bmp")
+     (moves
+         (move-type normal)
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/granddice/wking.bmp"
+            Black "images/granddice/bking.bmp")
+     (moves
+         (move-type normal)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a5 b5 c5 d5 e5 f5 g5 h5 i5 j5 k5 l5 a6 b6 c6 d6 e6 f6 g6 h6 i6 j6 k6 l6)
+         (Rook a1 a4 d1 d4 i1 i4 l1 l4)
+         (Knight a2 a3 b2 b3 k2 k3 l2 l3)
+         (Bishop c2 c3 d2 d3 i2 i3 j2 j3)
+         (Queen e1 e4 h1 h4)
+         (King f2 f3 g2 g3)
+         (dp D1)
+         (dn D2)
+         (dk D3)
+         (dr D4)
+    )
+    (Black 
+         (Pawn a7 b7 c7 d7 e7 f7 g7 h7 i7 j7 k7 l7 a8 b8 c8 d8 e8 f8 g8 h8 i8 j8 k8 l8)
+         (Rook a9 a12 d9 d12 i9 i12 l9 l12)
+         (Knight a10 a11 b10 b11 k10 k11 l10 l11)
+         (Bishop c10 c11 d10 d11 i10 i11 j10 j11)
+         (Queen e9 e12 h9 h12)
+         (King f10 f11 g10 g11)
+    )
+  )
+)

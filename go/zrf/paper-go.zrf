@@ -1,0 +1,48 @@
+(define drop-stone (
+  (verify empty?) add
+))
+
+(game
+  (title "Paper and Pencil Go")
+
+  (option "animate drops" false)
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+      (image "images/paper/board.bmp")
+      (grid
+          (start-rectangle 7 9 34 35)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (26 0)) ; files
+            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 26)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+  )
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/paper/balive.bmp"
+            White "images/paper/walive.bmp")
+     (drops (drop-stone))
+  )  
+  (piece
+     (name Dead)
+     (help " ")
+     (image Black "images/paper/bdead.bmp"
+            White "images/paper/wdead.bmp")
+  )  
+
+  (board-setup
+     (White (Stone off 81)) 
+     (Black (Stone off 81))
+  )
+)

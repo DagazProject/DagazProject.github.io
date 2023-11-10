@@ -1,0 +1,2077 @@
+(define shotc-1 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-2 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-3 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-4 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-5 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-6 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shotc-7 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add-partial N $4)
+))
+
+(define shot-1 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-2 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-2 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-3 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-3 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-4 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-4 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-5 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-5 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-6 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-6 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shot-7 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define shott-7 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify (or not-friend? (piece? N))) 
+  $1 (verify enemy?) 
+  capture (add N)
+))
+
+(define cannon-step-1 (
+  $1 (verify empty?)
+  (add-partial $2)
+))
+
+(define cannon-step-2 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial $2)
+))
+
+(define cannon-step-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial $2)
+))
+
+(define cannon-step-4 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial $2)
+))
+
+(define cannon-step-5 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial $2)
+))
+
+(define cannon-shot-1 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1
+  (verify enemy?) 
+  capture (add N)
+))
+
+(define cannon-shot-2 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 $1
+  (verify enemy?) 
+  capture (add N)
+))
+
+(define cannon-shot-3 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 $1 $1
+  (verify enemy?) 
+  capture (add N)
+))
+
+(define cannon-shot-4 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 $1 $1 $1
+  (verify enemy?) 
+  capture (add N)
+))
+
+(define cannon-shot-5 (
+  (if (in-zone? promotion)
+      (create $3)
+   else
+      (create $2) 
+  )
+  $1 $1 $1 $1 $1
+  (verify enemy?) 
+  capture (add N)
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-1 (
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-4 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define stepc (
+  $1 (verify not-friend?)
+  (add-partial $2)
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define leapc (
+  $1 $2 (verify not-friend?)
+  (add-partial $3)
+))
+
+(define leapp (
+  $1 $2 (verify empty?)
+  (add-partial $3)
+))
+
+(define slide (
+  $1 (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-1 (
+  $1 (verify empty?)
+  $1 (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-2 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-5 (
+  $1 (if empty?
+    add $1 (if empty?
+      add $1 (if empty?
+        add $1 (if empty?
+           add $1
+        )
+      )
+    )
+  )
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Ko Shogi")
+
+  (move-sound "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (option "animate captures" false)
+  (option "pass partial"     true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities normal-type)
+
+  (board
+    (image "images/ko/board.bmp")
+    (grid
+      (start-rectangle 5 5 36 36)
+      (dimensions
+        ("A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S" (32 0)) ; files
+        ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19" (0 32)) ; ranks
+      )
+      (directions 
+        (n     0 -1) (s     0  1) (e     1  0) (w    -1 0) 
+        (nw   -1 -1) (sw   -1  1) (ne    1 -1) (se    1 1) 
+      ) 
+    )
+    (symmetry White (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+    (zone (name promotion) (players Black)
+        (positions 
+           A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1 L1 M1 N1 O1 P1 Q1 R1 S1
+           A2 B2 C2 D2 E2 F2 G2 H2 I2 J2 K2 L2 M2 N2 O2 P2 Q2 R2 S2
+           A3 B3 C3 D3 E3 F3 G3 H3 I3 J3 K3 L3 M3 N3 O3 P3 Q3 R3 S3
+           A4 B4 C4 D4 E4 F4 G4 H4 I4 J4 K4 L4 M4 N4 O4 P4 Q4 R4 S4
+           A5 B5 C5 D5 E5 F5 G5 H5 I5 J5 K5 L5 M5 N5 O5 P5 Q5 R5 S5
+           A6 B6 C6 D6 E6 F6 G6 H6 I6 J6 K6 L6 M6 N6 O6 P6 Q6 R6 S6
+        )
+    )
+    (zone (name promotion) (players White)
+        (positions 
+           A19 B19 C19 D19 E19 F19 G19 H19 I19 J19 K19 L19 M19 N19 O19 P19 Q19 R19 S19
+           A18 B18 C18 D18 E18 F18 G18 H18 I18 J18 K18 L18 M18 N18 O18 P18 Q18 R18 S18
+           A17 B17 C17 D17 E17 F17 G17 H17 I17 J17 K17 L17 M17 N17 O17 P17 Q17 R17 S17
+           A16 B16 C16 D16 E16 F16 G16 H16 I16 J16 K16 L16 M16 N16 O16 P16 Q16 R16 S16
+           A15 B15 C15 D15 E15 F15 G15 H15 I15 J15 K15 L15 M15 N15 O15 P15 Q15 R15 S15
+           A14 B14 C14 D14 E14 F14 G14 H14 I14 J14 K14 L14 M14 N14 O14 P14 Q14 R14 S14
+        )
+    )
+  )
+
+  (piece
+     (name G)
+     (notation "General")
+     (description "General (sho): can step one intersection in any direction, orthogonal or diagonal. (K)")
+     (image White "images/ko/kwg.bmp"
+            Black "images/ko/kbg.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step nw)
+        (step s) (step se)
+        (step w) (step sw)
+        (step e) (step ne)
+     )
+  )
+  (piece
+     (name GO)
+     (notation "Governor")
+     (description "Governor (sochi): can step one intersection in any direction, orthogonal or diagonal. (K)")
+     (image White "images/ko/kwgo.bmp"
+            Black "images/ko/kbgo.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step nw)
+        (step s) (step se)
+        (step w) (step sw)
+        (step e) (step ne)
+     )
+  )
+  (piece
+     (name PP)
+     (notation "Patrol unit")
+     (description "Patrol unit (fuso): can move any number of free intersections orthogonally forward or backward or one intersection orthogonally sideways. (fbRW)\
+                   This is the move of the vertical mover in other shogi variants.")
+     (image White "images/ko/kwpp.bmp"
+            Black "images/ko/kbpp.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide s)
+        (step w) (step e)
+     )
+  )
+  (piece
+     (name P)
+     (notation "Pawn")
+     (description "Pawn (fuhyo): \
+                   If the drum is killed, the pawns may no longer move forward.")
+     (image White "images/ko/kwp.bmp"
+            Black "images/ko/kbp.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s)
+        (step w) (step e)
+     )
+  )
+  (piece
+     (name HV)
+     (notation "Heaven's vengeance")
+     (description "Heaven's vengeance (temmo): can move any number of free intersections along either of the forward diagonals, or directly to either side or step one intersection directly backward. (rlRfBbW)")
+     (image White "images/ko/kwhv.bmp"
+            Black "images/ko/kbhv.bmp")
+     (moves
+        (move-type normal-type)
+        (step s) 
+        (slide w) (slide e) (slide nw) (slide ne)
+     )
+  )
+  (piece
+     (name AG)
+     (notation "Advance Guard")
+     (description "Advance Guard (zen'ei): can move any number of free intersections directly forward or can step one intersection directly backwards. (fRbW)\
+                   This piece promotes if its clerk promotes.")
+     (image White "images/ko/kwag.bmp"
+            Black "images/ko/kbag.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (step s)
+     )
+  )
+  (piece
+     (name IL)
+     (notation "Immaculate light")
+     (description "Immaculate light (seito): can move twice per turn, including the option of shooting one adjacent piece after each move, and are still restricted from capturing by displacement. (t[d[DA]xK])\
+                   If a twelve-mile fog and immaculate light ever find themselves within 5 intersections of each other, the fog immediately reverts to a Taoist priest.")
+     (image White "images/ko/kwil.bmp"
+            Black "images/ko/kbil.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n n left-3-type) (leapc nw nw left-3-type)
+        (leapc s s left-3-type) (leapc se se left-3-type)
+        (leapc w w left-3-type) (leapc sw sw left-3-type)
+        (leapc e e left-3-type) (leapc ne ne left-3-type)
+        (move-type left-3-type)
+        (shotc-1 n IL IL left-2-type) (shotc-1 nw IL IL left-2-type)
+        (shotc-1 s IL IL left-2-type) (shotc-1 se IL IL left-2-type)
+        (shotc-1 w IL IL left-2-type) (shotc-1 sw IL IL left-2-type)
+        (shotc-1 e IL IL left-2-type) (shotc-1 ne IL IL left-2-type)
+        (leapc n n left-1-type) (leapc nw nw left-1-type)
+        (leapc s s left-1-type) (leapc se se left-1-type)
+        (leapc w w left-1-type) (leapc sw sw left-1-type)
+        (leapc e e left-1-type) (leapc ne ne left-1-type)
+        (move-type left-2-type)
+        (leapc n n left-1-type) (leapc nw nw left-1-type)
+        (leapc s s left-1-type) (leapc se se left-1-type)
+        (leapc w w left-1-type) (leapc sw sw left-1-type)
+        (leapc e e left-1-type) (leapc ne ne left-1-type)
+        (move-type left-1-type)
+        (shot-1 n IL IL) (shot-1 nw IL IL)
+        (shot-1 s IL IL) (shot-1 se IL IL)
+        (shot-1 w IL IL) (shot-1 sw IL IL)
+        (shot-1 e IL IL) (shot-1 ne IL IL)
+     )
+  )
+  (piece
+     (name SM)
+     (notation "Spiritual Monk")
+     (description "Spiritual Monk (shinzo): can jump to the second intersection in any direction, orthogonal or diagonal. They can shoot any one enemy piece on any intersection adjacent to their arrival point. (t[[DA]xK])\
+                   However, they can only capture an enemy priest or monk with such a jump.")
+     (image White "images/ko/kwsm.bmp"
+            Black "images/ko/kbsm.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n n continue-type) (leapc nw nw continue-type)
+        (leapc s s continue-type) (leapc se se continue-type)
+        (leapc w w continue-type) (leapc sw sw continue-type)
+        (leapc e e continue-type) (leapc ne ne continue-type)
+        (move-type continue-type)
+        (shot-1 n SM IL) (shot-1 nw SM IL)
+        (shot-1 s SM IL) (shot-1 se SM IL)
+        (shot-1 w SM IL) (shot-1 sw SM IL)
+        (shot-1 e SM IL) (shot-1 ne SM IL)
+     )
+  )
+  (piece
+     (name TF)
+     (notation "Twelve-mile fog")
+     (description "Twelve-mile fog (gorimu): can move twice per turn, including the option of shooting one adjacent piece after each move, and are still restricted from capturing by displacement. (t[d[DA]xK])\
+                   If a twelve-mile fog and immaculate light ever find themselves within 5 intersections of each other, the fog immediately reverts to a Taoist priest.\
+                   The fog cannot be shot from within a distance of five intersections. It can only be shot (by the European cannon) from a distance of six intersections or more.")
+     (image White "images/ko/kwtf.bmp"
+            Black "images/ko/kbtf.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n n left-3-type) (leapc nw nw left-3-type)
+        (leapc s s left-3-type) (leapc se se left-3-type)
+        (leapc w w left-3-type) (leapc sw sw left-3-type)
+        (leapc e e left-3-type) (leapc ne ne left-3-type)
+        (move-type left-3-type)
+        (shotc-1 n TF TF left-2-type) (shotc-1 nw TF TF left-2-type)
+        (shotc-1 s TF TF left-2-type) (shotc-1 se TF TF left-2-type)
+        (shotc-1 w TF TF left-2-type) (shotc-1 sw TF TF left-2-type)
+        (shotc-1 e TF TF left-2-type) (shotc-1 ne TF TF left-2-type)
+        (leapc n n left-1-type) (leapc nw nw left-1-type)
+        (leapc s s left-1-type) (leapc se se left-1-type)
+        (leapc w w left-1-type) (leapc sw sw left-1-type)
+        (leapc e e left-1-type) (leapc ne ne left-1-type)
+        (move-type left-2-type)
+        (leapc n n left-1-type) (leapc nw nw left-1-type)
+        (leapc s s left-1-type) (leapc se se left-1-type)
+        (leapc w w left-1-type) (leapc sw sw left-1-type)
+        (leapc e e left-1-type) (leapc ne ne left-1-type)
+        (move-type left-1-type)
+        (shot-1 n TF TF) (shot-1 nw TF TF)
+        (shot-1 s TF TF) (shot-1 se TF TF)
+        (shot-1 w TF TF) (shot-1 sw TF TF)
+        (shot-1 e TF TF) (shot-1 ne TF TF)
+     )
+  )
+  (piece
+     (name TP)
+     (notation "Taoist Priest")
+     (description "Taoist Priest (takamichi): can jump to the second intersection in any direction, orthogonal or diagonal. They can shoot any one enemy piece on any intersection adjacent to their arrival point. (t[[DA]xK])\
+                   However, they can only capture an enemy priest or monk with such a jump.")
+     (image White "images/ko/kwtp.bmp"
+            Black "images/ko/kbtp.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n n continue-type) (leapc nw nw continue-type)
+        (leapc s s continue-type) (leapc se se continue-type)
+        (leapc w w continue-type) (leapc sw sw continue-type)
+        (leapc e e continue-type) (leapc ne ne continue-type)
+        (move-type continue-type)
+        (shot-1 n TP TF) (shot-1 nw TP TF)
+        (shot-1 s TP TF) (shot-1 se TP TF)
+        (shot-1 w TP TF) (shot-1 sw TP TF)
+        (shot-1 e TP TF) (shot-1 ne TP TF)
+     )
+  )
+  (piece
+     (name PF)
+     (notation "Poison flame")
+     (description "Poison flame (dokka): can step one intersection directly forward or backward, or one intersection diagonally forward, giving it four possibilities. (fFfbW)\
+                   Wherever it lands, all adjacent enemy pieces are 'burned' and removed from the board.")
+     (image White "images/ko/kwpf.bmp"
+            Black "images/ko/kbpf.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) 
+        (step nw) (step ne)
+     )
+  )
+  (piece
+     (name EN)
+     (notation "Engineer")
+     (description "Engineer (gunsho): can step one intersection directly forward or backward, or one intersection diagonally forward, giving it four possibilities. (fFfbW)\
+                   his is the move of the copper general in other shogi variants.")
+     (image White "images/ko/kwen.bmp"
+            Black "images/ko/kben.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step nw) (step ne)
+     )
+  )
+  (piece
+     (name VC)
+     (notation "Vice commander")
+     (description "Vice commander (fukushi): can move any number of free intersections along one of the four diagonal directions, or directly forward. (BfR)\
+                   This is the move of the free silver in other shogi variants.")
+     (image White "images/ko/kwvc.bmp"
+            Black "images/ko/kbvc.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) 
+        (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+  (piece
+     (name CS)
+     (notation "Chief of Staff")
+     (description "Chief of Staff (gunri): can move one intersection in the four diagonal directions or one intersection orthogonally forward or backward. (FfbW)\
+                   This is the move of the ferocious leopard in other shogi variants.")
+     (image White "images/ko/kwcs.bmp"
+            Black "images/ko/kbcs.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) 
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name VB)
+     (notation "Village brigade")
+     (description "Village brigade (hyakko): can move any number of free intersections directly to either side or step one intersection in any direction. (rlRK)")
+     (image White "images/ko/kwvb.bmp"
+            Black "images/ko/kbvb.bmp")
+     (moves
+        (move-type normal-type)
+        (step  n) (step nw)
+        (step  s) (step se)
+        (slide w) (step sw)
+        (slide e) (step ne)
+     )
+  )
+  (piece
+     (name S)
+     (notation "Staff")
+     (description "Staff (shayo): can step one intersection in one of the four diagonal directions or one intersection straight forward, giving it five possibilities. (FfW)\
+                   This is the move of the silver general in other shogi variants.")
+     (image White "images/ko/kws.bmp"
+            Black "images/ko/kbs.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) 
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name TB)
+     (notation "Town brigade")
+     (description "Town brigade (senko): can move any number of free intersections directly forward or backward or step one intersection in any direction. (fbRK)\
+                   This is the move of the flying stag in chu shogi.")
+     (image White "images/ko/kwtb.bmp"
+            Black "images/ko/kbtb.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (step nw)
+        (slide s) (step se)
+        (step  w) (step sw)
+        (step  e) (step ne)
+     )
+  )
+  (piece
+     (name A)
+     (notation "Aide")
+     (description "Aide (toneri): can step one intersection in one of the four orthogonal directions or one intersection diagonally forward, giving it six possibilities. (WfF)\
+                   This is the move of the gold general in other shogi variants.")
+     (image White "images/ko/kwa.bmp"
+            Black "images/ko/kba.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e) 
+        (step nw) (step ne)
+     )
+  )
+  (piece
+     (name WR)
+     (notation "Sumo wrestler")
+     (description "Sumo wrestler (rikishi): can move in one turn as a general does in two. A similar move without capturing leaves the board unchanged, which is a way to pass a turn. (KdK)\
+                   The sumo wrestler cannot jump over an intervening friendly piece as a ''lion'' can in other shogi variants.")
+     (image White "images/ko/kwwr.bmp"
+            Black "images/ko/kbwr.bmp")
+     (moves
+        (move-type normal-type)
+        (stepc n continue-type) (stepc nw continue-type)
+        (stepc s continue-type) (stepc se continue-type)
+        (stepc w continue-type) (stepc sw continue-type)
+        (stepc e continue-type) (stepc ne continue-type)
+        (move-type continue-type)
+        (step n) (step nw)
+        (step s) (step se)
+        (step w) (step sw)
+        (step e) (step ne)
+     )
+  )
+  (piece
+     (name AA)
+     (notation "Quartermaster")
+     (description "Description (waso): can move any number of free intersections along any of the four orthogonal directions or one intersection in any diagonal direction. (FR)\
+                   This is the move of the dragon king in other shogi variants.")
+     (image White "images/ko/kwaa.bmp"
+            Black "images/ko/kbaa.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (step nw)
+        (slide s) (step se)
+        (slide w) (step sw)
+        (slide e) (step ne)
+     )
+  )
+  (piece
+     (name AC)
+     (notation "Aide de camp")
+     (description "Aide de camp (shimpei): can step one intersection in any direction, orthogonal or diagonal, except directly backward. (FfrlW)\
+                   This is equivalent to the drunk elephant in other shogi variants.\
+                   However, it does not promote to a prince.")
+     (image White "images/ko/kwac.bmp"
+            Black "images/ko/kbac.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step w) (step e) 
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name MA)
+     (notation "Master at arms")
+     (description "Master at arms (gunshi): Upon promotion, the clerk gains the power to move twice per turn. (FDd[FD])\
+                   This is like a double kirin move in chu shogi and other shogi variants.")
+     (image White "images/ko/kwma.bmp"
+            Black "images/ko/kbma.bmp")
+     (moves
+        (move-type normal-type)
+        (stepc nw continue-type) (leapc n n continue-type)
+        (stepc se continue-type) (leapc s s continue-type)
+        (stepc sw continue-type) (leapc w w continue-type)
+        (stepc ne continue-type) (leapc e e continue-type)
+        (move-type continue-type)
+        (step nw) (leap n n)
+        (step se) (leap s s)
+        (step sw) (leap w w)
+        (step ne) (leap e e)
+     )
+  )
+  (piece
+     (name CL)
+     (notation "Clerk")
+     (description "Clerk (kishitsu): can step one intersection in one of the four diagonal directions and jump to the second intersection orthogonally. (FD)\
+                   This is the move of the kirin in other shogi variants.")
+     (image White "images/ko/kwcl.bmp"
+            Black "images/ko/kbcl.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (leap n n)
+        (step se) (leap s s)
+        (step sw) (leap w w)
+        (step ne) (leap e e)
+     )
+  )
+  (piece
+     (name BD)
+     (notation "Banner and drums")
+     (description "Banner and drums (kiko): Upon promotion, the staff officer gains the power to move twice per turn. (WAd[WA])\
+                   This is like a double phoenix move in other shogi variants.")
+     (image White "images/ko/kwbd.bmp"
+            Black "images/ko/kbbd.bmp")
+     (moves
+        (move-type normal-type)
+        (stepc n continue-type) (leapc nw nw continue-type)
+        (stepc s continue-type) (leapc se se continue-type)
+        (stepc w continue-type) (leapc sw sw continue-type)
+        (stepc e continue-type) (leapc ne ne continue-type)
+        (move-type continue-type)
+        (step n) (leap nw nw)
+        (step s) (leap se se)
+        (step w) (leap sw sw)
+        (step e) (leap ne ne)
+     )
+  )
+  (piece
+     (name SO)
+     (notation "Staff Officer")
+     (description "Staff Officer (sambo): can step one intersection in one of the four orthogonal directions or jump to the second intersection diagonally. (WA)\
+                   This is the move of the phoenix in other shogi variants.")
+     (image White "images/ko/kwso.bmp"
+            Black "images/ko/kbso.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (leap nw nw)
+        (step s) (leap se se)
+        (step w) (leap sw sw)
+        (step e) (leap ne ne)
+     )
+  )
+  (piece
+     (name EV)
+     (notation "Earth's vengeance")
+     (description "Earth's vengeance (chimo): can move any number of free intersections along either of the rear diagonals, or directly to either side or step one intersection directly forward. (rlRbBfW)")
+     (image White "images/ko/kwev.bmp"
+            Black "images/ko/kbev.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) 
+        (slide w) (slide e) (slide sw) (slide se)
+     )
+  )
+  (piece
+     (name RG)
+     (notation "Rear Guard")
+     (description "Rear Guard (koei): can move any number of free intersections directly backward or step one intersection directly forwards. (fWbR)\
+                   This piece promotes if its clerk promotes.")
+     (image White "images/ko/kwrg.bmp"
+            Black "images/ko/kbrg.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (slide s)
+     )
+  )
+  (piece
+     (name WH)
+     (notation "War hawk")
+     (description "War hawk (yoyo): can step one or two intersections in any orthogonal direction, potentially capturing a piece with each step or move any number of free intersections along any of the four diagonal directions. (BdW)")
+     (image White "images/ko/kwwh.bmp"
+            Black "images/ko/kbwh.bmp")
+     (moves
+        (move-type normal-type)
+        (slide-1 nw)
+        (slide-1 se)
+        (slide-1 sw)
+        (slide-1 ne)
+        (stepc n continue-type)
+        (stepc s continue-type)
+        (stepc w continue-type)
+        (stepc e continue-type)
+        (move-type continue-type)
+        (step n) (step s)
+        (step w) (step e)
+     )
+  )
+  (piece
+     (name CR)
+     (notation "Centuria")
+     (description "Centuria (hyakuso): can move any number of free intersections along any of the four diagonal directions or move one intersection in any orthogonal direction. (WB)\
+                   This is the move of the dragon horse in other shogi variants.")
+     (image White "images/ko/kwcr.bmp"
+            Black "images/ko/kbcr.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (slide nw)
+        (step s) (slide se)
+        (step w) (slide sw)
+        (step e) (slide ne)
+     )
+  )
+  (piece
+     (name TW)
+     (notation "Tiger wing")
+     (description "Tiger wing (koyoku): moves like a shield (one step diagonally) once or twice per turn. (FdF)")
+     (image White "images/ko/kwtw.bmp"
+            Black "images/ko/kbtw.bmp")
+     (moves
+        (move-type normal-type)
+        (slide-2 n) (step n)
+        (slide-2 s) (step s)
+        (slide-2 w) (step w)
+        (slide-2 e) (step e)
+        (stepc nw continue-type)
+        (stepc se continue-type)
+        (stepc sw continue-type)
+        (stepc ne continue-type)
+        (move-type continue-type)
+        (step nw) (step se)
+        (step sw) (step ne)
+     )
+  )
+  (piece
+     (name Q)
+     (notation "Quartermaster")
+     (description "Description (waso): can move any number of free intersections along any of the four orthogonal directions or one intersection in any diagonal direction. (FR)\
+                   This is the move of the dragon king in other shogi variants.")
+     (image White "images/ko/kwq.bmp"
+            Black "images/ko/kbq.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (step nw)
+        (slide s) (step se)
+        (slide w) (step sw)
+        (slide e) (step ne)
+     )
+  )
+  (piece
+     (name DA)
+     (notation "Dragon ascending")
+     (description "Dragon ascending (ryujo): adds the moves of the sumo wrestler to those of the millenary. (QdK)")
+     (image White "images/ko/kwda.bmp"
+            Black "images/ko/kbda.bmp")
+     (moves
+        (move-type normal-type)
+        (slide-2 n) (slide-2 nw)
+        (slide-2 s) (slide-2 se)
+        (slide-2 w) (slide-2 sw)
+        (slide-2 e) (slide-2 ne)
+        (stepc n continue-type) (stepc nw continue-type)
+        (stepc s continue-type) (stepc se continue-type)
+        (stepc w continue-type) (stepc sw continue-type)
+        (stepc e continue-type) (stepc ne continue-type)
+        (move-type continue-type)
+        (step n) (step nw)
+        (step s) (step se)
+        (step w) (step sw)
+        (step e) (step ne)
+     )
+  )
+  (piece
+     (name M)
+     (notation "Millenary")
+     (description "Millenary (senso): can move any number of free intersections along any one of the eight orthogonal or diagonal directions. (Q)\
+                   This is the move of the free king in other shogi variants.")
+     (image White "images/ko/kwm.bmp"
+            Black "images/ko/kbm.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide nw)
+        (slide s) (slide se)
+        (slide w) (slide sw)
+        (slide e) (slide ne)
+     )
+  )
+  (piece
+     (name SS)
+     (notation "Centuria")
+     (description "Centuria (hyakuso): can move any number of free intersections along any of the four diagonal directions or move one intersection in any orthogonal direction. (WB)\
+                   This is the move of the dragon horse in other shogi variants.")
+     (image White "images/ko/kwss.bmp"
+            Black "images/ko/kbss.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (slide nw)
+        (step s) (slide se)
+        (step w) (slide sw)
+        (step e) (slide ne)
+     )
+  )
+  (piece
+     (name SN)
+     (notation "Sentry")
+     (description "Sentry (gohei): an step one intersection in any direction except orthogonally forward. (FrlbW)\
+                   This is the move of the blind tiger in other shogi variants.")
+     (image White "images/ko/kwsn.bmp"
+            Black "images/ko/kbsn.bmp")
+     (moves
+        (move-type normal-type)
+        (step s) (step w) (step e) 
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name TC)
+     (notation "Thunderclap")
+     (description "Thunderclap (hekireki): steps five times per turn in an orthogonal direction, with the choice of changing directions after each step, potentially capturing up to five pieces. (d5W)\
+                   If the allied priest is killed, the thunderclap reverts to a drum.")
+     (image White "images/ko/kwtc.bmp"
+            Black "images/ko/kbtc.bmp")
+     (moves
+        (move-type normal-type)
+        (stepc n left-4-type)
+        (stepc s left-4-type)
+        (stepc w left-4-type)
+        (stepc e left-4-type)
+        (move-type left-4-type)
+        (stepc n left-3-type)
+        (stepc s left-3-type)
+        (stepc w left-3-type)
+        (stepc e left-3-type)
+        (move-type left-3-type)
+        (stepc n left-2-type)
+        (stepc s left-2-type)
+        (stepc w left-2-type)
+        (stepc e left-2-type)
+        (move-type left-2-type)
+        (stepc n left-1-type)
+        (stepc s left-1-type)
+        (stepc w left-1-type)
+        (stepc e left-1-type)
+        (move-type left-1-type)
+        (step n)
+        (step s)
+        (step w)
+        (step e)
+     )
+  )
+  (piece
+     (name D)
+     (notation "Drum")
+     (description "Drum (tsuzumi): can step one intersection in one of the four diagonal directions or either orthogonal sideways. (FrlW)\
+                   If the drum is killed, the pawns may no longer move forward.")
+     (image White "images/ko/kwd.bmp"
+            Black "images/ko/kbd.bmp")
+     (moves
+        (move-type normal-type)
+        (step w) (step e)
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name RA)
+     (notation "Roaming assault")
+     (description "Roaming assault (shoyo): can step up to five times per turn in any one orthogonal direction, potentially capturing up to five pieces. (WdhWdh3Wdh4Wdh5W)\
+                   If the allied priest is killed, the roaming assault reverts to a banner.")
+     (image White "images/ko/kwra.bmp"
+            Black "images/ko/kbra.bmp")
+     (moves
+        (move-type normal-type)
+        (stepc n left-4-n)
+        (stepc s left-4-s)
+        (stepc w left-4-w)
+        (stepc e left-4-e)
+        (move-type left-4-n)
+        (stepc n left-3-n)
+        (move-type left-3-n)
+        (stepc n left-2-n)
+        (move-type left-2-n)
+        (stepc n left-1-n)
+        (move-type left-1-n)
+        (step n)
+        (move-type left-4-s)
+        (stepc s left-3-s)
+        (move-type left-3-s)
+        (stepc s left-2-s)
+        (move-type left-2-s)
+        (stepc s left-1-s)
+        (move-type left-1-s)
+        (step s)
+        (move-type left-4-w)
+        (stepc w left-3-w)
+        (move-type left-3-w)
+        (stepc w left-2-w)
+        (move-type left-2-w)
+        (stepc w left-1-w)
+        (move-type left-1-w)
+        (step w)
+        (move-type left-4-e)
+        (stepc e left-3-e)
+        (move-type left-3-e)
+        (stepc e left-2-e)
+        (move-type left-2-e)
+        (stepc e left-1-e)
+        (move-type left-1-e)
+        (step e)
+     )
+  )
+  (piece
+     (name B)
+     (notation "Banner")
+     (description "Banner (hata): can step one intersection in one of the four diagonal directions or either orthogonal sideways. (FrlW)")
+     (image White "images/ko/kwb.bmp"
+            Black "images/ko/kbb.bmp")
+     (moves
+        (move-type normal-type)
+        (step w) (step e)
+        (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name MT)
+     (notation "Middle Troop")
+     (description "Middle Troop (chogun): can step one intersection in any direction, orthogonal or diagonal. (K)")
+     (image White "images/ko/kwmt.bmp"
+            Black "images/ko/kbmt.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step nw)
+        (step s) (step se)
+        (step w) (step sw)
+        (step e) (step ne)
+     )
+  )
+  (piece
+     (name E)
+     (notation "Elephant")
+     (description "Elephant (zo): can move any number of free intersections along any of the four diagonal directions. (B)\
+                   This is the move of the bishop in other shogi variants.")
+     (image White "images/ko/kwe.bmp"
+            Black "images/ko/kbe.bmp")
+     (moves
+        (move-type normal-type)
+        (slide nw) (slide se)
+        (slide sw) (slide ne)
+     )
+  )
+  (piece
+     (name GC)
+     (notation "Gun carriage")
+     (description "Gun carriage (hosha): can move up to five free intersections along one of the four orthogonal directions and shoot as a cannon. (t[[mR5][cxQ5ppQ5]])\
+                   The gun carriage cannot shoot an imperial base.
+                   It cannot be shot by a long bow or crossbow.")
+     (image White "images/ko/kwgc.bmp"
+            Black "images/ko/kbgc.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 n continue-type) (cannon-step-2 n continue-type) (cannon-step-3 n continue-type) (cannon-step-4 n continue-type) (cannon-step-5 n continue-type)
+        (cannon-step-1 s continue-type) (cannon-step-2 s continue-type) (cannon-step-3 s continue-type) (cannon-step-4 s continue-type) (cannon-step-5 s continue-type)
+        (cannon-step-1 w continue-type) (cannon-step-2 w continue-type) (cannon-step-3 w continue-type) (cannon-step-4 w continue-type) (cannon-step-5 w continue-type)
+        (cannon-step-1 e continue-type) (cannon-step-2 e continue-type) (cannon-step-3 e continue-type) (cannon-step-4 e continue-type) (cannon-step-5 e continue-type)
+        (move-type continue-type)
+        (cannon-shot-1 n GC GC) (cannon-shot-1 nw GC GC)
+        (cannon-shot-1 s GC GC) (cannon-shot-1 se GC GC)
+        (cannon-shot-1 w GC GC) (cannon-shot-1 sw GC GC)
+        (cannon-shot-1 e GC GC) (cannon-shot-1 ne GC GC)
+        (cannon-shot-2 n GC GC) (cannon-shot-2 nw GC GC)
+        (cannon-shot-2 s GC GC) (cannon-shot-2 se GC GC)
+        (cannon-shot-2 w GC GC) (cannon-shot-2 sw GC GC)
+        (cannon-shot-2 e GC GC) (cannon-shot-2 ne GC GC)
+        (cannon-shot-3 n GC GC) (cannon-shot-3 nw GC GC)
+        (cannon-shot-3 s GC GC) (cannon-shot-3 se GC GC)
+        (cannon-shot-3 w GC GC) (cannon-shot-3 sw GC GC)
+        (cannon-shot-3 e GC GC) (cannon-shot-3 ne GC GC)
+        (cannon-shot-4 n GC GC) (cannon-shot-4 nw GC GC)
+        (cannon-shot-4 s GC GC) (cannon-shot-4 se GC GC)
+        (cannon-shot-4 w GC GC) (cannon-shot-4 sw GC GC)
+        (cannon-shot-4 e GC GC) (cannon-shot-4 ne GC GC)
+        (cannon-shot-5 n GC GC) (cannon-shot-5 nw GC GC)
+        (cannon-shot-5 s GC GC) (cannon-shot-5 se GC GC)
+        (cannon-shot-5 w GC GC) (cannon-shot-5 sw GC GC)
+        (cannon-shot-5 e GC GC) (cannon-shot-5 ne GC GC)
+     )
+  )
+  (piece
+     (name C)
+     (notation "Cannon")
+     (description "Cannon (ho): can move one intersection in one of the four diagonal directions and shoot one enemy piece up to five free or occupied intersections away from its landing point in any of the eight prime directions. (t[[mF][cxQ5ppQ5]])\
+                   It cannot shoot an imperial base, shield unit, or twelve-mile fog.")
+     (image White "images/ko/kwc.bmp"
+            Black "images/ko/kbc.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 nw continue-type)
+        (cannon-step-1 se continue-type)
+        (cannon-step-1 sw continue-type)
+        (cannon-step-1 ne continue-type)
+        (move-type continue-type)
+        (cannon-shot-1 n C GC) (cannon-shot-1 nw C GC)
+        (cannon-shot-1 s C GC) (cannon-shot-1 se C GC)
+        (cannon-shot-1 w C GC) (cannon-shot-1 sw C GC)
+        (cannon-shot-1 e C GC) (cannon-shot-1 ne C GC)
+        (cannon-shot-2 n C GC) (cannon-shot-2 nw C GC)
+        (cannon-shot-2 s C GC) (cannon-shot-2 se C GC)
+        (cannon-shot-2 w C GC) (cannon-shot-2 sw C GC)
+        (cannon-shot-2 e C GC) (cannon-shot-2 ne C GC)
+        (cannon-shot-3 n C GC) (cannon-shot-3 nw C GC)
+        (cannon-shot-3 s C GC) (cannon-shot-3 se C GC)
+        (cannon-shot-3 w C GC) (cannon-shot-3 sw C GC)
+        (cannon-shot-3 e C GC) (cannon-shot-3 ne C GC)
+        (cannon-shot-4 n C GC) (cannon-shot-4 nw C GC)
+        (cannon-shot-4 s C GC) (cannon-shot-4 se C GC)
+        (cannon-shot-4 w C GC) (cannon-shot-4 sw C GC)
+        (cannon-shot-4 e C GC) (cannon-shot-4 ne C GC)
+        (cannon-shot-5 n C GC) (cannon-shot-5 nw C GC)
+        (cannon-shot-5 s C GC) (cannon-shot-5 se C GC)
+        (cannon-shot-5 w C GC) (cannon-shot-5 sw C GC)
+        (cannon-shot-5 e C GC) (cannon-shot-5 ne C GC)
+     )
+  )
+  (piece
+     (name SC)
+     (notation "Crossbow cavalryman")
+     (description "Crossbow cavalryman (kokyuki): can jump as a cavalryman to any of its eight destinations and shoot one enemy piece up to five free intersections away from its landing point in any prime direction. (t[[mN][cxQ5]])")
+     (image White "images/ko/kwsc.bmp"
+            Black "images/ko/kbsc.bmp")
+     (moves
+        (move-type normal-type)
+        (leapp n nw continue-type) (leapp n ne continue-type)
+        (leapp s sw continue-type) (leapp s se continue-type)
+        (leapp w sw continue-type) (leapp w nw continue-type)
+        (leapp e se continue-type) (leapp e ne continue-type)
+        (move-type continue-type)
+        (shot-1 n SC SC) (shot-1 nw SC SC)
+        (shot-1 s SC SC) (shot-1 se SC SC)
+        (shot-1 w SC SC) (shot-1 sw SC SC)
+        (shot-1 e SC SC) (shot-1 ne SC SC)
+        (shot-2 n SC SC) (shot-2 nw SC SC)
+        (shot-2 s SC SC) (shot-2 se SC SC)
+        (shot-2 w SC SC) (shot-2 sw SC SC)
+        (shot-2 e SC SC) (shot-2 ne SC SC)
+        (shot-3 n SC SC) (shot-3 nw SC SC)
+        (shot-3 s SC SC) (shot-3 se SC SC)
+        (shot-3 w SC SC) (shot-3 sw SC SC)
+        (shot-3 e SC SC) (shot-3 ne SC SC)
+        (shot-4 n SC SC) (shot-4 nw SC SC)
+        (shot-4 s SC SC) (shot-4 se SC SC)
+        (shot-4 w SC SC) (shot-4 sw SC SC)
+        (shot-4 e SC SC) (shot-4 ne SC SC)
+        (shot-5 n SC SC) (shot-5 nw SC SC)
+        (shot-5 s SC SC) (shot-5 se SC SC)
+        (shot-5 w SC SC) (shot-5 sw SC SC)
+        (shot-5 e SC SC) (shot-5 ne SC SC)
+     )
+  )
+  (piece
+     (name SB)
+     (notation "Crossbow")
+     (description "Crossbow (yumi): is identical to the long bow, except that it can shoot up to five free intersections away. (t[[mF][cxQ5]])")
+     (image White "images/ko/kwsb.bmp"
+            Black "images/ko/kbsb.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 nw continue-type)
+        (cannon-step-1 se continue-type)
+        (cannon-step-1 sw continue-type)
+        (cannon-step-1 ne continue-type)
+        (move-type continue-type)
+        (shot-1 n SB SC) (shot-1 nw SB SC)
+        (shot-1 s SB SC) (shot-1 se SB SC)
+        (shot-1 w SB SC) (shot-1 sw SB SC)
+        (shot-1 e SB SC) (shot-1 ne SB SC)
+        (shot-2 n SB SC) (shot-2 nw SB SC)
+        (shot-2 s SB SC) (shot-2 se SB SC)
+        (shot-2 w SB SC) (shot-2 sw SB SC)
+        (shot-2 e SB SC) (shot-2 ne SB SC)
+        (shot-3 n SB SC) (shot-3 nw SB SC)
+        (shot-3 s SB SC) (shot-3 se SB SC)
+        (shot-3 w SB SC) (shot-3 sw SB SC)
+        (shot-3 e SB SC) (shot-3 ne SB SC)
+        (shot-4 n SB SC) (shot-4 nw SB SC)
+        (shot-4 s SB SC) (shot-4 se SB SC)
+        (shot-4 w SB SC) (shot-4 sw SB SC)
+        (shot-4 e SB SC) (shot-4 ne SB SC)
+        (shot-5 n SB SC) (shot-5 nw SB SC)
+        (shot-5 s SB SC) (shot-5 se SB SC)
+        (shot-5 w SB SC) (shot-5 sw SB SC)
+        (shot-5 e SB SC) (shot-5 ne SB SC)
+     )
+  )
+  (piece
+     (name LC)
+     (notation "Longbow cavalryman")
+     (description "Longbow cavalryman (kokyuki): can jump as a cavalryman to any of its eight destinations and shoot one enemy piece up to three free intersections away from its landing point in any prime direction. (t[[mN][cxQ3]])")
+     (image White "images/ko/kwlc.bmp"
+            Black "images/ko/kblc.bmp")
+     (moves
+        (move-type normal-type)
+        (leapp n nw continue-type) (leapp n ne continue-type)
+        (leapp s sw continue-type) (leapp s se continue-type)
+        (leapp w sw continue-type) (leapp w nw continue-type)
+        (leapp e se continue-type) (leapp e ne continue-type)
+        (move-type continue-type)
+        (shot-1 n LC LC) (shot-1 nw LC LC)
+        (shot-1 s LC LC) (shot-1 se LC LC)
+        (shot-1 w LC LC) (shot-1 sw LC LC)
+        (shot-1 e LC LC) (shot-1 ne LC LC)
+        (shot-2 n LC LC) (shot-2 nw LC LC)
+        (shot-2 s LC LC) (shot-2 se LC LC)
+        (shot-2 w LC LC) (shot-2 sw LC LC)
+        (shot-2 e LC LC) (shot-2 ne LC LC)
+        (shot-3 n LC LC) (shot-3 nw LC LC)
+        (shot-3 s LC LC) (shot-3 se LC LC)
+        (shot-3 w LC LC) (shot-3 sw LC LC)
+        (shot-3 e LC LC) (shot-3 ne LC LC)
+     )
+  )
+  (piece
+     (name LB)
+     (notation "Long Bow")
+     (description "Long Bow (yumi): can move one intersection in one of the four diagonal directions and shoot one enemy piece up to three free intersections from its landing point, in any of the eight prime directions. (t[[mF][cxQ3]])\
+                   It cannot shoot an imperial base, shield, shield unit, chariot, chariot unit, gun carriage, or twelve-mile fog.")
+     (image White "images/ko/kwlb.bmp"
+            Black "images/ko/kblb.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 nw continue-type)
+        (cannon-step-1 se continue-type)
+        (cannon-step-1 sw continue-type)
+        (cannon-step-1 ne continue-type)
+        (move-type continue-type)
+        (shot-1 n LB LC) (shot-1 nw LB LC)
+        (shot-1 s LB LC) (shot-1 se LB LC)
+        (shot-1 w LB LC) (shot-1 sw LB LC)
+        (shot-1 e LB LC) (shot-1 ne LB LC)
+        (shot-2 n LB LC) (shot-2 nw LB LC)
+        (shot-2 s LB LC) (shot-2 se LB LC)
+        (shot-2 w LB LC) (shot-2 sw LB LC)
+        (shot-2 e LB LC) (shot-2 ne LB LC)
+        (shot-3 n LB LC) (shot-3 nw LB LC)
+        (shot-3 s LB LC) (shot-3 se LB LC)
+        (shot-3 w LB LC) (shot-3 sw LB LC)
+        (shot-3 e LB LC) (shot-3 ne LB LC)
+     )
+  )
+  (piece
+     (name CG)
+     (notation "Chariot of the gods")
+     (description "Chariot of the gods (shinkisha): can move up to five free intersections along one of the four orthogonal directions and shoot two enemy pieces up to 7 free intersections from its landing point in any of the eight prime directions. (t[[mR5][cx2Q7]])")
+     (image White "images/ko/kwcg.bmp"
+            Black "images/ko/kbcg.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 n left-2-type) (cannon-step-2 n left-2-type) (cannon-step-3 n left-2-type) (cannon-step-4 n left-2-type) (cannon-step-5 n left-2-type)
+        (cannon-step-1 s left-2-type) (cannon-step-2 s left-2-type) (cannon-step-3 s left-2-type) (cannon-step-4 s left-2-type) (cannon-step-5 s left-2-type)
+        (cannon-step-1 w left-2-type) (cannon-step-2 w left-2-type) (cannon-step-3 w left-2-type) (cannon-step-4 w left-2-type) (cannon-step-5 w left-2-type)
+        (cannon-step-1 e left-2-type) (cannon-step-2 e left-2-type) (cannon-step-3 e left-2-type) (cannon-step-4 e left-2-type) (cannon-step-5 e left-2-type)
+        (move-type left-2-type)
+        (shotc-1 n CG CG left-1-type) (shotc-1 nw CG CG left-1-type)
+        (shotc-1 s CG CG left-1-type) (shotc-1 se CG CG left-1-type)
+        (shotc-1 w CG CG left-1-type) (shotc-1 sw CG CG left-1-type)
+        (shotc-1 e CG CG left-1-type) (shotc-1 ne CG CG left-1-type)
+        (shotc-2 n CG CG left-1-type) (shotc-2 nw CG CG left-1-type)
+        (shotc-2 s CG CG left-1-type) (shotc-2 se CG CG left-1-type)
+        (shotc-2 w CG CG left-1-type) (shotc-2 sw CG CG left-1-type)
+        (shotc-2 e CG CG left-1-type) (shotc-2 ne CG CG left-1-type)
+        (shotc-3 n CG CG left-1-type) (shotc-3 nw CG CG left-1-type)
+        (shotc-3 s CG CG left-1-type) (shotc-3 se CG CG left-1-type)
+        (shotc-3 w CG CG left-1-type) (shotc-3 sw CG CG left-1-type)
+        (shotc-3 e CG CG left-1-type) (shotc-3 ne CG CG left-1-type)
+        (shotc-4 n CG CG left-1-type) (shotc-4 nw CG CG left-1-type)
+        (shotc-4 s CG CG left-1-type) (shotc-4 se CG CG left-1-type)
+        (shotc-4 w CG CG left-1-type) (shotc-4 sw CG CG left-1-type)
+        (shotc-4 e CG CG left-1-type) (shotc-4 ne CG CG left-1-type)
+        (shotc-5 n CG CG left-1-type) (shotc-5 nw CG CG left-1-type)
+        (shotc-5 s CG CG left-1-type) (shotc-5 se CG CG left-1-type)
+        (shotc-5 w CG CG left-1-type) (shotc-5 sw CG CG left-1-type)
+        (shotc-5 e CG CG left-1-type) (shotc-5 ne CG CG left-1-type)
+        (shotc-6 n CG CG left-1-type) (shotc-6 nw CG CG left-1-type)
+        (shotc-6 s CG CG left-1-type) (shotc-6 se CG CG left-1-type)
+        (shotc-6 w CG CG left-1-type) (shotc-6 sw CG CG left-1-type)
+        (shotc-6 e CG CG left-1-type) (shotc-6 ne CG CG left-1-type)
+        (shotc-7 n CG CG left-1-type) (shotc-7 nw CG CG left-1-type)
+        (shotc-7 s CG CG left-1-type) (shotc-7 se CG CG left-1-type)
+        (shotc-7 w CG CG left-1-type) (shotc-7 sw CG CG left-1-type)
+        (shotc-7 e CG CG left-1-type) (shotc-7 ne CG CG left-1-type)
+        (move-type left-1-type)
+        (shot-1 n CG CG) (shot-1 nw CG CG)
+        (shot-1 s CG CG) (shot-1 se CG CG)
+        (shot-1 w CG CG) (shot-1 sw CG CG)
+        (shot-1 e CG CG) (shot-1 ne CG CG)
+        (shott-2 n CG CG) (shott-2 nw CG CG)
+        (shott-2 s CG CG) (shott-2 se CG CG)
+        (shott-2 w CG CG) (shott-2 sw CG CG)
+        (shott-2 e CG CG) (shott-2 ne CG CG)
+        (shott-3 n CG CG) (shott-3 nw CG CG)
+        (shott-3 s CG CG) (shott-3 se CG CG)
+        (shott-3 w CG CG) (shott-3 sw CG CG)
+        (shott-3 e CG CG) (shott-3 ne CG CG)
+        (shott-4 n CG CG) (shott-4 nw CG CG)
+        (shott-4 s CG CG) (shott-4 se CG CG)
+        (shott-4 w CG CG) (shott-4 sw CG CG)
+        (shott-4 e CG CG) (shott-4 ne CG CG)
+        (shott-5 n CG CG) (shott-5 nw CG CG)
+        (shott-5 s CG CG) (shott-5 se CG CG)
+        (shott-5 w CG CG) (shott-5 sw CG CG)
+        (shott-5 e CG CG) (shott-5 ne CG CG)
+        (shott-6 n CG CG) (shott-6 nw CG CG)
+        (shott-6 s CG CG) (shott-6 se CG CG)
+        (shott-6 w CG CG) (shott-6 sw CG CG)
+        (shott-6 e CG CG) (shott-6 ne CG CG)
+        (shott-7 n CG CG) (shott-7 nw CG CG)
+        (shott-7 s CG CG) (shott-7 se CG CG)
+        (shott-7 w CG CG) (shott-7 sw CG CG)
+        (shott-7 e CG CG) (shott-7 ne CG CG)
+     )
+  )
+  (piece
+     (name EC)
+     (notation "European Cannon")
+     (description "European Cannon (butsuroki): can move one intersection in one of the four diagonal directions and shoot two enemy pieces up to 7 free intersections from its landing point in any of the eight prime directions. (t[[mF][cx2Q7]])\
+                   It cannot shoot a shield unit or an imperial base. It can only shoot at a twelve-mile fog that is at least six intersections away.")
+     (image White "images/ko/kwec.bmp"
+            Black "images/ko/kbec.bmp")
+     (moves
+        (move-type normal-type)
+        (cannon-step-1 nw left-2-type)
+        (cannon-step-1 se left-2-type)
+        (cannon-step-1 sw left-2-type)
+        (cannon-step-1 ne left-2-type)
+        (move-type left-2-type)
+        (shotc-1 n EC CG left-1-type) (shotc-1 nw EC CG left-1-type)
+        (shotc-1 s EC CG left-1-type) (shotc-1 se EC CG left-1-type)
+        (shotc-1 w EC CG left-1-type) (shotc-1 sw EC CG left-1-type)
+        (shotc-1 e EC CG left-1-type) (shotc-1 ne EC CG left-1-type)
+        (shotc-2 n EC CG left-1-type) (shotc-2 nw EC CG left-1-type)
+        (shotc-2 s EC CG left-1-type) (shotc-2 se EC CG left-1-type)
+        (shotc-2 w EC CG left-1-type) (shotc-2 sw EC CG left-1-type)
+        (shotc-2 e EC CG left-1-type) (shotc-2 ne EC CG left-1-type)
+        (shotc-3 n EC CG left-1-type) (shotc-3 nw EC CG left-1-type)
+        (shotc-3 s EC CG left-1-type) (shotc-3 se EC CG left-1-type)
+        (shotc-3 w EC CG left-1-type) (shotc-3 sw EC CG left-1-type)
+        (shotc-3 e EC CG left-1-type) (shotc-3 ne EC CG left-1-type)
+        (shotc-4 n EC CG left-1-type) (shotc-4 nw EC CG left-1-type)
+        (shotc-4 s EC CG left-1-type) (shotc-4 se EC CG left-1-type)
+        (shotc-4 w EC CG left-1-type) (shotc-4 sw EC CG left-1-type)
+        (shotc-4 e EC CG left-1-type) (shotc-4 ne EC CG left-1-type)
+        (shotc-5 n EC CG left-1-type) (shotc-5 nw EC CG left-1-type)
+        (shotc-5 s EC CG left-1-type) (shotc-5 se EC CG left-1-type)
+        (shotc-5 w EC CG left-1-type) (shotc-5 sw EC CG left-1-type)
+        (shotc-5 e EC CG left-1-type) (shotc-5 ne EC CG left-1-type)
+        (shotc-6 n EC CG left-1-type) (shotc-6 nw EC CG left-1-type)
+        (shotc-6 s EC CG left-1-type) (shotc-6 se EC CG left-1-type)
+        (shotc-6 w EC CG left-1-type) (shotc-6 sw EC CG left-1-type)
+        (shotc-6 e EC CG left-1-type) (shotc-6 ne EC CG left-1-type)
+        (shotc-7 n EC CG left-1-type) (shotc-7 nw EC CG left-1-type)
+        (shotc-7 s EC CG left-1-type) (shotc-7 se EC CG left-1-type)
+        (shotc-7 w EC CG left-1-type) (shotc-7 sw EC CG left-1-type)
+        (shotc-7 e EC CG left-1-type) (shotc-7 ne EC CG left-1-type)
+        (move-type left-1-type)
+        (shot-1 n EC CG) (shot-1 nw EC CG)
+        (shot-1 s EC CG) (shot-1 se EC CG)
+        (shot-1 w EC CG) (shot-1 sw EC CG)
+        (shot-1 e EC CG) (shot-1 ne EC CG)
+        (shott-2 n EC CG) (shott-2 nw EC CG)
+        (shott-2 s EC CG) (shott-2 se EC CG)
+        (shott-2 w EC CG) (shott-2 sw EC CG)
+        (shott-2 e EC CG) (shott-2 ne EC CG)
+        (shott-3 n EC CG) (shott-3 nw EC CG)
+        (shott-3 s EC CG) (shott-3 se EC CG)
+        (shott-3 w EC CG) (shott-3 sw EC CG)
+        (shott-3 e EC CG) (shott-3 ne EC CG)
+        (shott-4 n EC CG) (shott-4 nw EC CG)
+        (shott-4 s EC CG) (shott-4 se EC CG)
+        (shott-4 w EC CG) (shott-4 sw EC CG)
+        (shott-4 e EC CG) (shott-4 ne EC CG)
+        (shott-5 n EC CG) (shott-5 nw EC CG)
+        (shott-5 s EC CG) (shott-5 se EC CG)
+        (shott-5 w EC CG) (shott-5 sw EC CG)
+        (shott-5 e EC CG) (shott-5 ne EC CG)
+        (shott-6 n EC CG) (shott-6 nw EC CG)
+        (shott-6 s EC CG) (shott-6 se EC CG)
+        (shott-6 w EC CG) (shott-6 sw EC CG)
+        (shott-6 e EC CG) (shott-6 ne EC CG)
+        (shott-7 n EC CG) (shott-7 nw EC CG)
+        (shott-7 s EC CG) (shott-7 se EC CG)
+        (shott-7 w EC CG) (shott-7 sw EC CG)
+        (shott-7 e EC CG) (shott-7 ne EC CG)
+     )
+  )
+  (piece
+     (name WG)
+     (notation "Winged horse")
+     (description "Winged horse (temba): moves as a cavalry, but without any restriction on the direction of the second jump. That is, it moves twice like a knight in Western chess. (NdN)")
+     (image White "images/ko/kwwg.bmp"
+            Black "images/ko/kbwg.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n nw continue-type) (leapc n ne continue-type)
+        (leapc s sw continue-type) (leapc s se continue-type)
+        (leapc w sw continue-type) (leapc w nw continue-type)
+        (leapc e se continue-type) (leapc e ne continue-type)
+        (move-type continue-type)
+        (leap n nw) (leap n ne)
+        (leap s sw) (leap s se)
+        (leap w sw) (leap w nw)
+        (leap e se) (leap e ne)
+     )
+  )
+  (piece
+     (name CA)
+     (notation "Cavalry")
+     (description "Cavalry (kiso): can jumps once or twice as a cavalryman in a single turn, potentially capturing two pieces. (NdhN)\
+                   If it jumps twice, both jumps must be in the same orthogonal direction (both forwards, backwards, to the left, or to the right). \
+                   That is, after the cavalry makes its first jump, it is restricted to only two landing squares for its second jump, similar to the restriction of a knight in other shogi variants or\
+                   For its second jump, it may return to its starting point. This gives the cavalry a power of igui and passing a turn similar to that of the sumo wrestler.")
+     (image White "images/ko/kwca.bmp"
+            Black "images/ko/kbca.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n nw left-1-nnw) (leapc n ne left-1-nne)
+        (leapc s sw left-1-ssw) (leapc s se left-1-sse)
+        (leapc w sw left-1-sww) (leapc w nw left-1-nww)
+        (leapc e se left-1-see) (leapc e ne left-1-nee)
+        (move-type left-1-nnw)
+        (leap n nw) (leap n ne) (leap s se)
+        (move-type left-1-nne)
+        (leap n nw) (leap n ne) (leap s sw)
+        (move-type left-1-ssw)
+        (leap s sw) (leap s se) (leap n ne)
+        (move-type left-1-sse)
+        (leap s sw) (leap s se) (leap n nw)
+        (move-type left-1-sww)
+        (leap w sw) (leap w nw) (leap e ne)
+        (move-type left-1-nww)
+        (leap w sw) (leap w nw) (leap e se)
+        (move-type left-1-see)
+        (leap e se) (leap e ne) (leap w nw)
+        (move-type left-1-nee)
+        (leap e se) (leap e ne) (leap w sw)
+     )
+  )
+  (piece
+     (name HH)
+     (notation "Cavalry")
+     (description "Cavalry (kiso): can jumps once or twice as a cavalryman in a single turn, potentially capturing two pieces. (NdhN)\
+                   If it jumps twice, both jumps must be in the same orthogonal direction (both forwards, backwards, to the left, or to the right). \
+                   That is, after the cavalry makes its first jump, it is restricted to only two landing squares for its second jump, similar to the restriction of a knight in other shogi variants or\
+                   For its second jump, it may return to its starting point. This gives the cavalry a power of igui and passing a turn similar to that of the sumo wrestler.")
+     (image White "images/ko/kwhh.bmp"
+            Black "images/ko/kbhh.bmp")
+     (moves
+        (move-type normal-type)
+        (leapc n nw left-1-nnw) (leapc n ne left-1-nne)
+        (leapc s sw left-1-ssw) (leapc s se left-1-sse)
+        (leapc w sw left-1-sww) (leapc w nw left-1-nww)
+        (leapc e se left-1-see) (leapc e ne left-1-nee)
+        (move-type left-1-nnw)
+        (leap n nw) (leap n ne) (leap s se)
+        (move-type left-1-nne)
+        (leap n nw) (leap n ne) (leap s sw)
+        (move-type left-1-ssw)
+        (leap s sw) (leap s se) (leap n ne)
+        (move-type left-1-sse)
+        (leap s sw) (leap s se) (leap n nw)
+        (move-type left-1-sww)
+        (leap w sw) (leap w nw) (leap e ne)
+        (move-type left-1-nww)
+        (leap w sw) (leap w nw) (leap e se)
+        (move-type left-1-see)
+        (leap e se) (leap e ne) (leap w nw)
+        (move-type left-1-nee)
+        (leap e se) (leap e ne) (leap w sw)
+     )
+  )
+  (piece
+     (name HS)
+     (notation "Cavalryman")
+     (description "Cavalryman (bahei): can jump to one intersection orthogonally plus one intersection diagonally (N)\
+                   This is the move of the knight in Western chess.\
+                   The cavalryman promotes if it captures a European cannon.")
+     (image White "images/ko/kwhs.bmp"
+            Black "images/ko/kbhs.bmp")
+     (moves
+        (move-type normal-type)
+        (leap n nw) (leap n ne)
+        (leap s sw) (leap s se)
+        (leap w sw) (leap w nw)
+        (leap e se) (leap e ne)
+     )
+  )
+  (piece
+     (name CO)
+     (notation "Commissar")
+     (description "Commissar (toshi): can move any number of free intersections along one of the four diagonals or move any number of free intersections orthogonally forward or backward. (BfbR)\
+                   This is the move of the flying ox in chu shogi.")
+     (image White "images/ko/kwco.bmp"
+            Black "images/ko/kbco.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide s) 
+        (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+  (piece
+     (name PU)
+     (notation "Patrol unit")
+     (description "Patrol unit (fuso): can move any number of free intersections orthogonally forward or backward or one intersection orthogonally sideways. (fbRW)\
+                   This is the move of the vertical mover in other shogi variants.")
+     (image White "images/ko/kwpu.bmp"
+            Black "images/ko/kbpu.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide s)
+        (step w) (step e)
+     )
+  )
+  (piece
+     (name MM)
+     (notation "Millenary")
+     (description "Millenary (senso): can move any number of free intersections along any one of the eight orthogonal or diagonal directions. (Q)\
+                   This is the move of the free king in other shogi variants.")
+     (image White "images/ko/kwmm.bmp"
+            Black "images/ko/kbmm.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide nw)
+        (slide s) (slide se)
+        (slide w) (slide sw)
+        (slide e) (slide ne)
+     )
+  )
+  (piece
+     (name CU)
+     (notation "Chariot unit")
+     (description "Chariot unit (shaso): can move any number of free intersections along any of the four orthogonal directions. (R)\
+                   This is the move of the rook in other shogi variants.\
+                   It cannot capture the imperial base.\
+                   The chariot unit is unaffected by the bows.")
+     (image White "images/ko/kwcu.bmp"
+            Black "images/ko/kbcu.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide s)
+        (slide w) (slide e)
+     )
+  )
+  (piece
+     (name IB)
+     (notation "Imperial base")
+     (description "Imperial base (tenrui): The imperial base can move any number of free intersections in the four diagonal directions, or directly to either side. (fbRB)\
+                   This is the move of the free boar in chu shogi.\
+                   The imperial base cannot be shot by the long bow, crossbow, cannon, gun carriage, European cannon or Chariot of the gods and can be killed by the chariot or chariot unit.")
+     (image White "images/ko/kwib.bmp"
+            Black "images/ko/kbib.bmp")
+     (moves
+        (move-type normal-type)
+        (slide w) (slide e) 
+        (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+  (piece
+     (name SU)
+     (notation "Shield unit")
+     (description "Shield unit (haiso): can move any number of free intersections orthogonally to either side or one intersection in one of the four diagonal directions. (rlRF)\
+                   The shield unit is unaffected by the bows or the guns.")
+     (image White "images/ko/kwsu.bmp"
+            Black "images/ko/kbsu.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (step se)
+        (step sw) (step ne)
+        (slide w) (slide e)
+     )
+  )
+  (piece
+     (name CC)
+     (notation "Chariot unit")
+     (description "Chariot unit (shaso): can move any number of free intersections along any of the four orthogonal directions. (R)\
+                   This is the move of the rook in other shogi variants.\
+                   It cannot capture the imperial base.\
+                   The chariot unit is unaffected by the bows.")
+     (image White "images/ko/kwcc.bmp"
+            Black "images/ko/kbcc.bmp")
+     (moves
+        (move-type normal-type)
+        (slide n) (slide s)
+        (slide w) (slide e)
+     )
+  )
+  (piece
+     (name CH)
+     (notation "Chariot")
+     (description "Chariot (kuruma): can move one to five free intersections in one of the four orthogonal directions. (R5)\
+                   It cannot capture the imperial base.\
+                   The chariot unit is unaffected by the bows.")
+     (image White "images/ko/kwch.bmp"
+            Black "images/ko/kbch.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step-1 n) (step-2 n) (step-3 n) (step-4 n)
+        (step s) (step-1 s) (step-2 s) (step-3 s) (step-4 s)
+        (step w) (step-1 w) (step-2 w) (step-3 w) (step-4 w)
+        (step e) (step-1 e) (step-2 e) (step-3 e) (step-4 e)
+     )
+  )
+  (piece
+     (name UU)
+     (notation "Shield unit")
+     (description "Shield unit (haiso): can move any number of free intersections orthogonally to either side or one intersection in one of the four diagonal directions. (rlRF)\
+                   The shield unit is unaffected by the bows or the guns.")
+     (image White "images/ko/kwuu.bmp"
+            Black "images/ko/kbuu.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (step se)
+        (step sw) (step ne)
+        (slide w) (slide e)
+     )
+  )
+  (piece
+     (name SH)
+     (notation "Shield")
+     (description "Shield (hai): can step one intersection in one of the four diagonal directions. (F)\
+                   The shield is unaffected by the bows.\
+                   This is the move of the cat sword in dai shogi.")
+     (image White "images/ko/kwsh.bmp"
+            Black "images/ko/kbsh.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (step se)
+        (step sw) (step ne)
+     )
+  )
+  (piece
+     (name V)
+     (notation "Vanguard")
+     (description "Vanguard (sempo): can move one to five free intersections directly forward. (fR5)")
+     (image White "images/ko/kwv.bmp"
+            Black "images/ko/kbv.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step-1 n) (step-2 n) (step-3 n) (step-4 n)
+     )
+  )
+  (piece
+     (name PB)
+     (notation "Pawn")
+     (description "Pawn (fuhyo): \
+                   If the drum is killed, the pawns may no longer move forward.")
+     (image White "images/ko/kwp.bmp"
+            Black "images/ko/kbp.bmp")
+     (moves
+        (move-type normal-type)
+        (step s)
+        (step w) (step e)
+     )
+  )
+  (piece
+     (name N)
+     (image White "images/ko/n.bmp"
+            Black "images/ko/n.bmp")
+  )
+
+  (board-setup
+     (Black
+        (AG S19 A19)
+        (SM R19)
+        (TP B19)
+        (EN Q19 C19)
+        (CS P19 D19)
+        (S  O19 E19)
+        (A  N19 F19)
+        (WR M19 G19)
+        (AC L19 H19)
+        (CL K19)
+        (SO I19)
+        (G  J19)
+        (RG S18 A18)
+        (CR R18 B18)
+        (Q  P18 D18)
+        (M  N18 F18)
+        (SN L18 H18)
+        (D  K18)
+        (B  I18)
+        (MT J18)
+        (E  S17 A17 O17 E17 K17 I17)
+        (C  R17 B17 N17 F17)
+        (SB Q17 C17 M17 G17)
+        (LB P17 D17 L17 H17)
+        (EC J17)
+        (CA S16 A16)
+        (HS Q16 C16 O16 E16 M16 G16 K16 I16)
+        (P  R15 B15 P15 D15 N15 F15 L15 H15)
+        (PU J15)
+        (CU S14 A14)
+        (SU R14 B14 J14)
+        (CH Q14 C14 O14 E14 M14 G14 K14 I14)
+        (SH P14 D14 N14 F14 L14 H14)
+        (V  J13)
+     )
+     (White
+        (AG S1 A1)
+        (TP R1)
+        (SM B1)
+        (EN Q1 C1)
+        (CS P1 D1)
+        (S  O1 E1)
+        (A  N1 F1)
+        (WR M1 G1)
+        (AC L1 H1)
+        (SO K1)
+        (CL I1)
+        (G  J1)
+        (RG S2 A2)
+        (CR R2 B2)
+        (Q  P2 D2)
+        (M  N2 F2)
+        (SN L2 H2)
+        (B  K2)
+        (D  I2)
+        (MT J2)
+        (E  S3 A3 O3 E3 K3 I3)
+        (C  R3 B3 N3 F3)
+        (SB Q3 C3 M3 G3)
+        (LB P3 D3 L3 H3)
+        (EC J3)
+        (CA S4 A4)
+        (HS Q4 C4 O4 E4 M4 G4 K4 I4)
+        (P  R5 B5 P5 D5 N5 F5 L5 H5)
+        (PU J5)
+        (CU S6 A6)
+        (SU R6 B6 J6)
+        (CH Q6 C6 O6 E6 M6 G6 K6 I6)
+        (SH P6 D6 N6 F6 L6 H6)
+        (V  J7)
+     )
+  )
+  (loss-condition  (Black White) (and (pieces-remaining 0 MT) (pieces-remaining 0 GO) (pieces-remaining 0 G) ) )
+  (loss-condition  (Black White) (and (pieces-remaining 0 G) (pieces-remaining 0 GO) (pieces-remaining 0 B) (pieces-remaining 0 RA) (pieces-remaining 0 BD) ) )
+)
+
+(variant
+  (title "Ko Shogi (variant)")
+  (board-setup
+     (Black
+        (AG S19 A19)
+        (SM R19)
+        (TP B19)
+        (EN Q19 C19)
+        (A  Q17 C17)
+        (S  O19 E19)
+        (CS N19 F19)
+        (WR M17 G17)
+        (AC L19 H19)
+        (CL K19)
+        (SO I19)
+        (G  J19)
+        (RG S18 A18)
+        (CR R18 B18)
+        (Q  P18 D18)
+        (M  N18 F18)
+        (SN L18 H18)
+        (D  K18)
+        (B  I18)
+        (MT J18)
+        (E  S17 A17 O17 E17 K17 I17)
+        (C  R17 B17)
+        (LB L17 H17)
+        (EC J17)
+        (CA S16 A16)
+        (HS Q16 C16 O16 E16 M16 G16 K16 I16)
+        (P  R15 B15 P15 D15 N15 F15 L15 H15)
+        (PU J15)
+        (SU R14 B14 J14)
+        (CH S14 A14 Q14 C14 O14 E14 M14 G14 K14 I14)
+        (SH P14 D14 N14 F14 L14 H14)
+        (V  J13)
+     )
+     (White
+        (AG S1 A1)
+        (TP R1)
+        (SM B1)
+        (EN Q1 C1)
+        (A  Q3 C3)
+        (S  O1 E1)
+        (CS N1 F1)
+        (WR M3 G3)
+        (AC L1 H1)
+        (SO K1)
+        (CL I1)
+        (G  J1)
+        (RG S2 A2)
+        (CR R2 B2)
+        (Q  P2 D2)
+        (M  N2 F2)
+        (SN L2 H2)
+        (B  K2)
+        (D  I2)
+        (MT J2)
+        (E  S3 A3 O3 E3 K3 I3)
+        (C  R3 B3)
+        (LB L3 H3)
+        (EC J3)
+        (CA S4 A4)
+        (HS Q4 C4 O4 E4 M4 G4 K4 I4)
+        (P  R5 B5 P5 D5 N5 F5 L5 H5)
+        (PU J5)
+        (SU R6 B6 J6)
+        (CH S6 A6 Q6 C6 O6 E6 M6 G6 K6 I6)
+        (SH P6 D6 N6 F6 L6 H6)
+        (V  J7)
+     )
+  )
+)
+
+(variant
+  (title "Little Ko Shogi (13x13)")
+  (default)
+
+  (board
+    (image "images/ko/13x13.bmp")
+    (grid
+      (start-rectangle 5 5 36 36)
+      (dimensions
+        ("A/B/C/D/E/F/G/H/I/J/K/L/M" (32 0)) ; files
+        ("1/2/3/4/5/6/7/8/9/10/11/12/13" (0 32)) ; ranks
+      )
+      (directions 
+        (n     0 -1) (s     0  1) (e     1  0) (w    -1 0) 
+        (nw   -1 -1) (sw   -1  1) (ne    1 -1) (se    1 1) 
+      ) 
+    )
+    (symmetry White (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+    (zone (name promotion) (players Black)
+        (positions 
+           A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1 L1 M1
+           A2 B2 C2 D2 E2 F2 G2 H2 I2 J2 K2 L2 M2
+           A3 B3 C3 D3 E3 F3 G3 H3 I3 J3 K3 L3 M3
+           A4 B4 C4 D4 E4 F4 G4 H4 I4 J4 K4 L4 M4
+           A5 B5 C5 D5 E5 F5 G5 H5 I5 J5 K5 L5 M5
+        )
+    )
+    (zone (name promotion) (players White)
+        (positions 
+           A9  B9  C9  D9  E9  F9  G9  H9  I9  J9  K9  L9  M9 
+           A10 B10 C10 D10 E10 F10 G10 H10 I10 J10 K10 L10 M10
+           A11 B11 C11 D11 E11 F11 G11 H11 I11 J11 K11 L11 M11
+           A12 B12 C12 D12 E12 F12 G12 H12 I12 J12 K12 L12 M12
+           A13 B13 C13 D13 E13 F13 G13 H13 I13 J13 K13 L13 M13
+        )
+    )
+  )
+
+  (board-setup
+     (Black
+        (G  G13)
+        (CL F13)
+        (SO H13)
+        (WR E13 I13)
+        (CS D13 J13)
+        (EN C13 K13)
+        (SM B13)
+        (TP L13)
+        (AG A13 M13)
+
+        (MT G12)
+        (D  F12)
+        (B  H12)
+        (Q  D12 J12)
+        (CR B12 L12)
+        (RG A12 M12)
+
+        (EC G11)
+        (E  F11 H11 D11 J11 B11 L11)
+        (C  E11 I11)
+        (LB C11 K11)
+        (SB A11 M11)
+
+        (CA G10)
+        (CH F10 H10 D10 J10 B10 L10)
+        (HS E10 I10 C10 K10 A10 M10)
+
+        (V  G9)
+        (P  E9 I9 C9 K9)
+        (SU F9 H9 D9 J9 B9 L9)
+        (P  A9 M9)
+     )
+     (White
+        (G  G1)
+        (SO F1)
+        (CL H1)
+        (WR E1 I1)
+        (CS D1 J1)
+        (EN C1 K1)
+        (TP B1)
+        (SM L1)
+        (AG A1 M1)
+
+        (MT G2)
+        (B  F2)
+        (D  H2)
+        (Q  D2 J2)
+        (CR B2 L2)
+        (RG A2 M2)
+
+        (EC G3)
+        (E  F3 H3 D3 J3 B3 L3)
+        (C  E3 I3)
+        (LB C3 K3)
+        (SB A3 M3)
+
+        (CA G4)
+        (CH F4 H4 D4 J4 B4 L4)
+        (HS E4 I4 C4 K4 A4 M4)
+
+        (V  G5)
+        (P  E5 I5 C5 K5)
+        (SU F5 H5 D5 J5 B5 L5)
+        (P  A5 M5)
+     )
+  )
+)

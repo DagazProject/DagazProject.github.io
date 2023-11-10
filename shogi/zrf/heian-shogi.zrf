@@ -1,0 +1,124 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Heian Shogi")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+        (image "images/heian.bmp")
+        (grid
+             (start-rectangle 9 10 50 56)
+             (dimensions ("a/b/c/d/e/f/g/h/i" (41 0))
+                         ("8/7/6/5/4/3/2/1" (0 46))
+             )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                         (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+	     )
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+        (zone (name promotion-zone) (players South)
+              (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 a7 b7 c7 d7 e7 f7 g7 h7 i7 a6 b6 c6 d6 e6 f6 g6 h6 i6)
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 a2 b2 c2 d2 e2 f2 g2 h2 i2 a3 b3 c3 d3 e3 f3 g3 h3 i3)
+        )
+  )
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              North "images/ngold.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              North "images/nsilver.bmp")
+       (moves
+           (step nw) (step sw)
+           (step se) (step ne)
+           (step n)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknight.bmp" 
+              North "images/nknight.bmp")
+       (moves
+           (jump n nw)
+           (jump n ne)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slance.bmp" 
+              North "images/nlance.bmp")
+       (moves
+           (slide n)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/spawn.bmp" 
+              North "images/npawn.bmp")
+       (moves
+           (step n)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   e1)
+            (Gold   d1 f1)
+            (Silver c1 g1)
+            (Knight b1 h1)
+            (Lance  a1 i1)
+            (Pawn   a3 b3 c3 d3 e3 f3 g3 h3 i3)
+        )
+        ( North
+            (King   e8)
+            (Gold   d8 f8)
+            (Silver c8 g8)
+            (Knight b8 h8)
+            (Lance  a8 i8)
+            (Pawn   a6 b6 c6 d6 e6 f6 g6 h6 i6)
+        )
+  )
+
+  (loss-condition (South North) (checkmated King))
+  (loss-condition (South North) repetition)
+)

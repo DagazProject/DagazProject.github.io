@@ -1,0 +1,65 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Daddy's puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T B0100 2) (T B1000 2) 
+  (T B0100 3) (T B1000 3) 
+  (T B0000 4)
+  (T B0000 5)
+  (T B0010 6) (T B0001 6) 
+  (T B0010 7) (T B0001 7) 
+  (T B0100 8) (T B1000 8) 
+  (T B0100 9) (T B1000 9) 
+
+  (board-setup
+     (You 
+         (R0110F1 a5) (R1010F1 b5) (R0101F1 a4) (R1001F1 b4)
+         (B01002 c5) (B10002 d5) 
+         (B01003 c4) (B10003 d4) 
+         (B00004 a3)
+         (B00005 b3)
+         (B00106 a2) (B00016 a1) 
+         (B00107 b2) (B00017 b1) 
+         (B01008 c2) (B10008 d2) 
+         (B01009 c1) (B10009 d1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (a2))
+     (absolute-config R1010F1 (b2))
+     (absolute-config R0101F1 (a1))
+     (absolute-config R1001F1 (b1))
+  ))
+)
+
+(variant
+  (title "Daddy's puzzle")
+  (default)
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (c2))
+     (absolute-config R1010F1 (d2))
+     (absolute-config R0101F1 (c1))
+     (absolute-config R1001F1 (d1))
+  ))
+)

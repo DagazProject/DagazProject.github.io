@@ -1,0 +1,157 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial King continue-type)
+    else
+       (add-partial continue-type)
+   )
+))
+
+(define checker-leap (
+   $1 (verify friend?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial King continue-type)
+    else
+       (add-partial continue-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-leap (
+   $1 (while empty? $1)
+   (verify friend?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify not-empty?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Cyclic Checkers")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/cyclic.bmp")
+     (grid
+         (start-rectangle 62 2 112 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("X/Y" (470 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+     )
+     (links wr (a8 Y1) (Y1 Y2) (Y2 Y3) (Y3 Y4) (Y4 Y5) (Y5 Y6) (Y6 Y7) (Y7 Y8))
+     (links br (a8 X8) (X8 X7) (X7 X6) (X6 X5) (X5 X4) (X4 X3) (X3 X2) (X2 X1))
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (wr br) (br wr))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+     (zone (name home) (players White)
+           (positions a1 c1 e1 g1 b2 d2 f2 h2 a3 c3 e3 g3 b4 d4 f4 h4)
+     )
+     (zone (name home) (players Black)
+           (positions a5 c5 e5 g5 b6 d6 f6 h6 a7 c7 e7 g7 b8 d8 f8 h8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+         (checker-leap nw) (checker-leap ne) (checker-leap sw) (checker-leap se)
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type continue-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (checker-leap nw) (checker-leap ne) (checker-leap sw) (checker-leap se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+         (king-leap nw) (king-leap ne) (king-leap sw) (king-leap se)
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type continue-type)
+         (king-continue nw) (king-continue ne) (king-continue sw) (king-continue se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (Man b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)

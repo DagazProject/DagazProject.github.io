@@ -1,0 +1,67 @@
+(define slide (
+  $1 (while empty? add $1)
+))
+
+(game
+  (title "Euclid")
+  (history "Copyright (c) 2003 Chris Huntoon.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+  (option "euclid-extension" true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/euclid/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/euclid/wman.bmp"
+            Black "images/euclid/bman.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/euclid/wking.bmp"
+            Black "images/euclid/bking.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+        (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+
+  (board-setup
+    (White (King a1) (Man b1 c1 d1 a2 b2 c2 d2 a3 b3 c3 d3 a4 b4 c4 d4))
+    (Black (King h8) (Man e8 f8 g8 e7 f7 g7 h7 e6 f6 g6 h6 e5 f5 g5 h5))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 1))
+  (loss-condition (White Black) stalemated)
+)
+
+(variant
+  (title "Euclid (variant)")
+  (board-setup
+    (White (King a1) (Man a2 b2 c2 d2 e2 f2 g2 h2 b1 c1 d1 e1 f1 g1 h1))
+    (Black (King h8) (Man a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8))
+  )
+)

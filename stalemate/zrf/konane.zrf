@@ -1,0 +1,81 @@
+(define first-move (
+  capture add
+))
+
+(define jump-1 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(define jump-2 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(define jump-3 (
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  $1 (verify enemy?) capture
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Konane")
+
+  (option "animate captures" false)
+  (option "konane-extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (move-priorities normal-type first-type)
+
+  (board
+    (image "images/konane/board.bmp")
+    (grid
+      (start-rectangle 2 2 82 82)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (80 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 80)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+    )
+    (zone (name first)  
+        (players Black) 
+        (positions a2 a4 a6 a8 b1 d1 f1 h1 h3 h5 h7 c8 e8 g8 d5 e4)
+    )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/konane/white.bmp"
+            Black "images/konane/black.bmp")
+     (moves
+        (move-type first-type)
+        (first-move)
+        (move-type normal-type)
+        (jump-1 n) (jump-1 s) (jump-1 w) (jump-1 e)
+        (jump-2 n) (jump-2 s) (jump-2 w) (jump-2 e)
+        (jump-3 n) (jump-3 s) (jump-3 w) (jump-3 e)
+     )
+  )
+
+  (board-setup
+     (White (Stone a1 a3 a5 a7 b2 b4 b6 b8 c1 c3 c5 c7 d2 d4 d6 d8 e1 e3 e5 e7 f2 f4 f6 f8 g1 g3 g5 g7 h2 h4 h6 h8))
+     (Black (Stone a2 a4 a6 a8 b1 b3 b5 b7 c2 c4 c6 c8 d1 d3 d5 d7 e2 e4 e6 e8 f1 f3 f5 f7 g2 g4 g6 g8 h1 h3 h5 h7))
+  )
+
+  (loss-condition (White Black) stalemated)
+)

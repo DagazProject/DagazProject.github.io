@@ -1,0 +1,425 @@
+(define O-O (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  to
+  $1 (verify friend?) (verify (piece? Rook))
+  cascade
+  $2 $2
+  add
+))
+
+(define O-O-O (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  to
+  $1 (verify empty?)
+  $1 (verify friend?) (verify (piece? Rook))
+  cascade
+  $2 $2 $2
+  add
+))
+
+(define en-passant-1 (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define en-passant-2 (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n mark n n
+  (verify last-from?)
+  back add
+))
+
+(define en-passant-ex (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n n mark n
+  (verify last-from?)
+  back add
+))
+
+(define drop-piece (
+  (verify empty?)
+  (verify (not-in-zone? restricted-zone))
+  add
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-jump (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?) add
+  $1 (verify empty?) add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  (verify (not-in-zone? restricted-zone))
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  (verify (not-in-zone? restricted-zone))
+  add
+))
+
+(define leap-2 (
+  $1 $2 (verify not-friend?)
+  (verify (not-in-zone? restricted-zone))
+  add
+  $1 (verify empty?)
+  (verify (not-in-zone? restricted-zone))
+  add
+))
+
+(define wizard-jump (
+  $1 $2 $1 (verify (not-in-zone? restricted-zone)) (verify not-friend?) add
+))
+
+(define slide (
+  $1 
+  (while empty? (verify (not-in-zone? restricted-zone)) add $1)
+  (verify not-friend?)
+  (verify (not-in-zone? restricted-zone))
+  add
+))
+
+(game
+  (title "Omega Chess")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/omega.bmp")
+     (grid
+         (start-rectangle 51 51 101 101)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1/0" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (positions
+         (w1   1 553  51 603)
+         (w2 553 553 603 603)
+         (w3 553   1 603  51)
+         (w4   1   1  51  51)
+         (x1   1 503  51 553)
+         (x2  51 553 101 603)
+         (x3 503 553 553 603)
+         (x4 553 503 603 553)
+         (x5 553  51 603 101)
+         (x6 503   1 553  51)
+         (x7  51   1 101  51)
+         (x8   1  51  51 101)
+     )
+     (links nw (a9 w4) (w2 j0) (x3 i0) (x4 j1) (b9 x7) (a8 x8))
+     (links se (w4 a9) (j0 w2) (i0 x3) (j1 x4) (x7 b9) (x8 a8))
+     (links ne (w1 a0) (j9 w3) (x1 a1) (x2 b0) (j8 x5) (i9 x6))
+     (links sw (a0 w1) (w3 j9) (a1 x1) (b0 x2) (x5 j8) (x6 i9))
+     (links n  (w1 x1) (x2 a0) (x3 j0) (w2 x4) (j9 x6) (x5 w3) (x8 w4) (a9 x7))
+     (links s  (x1 w1) (a0 x2) (j0 x3) (x4 w2) (x6 j9) (w3 x5) (w4 x8) (x7 a9))
+     (links w  (x2 w1) (a0 x1) (w2 x3) (x4 j0) (x5 j9) (w3 x6) (a9 x8) (x7 w4))
+     (links e  (w1 x2) (x1 a0) (x3 w2) (j0 x4) (j9 x5) (x6 w3) (x8 a9) (w4 x7))
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a9 b9 c9 d9 e9 f9 g9 h9 i9 j9)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a0 b0 c0 d0 e0 f0 g0 h0 i0 j0)
+     )
+     (zone (name third-rank) (players White)
+           (positions a2 b2 c2 d2 e2 f2 g2 h2 i2 j2)
+     )
+     (zone (name third-rank) (players Black)
+           (positions a7 b7 c7 d7 e7 f7 g7 h7 i7 j7)
+     )
+     (zone (name restricted-zone) (players White Black)
+           (positions x1 x2 x3 x4 x5 x6 x7 x8)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant-1 e) (en-passant-2 e) (en-passant-ex se)
+         (en-passant-1 w) (en-passant-2 w) (en-passant-ex sw)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (leap nw n) (leap nw w) (leap ne n) (leap ne e)
+         (leap sw s) (leap sw w) (leap se s) (leap se e)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (O-O e w) (O-O-O w e)
+     )
+  )
+  (piece
+     (name Champion)
+     (image White "images/wpaladin.bmp"
+            Black "images/bpaladin.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (leap n n) (leap nw nw) (leap s s) (leap sw sw)
+         (leap w w) (leap ne ne) (leap e e) (leap se se)
+     )
+  )
+  (piece
+     (name Wizard)
+     (image White "images/wmoon.bmp"
+            Black "images/bmoon.bmp")
+     (moves
+         (step nw) (step sw) (step ne) (step se)
+         (wizard-jump n nw) (wizard-jump n ne) (wizard-jump s sw) (wizard-jump s se)
+         (wizard-jump w nw) (wizard-jump w sw) (wizard-jump e ne) (wizard-jump e se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a1 b1 c1 d1 e1 f1 g1 h1 i1 j1)
+         (Wizard w1 w2)
+         (Champion a0 j0)
+         (Rook b0 i0)
+         (Knight c0 h0)
+         (Bishop d0 g0)
+         (Queen e0)
+         (King f0)
+    )
+    (Black 
+         (Pawn a8 b8 c8 d8 e8 f8 g8 h8 i8 j8)
+         (Wizard w3 w4)
+         (Champion a9 j9)
+         (Rook b9 i9)
+         (Knight c9 h9)
+         (Bishop d9 g9)
+         (Queen e9)
+         (King f9)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated King))
+  (draw-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Omega Chess Advanced")
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant-1 e) (en-passant-2 e) (en-passant-ex se)
+         (en-passant-1 w) (en-passant-2 w) (en-passant-ex sw)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (leap-2 nw n) (leap-2 nw w) (leap-2 ne n) (leap-2 ne e)
+         (leap-2 sw s) (leap-2 sw w) (leap-2 se s) (leap-2 se e)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (O-O e w) (O-O-O w e)
+     )
+  )
+  (piece
+     (name Champion)
+     (image White "images/wpaladin.bmp"
+            Black "images/bpaladin.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (leap n n) (leap nw nw) (leap s s) (leap sw sw)
+         (leap w w) (leap ne ne) (leap e e) (leap se se)
+     )
+  )
+  (piece
+     (name Wizard)
+     (image White "images/wmoon.bmp"
+            Black "images/bmoon.bmp")
+     (moves
+         (step nw) (step sw) (step ne) (step se)
+         (wizard-jump n nw) (wizard-jump n ne) (wizard-jump s sw) (wizard-jump s se)
+         (wizard-jump w nw) (wizard-jump w sw) (wizard-jump e ne) (wizard-jump e se)
+     )
+  )
+  (piece
+     (name Fool)
+     (image White "images/wfool.bmp"
+            Black "images/bfool.bmp")
+     (drops
+         (drop-piece)
+     )
+     (moves
+         (move-type pawn-type)
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant-1 e) (en-passant-2 e) (en-passant-ex se)
+         (en-passant-1 w) (en-passant-2 w) (en-passant-ex sw)
+         (move-type rook-type)
+         (slide n) (slide s) (slide w) (slide e)
+         (move-type knight-type)
+         (leap-2 nw n) (leap-2 nw w) (leap-2 ne n) (leap-2 ne e)
+         (leap-2 sw s) (leap-2 sw w) (leap-2 se s) (leap-2 se e)
+         (move-type bishop-type)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (move-type queen-type)
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (move-type king-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (move-type champion-type)
+         (step n) (step s) (step w) (step e)
+         (leap n n) (leap nw nw) (leap s s) (leap sw sw)
+         (leap w w) (leap ne ne) (leap e e) (leap se se)
+         (move-type wizard-type)
+         (step nw) (step sw) (step ne) (step se)
+         (wizard-jump n nw) (wizard-jump n ne) (wizard-jump s sw) (wizard-jump s se)
+         (wizard-jump w nw) (wizard-jump w sw) (wizard-jump e ne) (wizard-jump e se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a1 b1 c1 d1 e1 f1 g1 h1 i1 j1)
+         (Wizard w1 w2)
+         (Champion a0 j0)
+         (Rook b0 i0)
+         (Knight c0 h0)
+         (Bishop d0 g0)
+         (Queen e0)
+         (King f0)
+         (Fool off 1)
+    )
+    (Black 
+         (Pawn a8 b8 c8 d8 e8 f8 g8 h8 i8 j8)
+         (Wizard w3 w4)
+         (Champion a9 j9)
+         (Rook b9 i9)
+         (Knight c9 h9)
+         (Bishop d9 g9)
+         (Queen e9)
+         (King f9)
+         (Fool off 1)
+    )
+  )
+)

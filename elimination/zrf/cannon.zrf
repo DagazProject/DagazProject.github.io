@@ -1,0 +1,122 @@
+(define drop (
+  (verify (in-zone? home))
+  (verify empty?)
+  add
+))
+
+(define shift (
+  (verify friend?)
+  $1 (verify empty?)
+  add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify enemy?)
+  add
+))
+
+(define jump (
+  (verify friend?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push (
+  (verify friend?)
+  $1 (verify friend?) (verify (piece? Cannon)) cascade
+  $1 (verify friend?) (verify (piece? Cannon)) cascade
+  $1 (verify empty?) add
+))
+
+(define kill (
+  (verify enemy?)
+  capture add
+))
+
+(game
+   (title "Cannon")
+   (description "http://www.iggamecenter.com/info/en/cannon.html")
+
+   (move-sound "Audio\Pickup.wav")
+   (release-sound "Audio\Pickup.wav")
+   (capture-sound "")
+   (drop-sound "")
+
+   (option "animate captures"    false)
+   (option "animate drops"       false)
+   (option "smart moves"         false)
+   (option "include off-pieces"  true)
+   (option "shared pieces"       true)
+
+   (players Red Black)
+   (turn-order Red Black)
+;  (move-priorities drop-type normal-type)
+
+   (board
+      (image "images/cannon/board.bmp")
+      (grid
+         (start-rectangle 4 5 46 47)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i/j" (45 0)) ; files
+             ("10/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (symmetry Black (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (zone
+         (name home)
+         (players Red)
+         (positions b1 c1 d1 e1 f1 g1 h1 i1)
+      )
+      (zone
+         (name home)
+         (players Black)
+         (positions b10 c10 d10 e10 f10 g10 h10 i10)
+      )
+   )
+
+   (piece
+      (name Cannon)
+      (image Red "images/cannon/rcannon.bmp" 
+             Black "images/cannon/bcannon.bmp")
+      (moves
+         (move-type normal-type)
+         (shift n) (shift nw) (shift ne) (kill)
+         (step n) (step nw) (step ne) (step w) (step e)
+         (push n) (push nw) (push ne) (push e)
+         (push s) (push sw) (push se) (push w)         
+         (move-type jump-type)
+         (jump s) (jump sw) (jump se)
+      )
+   )
+   (piece
+      (name HQ)
+      (image Red "images/cannon/rmandarin.bmp" 
+             Black "images/cannon/bmandarin.bmp")
+      (drops
+         (move-type drop-type)
+         (drop)
+      )
+      (moves
+         (move-type normal-type)
+         (kill)
+      )
+   )
+
+   (board-setup
+      (Red
+         (HQ off 1)
+         (Cannon a2 a3 a4 c2 c3 c4 e2 e3 e4 g2 g3 g4 i2 i3 i4)
+      )
+      (Black
+         (HQ off 1)
+         (Cannon b7 b8 b9 d7 d8 d9 f7 f8 f9 h7 h8 h9 j7 j8 j9)
+      )
+   )
+
+  (loss-condition (Red Black) (pieces-remaining 0 HQ))
+)

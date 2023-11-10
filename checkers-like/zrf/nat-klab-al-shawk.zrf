@@ -1,0 +1,81 @@
+(define drop-piece (
+  (verify empty?)
+  (verify (not-in-zone? center))
+  add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify enemy?)
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(game
+  (title "Nat Klab Al-shawk")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"       false)
+  (option "smart moves"            false)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities priority-type jump-type normal-type)
+
+  (board
+     (image "images/choko/board.bmp")
+     (grid
+         (start-rectangle 1 1 55 55)
+         (dimensions
+           ("a/b/c/d/e" (54 0)) ; files
+           ("5/4/3/2/1" (0 54)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name center) (players White Black)
+           (positions c3)
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/choko/white.bmp"
+            Black "images/choko/black.bmp")
+     (drops
+        (move-type priority-type)
+        (drop-piece)
+     )
+     (moves
+        (move-type jump-type)
+        (jump n) (jump s) (jump w) (jump e)
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e)
+     )
+  )
+
+  (board-setup
+    (White (Stone off 12))
+    (Black (Stone off 12))
+  )
+)
+
+(variant
+  (title "Nat Klab Al-shawk")
+  (default)
+
+  (board-setup
+    (White (Stone a5 b5 c5 d5 e5 a4 b4 c4 d4 e4 a3 b3))
+    (Black (Stone a1 b1 c1 d1 e1 a2 b2 c2 d2 e2 d3 e3))
+  )
+)

@@ -1,0 +1,95 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Mother's puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T B0100 1) (T B0011 1) (T B1000 1) 
+  (T R0100 2) (T R1010 2) (T R0001 2)
+  (T B0100 3) (T B1000 3) 
+  (T B0100 4) (T B1000 4) 
+  (T R0010 5) (T R0101 5) (T R1000 5)
+  (T B0100 6) (T B1000 6) 
+  (T B0100 7) (T B1000 7) 
+  (T B0100 8) (T B0011 8) (T B1000 8) 
+  (T B0000 9) (T B0000 A)
+
+  (board-setup
+     (You 
+         (B01001 a5) (B00111 b5) (B10001 c5)
+         (R01002 d5) (R10102 e5) (R00012 e4)
+         (B01003 a4) (B10003 b4) 
+         (B01004 c4) (B10004 d4) 
+         (R00105 a3) (R01015 a2) (R10005 b2)
+         (B01006 b3) (B10006 c3) 
+         (B01007 d3) (B10007 e3) 
+         (B01008 c2) (B00118 d2) (B10008 e2)
+         (B00009 a1) (B0000A e1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R01002 (d5))
+     (absolute-config R10102 (e5))
+     (absolute-config R00012 (e4))
+     (absolute-config R00105 (c5))
+     (absolute-config R01015 (c4))
+     (absolute-config R10005 (d4))
+  ))
+  (win-condition (You) (and 
+     (absolute-config R01002 (d5))
+     (absolute-config R10102 (e5))
+     (absolute-config R00012 (e4))
+     (absolute-config R00105 (d4))
+     (absolute-config R01015 (d3))
+     (absolute-config R10005 (e3))
+  ))
+)
+
+(variant
+  (title "Bride and groom")
+  (default)
+
+  (T R0110 1) (T R1000 1) (T R0001 1)
+  (T B0100 2) (T B1000 2) 
+  (T B0010 3) (T B0001 3) 
+  (T B0100 4) (T B1000 4) 
+  (T B0100 5) (T B1000 5) 
+  (T B0100 6) (T B1000 6) 
+  (T B0010 7) (T B0001 7) 
+  (T B0000 8) (T B0000 9)
+  (T R0010 A) (T R1001 A) (T R0100 A)
+  (T B0100 B) (T B1000 B) 
+
+  (board-setup
+     (You 
+         (R01101 a5) (R10001 b5) (R00011 a4)
+         (B01002 c5) (B10002 d5) 
+         (B00103 e5) (B00013 e4) 
+         (B01004 b4) (B10004 c4) 
+         (B01005 a3) (B10005 b3) 
+         (B01006 d3) (B10006 e3) 
+         (B00107 a2) (B00017 a1) 
+         (B00008 c2) (B00009 d2)
+         (R0010A e2) (R1001A e1) (R0100A d1)
+         (B0100B b1) (B1000B c1) 
+     )
+  )
+)

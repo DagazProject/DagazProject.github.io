@@ -1,0 +1,87 @@
+(define slide (
+  $1
+  (while empty?
+     add
+     $1
+  )
+))
+
+(game
+  (title "Makyek")
+  (description "https://en.wikipedia.org/wiki/Mak-yek")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"    false)
+  (option "smart moves"         true)
+  (option "custodian extension" true)
+  (option "makyek extension"    true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/makyek/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (piece
+     (name  Man)
+     (help "Man: moves as Rook in Chess.")
+     (image White "images/makyek/white.bmp"
+            Black "images/makyek/black.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 g1 h1  a3 b3 c3 d3 e3 f3 g3 h3) )
+    (Black (Man a6 b6 c6 d6 e6 f6 g6 h6  a8 b8 c8 d8 e8 f8 g8 h8) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Makneeb")
+  (default)
+
+  (board
+     (image "images/makneeb/board.bmp")
+     (grid
+         (start-rectangle 10 10 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (76 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 76)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (piece
+     (name  Man)
+     (image White "images/makneeb/green.bmp"
+            Black "images/makneeb/red.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 g1 h1))
+    (Black (Man a8 b8 c8 d8 e8 f8 g8 h8) )
+  )
+)

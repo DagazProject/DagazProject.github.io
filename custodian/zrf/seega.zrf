@@ -1,0 +1,78 @@
+(define drop (
+  (verify (not-in-zone? center))
+  (verify empty?)
+  add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Seega")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"       false)
+  (option "animate drops"          false)
+  (option "smart moves"            false)
+  (option "pass turn"              forced)
+
+  (players White Black)
+  (turn-order 
+      White White
+      Black Black
+      White White
+      Black Black
+      White White
+      Black Black
+      White White
+      Black Black
+      White White
+      Black Black
+      repeat
+      White 
+      Black
+  )
+  (move-priorities drop-type normal-type)
+
+  (board
+     (image "images/seega/board.bmp")
+     (grid
+         (start-rectangle 1 1 55 55)
+         (dimensions
+           ("a/b/c/d/e" (54 0)) ; files
+           ("5/4/3/2/1" (0 54)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name center) (players Black White)
+         (positions c3)
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/seega/white.bmp"
+            Black "images/seega/black.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e)
+     )
+  )
+
+  (board-setup
+     (White (Stone a3 e3 off 10))
+     (Black (Stone c1 c5 off 10))
+  )
+)

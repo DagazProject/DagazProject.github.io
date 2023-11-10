@@ -1,0 +1,355 @@
+(define drop (
+  (verify empty?)
+  (verify (in-zone? home-zone))
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 (verify empty?)
+  $1 (while empty? (add ScoutOpened) $1)
+  (verify not-friend?)
+  (add ScoutOpened)
+))
+
+(game
+  (title "Stratego")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players Red Blue)
+  (turn-order
+     Red Red Red Red Red Red Red Red Red Red
+     Red Red Red Red Red Red Red Red Red Red
+     Red Red Red Red Red Red Red Red Red Red
+     Red Red Red Red Red Red Red Red Red Red
+     repeat
+     Red Blue
+  )
+  (move-priorities priority-type drop-type normal-type)
+
+  (board
+     (image "images/stratego/board.bmp")
+     (grid
+	(start-rectangle 1 1 41 41)
+	(dimensions
+	    ("a/b/c/d/e/f/g/h/i/j" (40 0)) ; files
+	    ("9/8/7/6/5/4/3/2/1/0" (0 40)) ; ranks
+	)
+        (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+     )
+     (kill-positions c4 d4 c5 d5 g4 h4 g5 h5)
+     (zone 
+	(name home-zone)
+	(players Red)
+	(positions 
+	    a0 b0 c0 d0 e0 f0 g0 h0 i0 j0
+	    a1 b1 c1 d1 e1 f1 g1 h1 i1 j1  
+	    a2 b2 c2 d2 e2 f2 g2 h2 i2 j2  
+	    a3 b3 c3 d3 e3 f3 g3 h3 i3 j3  
+	)
+     )
+     (zone 
+	(name home-zone)
+	(players Blue)
+	(positions 
+	    a6 b6 c6 d6 e6 f6 g6 h6 i6 j6  
+	    a7 b7 c7 d7 e7 f7 g7 h7 i7 j7  
+	    a8 b8 c8 d8 e8 f8 g8 h8 i8 j8  
+	    a9 b9 c9 d9 e9 f9 g9 h9 i9 j9  
+	)
+     )
+  )
+
+  (piece
+     (name Flag)
+     (image Red    "images/stratego/rflag.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type priority-type)
+        (drop)
+     )
+  )
+  (piece
+     (name Spy)
+     (image Red    "images/stratego/rspy.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Scout)
+     (image Red    "images/stratego/rscout.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+        (slide n) (slide e) (slide w) (slide s)
+     )
+  )
+  (piece
+     (name Disarmer)
+     (image Red    "images/stratego/rdisarmer.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Sergeant)
+     (image Red    "images/stratego/rsergeant.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Lieutenant)
+     (image Red    "images/stratego/rlieutenant.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Captain)
+     (image Red    "images/stratego/rcaptain.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Major)
+     (image Red    "images/stratego/rmajor.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Brigadier)
+     (image Red    "images/stratego/rbrigadier.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name General)
+     (image Red    "images/stratego/rgeneral.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Commandant)
+     (image Red    "images/stratego/rcommandant.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Bomb)
+     (image Red    "images/stratego/rbomb.bmp"
+            Blue   "images/stratego/bhidden.bmp")
+     (drops
+        (move-type priority-type)
+        (drop)
+     )
+  )
+  (piece
+     (name FlagOpened)
+     (image Red    "images/stratego/rflag.bmp"
+            Blue   "images/stratego/bflag.bmp")
+  )
+  (piece
+     (name SpyOpened)
+     (image Red    "images/stratego/rspy.bmp"
+            Blue   "images/stratego/bspy.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name ScoutOpened)
+     (image Red    "images/stratego/rscout.bmp"
+            Blue   "images/stratego/bscout.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+        (slide n) (slide e) (slide w) (slide s)
+     )
+  )
+  (piece
+     (name DisarmerOpened)
+     (image Red    "images/stratego/rdisarmer.bmp"
+            Blue   "images/stratego/bdisarmer.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name SergeantOpened)
+     (image Red    "images/stratego/rsergeant.bmp"
+            Blue   "images/stratego/bsergeant.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name LieutenantOpened)
+     (image Red    "images/stratego/rlieutenant.bmp"
+            Blue   "images/stratego/blieutenant.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name CaptainOpened)
+     (image Red    "images/stratego/rcaptain.bmp"
+            Blue   "images/stratego/bcaptain.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name MajorOpened)
+     (image Red    "images/stratego/rmajor.bmp"
+            Blue   "images/stratego/bmajor.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name BrigadierOpened)
+     (image Red    "images/stratego/rbrigadier.bmp"
+            Blue   "images/stratego/bbrigadier.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name GeneralOpened)
+     (image Red    "images/stratego/rgeneral.bmp"
+            Blue   "images/stratego/bgeneral.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name CommandantOpened)
+     (image Red    "images/stratego/rcommandant.bmp"
+            Blue   "images/stratego/bcommandant.bmp")
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name BombOpened)
+     (image Red    "images/stratego/rbomb.bmp"
+            Blue   "images/stratego/bbomb.bmp")
+  )
+
+  (board-setup
+     (Red
+        (Flag       off 1)
+        (Spy        off 1)
+        (Scout      off 8)
+        (Disarmer   off 5)
+        (Sergeant   off 4)
+        (Lieutenant off 4)
+        (Captain    off 4)
+        (Major      off 3)
+        (Brigadier  off 2)
+        (General    off 1)
+        (Commandant off 1)
+        (Bomb       off 6)
+     )
+     (Blue
+        (Flag       off 0)
+        (Spy        off 0)
+        (Scout      off 0)
+        (Disarmer   off 0)
+        (Sergeant   off 0)
+        (Lieutenant off 0)
+        (Captain    off 0)
+        (Major      off 0)
+        (Brigadier  off 0)
+        (General    off 0)
+        (Commandant off 0)
+        (Bomb       off 0)
+     )
+  )
+)

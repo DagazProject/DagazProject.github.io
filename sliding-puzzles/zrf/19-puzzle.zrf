@@ -1,0 +1,74 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "19 puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("6/5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T B0100  2) (T B1000 2) 
+  (T B0010  3) (T B0001 3) 
+  (T B0010  4) (T B0001 4) 
+  (T B0100  5) (T B1000 5) 
+  (T B0000  6)
+  (T B0000  7)
+  (T B0000  8)
+  (T B0000  9)
+  (T B0000 10)
+  (T B0000 11)
+  (T B0000 12)
+  (T B0100 13) (T B0011 13) (T B1000 13) 
+  (T B0100 14) (T B1000 14) 
+  (T B0010 15) (T B0001 15) 
+  (T B0010 16) (T B0001 16) 
+  (T B0100 17) (T B1000 17) 
+  (T B0100 18) (T B1000 18) 
+  (T B0100 19) (T B1000 19) 
+
+  (board-setup
+     (You 
+         (R0110F1 a6) (R1010F1 b6) (R0101F1 a5) (R1001F1 b5)
+         (B01002  c6) (B10002  d6) 
+         (B00103  e6) (B00013  e5) 
+         (B00104  f6) (B00014  f5) 
+         (B01005  c5) (B10005  d5) 
+         (B00006  a4)
+         (B00007  b4)
+         (B00008  c4)
+         (B00009  d4)
+         (B000010 a3)
+         (B000011 b3)
+         (B000012 c3)
+         (B010013 d3) (B001113 e3) (B100013 f3) 
+         (B010014 a2) (B100014 b2) 
+         (B001015 c2) (B000115 c1) 
+         (B001016 d2) (B000116 d1) 
+         (B010017 e2) (B100017 f2) 
+         (B010018 a1) (B100018 b1) 
+         (B010019 e1) (B100019 f1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (e2))
+     (absolute-config R1010F1 (f2))
+     (absolute-config R0101F1 (e1))
+     (absolute-config R1001F1 (f1))
+  ))
+)

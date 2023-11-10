@@ -1,0 +1,346 @@
+(define shift (
+  $1 (verify not-friend?)
+  (verify (in-zone? $2))
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define stepz (
+  (verify (in-zone? $2))
+  $1 (verify empty?)
+  (add $3)
+))
+
+(define jump (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define jumpz (
+  (verify (in-zone? $3))
+  $1 (verify empty?)
+  $2 (verify empty?)
+  (add $4)
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define slidez (
+  (verify (in-zone? $2))
+  $1 
+  (while empty?
+     (add $3)
+     $1
+  )
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(define shootz (
+  (verify (in-zone? $2))
+  $1 
+  (while empty?
+     (add $3)
+     $1
+  )
+))
+
+(game
+   (title "XiangQi")
+
+   (players Red Black)
+   (turn-order Red Black)
+
+   (board
+      (image "images/10x9.bmp")
+      (grid
+         (start-rectangle 4 5 46 47)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i" (45 0)) ; files
+             ("10/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (symmetry Black (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (zone
+         (name fortress)
+         (players Red)
+         (positions d1 e1 f1 d2 e2 f2 d3 e3 f3)
+      )
+      (zone
+         (name fortress)
+         (players Black)
+         (positions d10 e10 f10 d9 e9 f9 d8 e8 f8)
+      )
+      (zone
+         (name enemy)
+         (players Black)
+         (positions a1 b1 c1 d1 e1 f1 g1 h1 i1
+                    a2 b2 c2 d2 e2 f2 g2 h2 i2
+                    a3 b3 c3 d3 e3 f3 g3 h3 i3
+                    a4 b4 c4 d4 e4 f4 g4 h4 i4
+                    a5 b5 c5 d5 e5 f5 g5 h5 i5)
+      )
+      (zone
+         (name enemy)
+         (players Red)
+         (positions a10 b10 c10 d10 e10 f10 g10 h10 i10
+                    a9 b9 c9 d9 e9 f9 g9 h9 i9
+                    a8 b8 c8 d8 e8 f8 g8 h8 i8
+                    a7 b7 c7 d7 e7 f7 g7 h7 i7
+                    a6 b6 c6 d6 e6 f6 g6 h6 i6)
+      )
+      (zone
+         (name mandarin-zone)
+         (players Red Black)
+         (positions d1 f1 d10 f10)
+      )
+      (zone
+         (name horse-zone)
+         (players Red Black)
+         (positions b1 h1 b10 h10)
+      )
+      (zone
+         (name elephant-zone)
+         (players Red Black)
+         (positions c1 g1 c10 g10)
+      )
+      (zone
+         (name chariot-zone)
+         (players Red Black)
+         (positions a1 i1 a10 i10)
+      )
+      (zone
+         (name cannon-zone)
+         (players Red Black)
+         (positions b3 h3 b8 h8)
+      )
+      (zone
+         (name soldier-zone)
+         (players Red Black)
+         (positions a4 c4 e4 g4 i4 a7 c7 e7 g7 i7)
+      )
+      (zone
+         (name setup-zone)
+         (players Red)
+         (positions a4 c4 e4 g4 i4 b1 h1 c1 g1 a1 i1 d1 f1 b3 h3)
+      )
+      (zone
+         (name setup-zone)
+         (players Black)
+         (positions a7 c7 e7 g7 i7 b10 h10 c10 g10 a10 i10 d10 f10 b8 h8)
+      )
+   )
+
+   (piece
+      (name Soldier)
+      (image Red "images/rsoldier.bmp" 
+             Black "images/bsoldier.bmp")
+      (moves
+         (step n) (shift w enemy) (shift e enemy)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red "images/rhorse.bmp" 
+             Black "images/bhorse.bmp")
+      (moves
+         (jump n nw) (jump n ne) (jump s sw) (jump s se)
+         (jump w nw) (jump e ne) (jump w sw) (jump e se)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red "images/relephant.bmp" 
+             Black "images/belephant.bmp")
+      (moves
+         (jump nw nw) (jump sw sw) (jump ne ne) (jump se se)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red "images/rchariot.bmp" 
+             Black "images/bchariot.bmp")
+      (moves
+         (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red "images/rcannon.bmp" 
+             Black "images/bcannon.bmp")
+      (moves
+         (shoot n) (shoot s) (shoot w) (shoot e)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (image Red "images/rmandarin.bmp" 
+             Black "images/bmandarin.bmp")
+      (moves
+         (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name General)
+      (image Red "images/rgeneral.bmp"  
+             Black "images/bgeneral.bmp")
+      (moves
+         (shift n fortress) (shift s fortress) (shift w fortress) (shift e fortress)
+      )
+   )
+   (piece
+      (name UnknownSoldier)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Soldier)
+         (jumpz n nw horse-zone Soldier) (jumpz n ne horse-zone Soldier) 
+         (jumpz s sw horse-zone Soldier) (jumpz s se horse-zone Soldier)
+         (jumpz w nw horse-zone Soldier) (jumpz e ne horse-zone Soldier) 
+         (jumpz w sw horse-zone Soldier) (jumpz e se horse-zone Soldier)
+         (jumpz nw nw elephant-zone Soldier) (jumpz sw sw elephant-zone Soldier) 
+         (jumpz ne ne elephant-zone Soldier) (jumpz se se elephant-zone Soldier)
+         (slidez n chariot-zone Soldier) (slidez s chariot-zone Soldier) 
+         (slidez w chariot-zone Soldier) (slidez e chariot-zone Soldier)
+         (shootz n cannon-zone Soldier) (shootz s cannon-zone Soldier) 
+         (shootz w cannon-zone Soldier) (shootz e cannon-zone Soldier)
+         (stepz nw mandarin-zone Soldier) (stepz sw mandarin-zone Soldier) 
+         (stepz ne mandarin-zone Soldier) (stepz se mandarin-zone Soldier)
+      )
+   )
+   (piece
+      (name UnknownHorse)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Horse)
+         (jumpz n nw horse-zone Horse) (jumpz n ne horse-zone Horse) 
+         (jumpz s sw horse-zone Horse) (jumpz s se horse-zone Horse)
+         (jumpz w nw horse-zone Horse) (jumpz e ne horse-zone Horse) 
+         (jumpz w sw horse-zone Horse) (jumpz e se horse-zone Horse)
+         (jumpz nw nw elephant-zone Horse) (jumpz sw sw elephant-zone Horse) 
+         (jumpz ne ne elephant-zone Horse) (jumpz se se elephant-zone Horse)
+         (slidez n chariot-zone Horse) (slidez s chariot-zone Horse) 
+         (slidez w chariot-zone Horse) (slidez e chariot-zone Horse)
+         (shootz n cannon-zone Horse) (shootz s cannon-zone Horse) 
+         (shootz w cannon-zone Horse) (shootz e cannon-zone Horse)
+         (stepz nw mandarin-zone Horse) (stepz sw mandarin-zone Horse) 
+         (stepz ne mandarin-zone Horse) (stepz se mandarin-zone Horse)
+      )
+   )
+   (piece
+      (name UnknownElephant)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Elephant)
+         (jumpz n nw horse-zone Elephant) (jumpz n ne horse-zone Elephant) 
+         (jumpz s sw horse-zone Elephant) (jumpz s se horse-zone Elephant)
+         (jumpz w nw horse-zone Elephant) (jumpz e ne horse-zone Elephant) 
+         (jumpz w sw horse-zone Elephant) (jumpz e se horse-zone Elephant)
+         (jumpz nw nw elephant-zone Elephant) (jumpz sw sw elephant-zone Elephant) 
+         (jumpz ne ne elephant-zone Elephant) (jumpz se se elephant-zone Elephant)
+         (slidez n chariot-zone Elephant) (slidez s chariot-zone Elephant) 
+         (slidez w chariot-zone Elephant) (slidez e chariot-zone Elephant)
+         (shootz n cannon-zone Elephant) (shootz s cannon-zone Elephant) 
+         (shootz w cannon-zone Elephant) (shootz e cannon-zone Elephant)
+         (stepz nw mandarin-zone Elephant) (stepz sw mandarin-zone Elephant) 
+         (stepz ne mandarin-zone Elephant) (stepz se mandarin-zone Elephant)
+      )
+   )
+   (piece
+      (name UnknownChariot)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Chariot)
+         (jumpz n nw horse-zone Chariot) (jumpz n ne horse-zone Chariot) 
+         (jumpz s sw horse-zone Chariot) (jumpz s se horse-zone Chariot)
+         (jumpz w nw horse-zone Chariot) (jumpz e ne horse-zone Chariot) 
+         (jumpz w sw horse-zone Chariot) (jumpz e se horse-zone Chariot)
+         (jumpz nw nw elephant-zone Chariot) (jumpz sw sw elephant-zone Chariot) 
+         (jumpz ne ne elephant-zone Chariot) (jumpz se se elephant-zone Chariot)
+         (slidez n chariot-zone Chariot) (slidez s chariot-zone Chariot) 
+         (slidez w chariot-zone Chariot) (slidez e chariot-zone Chariot)
+         (shootz n cannon-zone Chariot) (shootz s cannon-zone Chariot) 
+         (shootz w cannon-zone Chariot) (shootz e cannon-zone Chariot)
+         (stepz nw mandarin-zone Chariot) (stepz sw mandarin-zone Chariot) 
+         (stepz ne mandarin-zone Chariot) (stepz se mandarin-zone Chariot)
+      )
+   )
+   (piece
+      (name UnknownCannon)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Cannon)
+         (jumpz n nw horse-zone Cannon) (jumpz n ne horse-zone Cannon) 
+         (jumpz s sw horse-zone Cannon) (jumpz s se horse-zone Cannon)
+         (jumpz w nw horse-zone Cannon) (jumpz e ne horse-zone Cannon) 
+         (jumpz w sw horse-zone Cannon) (jumpz e se horse-zone Cannon)
+         (jumpz nw nw elephant-zone Cannon) (jumpz sw sw elephant-zone Cannon) 
+         (jumpz ne ne elephant-zone Cannon) (jumpz se se elephant-zone Cannon)
+         (slidez n chariot-zone Cannon) (slidez s chariot-zone Cannon) 
+         (slidez w chariot-zone Cannon) (slidez e chariot-zone Cannon)
+         (shootz n cannon-zone Cannon) (shootz s cannon-zone Cannon) 
+         (shootz w cannon-zone Cannon) (shootz e cannon-zone Cannon)
+         (stepz nw mandarin-zone Cannon) (stepz sw mandarin-zone Cannon) 
+         (stepz ne mandarin-zone Cannon) (stepz se mandarin-zone Cannon)
+      )
+   )
+   (piece
+      (name UnknownMandarin)
+      (image Red "images/ru.bmp" 
+             Black "images/bu.bmp")
+      (moves
+         (stepz n soldier-zone Mandarin)
+         (jumpz n nw horse-zone Mandarin) (jumpz n ne horse-zone Mandarin) 
+         (jumpz s sw horse-zone Mandarin) (jumpz s se horse-zone Mandarin)
+         (jumpz w nw horse-zone Mandarin) (jumpz e ne horse-zone Mandarin) 
+         (jumpz w sw horse-zone Mandarin) (jumpz e se horse-zone Mandarin)
+         (jumpz nw nw elephant-zone Mandarin) (jumpz sw sw elephant-zone Mandarin) 
+         (jumpz ne ne elephant-zone Mandarin) (jumpz se se elephant-zone Mandarin)
+         (slidez n chariot-zone Mandarin) (slidez s chariot-zone Mandarin) 
+         (slidez w chariot-zone Mandarin) (slidez e chariot-zone Mandarin)
+         (shootz n cannon-zone Mandarin) (shootz s cannon-zone Mandarin) 
+         (shootz w cannon-zone Mandarin) (shootz e cannon-zone Mandarin)
+         (stepz nw mandarin-zone Mandarin) (stepz sw mandarin-zone Mandarin) 
+         (stepz ne mandarin-zone Mandarin) (stepz se mandarin-zone Mandarin)
+      )
+   )
+
+   (board-setup
+      (Red
+         (General e1)
+      )
+      (Black
+         (General e10)
+      )
+   )
+)

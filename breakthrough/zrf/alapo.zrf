@@ -1,0 +1,120 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Alapo")
+  (description "http://www.chessvariants.com/small.dir/alapo.html")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/alapo/6x6.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f" (68 0)) ; files
+           ("6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name first-rank) (players White)
+           (positions a1 b1 c1 d1 e1 f1)
+     )
+     (zone (name first-rank) (players Black)
+           (positions a6 b6 c6 d6 e6 f6)
+     )
+  )
+
+  (piece
+     (name SmallSquare)
+     (image White "images/alapo/wss.bmp"
+            Black "images/alapo/bss.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+     )
+  )
+  (piece
+     (name Square)
+     (image White "images/alapo/ws.bmp"
+            Black "images/alapo/bs.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name SmallTriangle)
+     (image White "images/alapo/wst.bmp"
+            Black "images/alapo/bst.bmp")
+     (moves
+         (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name Triangle)
+     (image White "images/alapo/wt.bmp"
+            Black "images/alapo/bt.bmp")
+     (moves
+         (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+  (piece
+     (name SmallCircle)
+     (image White "images/alapo/wsc.bmp"
+            Black "images/alapo/bsc.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step se) (step sw) (step ne)
+     )
+  )
+  (piece
+     (name Circle)
+     (image White "images/alapo/wc.bmp"
+            Black "images/alapo/bc.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide se) (slide sw) (slide ne)
+     )
+  )
+
+  (board-setup
+    (White 
+         (SmallSquare a2 f2)
+         (Square a1 f1)
+         (SmallTriangle b2 e2)
+         (Triangle b1 e1)
+         (SmallCircle c2 d2)
+         (Circle c1 d1)
+    )
+    (Black 
+         (SmallSquare a5 f5)
+         (Square a6 f6)
+         (SmallTriangle b5 e5)
+         (Triangle b6 e6)
+         (SmallCircle c5 d5)
+         (Circle c6 d6)
+    )
+  )
+
+  (loss-condition (White Black) stalemated)
+)

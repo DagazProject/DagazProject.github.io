@@ -1,0 +1,308 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   (verify (piece? Man))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define king-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial priority-type)
+))
+
+(game
+  (title "Italian Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+; (option "ko"               situation)
+  (option "maximal captures" 2)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities priority-type jump-type normal-type)
+
+  (board
+     (image "images/italian.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players Black)
+           (positions a8 c8 e8 g8)
+     )
+     (zone (name promotion) (players White)
+           (positions b1 d1 f1 h1)
+     )
+     (zone (name black) (players Black White)
+           (positions b1 d1 f1 h1 a2 c2 e2 g2 b3 d3 f3 h3 a4 c4 e4 g4 b5 d5 f5 h5 a6 c6 e6 g6 b7 d7 f7 h7 a8 c8 e8 g8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type priority-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (Black (Man b1 d1 f1 h1  a2 c2 e2 g2  b3 d3 f3 h3) )
+    (White (Man a8 c8 e8 g8  b7 d7 f7 h7  a6 c6 e6 g6) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(define rabble-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add PromotedMan)
+    else
+      add
+   )
+))
+
+(define rabble-jump (
+   $1 (verify enemy?) 
+   (verify (piece? Man))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add PromotedMan)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define promoted-rabble-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define promoted-rabble-jump (
+   $1 (verify enemy?) 
+   (verify (not-piece? Damone))
+   (verify (not-piece? PromotedDama))
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define dama-shift (
+   $1 (verify empty?)
+   (if (in-zone? dama-promotion)
+       (add PromotedDama)
+    else
+       add
+   )
+))
+
+(define dama-jump (
+   $1 (verify enemy?) 
+   (verify (not-piece? Damone))
+   (verify (not-piece? PromotedDama))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? dama-promotion)
+       (add PromotedDama)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define promoted-dama-shift (
+   $1 (verify empty?)
+   (if (in-zone? home)
+       (add Damone)
+    else
+       add
+   )
+))
+
+(define promoted-dama-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? home)
+       (add Damone)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define damone-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define damone-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(variant
+  (title "Italian Damone")
+
+  (option "maximal captures" false)
+; (option "damone-extension" false)
+
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/italian.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players Black)
+           (positions a6 c8)
+     )
+     (zone (name promotion) (players White)
+           (positions f1 h3)
+     )
+     (zone (name dama-promotion) (players Black)
+           (positions a8)
+     )
+     (zone (name dama-promotion) (players White)
+           (positions h1)
+     )
+     (zone (name home) (players Black)
+           (positions h1)
+     )
+     (zone (name home) (players White)
+           (positions a8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (rabble-jump nw) (rabble-jump ne) (rabble-jump sw)
+         (move-type normal-type)
+         (rabble-shift nw) (rabble-shift ne) (rabble-shift sw)
+     )
+  )
+  (piece
+     (name PromotedMan)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (promoted-rabble-jump nw) (promoted-rabble-jump ne) (promoted-rabble-jump sw) (promoted-rabble-jump se)
+         (move-type normal-type)
+         (promoted-rabble-shift nw) (promoted-rabble-shift ne) (promoted-rabble-shift sw) (promoted-rabble-shift se)
+     )
+  )
+  (piece
+     (name Dama)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (dama-jump nw) (dama-jump ne) (dama-jump sw) (dama-jump se)
+         (move-type normal-type)
+         (dama-shift nw) (dama-shift ne) (dama-shift sw) (dama-shift se)
+     )
+  )
+  (piece
+     (name PromotedDama)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (promoted-dama-jump nw) (promoted-dama-jump ne) (promoted-dama-jump sw) (promoted-dama-jump se)
+         (move-type normal-type)
+         (promoted-dama-shift nw) (promoted-dama-shift ne) (promoted-dama-shift sw) (promoted-dama-shift se)
+     )
+  )
+  (piece
+     (name Damone)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (damone-jump nw) (damone-jump ne) (damone-jump sw) (damone-jump se)
+         (move-type normal-type)
+         (damone-shift nw) (damone-shift ne) (damone-shift sw) (damone-shift se)
+     )
+  )
+
+  (board-setup
+    (Black
+        (Man d1 e2 f3 g4 h5) 
+        (Dama f1 h3) 
+        (Damone h1) 
+    )
+    (White 
+        (Man a4 b5 c6 d7 e8) 
+        (Dama a6 c8) 
+        (Damone a8) 
+    )
+  )
+
+  (win-condition  (Black) (absolute-config Damone (a8)))
+  (win-condition  (White) (absolute-config Damone (h1)))
+  (loss-condition (White Black) (and (pieces-remaining 0 Damone) (pieces-remaining 0 PromotedDama)))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

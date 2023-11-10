@@ -1,0 +1,75 @@
+(define slide (
+  $1
+  (while not-enemy?
+     (if empty? add)
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(define rook-slide (
+  $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Lines of Action")
+  (history "Copyright (c) Claude Soucie.")
+
+  (option "animate captures" false)
+  (option "loa-extension"    true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+    (image "images/loa/board.bmp")
+    (grid
+      (start-rectangle 2 2 82 82)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (80 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 80)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+          (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+      )
+    )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/loa/white.bmp"
+            Black "images/loa/black.bmp")
+     (moves
+         (slide n) (slide nw)
+         (slide s) (slide se)
+         (slide w) (slide sw)
+         (slide e) (slide ne)
+     )
+  )
+
+  (board-setup
+    (White (Man b1 c1 d1 e1 f1 g1 b8 c8 d8 e8 f8 g8))
+    (Black (Man a2 a3 a4 a5 a6 a7 h2 h3 h4 h5 h6 h7))
+  )
+)
+
+(variant
+  (title "Lines of Action")
+  (default)
+  (board-setup
+    (White (Man a2 a4 a6 b8 c1 d8 e1 f8 g1 h3 h5 h7))
+    (Black (Man a3 a5 a7 b1 c8 d1 e8 f1 g8 h2 h4 h6))
+  )
+)

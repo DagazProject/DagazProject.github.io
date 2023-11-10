@@ -1,0 +1,64 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Traffic Jam puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T B0110  2) (T B1000  2) (T B0001  2)
+  (T B0000  3)
+  (T B0000  4)
+  (T B0010  5) (T B0100  5) (T B1001  5)
+  (T B0100  6) (T B1000  6)
+  (T B0000  7)
+  (T B0000  8)
+  (T B0110  9) (T B1000  9) (T B0001  9)
+  (T B0010 10) (T B0100 10) (T B1001 10)
+  (T B0000 11)
+  (T B0010 12) (T B0001 12)
+  (T B0010 13) (T B0001 13)
+  (T B0000 14)
+
+  (board-setup
+     (You 
+         (R0110F1 a5) (R1010F1 b5) (R0101F1 a4) (R1001F1 b4)
+         (B01102  d5) (B10002  e5) (B00012  d4)
+         (B00003  f5)
+         (B00004  e4)
+         (B00105  f4) (B01005  e3) (B10015  f3)
+         (B01006  a3) (B10006  b3)
+         (B00007  c3)
+         (B00008  d3)
+         (B01109  a2) (B10009  b2) (B00019  a1)
+         (B001010 c2) (B010010 b1) (B100110 c1)
+         (B000011 d2)
+         (B001012 e2) (B000112 e1)
+         (B001013 f2) (B000113 f1)
+         (B000014 d1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (e2))
+     (absolute-config R1010F1 (f2))
+     (absolute-config R0101F1 (e1))
+     (absolute-config R1001F1 (f1))
+  ))
+)

@@ -1,0 +1,77 @@
+(define step (
+  (verify (in-zone? home))
+  $1 add
+))
+
+(game
+  (title "Tchuka Ruma (4:2)")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+; (option "smart moves"       from)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (image "images/4x1.bmp")
+     (grid
+         (start-rectangle 8 8 88 88)
+         (dimensions
+           ("a/b/c/d" (100 0)) ; files
+           ("1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X 408 8 548 88)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 X) (X a1)
+     )
+     (zone (name home) (players You)
+           (positions a1 b1 c1 d1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image You "images/small.bmp")
+     (moves (step nx))
+  )
+
+  (board-setup
+    (You (Seed a1 b1 c1 d1))
+  )
+)
+
+(variant
+  (title "Tchuka Ruma (6:4)")
+
+  (board
+     (image "images/6x1.bmp")
+     (grid
+         (start-rectangle 8 8 88 88)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X 608 8 748 88)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 X) (X a1)
+     )
+     (zone (name home) (players You)
+           (positions a1 b1 c1 d1 e1 f1)
+     )
+  )
+
+  (board-setup
+    (You (Seed a1 b1 c1 d1 e1 f1))
+  )
+)

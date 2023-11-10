@@ -1,0 +1,440 @@
+(define drop-ariki (
+  (verify (in-zone? reserve))
+  a2 $1
+  (while (on-board? $1) (if empty? add) $1)
+  (verify empty?)
+  add
+))
+
+(define shoot-1 (
+  (create Ariki)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-2 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-3 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-4 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-5 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-6 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-7 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define shoot-8 (
+  (create Ariki)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial Stone $2)
+))
+
+(define moai-step (
+  $1 (verify friend?)
+  (verify (piece? Stone))
+  (add-partial normal-type)
+))
+
+(define ariki-slide (
+  $1 (while empty? (add-partial left-2-type) $1)
+))
+
+(define step (
+  $1 (verify (or empty? (piece? Stone)))
+  add
+))
+
+(game
+  (title "Hanga Roa")
+  (description "http://www.chessvariants.com/other.dir/hanga_roa/hanga_roa.html")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "pass partial"      true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities normal-type)
+
+  (board
+     (image "images/hanga-roa/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (positions
+         (X9 452   2 502  52)
+         (X8 452  52 502 102)
+         (X7 452 102 502 152)
+         (X6 452 152 502 202)
+         (X5 452 202 502 252)
+         (X4 452 252 502 302)
+         (X3 452 302 502 352)
+         (X2 452 352 502 402)
+         (X1 452 402 502 452)
+    )
+    (links next
+         (a2 a1) (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) (g1 h1) (h1 i1)
+    )
+    (links nb
+         (a2 a9) (a9 b9) (b9 c9) (c9 d9) (d9 e9) (e9 f9) (f9 g9) (g9 h9) (h9 i9)
+    )
+    (links br
+         (a9 X9) (X9 X8) (X8 X7) (X7 X6)
+    )
+    (links wr
+         (a9 X1) (X1 X2) (X2 X3) (X3 X4)
+    )
+    (symmetry Black (br wr) (wr br) (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (next nb) (nb next))
+    (zone (name reserve) (players White Black)
+          (positions X1 X2 X3 X4 X5 X6 X7 X8 X9)
+    )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/hanga-roa/wstone.bmp"
+            Black "images/hanga-roa/bstone.bmp")
+  )
+  (piece
+     (name Moai)
+     (image White "images/hanga-roa/wking.bmp"
+            Black "images/hanga-roa/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (moai-step n) (moai-step nw)
+         (moai-step s) (moai-step se)
+         (moai-step e) (moai-step ne)
+         (moai-step w) (moai-step sw)
+     )
+  )
+  (piece
+     (name Ariki)
+     (image White "images/hanga-roa/wrook.bmp"
+            Black "images/hanga-roa/brook.bmp")
+     (moves
+         (move-type normal-type)
+         (drop-ariki next)
+         (ariki-slide n) (ariki-slide nw)
+         (ariki-slide s) (ariki-slide se)
+         (ariki-slide e) (ariki-slide ne)
+         (ariki-slide w) (ariki-slide sw)
+         (move-type left-2-type)
+         (shoot-1 n left-1-type) (shoot-1 nw left-1-type)
+         (shoot-1 s left-1-type) (shoot-1 se left-1-type)
+         (shoot-1 e left-1-type) (shoot-1 ne left-1-type)
+         (shoot-1 w left-1-type) (shoot-1 sw left-1-type)
+         (shoot-2 n left-1-type) (shoot-2 nw left-1-type)
+         (shoot-2 s left-1-type) (shoot-2 se left-1-type)
+         (shoot-2 e left-1-type) (shoot-2 ne left-1-type)
+         (shoot-2 w left-1-type) (shoot-2 sw left-1-type)
+         (shoot-3 n left-1-type) (shoot-3 nw left-1-type)
+         (shoot-3 s left-1-type) (shoot-3 se left-1-type)
+         (shoot-3 e left-1-type) (shoot-3 ne left-1-type)
+         (shoot-3 w left-1-type) (shoot-3 sw left-1-type)
+         (shoot-4 n left-1-type) (shoot-4 nw left-1-type)
+         (shoot-4 s left-1-type) (shoot-4 se left-1-type)
+         (shoot-4 e left-1-type) (shoot-4 ne left-1-type)
+         (shoot-4 w left-1-type) (shoot-4 sw left-1-type)
+         (shoot-5 n left-1-type) (shoot-5 nw left-1-type)
+         (shoot-5 s left-1-type) (shoot-5 se left-1-type)
+         (shoot-5 e left-1-type) (shoot-5 ne left-1-type)
+         (shoot-5 w left-1-type) (shoot-5 sw left-1-type)
+         (shoot-6 n left-1-type) (shoot-6 nw left-1-type)
+         (shoot-6 s left-1-type) (shoot-6 se left-1-type)
+         (shoot-6 e left-1-type) (shoot-6 ne left-1-type)
+         (shoot-6 w left-1-type) (shoot-6 sw left-1-type)
+         (shoot-7 n left-1-type) (shoot-7 nw left-1-type)
+         (shoot-7 s left-1-type) (shoot-7 se left-1-type)
+         (shoot-7 e left-1-type) (shoot-7 ne left-1-type)
+         (shoot-7 w left-1-type) (shoot-7 sw left-1-type)
+         (shoot-8 n left-1-type) (shoot-8 nw left-1-type)
+         (shoot-8 s left-1-type) (shoot-8 se left-1-type)
+         (shoot-8 e left-1-type) (shoot-8 ne left-1-type)
+         (shoot-8 w left-1-type) (shoot-8 sw left-1-type)
+         (move-type left-1-type)
+         (shoot-1 n no-type) (shoot-1 nw no-type)
+         (shoot-1 s no-type) (shoot-1 se no-type)
+         (shoot-1 e no-type) (shoot-1 ne no-type)
+         (shoot-1 w no-type) (shoot-1 sw no-type)
+         (shoot-2 n no-type) (shoot-2 nw no-type)
+         (shoot-2 s no-type) (shoot-2 se no-type)
+         (shoot-2 e no-type) (shoot-2 ne no-type)
+         (shoot-2 w no-type) (shoot-2 sw no-type)
+         (shoot-3 n no-type) (shoot-3 nw no-type)
+         (shoot-3 s no-type) (shoot-3 se no-type)
+         (shoot-3 e no-type) (shoot-3 ne no-type)
+         (shoot-3 w no-type) (shoot-3 sw no-type)
+         (shoot-4 n no-type) (shoot-4 nw no-type)
+         (shoot-4 s no-type) (shoot-4 se no-type)
+         (shoot-4 e no-type) (shoot-4 ne no-type)
+         (shoot-4 w no-type) (shoot-4 sw no-type)
+         (shoot-5 n no-type) (shoot-5 nw no-type)
+         (shoot-5 s no-type) (shoot-5 se no-type)
+         (shoot-5 e no-type) (shoot-5 ne no-type)
+         (shoot-5 w no-type) (shoot-5 sw no-type)
+         (shoot-6 n no-type) (shoot-6 nw no-type)
+         (shoot-6 s no-type) (shoot-6 se no-type)
+         (shoot-6 e no-type) (shoot-6 ne no-type)
+         (shoot-6 w no-type) (shoot-6 sw no-type)
+         (shoot-7 n no-type) (shoot-7 nw no-type)
+         (shoot-7 s no-type) (shoot-7 se no-type)
+         (shoot-7 e no-type) (shoot-7 ne no-type)
+         (shoot-7 w no-type) (shoot-7 sw no-type)
+         (shoot-8 n no-type) (shoot-8 nw no-type)
+         (shoot-8 s no-type) (shoot-8 se no-type)
+         (shoot-8 e no-type) (shoot-8 ne no-type)
+         (shoot-8 w no-type) (shoot-8 sw no-type)
+         (move-type no-type)
+     )
+  )
+  (piece
+     (name MatoToa)
+     (image White "images/hanga-roa/wpawn.bmp"
+            Black "images/hanga-roa/bpawn.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step nw)
+         (step s) (step se)
+         (step e) (step ne)
+         (step w) (step sw)
+     )
+  )
+  (piece
+     (name MoaiCaptured)
+     (image White "images/hanga-roa/wking.bmp"
+            Black "images/hanga-roa/bking.bmp")
+  )
+
+  (board-setup
+    (White 
+         (Moai e1)
+         (Ariki b1 e2 h1)
+         (MatoToa b3 e4 h3)
+    )
+    (Black 
+         (Moai e9)
+         (Ariki b9 e8 h9)
+         (MatoToa b7 e6 h7)
+    )
+  )
+
+  (win-condition  (Black) (absolute-config Moai (a1 b1 c1 d1 e1 f1 g1 h1 i1)))
+  (win-condition  (White) (absolute-config Moai (a9 b9 c9 d9 e9 f9 g9 h9 i9)))
+  (loss-condition (White Black) (pieces-remaining 0 Moai))
+)
+
+(variant
+  (title "Hanga Roa (small)")
+  (board
+     (image "images/hanga-roa/board-small.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (positions
+             (X7 352   2 402  52)
+             (X6 352  52 402 102)
+             (X5 352 102 402 152)
+             (X4 352 152 402 202)
+             (X3 352 202 402 252)
+             (X2 352 252 402 302)
+             (X1 352 302 402 352)
+     )
+     (links next
+          (a2 a1) (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1)
+     )
+     (links nb
+          (a2 a7) (a7 b7) (b7 c7) (c7 d7) (d7 e7) (e7 f7) (f7 g7)
+     )
+     (links br
+          (a7 X7) (X7 X6) (X6 X5) (X5 X4)
+     )
+     (links wr
+          (a7 X1) (X1 X2) (X2 X3) (X3 X4)
+     )
+     (symmetry Black (br wr) (wr br) (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (next nb) (nb next))
+     (zone (name reserve) (players White Black)
+           (positions X1 X2 X3 X4 X5 X6 X7)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Moai d1)
+         (Ariki b1 f1)
+         (MatoToa b2 d3 f2)
+    )
+    (Black 
+         (Moai d7)
+         (Ariki b7 f7)
+         (MatoToa b6 d5 f6)
+    )
+  )
+
+  (win-condition  (Black) (absolute-config Moai (a1 b1 c1 d1 e1 f1 g1)))
+  (win-condition  (White) (absolute-config Moai (a7 b7 c7 d7 e7 f7 g7)))
+  (loss-condition (White Black) (pieces-remaining 0 Moai))
+)
+
+(variant
+  (title "Hanga Roa (mini)")
+  (board
+     (image "images/hanga-roa/board-mini.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e" (50 0)) ; files
+           ("5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (positions
+             (X5 252   2 302  52)
+             (X4 252  52 302 102)
+             (X3 252 102 302 152)
+             (X2 252 152 302 202)
+             (X1 252 202 302 252)
+     )
+     (links next
+          (a2 a1) (a1 b1) (b1 c1) (c1 d1) (d1 e1)
+     )
+     (links nb
+          (a2 a5) (a5 b5) (b5 c5) (c5 d5) (d5 e5)
+     )
+     (links br
+          (a5 X5) (X5 X4) (X4 X3)
+     )
+     (links wr
+          (a5 X1) (X1 X2) (X2 X3)
+     )
+     (symmetry Black (br wr) (wr br) (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (next nb) (nb next))
+     (zone (name reserve) (players White Black)
+           (positions X1 X2 X3 X4 X5)
+     )
+  )
+
+  (piece
+     (name Ariki)
+     (image White "images/hanga-roa/wrook.bmp"
+            Black "images/hanga-roa/brook.bmp")
+     (moves
+         (move-type normal-type)
+         (drop-ariki next)
+         (ariki-slide n) (ariki-slide nw)
+         (ariki-slide s) (ariki-slide se)
+         (ariki-slide e) (ariki-slide ne)
+         (ariki-slide w) (ariki-slide sw)
+         (move-type left-2-type)
+         (shoot-1 n no-type) (shoot-1 nw no-type)
+         (shoot-1 s no-type) (shoot-1 se no-type)
+         (shoot-1 e no-type) (shoot-1 ne no-type)
+         (shoot-1 w no-type) (shoot-1 sw no-type)
+         (shoot-2 n no-type) (shoot-2 nw no-type)
+         (shoot-2 s no-type) (shoot-2 se no-type)
+         (shoot-2 e no-type) (shoot-2 ne no-type)
+         (shoot-2 w no-type) (shoot-2 sw no-type)
+         (shoot-3 n no-type) (shoot-3 nw no-type)
+         (shoot-3 s no-type) (shoot-3 se no-type)
+         (shoot-3 e no-type) (shoot-3 ne no-type)
+         (shoot-3 w no-type) (shoot-3 sw no-type)
+         (shoot-4 n no-type) (shoot-4 nw no-type)
+         (shoot-4 s no-type) (shoot-4 se no-type)
+         (shoot-4 e no-type) (shoot-4 ne no-type)
+         (shoot-4 w no-type) (shoot-4 sw no-type)
+         (move-type no-type)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Moai c1)
+         (Ariki a1 e1)
+         (MatoToa a2 e2)
+    )
+    (Black 
+         (Moai c5)
+         (Ariki a5 e5)
+         (MatoToa a4 e4)
+    )
+  )
+
+  (win-condition  (Black) (absolute-config Moai (a1 b1 c1 d1 e1)))
+  (win-condition  (White) (absolute-config Moai (a5 b5 c5 d5 e5)))
+  (loss-condition (White Black) (pieces-remaining 0 Moai))
+)

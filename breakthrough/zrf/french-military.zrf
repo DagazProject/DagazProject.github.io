@@ -1,0 +1,111 @@
+(define drop (
+  (verify (in-zone? board-zone))
+  (verify empty?)
+  add
+))
+
+(define shift (
+   $1 (verify empty?) 
+   add
+))
+
+(game
+    (title "French Military Game")
+    (history "This game war popular in French military circles during and after the Franco-Prussian War of 1870-1871.")
+
+    (option "highlight goals" false)
+
+    (players Green Red)
+    (turn-order Red Green)
+
+    (board
+        (image "images/french-military/small.bmp")
+        (grid
+            (start-rectangle 5 5 53 53) ; top-left position
+            (dimensions
+                ("a/b/c" (64 0)) ; columns
+                ("5/4/3/2/1" (0 64)) ; rows
+            )
+            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+        )
+        (links ne (b1 c2) (a2 b3) (b3 c4) (a4 b5))
+        (links se (a2 b1) (a4 b3) (b3 c2) (b5 c4))
+        (links sw (c2 b1) (c4 b3) (b3 a2) (b5 a4))
+        (links nw (b1 a2) (c2 b3) (b3 a4) (c4 b5))
+        (kill-positions a1 a5 c1 c5)
+        (zone (name board-zone) 
+              (players Green Red)
+              (positions b1 a2 b2 c2 a3 b3 c3 a4 b4 c4 b5)
+        )
+   )
+
+   (piece
+      (name RedPiece)
+      (help " ")
+      (image Red "images/french-military/red.bmp")
+      (drops
+         (drop)
+      )
+      (moves
+         (shift n)
+         (shift s)
+         (shift e)
+         (shift w)
+         (shift nw)
+	 (shift ne)
+         (shift sw)
+	 (shift se)
+      )
+   )
+   (piece
+      (name GreenPiece)
+      (help " ")
+      (image Green "images/french-military/black.bmp")
+      (moves
+         (shift n)
+         (shift e)
+         (shift w)
+         (shift nw)
+	 (shift ne)
+      )			
+   )
+
+   (board-setup
+        (Green (GreenPiece a2 b1 c2))
+        (Red (RedPiece off 1))
+   )
+
+   (loss-condition (Green Red) stalemated)
+   (loss-condition (Green Red) repetition)
+   (win-condition  (Red) (absolute-config RedPiece (b1)))
+)
+
+(variant
+    (title "French Military Game")
+ 
+    (board
+        (image "images/french-military/large.bmp")
+        (grid
+            (start-rectangle 5 5 53 53) ; top-left position
+            (dimensions
+                ("a/b/c" (64 0)) ; columns
+                ("7/6/5/4/3/2/1" (0 64)) ; rows
+            )
+            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+        )
+        (links ne (b1 c2) (a2 b3) (b3 c4) (a4 b5) (b5 c6) (a6 b7))
+        (links se (a2 b1) (a4 b3) (b3 c2) (a6 b5) (b5 c4) (b7 c6))
+        (links sw (c2 b1) (c4 b3) (b3 a2) (c6 b5) (b5 a4) (b7 a6))
+        (links nw (b1 a2) (c2 b3) (b3 a4) (c4 b5) (b5 a6) (c6 b7))
+        (kill-positions a1 a7 c1 c7)
+        (zone (name board-zone) 
+              (players Green Red)
+              (positions b1 a2 b2 c2 a3 b3 c3 a4 b4 c4 a5 b5 c5 a6 b6 c6 b7)
+        )
+   )
+
+   (board-setup
+        (Green (GreenPiece a2 b1 c2))
+        (Red (RedPiece off 1))
+   )
+)

@@ -1,0 +1,56 @@
+(define step (
+  $1 (verify not-empty?)
+  capture 
+  $1 (verify empty?)
+  add
+))
+
+(game
+   (title "German Solitaire")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+;  (option "show hints"       false)
+
+   (players You)
+   (turn-order You)
+
+   (board
+      (image "images/german.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g/h/i" (48 0)) ; files
+                ("9/8/7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+      (kill-positions a1 a2 a3 a7 a8 a9 b1 b2 b3 b7 b8 b9 c1 c2 c3 c7 c8 c9 g1 g2 g3 g7 g8 g9 h1 h2 h3 h7 h8 h9 i1 i2 i3 i7 i8 i9)
+      (zone (name goal) 
+         (players You) 
+         (positions e5)
+      )
+   )
+
+   (piece
+      (image You "images/man.bmp")
+      (name  Stone)
+      (help "Stone")
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+   )
+
+   (board-setup
+      (You (Stone a4 a5 a6 b4 b5 b6 c4 c5 c6 d1 d2 d3 d4 d5 d6 d7 d8 d9 e1 e2 e3 e4 e6 e7 e8 e9 f1 f2 f3 f4 f5 f6 f7 f8 f9 g4 g5 g6 h4 h5 h6 i4 i5 i6))
+   )
+)

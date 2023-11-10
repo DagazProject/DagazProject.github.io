@@ -1,0 +1,54 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Co Ganh")
+
+  (players Blue Green)
+  (turn-order Blue Green)
+
+  (board
+     (image "images/co-ganh/board.bmp")
+     (grid
+        (start-rectangle 6 4 65 63)
+        (dimensions
+           ("a/b/c/d/e" (88 0)) ; files
+           ("5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links ne
+        (a1 b2) (a3 b4) (b2 c3) (b4 c5)
+        (c1 d2) (c3 d4) (d2 e3) (d4 e5)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (c1 b2) (c3 b4)
+        (d2 c3) (d4 c5) (e1 d2) (e3 d4)
+     )
+     (links se
+        (a3 b2) (a5 b4) (b2 c1) (b4 c3)
+        (c3 d2) (c5 d4) (d2 e1) (d4 e3)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (c3 b2) (c5 b4)
+        (d2 c1) (d4 c3) (e3 d2) (e5 d4)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image Blue "images/co-ganh/blue.bmp"
+            Green "images/co-ganh/green.bmp")
+     (moves
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+     )
+  )
+
+  (board-setup
+    (Blue (Man a1 b1 c1 d1 e1 a2 a3 e2))
+    (Green (Man a5 b5 c5 d5 e5 a4 e4 e3))
+  )
+)

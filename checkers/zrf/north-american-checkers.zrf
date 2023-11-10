@@ -1,0 +1,88 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define king-jump (
+   $1 (verify enemy?)
+   $1 (verify empty?) $2
+   (add-partial jump-type)
+))
+
+(game
+  (title "North American Checkers")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players Black)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw se) (king-jump ne sw) (king-jump sw ne) (king-jump se nw)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (White (Man b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)

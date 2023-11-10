@@ -1,0 +1,51 @@
+(define drop-stone (
+  (verify empty?) add
+))
+
+(game
+  (title "Descent")
+
+  (option "animate drops" false)
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players White Black)
+  (turn-order White White Black)
+
+  (board
+      (image "images/descent/board.bmp")
+      (grid
+          (start-rectangle 7 9 34 35)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (26 0)) ; files
+            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 26)) ; ranks
+          )
+          (directions 
+               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+               (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+          )
+      )
+      (zone (name outer) (players White Black)
+            (positions a19 b19 c19 d19 e19 f19 g19 h19 i19 j19 k19 l19 m19 n19 
+                       o19 p19 q19 r19 s19 a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 
+                       m1 n1 o1 p1 q1 r1 s1 a18 a17 a16 a15 a14 a13 a12 a11 a10 
+                       a9 a8 a7 a6 a5 a4 a3 a2 s18 s17 s16 s15 s14 s13 s12 s11 
+                       s10 s9 s8 s7 s6 s5 s4 s3 s2)
+      )
+  )
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/descent/x.bmp"
+            White "images/descent/o.bmp")
+     (drops (drop-stone))
+  )  
+
+  (board-setup
+     (Black (Stone j10))
+  )
+)

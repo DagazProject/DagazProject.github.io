@@ -1,0 +1,108 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define preview (
+  (verify (in-zone? $1))
+  add
+))
+
+(define drop (
+  (verify (not-in-zone? preview-zone))
+  (verify empty?)
+  add
+))
+
+(define p
+  (piece
+     (name $1)
+     (image You "images/lines/$2.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step e) (step w) (step s)
+     )
+     (drops
+         (move-type preview-1-type)
+         (preview preview-1)
+         (move-type preview-2-type)
+         (preview preview-2)
+         (move-type preview-3-type)
+         (preview preview-3)
+         (move-type drop-type)
+         (drop)
+     )
+  )
+)
+
+(define num
+  (piece
+     (name N$1)
+     (image You "images/lines/$1.bmp")
+  )
+)
+
+(game
+  (title "Lines")
+
+  (option "animate captures" true)
+  (option "animate drops"    true)
+  (option "smart moves"      false)
+
+  (players You)
+  (turn-order You)
+
+  (board
+      (image "images/lines/board.bmp")
+      (grid
+         (start-rectangle 108 5 133 32)
+         (dimensions
+             ("X/Y/Z" (34 0)) ; files         
+             ("1" (0 33)) ; ranks
+         )
+         (directions 
+            (nx 1 0)
+         )
+      )
+      (grid
+         (start-rectangle 7 57 32 84)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i" (34 0)) ; files         
+             ("9/8/7/6/5/4/3/2/1" (0 33)) ; ranks
+         )
+         (directions 
+            (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+            (nw -1 -1) (ne 1 -1) (sw -1 1) (se 1 1)
+         )
+      )
+      (grid
+         (start-rectangle 235 12 245 29)
+         (dimensions
+             ("D" (0 17))
+             ("6/5/4/3/2/1" (11 0))
+         )
+         (directions 
+             (nx 0 -1)
+         )
+      )
+      (zone (name preview-zone) (players You)
+            (positions X1 Y1 Z1)
+      )
+      (zone (name preview-1) (players You)
+            (positions X1)
+      )
+      (zone (name preview-2) (players You)
+            (positions Y1)
+      )
+      (zone (name preview-3) (players You)
+            (positions Z1)
+      )
+  )
+
+  (p Dark dark) (p Light light) (p Green green) (p Red red) (p Yellow yellow) (p Purple purple)
+  (num 0) (num 1) (num 2) (num 3) (num 4) (num 5) (num 6) (num 7) (num 8) (num 9)
+  
+  (board-setup
+    (You (N9 D1 D2 D3 D4 D5 D6))
+  )
+)

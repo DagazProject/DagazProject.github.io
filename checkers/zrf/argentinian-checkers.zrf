@@ -1,0 +1,102 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?) capture
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Argentinian Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+  (option "maximal captures"  2)
+  (option "deferred captures" true)
+; (option "ko"                situation)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/italian.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players Black)
+           (positions a8 c8 e8 g8)
+     )
+     (zone (name promotion) (players White)
+           (positions b1 d1 f1 h1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (Black (Man b1 d1 f1 h1  a2 c2 e2 g2  b3 d3 f3 h3) )
+    (White (Man a8 c8 e8 g8  b7 d7 f7 h7  a6 c6 e6 g6) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

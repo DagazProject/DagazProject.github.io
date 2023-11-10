@@ -1,0 +1,42 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "L Game")
+
+  (players Blue Pink Black)
+  (turn-order Blue Pink)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions ("a/b/c/d" (100 0))
+                     ("4/3/2/1" (0 100))
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/l-game/stone.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Tile)
+     (image Blue "images/l-game/b0000.bmp"
+            Pink "images/l-game/r0000.bmp")
+  )
+
+  (board-setup
+     (Blue (Tile b1 b2 b3 c1))
+     (Pink (Tile b4 c2 c3 c4))
+     (Black (Stone a4 d1))
+  )
+)

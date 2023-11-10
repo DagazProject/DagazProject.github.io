@@ -1,0 +1,89 @@
+(define shift (
+   $1 (verify empty?) 
+   add
+))
+
+(game
+    (title "Salt and Pepper")
+
+    (move-sound "Audio\Pickup.wav")
+    (release-sound "Audio\Pickup.wav")
+    (capture-sound "")
+    (drop-sound "")
+
+    (option "smart moves" false)
+    (option "pass turn"   forced)
+
+    (players South North)
+    (turn-order South North)
+
+    (board
+        (image "images/salt-n-pepper/board-green.bmp")
+        (grid
+            (start-rectangle 5 5 53 53)
+            (dimensions
+                ("a/b/c/d" (64 0)) ; columns
+                ("5/4/3/2/1" (0 64)) ; rows
+            )
+            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+        )
+        (kill-positions a1 a5 d1 d5)
+        (links ne (b1 c2) (a2 b3) (b2 c3) (c2 d3) (a3 b4) (b3 c4) (c3 d4) (b4 c5))
+        (links sw (c2 b1) (b3 a2) (c3 b2) (d3 c2) (b4 a3) (c4 b3) (d4 c3) (c5 b4))
+        (links nw (c1 b2) (b2 a3) (c2 b3) (d2 c3) (b3 a4) (c3 b4) (d3 c4) (c4 b5))
+        (links se (b2 c1) (a3 b2) (b3 c2) (c3 d2) (a4 b3) (b4 c3) (c4 d3) (b5 c4))
+        (zone (name goal-zone) 
+              (players South)
+              (positions b4 b5 c4 c5)
+        )
+        (zone (name goal-zone) 
+              (players North)
+              (positions b1 b2 c1 c2)
+        )
+        (zone (name locked-zone) 
+              (players South)
+              (positions b5 c5)
+        )
+        (zone (name locked-zone) 
+              (players North)
+              (positions b1 c1)
+        )
+   )
+
+   (piece
+      (name Green)
+      (image South "images/salt-n-pepper/green.bmp"
+             North "images/salt-n-pepper/green.bmp")
+      (moves
+         (shift nw)
+	 (shift ne)
+         (shift sw)
+	 (shift se)
+      )
+   )
+   (piece
+      (name Red)
+      (image South "images/salt-n-pepper/red.bmp"
+             North "images/salt-n-pepper/red.bmp")
+      (moves
+         (shift n)
+	 (shift e)
+         (shift w)
+	 (shift s)
+      )
+   )
+
+   (board-setup
+        (South (Green b1 b2 c1 c2))
+        (North (Red b4 b5 c4 c5))
+   )
+)
+
+(variant
+   (title "Salt and Pepper")
+
+   (board-setup
+        (South (Red b1 b2 c1 c2))
+        (North (Green b4 b5 c4 c5))
+   )
+)

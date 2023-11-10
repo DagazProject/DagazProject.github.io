@@ -1,0 +1,83 @@
+(define drop (
+  (verify (in-zone? board-zone))
+  (verify empty?)
+  add
+))
+
+(define shift (
+   $1 (verify empty?) 
+   add
+))
+
+(game
+    (title "Game of Dwarfs")
+
+    (option "highlight goals" false)
+
+    (players Green Red)
+    (turn-order Red Green)
+
+    (board
+        (image "images/french-military/dwarfs.bmp")
+        (grid
+            (start-rectangle 5 5 53 53) ; top-left position
+            (dimensions
+                ("a/b/c" (64 0)) ; columns
+                ("5/4/3/2/1" (0 64)) ; rows
+            )
+        )
+        (links n  (a2 a4) (c2 c4) (b1 b2) (b2 b3) (b3 b4) (b4 b5))
+        (links s  (a4 a2) (c4 c2) (b2 b1) (b3 b2) (b4 b3) (b5 b4))
+        (links e  (a2 b2) (b2 c2) (a4 b4) (b4 c4))
+        (links w  (b2 a2) (c2 b2) (b4 a4) (c4 b4))
+        (links ne (b1 c2) (a2 b3) (b3 c4) (a4 b5))
+        (links se (a2 b1) (a4 b3) (b3 c2) (b5 c4))
+        (links sw (c2 b1) (c4 b3) (b3 a2) (b5 a4))
+        (links nw (b1 a2) (c2 b3) (b3 a4) (c4 b5))
+        (kill-positions a1 a5 c1 c5 a3 c3)
+        (zone (name board-zone) 
+              (players Green Red)
+              (positions b1 a2 b2 c2 b3 a4 b4 c4 b5)
+        )
+   )
+
+   (piece
+      (name RedPiece)
+      (help " ")
+      (image Red "images/french-military/red.bmp")
+      (drops
+         (drop)
+      )
+      (moves
+         (shift n)
+         (shift s)
+         (shift e)
+         (shift w)
+         (shift nw)
+	 (shift ne)
+         (shift sw)
+	 (shift se)
+      )
+   )
+   (piece
+      (name GreenPiece)
+      (help " ")
+      (image Green "images/french-military/black.bmp")
+      (moves
+         (shift n)
+         (shift e)
+         (shift w)
+         (shift nw)
+	 (shift ne)
+      )			
+   )
+
+   (board-setup
+        (Green (GreenPiece a2 b1 c2))
+        (Red (RedPiece off 1))
+   )
+
+   (loss-condition (Green Red) stalemated)
+   (loss-condition (Green Red) repetition)
+   (win-condition  (Red) (absolute-config RedPiece (b1)))
+)

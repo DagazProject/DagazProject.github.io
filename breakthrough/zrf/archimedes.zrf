@@ -1,0 +1,65 @@
+(version "3.0")
+
+(define slide (
+   $1 (while empty?
+       (verify (not-in-zone? home))
+       add $1
+   )
+))
+
+(game
+  (title "Archimedes")
+  (history "Invented by Scott Marley and Philip Cohen in 1988.")
+
+  (option "highlight goals"     false)
+  (option "archimedes-extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/archimedes/board.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name home)  
+         (players Black) 
+         (positions a1)
+     )
+     (zone (name home)  
+         (players White) 
+         (positions h8)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/archimedes/ManWhite.bmp"
+            Black "images/archimedes/ManBlack.bmp")
+     (moves
+        (slide n) (slide s) (slide e) (slide w)
+        (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+
+  (board-setup
+    (White (Man e7 e8 f6 f7 f8 g5 g6 g7 g8 h5 h6 h7))
+    (Black (Man a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 d1 d2))
+  )
+
+  (win-condition  (Black) (absolute-config Man (h8)))
+  (win-condition  (White) (absolute-config Man (a1)))
+)

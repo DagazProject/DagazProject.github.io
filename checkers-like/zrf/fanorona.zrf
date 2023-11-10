@@ -1,0 +1,74 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define bump (
+  $1 (verify empty?)
+  $1 (verify enemy?) 
+  capture $2
+  (add-partial priority-type)
+))
+
+(define pull (
+  $1 (verify enemy?) capture
+  $2 $2 (verify empty?)
+  (add-partial priority-type)
+))
+
+(game
+  (title "Fanorona")
+
+  (move-sound "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (option "smart moves"        true)
+  (option "pass partial"       true)
+  (option "animate captures"   false)
+  (option "fanorona-invariant" true)
+  (option "fanorona-extension" true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities priority-type normal-type)
+
+   (board
+      (image "images/fanorona/board_small.bmp")
+      (grid
+         (start-rectangle 0 -2 75 73)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i" (75 0)) ; files
+             ("5/4/3/2/1" (0 75)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (links ne (a1 b2) (a3 b4) (b2 c3) (b4 c5) (c1 d2) (c3 d4) (d2 e3) (d4 e5) (e1 f2) (e3 f4) (f2 g3) (f4 g5) (g1 h2) (g3 h4) (h2 i3) (h4 i5))
+      (links sw (b2 a1) (b4 a3) (c3 b2) (c5 b4) (d2 c1) (d4 c3) (e3 d2) (e5 d4) (f2 e1) (f4 e3) (g3 f2) (g5 f4) (h2 g1) (h4 g3) (i3 h2) (i5 h4))
+      (links nw (b2 a3) (b4 a5) (c1 b2) (c3 b4) (d2 c3) (d4 c5) (e1 d2) (e3 d4) (f2 e3) (f4 e5) (g1 f2) (g3 f4) (h2 g3) (h4 g5) (i1 h2) (i3 h4))
+      (links se (a3 b2) (a5 b4) (b2 c1) (b4 c3) (c3 d2) (c5 d4) (d2 e1) (d4 e3) (e3 f2) (e5 f4) (f2 g1) (f4 g3) (g3 h2) (g5 h4) (h2 i1) (h4 i3))
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/fanorona/white.bmp"
+            Black "images/fanorona/black.bmp")
+     (moves
+         (move-type priority-type)
+         (bump n s) (bump nw se) (bump s n) (bump se nw)
+         (bump w e) (bump sw ne) (bump e w) (bump ne sw)
+         (pull n s) (pull nw se) (pull s n) (pull se nw)
+         (pull w e) (pull sw ne) (pull e w) (pull ne sw)
+         (move-type normal-type)
+         (step n) (step nw) (step s) (step se)
+         (step w) (step sw) (step e) (step ne)
+     )
+  )
+
+  (board-setup
+      (White (Stone a1 a2 b1 b2 b3 c1 c2 d1 d2 d3 e1 e2 f1 f2 g1 g2 g3 h1 h2 i1 i2 i3))
+      (Black (Stone a3 a4 a5 b4 b5 c3 c4 c5 d4 d5 e4 e5 f3 f4 f5 g4 g5 h3 h4 h5 i4 i5))
+  )
+
+  (loss-condition (White Black) stalemated)
+)

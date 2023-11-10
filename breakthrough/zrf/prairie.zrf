@@ -1,0 +1,95 @@
+(define dog-slide (
+  $1
+  (while empty?
+     (verify (not-in-zone? first))
+     (verify (not-in-zone? last))
+     add
+     $1
+  )
+))
+
+(define buffalo-step (
+  $1 (verify empty?)
+  add
+))
+
+(define cowboy-step (
+  $1 (verify not-friend?)
+  (verify (not-in-zone? first))
+  (verify (not-in-zone? last))
+  add
+))
+
+(game
+  (title "Prairie")
+  (description "http://www.di.fc.ul.pt/~jpn/gv/prairie.htm")
+  (history "Copyright (c) 1975 Alex Randolph.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"       false)
+  (option "smart moves"            true)
+  (option "prairie extension" true)
+
+  (players White Black)
+  (turn-order Black White)
+
+  (board
+     (image "images/prairie/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/l/m" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name first) (players Black White)
+         (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 l1 m1)
+     )
+     (zone (name last) (players Black White)
+         (positions a7 b7 c7 d7 e7 f7 g7 h7 i7 l7 m7)
+     )
+  )
+
+  (piece
+     (name  Buffalo)
+     (image Black "images/prairie/bpawn.bmp")
+     (moves
+        (buffalo-step s)
+     )
+  )
+  (piece
+     (name  Dog)
+     (image White "images/prairie/wqueen.bmp")
+     (moves
+        (dog-slide n) (dog-slide nw)
+        (dog-slide s) (dog-slide se)
+        (dog-slide w) (dog-slide sw)
+        (dog-slide e) (dog-slide ne)
+     )
+  )
+  (piece
+     (name  Cowboy)
+     (image White "images/prairie/wking.bmp")
+     (moves
+        (cowboy-step n) (cowboy-step nw)
+        (cowboy-step s) (cowboy-step se)
+        (cowboy-step w) (cowboy-step sw)
+        (cowboy-step e) (cowboy-step ne)
+     )
+  )
+
+  (board-setup
+    (Black (Buffalo a7 b7 c7 d7 e7 f7 g7 h7 i7 l7 m7))
+    (White (Cowboy f2) (Dog c2 e2 g2 i2))
+  )
+
+  (loss-condition (White Black) stalemated)
+)

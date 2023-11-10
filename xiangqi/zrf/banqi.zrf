@@ -1,0 +1,317 @@
+(define check-hidden
+  (verify (not-piece? UnknownGeneral))
+  (verify (not-piece? UnknownAdvisor))
+  (verify (not-piece? UnknownElephant))
+  (verify (not-piece? UnknownChariot))
+  (verify (not-piece? UnknownHorse))
+  (verify (not-piece? UnknownCannon))
+  (verify (not-piece? UnknownSoldier))
+)
+
+(define change-to (
+  (add $1)
+))
+
+(define step (
+  $1 add
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-empty?)
+; (check-hidden)
+  add
+))
+
+(game
+   (title "Banqi (Taiwanese)")
+   (description "https://en.wikipedia.org/wiki/Banqi")
+
+   (move-sound "Audio\Pickup.wav")
+   (release-sound "Audio\Pickup.wav")
+   (capture-sound "")
+   (drop-sound "")
+
+   (option "animate drops"    false)
+   (option "animate captures" false)
+   (option "smart moves"      false)
+   (option "shared pieces"    true)
+   (option "pass partial"     true)
+
+   (players Red Black)
+   (turn-order Red Black)
+
+   (board
+      (image "images/banqi.bmp")
+      (grid
+         (start-rectangle 26 27 68 69)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (45 0)) ; files
+             ("4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+   )
+
+   (piece
+      (name UnknownGeneral)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to General)
+      )
+   )
+   (piece
+      (name UnknownAdvisor)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Advisor)
+      )
+   )
+   (piece
+      (name UnknownElephant)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Elephant)
+      )
+   )
+   (piece
+      (name UnknownChariot)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Chariot)
+      )
+   )
+   (piece
+      (name UnknownHorse)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Horse)
+      )
+   )
+   (piece
+      (name UnknownCannon)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Cannon)
+      )
+   )
+   (piece
+      (name UnknownSoldier)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Soldier)
+      )
+   )
+   (piece
+      (name General)
+      (image Red "images/rgeneral.bmp"  
+             Black "images/bgeneral.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Advisor)
+      (image Red "images/rmandarin.bmp" 
+             Black "images/bmandarin.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red "images/relephant.bmp" 
+             Black "images/belephant.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red "images/rchariot.bmp" 
+             Black "images/bchariot.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red "images/rhorse.bmp" 
+             Black "images/bhorse.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red "images/rcannon.bmp" 
+             Black "images/bcannon.bmp")
+      (moves
+         (shoot n) (shoot s) (shoot w) (shoot e)
+      )
+   )
+   (piece
+      (name Soldier)
+      (image Red "images/rsoldier.bmp" 
+             Black "images/bsoldier.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+)
+
+(variant
+   (title "Banqi (Chinese)")
+
+   (piece
+      (name UnknownGeneral)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to General)
+      )
+   )
+   (piece
+      (name UnknownAdvisor)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Advisor)
+      )
+   )
+   (piece
+      (name UnknownElephant)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Elephant)
+      )
+   )
+   (piece
+      (name UnknownChariot)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Chariot)
+      )
+   )
+   (piece
+      (name UnknownHorse)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Horse)
+      )
+   )
+   (piece
+      (name UnknownCannon)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Cannon)
+      )
+   )
+   (piece
+      (name UnknownSoldier)
+      (image Red "images/unknown.bmp"  
+             Black "images/unknown.bmp")
+      (moves
+         (change-to Soldier)
+      )
+   )
+   (piece
+      (name General)
+      (image Red "images/rgeneral.bmp"  
+             Black "images/bgeneral.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Advisor)
+      (image Red "images/rmandarin.bmp" 
+             Black "images/bmandarin.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image Red "images/relephant.bmp" 
+             Black "images/belephant.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Chariot)
+      (image Red "images/rchariot.bmp" 
+             Black "images/bchariot.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Horse)
+      (image Red "images/rhorse.bmp" 
+             Black "images/bhorse.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Cannon)
+      (image Red "images/rcannon.bmp" 
+             Black "images/bcannon.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+   (piece
+      (name Soldier)
+      (image Red "images/rsoldier.bmp" 
+             Black "images/bsoldier.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+      )
+   )
+)
+
+(variant
+   (title "Banqi (Large)")
+
+   (board
+      (image "images/10x9.bmp")
+      (grid
+         (start-rectangle 26 27 68 69)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (45 0)) ; files
+             ("8/7/6/5" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (grid
+         (start-rectangle 26 252 68 294)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (45 0)) ; files
+             ("4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (links n (a4 a5) (b4 b5) (c4 c5) (d4 d5) (e4 e5) (f4 f5) (g4 g5) (h4 h5))
+      (links s (a5 a4) (b5 b4) (c5 c4) (d5 d4) (e5 e4) (f5 f4) (g5 g4) (h5 h4))
+   )
+)

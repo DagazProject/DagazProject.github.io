@@ -1,0 +1,85 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Bizingo")
+  (history "https://sites.google.com/site/boardandpieces/list-of-games/bizingo")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/bizingo/board.bmp")
+     (grid
+         (start-rectangle 0 30 30 60)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v" (26 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions 
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1) (ee 2 0) (ww -2 0)
+           (e 1 0) (w -1 0)
+         )
+     )
+     (kill-positions 
+         a11 b11 c11 d11 e11 f11 g11 h11 i11 o11 p11 q11 r11 s11 t11 u11 v11 
+         a10 b10 c10 d10 e10 f10 g10 h10 p10 q10 r10 s10 t10 u10 v10 a9  b9
+         c9  d9  e9  f9  g9  q9  r9  s9  t9  u9  v9  a8  b8  c8  d8  e8  f8 
+         r8  s8  t8  u8  v8  a7  b7  c7  d7  e7  s7  t7  u7  v7  a6  b6  c6  
+         d6  t6  u6  v6  a5  b5  c5  u5  v5  a4  b4  v4  a3  a2  a1  b1  v1
+     )
+     (links n
+         (c1 c2) (e1 e2) (g1 g2) (i1 i2) (k1 k2) (m1 m2) (o1 o2) (q1 q2) (s1 s2) (u1 u2)
+         (b2 b3) (d2 d3) (f2 f3) (h2 h3) (j2 j3) (l2 l3) (n2 n3) (p2 p3) (r2 r3) (t2 t3) (v2 v3)
+         (c3 c4) (e3 e4) (g3 g4) (i3 i4) (k3 k4) (m3 m4) (o3 o4) (q3 q4) (s3 s4) (u3 u4)
+         (d4 d5) (f4 f5) (h4 h5) (j4 j5) (l4 l5) (n4 n5) (p4 p5) (r4 r5) (t4 t5)
+         (e5 e6) (g5 g6) (i5 i6) (k5 k6) (m5 m6) (o5 o6) (q5 q6) (s5 s6)
+         (f6 f7) (h6 h7) (j6 j7) (l6 l7) (n6 n7) (p6 p7) (r6 r7)
+         (g7 g8) (i7 i8) (k7 k8) (m7 m8) (o7 o8) (q7 q8)
+         (h8 h9) (j8 j9) (l8 l9) (n8 n9) (p8 p9)
+         (i9 i10) (k9 k10) (m9 m10) (o9 o10)
+         (j10 j11) (l10 l11) (n10 n11)
+     )
+     (links s
+         (c2 c1) (e2 e1) (g2 g1) (i2 i1) (k2 k1) (m2 m1) (o2 o1) (q2 q1) (s2 s1) (u2 u1)
+         (b3 b2) (d3 d2) (f3 f2) (h3 h2) (j3 j2) (l3 l2) (n3 n2) (p3 p2) (r3 r2) (t3 t2) (v3 v2)
+         (c4 c3) (e4 e3) (g4 g3) (i4 i3) (k4 k3) (m4 m3) (o4 o3) (q4 q3) (s4 s3) (u4 u3)
+         (d5 d4) (f5 f4) (h5 h4) (j5 j4) (l5 l4) (n5 n4) (p5 p4) (r5 r4) (t5 t4)
+         (e6 e5) (g6 g5) (i6 i5) (k6 k5) (m6 m5) (o6 o5) (q6 q5) (s6 s5)
+         (f7 f6) (h7 h6) (j7 j6) (l7 l6) (n7 n6) (p7 p6) (r7 r6)
+         (g8 g7) (i8 i7) (k8 k7) (m8 m7) (o8 o7) (q8 q7)
+         (h9 h8) (j9 j8) (l9 l8) (n9 n8) (p9 p8)
+         (i10 i9) (k10 k9) (m10 m9) (o10 o9)
+         (j11 j10) (l11 l10) (n11 n10)
+     )
+  )
+
+  (piece
+     (name Soldier)
+     (image White "images/bizingo/wsmall.bmp"
+            Black "images/bizingo/bsmall.bmp")
+     (moves
+        (step nw) (step ne) (step ee)
+        (step sw) (step se) (step ww)
+     )
+  )
+  (piece
+     (name Captain)
+     (image White "images/bizingo/wbig.bmp"
+            Black "images/bizingo/bbig.bmp")
+     (moves
+        (step nw) (step ne) (step ee)
+        (step sw) (step se) (step ww)
+     )
+  )
+
+  (board-setup
+    (White (Soldier h2 j2 l2 n2 p2 g3 i3 k3 m3 o3 q3 f4 j4 l4 n4 r4) (Captain h4 p4))
+    (Black (Soldier g6 k6 m6 q6 h7 j7 l7 n7 p7 i8 k8 m8 o8 j9 l9 n9) (Captain i6 o6))
+  )
+)

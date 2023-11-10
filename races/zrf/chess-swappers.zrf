@@ -1,0 +1,127 @@
+(define step (
+  $1 (verify empty?) add
+))
+
+(game
+  (title "Chess Swappers")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "show blink"        false)
+  (option "shared pieces"     true)
+
+  (players White Black You)
+  (turn-order You)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/swappers/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+              (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions a5 b4 b5 c4 c5 d3 d4 d5 e2 e3 e4 e5)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 a2 a3 a4 b1 b2 b3 c1 c2 d1 d2 e1)
+     )
+  )
+
+  (piece
+     (name Knight)
+     (image White "images/swappers/wknight.bmp"
+            Black "images/swappers/bknight.bmp")
+     (moves
+        (step nne) (step nnw) (step sse) (step ssw)
+        (step een) (step ees) (step wwn) (step wws)
+     )
+  )
+
+  (board-setup
+     (White
+         (Knight a1 a2 a3 a4 b1 b2 b3 c1 c2 d1 d2 e1)
+     )
+     (Black
+         (Knight a5 b4 b5 c4 c5 d3 d4 d5 e2 e3 e4 e5)
+     )
+  )
+)
+
+(variant
+  (title "14 Knights")
+  (board
+     (image "images/swappers/4x4.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d" (68 0)) ; files
+           ("4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+              (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions a3 a4 b3 b4 c4 d3 d4)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 a2 b1 c1 c2 d1 d2)
+     )
+  )
+  (board-setup
+     (White
+         (Knight a1 a2 b1 c1 c2 d1 d2)
+     )
+     (Black
+         (Knight a3 a4 b3 b4 c4 d3 d4)
+     )
+  )
+)
+
+(variant
+  (title "Through the Crowd")
+  (default)
+
+  (board
+     (image "images/swappers/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+              (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+     )
+     (zone (name goal-zone) (players White)
+           (positions e5)
+     )
+     (zone (name goal-zone) (players Black)
+           (positions a1 a2 a3 a4 a5 b1 b2 b3 b4 b5 c1 c2 c3 c4 c5 d1 d2 d3 d4 d5 e1 e2 e3 e4)
+     )
+  )
+
+  (board-setup
+     (White
+         (Knight a1)
+     )
+     (Black
+         (Knight a2 a3 a4 a5 b1 b2 b3 b4 b5 c1 c2 c3 c4 c5 d1 d2 d3 d4 d5 e1 e2 e3 e4)
+     )
+  )
+)

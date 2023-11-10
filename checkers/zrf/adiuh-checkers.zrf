@@ -1,0 +1,142 @@
+(define man-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define man-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       add
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       add $1
+   )
+))
+
+(game
+  (title "Adiuh Checkers")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/adiuh/8x8.bmp")
+     (grid
+         (start-rectangle 2 44 70 112)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/adiuh/white.bmp"
+            Black "images/adiuh/black.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw) (man-jump ne) (man-jump sw) (man-jump se)
+         (move-type normal-type)
+         (man-shift nw) (man-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/adiuh/white.bmp"
+            Black "images/adiuh/black.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (Man b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)
+
+(variant
+  (title "Adiuh Checkers (8x10)")
+
+  (board
+     (image "images/adiuh/10x8.bmp")
+     (grid
+         (start-rectangle 2 44 70 112)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8 j8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3) )
+    (Black (Man b8 d8 f8 h8 j8  a7 c7 e7 g7 i7  b6 d6 f6 h6 j6) )
+  )
+)
+
+(variant
+  (title "Adiuh Checkers (10x10)")
+  (default)
+
+  (board
+     (image "images/adiuh/10x10.bmp")
+     (grid
+         (start-rectangle 2 44 70 112)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b10 d10 f10 h10 j10)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3  b4 d4 f4 h4 j4) )
+    (Black (Man b10 d10 f10 h10 j10  a9 c9 e9 g9 i9  b8 d8 f8 h8 j8  a7 c7 e7 g7 i7) )
+  )
+)

@@ -1,0 +1,93 @@
+(define opn (
+  (add O$1)
+))
+
+(define cap (
+  capture add
+))
+
+(define d
+   (piece
+      (image You "images/cards/$1.bmp")
+      (name  D$1)
+   )
+)
+
+(define c
+   (piece
+      (image Diamonds "images/cards/back.bmp"
+             Clubs    "images/cards/back.bmp"
+             Hearts   "images/cards/back.bmp"
+             Spades   "images/cards/back.bmp")
+      (name  C$1)
+      (moves (move-type normal-type) (opn $1))
+   )
+   (piece
+      (image Diamonds "images/cards/dia$1.bmp"
+             Clubs    "images/cards/clb$1.bmp"
+             Hearts   "images/cards/hrt$1.bmp"
+             Spades   "images/cards/spd$1.bmp")
+      (name  O$1)
+      (moves (move-type capture-type) (cap))
+   )
+)
+
+(game
+  (title "Find Pair")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       true)
+  (option "shared pieces"     true)
+
+  (players Diamonds Clubs Hearts Spades You)
+  (turn-order You)
+
+  (board
+      (grid
+          (start-rectangle 6 0 28 32)
+          (dimensions
+            ("p" (0 32)) ; files
+            ("1/0" (22 0)) ; ranks
+          )
+      )
+      (grid
+          (start-rectangle 449 0 471 32)
+          (dimensions
+            ("s" (0 32)) ; files
+            ("4/3/2/1/0" (22 0)) ; ranks
+          )
+      )
+      (grid
+          (start-rectangle 5 35 62 112)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i" (62 0)) ; files
+            ("6/5/4/3/2/1" (0 82)) ; ranks
+          )
+      )
+  )
+
+  (d 0) (d 1) (d 2) (d 3) (d 4) (d 5) (d 6) (d 7) (d 8) (d 9)
+
+  (piece
+     (image You "images/cards/back.bmp")
+     (name  C0)
+     (moves (move-type normal-type) (opn 0))
+  )
+  (piece
+     (image You "images/cards/joker.bmp")
+     (name  O0)
+     (moves (move-type capture-type) (cap))
+  )
+
+  (c 1) (c 2) (c 3) (c 4) (c 5) (c 6) (c 7) (c 8) (c 9) (c 10) (c 11) (c 12) (c 13)
+
+  (board-setup
+     (You (D9 p0 p1) (D0 s0 s1 s2 s3 s4))
+  )
+)

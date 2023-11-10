@@ -1,0 +1,1015 @@
+(define slide (
+  $1 (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define push-1 (
+  $1 (verify friend?)
+  (while friend?
+      cascade 
+      $1
+  )
+  (verify empty?)
+  add
+))
+
+(define push-2 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  add
+))
+
+(define push-3 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push-4 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push-5 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push-6 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push-7 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define push-8 (
+  $1 (verify friend?)
+  (while friend?
+      mark
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      $1 (verify not-enemy?)
+      to back cascade
+      $1
+  )
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define step-1
+  $1 (verify empty?)
+)
+
+(define step-2
+  $1 (verify empty?)
+  $1 (verify empty?)
+)
+
+(define step-3
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+)
+
+(define step-4
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+)
+
+(define step-5
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+)
+
+(define side-2-1 (
+  (verify friend?)
+  mark 
+  (step-1 $2) to 
+  back $1 (verify friend?) 
+  cascade
+  (step-1 $2) 
+  add
+))
+
+(define side-2-2 (
+  (verify friend?)
+  mark 
+  (step-2 $2) to 
+  back $1 (verify friend?) 
+  cascade
+  (step-2 $2) 
+  add
+))
+
+(define side-2-3 (
+  (verify friend?)
+  mark 
+  (step-3 $2) to 
+  back $1 (verify friend?) 
+  cascade
+  (step-3 $2) 
+  add
+))
+
+(define side-2-4 (
+  (verify friend?)
+  mark 
+  (step-4 $2) to 
+  back $1 (verify friend?) 
+  cascade
+  (step-4 $2) 
+  add
+))
+
+(define side-2-5 (
+  (verify friend?)
+  mark 
+  (step-5 $2) to 
+  back $1 (verify friend?) 
+  cascade
+  (step-5 $2) 
+  add
+))
+
+(define side-3-1 (
+  (verify friend?)
+  mark 
+  (step-1 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-1 $2) 
+  add
+))
+
+(define side-3-2 (
+  (verify friend?)
+  mark 
+  (step-2 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-2 $2) 
+  add
+))
+
+(define side-3-3 (
+  (verify friend?)
+  mark 
+  (step-3 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-3 $2) 
+  add
+))
+
+(define side-3-4 (
+  (verify friend?)
+  mark 
+  (step-4 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-4 $2) 
+  add
+))
+
+(define side-3-5 (
+  (verify friend?)
+  mark 
+  (step-5 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-5 $2) 
+  add
+))
+
+(define side-4-1 (
+  (verify friend?)
+  mark 
+  (step-1 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-1 $2) 
+  add
+))
+
+(define side-4-2 (
+  (verify friend?)
+  mark 
+  (step-2 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-2 $2) 
+  add
+))
+
+(define side-4-3 (
+  (verify friend?)
+  mark 
+  (step-3 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-3 $2) 
+  add
+))
+
+(define side-4-4 (
+  (verify friend?)
+  mark 
+  (step-4 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-4 $2) 
+  add
+))
+
+(define side-4-5 (
+  (verify friend?)
+  mark 
+  (step-5 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-5 $2) 
+  add
+))
+
+(define side-5-1 (
+  (verify friend?)
+  mark 
+  (step-1 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-1 $2) 
+  add
+))
+
+(define side-5-2 (
+  (verify friend?)
+  mark 
+  (step-2 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-2 $2) 
+  add
+))
+
+(define side-5-3 (
+  (verify friend?)
+  mark 
+  (step-3 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-3 $2) 
+  add
+))
+
+(define side-5-4 (
+  (verify friend?)
+  mark 
+  (step-4 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-4 $2) 
+  add
+))
+
+(define side-5-5 (
+  (verify friend?)
+  mark 
+  (step-5 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-5 $2) 
+  add
+))
+
+(define side-6-1 (
+  (verify friend?)
+  mark 
+  (step-1 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-1 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-1 $2) 
+  add
+))
+
+(define side-6-2 (
+  (verify friend?)
+  mark 
+  (step-2 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-2 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-2 $2) 
+  add
+))
+
+(define side-6-3 (
+  (verify friend?)
+  mark 
+  (step-3 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-3 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-3 $2) 
+  add
+))
+
+(define side-6-4 (
+  (verify friend?)
+  mark 
+  (step-4 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-4 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-4 $2) 
+  add
+))
+
+(define side-6-5 (
+  (verify friend?)
+  mark 
+  (step-5 $2) to 
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  mark cascade
+  (step-5 $2) to
+  back $1 (verify friend?) 
+  cascade
+  (step-5 $2) 
+  add
+))
+
+(game
+  (title "Ordo")
+  (description "http://www.iggamecenter.com/info/en/ordo.html")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"    false)
+  (option "smart moves"         false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/ordo/10x8.bmp")
+     (grid
+         (start-rectangle 2 2 37 37)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (35 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 j8)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/ordo/white.bmp"
+            Black "images/ordo/black.bmp")
+     (moves
+           (move-type normal-type)
+           (slide n) (slide nw) (slide w) (slide e) (slide ne)
+
+           (move-type back-type)
+           (slide s) (slide se) (slide sw)
+
+           (move-type normal-type)
+           (side-2-1 w n)
+           (side-2-2 w n)
+           (side-2-3 w n)
+           (side-2-4 w n)
+           (side-2-5 w n)
+
+           (side-3-1 w n)
+           (side-3-2 w n)
+           (side-3-3 w n)
+           (side-3-4 w n)
+           (side-3-5 w n)
+
+           (side-4-1 w n)
+           (side-4-2 w n)
+           (side-4-3 w n)
+           (side-4-4 w n)
+           (side-4-5 w n)
+
+           (side-5-1 w n)
+           (side-5-2 w n)
+           (side-5-3 w n)
+           (side-5-4 w n)
+           (side-5-5 w n)
+
+           (side-6-1 w n)
+           (side-6-2 w n)
+           (side-6-3 w n)
+           (side-6-4 w n)
+           (side-6-5 w n)
+
+           (side-2-1 n w) (side-2-1 n e)
+           (side-2-2 n w) (side-2-2 n e)
+           (side-2-3 n w) (side-2-3 n e)
+           (side-2-4 n w) (side-2-4 n e)
+           (side-2-5 n w) (side-2-5 n e)
+
+           (side-3-1 n w) (side-3-1 n e)
+           (side-3-2 n w) (side-3-2 n e)
+           (side-3-3 n w) (side-3-3 n e)
+           (side-3-4 n w) (side-3-4 n e)
+           (side-3-5 n w) (side-3-5 n e)
+
+           (side-4-1 n w) (side-4-1 n e)
+           (side-4-2 n w) (side-4-2 n e)
+           (side-4-3 n w) (side-4-3 n e)
+           (side-4-4 n w) (side-4-4 n e)
+           (side-4-5 n w) (side-4-5 n e)
+
+           (side-5-1 n w) (side-5-1 n e)
+           (side-5-2 n w) (side-5-2 n e)
+           (side-5-3 n w) (side-5-3 n e)
+           (side-5-4 n w) (side-5-4 n e)
+           (side-5-5 n w) (side-5-5 n e)
+
+           (side-6-1 n w) (side-6-1 n e)
+           (side-6-2 n w) (side-6-2 n e)
+           (side-6-3 n w) (side-6-3 n e)
+           (side-6-4 n w) (side-6-4 n e)
+           (side-6-5 n w) (side-6-5 n e)
+
+           (move-type back-type)
+           (side-2-1 w s)
+           (side-2-2 w s)
+           (side-2-3 w s)
+           (side-2-4 w s)
+           (side-2-5 w s)
+
+           (side-3-1 w s)
+           (side-3-2 w s)
+           (side-3-3 w s)
+           (side-3-4 w s)
+           (side-3-5 w s)
+
+           (side-4-1 w s)
+           (side-4-2 w s)
+           (side-4-3 w s)
+           (side-4-4 w s)
+           (side-4-5 w s)
+
+           (side-5-1 w s)
+           (side-5-2 w s)
+           (side-5-3 w s)
+           (side-5-4 w s)
+           (side-5-5 w s)
+
+           (side-6-1 w s)
+           (side-6-2 w s)
+           (side-6-3 w s)
+           (side-6-4 w s)
+           (side-6-5 w s)
+     )
+  )
+
+  (board-setup
+    (White (Man a2 a3 b2 b3 c1 c2 d1 d2 e2 e3 f2 f3 g1 g2 h1 h2 i2 i3 j2 j3))
+    (Black (Man a6 a7 b6 b7 c7 c8 d7 d8 e6 e7 f6 f7 g7 g8 h7 h8 i6 i7 j6 j7))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 1))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Ordo X")
+
+  (piece
+     (name Man)
+     (image White "images/ordo/white.bmp"
+            Black "images/ordo/black.bmp")
+     (moves
+           (slide n) (slide nw)
+           (slide s) (slide se)
+           (slide w) (slide sw)
+           (slide e) (slide ne)
+
+           (push-1 n)
+           (push-1 s)
+           (push-1 w)
+           (push-1 e)
+
+           (push-2 n)
+           (push-2 s)
+           (push-2 w)
+           (push-2 e)
+
+           (push-3 n)
+           (push-3 s)
+           (push-3 w)
+           (push-3 e)
+
+           (push-4 n)
+           (push-4 s)
+           (push-4 w)
+           (push-4 e)
+
+           (push-5 n)
+           (push-5 s)
+           (push-5 w)
+           (push-5 e)
+
+           (push-6 n)
+           (push-6 s)
+           (push-6 w)
+           (push-6 e)
+
+           (push-7 n)
+           (push-7 s)
+           (push-7 w)
+           (push-7 e)
+
+           (push-8 n)
+           (push-8 s)
+           (push-8 w)
+           (push-8 e)
+
+           (side-2-1 w n) (side-2-1 w s) (side-2-1 w nw) (side-2-1 w ne) (side-2-1 w sw) (side-2-1 w se)
+           (side-2-2 w n) (side-2-2 w s) (side-2-2 w nw) (side-2-2 w ne) (side-2-2 w sw) (side-2-2 w se)
+           (side-2-3 w n) (side-2-3 w s) (side-2-3 w nw) (side-2-3 w ne) (side-2-3 w sw) (side-2-3 w se)
+           (side-2-4 w n) (side-2-4 w s) (side-2-4 w nw) (side-2-4 w ne) (side-2-4 w sw) (side-2-4 w se)
+           (side-2-5 w n) (side-2-5 w s) (side-2-5 w nw) (side-2-5 w ne) (side-2-5 w sw) (side-2-5 w se)
+
+           (side-3-1 w n) (side-3-1 w s) (side-3-1 w nw) (side-3-1 w ne) (side-3-1 w sw) (side-3-1 w se)
+           (side-3-2 w n) (side-3-2 w s) (side-3-2 w nw) (side-3-2 w ne) (side-3-2 w sw) (side-3-2 w se)
+           (side-3-3 w n) (side-3-3 w s) (side-3-3 w nw) (side-3-3 w ne) (side-3-3 w sw) (side-3-3 w se)
+           (side-3-4 w n) (side-3-4 w s) (side-3-4 w nw) (side-3-4 w ne) (side-3-4 w sw) (side-3-4 w se)
+           (side-3-5 w n) (side-3-5 w s) (side-3-5 w nw) (side-3-5 w ne) (side-3-5 w sw) (side-3-5 w se)
+
+           (side-4-1 w n) (side-4-1 w s) (side-4-1 w nw) (side-4-1 w ne) (side-4-1 w sw) (side-4-1 w se)
+           (side-4-2 w n) (side-4-2 w s) (side-4-2 w nw) (side-4-2 w ne) (side-4-2 w sw) (side-4-2 w se)
+           (side-4-3 w n) (side-4-3 w s) (side-4-3 w nw) (side-4-3 w ne) (side-4-3 w sw) (side-4-3 w se)
+           (side-4-4 w n) (side-4-4 w s) (side-4-4 w nw) (side-4-4 w ne) (side-4-4 w sw) (side-4-4 w se)
+           (side-4-5 w n) (side-4-5 w s) (side-4-5 w nw) (side-4-5 w ne) (side-4-5 w sw) (side-4-5 w se)
+
+           (side-5-1 w n) (side-5-1 w s) (side-5-1 w nw) (side-5-1 w ne) (side-5-1 w sw) (side-5-1 w se)
+           (side-5-2 w n) (side-5-2 w s) (side-5-2 w nw) (side-5-2 w ne) (side-5-2 w sw) (side-5-2 w se)
+           (side-5-3 w n) (side-5-3 w s) (side-5-3 w nw) (side-5-3 w ne) (side-5-3 w sw) (side-5-3 w se)
+           (side-5-4 w n) (side-5-4 w s) (side-5-4 w nw) (side-5-4 w ne) (side-5-4 w sw) (side-5-4 w se)
+           (side-5-5 w n) (side-5-5 w s) (side-5-5 w nw) (side-5-5 w ne) (side-5-5 w sw) (side-5-5 w se)
+
+           (side-6-1 w n) (side-6-1 w s) (side-6-1 w nw) (side-6-1 w ne) (side-6-1 w sw) (side-6-1 w se)
+           (side-6-2 w n) (side-6-2 w s) (side-6-2 w nw) (side-6-2 w ne) (side-6-2 w sw) (side-6-2 w se)
+           (side-6-3 w n) (side-6-3 w s) (side-6-3 w nw) (side-6-3 w ne) (side-6-3 w sw) (side-6-3 w se)
+           (side-6-4 w n) (side-6-4 w s) (side-6-4 w nw) (side-6-4 w ne) (side-6-4 w sw) (side-6-4 w se)
+           (side-6-5 w n) (side-6-5 w s) (side-6-5 w nw) (side-6-5 w ne) (side-6-5 w sw) (side-6-5 w se)
+
+           (side-2-1 n w) (side-2-1 n e) (side-2-1 n nw) (side-2-1 n ne) (side-2-1 n sw) (side-2-1 n se)
+           (side-2-2 n w) (side-2-2 n e) (side-2-2 n nw) (side-2-2 n ne) (side-2-2 n sw) (side-2-2 n se)
+           (side-2-3 n w) (side-2-3 n e) (side-2-3 n nw) (side-2-3 n ne) (side-2-3 n sw) (side-2-3 n se)
+           (side-2-4 n w) (side-2-4 n e) (side-2-4 n nw) (side-2-4 n ne) (side-2-4 n sw) (side-2-4 n se)
+           (side-2-5 n w) (side-2-5 n e) (side-2-5 n nw) (side-2-5 n ne) (side-2-5 n sw) (side-2-5 n se)
+
+           (side-3-1 n w) (side-3-1 n e) (side-3-1 n nw) (side-3-1 n ne) (side-3-1 n sw) (side-3-1 n se)
+           (side-3-2 n w) (side-3-2 n e) (side-3-2 n nw) (side-3-2 n ne) (side-3-2 n sw) (side-3-2 n se)
+           (side-3-3 n w) (side-3-3 n e) (side-3-3 n nw) (side-3-3 n ne) (side-3-3 n sw) (side-3-3 n se)
+           (side-3-4 n w) (side-3-4 n e) (side-3-4 n nw) (side-3-4 n ne) (side-3-4 n sw) (side-3-4 n se)
+           (side-3-5 n w) (side-3-5 n e) (side-3-5 n nw) (side-3-5 n ne) (side-3-5 n sw) (side-3-5 n se)
+
+           (side-4-1 n w) (side-4-1 n e) (side-4-1 n nw) (side-4-1 n ne) (side-4-1 n sw) (side-4-1 n se)
+           (side-4-2 n w) (side-4-2 n e) (side-4-2 n nw) (side-4-2 n ne) (side-4-2 n sw) (side-4-2 n se)
+           (side-4-3 n w) (side-4-3 n e) (side-4-3 n nw) (side-4-3 n ne) (side-4-3 n sw) (side-4-3 n se)
+           (side-4-4 n w) (side-4-4 n e) (side-4-4 n nw) (side-4-4 n ne) (side-4-4 n sw) (side-4-4 n se)
+           (side-4-5 n w) (side-4-5 n e) (side-4-5 n nw) (side-4-5 n ne) (side-4-5 n sw) (side-4-5 n se)
+
+           (side-5-1 n w) (side-5-1 n e) (side-5-1 n nw) (side-5-1 n ne) (side-5-1 n sw) (side-5-1 n se)
+           (side-5-2 n w) (side-5-2 n e) (side-5-2 n nw) (side-5-2 n ne) (side-5-2 n sw) (side-5-2 n se)
+           (side-5-3 n w) (side-5-3 n e) (side-5-3 n nw) (side-5-3 n ne) (side-5-3 n sw) (side-5-3 n se)
+           (side-5-4 n w) (side-5-4 n e) (side-5-4 n nw) (side-5-4 n ne) (side-5-4 n sw) (side-5-4 n se)
+           (side-5-5 n w) (side-5-5 n e) (side-5-5 n nw) (side-5-5 n ne) (side-5-5 n sw) (side-5-5 n se)
+
+           (side-6-1 n w) (side-6-1 n e) (side-6-1 n nw) (side-6-1 n ne) (side-6-1 n sw) (side-6-1 n se)
+           (side-6-2 n w) (side-6-2 n e) (side-6-2 n nw) (side-6-2 n ne) (side-6-2 n sw) (side-6-2 n se)
+           (side-6-3 n w) (side-6-3 n e) (side-6-3 n nw) (side-6-3 n ne) (side-6-3 n sw) (side-6-3 n se)
+           (side-6-4 n w) (side-6-4 n e) (side-6-4 n nw) (side-6-4 n ne) (side-6-4 n sw) (side-6-4 n se)
+           (side-6-5 n w) (side-6-5 n e) (side-6-5 n nw) (side-6-5 n ne) (side-6-5 n sw) (side-6-5 n se)
+     )
+  )
+)
+
+(variant
+  (title "Ordo X")
+
+  (piece
+     (name Man)
+     (image White "images/ordo/white.bmp"
+            Black "images/ordo/black.bmp")
+     (moves
+           (slide n) (slide nw)
+           (slide s) (slide se)
+           (slide w) (slide sw)
+           (slide e) (slide ne)
+
+           (push-1 n) (push-1 nw)
+           (push-1 s) (push-1 se)
+           (push-1 w) (push-1 sw)
+           (push-1 e) (push-1 ne)
+
+           (push-2 n) (push-2 nw)
+           (push-2 s) (push-2 se)
+           (push-2 w) (push-2 sw)
+           (push-2 e) (push-2 ne)
+
+           (push-3 n) (push-3 nw)
+           (push-3 s) (push-3 se)
+           (push-3 w) (push-3 sw)
+           (push-3 e) (push-3 ne)
+
+           (push-4 n) (push-4 nw)
+           (push-4 s) (push-4 se)
+           (push-4 w) (push-4 sw)
+           (push-4 e) (push-4 ne)
+
+           (push-5 n) (push-5 nw)
+           (push-5 s) (push-5 se)
+           (push-5 w) (push-5 sw)
+           (push-5 e) (push-5 ne)
+
+           (push-6 n) (push-6 nw)
+           (push-6 s) (push-6 se)
+           (push-6 w) (push-6 sw)
+           (push-6 e) (push-6 ne)
+
+           (push-7 n) (push-7 nw)
+           (push-7 s) (push-7 se)
+           (push-7 w) (push-7 sw)
+           (push-7 e) (push-7 ne)
+
+           (push-8 n) (push-8 nw)
+           (push-8 s) (push-8 se)
+           (push-8 w) (push-8 sw)
+           (push-8 e) (push-8 ne)
+
+           (side-2-1 w n) (side-2-1 w s) (side-2-1 w nw) (side-2-1 w ne) (side-2-1 w sw) (side-2-1 w se)
+           (side-2-2 w n) (side-2-2 w s) (side-2-2 w nw) (side-2-2 w ne) (side-2-2 w sw) (side-2-2 w se)
+           (side-2-3 w n) (side-2-3 w s) (side-2-3 w nw) (side-2-3 w ne) (side-2-3 w sw) (side-2-3 w se)
+           (side-2-4 w n) (side-2-4 w s) (side-2-4 w nw) (side-2-4 w ne) (side-2-4 w sw) (side-2-4 w se)
+           (side-2-5 w n) (side-2-5 w s) (side-2-5 w nw) (side-2-5 w ne) (side-2-5 w sw) (side-2-5 w se)
+
+           (side-3-1 w n) (side-3-1 w s) (side-3-1 w nw) (side-3-1 w ne) (side-3-1 w sw) (side-3-1 w se)
+           (side-3-2 w n) (side-3-2 w s) (side-3-2 w nw) (side-3-2 w ne) (side-3-2 w sw) (side-3-2 w se)
+           (side-3-3 w n) (side-3-3 w s) (side-3-3 w nw) (side-3-3 w ne) (side-3-3 w sw) (side-3-3 w se)
+           (side-3-4 w n) (side-3-4 w s) (side-3-4 w nw) (side-3-4 w ne) (side-3-4 w sw) (side-3-4 w se)
+           (side-3-5 w n) (side-3-5 w s) (side-3-5 w nw) (side-3-5 w ne) (side-3-5 w sw) (side-3-5 w se)
+
+           (side-4-1 w n) (side-4-1 w s) (side-4-1 w nw) (side-4-1 w ne) (side-4-1 w sw) (side-4-1 w se)
+           (side-4-2 w n) (side-4-2 w s) (side-4-2 w nw) (side-4-2 w ne) (side-4-2 w sw) (side-4-2 w se)
+           (side-4-3 w n) (side-4-3 w s) (side-4-3 w nw) (side-4-3 w ne) (side-4-3 w sw) (side-4-3 w se)
+           (side-4-4 w n) (side-4-4 w s) (side-4-4 w nw) (side-4-4 w ne) (side-4-4 w sw) (side-4-4 w se)
+           (side-4-5 w n) (side-4-5 w s) (side-4-5 w nw) (side-4-5 w ne) (side-4-5 w sw) (side-4-5 w se)
+
+           (side-5-1 w n) (side-5-1 w s) (side-5-1 w nw) (side-5-1 w ne) (side-5-1 w sw) (side-5-1 w se)
+           (side-5-2 w n) (side-5-2 w s) (side-5-2 w nw) (side-5-2 w ne) (side-5-2 w sw) (side-5-2 w se)
+           (side-5-3 w n) (side-5-3 w s) (side-5-3 w nw) (side-5-3 w ne) (side-5-3 w sw) (side-5-3 w se)
+           (side-5-4 w n) (side-5-4 w s) (side-5-4 w nw) (side-5-4 w ne) (side-5-4 w sw) (side-5-4 w se)
+           (side-5-5 w n) (side-5-5 w s) (side-5-5 w nw) (side-5-5 w ne) (side-5-5 w sw) (side-5-5 w se)
+
+           (side-6-1 w n) (side-6-1 w s) (side-6-1 w nw) (side-6-1 w ne) (side-6-1 w sw) (side-6-1 w se)
+           (side-6-2 w n) (side-6-2 w s) (side-6-2 w nw) (side-6-2 w ne) (side-6-2 w sw) (side-6-2 w se)
+           (side-6-3 w n) (side-6-3 w s) (side-6-3 w nw) (side-6-3 w ne) (side-6-3 w sw) (side-6-3 w se)
+           (side-6-4 w n) (side-6-4 w s) (side-6-4 w nw) (side-6-4 w ne) (side-6-4 w sw) (side-6-4 w se)
+           (side-6-5 w n) (side-6-5 w s) (side-6-5 w nw) (side-6-5 w ne) (side-6-5 w sw) (side-6-5 w se)
+
+           (side-2-1 n w) (side-2-1 n e) (side-2-1 n nw) (side-2-1 n ne) (side-2-1 n sw) (side-2-1 n se)
+           (side-2-2 n w) (side-2-2 n e) (side-2-2 n nw) (side-2-2 n ne) (side-2-2 n sw) (side-2-2 n se)
+           (side-2-3 n w) (side-2-3 n e) (side-2-3 n nw) (side-2-3 n ne) (side-2-3 n sw) (side-2-3 n se)
+           (side-2-4 n w) (side-2-4 n e) (side-2-4 n nw) (side-2-4 n ne) (side-2-4 n sw) (side-2-4 n se)
+           (side-2-5 n w) (side-2-5 n e) (side-2-5 n nw) (side-2-5 n ne) (side-2-5 n sw) (side-2-5 n se)
+
+           (side-3-1 n w) (side-3-1 n e) (side-3-1 n nw) (side-3-1 n ne) (side-3-1 n sw) (side-3-1 n se)
+           (side-3-2 n w) (side-3-2 n e) (side-3-2 n nw) (side-3-2 n ne) (side-3-2 n sw) (side-3-2 n se)
+           (side-3-3 n w) (side-3-3 n e) (side-3-3 n nw) (side-3-3 n ne) (side-3-3 n sw) (side-3-3 n se)
+           (side-3-4 n w) (side-3-4 n e) (side-3-4 n nw) (side-3-4 n ne) (side-3-4 n sw) (side-3-4 n se)
+           (side-3-5 n w) (side-3-5 n e) (side-3-5 n nw) (side-3-5 n ne) (side-3-5 n sw) (side-3-5 n se)
+
+           (side-4-1 n w) (side-4-1 n e) (side-4-1 n nw) (side-4-1 n ne) (side-4-1 n sw) (side-4-1 n se)
+           (side-4-2 n w) (side-4-2 n e) (side-4-2 n nw) (side-4-2 n ne) (side-4-2 n sw) (side-4-2 n se)
+           (side-4-3 n w) (side-4-3 n e) (side-4-3 n nw) (side-4-3 n ne) (side-4-3 n sw) (side-4-3 n se)
+           (side-4-4 n w) (side-4-4 n e) (side-4-4 n nw) (side-4-4 n ne) (side-4-4 n sw) (side-4-4 n se)
+           (side-4-5 n w) (side-4-5 n e) (side-4-5 n nw) (side-4-5 n ne) (side-4-5 n sw) (side-4-5 n se)
+
+           (side-5-1 n w) (side-5-1 n e) (side-5-1 n nw) (side-5-1 n ne) (side-5-1 n sw) (side-5-1 n se)
+           (side-5-2 n w) (side-5-2 n e) (side-5-2 n nw) (side-5-2 n ne) (side-5-2 n sw) (side-5-2 n se)
+           (side-5-3 n w) (side-5-3 n e) (side-5-3 n nw) (side-5-3 n ne) (side-5-3 n sw) (side-5-3 n se)
+           (side-5-4 n w) (side-5-4 n e) (side-5-4 n nw) (side-5-4 n ne) (side-5-4 n sw) (side-5-4 n se)
+           (side-5-5 n w) (side-5-5 n e) (side-5-5 n nw) (side-5-5 n ne) (side-5-5 n sw) (side-5-5 n se)
+
+           (side-6-1 n w) (side-6-1 n e) (side-6-1 n nw) (side-6-1 n ne) (side-6-1 n sw) (side-6-1 n se)
+           (side-6-2 n w) (side-6-2 n e) (side-6-2 n nw) (side-6-2 n ne) (side-6-2 n sw) (side-6-2 n se)
+           (side-6-3 n w) (side-6-3 n e) (side-6-3 n nw) (side-6-3 n ne) (side-6-3 n sw) (side-6-3 n se)
+           (side-6-4 n w) (side-6-4 n e) (side-6-4 n nw) (side-6-4 n ne) (side-6-4 n sw) (side-6-4 n se)
+           (side-6-5 n w) (side-6-5 n e) (side-6-5 n nw) (side-6-5 n ne) (side-6-5 n sw) (side-6-5 n se)
+
+           (side-2-1 nw ne) (side-2-1 nw sw) (side-2-1 nw n) (side-2-1 nw s) (side-2-1 nw w) (side-2-1 nw e)
+           (side-2-2 nw ne) (side-2-2 nw sw) (side-2-2 nw n) (side-2-2 nw s) (side-2-2 nw w) (side-2-2 nw e)
+           (side-2-3 nw ne) (side-2-3 nw sw) (side-2-3 nw n) (side-2-3 nw s) (side-2-3 nw w) (side-2-3 nw e)
+           (side-2-4 nw ne) (side-2-4 nw sw) (side-2-4 nw n) (side-2-4 nw s) (side-2-4 nw w) (side-2-4 nw e)
+           (side-2-5 nw ne) (side-2-5 nw sw) (side-2-5 nw n) (side-2-5 nw s) (side-2-5 nw w) (side-2-5 nw e)
+
+           (side-3-1 nw ne) (side-3-1 nw sw) (side-3-1 nw n) (side-3-1 nw s) (side-3-1 nw w) (side-3-1 nw e)
+           (side-3-2 nw ne) (side-3-2 nw sw) (side-3-2 nw n) (side-3-2 nw s) (side-3-2 nw w) (side-3-2 nw e)
+           (side-3-3 nw ne) (side-3-3 nw sw) (side-3-3 nw n) (side-3-3 nw s) (side-3-3 nw w) (side-3-3 nw e)
+           (side-3-4 nw ne) (side-3-4 nw sw) (side-3-4 nw n) (side-3-4 nw s) (side-3-4 nw w) (side-3-4 nw e)
+           (side-3-5 nw ne) (side-3-5 nw sw) (side-3-5 nw n) (side-3-5 nw s) (side-3-5 nw w) (side-3-5 nw e)
+
+           (side-4-1 nw ne) (side-4-1 nw sw) (side-4-1 nw n) (side-4-1 nw s) (side-4-1 nw w) (side-4-1 nw e)
+           (side-4-2 nw ne) (side-4-2 nw sw) (side-4-2 nw n) (side-4-2 nw s) (side-4-2 nw w) (side-4-2 nw e)
+           (side-4-3 nw ne) (side-4-3 nw sw) (side-4-3 nw n) (side-4-3 nw s) (side-4-3 nw w) (side-4-3 nw e)
+           (side-4-4 nw ne) (side-4-4 nw sw) (side-4-4 nw n) (side-4-4 nw s) (side-4-4 nw w) (side-4-4 nw e)
+           (side-4-5 nw ne) (side-4-5 nw sw) (side-4-5 nw n) (side-4-5 nw s) (side-4-5 nw w) (side-4-5 nw e)
+                                                                                                                     
+           (side-5-1 nw ne) (side-5-1 nw sw) (side-5-1 nw n) (side-5-1 nw s) (side-5-1 nw w) (side-5-1 nw e)
+           (side-5-2 nw ne) (side-5-2 nw sw) (side-5-2 nw n) (side-5-2 nw s) (side-5-2 nw w) (side-5-2 nw e)
+           (side-5-3 nw ne) (side-5-3 nw sw) (side-5-3 nw n) (side-5-3 nw s) (side-5-3 nw w) (side-5-3 nw e)
+           (side-5-4 nw ne) (side-5-4 nw sw) (side-5-4 nw n) (side-5-4 nw s) (side-5-4 nw w) (side-5-4 nw e)
+           (side-5-5 nw ne) (side-5-5 nw sw) (side-5-5 nw n) (side-5-5 nw s) (side-5-5 nw w) (side-5-5 nw e)
+                                                                                                                     
+           (side-6-1 nw ne) (side-6-1 nw sw) (side-6-1 nw n) (side-6-1 nw s) (side-6-1 nw w) (side-6-1 nw e)
+           (side-6-2 nw ne) (side-6-2 nw sw) (side-6-2 nw n) (side-6-2 nw s) (side-6-2 nw w) (side-6-2 nw e)
+           (side-6-3 nw ne) (side-6-3 nw sw) (side-6-3 nw n) (side-6-3 nw s) (side-6-3 nw w) (side-6-3 nw e)
+           (side-6-4 nw ne) (side-6-4 nw sw) (side-6-4 nw n) (side-6-4 nw s) (side-6-4 nw w) (side-6-4 nw e)
+           (side-6-5 nw ne) (side-6-5 nw sw) (side-6-5 nw n) (side-6-5 nw s) (side-6-5 nw w) (side-6-5 nw e)
+
+           (side-2-1 ne se) (side-2-1 ne nw) (side-2-1 ne n) (side-2-1 ne s) (side-2-1 ne w) (side-2-1 ne e)
+           (side-2-2 ne se) (side-2-2 ne nw) (side-2-2 ne n) (side-2-2 ne s) (side-2-2 ne w) (side-2-2 ne e)
+           (side-2-3 ne se) (side-2-3 ne nw) (side-2-3 ne n) (side-2-3 ne s) (side-2-3 ne w) (side-2-3 ne e)
+           (side-2-4 ne se) (side-2-4 ne nw) (side-2-4 ne n) (side-2-4 ne s) (side-2-4 ne w) (side-2-4 ne e)
+           (side-2-5 ne se) (side-2-5 ne nw) (side-2-5 ne n) (side-2-5 ne s) (side-2-5 ne w) (side-2-5 ne e)
+
+           (side-3-1 ne se) (side-3-1 ne nw) (side-3-1 ne n) (side-3-1 ne s) (side-3-1 ne w) (side-3-1 ne e)
+           (side-3-2 ne se) (side-3-2 ne nw) (side-3-2 ne n) (side-3-2 ne s) (side-3-2 ne w) (side-3-2 ne e)
+           (side-3-3 ne se) (side-3-3 ne nw) (side-3-3 ne n) (side-3-3 ne s) (side-3-3 ne w) (side-3-3 ne e)
+           (side-3-4 ne se) (side-3-4 ne nw) (side-3-4 ne n) (side-3-4 ne s) (side-3-4 ne w) (side-3-4 ne e)
+           (side-3-5 ne se) (side-3-5 ne nw) (side-3-5 ne n) (side-3-5 ne s) (side-3-5 ne w) (side-3-5 ne e)
+
+           (side-4-1 ne se) (side-4-1 ne nw) (side-4-1 ne n) (side-4-1 ne s) (side-4-1 ne w) (side-4-1 ne e)
+           (side-4-2 ne se) (side-4-2 ne nw) (side-4-2 ne n) (side-4-2 ne s) (side-4-2 ne w) (side-4-2 ne e)
+           (side-4-3 ne se) (side-4-3 ne nw) (side-4-3 ne n) (side-4-3 ne s) (side-4-3 ne w) (side-4-3 ne e)
+           (side-4-4 ne se) (side-4-4 ne nw) (side-4-4 ne n) (side-4-4 ne s) (side-4-4 ne w) (side-4-4 ne e)
+           (side-4-5 ne se) (side-4-5 ne nw) (side-4-5 ne n) (side-4-5 ne s) (side-4-5 ne w) (side-4-5 ne e)
+                                                                                                                     
+           (side-5-1 ne se) (side-5-1 ne nw) (side-5-1 ne n) (side-5-1 ne s) (side-5-1 ne w) (side-5-1 ne e)
+           (side-5-2 ne se) (side-5-2 ne nw) (side-5-2 ne n) (side-5-2 ne s) (side-5-2 ne w) (side-5-2 ne e)
+           (side-5-3 ne se) (side-5-3 ne nw) (side-5-3 ne n) (side-5-3 ne s) (side-5-3 ne w) (side-5-3 ne e)
+           (side-5-4 ne se) (side-5-4 ne nw) (side-5-4 ne n) (side-5-4 ne s) (side-5-4 ne w) (side-5-4 ne e)
+           (side-5-5 ne se) (side-5-5 ne nw) (side-5-5 ne n) (side-5-5 ne s) (side-5-5 ne w) (side-5-5 ne e)
+                                                                                                                     
+           (side-6-1 ne se) (side-6-1 ne nw) (side-6-1 ne n) (side-6-1 ne s) (side-6-1 ne w) (side-6-1 ne e)
+           (side-6-2 ne se) (side-6-2 ne nw) (side-6-2 ne n) (side-6-2 ne s) (side-6-2 ne w) (side-6-2 ne e)
+           (side-6-3 ne se) (side-6-3 ne nw) (side-6-3 ne n) (side-6-3 ne s) (side-6-3 ne w) (side-6-3 ne e)
+           (side-6-4 ne se) (side-6-4 ne nw) (side-6-4 ne n) (side-6-4 ne s) (side-6-4 ne w) (side-6-4 ne e)
+           (side-6-5 ne se) (side-6-5 ne nw) (side-6-5 ne n) (side-6-5 ne s) (side-6-5 ne w) (side-6-5 ne e)
+     )
+  )
+)

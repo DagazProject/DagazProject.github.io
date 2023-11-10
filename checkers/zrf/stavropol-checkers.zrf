@@ -1,0 +1,145 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? $2Promotion)
+      (add $2King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify (or (piece? $2Man) (piece? $2King)))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? $3Promotion)
+       (add-partial $3King continue-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify (or (piece? $2Man) (piece? $2King)))
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify (or (piece? $2Man) (piece? $2King)))
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Stavropol Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+  (option "shared-pieces"     true)
+  (option "deferred captures" true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (zone (name WhitePromotion) (players White Black)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name BlackPromotion) (players White Black)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (piece
+     (name WhiteMan)
+     (image White "images/wman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw Black White) (checker-jump ne Black White) (checker-jump sw Black White) (checker-jump se Black White)
+         (move-type normal-type)
+         (checker-shift nw White) (checker-shift ne White)
+     )
+  )
+  (piece
+     (name BlackMan)
+     (image Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw White Black) (checker-jump ne White Black) (checker-jump sw White Black) (checker-jump se White Black)
+         (move-type normal-type)
+         (checker-shift sw Black) (checker-shift se Black)
+     )
+  )
+  (piece
+     (name WhiteKing)
+     (image White "images/wdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw Black) (king-jump ne Black) (king-jump sw Black) (king-jump se Black)
+         (move-type continue-type)
+         (king-continue nw Black) (king-continue ne Black) (king-continue sw Black) (king-continue se Black)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+  (piece
+     (name BlackKing)
+     (image Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw White) (king-jump ne White) (king-jump sw White) (king-jump se White)
+         (move-type continue-type)
+         (king-continue nw White) (king-continue ne White) (king-continue sw White) (king-continue se White)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3))
+    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

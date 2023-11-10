@@ -1,0 +1,59 @@
+(define drop-alive (
+  (verify empty?) 
+  add
+))
+
+(define drop-dead (
+  (verify enemy?) 
+  (verify (piece? Alive))
+  add
+))
+
+(game
+  (title "Virus Wars")
+
+  (option "animate drops" false)
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players Blue Red)
+  (turn-order Blue Blue Blue Red Red Red)
+
+  (board
+      (image "images/virus-wars/board.bmp")
+      (grid
+          (start-rectangle 6 8 33 34)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j" (26 0)) ; files
+            ("10/9/8/7/6/5/4/3/2/1" (0 26)) ; ranks
+          )
+          (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+          )
+      )
+  )
+
+  (piece
+     (name Alive)
+     (help " ")
+     (image Blue "images/virus-wars/ba.bmp"
+            Red  "images/virus-wars/ra.bmp")
+     (drops (drop-alive))
+  )  
+  (piece
+     (name Dead)
+     (help " ")
+     (image Blue "images/virus-wars/rd.bmp"
+            Red  "images/virus-wars/bd.bmp")
+     (drops (drop-dead))
+  )  
+
+  (board-setup
+     (Blue (Alive j1)) 
+     (Red  (Alive a10))
+  )
+)

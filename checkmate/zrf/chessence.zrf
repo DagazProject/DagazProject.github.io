@@ -1,0 +1,184 @@
+(define drop-pawn (
+   (verify (in-zone? reserve))
+   (while (on-board? next)
+        (if empty?
+            add
+        )
+        next
+   )
+   (verify empty?)
+   add
+))
+
+(define common-capture
+   (if enemy?
+       mark a1 to-reserve
+       (while not-empty? to-reserve)
+       (create Soldier)
+       back
+   )
+)
+
+(define slide (
+   $1 (while empty? (verify (not-in-zone? reserve)) add $1)
+   (verify (not-in-zone? reserve))
+   (verify enemy?)
+   add
+))
+
+(define slide-shogi (
+   $1 (while empty? (verify (not-in-zone? reserve)) add $1)
+   (verify (not-in-zone? reserve))
+   (verify enemy?)
+   (common-capture)
+   add
+))
+
+(define step (
+   $1 (verify (not-in-zone? reserve))
+   (verify not-friend?)
+   add
+))
+
+(define step-shogi (
+   $1 (verify (not-in-zone? reserve))
+   (verify not-friend?)
+   (common-capture)
+   add
+))
+
+(define common-board
+      (image "images/Chessence/board.bmp")
+      (grid
+         (start-rectangle 0 0 68 68)
+         (dimensions
+             ("x/a/b/c/d/e/f/y" (68 0)) ; files
+             ("9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                     (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+                     (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+      )
+      (kill-positions a2 b3 b5 c6 d4 e5 e7 f8)
+      (unlink x1 x2 x3 x4 x5 x6 x7 x8 x9 y1 y2 y3 y4 y5 y6 y7 y8 y9)
+      (zone (name reserve) (players White Black)
+            (positions x1 x2 x3 x4 x5 x6 x7 x8 x9 y1 y2 y3 y4 y5 y6 y7 y8 y9)
+      )
+)
+
+(game
+  (title "Chessence")
+  (history "Copyright (c) 1989 Jim Winslow.")
+
+  (option "animate captures"    false)
+  (option "chessence-extension" true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (common-board)
+     (links next 
+        (x7 a8) (x8 a8) (x9 a8) (a8 b7) (b7 b8) (b8 b9) (b9 c7) (c7 c8)
+        (y1 d2) (y2 d2) (y3 d2) (d2 d3) (d3 e1) (e1 e2) (e2 e3) (e3 f2)
+     )
+  )
+
+  (piece
+     (name King)
+     (image White "images/chessence/wking.bmp"
+            Black "images/chessence/bking.bmp")
+  )
+  (piece
+     (name Soldier)
+     (image White "images/chessence/wsoldier.bmp"
+            Black "images/chessence/bsoldier.bmp")
+     (moves
+        (slide  n) (slide  s) (slide  w) (slide  e)
+        (slide nw) (slide sw) (slide ne) (slide se)
+        (step nne) (step nnw) (step sse) (step ssw)
+        (step een) (step ees) (step wwn) (step wws)
+        (drop-pawn)
+     )
+  )
+
+  (board-setup
+     (White
+        (Soldier f2 e1 e2 e3 d2 d3 y1 y2 y3)
+        (King f1)
+     )
+     (Black
+        (Soldier a8 b9 b8 b7 c8 c7 x9 x8 x7)
+        (King a9)
+     )
+  )
+
+  (loss-condition (White Black) (checkmated King) )
+  (loss-condition (White Black) stalemated )
+)
+
+(variant
+  (title "Free Chessence")
+
+  (board
+     (common-board)
+     (links next 
+            (x1 a1) (x2 a1) (x3 a1) (x4 a1) (x5 a1) (x6 a1) (x7 a1) (x8 a1) (x9 a1)
+            (y1 a1) (y2 a1) (y3 a1) (y4 a1) (y5 a1) (y6 a1) (y7 a1) (y8 a1) (y9 a1)
+            (a1 a3) (a3 a4) (a4 a5) (a5 a6) (a6 a7) (a7 a8) (a8 a9) (a9 b1) (b1 b2)
+            (b2 b4) (b4 b6) (b6 b7) (b7 b8) (b8 b9) (b9 c1) (c1 c2) (c2 c3) (c3 c4)
+            (c4 c5) (c5 c7) (c7 c8) (c8 c9) (c9 d1) (d1 d2) (d2 d3) (d3 d5) (d5 d6)
+            (d6 d7) (d7 d8) (d8 d9) (d9 e1) (e1 e2) (e2 e3) (e3 e4) (e4 e6) (e6 e8)
+            (e8 e9) (e9 f1) (f1 f2) (f2 f3) (f3 f4) (f4 f5) (f5 f6) (f6 f7) (f7 f9)
+     )
+     (links to-reserve
+           (a1 y1) (y1 y2) (y2 y3) (y3 y4) (y4 y5) (y5 y6) (y6 y7) (y7 y8) (y8 y9)
+     )
+     (links black-reserve
+           (a1 x9) (x9 x8) (x8 x7) (x7 x6) (x6 x5) (x5 x4) (x4 x3) (x3 x2) (x2 x1)
+     )
+     (symmetry Black (to-reserve black-reserve))
+  )
+
+  (piece
+     (name King)
+     (image White "images/chessence/wking.bmp"
+            Black "images/chessence/bking.bmp")
+     (moves
+        (slide-shogi  n) (slide-shogi  s) (slide-shogi  w) (slide-shogi  e)
+        (slide-shogi nw) (slide-shogi sw) (slide-shogi ne) (slide-shogi se)
+        (step-shogi nne) (step-shogi nnw) (step-shogi sse) (step-shogi ssw)
+        (step-shogi een) (step-shogi ees) (step-shogi wwn) (step-shogi wws)
+     )
+  )
+  (piece
+     (name Soldier)
+     (image White "images/chessence/wsoldier.bmp"
+            Black "images/chessence/bsoldier.bmp")
+     (moves
+        (slide-shogi  n) (slide-shogi  s) (slide-shogi  w) (slide-shogi  e)
+        (slide-shogi nw) (slide-shogi sw) (slide-shogi ne) (slide-shogi se)
+        (step-shogi nne) (step-shogi nnw) (step-shogi sse) (step-shogi ssw)
+        (step-shogi een) (step-shogi ees) (step-shogi wwn) (step-shogi wws)
+        (drop-pawn)
+     )
+  )
+
+  (board-setup
+     (White
+        (Soldier f2 e1 e2 e3 d2 d3)
+        (King f1)
+     )
+     (Black
+        (Soldier a8 b9 b8 b7 c8 c7)
+        (King a9)
+     )
+  )
+)

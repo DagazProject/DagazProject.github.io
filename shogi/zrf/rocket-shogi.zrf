@@ -1,0 +1,252 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Rocket Shogi")
+  (history "Copyright (c) 2012 Itsubaki Yoshihisa.")
+
+  (option "animate captures"      false)
+  (option "animate drops"         false)
+  (option "smart moves"           false)
+
+  (players South North)
+  (turn-order South North)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/5x7.bmp")
+        (grid
+               (start-rectangle 9 15 50 61)
+               (dimensions ("X/Y/I/a/b/c/d/e/J/Z/T" (41 0))
+                           ("7/6/5/4/3/2/1" (0 46))
+               )
+               (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                           (nx 0 -1)
+               )
+        )
+        (links sr
+               (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1) (a6 Z1) (a7 Z1)
+               (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1) (b7 Z1)
+               (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1) (c7 Z1)
+               (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1) (d7 Z1)
+               (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1) (e7 Z1)
+               (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) (T3 Z4) (Z4 T4) 
+               (T4 Z5) (Z5 T5) (T5 Z6) (Z6 T6) (T6 Z7) (Z7 T7)
+        )
+        (links nr
+               (a1 Y7) (a2 Y7) (a3 Y7) (a4 Y7) (a5 Y7) (a6 Y7) (a7 Y7)
+               (b1 Y7) (b2 Y7) (b3 Y7) (b4 Y7) (b5 Y7) (b6 Y7) (b7 Y7)
+               (c1 Y7) (c2 Y7) (c3 Y7) (c4 Y7) (c5 Y7) (c6 Y7) (c7 Y7)
+               (d1 Y7) (d2 Y7) (d3 Y7) (d4 Y7) (d5 Y7) (d6 Y7) (d7 Y7)
+               (e1 Y7) (e2 Y7) (e3 Y7) (e4 Y7) (e5 Y7) (e6 Y7) (e7 Y7)
+               (Y7 X7) (X7 Y6) (Y6 X6) (X6 Y5) (Y5 X5) (X5 Y4) (Y4 X4) 
+               (X4 Y3) (Y3 X3) (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1)
+        )
+        (links nx 
+               (a7 b1) (b7 c1) (c7 d1) (d7 e1)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx))
+        (kill-positions I1 I2 I3 I4 I5 I6 I7 J1 J2 J3 J4 J5 J6 J7)
+        (zone (name board-zone) (players South North)
+              (positions a1 b1 c1 d1 e1
+                         a2 b2 c2 d2 e2
+                         a3 b3 c3 d3 e3
+                         a4 b4 c4 d4 e4
+                         a5 b5 c5 d5 e5
+                         a6 b6 c6 d6 e6
+                         a7 b7 c7 d7 e7
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a7 b7 c7 d7 e7 a6 b6 c6 d6 e6 a5 b5 c5 d5 e5)
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 a2 b2 c2 d2 e2 a3 b3 c3 d3 e3)
+        )
+  )
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              North "images/ngold.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              North "images/nsilver.bmp")
+       (moves
+           (step nw) (step sw)
+           (step se) (step ne)
+           (step n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SilverP)
+       (image South "images/ssilverp.bmp" 
+              North "images/nsilverp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknight.bmp" 
+              North "images/nknight.bmp")
+       (moves
+           (jump n nw)
+           (jump n ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name KnightP)
+       (image South "images/sknightp.bmp" 
+              North "images/nknightp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slance.bmp" 
+              North "images/nlance.bmp")
+       (moves
+           (slide n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name LanceP)
+       (image South "images/slancep.bmp" 
+              North "images/nlancep.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/sbishop.bmp" 
+              North "images/nbishop.bmp")
+       (moves
+           (slide nw)
+           (slide se)
+           (slide sw)
+           (slide ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name BishopP)
+       (image South "images/sbishopp.bmp" 
+              North "images/nbishopp.bmp")
+       (moves
+           (slide nw) (step n)
+           (slide se) (step s)
+           (slide sw) (step w)
+           (slide ne) (step e)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/srook.bmp" 
+              North "images/nrook.bmp")
+       (moves
+           (slide n)
+           (slide e)
+           (slide w)
+           (slide s)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name RookP)
+       (image South "images/srookp.bmp" 
+              North "images/nrookp.bmp")
+       (moves
+           (slide n) (step nw)
+           (slide e) (step ne)
+           (slide w) (step sw)
+           (slide s) (step se)
+       )
+  )
+
+  (board-setup
+        ( South 
+           (King   c1)
+           (Gold   d2)
+           (Lance  c3)
+           (Knight a1 e1)
+           (Silver b2)
+           (Bishop b1)
+           (Rook   d1)
+        )
+        ( North 
+           (King   c7)
+           (Gold   b6)
+           (Lance  c5)
+           (Knight a7 e7)
+           (Silver d6)
+           (Bishop d7)
+           (Rook   b7)
+        )
+  )
+
+  (loss-condition (South North) (pieces-remaining 0 King))
+  (loss-condition (South North) repetition)
+)

@@ -1,0 +1,201 @@
+(define drop (
+  (verify (in-zone? $1))
+  (verify empty?)
+  add
+))
+
+(define promote (
+  (verify (in-zone? promotion))
+  (add $1)
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? promotion)
+      (add Sit-ke)
+   else
+      add
+  )
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? promotion)
+      (add Sit-ke)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Sittuyin")
+  (history "https://en.wikipedia.org/wiki/Sittuyin")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"     false)
+  (option "smart moves"          true)
+
+  (players White Black)
+  (turn-order 
+      White White White White White White White White
+;     Black Black Black Black Black Black Black Black
+      repeat White Black)
+  (move-priorities priority-type drop-type normal-type)
+
+  (board
+     (image "images/sittuyin.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name promotion) (players White)
+           (positions a8 b7 c6 d5 e5 f6 g7 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 b2 c3 d4 e4 f3 g2 h1)
+     )
+     (zone (name first-rank) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+     (zone (name first-rank) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name second-rank) (players White)
+           (positions a2 b2 c2 d2 e2 f2 g2 h2 e3 f3 g3 h3)
+     )
+     (zone (name second-rank) (players Black)
+           (positions a7 b7 c7 d7 e7 f7 g7 h7 a6 b6 c6 d6)
+     )
+  )
+
+  (piece
+     (name Min-gyi)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (drops
+         (move-type priority-type)
+         (drop second-rank)
+     )
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name Sit-ke)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (drops
+         (move-type drop-type)
+         (drop second-rank)
+     )
+     (moves
+         (move-type normal-type)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name Yahhta)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (drops
+         (move-type drop-type)
+         (drop first-rank)
+     )
+     (moves
+         (move-type normal-type)
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Sin)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (drops
+         (move-type drop-type)
+         (drop second-rank)
+     )
+     (moves
+         (move-type normal-type)
+         (step nw) (step sw) (step ne) (step se)
+         (step n)
+     )
+  )
+  (piece
+     (name Myin)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (drops
+         (move-type drop-type)
+         (drop second-rank)
+     )
+     (moves
+         (move-type normal-type)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Ne)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (move-type normal-type)
+         (pawn-shift n) 
+         (pawn-step nw) (pawn-step ne)
+         (promote Sit-ke)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Ne a3 b3 c3 d3 e4 f4 g4 h4)
+         (Min-gyi off 1)
+         (Sit-ke off 1)
+         (Yahhta off 2)
+         (Myin off 2)
+         (Sin off 2)
+    )
+    (Black 
+         (Ne a5 b5 c5 d5 e6 f6 g6 h6)
+;        (Min-gyi off 1)
+;        (Sit-ke off 1)
+;        (Yahhta off 2)
+;        (Myin off 2)
+;        (Sin off 2)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated Min-gyi))
+  (win-condition (White Black) stalemated)
+)

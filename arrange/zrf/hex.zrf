@@ -1,0 +1,88 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Hex")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       false)
+
+  (players Red Blue)
+  (turn-order Red Blue)
+
+  (board
+     (image "images/hex/board.bmp")
+     (grid
+         (start-rectangle 18 18 48 48)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (30 0)) ; files
+           ("1/2/3/4/5/6/7/8/9/10/11" (15 25)) ; ranks
+         )
+         (directions 
+           (nw 0 -1) (ne 1 -1) (se 0 1) (sw -1 1) 
+           (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name start-zone) (players Red)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1)
+     )
+     (zone (name start-zone) (players Blue)
+           (positions a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11)
+     )
+     (zone (name stop-zone) (players Red)
+           (positions a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11)
+     )
+     (zone (name stop-zone) (players Blue)
+           (positions k1 k2 k3 k4 k5 k6 k7 k8 k9 k10 k11)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image Red "images/hex/red.bmp"
+            Blue "images/hex/blue.bmp")
+     (drops
+         (drop)
+     )
+  )
+)
+
+(variant
+  (title "Hex 10x10")
+  (default)
+
+  (board
+     (image "images/hex/10x10.bmp")
+     (grid
+         (start-rectangle 18 18 48 48)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (30 0)) ; files
+           ("1/2/3/4/5/6/7/8/9/10" (15 25)) ; ranks
+         )
+         (directions 
+           (nw 0 -1) (ne 1 -1) (se 0 1) (sw -1 1) 
+           (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name start-zone) (players Red)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1)
+     )
+     (zone (name start-zone) (players Blue)
+           (positions a1 a2 a3 a4 a5 a6 a7 a8 a9 a10)
+     )
+     (zone (name stop-zone) (players Red)
+           (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10)
+     )
+     (zone (name stop-zone) (players Blue)
+           (positions j1 j2 j3 j4 j5 j6 j7 j8 j9 j10)
+     )
+  )
+)

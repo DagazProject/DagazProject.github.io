@@ -1,0 +1,38 @@
+(define step (
+   $1 add
+))
+
+(game
+  (title "Pilare")
+
+  (players Red White Gray)
+  (turn-order Red White)
+
+  (board
+     (image "images/pilare/6x6.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f" (68 0)) ; files
+           ("6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/pilare/white.bmp"
+            Red   "images/pilare/red.bmp"
+            Gray  "images/pilare/gray.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+
+  (board-setup
+    (White (Stone a4 a5 a6 b6 c6 d6 e6 f6 f5 f4))
+    (Red (Stone a1 a2 a3 b1 c1 d1 e1 f1 f2 f3))
+    (Gray (Stone b2 c2 d2 e2 b3 c3 d3 e3 b4 c4 d4 e4 b5 c5 d5 e5))
+  )
+)

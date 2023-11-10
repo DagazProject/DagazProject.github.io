@@ -1,0 +1,48 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Hughe puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c" (100 0)) ; files
+           ("4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0010 1) (T R0001 1)
+  (T B0000 2)
+  (T B0000 3)
+  (T B0000 4)
+  (T B0100 5) (T B1000 5) 
+  (T B0100 6) (T B1000 6) 
+  (T B0000 7)
+
+  (board-setup
+     (You 
+         (R00101 a4) (R00011 a3)
+         (B00002 c4)
+         (B00003 c3)
+         (B00004 a2)
+         (B01005 b2) (B10005 c2) 
+         (B01006 a1) (B10006 b1) 
+         (B00007 c1)
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R00101 (c2))
+     (absolute-config R00011 (c1))
+  ))
+)

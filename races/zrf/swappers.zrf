@@ -1,0 +1,116 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Swappers")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players You)
+  (turn-order You)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+  
+  (board
+     (image "images/swappers/7x1.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g" (68 0)) ; files
+           ("1" (0 68)) ; ranks
+         )
+         (directions 
+              (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name white-goal) (players You)
+           (positions a1 b1 c1)
+     )
+     (zone (name black-goal) (players You)
+           (positions e1 f1 g1)
+     )
+  )
+
+  (piece
+     (name White)
+     (image You "images/swappers/white.bmp")
+     (moves
+           (step w) (jump w)
+     )
+  )
+  (piece
+     (name Black)
+     (image You "images/swappers/black.bmp")
+     (moves
+           (step e) (jump e)
+     )
+  )
+
+  (board-setup
+    (You
+         (White e1 f1 g1)
+         (Black a1 b1 c1)
+    )
+  )
+)
+
+(variant
+  (title "Fore and Aft")
+
+  (board
+     (image "images/swappers/board.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (kill-positions a1 a2 b1 b2 d4 d5 e4 e5)
+     (zone (name white-goal) (players You)
+           (positions a3 a4 a5 b3 b4 b5 c4 c5)
+     )
+     (zone (name black-goal) (players You)
+           (positions c1 c2 d1 d2 d3 e1 e2 e3)
+     )
+  )
+
+  (piece
+     (name White)
+     (image You "images/swappers/white.bmp")
+     (moves
+           (step w) (jump w)
+           (step n) (jump n)
+     )
+  )
+  (piece
+     (name Black)
+     (image You "images/swappers/black.bmp")
+     (moves
+           (step e) (jump e)
+           (step s) (jump s)
+     )
+  )
+
+  (board-setup
+    (You
+         (White c1 c2 d1 d2 d3 e1 e2 e3)
+         (Black a3 a4 a5 b3 b4 b5 c4 c5)
+    )
+  )
+)

@@ -1,0 +1,231 @@
+(version "3.0")
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define gone (
+  (verify (in-zone? goal))
+  capture
+  add
+))
+
+(game
+  (title "Dodgem (5x5)")
+  (history "Copyright (c) 1972 Colin Vout.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "show hints"       false)
+  (option "ko"               true)
+  (option "dodgem-extension" true)
+
+  (players Blue Red)
+  (turn-order Blue Red)
+
+  (board
+    (image "images/dodgem/5x5.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e" (62 0)) ; files
+        ("5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a5 b5 c5 d5 e5)
+    )
+    (zone (name goal)  
+      (players Red) 
+      (positions e1 e2 e3 e4 e5)
+    )
+  )
+
+  (piece
+     (name  Car)
+     (image Blue "images/dodgem/blue.bmp"
+            Red  "images/dodgem/red.bmp")
+     (moves
+        (step n) (step w) (step e) (gone)
+     )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1 d1 e1))
+     (Red  (Car a2 a3 a4 a5))
+  )
+
+  (win-condition (Blue Red) (pieces-remaining 0 Car))
+  (win-condition (Blue Red) stalemated)
+  (loss-condition (Blue Red) repetition)
+)
+
+(variant
+  (title "Dodgem (4x4)")
+
+  (board
+    (image "images/dodgem/4x4.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d" (62 0)) ; files
+        ("4/3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a4 b4 c4 d4)
+    )
+    (zone (name goal)  
+      (players Red) 
+      (positions d1 d2 d3 d4)
+    )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1 d1))
+     (Red  (Car a2 a3 a4))
+  )
+)
+
+(variant
+  (title "Dodgem (3x3)")
+
+  (board
+    (image "images/dodgem/3x3.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c" (62 0)) ; files
+        ("3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a3 b3 c3)
+    )
+    (zone (name goal)  
+      (players Red) 
+      (positions c1 c2 c3)
+    )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1))
+     (Red  (Car a2 a3))
+  )
+)
+
+(variant
+  (title "Dodgem (6x6)")
+
+  (board
+    (image "images/dodgem/6x6.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f" (62 0)) ; files
+        ("6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a6 b6 c6 d6 e6 f6)
+    )
+    (zone (name goal)  
+      (players Red) 
+      (positions f1 f2 f3 f4 f5 f6)
+    )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1 d1 e1 f1))
+     (Red  (Car a2 a3 a4 a5 a6))
+  )
+)
+
+(variant
+  (title "Dodgem (7x7)")
+
+  (board
+    (image "images/dodgem/7x7.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f/g" (62 0)) ; files
+        ("7/6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a7 b7 c7 d7 e7 f7 g7)
+    )
+    (zone (name goal)  
+      (players Red) 
+      (positions g1 g2 g3 g4 g5 g6 g7)
+    )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1 d1 e1 f1 g1))
+     (Red  (Car a2 a3 a4 a5 a6 a7))
+  )
+)
+
+(variant
+  (title "Dodgem (8x8)")
+
+  (board
+    (image "images/dodgem/8x8.bmp")
+    (grid
+      (start-rectangle 2 2 62 62)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (62 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 62)) ; ranks
+      )
+      (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+      )
+    )
+    (symmetry Red (n e) (w n) (e s))
+    (zone (name goal)  
+      (players Blue) 
+      (positions a8 b8 c8 d8 e8 f8 g8 h8)
+    )
+    (zone (name goal)
+      (players Red) 
+      (positions h1 h2 h3 h4 h5 h6 h7 h8)
+    )
+  )
+
+  (board-setup
+     (Blue (Car b1 c1 d1 e1 f1 g1 h1))
+     (Red  (Car a2 a3 a4 a5 a6 a7 a8))
+  )
+)

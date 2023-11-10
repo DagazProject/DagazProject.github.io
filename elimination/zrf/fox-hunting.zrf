@@ -1,0 +1,81 @@
+(define drop-piece (
+  add
+))
+
+(game
+  (title "Fox Hunting")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+
+  (players You)
+  (turn-order You)
+
+  (board
+    (image "Images/fox-hunting/board10x10.bmp")
+    (grid
+      (start-rectangle 0 0 32 32)
+      (dimensions
+        ("a/b/c/d/e/f/g/h/i/j"   (32 0)) ; files (columns)
+        ("10/9/8/7/6/5/4/3/2/1"  (0 32)) ; rank (rows)
+      )
+      (directions 
+        (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+        (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+      )
+    )
+  )
+
+  (piece
+     (name  p0)
+     (image You "Images/fox-hunting/0.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+  (piece
+     (name  p1)
+     (image You "Images/fox-hunting/1.bmp")
+  )
+  (piece
+     (name  p2)
+     (image You "Images/fox-hunting/2.bmp")
+  )
+  (piece
+     (name  p3)
+     (image You "Images/fox-hunting/3.bmp")
+  )
+  (piece
+     (name  p4)
+     (image You "Images/fox-hunting/4.bmp")
+  )
+  (piece
+     (name  p5)
+     (image You "Images/fox-hunting/5.bmp")
+  )
+  (piece
+     (name  p6)
+     (image You "Images/fox-hunting/6.bmp")
+  )
+  (piece
+     (name  p7)
+     (image You "Images/fox-hunting/7.bmp")
+  )
+  (piece
+     (name  p8)
+     (image You "Images/fox-hunting/8.bmp")
+  )
+  (piece
+     (name  invisible-fox)
+     (image You "Images/fox-hunting/invisible.bmp")
+  )
+  (piece
+     (name  fox)
+     (image You "Images/fox-hunting/fox.bmp")
+  )
+)

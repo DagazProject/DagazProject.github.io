@@ -1,0 +1,207 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Treasure Shogi")
+  (history "Copyright (c) 2010 Yamamoto Mitsuo.")
+
+  (option "animate captures"      false)
+  (option "animate drops"         false)
+  (option "smart moves"           false)
+
+  (players South North)
+  (turn-order South North)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/3x5.bmp")
+        (grid
+               (start-rectangle 9 15 50 61)
+               (dimensions ("X/Y/I/a/b/c/J/Z/T" (41 0))
+                           ("5/4/3/2/1" (0 46))
+               )
+               (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                           (nx 0 -1)
+               )
+        )
+        (links sr
+               (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1)
+               (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1)
+               (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1)
+               (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) 
+               (T3 Z4) (Z4 T4) (T4 Z5) (Z5 T5) (T5 X1)
+               (X1 Y1) (Y1 X2) (X2 Y2) (Y2 X3) (X3 Y3) 
+               (Y3 X4) (X4 Y4) (Y4 X5) (X5 Y5)
+        )
+        (links nr
+               (a1 Y5) (a2 Y5) (a3 Y5) (a4 Y5) (a5 Y5)
+               (b1 Y5) (b2 Y5) (b3 Y5) (b4 Y5) (b5 Y5)
+               (c1 Y5) (c2 Y5) (c3 Y5) (c4 Y5) (c5 Y5)
+               (Y5 X5) (X5 Y4) (Y4 X4) (X4 Y3) (Y3 X3) 
+               (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1) (X1 T5) 
+               (T5 Z5) (Z5 T4) (T4 Z4) (Z4 T3) (T3 Z3) 
+               (Z3 T2) (T2 Z2) (Z2 T1) (T1 Z1)
+        )
+        (links nx 
+               (a5 b1) (b5 c1)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx))
+        (kill-positions I1 I2 I3 I4 I5 J1 J2 J3 J4 J5)
+        (zone (name board-zone) (players South North)
+              (positions a1 b1 c1
+                         a2 b2 c2
+                         a3 b3 c3
+                         a4 b4 c4
+                         a5 b5 c5
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a5 b5 c5 a4 b4 c4)
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 a2 b2 c2)
+        )
+        (zone (name goal-zone) (players South)
+              (positions a5 b5 c5)
+        )
+        (zone (name goal-zone) (players North)
+              (positions a1 b1 c1)
+        )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              North "images/ngold.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              North "images/nsilver.bmp")
+       (moves
+           (step nw) (step sw)
+           (step se) (step ne)
+           (step n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SilverP)
+       (image South "images/ssilverp.bmp" 
+              North "images/nsilverp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknight.bmp" 
+              North "images/nknight.bmp")
+       (moves
+           (jump n nw)
+           (jump n ne)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name KnightP)
+       (image South "images/sknightp.bmp" 
+              North "images/nknightp.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slance.bmp" 
+              North "images/nlance.bmp")
+       (moves
+           (slide n)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name LanceP)
+       (image South "images/slancep.bmp" 
+              North "images/nlancep.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step ne)
+           (step w) (step e) 
+       )
+  )
+
+  (board-setup
+        ( South 
+           (King   b1)
+           (Gold   a1)
+           (Silver c1)
+           (Knight Z1)
+           (Lance  T1)
+        )
+        ( North 
+           (King   b5)
+           (Gold   c5)
+           (Silver a5)
+           (Knight X5)
+           (Lance  Y5)
+        )
+  )
+
+  (loss-condition (South North) (pieces-remaining 0 King))
+  (loss-condition (South North) repetition)
+)

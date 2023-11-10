@@ -1,0 +1,81 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify empty?)
+  add
+))
+
+(define kill (
+  (verify enemy?)
+  capture add
+))
+
+(game
+  (title "Bolotoudou")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order 
+     White White
+     Black Black
+     White White
+     Black Black
+     White White
+     Black Black
+     White White
+     Black Black
+     White White
+     Black Black
+     White White
+     Black Black
+     repeat
+     White Black
+  )
+  (move-priorities drop-type normal-type)
+
+  (board
+     (image "images/bolotoudou/board.bmp")
+     (grid
+         (start-rectangle 1 1 49 49)
+         (dimensions
+           ("a/b/c/d/e/f" (48 0)) ; files
+           ("5/4/3/2/1" (0 48)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/bolotoudou/white.bmp"
+            Black "images/bolotoudou/black.bmp")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step s) (step w) (step e)
+        (kill)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 12))
+     (Black (Stone off 12))
+  )
+)

@@ -1,0 +1,183 @@
+(define checker-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define king-cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(game
+  (title "International Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"        false)
+  (option "smart moves"             true)
+  (option "maximal captures"        true)
+  (option "deferred captures"       true)
+  (option "international-extension" true)
+; (option "ko"                      situation)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b10 d10 f10 h10 j10)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
+     )
+     (zone (name black) (players White Black)
+           (positions a1 c1 e1 g1 i1 b2 d2 f2 h2 j2 a3 c3 e3 g3 i3 b4 d4 f4 h4 j4 a5 c5 e5 g5 i5 b6 d6 f6 h6 j6 a7 c7 e7 g7 i7 b8 d8 f8 h8 j8 a9 c9 e9 g9 i9 b10 d10 f10 h10 j10)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type cont-type)
+         (king-cont nw) (king-cont ne) (king-cont sw) (king-cont se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3  b4 d4 f4 h4 j4) )
+    (Black (Man b10 d10 f10 h10  j10 a9 c9 e9 g9 i9  b8 d8 f8 h8 j8  a7 c7 e7 g7 i7) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Brazilian Checkers")
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (Black (Man b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)
+
+(variant
+  (title "Canadian Checkers")
+  (default)
+
+  (board
+     (image "images/12x12.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (50 0)) ; files
+           ("12/11/10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b12 d12 f12 h12 j12 l12)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1 k1)
+     )
+     (zone (name black) (players White Black)
+           (positions a1 c1 e1 g1 i1 k1 b2 d2 f2 h2 j2 l2 a3 c3 e3 g3 i3 k3 b4 d4 f4 h4 j4 l4 a5 c5 e5 g5 i5 k5 b6 d6 f6 h6 j6 l6 a7 c7 e7 g7 i7 k7 b8 d8 f8 h8 j8 l8 a9 c9 e9 g9 i9 k9 b10 d10 f10 h10 j10 l10 a11 c11 e11 g11 i11 k11 b12 d12 f12 h12 j12 l12)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1 k1 b2 d2 f2 h2 j2 l2 a3 c3 e3 g3 i3 k3 b4 d4 f4 h4 j4 l4 a5 c5 e5 g5 i5 k5))
+    (Black (Man b12 d12 f12 h12 j12 l12 a11 c11 e11 g11 i11 k11 b10 d10 f10 h10 j10 l10 a9 c9 e9 g9 i9 k9 b8 d8 f8 h8 j8 l8))
+  )
+)

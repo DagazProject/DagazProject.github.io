@@ -1,0 +1,77 @@
+(define step (
+  (verify (in-zone? $2))
+  $1 add
+))
+
+(game
+  (title "Alemungula")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+; (option "smart moves"       from)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/5x2.bmp")
+     (grid
+         (start-rectangle 168 8 248 88)
+         (dimensions
+           ("a/b/c/d/e" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X2    8 8 148 188)
+         (X1  668 8 808 188)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 e2)
+         (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links rv
+         (b1 a1) (c1 b1) (d1 c1) (e1 d1) (e2 e1)
+         (d2 e2) (c2 d2) (b2 c2) (a2 b2) (a1 a2)
+     )
+     (links fr (a2 X1))
+     (links er (a2 X2))
+     (symmetry North (fr er) (er fr) (nx nx) (rv rv))
+     (zone (name home) (players North)
+           (positions a2 b2 c2 d2 e2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1 d1 e1)
+     )
+     (zone (name left-side) (players North South)
+           (positions a1 b1 c1 c2 d2 e2)
+     )
+     (zone (name right-side) (players North South)
+           (positions a2 b2 c2 c1 d1 e1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves 
+        (move-type normal-type) (step nx right-side)
+        (move-type revert-type) (step rv left-side)
+     )
+  )
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1))
+    (North (Seed a2 b2 c2 d2 e2))
+  )
+)

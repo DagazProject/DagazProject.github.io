@@ -1,0 +1,96 @@
+(version "3.0")
+
+(define change (
+  (verify not-empty?)
+  (add $1)
+))
+
+(game
+   (title "Light Off 5x5")
+
+   (drop-sound "")
+   (capture-sound "")
+   (change-sound "")
+
+   (option "show hints"          false)
+   (option "light-off-extension" rook)
+
+   (players You)
+   (turn-order You)
+
+   (board
+        (image "images/5x5.bmp")
+        (grid
+            (start-rectangle 0 0 75 75)
+            (dimensions ;5x5
+                ("a/b/c/d/e" (75 0)) ; columns
+                ("5/4/3/2/1" (0 75)) ; rows
+	    )
+	    (directions 
+                (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+                (nee 2 -1) (nww -2 -1) (see 2 1) (sww -2 1)
+            )
+	)
+   )
+
+   (piece
+        (name light)
+        (image You "images/on.bmp")
+        (moves
+           (change dark)
+        )
+   )
+   (piece
+        (name dark)
+        (image You "images/off.bmp")
+        (moves
+           (change light)
+        )
+   )
+
+   (board-setup
+        (You (light
+                 a1 b1 c1 d1 e1
+                 a2 b2 c2 d2 e2
+                 a3 b3 c3 d3 e3
+                 a4 b4 c4 d4 e4
+                 a5 b5 c5 d5 e5
+             )
+        )
+   )
+
+   (win-condition (You) (pieces-remaining 0 light))
+)
+
+(variant
+   (title "Light Off 4x4")
+   (default)
+   (board
+        (image "images/4x4.bmp")
+        (grid
+            (start-rectangle 0 0 75 75)
+            (dimensions ;4x4
+                ("a/b/c/d" (75 0)) ; columns
+                ("4/3/2/1" (0 75)) ; rows
+	    )
+	    (directions 
+                (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+                (nee 2 -1) (nww -2 -1) (see 2 1) (sww -2 1)
+            )
+	)
+   )
+
+   (board-setup
+        (You (light
+                 a1 b1 c1 d1
+                 a2 b2 c2 d2
+                 a3 b3 c3 d3
+                 a4 b4 c4 d4
+             )
+        )
+   )
+)

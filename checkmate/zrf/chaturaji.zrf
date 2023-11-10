@@ -1,0 +1,215 @@
+(define drop-dice (
+  (verify (in-zone? dices))
+  (verify not-friend?)
+  add
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define d
+  (piece
+     (name D$1)
+     (image South "images/chaturaji/sd$1.bmp"
+            West  "images/chaturaji/wd$1.bmp"
+            North "images/chaturaji/nd$1.bmp"
+            East  "images/chaturaji/ed$1.bmp")
+     (drops
+        (move-type setup)
+        (drop-dice) 
+     )
+  )
+)
+
+(game
+  (title "Chaturaji")
+
+  (players South West North East)
+  (turn-order South West North East)
+
+  (board
+     (image "images/chaturaji/board.bmp")
+     (grid
+         (start-rectangle 59 2 109 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (positions
+         (r1   4   2  53  51)
+         (r2   4  53  53 102)
+         (r3   4 292  53 341)
+         (r4   4 343  53 392)
+         (x1 470  21 524 179)
+         (x2 470 220 524 378)
+     )
+     (links sr
+         (a8 r4) (r4 r3)
+     )
+     (links wr
+         (a8 r1) (r1 r2)
+     )
+     (links nr
+         (a8 r4) (r4 r3)
+     )
+     (links er
+         (a8 r1) (r1 r2)
+     )
+     (symmetry West  (n e) (e s) (s w) (w n) (ne se) (se sw) (sw nw) (nw ne) (sr wr) (wr nr) (nr er) (er sr))
+     (symmetry North (n s) (e w) (s n) (w e) (ne sw) (se nw) (sw ne) (nw se) (sr nr) (wr er) (nr sr) (er wr))
+     (symmetry East  (n w) (e n) (s e) (w s) (ne nw) (se ne) (sw se) (nw sw) (sr er) (wr sr) (nr wr) (er nr))
+     (zone (name promotion) (players South)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name promotion) (players West)
+           (positions h1 h2 h3 h4 h5 h6 h7 h8)
+     )
+     (zone (name promotion) (players North)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+     (zone (name promotion) (players East)
+           (positions a1 a2 a3 a4 a5 a6 a7 a8)
+     )
+     (zone (name dices) (players South West North East)
+           (positions x1 x2)
+     )
+     (zone (name center) (players South West North East)
+           (positions d4 d5 e4 e5)
+     )
+     (zone (name gaja-column) (players South West North East)
+           (positions a8 h8 h1 a1)
+     )
+     (zone (name ashva-column) (players South West North East)
+           (positions b8 h7 g1 a2)
+     )
+     (zone (name ratha-column) (players South West North East)
+           (positions c8 h6 f1 a3)
+     )
+     (zone (name raja-column) (players South West North East)
+           (positions d8 h5 e1 a4)
+     )
+  )
+
+  (d 2) (d 3) (d 4) (d 5)
+
+  (piece
+     (name  Raja)
+     (image South "images/chaturaji/gking.bmp"
+            West  "images/chaturaji/yking.bmp"
+            North "images/chaturaji/bking.bmp"
+            East  "images/chaturaji/rking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name  Bhata)
+     (image South "images/chaturaji/gpawn.bmp"
+            West  "images/chaturaji/ypawn.bmp"
+            North "images/chaturaji/bpawn.bmp"
+            East  "images/chaturaji/rpawn.bmp")
+     (moves
+         (pawn-shift n)
+         (pawn-step nw) (pawn-step ne)
+     )
+  )
+  (piece
+     (name Gaja)
+     (image South "images/chaturaji/gelephant.bmp"
+            West  "images/chaturaji/yelephant.bmp"
+            North "images/chaturaji/belephant.bmp"
+            East  "images/chaturaji/relephant.bmp")
+     (moves
+         (leap nw nw) (leap ne ne) (leap sw sw) (leap se se)
+     )
+  )
+  (piece
+     (name Ashva)
+     (image South "images/chaturaji/gknight.bmp"
+            West  "images/chaturaji/yknight.bmp"
+            North "images/chaturaji/bknight.bmp"
+            East  "images/chaturaji/rknight.bmp")
+     (moves
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Ratha)
+     (image South "images/chaturaji/grook.bmp"
+            West  "images/chaturaji/yrook.bmp"
+            North "images/chaturaji/brook.bmp"
+            East  "images/chaturaji/rrook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name  RajaCaptured)
+     (image South "images/chaturaji/gking.bmp"
+            West  "images/chaturaji/ykingc.bmp"
+            North "images/chaturaji/bkingc.bmp"
+            East  "images/chaturaji/rkingc.bmp")
+  )
+
+  (board-setup
+    (South
+         (Bhata a2 b2 c2 d2)
+         (Gaja a1)
+         (Ashva b1)
+         (Ratha c1)
+         (Raja d1)
+    )
+    (West
+         (Bhata b8 b7 b6 b5)
+         (Gaja a8)
+         (Ashva a7)
+         (Ratha a6)
+         (Raja a5)
+    )
+    (North
+         (Bhata h7 g7 f7 e7)
+         (Gaja h8)
+         (Ashva g8)
+         (Ratha f8)
+         (Raja e8)
+    )
+    (East
+         (Bhata g1 g2 g3 g4)
+         (Gaja h1)
+         (Ashva h2)
+         (Ratha h3)
+         (Raja h4)
+    )
+  )
+)

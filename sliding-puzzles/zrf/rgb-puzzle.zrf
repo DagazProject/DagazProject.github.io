@@ -1,0 +1,75 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "RGB puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("6/5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F  1) (T R1010F  1) (T R0101F  1) (T R1001F 1)
+  (T B0100   2) (T B1000   2) 
+  (T B0010   3) (T B0001   3) 
+  (T B0010   4) (T B0001   4) 
+  (T B0100   5) (T B1000   5) 
+  (T B0000   6)
+  (T B0000   7)
+  (T B0110F  8) (T B1010F  8) (T B0101F  8) (T B1001F 8)
+  (T B0100   9) (T B1000   9) 
+  (T B0100  10) (T B1000  10) 
+  (T B0100  11) (T B1000  11) 
+  (T B0010  12) (T B0001  12) 
+  (T B0010  13) (T B0001  13) 
+  (T G0110F 14) (T G1010F 14) (T G0101F 14) (T G1001F 14)
+  (T B0100  15) (T B1000  15) 
+
+  (board-setup
+     (You 
+         (R0110F1  a6) (R1010F1  b6) (R0101F1  a5) (R1001F1  b5)
+         (B01002   c6) (B10002   d6) 
+         (B00103   e6) (B00013   e5) 
+         (B00104   f6) (B00014   f5) 
+         (B01005   c5) (B10005   d5) 
+         (B00006   a4)
+         (B00007   b4)
+         (B0110F8  c4) (B1010F8  d4) (B0101F8  c3) (B1001F8  d3)
+         (B01009   e4) (B10009   f4) 
+         (B010010  e3) (B100010  f3) 
+         (B010011  a2) (B100011  b2) 
+         (B001012  c2) (B000112  c1) 
+         (B001013  d2) (B000113  d1) 
+         (G0110F14 e2) (G1010F14 f2) (G0101F14 e1) (G1001F14 f1)
+         (B010015  a1) (B100015  b1) 
+     )
+  )
+
+
+  (win-condition (You) (and 
+     (absolute-config G0110F14 (a6))
+     (absolute-config G1010F14 (b6))
+     (absolute-config G0101F14 (a5))
+     (absolute-config G1001F14 (b5))
+     (absolute-config B0110F8  (c4))
+     (absolute-config B1010F8  (d4))
+     (absolute-config B0101F8  (c3))
+     (absolute-config B1001F8  (d3))
+     (absolute-config R0110F1  (e2))
+     (absolute-config R1010F1  (f2))
+     (absolute-config R0101F1  (e1))
+     (absolute-config R1001F1  (f1))
+  ))
+)

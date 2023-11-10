@@ -1,0 +1,152 @@
+(define checker-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define staple-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   add
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define king-cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(game
+  (title "Stapeldammen")
+
+  (option "smart moves"       true)
+
+  (players White Red)
+  (turn-order White Red)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/stapeldammen/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Red (nw se) (se nw) (ne sw) (sw ne))
+  )
+
+  (piece
+     (name Man)
+     (image White "images/stapeldammen/white.bmp"
+            Red "images/stapeldammen/red.bmp")
+     (moves
+         (move-type jump-type)
+         (staple-jump nw) (staple-jump ne) (staple-jump sw) (staple-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3  b4 d4 f4 h4 j4))
+    (Red (Man b10 d10 f10 h10  j10 a9 c9 e9 g9 i9  b8 d8 f8 h8 j8  a7 c7 e7 g7 i7))
+  )
+)
+
+(variant
+  (title "Frisian Columns")
+  (default)
+
+  (board
+     (image "images/stapeldammen/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                     (n 0 -2) (s 0 2) (e 2 0) (w -2 0))
+     )
+     (symmetry Red (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players White)
+           (positions b10 d10 f10 h10 j10)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (checker-jump n)  (checker-jump e)  (checker-jump w)  (checker-jump s)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (king-jump n)  (king-jump e)  (king-jump w)  (king-jump s)
+         (move-type cont-type)
+         (king-cont nw) (king-cont ne) (king-cont sw) (king-cont se)
+         (king-cont n)  (king-cont e)  (king-cont w)  (king-cont s)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3  b4 d4 f4 h4 j4) )
+    (Black (Man b10 d10 f10 h10  j10 a9 c9 e9 g9 i9  b8 d8 f8 h8 j8  a7 c7 e7 g7 i7) )
+  )
+)

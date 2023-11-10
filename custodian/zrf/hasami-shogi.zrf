@@ -1,0 +1,90 @@
+(define slide (
+  $1
+  (while empty?
+     add
+     $1
+  )
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Hasami Shogi")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"       false)
+  (option "smart moves"            true)
+  (option "hasami shogi extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/hasami-shogi/board.bmp")
+     (grid
+         (start-rectangle 8 9 49 55)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (41 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 46)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name home) (players Black White)
+         (positions 
+             a1 b1 c1 d1 e1 f1 g1 h1 i1  a2 b2 c2 d2 e2 f2 g2 h2 i2
+             a8 b8 c8 d8 e8 f8 g8 h8 i8  a9 b9 c9 d9 e9 f9 g9 h9 i9
+         )
+     )
+  )
+
+  (piece
+     (name  Stone)
+     (image White "images/hasami-shogi/ntokin.bmp"
+            Black "images/hasami-shogi/spawn.bmp")
+     (moves
+        (step n) (step s) (step w) (step e)
+        (jump n) (jump s) (jump w) (jump e)
+     )
+  )
+
+  (board-setup
+    (Black (Stone a1 b1 c1 d1 e1 f1 g1 h1 i1  a2 b2 c2 d2 e2 f2 g2 h2 i2))
+    (White (Stone a8 b8 c8 d8 e8 f8 g8 h8 i8  a9 b9 c9 d9 e9 f9 g9 h9 i9))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 1))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Hasami Shogi (variant)")
+  (piece
+     (name  Stone)
+     (image White "images/hasami-shogi/ntokin.bmp"
+            Black "images/hasami-shogi/spawn.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (board-setup
+    (Black (Stone a1 b1 c1 d1 e1 f1 g1 h1 i1))
+    (White (Stone a9 b9 c9 d9 e9 f9 g9 h9 i9))
+  )
+)

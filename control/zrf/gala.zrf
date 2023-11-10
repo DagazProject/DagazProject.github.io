@@ -1,0 +1,318 @@
+(define kampa-shift (
+  (verify (in-zone? home))
+  (verify (in-zone? $1)) $2 
+  (if (in-zone? home)
+      (verify empty?)
+      add $2
+  )
+  (verify not-friend?)
+  add
+))
+
+(define kampa-leap (
+  (verify (not-in-zone? home))
+  $1
+  (verify (not-in-zone? restricted))
+  (verify not-friend?)
+  add
+))
+
+(define gala-step (
+  $1 (verify empty?)
+  add
+))
+
+(define gala-in (
+  (verify (not-in-zone? cross))
+  $1 (verify enemy?)
+  (verify (in-zone? cross))
+  add
+))
+
+(define gala-out (
+  (verify (in-zone? cross))
+  $1 (verify enemy?)
+  (verify (not-in-zone? cross))
+  add
+))
+
+(define gala-jump (
+  (verify (in-zone? center)) a5
+  (while (on-board? $1) 
+     (if empty? add)
+     $1
+  )
+  (verify empty?)
+  add
+))
+
+(define shift (
+  (verify (in-zone? $1))
+  $2
+  (while (and empty? (in-zone? $1))
+     (if (not-in-zone? center) add)
+     $2
+  )
+))
+
+(define slide (
+  (verify (in-zone? $1)) $2
+  (set-flag long-slide true)
+  (while (and empty? (in-zone? $1)) 
+      $2 (set-flag long-slide false)
+  )
+  (verify not-friend?)  
+  (verify (not-in-zone? $1)) 
+  (verify not-friend?) add
+  (verify empty?) $3
+  (while (not-in-zone? $1)
+      (verify not-friend?) add
+      (verify empty?) $3
+      (verify (flag? long-slide))
+  )
+))
+
+(define slide-horsa (
+  (verify (in-zone? $1)) $2
+  (set-flag long-slide true)
+  (while (and empty? (in-zone? $1)) 
+      $2 (set-flag long-slide false)
+  )
+  (if (flag? long-slide)
+      (verify empty?)  
+   else
+      (verify not-friend?)
+  )
+  (verify (not-in-zone? $1)) 
+  (verify not-friend?) add
+  (verify empty?) $3
+  (while (not-in-zone? $1)
+      (verify not-friend?) add
+      (verify empty?) $3
+      (verify (flag? long-slide))
+  )
+))
+
+(game
+  (title "Gala")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      false)
+  (option "gala extension"   true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/gala/gala.bmp")
+     (grid
+         (start-rectangle 1 1 51 51)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (symmetry Black 
+        (nw se)(se nw)(ne sw)(sw ne)
+        (n n)(s s)(w w)(e e)
+     )
+     (links next 
+        (a5 b5) (b5 c5) (c5 d5) (d5 g5) (g5 h5)  (h5 i5)  (i5 j5)  (j5 a6) (g8 h8) (h8 g9)
+        (a6 b6) (b6 c6) (c6 d6) (d6 g6) (g6 h6)  (h6 i6)  (i6 j6)  (j6 e1) (e1 e2) 
+        (e2 e3) (e3 e4) (e4 e7) (e7 e8) (e8 e9)  (e9 e10) (e10 f1) (f1 f2) (f2 f3) 
+        (f3 f4) (f4 f7) (f7 f8) (f8 f9) (f9 f10) (f10 b4) (b4 c4)  (c4 d4) (d4 c3)
+        (c3 d3) (d3 d2) (d2 g4) (g4 h4) (h4 i4)  (i4 g3)  (g3 h3)  (h3 g2) (g2 b7)
+        (b7 c7) (c7 d7) (d7 c8) (c8 d8) (d8 d9)  (d9 g7)  (g7 h7)  (h7 i7) (i7 g8)
+     )
+     (zone
+        (name center) (players White Black)
+        (positions e5 e6 f5 f6)
+     )
+     (zone
+        (name cross) (players White Black)
+        (positions a5 b5 c5 d5 e5 f5 g5 h5 i5 j5 a6 b6 c6 d6 e6 f6 g6 h6 i6 j6 e1 e2 e3 e4 e7 e8 e9 e10 f1 f2 f3 f4 f7 f8 f9 f10)
+     )
+     (zone
+        (name outer) (players White Black)
+        (positions a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4 d1 d2 d3 d4 g1 g2 g3 g4 h1 h2 h3 h4 i1 i2 i3 i4 j1 j2 j3 j4 a7 a8 a9 a10 b7 b8 b9 b10 c7 c8 c9 c10 d7 d8 d9 d10 g7 g8 g9 g10 h7 h8 h9 h10 i7 i8 i9 i10 j7 j8 j9 j10)
+     )
+     (zone
+        (name restricted) (players White Black)
+        (positions a1 b1 c1 a2 b2 a3 h1 i1 j1 i2 j2 j3 a10 b10 c10 a9 b9 a8 h10 i10 j10 i9 j9 j8)
+     )
+     (zone
+        (name home) (players White)
+        (positions a4 b3 c2 d1 c4 d3 b4 c3 d2 d4 g1 h2 i3 j4 g3 h4 g2 h3 i4 g4)
+     )
+     (zone
+        (name home) (players Black)
+        (positions g10 h9 i8 j7 g8 h7 g9 h8 i7 g7 a7 b8 c9 d10 c7 d8 b7 c8 d9 d7)
+     )
+     (zone
+        (name left) (players White)
+        (positions a4 b3 c2 d1 c4 d3 b4 c3 d2 d4)
+     )
+     (zone
+        (name left) (players Black)
+        (positions g10 h9 i8 j7 g8 h7 g9 h8 i7 g7)
+     )
+     (zone
+        (name right) (players White)
+        (positions g1 h2 i3 j4 g3 h4 g2 h3 i4 g4)
+     )
+     (zone
+        (name right) (players Black)
+        (positions a7 b8 c9 d10 c7 d8 b7 c8 d9 d7)
+     )
+  )
+
+  (piece
+     (name Gala)
+     (help "Gala: moves in general as kings in chess.")
+     (description "Galas move in general as kings in chess. Additionally, when a Gala is on one /
+                   of the four squares in the middle of the board, it may be moved in one move /
+                   to any empty square on the board with the exception of those squares that contain /
+                   a piece in the opening setup. Kings can only take when moving over a deflection line.")
+     (image White "images/gala/wking.bmp"
+            Black "images/gala/bking.bmp")
+     (moves
+        (move-type normal-type)
+        (gala-step n) (gala-step nw)
+        (gala-step s) (gala-step sw)
+        (gala-step e) (gala-step ne)
+        (gala-step w) (gala-step se)
+        (gala-in n) (gala-in nw) (gala-out n) (gala-out nw)
+        (gala-in s) (gala-in sw) (gala-out s) (gala-out sw)
+        (gala-in e) (gala-in ne) (gala-out e) (gala-out ne)
+        (gala-in w) (gala-in se) (gala-out w) (gala-out se)
+        (gala-jump next)
+     )
+  )
+  (piece
+     (name Korna)
+     (help "Korna: moves as a rook in chess when in a corner of the board, and as a bishop in the middle of the board.")
+     (description "A Korna moves as a rook in chess when in a corner of the board, and as a bishop in the middle /
+                   of the board. It is also possible to combine these moves in one turn. If the Korna has moved /
+                   one or more squares before crossing the deflection line, it may then only move one square./
+                   Kornas can only take in moves where they move over a deflection line.")
+     (image White "images/gala/wrook.bmp"
+            Black "images/gala/brook.bmp")
+     (moves
+        (move-type korna-type)
+        (slide outer n nw) (slide outer n ne) (slide outer n sw) (slide outer n se)
+        (slide outer s nw) (slide outer s ne) (slide outer s sw) (slide outer s se)
+        (slide outer e nw) (slide outer e ne) (slide outer e sw) (slide outer e se)
+        (slide outer w nw) (slide outer w ne) (slide outer w sw) (slide outer w se)
+        (slide cross nw n) (slide cross nw s) (slide cross nw w) (slide cross nw e)
+        (slide cross sw n) (slide cross sw s) (slide cross sw w) (slide cross sw e)
+        (slide cross se n) (slide cross se s) (slide cross se w) (slide cross se e)
+        (slide cross ne n) (slide cross ne s) (slide cross ne w) (slide cross ne e)
+        (move-type normal-type)
+        (shift outer n)  (shift outer n)  (shift outer n)  (shift outer n)
+        (shift outer s)  (shift outer s)  (shift outer s)  (shift outer s)
+        (shift outer e)  (shift outer e)  (shift outer e)  (shift outer e)
+        (shift outer w)  (shift outer w)  (shift outer w)  (shift outer w)
+        (shift cross nw) (shift cross nw) (shift cross nw) (shift cross nw)
+        (shift cross sw) (shift cross sw) (shift cross sw) (shift cross sw)
+        (shift cross se) (shift cross se) (shift cross se) (shift cross se)
+        (shift cross ne) (shift cross ne) (shift cross ne) (shift cross ne)
+     )
+  )
+  (piece
+     (name Horsa)
+     (help "Horsa: moves as bishops on the corner parts and and as rooks on the middle part.")
+     (description "Horsas are just the opposite of Kornas (with an additional small difference in the taking rules): /
+                   they move as bishops on the corner parts, and as rooks on the middle part. Again it is possible /
+                   to combine such moves. If the Horsa has moved one or more squares before crossing the line, /
+                   it may then only move one square. Horsas only take in moves where they pass the deflection line, /
+                   but not when they move only one square in rookwise fashion.")
+     (image White "images/gala/wbishop.bmp"
+            Black "images/gala/bbishop.bmp")
+     (moves
+        (move-type horsa-type)
+        (slide outer nw n) (slide outer nw s) (slide outer nw w) (slide outer nw e)
+        (slide outer sw n) (slide outer sw s) (slide outer sw w) (slide outer sw e)
+        (slide outer se n) (slide outer se s) (slide outer se w) (slide outer se e)
+        (slide outer ne n) (slide outer ne s) (slide outer ne w) (slide outer ne e)
+        (slide-horsa cross n nw) (slide-horsa cross n ne) (slide-horsa cross n sw) (slide-horsa cross n se)
+        (slide-horsa cross s nw) (slide-horsa cross s ne) (slide-horsa cross s sw) (slide-horsa cross s se)
+        (slide-horsa cross e nw) (slide-horsa cross e ne) (slide-horsa cross e sw) (slide-horsa cross e se)
+        (slide-horsa cross w nw) (slide-horsa cross w ne) (slide-horsa cross w sw) (slide-horsa cross w se)
+        (move-type normal-type)
+        (shift outer nw) (shift outer nw) (shift outer nw) (shift outer nw)
+        (shift outer sw) (shift outer sw) (shift outer sw) (shift outer sw)
+        (shift outer se) (shift outer se) (shift outer se) (shift outer se)
+        (shift outer ne) (shift outer ne) (shift outer ne) (shift outer ne)
+        (shift cross n)  (shift cross n)  (shift cross n)  (shift cross n)
+        (shift cross s)  (shift cross s)  (shift cross s)  (shift cross s)
+        (shift cross e)  (shift cross e)  (shift cross e)  (shift cross e)
+        (shift cross w)  (shift cross w)  (shift cross w)  (shift cross w)
+     )
+  )
+  (piece
+     (name Kampa)
+     (help "Kampa: moves diagonally towards the middle of the board, in the middle part moves to one square in an arbitrary direction.")
+     (description "Kampas move diagonally towards the middle of the board until they are in the middle part or in the opponents corners. /
+                   It is allowed to move two squares if the deflection line isn't passed with the first move of the Kampa. /
+                   When the Kampa is in the middle part or in one of the opponents corners, then it may move one square in any direction. /
+                   When a Kampa is moved back to a corner of the owning player, it can only move diagonally forward again. /
+                   Kampas only can take in the move after they have crossed a deflection line./
+                   Kampa can't move to ''nobile'' squares.")
+     (image White "images/gala/wpawn.bmp"
+            Black "images/gala/bpawn.bmp")
+     (moves
+        (move-type normal-type)
+        (kampa-shift left ne)
+        (kampa-shift right nw)
+        (kampa-leap n) (kampa-leap nw)
+        (kampa-leap w) (kampa-leap sw)
+        (kampa-leap s) (kampa-leap se)
+        (kampa-leap e) (kampa-leap ne)
+     )
+  )
+
+  (board-setup
+     (White
+        (Gala  a1 j1)
+        (Horsa a2 b1 h1 i2 j3)
+        (Korna i1 j2 a3 b2 c1)
+        (Kampa a4 b3 c2 d1 g1 h2 i3 j4)
+     )
+     (Black
+        (Gala  a10 j10) 
+        (Horsa i10 j9 a8 b9 c10) 
+        (Korna a9 b10 h10 i9 j8)
+        (Kampa a7 b8 c9 d10 g10 h9 i8 j7)
+     )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0 Gala))
+)
+
+(variant
+  (title "Debug")
+
+  (board-setup
+     (White
+        (Gala  a1 j1)
+        (Horsa a2 b1 h1 i2 j3 e7)
+        (Korna i1 j2 a3 b2 c1)
+        (Kampa a4 b3 c2 d1 g1 h2 i3 j4)
+     )
+     (Black
+        (Gala  a10 j10) 
+        (Horsa i10 j9 a8 b9 c10) 
+        (Korna a9 b10 h10 i9 j8)
+        (Kampa a7 b8 c9 d10 g10 h9 i8 j7 d7 g7)
+     )
+  )
+)

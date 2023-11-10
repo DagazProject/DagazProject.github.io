@@ -1,0 +1,93 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Straits")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/straits.bmp")
+     (grid
+         (start-rectangle 1 2 51 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (kill-positions a4 a5 a6 a7 a8 b5 b6 b7 c6 g6 h5 h6 h7 i4 i5 i6 i7 i8)
+     (zone (name center) (players White Black)
+           (positions e6)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-shift e) (pawn-shift w) (pawn-shift s)
+         (pawn-step nw) (pawn-step ne) (pawn-step sw) (pawn-step se)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn d3 e3 f3)
+         (Rook a1 b1 b2 c2 g2 h2 h1 i1)
+         (Bishop c1 d1 d2 e2 f2 f1 g1)
+         (King e1)
+    )
+    (Black 
+         (Pawn d9 e9 f9)
+         (Rook a11 b11 b10 c10 g10 h10 h11 i11)
+         (Bishop c11 d11 d10 e10 f10 f11 g11)
+         (King e11)
+    )
+  )
+
+)

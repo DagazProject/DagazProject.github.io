@@ -1,0 +1,160 @@
+(define checker-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty? $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define king-cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(game
+  (title "Shafran's Checkers")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/shafran/hmini.bmp")
+     (grid
+         (start-rectangle -332 26 -290 68)
+         (dimensions
+           ("a/b/c/d/e" (142 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (71 40)) ; ranks
+         )         
+         (directions (nw 0 -1) (ne 1 -1) (n 1 -2) (se 0 1) (sw -1 1) (s -1 2))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (n s) (s n))
+     (kill-positions a9 b9 c9 d9 a8 b8 c8 a7 b7 a6 b1 c1 d1 c2 d2 d3 e4 a5 e5 e3 e2)
+     (zone (name promotion) (players White)
+           (positions e9)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/shafran/wman.bmp"
+            Black "images/shafran/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se) (checker-jump n) (checker-jump s)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne) (checker-shift n)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/shafran/wking.bmp"
+            Black "images/shafran/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se) (king-jump n) (king-jump s)
+         (move-type cont-type)
+         (king-cont nw) (king-cont ne) (king-cont sw) (king-cont se) (king-cont n) (king-cont s)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se) (king-shift n) (king-shift s)
+     )
+  )
+
+  (board-setup
+    (White (Man a4 a3 a2 a1 b2 c3 d4 b3))
+    (Black (Man b6 c7 d8 e9 e8 e7 e6 d7))
+  )
+)
+
+(variant
+  (title "Shafran's Checkers (variant)")
+  (default)
+
+  (board
+     (image "images/shafran/vmini.bmp")
+     (grid
+         (start-rectangle -94 24 -52 66)
+         (dimensions
+           ("a/b/c/d/e" (80 0)) ; files
+           ("7/6/5/4/3/2/1" (40 71)) ; ranks
+         )         
+         (directions (nw 0 -1) (ne 1 -1) (se 0 1) (sw -1 1) (w -1 0) (e 1 0))
+     )
+     (kill-positions a7 b7 c7 a6 b6 a5 e3 d2 e2 c1 d1 e1)
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne) (e w) (w e))
+     (zone (name promotion) (players White)
+           (positions d7 e7)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 b1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/shafran/wman.bmp"
+            Black "images/shafran/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se) (checker-jump w) (checker-jump e)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/shafran/wking.bmp"
+            Black "images/shafran/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se) (king-jump w) (king-jump e)
+         (move-type cont-type)
+         (king-cont nw) (king-cont ne) (king-cont sw) (king-cont se) (king-cont w) (king-cont e)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se) (king-shift w) (king-shift e)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 a2 b2 c2 a3 b3 c3 d3))
+    (Black (Man b5 c5 d5 e5 c6 d6 e6 d7 e7))
+  )
+)

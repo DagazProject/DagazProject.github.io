@@ -1,0 +1,315 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-2 (
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-4 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jumpc (
+  (verify (in-zone? board-zone))
+  $1 (verify not-empty?) capture
+  $1 (verify empty?)
+  (verify (in-zone? board-zone))
+  (add-partial continue-type)
+))
+
+(game
+  (title "Chinese Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"        false)
+  (option "smart moves"             false)
+  (option "pass partial"            true)
+
+  (players Red Purple Yellow Blue Green Orange)
+  (turn-order Red Purple Yellow Blue Green Orange)
+
+  (board
+     (image "images/chinese/board.bmp")
+     (grid
+         (start-rectangle 88 8 118 38)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (50 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (-25 44)) ; ranks
+         )
+         (directions 
+              (ne 0 -1) (nw -1 -1) (se 1 1) (sw 0 1) (w -1 0) (e 1 0)
+         )
+     )
+     (kill-positions 
+         a13 b13 c13 a12 b12 c12 a11 b11 c11 e13 f13 g13 h13 i13 j13 k13 l13 m13
+         f12 g12 h12 i12 j12 k12 l12 m12 g11 h11 i11 j11 k11 l11 m11 k10 l10 m10
+         a9  k9  l9  m9  a8  b8  k8  l8  m8  a7  b7  c7  k7  l7  m7  a6  b6  c6
+         l6  m6  a5  c5  b5  m5  a4  b4  c4  a3  b3  c3  d3  e3  f3  g3  k3  l3
+         m3  a2  b2  c2  d2  e2  f2  g2  h2  k2  l2  m2  a1  b1  c1  d1  e1  f1
+         g1  h1  i1  k1  l1  m1
+     )
+     (zone (name goal-zone) (players Red)
+           (positions d11 e11 f11 d12 e12 d13)
+     )
+     (zone (name goal-zone) (players Purple)
+           (positions h10 i10 j10 i9 j9 j8)
+     )
+     (zone (name goal-zone) (players Yellow)
+           (positions k4 l4 m4 k5 l5 k6)
+     )
+     (zone (name goal-zone) (players Blue)
+           (positions j1 i2 j2 h3 i3 j3)
+     )
+     (zone (name goal-zone) (players Green)
+           (positions d4 e4 f4 d5 e5 d6)
+     )
+     (zone (name goal-zone) (players Orange)
+           (positions c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name target-zone) (players Red)
+           (positions d13)
+     )
+     (zone (name target-zone) (players Purple)
+           (positions j10)
+     )
+     (zone (name target-zone) (players Yellow)
+           (positions m4)
+     )
+     (zone (name target-zone) (players Blue)
+           (positions j1)
+     )
+     (zone (name target-zone) (players Green)
+           (positions d4)
+     )
+     (zone (name target-zone) (players Orange)
+           (positions a10)
+     )
+     (zone (name home-zone) (players Red)
+           (positions h10 i10 j10 i9 j9 j8 k4 l4 m4 k5 l5 k6 j1 i2 j2 h3 i3 j3 d4 e4 f4 d5 e5 d6 c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name home-zone) (players Purple)
+           (positions d11 e11 f11 d12 e12 d13 k4 l4 m4 k5 l5 k6 j1 i2 j2 h3 i3 j3 d4 e4 f4 d5 e5 d6 c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name home-zone) (players Yellow)
+           (positions d11 e11 f11 d12 e12 d13 h10 i10 j10 i9 j9 j8 j1 i2 j2 h3 i3 j3 d4 e4 f4 d5 e5 d6 c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name home-zone) (players Blue)
+           (positions d11 e11 f11 d12 e12 d13 h10 i10 j10 i9 j9 j8 k4 l4 m4 k5 l5 k6 d4 e4 f4 d5 e5 d6 c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name home-zone) (players Green)
+           (positions d11 e11 f11 d12 e12 d13 h10 i10 j10 i9 j9 j8 k4 l4 m4 k5 l5 k6 j1 i2 j2 h3 i3 j3 c8 b9 c9 a10 b10 c10)
+     )
+     (zone (name home-zone) (players Orange)
+           (positions d11 e11 f11 d12 e12 d13 h10 i10 j10 i9 j9 j8 k4 l4 m4 k5 l5 k6 j1 i2 j2 h3 i3 j3 d4 e4 f4 d5 e5 d6)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image Red    "images/chinese/red.bmp"
+            Purple "images/chinese/purple.bmp"
+            Yellow "images/chinese/yellow.bmp"
+            Blue   "images/chinese/blue.bmp"
+            Green  "images/chinese/green.bmp"
+            Orange "images/chinese/orange.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne)
+         (step sw) (step se)
+         (step e)  (step w) 
+         (move-type continue-type)
+         (jump nw) (jump ne)
+         (jump sw) (jump se)
+         (jump e)  (jump w) 
+     )
+  )
+
+  (board-setup
+    (Red    (Man j1 i2 j2 h3 i3 j3))
+    (Purple (Man d4 e4 f4 d5 e5 d6))
+    (Yellow (Man c8 b9 c9 a10 b10 c10))
+    (Blue   (Man d11 e11 f11 d12 e12 d13))
+    (Green  (Man h10 i10 j10 i9 j9 j8))
+    (Orange (Man k4 l4 m4 k5 l5 k6))
+  )
+)
+
+(variant
+  (title "Super Chinese Checkers")
+  (piece
+     (name Man)
+     (image Red    "images/chinese/red.bmp"
+            Purple "images/chinese/purple.bmp"
+            Yellow "images/chinese/yellow.bmp"
+            Blue   "images/chinese/blue.bmp"
+            Green  "images/chinese/green.bmp"
+            Orange "images/chinese/orange.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne)
+         (step sw) (step se)
+         (step e)  (step w) 
+         (move-type continue-type)
+         (jump nw) (jump ne)
+         (jump sw) (jump se)
+         (jump e)  (jump w) 
+         (jump-2 nw) (jump-2 ne)
+         (jump-2 sw) (jump-2 se)
+         (jump-2 e)  (jump-2 w) 
+         (jump-3 nw) (jump-3 ne)
+         (jump-3 sw) (jump-3 se)
+         (jump-3 e)  (jump-3 w) 
+         (jump-4 nw) (jump-4 ne)
+         (jump-4 sw) (jump-4 se)
+         (jump-4 e)  (jump-4 w) 
+     )
+  )
+)
+
+(variant
+  (title "Chinese Checkers Capturing")
+  (default)
+
+  (players Blue Green Orange Red Purple Yellow)
+  (turn-order Blue Green Orange Red Purple Yellow)
+
+  (board
+     (image "images/chinese/board.bmp")
+     (grid
+         (start-rectangle 88 8 118 38)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (50 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (-25 44)) ; ranks
+         )
+         (directions 
+              (ne 0 -1) (nw -1 -1) (se 1 1) (sw 0 1) (w -1 0) (e 1 0)
+         )
+     )
+     (kill-positions 
+         a13 b13 c13 a12 b12 c12 a11 b11 c11 e13 f13 g13 h13 i13 j13 k13 l13 m13
+         f12 g12 h12 i12 j12 k12 l12 m12 g11 h11 i11 j11 k11 l11 m11 k10 l10 m10
+         a9  k9  l9  m9  a8  b8  k8  l8  m8  a7  b7  c7  k7  l7  m7  a6  b6  c6
+         l6  m6  a5  c5  b5  m5  a4  b4  c4  a3  b3  c3  d3  e3  f3  g3  k3  l3
+         m3  a2  b2  c2  d2  e2  f2  g2  h2  k2  l2  m2  a1  b1  c1  d1  e1  f1
+         g1  h1  i1  k1  l1  m1
+     )
+     (links sb (h4 j1) (h5 j1) (h6 j1) (i4 j1) (i5 j1) (j4 j1) (e6 j1) (f6 j1) (g6 j1) (f5 j1) (g5 j1) (g4 j1) (d7 j1) (e7 j1) 
+            (f7 j1) (d8 j1) (e8 j1) (d9 j1) (d10 j1) (e10 j1) (f10 j1) (e9 j1) (f9 j1) (f8 j1) (g8 j1) (h8 j1) (i8 j1) (g9 j1) (h9 j1) 
+            (g10 j1) (h7 j1) (i7 j1) (j7 j1) (i6 j1) (j6 j1) (j5 j1) (g7 j1))
+     (links sg (h4 d4) (h5 d4) (h6 d4) (i4 d4) (i5 d4) (j4 d4) (e6 d4) (f6 d4) (g6 d4) (f5 d4) (g5 d4) (g4 d4) (d7 d4) (e7 d4) 
+            (f7 d4) (d8 d4) (e8 d4) (d9 d4) (d10 d4) (e10 d4) (f10 d4) (e9 d4) (f9 d4) (f8 d4) (g8 d4) (h8 d4) (i8 d4) (g9 d4) (h9 d4) 
+            (g10 d4) (h7 d4) (i7 d4) (j7 d4) (i6 d4) (j6 d4) (j5 d4) (g7 d4))
+     (links so (h4 a10) (h5 a10) (h6 a10) (i4 a10) (i5 a10) (j4 a10) (e6 a10) (f6 a10) (g6 a10) (f5 a10) (g5 a10) (g4 a10) (d7 a10) (e7 a10) 
+            (f7 a10) (d8 a10) (e8 a10) (d9 a10) (d10 a10) (e10 a10) (f10 a10) (e9 a10) (f9 a10) (f8 a10) (g8 a10) (h8 a10) (i8 a10) (g9 a10) (h9 a10) 
+            (g10 a10) (h7 a10) (i7 a10) (j7 a10) (i6 a10) (j6 a10) (j5 a10) (g7 a10))
+     (links sr (h4 d13) (h5 d13) (h6 d13) (i4 d13) (i5 d13) (j4 d13) (e6 d13) (f6 d13) (g6 d13) (f5 d13) (g5 d13) (g4 d13) (d7 d13) (e7 d13) 
+            (f7 d13) (d8 d13) (e8 d13) (d9 d13) (d10 d13) (e10 d13) (f10 d13) (e9 d13) (f9 d13) (f8 d13) (g8 d13) (h8 d13) (i8 d13) (g9 d13) (h9 d13) 
+            (g10 d13) (h7 d13) (i7 d13) (j7 d13) (i6 d13) (j6 d13) (j5 d13) (g7 d13))
+     (links sp (h4 j10) (h5 j10) (h6 j10) (i4 j10) (i5 j10) (j4 j10) (e6 j10) (f6 j10) (g6 j10) (f5 j10) (g5 j10) (g4 j10) (d7 j10) (e7 j10) 
+            (f7 j10) (d8 j10) (e8 j10) (d9 j10) (d10 j10) (e10 j10) (f10 j10) (e9 j10) (f9 j10) (f8 j10) (g8 j10) (h8 j10) (i8 j10) (g9 j10) (h9 j10) 
+            (g10 j10) (h7 j10) (i7 j10) (j7 j10) (i6 j10) (j6 j10) (j5 j10) (g7 j10))
+     (links sy (h4 m4) (h5 m4) (h6 m4) (i4 m4) (i5 m4) (j4 m4) (e6 m4) (f6 m4) (g6 m4) (f5 m4) (g5 m4) (g4 m4) (d7 m4) (e7 m4) 
+            (f7 m4) (d8 m4) (e8 m4) (d9 m4) (d10 m4) (e10 m4) (f10 m4) (e9 m4) (f9 m4) (f8 m4) (g8 m4) (h8 m4) (i8 m4) (g9 m4) (h9 m4) 
+            (g10 m4) (h7 m4) (i7 m4) (j7 m4) (i6 m4) (j6 m4) (j5 m4) (g7 m4))
+     (links nx (j1 i2) (i2 j2) (j2 h3) (h3 i3) (i3 j3))
+     (links nx (d4 d5) (d5 e4) (e4 d6) (d6 e5) (e5 f4))
+     (links nx (a10 b10) (b10 b9) (b9 c10) (c10 c9) (c9 c8))
+     (links nx (d13 e12) (e12 d12) (d12 f11) (f11 e11) (e11 d11))
+     (links nx (j10 j9) (j9 i10) (i10 j8) (j8 i9) (i9 h10))
+     (links nx (m4 l4) (l4 l5) (l5 k4) (k4 k5) (k5 k6))
+     (symmetry Red (nw nw) (sw sw) (ne ne) (se se) (w w) (e e) (nx nx) (sb sr) (sp sp) (sy sy) (sg sg) (so so) (sr sb))
+     (symmetry Purple (nw nw) (sw sw) (ne ne) (se se) (w w) (e e) (nx nx) (sb sp) (sp sb) (sy sy) (sg sg) (so so) (sr sr))
+     (symmetry Yellow (nw nw) (sw sw) (ne ne) (se se) (w w) (e e) (nx nx) (sb sy) (sp sp) (sy sb) (sg sg) (so so) (sr sr))
+     (symmetry Green (nw nw) (sw sw) (ne ne) (se se) (w w) (e e) (nx nx) (sb sg) (sp sp) (sy sy) (sg sb) (so so) (sr sr))
+     (symmetry Orange (nw nw) (sw sw) (ne ne) (se se) (w w) (e e) (nx nx) (sb so) (sp sp) (sy sy) (sg sg) (so sb) (sr sr))
+     (zone (name board-zone) (players Red Purple Yellow Blue Green Orange)
+           (positions h4 h5 h6 i4 i5 j4 e6 f6 g6 f5 g5 g4 d7 e7 f7 d8 e8 d9 d10 e10 f10 e9 f9 f8 g8 h8 i8 g9 h9 g10 h7 i7 j7 i6 j6 j5 g7)
+     )
+     (zone (name home-zone) (players Red)
+           (positions d11 e11 f11 d12 e12 d13)
+     )
+     (zone (name home-zone) (players Purple)
+           (positions h10 i10 j10 i9 j9 j8)
+     )
+     (zone (name home-zone) (players Yellow)
+           (positions k4 l4 m4 k5 l5 k6)
+     )
+     (zone (name home-zone) (players Blue)
+           (positions j1 i2 j2 h3 i3 j3)
+     )
+     (zone (name home-zone) (players Green)
+           (positions d4 e4 f4 d5 e5 d6)
+     )
+     (zone (name home-zone) (players Orange)
+           (positions c8 b9 c9 a10 b10 c10)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image Red    "images/chinese/red.bmp"
+            Purple "images/chinese/purple.bmp"
+            Yellow "images/chinese/yellow.bmp"
+            Blue   "images/chinese/blue.bmp"
+            Green  "images/chinese/green.bmp"
+            Orange "images/chinese/orange.bmp")
+     (moves
+         (move-type continue-type)
+         (jumpc nw) (jumpc ne)
+         (jumpc sw) (jumpc se)
+         (jumpc e)  (jumpc w) 
+     )
+  )
+  (piece
+     (name Dead)
+     (image Red    "images/chinese/red.bmp"
+            Purple "images/chinese/purple.bmp"
+            Yellow "images/chinese/yellow.bmp"
+            Blue   "images/chinese/blue.bmp"
+            Green  "images/chinese/green.bmp"
+            Orange "images/chinese/orange.bmp")
+  )
+
+  (board-setup
+    (Red    (Man d10 e10 f10 e9 f9 f8))
+    (Purple (Man g8 h8 i8 g9 h9 g10))
+    (Yellow (Man h7 i7 j7 i6 j6 j5))
+    (Blue   (Man h4 h5 h6 i4 i5 j4))
+    (Green  (Man e6 f6 g6 f5 g5 g4))
+    (Orange (Man d7 e7 f7 d8 e8 d9))
+  )
+)

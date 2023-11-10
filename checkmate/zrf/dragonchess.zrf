@@ -1,0 +1,512 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define king-step (
+  $1 (verify not-friend?)
+  (verify (in-zone? l1-level))
+  add
+))
+
+(define warrior-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Hero)
+   else
+       add
+  )
+))
+
+(define warrior-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Hero)
+   else
+       add
+  )
+))
+
+(define hero-step (
+  $1 (verify not-friend?) add
+  $1 (verify not-friend?) add
+))
+
+(define jump (
+  $1 $2 (verify not-friend?)
+  (add $3)
+))
+
+(define slide (
+  $1 (while empty? 
+     add d 
+    (if enemy? 
+       (verify (not-piece? Basilisk))
+    ) u  
+  $1)
+  (verify not-friend?) add
+))
+
+(define mage-slide (
+  (verify (in-zone? l1-level))
+  $1 (while empty? 
+     add d 
+    (if enemy? 
+       (verify (not-piece? Basilisk))
+    ) u  
+  $1)
+  (verify not-friend?) add
+))
+
+(define mage-step (
+  (verify (not-in-zone? l1-level))
+  $1 (verify not-friend?) add
+))
+
+(define mage-jump (
+  $1 (verify not-friend?) add
+  (verify empty?)
+  $1 (verify not-friend?) add
+))
+
+(define paladin-jump (
+  (verify (in-zone? l1-level))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define paladin-move (
+  $1 $2 $3 (verify not-friend?)
+  add
+))
+
+(define sylph-shift (
+  (verify (in-zone? l2-level))
+  $1 (verify empty?) add
+))
+
+(define sylph-step (
+  (verify (in-zone? l2-level))
+  $1 (verify enemy?) add
+))
+
+(define griffon-fly (
+  (verify (in-zone? l2-level))
+  $1 $2 $2 (verify not-friend?)
+  add
+))
+
+(define shift (
+  $1 (verify empty?)
+  add
+))
+
+(define dwarf-step (
+  $1 (verify enemy?)
+  add
+))
+
+(define dwarf-jump (
+  $1 (verify enemy?)
+  (verify (in-zone? l1-level))
+  add
+))
+
+(define elemental-shift (
+  (verify (in-zone? l0-level))
+  $1 (verify empty?) add
+))
+
+(define elemental-step (
+  (verify (in-zone? l0-level))
+  $1 (verify not-friend?) add
+  $1 (verify not-friend?) add
+))
+
+(define elemental-up (
+  (verify (in-zone? l0-level))
+  $1 $2 (verify enemy?) add
+))
+
+(game
+  (title "Dragonchess")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/dragon/l1.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (50 0)) ; files
+           ("24/23/22/21/20/19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (links u
+         (a16 a24) (b16 b24) (c16 c24) (d16 d24) (e16 e24) (f16 f24) (g16 g24) (h16 h24) (i16 i24) (j16 j24) (k16 k24) (l16 l24)
+         (a15 a23) (b15 b23) (c15 c23) (d15 d23) (e15 e23) (f15 f23) (g15 g23) (h15 h23) (i15 i23) (j15 j23) (k15 k23) (l15 l23)
+         (a14 a22) (b14 b22) (c14 c22) (d14 d22) (e14 e22) (f14 f22) (g14 g22) (h14 h22) (i14 i22) (j14 j22) (k14 k22) (l14 l22)
+         (a13 a21) (b13 b21) (c13 c21) (d13 d21) (e13 e21) (f13 f21) (g13 g21) (h13 h21) (i13 i21) (j13 j21) (k13 k21) (l13 l21)
+         (a12 a20) (b12 b20) (c12 c20) (d12 d20) (e12 e20) (f12 f20) (g12 g20) (h12 h20) (i12 i20) (j12 j20) (k12 k20) (l12 l20)
+         (a11 a19) (b11 b19) (c11 c19) (d11 d19) (e11 e19) (f11 f19) (g11 g19) (h11 h19) (i11 i19) (j11 j19) (k11 k19) (l11 l19)
+         (a10 a18) (b10 b18) (c10 c18) (d10 d18) (e10 e18) (f10 f18) (g10 g18) (h10 h18) (i10 i18) (j10 j18) (k10 k18) (l10 l18)
+         (a9  a17) (b9  b17) (c9  c17) (d9  d17) (e9  e17) (f9  f17) (g9  g17) (h9  h17) (i9  i17) (j9  j17) (k9  k17) (l9  l17)
+         (a8  a16) (b8  b16) (c8  c16) (d8  d16) (e8  e16) (f8  f16) (g8  g16) (h8  h16) (i8  i16) (j8  j16) (k8  k16) (l8  l16)
+         (a7  a15) (b7  b15) (c7  c15) (d7  d15) (e7  e15) (f7  f15) (g7  g15) (h7  h15) (i7  i15) (j7  j15) (k7  k15) (l7  l15)
+         (a6  a14) (b6  b14) (c6  c14) (d6  d14) (e6  e14) (f6  f14) (g6  g14) (h6  h14) (i6  i14) (j6  j14) (k6  k14) (l6  l14)
+         (a5  a13) (b5  b13) (c5  c13) (d5  d13) (e5  e13) (f5  f13) (g5  g13) (h5  h13) (i5  i13) (j5  j13) (k5  k13) (l5  l13)
+         (a4  a12) (b4  b12) (c4  c12) (d4  d12) (e4  e12) (f4  f12) (g4  g12) (h4  h12) (i4  i12) (j4  j12) (k4  k12) (l4  l12)
+         (a3  a11) (b3  b11) (c3  c11) (d3  d11) (e3  e11) (f3  f11) (g3  g11) (h3  h11) (i3  i11) (j3  j11) (k3  k11) (l3  l11)
+         (a2  a10) (b2  b10) (c2  c10) (d2  d10) (e2  e10) (f2  f10) (g2  g10) (h2  h10) (i2  i10) (j2  j10) (k2  k10) (l2  l10)
+         (a1   a9) (b1   b9) (c1   c9) (d1   d9) (e1   e9) (f1   f9) (g1   g9) (h1   h9) (i1   i9) (j1   j9) (k1   k9) (l1   l9)
+     )
+     (links d
+         (a24 a16) (b24 b16) (c24 c16) (d24 d16) (e24 e16) (f24 f16) (g24 g16) (h24 h16) (i24 i16) (j24 j16) (k24 k16) (l24 l16)
+         (a23 a15) (b23 b15) (c23 c15) (d23 d15) (e23 e15) (f23 f15) (g23 g15) (h23 h15) (i23 i15) (j23 j15) (k23 k15) (l23 l15)
+         (a22 a14) (b22 b14) (c22 c14) (d22 d14) (e22 e14) (f22 f14) (g22 g14) (h22 h14) (i22 i14) (j22 j14) (k22 k14) (l22 l14)
+         (a21 a13) (b21 b13) (c21 c13) (d21 d13) (e21 e13) (f21 f13) (g21 g13) (h21 h13) (i21 i13) (j21 j13) (k21 k13) (l21 l13)
+         (a20 a12) (b20 b12) (c20 c12) (d20 d12) (e20 e12) (f20 f12) (g20 g12) (h20 h12) (i20 i12) (j20 j12) (k20 k12) (l20 l12)
+         (a19 a11) (b19 b11) (c19 c11) (d19 d11) (e19 e11) (f19 f11) (g19 g11) (h19 h11) (i19 i11) (j19 j11) (k19 k11) (l19 l11)
+         (a18 a10) (b18 b10) (c18 c10) (d18 d10) (e18 e10) (f18 f10) (g18 g10) (h18 h10) (i18 i10) (j18 j10) (k18 k10) (l18 l10)
+         (a17  a9) (b17  b9) (c17  c9) (d17  d9) (e17  e9) (f17  f9) (g17  g9) (h17  h9) (i17  i9) (j17  j9) (k17  k9) (l17  l9)
+         (a16  a8) (b16  b8) (c16  c8) (d16  d8) (e16  e8) (f16  f8) (g16  g8) (h16  h8) (i16  i8) (j16  j8) (k16  k8) (l16  l8)
+         (a15  a7) (b15  b7) (c15  c7) (d15  d7) (e15  e7) (f15  f7) (g15  g7) (h15  h7) (i15  i7) (j15  j7) (k15  k7) (l15  l7)
+         (a14  a6) (b14  b6) (c14  c6) (d14  d6) (e14  e6) (f14  f6) (g14  g6) (h14  h6) (i14  i6) (j14  j6) (k14  k6) (l14  l6)
+         (a13  a5) (b13  b5) (c13  c5) (d13  d5) (e13  e5) (f13  f5) (g13  g5) (h13  h5) (i13  i5) (j13  j5) (k13  k5) (l13  l5)
+         (a12  a4) (b12  b4) (c12  c4) (d12  d4) (e12  e4) (f12  f4) (g12  g4) (h12  h4) (i12  i4) (j12  j4) (k12  k4) (l12  l4)
+         (a11  a3) (b11  b3) (c11  c3) (d11  d3) (e11  e3) (f11  f3) (g11  g3) (h11  h3) (i11  i3) (j11  j3) (k11  k3) (l11  l3)
+         (a10  a2) (b10  b2) (c10  c2) (d10  d2) (e10  e2) (f10  f2) (g10  g2) (h10  h2) (i10  i2) (j10  j2) (k10  k2) (l10  l2)
+         (a9   a1) (b9   b1) (c9   c1) (d9   d1) (e9   e1) (f9   f1) (g9   g1) (h9   h1) (i9   i1) (j9   j1) (k9   k1) (l9   l1)
+     )
+     (unlink 
+         (a17 a16) (a16 a17) (b17 b16) (b16 b17) (c17 c16) (c16 c17) (d17 d16) (d16 d17)
+         (e17 e16) (e16 e17) (f17 f16) (f16 f17) (g17 g16) (g16 g17) (h17 h16) (h16 h17)
+         (i17 i16) (i16 i17) (j17 j16) (j16 j17) (k17 k16) (k16 k17) (l17 l16) (l16 l17)
+         (a17 b16) (b16 a17) (b17 c16) (c16 b17) (c17 d16) (d16 c17) (d17 e16) (e16 d17)
+         (e17 f16) (f16 e17) (f17 g16) (g16 f17) (g17 h16) (h16 g17) (h17 i16) (i16 h17)
+         (i17 j16) (j16 i17) (j17 k16) (k16 j17) (k17 l16) (l16 k17) (b17 a16) (a16 b17) 
+         (c17 b16) (b16 c17) (d17 c16) (c16 d17) (e17 d16) (d16 e17) (f17 e16) (e16 f17) 
+         (g17 f16) (f16 g17) (h17 g16) (g16 h17) (i17 h16) (h16 i17) (j17 i16) (i16 j17) 
+         (k17 j16) (j16 k17) (l17 k16) (k16 l17)
+         (a9 a8) (a8 a9) (b9 b8) (b8 b9) (c9 c8) (c8 c9) (d9 d8) (d8 d9)
+         (e9 e8) (e8 e9) (f9 f8) (f8 f9) (g9 g8) (g8 g9) (h9 h8) (h8 h9)
+         (i9 i8) (i8 i9) (j9 j8) (j8 j9) (k9 k8) (k8 k9) (l9 l8) (l8 l9)
+         (a9 b8) (b8 a9) (b9 c8) (c8 b9) (c9 d8) (d8 c9) (d9 e8) (e8 d9)
+         (e9 f8) (f8 e9) (f9 g8) (g8 f9) (g9 h8) (h8 g9) (h9 i8) (i8 h9)
+         (i9 j8) (j8 i9) (j9 k8) (k8 j9) (k9 l8) (l8 k9) (b9 a8) (a8 b9) 
+         (c9 b8) (b8 c9) (d9 c8) (c8 d9) (e9 d8) (d8 e9) (f9 e8) (e8 f9) 
+         (g9 f8) (f8 g9) (h9 g8) (g8 h9) (i9 h8) (h8 i9) (j9 i8) (i8 j9) 
+         (k9 j8) (j8 k9) (l9 k8) (k8 l9)
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e) (u u) (d d))
+     (zone (name l0-level) (players White Black)
+           (positions a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8  l8
+                      a7  b7  c7  d7  e7  f7  g7  h7  i7  j7  k7  l7
+                      a6  b6  c6  d6  e6  f6  g6  h6  i6  j6  k6  l6
+                      a5  b5  c5  d5  e5  f5  g5  h5  i5  j5  k5  l5
+                      a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4  l4
+                      a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3  l3
+                      a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1  l1
+           )
+     )
+     (zone (name l1-level) (players White Black)
+           (positions a16 b16 c16 d16 e16 f16 g16 h16 i16 j16 k16 l16
+                      a15 b15 c15 d15 e15 f15 g15 h15 i15 j15 k15 l15
+                      a14 b14 c14 d14 e14 f14 g14 h14 i14 j14 k14 l14
+                      a13 b13 c13 d13 e13 f13 g13 h13 i13 j13 k13 l13
+                      a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12
+                      a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11 l11
+                      a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10 l10
+                      a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9  l9
+           )
+     )
+     (zone (name l2-level) (players White Black)
+           (positions a24 b24 c24 d24 e24 f24 g24 h24 i24 j24 k24 l24
+                      a23 b23 c23 d23 e23 f23 g23 h23 i23 j23 k23 l23
+                      a22 b22 c22 d22 e22 f22 g22 h22 i22 j22 k22 l22
+                      a21 b21 c21 d21 e21 f21 g21 h21 i21 j21 k21 l21
+                      a20 b20 c20 d20 e20 f20 g20 h20 i20 j20 k20 l20
+                      a19 b19 c19 d19 e19 f19 g19 h19 i19 j19 k19 l19
+                      a18 b18 c18 d18 e18 f18 g18 h18 i18 j18 k18 l18
+                      a17 b17 c17 d17 e17 f17 g17 h17 i17 j17 k17 l17
+           )
+     )
+     (zone (name last-rank) (players White)
+           (positions a16 b16 c16 d16 e16 f16 g16 h16 i16 j16 k16 l16)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a9 b9 c9 d9 e9 f9 g9 h9 i9 j9 k9 l9)
+     )
+  )
+
+  (piece
+     (name King)
+     (image White "images/dragon/wking.bmp"
+            Black "images/dragon/bking.bmp")
+     (moves
+         (king-step n) (king-step s) (king-step w) (king-step e)
+         (king-step nw) (king-step sw) (king-step ne) (king-step se)
+         (step u) (step d)
+     )
+  )
+  (piece
+     (name Warrior)
+     (image White "images/dragon/wwarrior.bmp"
+            Black "images/dragon/bwarrior.bmp")
+     (moves
+         (warrior-step nw) (warrior-step ne)
+         (warrior-shift n)
+     )
+  )
+  (piece
+     (name Hero)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (hero-step nw) (hero-step ne) (hero-step sw) (hero-step se)
+         (jump u nw HeroDSE) (jump u ne HeroDSW)
+         (jump u sw HeroDNE) (jump u se HeroDNW)
+         (jump d nw HeroUSE) (jump d ne HeroUSW)
+         (jump d sw HeroUNE) (jump d se HeroUNW)
+     )
+  )
+  (piece
+     (name HeroDSE)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump d se Hero)
+     )
+  )
+  (piece
+     (name HeroDSW)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump d sw Hero)
+     )
+  )
+  (piece
+     (name HeroDNE)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump d ne Hero)
+     )
+  )
+  (piece
+     (name HeroDNW)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump d nw Hero)
+     )
+  )
+  (piece
+     (name HeroUSE)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump u se Hero)
+     )
+  )
+  (piece
+     (name HeroUSW)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump u sw Hero)
+     )
+  )
+  (piece
+     (name HeroUNE)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump u ne Hero)
+     )
+  )
+  (piece
+     (name HeroUNW)
+     (image White "images/dragon/whero.bmp"
+            Black "images/dragon/bhero.bmp")
+     (moves
+         (jump u nw Hero)
+     )
+  )
+  (piece
+     (name Oliphant)
+     (image White "images/dragon/woliphant.bmp"
+            Black "images/dragon/boliphant.bmp")
+     (moves
+         (slide n) (slide e) (slide w) (slide s)
+     )
+  )
+  (piece
+     (name Unicorn)
+     (image White "images/dragon/wunicorn.bmp"
+            Black "images/dragon/bunicorn.bmp")
+     (moves
+         (jump n nw Unicorn) (jump n ne Unicorn)
+         (jump s sw Unicorn) (jump s se Unicorn)
+         (jump w nw Unicorn) (jump w sw Unicorn)
+         (jump e ne Unicorn) (jump e se Unicorn)
+     )
+  )
+  (piece
+     (name Thief)
+     (image White "images/dragon/wthief.bmp"
+            Black "images/dragon/bthief.bmp")
+     (moves
+         (slide nw) (slide ne) (slide sw) (slide se)
+     )
+  )
+  (piece
+     (name Cleric)
+     (image White "images/dragon/wcleric.bmp"
+            Black "images/dragon/bcleric.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (step u) (step d)
+     )
+  )
+  (piece
+     (name Mage)
+     (image White "images/dragon/wmage.bmp"
+            Black "images/dragon/bmage.bmp")
+     (moves
+         (mage-slide nw) (mage-slide ne) (mage-slide sw) (mage-slide se)
+         (mage-slide n) (mage-slide e) (mage-slide w) (mage-slide s)
+         (mage-step n) (mage-step e) (mage-step w) (mage-step s)
+         (mage-jump u) (mage-jump d)
+     )
+  )
+  (piece
+     (name Paladin)
+     (image White "images/dragon/wpaladin.bmp"
+            Black "images/dragon/bpaladin.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+         (paladin-jump n nw) (paladin-jump n ne)
+         (paladin-jump s sw) (paladin-jump s se)
+         (paladin-jump w nw) (paladin-jump w sw)
+         (paladin-jump e ne) (paladin-jump e se)
+         (paladin-move u n n) (paladin-move u s s)
+         (paladin-move u w w) (paladin-move u e e)
+         (paladin-move d n n) (paladin-move d s s)
+         (paladin-move d w w) (paladin-move d e e)
+         (paladin-move u u n) (paladin-move u u s)
+         (paladin-move u u w) (paladin-move u u e)
+         (paladin-move d d n) (paladin-move d d s)
+         (paladin-move d d w) (paladin-move d d e)
+     )
+  )
+  (piece
+     (name Sylph)
+     (image White "images/dragon/wsylph.bmp"
+            Black "images/dragon/bsylph.bmp")
+     (moves
+         (sylph-shift nw) (sylph-shift ne)
+         (sylph-step n) (sylph-step d)
+         (step u)
+     )
+  )
+  (piece
+     (name Griffon)
+     (image White "images/dragon/wgriffon.bmp"
+            Black "images/dragon/bgriffon.bmp")
+     (moves
+         (griffon-fly n nw) (griffon-fly n ne)
+         (griffon-fly s sw) (griffon-fly s se)
+         (griffon-fly w nw) (griffon-fly w sw)
+         (griffon-fly e ne) (griffon-fly e se)
+         (king-step nw) (king-step sw) (king-step ne) (king-step se)
+         (jump u nw Griffon) (jump u ne Griffon)
+         (jump u sw Griffon) (jump u se Griffon)
+         (jump d nw Griffon) (jump d ne Griffon)
+         (jump d sw Griffon) (jump d se Griffon)
+     )
+  )
+  (piece
+     (name Dragon)
+     (image White "images/dragon/wdragon.bmp"
+            Black "images/dragon/bdragon.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (slide nw) (slide ne) (slide sw) (slide se)
+     )
+  )
+  (piece
+     (name Dwarf)
+     (image White "images/dragon/wdwarf.bmp"
+            Black "images/dragon/bdwarf.bmp")
+     (moves
+         (shift n) (shift e) (shift w)
+         (dwarf-step nw) (dwarf-step ne)
+         (dwarf-jump u) (shift d)
+     )
+  )
+  (piece
+     (name Basilisk)
+     (image White "images/dragon/wbasilisk.bmp"
+            Black "images/dragon/bbasilisk.bmp")
+     (moves
+         (step n) (step nw) (step ne) (shift s)
+     )
+  )
+  (piece
+     (name Elemental)
+     (image White "images/dragon/welemental.bmp"
+            Black "images/dragon/belemental.bmp")
+     (moves
+         (elemental-shift nw) (elemental-shift ne) (elemental-shift sw) (elemental-shift se)
+         (elemental-step n) (elemental-step e) (elemental-step w) (elemental-step s)
+         (elemental-up n u) (elemental-up e u) (elemental-up w u) (elemental-up s u)
+         (jump d n Elemental) (jump d e Elemental) (jump d w Elemental) (jump d s Elemental)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Sylph a18 c18 e18 g18 i18 k18)
+         (Griffon c17 k17)
+         (Dragon g17)
+         (Dwarf b2 d2 f2 h2 j2 l2)
+         (Basilisk c1 k1)
+         (Elemental g1)
+         (Warrior a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10 l10)
+         (Oliphant a9 l9)
+         (Unicorn b9 k9)
+         (Hero c9 j9)
+         (Thief d9 i9)
+         (Cleric e9)
+         (Mage f9)
+         (Paladin h9)
+         (King g9)
+    )
+    (Black 
+         (Sylph a23 c23 e23 g23 i23 k23)
+         (Griffon c24 k24)
+         (Dragon g24)
+         (Dwarf b7 d7 f7 h7 j7 l7)
+         (Basilisk c8 k8)
+         (Elemental g8)
+         (Warrior a15 b15 c15 d15 e15 f15 g15 h15 i15 j15 k15 l15)
+         (Oliphant a16 l16)
+         (Unicorn b16 k16)
+         (Hero c16 j16)
+         (Thief d16 i16)
+         (Cleric e16)
+         (Mage f16)
+         (Paladin h16)
+         (King g16)
+    )
+  )
+)

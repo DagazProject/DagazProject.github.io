@@ -1,0 +1,152 @@
+(define step (
+  $1 add
+))
+
+(define check-down
+  (if (on-board? down)
+      mark down
+      (verify empty?)
+      back
+  )
+)
+
+(define leap (
+  $1 $2 (verify empty?)
+  (check-down)
+ add
+))
+
+(define shaman-step (
+  $1 (verify empty?)
+  (check-down) add
+  $1 (verify empty?)
+  (check-down) add
+))
+
+(game
+   (title "Elephant Hunt")
+
+   (win-sound "Audio\\Orchestra_CF.wav")
+   (loss-sound "Audio\\Orchestra_FC.wav")
+   (click-sound "Audio\\Pickup.wav")
+   (release-sound "Audio\\WoodThunk.wav")
+   (move-sound "Audio\\EleHunt\\Elephant.wav")
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/elehunt/board.bmp")
+      (grid
+         (start-rectangle 8 8 48 48)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i/j" (45 0)) ; files
+             ("0/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (grid
+         (start-rectangle 51 51 141 141)
+         (dimensions
+             ("a/b/c/d" (90 0)) ; files
+             ("d/c/b/a" (0 90)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (links unw
+         (aa b3) (ba d3) (ca f3) (da h3)
+         (ab b5) (bb d5) (cb f5) (db h5)
+         (ac b7) (bc d7) (cc f7) (dc h7)
+         (ad b9) (bd d9) (cd f9) (dd h9)
+      )
+      (links usw
+         (aa b2) (ba d2) (ca f2) (da h2)
+         (ab b4) (bb d4) (cb f4) (db h4)
+         (ac b6) (bc d6) (cc f6) (dc h6)
+         (ad b8) (bd d8) (cd f8) (dd h8)
+     )
+     (links une
+         (aa c3) (ba e3) (ca g3) (da i3)
+         (ab c5) (bb e5) (cb g5) (db i5)
+         (ac c7) (bc e7) (cc g7) (dc i7)
+         (ad c9) (bd e9) (cd g9) (dd i9)
+     )
+     (links use
+         (aa c2) (ba e2) (ca g2) (da i2)
+         (ab c4) (bb e4) (cb g4) (db i4)
+         (ac c6) (bc e6) (cc g6) (dc i6)
+         (ad c8) (bd e8) (cd g8) (dd i8)
+     )
+     (links down
+        (b2 aa) (b3 aa) (b4 ab) (b5 ab) (b6 ac) (b7 ac) (b8 ad) (b9 ad)
+        (c2 aa) (c3 aa) (c4 ab) (c5 ab) (c6 ac) (c7 ac) (c8 ad) (c9 ad)
+        (d2 ba) (d3 ba) (d4 bb) (d5 bb) (d6 bc) (d7 bc) (d8 bd) (d9 bd)
+        (e2 ba) (e3 ba) (e4 bb) (e5 bb) (e6 bc) (e7 bc) (e8 bd) (e9 bd)
+        (f2 ca) (f3 ca) (f4 cb) (f5 cb) (f6 cc) (f7 cc) (f8 cd) (f9 cd)
+        (g2 ca) (g3 ca) (g4 cb) (g5 cb) (g6 cc) (g7 cc) (g8 cd) (g9 cd)
+        (h2 da) (h3 da) (h4 db) (h5 db) (h6 dc) (h7 dc) (h8 dd) (h9 dd)
+        (i2 da) (i3 da) (i4 db) (i5 db) (i6 dc) (i7 dc) (i8 dd) (i9 dd)
+     )
+   )
+
+   (option "animate captures"  false)
+   (option "elehunt-extension" true)
+
+   (board-setup
+      (Black
+         (Shaman a1)
+         (Pygmy a9 a7 a5 a3 c1 e1 g1 i1)
+      )
+      (White
+         (Elephant dd)
+      )
+   )
+
+   (piece
+      (name Pygmy) 
+      (help "Pygmy: leaps like a chess Knight.")
+      (description "Pygmy\A Pygmy moves like an `L`, two squares vertically plus one
+          horizontally, or two squares horizontally plus one vertically.  It hops over
+          any pieces on the way.")
+      (image Black "images/elehunt/pygmy.bmp")
+      (moves
+         (leap n ne) (leap n nw)
+         (leap s se) (leap s sw)
+         (leap e ne) (leap e se)
+         (leap w nw) (leap w sw)
+      )
+   )
+
+   (piece
+      (name Shaman)
+      (help "Shaman: moves one or two squares orthogonally or diagonally")
+      (description "Shaman\A Shaman moves one or two squares in any direction,
+          including diagonally.  It cannot leap over other pieces.")
+      (image Black "images/elehunt/shaman.bmp")
+      (moves
+         (shaman-step n) (shaman-step nw)
+         (shaman-step s) (shaman-step se)
+         (shaman-step e) (shaman-step ne)
+         (shaman-step w) (shaman-step sw)
+      )
+   )
+
+   (piece
+      (name Elephant) 
+      (help "Elephant: moves two squares orthogonally.")
+      (description "Elephant\A Elephant moves exactly two squares in each orthogonal
+          direction.  You can think of it as making single-square steps, except that
+          its squares are twice as big.")
+      (image White "images/elehunt/elephant.bmp")
+      (moves
+         (step n) (step s)
+         (step e) (step w)
+      )                   
+   )
+
+   (loss-condition (White) (captured Elephant) )
+   (loss-condition (Black) (pieces-remaining 4) )
+   (loss-condition (White Black) repetition )
+)

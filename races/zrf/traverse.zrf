@@ -1,0 +1,212 @@
+(define drop (
+  (verify empty?)
+  (verify (in-zone? home-zone))
+  add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump-1 (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-2 (
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define jump-4 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(game
+  (title "Traverse")
+  (default)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"        false)
+  (option "smart moves"             false)
+  (option "pass partial"            true)
+
+  (players South West North East)
+  (turn-order South West North East)
+
+  (board
+     (image "images/traverse/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("X/a/b/c/d/e/f/g/h/Y" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1/0" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry North (n s) (s n) (e w) (w e)
+              (ne sw) (sw ne) (nw se) (se nw) (nx nx) (sr nr)
+     )
+     (symmetry West  (n e) (s w) (e s) (w n)
+              (nw ne) (sw nw) (ne se) (se sw) (nx nx) (sr wr)
+     )
+     (symmetry East  (n w) (s e) (e n) (w s)
+              (nw sw) (sw se) (ne nw) (se ne) (nx nx) (sr er)
+     )
+;    (kill-positions X0 X9 Y0 Y9)
+     (zone (name goal-zone) (players South)
+           (positions a9 b9 c9 d9 e9 f9 g9 h9)
+     )
+     (zone (name goal-zone) (players West)
+           (positions Y1 Y2 Y3 Y4 Y5 Y6 Y7 Y8)
+     )
+     (zone (name goal-zone) (players North)
+           (positions a0 b0 c0 d0 e0 f0 g0 h0)
+     )
+     (zone (name goal-zone) (players East)
+           (positions X1 X2 X3 X4 X5 X6 X7 X8)
+     )
+     (zone (name home-zone) (players South)
+           (positions a0 b0 c0 d0 e0 f0 g0 h0)
+     )
+     (zone (name home-zone) (players West)
+           (positions X1 X2 X3 X4 X5 X6 X7 X8)
+     )
+     (zone (name home-zone) (players North)
+           (positions a9 b9 c9 d9 e9 f9 g9 h9)
+     )
+     (zone (name home-zone) (players East)
+           (positions Y1 Y2 Y3 Y4 Y5 Y6 Y7 Y8)
+     )
+  )
+
+  (piece
+     (name T)
+     (image South "images/traverse/st.bmp"
+            West  "images/traverse/wt.bmp"
+            North "images/traverse/nt.bmp"
+            East  "images/traverse/et.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne) (step s)
+         (move-type continue-type)
+         (jump-1 nw) (jump-1 ne) (jump-1 s)
+         (jump-2 nw) (jump-2 ne) (jump-2 s)
+         (jump-3 nw) (jump-3 ne) (jump-3 s)
+         (jump-4 nw) (jump-4 ne) (jump-4 s)
+     )
+  )
+  (piece
+     (name S)
+     (image South "images/traverse/ss.bmp"
+            West  "images/traverse/ws.bmp"
+            North "images/traverse/ns.bmp"
+            East  "images/traverse/es.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step e) (step w) (step s)
+         (move-type continue-type)
+         (jump-1 n) (jump-1 e) (jump-1 w) (jump-1 s)
+         (jump-2 n) (jump-2 e) (jump-2 w) (jump-2 s)
+         (jump-3 n) (jump-3 e) (jump-3 w) (jump-3 s)
+         (jump-4 n) (jump-4 e) (jump-4 w) (jump-4 s)
+     )
+  )
+  (piece
+     (name R)
+     (image South "images/traverse/sr.bmp"
+            West  "images/traverse/wr.bmp"
+            North "images/traverse/nr.bmp"
+            East  "images/traverse/er.bmp")
+     (moves
+         (move-type normal-type)
+         (step nw) (step ne) (step sw) (step se)
+         (move-type continue-type)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se)
+         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se)
+         (jump-4 nw) (jump-4 ne) (jump-4 sw) (jump-4 se)
+     )
+  )
+  (piece
+     (name C)
+     (image South "images/traverse/sc.bmp"
+            West  "images/traverse/wc.bmp"
+            North "images/traverse/nc.bmp"
+            East  "images/traverse/ec.bmp")
+     (drops
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (step n) (step nw) (step e) (step ne)
+         (step w) (step sw) (step s) (step se)
+         (move-type continue-type)
+         (jump-1 n) (jump-1 nw) (jump-1 e) (jump-1 ne)
+         (jump-1 w) (jump-1 sw) (jump-1 s) (jump-1 se)
+         (jump-2 n) (jump-2 nw) (jump-2 e) (jump-2 ne)
+         (jump-2 w) (jump-2 sw) (jump-2 s) (jump-2 se)
+         (jump-3 n) (jump-3 nw) (jump-3 e) (jump-3 ne)
+         (jump-3 w) (jump-3 sw) (jump-3 s) (jump-3 se)
+         (jump-4 n) (jump-4 nw) (jump-4 e) (jump-4 ne)
+         (jump-4 w) (jump-4 sw) (jump-4 s) (jump-4 se)
+     )
+  )
+
+  (board-setup
+    (South 
+         (S a0 h0)
+         (T b0 g0)
+         (R c0 f0)
+         (C d0 e0)
+    )
+    (West
+         (S X1 X8)
+         (T X2 X7)
+         (R X3 X6)
+         (C X4 X5)
+    )
+    (North
+         (S a9 h9)
+         (T b9 g9)
+         (R c9 f9)
+         (C d9 e9)
+    )
+    (East
+         (S Y1 Y8)
+         (T Y2 Y7)
+         (R Y3 Y6)
+         (C Y4 Y5)
+    )
+  )
+)

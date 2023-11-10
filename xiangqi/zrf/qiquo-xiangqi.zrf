@@ -1,0 +1,434 @@
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define glide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define step-1 (
+  $1 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define step-3 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define step-4 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define step-5 (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define jump-1 (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define jump-2 (
+  $1 (verify empty?)
+  $2 (verify empty?)
+  $2 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(define jump-3 (
+  $1 (verify empty?)
+  $2 (verify empty?)
+  $2 (verify empty?)
+  $2 (verify not-friend?)
+  (verify (not-piece? Xing))
+  add
+))
+
+(game
+  (title "Qiquo Xiangqi")
+  (description "Seven armies in this game symbolize the seven Warring States (403-221 B.C.).\
+                Each of seven kingdoms: Qin (white), Chu (red), Han (orange), Qi (indigo),\
+                Wei (green), Zhao (purple), Yan (black) has a team of seventeen pieces:\
+                one  General (Jiang) - moves like the Queen in modern Western Chess.\
+                one  Deputy General (Pian) - moves like the Rook in modern Western Chess.\
+                one  Officer (Bai)   - moves like the Bishop in modern Western Chess.\
+                one  Diplomat (Xing ren) - like Queen, but cannot capture or be captured.\
+                one  Cannon (Pao)   - like the Cannon (Pao) in XiangQi (moves like the Rook),\
+                                      (but captures vaulting over one intervening piece).\
+                one  Archer (Gong)  - moves like the Queen; captures only up to four spaces.\
+                one  Crossbow (Nu)  - moves like the Queen; captures only up to five spaces.\
+                two  Scimitar (Dao) - moves one space diagonally.\
+                four Straightsword (Jian) - moves one space vertically or horizontally.\
+                four Horseman (Qi)  - moves one space in a straight line and then three spaces diagonally.\
+                One  Zhou Emperor (Huang Di) sits in the center of the board.\
+                The  Zhou Emperor (Huang Di) does not move, is invulnerable to capture,\
+                                      and does not participate in the game\
+                                      other than to block any movement through the center of the board,\
+                                      except for the Cannon (Pao)'s vaulting capturing leap.\\
+                A player wins over another state\
+                by capturing its General or by reducing his army to seven pieces.\
+                When either a player's General or a player's tenth piece is captured,\
+                all of that player's remaining pieces are removed from the board.\\
+                In the traditional game, the winner is the player capturing the most pieces.\
+                The winner takes a special victory drink.  Then the losers each take a drink.\
+                A player capturing two Generals, or thirty lesser pieces, is declared Hegemon.\
+                All the other states avow their submission to him,\
+                and everyone drinks another round."
+  )
+  (history "The Game of the Seven Kingdoms (Qiquo XiangQi)\
+            is a seven-player variant of the game XiangQi (Chinese Chess).\
+            Qiquo XiangQi was invented by Sima Guang (1019-1086),\
+            historian and high Chancellor of the Southern Song dynasty.\
+            Retired scholar Pei Zixi from Yizheng\
+            obtained a copy of the text of this game's rules\
+            and had them engraved on wooden blocks\
+            so that they would be widely transmitted.\
+            Qiquo XiangQi rules were printed on 24 February 1206,\
+            the day of the Lantern Festival, in the second year of the Kaixi era,\
+            under the reign of Emperor Ningzong of Southern Song dynasty.\\
+            Qiquo Xiangxi has special importance in the history of Chess.\
+            Qiquo Xiangxi is the earliest known game containing the Cannon (Pao).\
+            Qiquo Xiangxi is the first Chinese Chess game whose complete rules are known.\
+            Qiquo Xiangxi is the earliest known game\
+                                with pieces moving like modern European Queen and Bishop.\
+            The Courier, moving like the modern Bishop,\
+                                first appears in Europe in the Courier Game.\
+            The Courier Game is mentioned in Wigalois, a German poem dated from 1205.\
+            The Queen first appears in European Chess in place of the Firzan around 1475.\\
+            references: http://history.chess.free.fr/qiguoxiangxi.htm\
+                                http://www.chessvariants.com/old.dir/ochin7.html"
+  )
+
+   (move-sound "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (capture-sound "")
+
+   (option "smart moves"       true)
+   (option "animate captures"  false)
+   (option "pass turn"         forced)
+   (option "qiquo-extension"   true)
+
+   (players Qin Chu Han Qi Wei Zhao Yan Zhou)
+   (turn-order Qin Chu Han Qi Wei Zhao Yan)
+
+  (board
+    (image "images/qiquo/19x19.bmp")
+    (grid ; game board
+      (start-rectangle 15 15 46 46)
+      (dimensions
+        ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (32 0)) ; files
+        ("A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S"           (0 32)) ; ranks
+      )
+      (directions 
+        (n    0 -1) (s   0  1) (e   1  0) (w  -1  0) 
+        (nw  -1 -1) (sw -1  1) (ne  1 -1) (se  1  1) 
+      ) 
+    )
+  )
+
+  (piece
+     (name Jiang)
+     (notation    "General (Jiang)")
+     (help        "General (Jiang):  Moves or captures vertically, horizontally, or diagonally with no limit on distance.")
+     (description "General (Jiang):  Moves or captures vertically, horizontally, or diagonally\
+                   with no limit on distance.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.")
+     (image Chu   "Images/qiquo-kanji/q-chu.bmp" 
+            Han   "Images/qiquo-kanji/q-han.bmp" 
+            Qi    "Images/qiquo-kanji/q-qi.bmp" 
+            Wei   "Images/qiquo-kanji/q-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/q-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/q-yan.bmp" 
+            Qin   "Images/qiquo-kanji/q-qin.bmp")
+     (moves 
+        (slide e)  (slide s)  (slide w)  (slide n)
+        (slide ne) (slide se) (slide sw) (slide nw)
+     )
+  )
+  (piece
+     (name Pian)
+     (notation    "Deputy General (Pian)")
+     (help        "Deputy General (Pian):  Moves or captures vertically or horizontally with no limit on distance.")
+     (description "Deputy General (Pian):  Moves or captures vertically or horizontally\
+                   with no limit on distance.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.")
+     (image Chu   "Images/qiquo-kanji/r-chu.bmp" 
+            Han   "Images/qiquo-kanji/r-han.bmp" 
+            Qi    "Images/qiquo-kanji/r-qi.bmp" 
+            Wei   "Images/qiquo-kanji/r-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/r-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/r-yan.bmp" 
+            Qin   "Images/qiquo-kanji/r-qin.bmp")
+     (moves
+        (slide e)  (slide s)  (slide w)  (slide n)
+     )
+  )
+  (piece
+     (name Bai)
+     (notation    "Officer (Bai)")
+     (help        "Officer (Bai):  Moves or captures diagonally with no limit on distance.")
+     (description "Officer (Bai):  Moves or captures diagonally\
+                   with no limit on distance.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.")
+     (image Chu   "Images/qiquo-kanji/b-chu.bmp" 
+            Han   "Images/qiquo-kanji/b-han.bmp" 
+            Qi    "Images/qiquo-kanji/b-qi.bmp" 
+            Wei   "Images/qiquo-kanji/b-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/b-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/b-yan.bmp" 
+            Qin   "Images/qiquo-kanji/b-qin.bmp")
+     (moves                   
+        (slide ne) (slide se) (slide sw) (slide nw)
+     )
+  )
+  (piece
+     (name Xing)
+     (notation    "Diplomat (Xing Ren)")
+     (help        "Diplomat (Xing Ren):  Moves vertically, horizontally, or diagonally with no limit on distance.  Does not capture.  Invulnerable.")
+     (description "Diplomat (Xing Ren):  Moves vertically, horizontally, or diagonally\
+                   with no limit on distance.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.\
+                   Diplomat may not engage in combat, and may not be killed.")
+     (image Chu   "Images/qiquo-kanji/d-chu.bmp" 
+            Han   "Images/qiquo-kanji/d-han.bmp" 
+            Qi    "Images/qiquo-kanji/d-qi.bmp" 
+            Wei   "Images/qiquo-kanji/d-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/d-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/d-yan.bmp" 
+            Qin   "Images/qiquo-kanji/d-qin.bmp"
+            Zhou  "images/qiquo-kanji/d-zhou.bmp")
+     (moves                   
+        (glide e)  (glide s)  (glide w)  (glide n)
+        (glide ne) (glide se) (glide sw) (glide nw)
+     )
+  )
+  (piece
+     (name Pao)
+     (notation    "Cannon (Pao)")
+     (help        "Cannon (Pao):  Moves vertically or horizontally with no limit on distance.  Captures second piece.")
+     (description "Cannon (Pao):  Moves vertically or horizontally\
+                   with no limit on distance.\
+                   Captures second piece vertically or horizontally\
+                   with no limit on distance.\
+                   There must be an intervening piece\
+                   for the Cannon to capture an enemy piece.\
+                   The Cannon may not use its jumping ability\
+                   for a non-capturing move.\
+                   If the Cannon jumps, it must capture.")
+     (image Chu   "Images/qiquo-kanji/p-chu.bmp" 
+            Han   "Images/qiquo-kanji/p-han.bmp" 
+            Qi    "Images/qiquo-kanji/p-qi.bmp" 
+            Wei   "Images/qiquo-kanji/p-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/p-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/p-yan.bmp" 
+            Qin   "Images/qiquo-kanji/p-qin.bmp")
+     (moves                    
+        (shoot e)  (shoot s)  (shoot w)  (shoot n)
+     )
+  )
+  (piece
+     (name Gong)
+     (notation    "Archer (Gong)")
+     (help        "Archer (Gong):  Moves or captures one to four spaces vertically, horizontally, or diagonally.")
+     (description "Archer (Gong):  Moves or captures one to four spaces in a straight line\
+                   vertically, horizontally, or diagonally.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.")
+     (image Chu   "Images/qiquo-kanji/l-chu.bmp" 
+            Han   "Images/qiquo-kanji/l-han.bmp" 
+            Qi    "Images/qiquo-kanji/l-qi.bmp" 
+            Wei   "Images/qiquo-kanji/l-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/l-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/l-yan.bmp" 
+            Qin   "Images/qiquo-kanji/l-qin.bmp")
+     (moves                     
+        (step-1 n)  (step-1 s)  (step-1 w)  (step-1 e)
+        (step-1 nw) (step-1 sw) (step-1 ne) (step-1 se)
+        (step-2 n)  (step-2 s)  (step-2 w)  (step-2 e)
+        (step-2 nw) (step-2 sw) (step-2 ne) (step-2 se)
+        (step-3 n)  (step-3 s)  (step-3 w)  (step-3 e)
+        (step-3 nw) (step-3 sw) (step-3 ne) (step-3 se)
+        (step-4 n)  (step-4 s)  (step-4 w)  (step-4 e)
+        (step-4 nw) (step-4 sw) (step-4 ne) (step-4 se)
+     )
+  )
+  (piece
+     (name Nu)
+     (notation    "CrossBow (Nu)")
+     (help        "CrossBow (Nu):  Moves or captures one to five spaces vertically, horizontally, or diagonally.")
+     (description "CrossBow (Nu):  Moves or captures one to five spaces in a straight line\
+                   vertically, horizontally, or diagonally.\
+                   When moving more than one space,\
+                   all intermediate spaces must be empty.")
+     (image Chu   "Images/qiquo-kanji/s-chu.bmp" 
+            Han   "Images/qiquo-kanji/s-han.bmp" 
+            Qi    "Images/qiquo-kanji/s-qi.bmp" 
+            Wei   "Images/qiquo-kanji/s-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/s-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/s-yan.bmp" 
+            Qin   "Images/qiquo-kanji/s-qin.bmp")
+     (moves                   
+        (step-1 n)  (step-1 s)  (step-1 w)  (step-1 e)
+        (step-1 nw) (step-1 sw) (step-1 ne) (step-1 se)
+        (step-2 n)  (step-2 s)  (step-2 w)  (step-2 e)
+        (step-2 nw) (step-2 sw) (step-2 ne) (step-2 se)
+        (step-3 n)  (step-3 s)  (step-3 w)  (step-3 e)
+        (step-3 nw) (step-3 sw) (step-3 ne) (step-3 se)
+        (step-4 n)  (step-4 s)  (step-4 w)  (step-4 e)
+        (step-4 nw) (step-4 sw) (step-4 ne) (step-4 se)
+        (step-5 n)  (step-5 s)  (step-5 w)  (step-5 e)
+        (step-5 nw) (step-5 sw) (step-5 ne) (step-5 se)
+     )
+  )
+  (piece
+     (name Ma)
+     (notation    "Horseman (Qi)")
+     (help        "Horseman (Qi):  Moves one space in a straight line and then three spaces diagonally.")
+     (description "Horseman (Qi):  In the original game, moved or captured four spaces:\
+                   one space orthogonally then three spaces outward diagonally.\
+                   All three intermediate spaces had to be empty:\
+                   the one orthogonal step and the three diagonal steps.\
+                   Captures like Chinese or Korean Horse (Ma) or like Korean Elephant (Sang).")
+     (image Chu   "Images/qiquo-kanji/n-chu.bmp" 
+            Han   "Images/qiquo-kanji/n-han.bmp" 
+            Qi    "Images/qiquo-kanji/n-qi.bmp" 
+            Wei   "Images/qiquo-kanji/n-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/n-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/n-yan.bmp" 
+            Qin   "Images/qiquo-kanji/n-qin.bmp")
+     (moves                   
+        (step-1 n) (step-1 s) (step-1 w) (step-1 e)
+        (jump-1 n nw) (jump-1 n ne) (jump-1 e ne) (jump-1 e se)
+        (jump-1 s sw) (jump-1 s se) (jump-1 w nw) (jump-1 w sw)
+        (jump-2 n nw) (jump-2 n ne) (jump-2 e ne) (jump-2 e se)
+        (jump-2 s sw) (jump-2 s se) (jump-2 w nw) (jump-2 w sw)
+        (jump-3 n nw) (jump-3 n ne) (jump-3 e ne) (jump-3 e se)
+        (jump-3 s sw) (jump-3 s se) (jump-3 w nw) (jump-3 w sw)
+     )
+  )
+  (piece
+     (name Dao)
+     (notation    "Scimitar (Dao)")
+     (help        "Scimitar (Dao):  Moves one space diagonally.")
+     (description "Scimitar (Dao):  Moved or captured one space diagonally.")
+     (image Chu   "Images/qiquo-kanji/k-chu.bmp" 
+            Han   "Images/qiquo-kanji/k-han.bmp" 
+            Qi    "Images/qiquo-kanji/k-qi.bmp" 
+            Wei   "Images/qiquo-kanji/k-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/k-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/k-yan.bmp" 
+            Qin   "Images/qiquo-kanji/k-qin.bmp")
+     (moves                   
+        (step-1 nw) (step-1 sw) (step-1 ne) (step-1 se)
+     )
+  )
+  (piece
+     (name Jian)
+     (notation    "StraightSword (Jian)")
+     (help        "StraightSword (Jian):  Moves one space vertically or horizontally.")
+     (description "StraightSword (Jian):  Moved or captured one space vertically or horizontally.")
+     (image Chu   "Images/qiquo-kanji/c-chu.bmp" 
+            Han   "Images/qiquo-kanji/c-han.bmp" 
+            Qi    "Images/qiquo-kanji/c-qi.bmp" 
+            Wei   "Images/qiquo-kanji/c-wei.bmp" 
+            Zhao  "Images/qiquo-kanji/c-zhao.bmp" 
+            Yan   "Images/qiquo-kanji/c-yan.bmp" 
+            Qin   "Images/qiquo-kanji/c-qin.bmp")
+     (moves                   
+        (step-1 n) (step-1 s) (step-1 w) (step-1 e)
+     )
+  )
+
+  (board-setup
+     (Zhou (Xing 10J))
+     (Chu  (Jiang 14S) (Pian 15S) (Bai 13S) (Pao 14R) (Jian 12S 16S 13R 15R) (Dao 13Q 15Q) (Ma 11S 17S 12R 16R)
+           (Nu 14Q) (Gong 14P) (Xing 14O))
+     (Han  (Jiang  6S) (Pian  7S) (Bai  5S) (Pao  6R) (Jian  4S  8S  5R  7R) (Dao  5Q  7Q) (Ma  3S  9S  4R  8R)
+           (Nu  6Q) (Gong  6P) (Xing  6O))
+     (Qi   (Jiang  1N) (Pian  1O) (Bai  1M) (Pao  2N) (Jian  1P  1L  2O  2M) (Dao  3O  3M) (Ma  1K  1Q  2L  2P)
+           (Nu  3N) (Gong  4N) (Xing  5N))
+     (Wei  (Jiang  1F) (Pian  1G) (Bai  1E) (Pao  2F) (Jian  1H  1D  2G  2E) (Dao  3G  3E) (Ma  1C  1I  2D  2H)
+           (Nu  3F) (Gong  4F) (Xing  5F))
+     (Zhao (Jiang  6A) (Pian  5A) (Bai  7A) (Pao  6B) (Jian  4A  8A  5B  7B) (Dao  5C  7C) (Ma  3A  9A  4B  8B)
+           (Nu  6C) (Gong  6D) (Xing  6E))
+     (Yan  (Jiang 14A) (Pian 13A) (Bai 15A) (Pao 14B) (Jian 12A 16A 13B 15B) (Dao 13C 15C) (Ma 11A 17A 12B 16B)
+           (Nu 14C) (Gong 14D) (Xing 14E))
+     (Qin  (Jiang 19J) (Pian 19I) (Bai 19K) (Pao 18J) (Jian 19H 19L 18I 18K) (Dao 17K 17I) (Ma 19G 19M 18H 18L)
+           (Nu 17J) (Gong 16J) (Xing 15J))
+  )
+)
+
+(variant
+  (title "Qiquo Xiangqi")
+  (board-setup
+     (Zhou (Xing 10J))
+     (Chu  (Jiang 5P) (Pian 15S) (Bai 13S) (Pao 14R) (Jian 12S 16S 13R 15R) (Dao 13Q 15Q) (Ma 11S 17S 12R 16R)
+           (Nu 14Q) (Gong 14P) (Xing 14O))
+     (Han  (Jiang  6S) (Pian  7S) (Bai  5S) (Pao  6R) (Jian  4S  8S  5R  7R) (Dao  5Q  7Q) (Ma  3S  9S  4R  8R)
+           (Nu  6Q) (Gong  6P) (Xing  6O))
+     (Qi   (Jiang  13O) (Pian  1O) (Bai  1M) (Pao  2N) (Jian  1P  1L  2O  2M) (Dao  3O  3M) (Ma  1K  1Q  2L  2P)
+           (Nu  3N) (Gong  4N) (Xing  5N))
+     (Wei  (Jiang  7O) (Pian  1G) (Bai  1E) (Pao  2F) (Jian  1H  1D  2G  2E) (Dao  3G  3E) (Ma  1C  1I  2D  2H)
+           (Nu  3F) (Gong  4F) (Xing  5F))
+     (Zhao (Jiang  16I) (Pian  5A) (Bai  7A) (Pao  6B) (Jian  4A  8A  5B  7B) (Dao  5C  7C) (Ma  3A  9A  4B  8B)
+           (Nu  6C) (Gong  6D) (Xing  6E))
+     (Yan  (Jiang 7D) (Pian 13A) (Bai 15A) (Pao 14B) (Jian 12A 16A 13B 15B) (Dao 13C 15C) (Ma 11A 17A 12B 16B)
+           (Nu 14C) (Gong 14D) (Xing 14E))
+     (Qin  (Jiang 15P) (Pian 19I) (Bai 19K) (Pao 18J) (Jian 19H 19L 18I 18K) (Dao 17K 17I) (Ma 19G 19M 18H 18L)
+           (Nu 17J) (Gong 16J) (Xing 15J))
+  )
+)

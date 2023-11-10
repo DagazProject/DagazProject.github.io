@@ -1,0 +1,227 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add K1)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial K1 continue-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define spanish-checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add K1)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Tribunes")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+     (zone (name best) (players White)
+           (positions c5 f6)
+     )
+     (zone (name best) (players Black)
+           (positions f4 c3)
+     )
+  )
+
+  (piece
+     (name M1)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name M2)
+     (image White "images/wman-2.bmp"
+            Black "images/bman-2.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name M3)
+     (image White "images/wman-3.bmp"
+            Black "images/bman-3.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump nw) (checker-jump ne) (checker-jump sw) (checker-jump se)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name K1)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type continue-type)
+         (king-continue nw) (king-continue ne) (king-continue sw) (king-continue se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+  (piece
+     (name K2)
+     (image White "images/wdamone-2.bmp"
+            Black "images/bdamone-2.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type continue-type)
+         (king-continue nw) (king-continue ne) (king-continue sw) (king-continue se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+  (piece
+     (name K3)
+     (image White "images/wdamone-3.bmp"
+            Black "images/bdamone-3.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type continue-type)
+         (king-continue nw) (king-continue ne) (king-continue sw) (king-continue se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White (M3 a1 c1 e1 g1) (M2 b2 d2 f2 h2) (M1 a3 c3 e3 g3))
+    (Black (M3 b8 d8 f8 h8) (M2 a7 c7 e7 g7) (M1 b6 d6 f6 h6))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Spanish Tribunes")
+
+  (piece
+     (name M1)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (spanish-checker-jump nw) (spanish-checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name M2)
+     (image White "images/wman-2.bmp"
+            Black "images/bman-2.bmp")
+     (moves
+         (move-type jump-type)
+         (spanish-checker-jump nw) (spanish-checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name M3)
+     (image White "images/wman-3.bmp"
+            Black "images/bman-3.bmp")
+     (moves
+         (move-type jump-type)
+         (spanish-checker-jump nw) (spanish-checker-jump ne)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+)

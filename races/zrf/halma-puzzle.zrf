@@ -1,0 +1,251 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Halma Puzzle 9x9")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"        false)
+  (option "smart moves"             false)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (image "images/halma/9x9-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions g9 h9 i9 g8 h8 i8 g7 h7 i7)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image You "images/halma/wman.bmp")
+     (moves
+         (step n) (step nw)
+         (step e) (step ne)
+         (step w) (step sw)
+         (step s) (step se)
+         (jump n) (jump nw)
+         (jump e) (jump ne)
+         (jump w) (jump sw)
+         (jump s) (jump se)
+     )
+  )
+
+  (board-setup
+    (You (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 9x9 (variant)")
+  (board-setup
+    (You (Man a9 b9 c9 a8 b8 c8 a7 b7 c7))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 8x8")
+
+  (board
+     (image "images/halma/8x8-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions f8 g8 h8 f7 g7 h7 f6 g6 h6)
+     )
+  )
+
+  (board-setup
+    (You (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 8x8 (variant)")
+
+  (board
+     (image "images/halma/8x8-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions f8 g8 h8 f7 g7 h7 f6 g6 h6)
+     )
+  )
+
+  (board-setup
+    (You (Man a8 b8 c8 a7 b7 c7 a6 b6 c6))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 7x7")
+
+  (board
+     (image "images/halma/7x7-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions e7 f7 g7 e6 f6 g6 e5 f5 g5)
+     )
+  )
+
+  (board-setup
+    (You (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 7x7 (variant)")
+
+  (board
+     (image "images/halma/7x7-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions e7 f7 g7 e6 f6 g6 e5 f5 g5)
+     )
+  )
+
+  (board-setup
+    (You (Man a7 b7 c7 a6 b6 c6 a5 b5 c5))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 6x6")
+
+  (board
+     (image "images/halma/6x6-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f" (50 0)) ; files
+           ("6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions d6 e6 f6 d5 e5 f5 d4 e4 f4)
+     )
+  )
+
+  (board-setup
+    (You (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 6x6 (variant)")
+
+  (board
+     (image "images/halma/6x6-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f" (50 0)) ; files
+           ("6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions d6 e6 f6 d5 e5 f5 d4 e4 f4)
+     )
+  )
+
+  (board-setup
+    (You (Man a6 b6 c6 a5 b5 c5 a4 b4 c4))
+  )
+)
+
+(variant
+  (title "Halma Puzzle 4x6")
+
+  (board
+     (image "images/halma/4x6-puzzle.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f" (50 0)) ; files
+           ("4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name goal-zone) (players You)
+           (positions d4 e4 f4 d3 e3 f3 d2 e2 f2)
+     )
+  )
+
+  (board-setup
+    (You (Man a1 b1 c1 a2 b2 c2 a3 b3 c3))
+  )
+)

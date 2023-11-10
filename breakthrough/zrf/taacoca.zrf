@@ -1,0 +1,61 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Taacoca")
+  (description "http://www.iggamecenter.com/info/en/taacoca.html")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "smart moves" false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/taacoca/board.bmp")
+     (grid
+         (start-rectangle 105 24 143 62)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (38 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (-19 33)) ; ranks
+         )
+         (directions 
+             (e   1  0) (w -1 0)
+             (ne  0 -1) (sw 0 1)
+             (nw -1 -1) (se 1 1)
+         )
+     )
+     (kill-positions a1 a2 a3 a4 b1 b2 b3 c1 c2 d1 f9 g8 g9 h7 h8 h9 i6 i7 i8 i9)
+     (zone (name goal) (players White)
+           (positions a9 b9 c9 d9 e9)
+     )
+     (zone (name goal) (players Black)
+           (positions e1 f1 g1 h1 i1)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/taacoca/black.bmp"
+            White "images/taacoca/white.bmp")
+     (moves
+         (step  e) (step  w)
+         (step ne) (step sw)
+         (step nw) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Stone e1 f1 g1 h1 i1 e2 f2 g2 h2 e3 f3 g3)
+    )
+    (Black 
+         (Stone a9 b9 c9 d9 e9 b8 c8 d8 e8 c7 d7 e7)
+    )
+  )
+)

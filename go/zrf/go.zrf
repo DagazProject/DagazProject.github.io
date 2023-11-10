@@ -1,0 +1,73 @@
+(define drop-stone (
+  (verify empty?) add
+))
+
+(game
+  (title "Go (19x19)")
+
+  (option "pass turn"    true)
+; (option "go-extension" true)
+; (option "ko" true)
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+      (image "images/19x19.bmp")
+      (grid
+          (start-rectangle 6 6 36 36)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (30 0)) ; files
+            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 30)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+  )
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/bsmall.bmp"
+            White "images/wsmall.bmp")
+     (drops (drop-stone))
+  )  
+)
+
+(variant
+  (title "Go (13x13)")
+  (default)
+  (board
+      (image "images/13x13.bmp")
+      (grid
+          (start-rectangle 5 5 37 37)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m" (32 0)) ; files
+            ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 32)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+  )
+)
+
+(variant
+  (title "Three-color Go (19x19)")
+  
+; (option "ko" situation)
+
+  (players Black White Red)
+  (turn-order Black White Red)
+
+  (piece
+     (name Stone)
+     (help " ")
+     (image Black "images/go/bs.bmp"
+            White "images/go/ws.bmp"
+            Red   "images/go/rs.bmp")
+     (drops (drop-stone))
+  )  
+)

@@ -1,0 +1,189 @@
+(define swap (
+  $1 add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  (verify friend?)
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify friend?)
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  (verify friend?)
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Littera Chinese Chess")
+
+  (players Gold Silver)
+  (turn-order Gold Silver)
+
+  (board
+     (grid
+         (start-rectangle 0 0 70 70)
+         (dimensions
+           ("A/B/C/D/E/F/G/H" (70 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 70)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (grid
+         (start-rectangle 0 0 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (70 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 70)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Silver (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+  )
+
+  (piece
+     (name Soldier)
+     (image Gold "images/litter/ssoldier.bmp"
+            Silver "images/litter/nsoldier.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Horse)
+     (image Gold "images/litter/shorse.bmp"
+            Silver "images/litter/nhorse.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Elephant)
+     (image Gold "images/litter/selephant.bmp"
+            Silver "images/litter/nelephant.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Chariot)
+     (image Gold "images/litter/schariot.bmp"
+            Silver "images/litter/nchariot.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Cannon)
+     (image Gold "images/litter/scannon.bmp"
+            Silver "images/litter/ncannon.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Mandarin)
+     (image Gold "images/litter/smandarin.bmp"
+            Silver "images/litter/nmandarin.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name General)
+     (image Gold "images/litter/sgeneral.bmp"
+            Silver "images/litter/ngeneral.bmp")
+     (moves
+        (move-type swap-type)
+        (swap n) (swap e) (swap w) (swap s)
+        (swap nw) (swap ne) (swap sw) (swap se)
+     )
+  )
+  (piece
+     (name Man)
+     (image Gold "images/litter/gold.bmp"
+            Silver "images/litter/silver.bmp")
+     (moves
+        (move-type soldier-type)
+        (step n) (step e) (step w)
+        (move-type horse-type)
+        (step-2 n nw) (step-2 n ne) (step-2 s sw) (step-2 s se)
+        (step-2 w nw) (step-2 e ne) (step-2 w sw) (step-2 e se)
+        (move-type elephant-type)
+        (step-2 nw nw) (step-2 ne ne) (step-2 sw sw) (step-2 se se)
+        (move-type chariot-type)
+        (slide n) (slide e) (slide w) (slide s)
+        (move-type cannon-type)
+        (shoot n) (shoot e) (shoot w) (shoot s)
+        (move-type mandarin-type)
+        (step nw) (step ne) (step sw) (step se)
+        (move-type general-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+
+  (board-setup
+      (Gold
+         (Man a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2)
+         (Soldier A1 B1 A2 D2 G3 H3 E4 F4)
+         (Horse G1 C2 A3 D4)
+         (Elephant E1 H2 F3 B4)
+         (Chariot H1 E2 B3 C4)
+         (Mandarin D1 F2 C3 G4)
+         (Cannon F1 G2 D3 A4)
+         (General C1 B2 E3 H4)
+      )
+      (Silver
+         (Man a8 b8 c8 d8 e8 f8 g8 h8 a7 b7 c7 d7 e7 f7 g7 h7)
+         (Soldier E5 F5 B6 C6 C7 D7 G8 H8)
+         (Horse H5 F6 E7 B8)
+         (Elephant C5 A6 G7 D8)
+         (Chariot D5 G6 F7 A8)
+         (Mandarin A5 H6 B7 E8)
+         (Cannon B5 E6 H7 C8)
+         (General G5 D6 A7 F8)
+      )
+  )
+)

@@ -1,0 +1,115 @@
+(define step-1 (
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide-1 (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-2 (
+  $1 $2
+  (while empty? add $1 $2)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Escalation")
+
+  (players Blue Green)
+  (turn-order Blue Green)
+
+  (board
+     (image "images/escalation/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 82 82)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (80 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 80)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name last-rank) (players Blue)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name last-rank) (players Green)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name King)
+     (image Blue "images/escalation/bw.bmp"
+            Green "images/escalation/gw.bmp")
+     (moves
+         (move-type wl-type)
+         (step-1 n) (step-1 e) (step-1 w) (step-1 s)
+         (move-type fl-type)
+         (step-1 nw) (step-1 ne) (step-1 sw) (step-1 se)
+         (move-type dl-type)
+         (step-2 n n) (step-2 e e) (step-2 w w) (step-2 s s)
+         (move-type al-type)
+         (step-2 nw nw) (step-2 ne ne) (step-2 sw sw) (step-2 se se)
+         (move-type nl-type)
+         (step-2 n nw) (step-2 n ne) (step-2 s sw) (step-2 s se)
+         (step-2 w nw) (step-2 w sw) (step-2 e ne) (step-2 e se)
+         (move-type fr-type)
+         (slide-1 nw) (slide-1 ne) (slide-1 sw) (slide-1 se)
+         (move-type dr-type)
+         (slide-2 n n) (slide-2 e e) (slide-2 w w) (slide-2 s s)
+         (move-type ar-type)
+         (slide-2 nw nw) (slide-2 ne ne) (slide-2 sw sw) (slide-2 se se)
+         (move-type nr-type)
+         (slide-2 n nw) (slide-2 n ne) (slide-2 s sw) (slide-2 s se)
+         (slide-2 w nw) (slide-2 w sw) (slide-2 e ne) (slide-2 e se)
+     )
+  )
+  (piece
+     (name Man)
+     (image Blue "images/escalation/bm.bmp"
+            Green "images/escalation/gm.bmp")
+     (moves
+         (move-type fl-type)
+         (step-1 nw) (step-1 ne) (step-1 sw) (step-1 se)
+         (move-type dl-type)
+         (step-2 n n) (step-2 e e) (step-2 w w) (step-2 s s)
+         (move-type al-type)
+         (step-2 nw nw) (step-2 ne ne) (step-2 sw sw) (step-2 se se)
+         (move-type nl-type)
+         (step-2 n nw) (step-2 n ne) (step-2 s sw) (step-2 s se)
+         (step-2 w nw) (step-2 w sw) (step-2 e ne) (step-2 e se)
+         (move-type fr-type)
+         (slide-1 nw) (slide-1 ne) (slide-1 sw) (slide-1 se)
+         (move-type dr-type)
+         (slide-2 n n) (slide-2 e e) (slide-2 w w) (slide-2 s s)
+         (move-type ar-type)
+         (slide-2 nw nw) (slide-2 ne ne) (slide-2 sw sw) (slide-2 se se)
+         (move-type nr-type)
+         (slide-2 n nw) (slide-2 n ne) (slide-2 s sw) (slide-2 s se)
+         (slide-2 w nw) (slide-2 w sw) (slide-2 e ne) (slide-2 e se)
+     )
+  )
+
+  (board-setup
+    (Blue
+         (Man a1 b1 c1 d1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2)
+         (King e1)
+    )
+    (Green
+         (Man a8 b8 c8 d8 f8 g8 h8 a7 b7 c7 d7 e7 f7 g7 h7)
+         (King e8)
+    )
+  )
+)

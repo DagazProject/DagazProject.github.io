@@ -1,0 +1,58 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Mini Mancala")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+; (option "smart moves"       from)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/mini.bmp")
+     (grid
+         (start-rectangle 8 8 88 88)
+         (dimensions
+           ("a/b" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+     )
+     (links nx
+         (a1 b1) (b1 b2) (b2 a2) (a2 a1)
+     )
+     (links rv
+         (b1 a1) (b2 b1) (a2 b2) (a1 a2)
+     )
+     (zone (name home) (players North)
+           (positions a2 b2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves (step nx))
+  )
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1))
+    (North (Seed a2 b2))
+  )
+)

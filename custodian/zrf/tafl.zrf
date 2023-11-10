@@ -1,0 +1,347 @@
+(define slide (
+  $1 
+  (while empty?
+     (verify (not-in-zone? throne))
+     (verify (not-in-zone? goal))
+     add $1
+  )
+))
+
+(define slide-all (
+  $1 
+  (while empty?
+     (if (not-in-zone? throne)
+         add 
+     )
+     $1
+  )
+))
+
+(define king-step (
+  $1 (verify empty?)
+  (verify (not-in-zone? throne))
+  add
+))
+
+(game
+  (title "Tablut")
+  (option "tafl-extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/tablut.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (35 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions e5)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a9 i1 i9)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 a5 a6 b5 d1 d9 e1 e2 e8 e9 f1 f9 h5 i4 i5 i6)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/ws.bmp"
+            Black "images/bs.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/ks.bmp")
+     (moves
+        (king-step n) (king-step s) (king-step w) (king-step e)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 a5 a6 b5 d1 d9 e1 e2 e8 e9 f1 f9 h5 i4 i5 i6))
+    (White (King e5) (Man c5 d5 e3 e4 e6 e7 f5 g5))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a9 i1 i9)))
+)
+
+(variant
+  (title "Swords & Shields")
+  (history "Copyright (c) 1970 Milton Bradley.")
+
+  (board
+     (image "images/ss.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (35 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions e5)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 a5 a6 b5 d1 d9 e1 e2 e8 e9 f1 f9 h5 i4 i5 i6)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/ws.bmp"
+            Black "images/bs.bmp")
+     (moves
+        (slide-all n) (slide-all s) (slide-all w) (slide-all e)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 a5 a6 b5 d1 d9 e1 e2 e8 e9 f1 f9 h5 i4 i5 i6))
+    (White (King e5) (Man d4 d5 d6 e4 e6 f4 f5 f6))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a2 a3 a4 a5 a6 a7 a8 a9 b1 b9 c1 c9 d1 d9 e1 e9 f1 f9 g1 g9 h1 h9 i1 i2 i3 i4 i5 i6 i7 i8 i9)))
+)
+
+(variant
+  (title "-")
+)
+
+(variant
+  (title "Tawlbwrdd")
+
+  (board
+     (image "images/tawlbwrdd.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (35 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions f6)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a11 k1 k11)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 a5 a6 a7 a8 b6 d1 d11 e1 e11 f1 f2 f10 f11 g1 g11 h1 h11 j6 k4 k5 k6 k7 k8)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 a5 a6 a7 a8 b6 d1 d11 e1 e11 f1 f2 f10 f11 g1 g11 h1 h11 j6 k4 k5 k6 k7 k8))
+    (White (King f6) (Man d6 e5 e6 e7 f4 f5 f7 f8 g5 g6 g7 h6))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a11 k1 k11)))
+)
+
+(variant  
+  (title "Tawlbyund")
+
+  (board
+     (image "images/tawlbyund.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (35 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions f6)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a11 k1 k11)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a5 a6 a7 b5 b7 c6 e1 e2 e10 e11 f1 f3 f9 f11 g1 g2 g10 g11 i6 j5 j7 k5 k6 k7)
+     )
+  )
+
+  (board-setup
+    (Black (Man a5 a6 a7 b5 b7 c6 e1 e2 e10 e11 f1 f3 f9 f11 g1 g2 g10 g11 i6 j5 j7 k5 k6 k7))
+    (White (King f6) (Man d6 e5 e6 e7 f4 f5 f7 f8 g5 g6 g7 h6))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a11 k1 k11)))
+)
+
+(variant
+  (title "-")
+)
+
+(variant  
+  (title "Hnefatafl")
+
+  (board
+     (image "images/hnefatafl_1.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (35 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions g7)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a13 m1 m13)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a5 a6 a7 a8 a9 b7 e1 e13 f1 f13 g1 g2 g12 g13 h1 h13 i1 i13 l7 m5 m6 m7 m8 m9)
+     )
+  )
+
+  (board-setup
+    (Black (Man a5 a6 a7 a8 a9 b7 e1 e13 f1 f13 g1 g2 g12 g13 h1 h13 i1 i13 l7 m5 m6 m7 m8 m9))
+    (White (King g7) (Man d7 e7 f7 g4 g5 g6 g8 g9 g10 h7 i7 j7))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a13 m1 m13)))
+)
+
+(variant  
+  (title "Hnefatafl")
+
+  (board
+     (image "images/hnefatafl_2.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (35 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions g7)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a13 m1 m13)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a5 a6 a7 a8 a9 b7 e1 e13 f1 f13 g1 g2 g12 g13 h1 h13 i1 i13 l7 m5 m6 m7 m8 m9)
+     )
+  )
+
+  (board-setup
+    (Black (Man a5 a6 a7 a8 a9 b7 e1 e13 f1 f13 g1 g2 g12 g13 h1 h13 i1 i13 l7 m5 m6 m7 m8 m9))
+    (White (King g7) (Man e7 f6 f7 f8 g5 g6 g8 g9 h6 h7 h8 i7))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a13 m1 m13)))
+)
+
+(variant  
+  (title "Hnefatafl")
+
+  (board
+     (image "images/hnefatafl_3.bmp")
+     (grid
+         (start-rectangle 12 12 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (35 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions g7)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a13 m1 m13)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a5 a6 a7 a8 a9 b6 b8 c7 e1 e13 f1 f2 f12 f13 g1 g3 g11 g13 h1 h2 h12 h13 i1 i13 k7 l6 l8 m5 m6 m7 m8 m9)
+     )
+  )
+
+  (board-setup
+    (Black (Man a5 a6 a7 a8 a9 b6 b8 c7 e1 e13 f1 f2 f12 f13 g1 g3 g11 g13 h1 h2 h12 h13 i1 i13 k7 l6 l8 m5 m6 m7 m8 m9))
+    (White (King g7) (Man d7 e5 e9 f6 f7 f8 g4 g6 g8 g10 h6 h7 h8 i5 i9 j7))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a13 m1 m13)))
+)
+
+(variant
+  (title "-")
+)
+
+(variant  
+  (title "Alea Evangeli")
+  (default)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/19x19.bmp")
+     (grid
+         (start-rectangle 15 15 46 46)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (32 0)) ; files
+           ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 32)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (zone (name throne) (players Black White)
+         (positions j10)
+     )
+     (zone (name goal) (players Black White)
+         (positions 
+            a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19
+            s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 s14 s15 s16 s17 s18 s19
+            b19 c19 d19 e19 f19 g19 h19 i19 j19 k19 l19 m19 n19 o19 p19 q19 r19
+            b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1 q1 r1
+         )
+     )
+  )
+
+  (board-setup
+    (Black (Man a3 a6 a14 a17 c1 c6 c14 c19 d8 d10 d12 e7 e13 f1 f3 f6 f14 f17 f19 g5 g15 h4 h16 j4 j16 l4 l16 m5 m15 n1 n3 n6 n14 n17 n19 o7 o13 p8 p10 p12 q1 q6 q14 q19 s3 s6 s14 s17))
+    (White (King j10) (Man e9 e11 g10 h9 h11 i5 i8 i10 i12 i15 j7 j9 j11 j13 k5 k8 k10 k12 k15 l9 l11 m10 o9 o11))
+  )
+
+  (win-condition (White) (absolute-config King (a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19
+            s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 s14 s15 s16 s17 s18 s19
+            b19 c19 d19 e19 f19 g19 h19 i19 j19 k19 l19 m19 n19 o19 p19 q19 r19
+            b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1 q1 r1)))
+)

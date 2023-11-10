@@ -1,0 +1,503 @@
+(define drop-other (
+   (verify (in-zone? home))
+   (verify empty?)
+   add
+))
+
+(define drop-flag (
+   (verify (in-zone? hqf))
+   (verify empty?)
+   add
+))
+
+(define drop-bomb (
+   (verify (in-zone? front))
+   (verify empty?)
+   add
+))
+
+(define drop-landmine (
+   (verify (in-zone? rear))
+   (verify empty?)
+   add
+))
+
+(define common-step (
+   (verify (not-in-zone? hqe))
+   $1 (verify not-friend?)
+   add
+))
+
+(define common-slide (
+  (verify (not-in-zone? hqe))
+  $1 (while empty? add $1)
+  (verify enemy?)
+  add
+))
+
+(define eng-slide (
+  (verify (not-in-zone? hqe))
+  $1 (while empty? (add-partial $2) $1)
+  (verify enemy?)
+  add
+))
+
+(game
+  (title "Luzhanqi")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "animate drops"    false)
+  (option "pass partial"     true)
+  (option "smart moves"      false)
+
+  (players South North)
+  (turn-order 
+      South South South South South 
+      South South South South South 
+      South South South South South 
+      South South South South South 
+      South South South South South 
+      repeat South North)
+  (move-priorities flagtype bombtype droptype normaltype)
+
+  (board
+      (image "images/luzhanqi/board.bmp")
+      (positions
+             (a13   0   8  91  51)
+             (a12   0  50  91  93)
+             (a11   0  90  91 133)
+             (a10   0 133  91 176)
+             (a9    0 176  91 219)
+             (a8    0 219  91 262)
+
+             (b13  84   8 175  51)
+             (b12  84  50 175  93)
+             (b11  84  90 175 133)
+             (b10  84 133 175 176)
+             (b9   84 176 175 219)
+             (b8   84 219 175 262)
+
+             (c13 180   8 271  51)
+             (c12 180  50 271  93)
+             (c11 180  90 271 133)
+             (c10 180 133 271 176)
+             (c9  180 176 271 219)
+             (c8  180 219 271 262)
+
+             (d13 273   8 364  51)
+             (d12 273  50 364  93)
+             (d11 273  90 364 133)
+             (d10 273 133 364 176)
+             (d9  273 176 364 219)
+             (d8  273 219 364 262)
+
+             (e13 359   8 450  51)
+             (e12 359  50 450  93)
+             (e11 359  90 450 133)
+             (e10 359 133 450 176)
+             (e9  359 176 450 212)
+             (e8  359 219 450 262)
+
+             (a7   0 282  91 325)
+             (c7 180 282 271 325)
+             (e7 359 282 450 325)
+
+             (a6   0 347  91 390)
+             (a5   0 388  91 431)
+             (a4   0 431  91 474)
+             (a3   0 474  91 517)
+             (a2   0 514  91 557)
+             (a1   0 556  91 599)
+
+             (b6  84 347 175 390)
+             (b5  84 388 175 431)
+             (b4  84 431 175 474) 
+             (b3  84 474 175 517)
+             (b2  84 514 175 557)
+             (b1  84 556 175 599)
+
+             (c6 180 347 271 390)
+             (c5 180 388 271 431)
+             (c4 180 431 271 474) 
+             (c3 180 474 271 517)
+             (c2 180 514 271 557)
+             (c1 180 556 271 599)
+
+             (d6 273 347 364 390)
+             (d5 273 388 364 431)
+             (d4 273 431 364 474) 
+             (d3 273 474 364 517)
+             (d2 273 514 364 557)
+             (d1 273 556 364 599)
+
+             (e6 359 347 450 390)
+             (e5 359 388 450 431)
+             (e4 359 431 450 474) 
+             (e3 359 474 450 517)
+             (e2 359 514 450 557)
+             (e1 359 556 450 599)
+      )     
+      (links N
+         (a2  a3) (a3   a4) (a4   a5) (a5  a6) (a6   a7) (a7   a8) (a8 a9)
+         (a9 a10) (a10 a11) (a11 a12) (e2  e3) (e3   e4) (e4   e5) (e5 e6) 
+         (e6  e7) (e7   e8) (e8   e9) (e9 e10) (e10 e11) (e11 e12) (c6 c7)
+         (c7  c8)
+      )
+      (links S
+         (a3  a2) (a4   a3) (a5   a4) (a6  a5) (a7   a6) (a8   a7) (a9 a8)
+         (a10 a9) (a11 a10) (a12 a11) (e3  e2) (e4   e3) (e5   e4) (e6 e5) 
+         (e7  e6) (e8   e7) (e9   e8) (e10 e9) (e11 e10) (e12 e11) (c7 c6)
+         (c8  c7)
+      )
+      (links E
+         (a2  b2)  (b2   c2) (c2   d2) (d2  e2) (a6   b6) (b6   c6) 
+         (c6  d6)  (d6   e6) (a8   b8) (b8  c8) (c8   d8) (d8   e8)
+         (a12 b12) (b12 c12) (c12 d12) (d12 e12)
+      )
+      (links W
+         (b2   a2) (c2   b2) (d2   c2) (e2   d2) (b6  a6) (c6  b6) 
+         (d6   c6) (e6   d6) (b8   a8) (c8   b8) (d8  c8) (e8  d8)
+         (b12 a12) (c12 b12) (d12 c12) (e12 d12)
+      )
+      (links n
+         (a1   a2) (a12 a13) (b1   b2) (b2   b3) (b3   b4) (b4   b5) (b5   b6)
+         (c1   c2) (c2   c3) (c3   c4) (c4   c5) (c5   c6) (d1   d2) (d2   d3) 
+         (d3   d4) (d4   d5) (d5   d6) (e1   e2) (e12 e13) (b8   b9) (b9  b10) 
+         (b10 b11) (b11 b12) (b12 b13) (c8   c9) (c9  c10) (c10 c11) (c11 c12) 
+         (c12 c13) (d8   d9) (d9  d10) (d10 d11) (d11 d12) (d12 d13)
+      )
+      (links s
+         (a2   a1) (a13 a12) (b2   b1) (b3   b2) (b4   b3) (b5   b4) (b6   b5)
+         (c2   c1) (c3   c2) (c4   c3) (c5   c4) (c6   c5) (d2   d1) (d3   d2) 
+         (d4   d3) (d5   d4) (d6   d5) (e2   e1) (e13 e12) (b9   b8) (b10  b9) 
+         (b11 b10) (b12 b11) (b13 b12) (c9   c8) (c10  c9) (c11 c10) (c12 c11) 
+         (c13 c12) (d9   d8) (d10  d9) (d11 d10) (d12 d11) (d13 d12)
+      )
+      (links e
+         (a1   b1) (b1   c1) (c1   d1) (d1   e1) (a3   b3) (b3   c3) 
+         (c3   d3) (d3   e3) (a4   b4) (b4   c4) (c4   d4) (d4   e4)
+         (a5   b5) (b5   c5) (c5   d5) (d5   e5) (a9   b9) (b9   c9) 
+         (c9   d9) (d9   e9) (a10 b10) (b10 c10) (c10 d10) (d10 e10)
+         (a11 b11) (b11 c11) (c11 d11) (d11 e11) (a13 b13) (b13 c13) 
+         (c13 d13) (d13 e13)
+      )
+      (links w
+         (b1   a1) (c1   b1) (d1   c1) (e1   d1) (b3   a3) (c3   b3) 
+         (d3   c3) (e3   d3) (b4   a4) (c4   b4) (d4   c4) (e4   d4)
+         (b5   a5) (c5   b5) (d5   c5) (e5   d5) (b9   a9) (c9   b9) 
+         (d9   c9) (e9   d9) (b10 a10) (c10 b10) (d10 c10) (e10 d10)
+         (b11 a11) (c11 b11) (d11 c11) (e11 d11) (b13 a13) (c13 b13) 
+         (d13 c13) (e13 d13)
+      )
+      (links nw
+         (b3   a4) (b5   a6) (b9  a10) (b11 a12) (c4   b5) (c10 b11)
+         (d3   c4) (d5   c6) (d9  c10) (d11 c12) (c2   b3) (c8   b9)
+         (e2   d3) (e4   d5) (e8   d9) (e10 d11)
+      )
+      (links se
+         (a4   b3) (a6   b5) (a10  b9) (a12 b11) (b5   c4) (b11 c10)
+         (c4   d3) (c6   d5) (c10  d9) (c12 d11) (b3   c2) (b9   c8)
+         (d3   e2) (d5   e4) (d9   e8) (d11 e10)
+      )
+      (links ne
+         (a2   b3) (a4   b5) (a8   b9) (a10 b11) (b3   c4) (b5   c6)
+         (b9  c10) (b11 c12) (c2   d3) (c4   d5) (c8   d9) (c10 d11)
+         (d3   e4) (d5   e6) (d9  e10) (d11 e12)
+      )
+      (links sw
+         (b3   a2) (b5   a4) (b9   a8) (b11 a10) (c4   b3) (c6   b5)
+         (c10  b9) (c12 b11) (d3   c2) (d5   c4) (d9   c8) (d11 c10)
+         (e4   d3) (e6   d5) (e10  d9) (e12 d11)
+      )
+      (zone
+         (name safe)
+         (players South North)
+         (positions b3 b5 b9 b11 c4 c10 d3 d5 d9 d11)
+      )
+      (zone
+         (name cross)
+         (players South North)
+         (positions a2 a6 a8 a12 c6 c8 e2 e6 e8 e12)
+      )
+      (zone
+         (name hqf)
+         (players South)
+         (positions b1 d1)
+      )
+      (zone
+         (name hqf)
+         (players North)
+         (positions b13 d13)
+      )
+      (zone
+         (name hqe)
+         (players South)
+         (positions b13 d13)
+      )
+      (zone
+         (name hqe)
+         (players North)
+         (positions b1 d1)
+      )
+      (zone
+         (name home)
+         (players South)
+         (positions a1 a2 a3 a4 a5 a6 b1 b2 b4 b6
+                    c1 c2 c3 c5 c6 d1 d2 d4 d6 e1 
+                    e2 e3 e4 e5 e6)
+      )
+      (zone
+         (name home)
+         (players North)
+         (positions a8 a9  a10 a11 a12 a13 b8 b10 b12 b13
+                    c8 c9  c11 c12 c13 d8 d10 d12 d13 e8 
+                    e9 e10 e11 e12 e13)
+      )
+      (zone
+         (name front)
+         (players South)
+         (positions a2 b2 c2 d2 e2 a3 c3 e3 a4 b4 d4 e4
+                    a5 c5 e5 a1 b1 c1 d1 e1)
+      )
+      (zone
+         (name front)
+         (players North)
+         (positions a12 b12 c12 d12 e12 a11 c11 e11 a10 b10 d10 e10
+                    a9 c9 e9 a13 b13 c13 d13 e13)
+      )
+      (zone
+         (name rear)
+         (players South)
+         (positions a1 b1 c1 d1 e1 a2 b2 c2 d2 e2)
+      )
+      (zone
+         (name rear)
+         (players North)
+         (positions a13 b13 c13 d13 e13 a12 b12 c12 d12 e12)
+      )
+  )
+
+  (piece
+      (name FieldMarshal)
+      (image South "images/luzhanqi/p1bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name General)
+      (image South "images/luzhanqi/p2bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name MajorGeneral)
+      (image South "images/luzhanqi/p3bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name BrigadierGeneral)
+      (image South "images/luzhanqi/p4bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Colonel)
+      (image South "images/luzhanqi/p5bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Major)
+      (image South "images/luzhanqi/p6bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Captain)
+      (image South "images/luzhanqi/p7bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Lieutenant)
+      (image South "images/luzhanqi/p8bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Engineer)
+      (image South "images/luzhanqi/p9bb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-other)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (eng-slide N cont-h1) (eng-slide S cont-h1) (eng-slide W cont-v1) (eng-slide E cont-v1)
+         (move-type cont-h1)
+         (eng-slide W cont-v2) (eng-slide E cont-v2)
+         (move-type cont-v1)
+         (eng-slide N cont-h2) (eng-slide S cont-h2)
+         (move-type cont-h2)
+         (eng-slide W cont-v3) (eng-slide E cont-v3)
+         (move-type cont-v2)
+         (eng-slide N cont-h3) (eng-slide S cont-h3)
+         (move-type cont-h3)
+         (common-slide W) (common-slide E)
+         (move-type cont-v3)
+         (common-slide N) (common-slide S)
+      )
+  )
+  (piece
+      (name Bomb)
+      (image South "images/luzhanqi/pgbb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type droptype)
+         (drop-bomb)
+      )
+      (moves
+         (move-type normaltype)
+         (common-step  n) (common-step  s) (common-step  w) (common-step  e)
+         (common-step nw) (common-step sw) (common-step ne) (common-step se)
+         (common-slide N) (common-slide S) (common-slide W) (common-slide E)
+      )
+  )
+  (piece
+      (name Landmine)
+      (image South "images/luzhanqi/pmbb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type bombtype)
+         (drop-landmine)
+      )
+  )
+  (piece
+      (name Flag)
+      (image South "images/luzhanqi/pfbb.bmp"
+             North "images/Luzhanqi/prh.bmp")
+      (drops
+         (move-type flagtype)
+         (drop-flag)
+      )
+  )
+  (piece
+      (name OpenedFlag)
+      (image South "images/luzhanqi/pfbb.bmp"
+             North "images/Luzhanqi/pfbr.bmp")
+  )
+
+  (board-setup
+      (North
+         (FieldMarshal off 0)
+         (General off 0)
+         (MajorGeneral off 0)
+         (BrigadierGeneral off 0)
+         (Colonel off 0)
+         (Major off 0)
+         (Captain off 0)
+         (Lieutenant off 0)
+         (Engineer off 0)
+         (Bomb off 0)
+         (Landmine b12 d13 d12)
+         (Flag b13)
+         (OpenedFlag off 0)
+      )
+      (South
+         (FieldMarshal off 1)
+         (General off 1)
+         (MajorGeneral off 2)
+         (BrigadierGeneral off 2)
+         (Colonel off 2)
+         (Major off 2)
+         (Captain off 3)
+         (Lieutenant off 3)
+         (Engineer off 3)
+         (Bomb off 2)
+         (Landmine off 3)
+         (Flag off 1)
+         (OpenedFlag off 0)
+      )
+  )
+)

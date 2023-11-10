@@ -1,0 +1,109 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define man-jump (
+  $1 (verify enemy?)
+  (verify (piece? Man))
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(define king-jump (
+  $1 (verify enemy?)
+  capture
+  $1 (verify empty?)
+  (if (in-zone? goal)
+      add
+   else
+      (add-partial jump-type)
+  )
+))
+
+(game
+  (title "Khans")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/khans/board.bmp")
+     (grid
+        (start-rectangle 6 4 65 63)
+        (dimensions
+           ("a/b/c/d/e" (88 0)) ; files
+           ("7/6/5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+        )
+     )
+     (links ne
+        (a3 b4) (a5 b6) (b2 c3) (b4 c5) (b6 c7)
+        (c1 d2) (c3 d4) (c5 d6) (d2 e3) (d4 e5)
+     )
+     (links sw
+        (b4 a3) (b6 a5) (c3 b2) (c5 b4) (c7 b6)
+        (d2 c1) (d4 c3) (d6 c5) (e3 d2) (e5 d4)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (c1 b2) (c3 b4) (c5 b6)
+        (d2 c3) (d4 c5) (d6 c7) (e3 d4) (e5 d6)
+     )
+     (links se
+        (a3 b2) (a5 b4) (b2 c1) (b4 c3) (b6 c5)
+        (c3 d2) (c5 d4) (c7 d6) (d4 e3) (d6 e5)
+     )
+     (symmetry Black (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+     (kill-positions a7 b7 a6 d7 e7 e6 a1 a2 b1 d1 e1 e2)
+     (zone
+        (name goal) (players White)
+        (positions c7)
+     )
+     (zone
+        (name goal) (players Black)
+        (positions c1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/khans/wsoldier.bmp"
+            Black "images/khans/bsoldier.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step e)
+         (step nw) (step ne)
+         (move-type jump-type)
+         (man-jump n) (man-jump w) (man-jump s) (man-jump e)
+         (man-jump nw) (man-jump sw) (man-jump se) (man-jump ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/khans/wking.bmp"
+            Black "images/khans/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (move-type jump-type)
+         (king-jump n) (king-jump w) (king-jump s) (king-jump e)
+         (king-jump nw) (king-jump sw) (king-jump se) (king-jump ne)
+     )
+  )
+
+  (board-setup
+    (White (King c1) (Man b2 c2 d2 a3 b3 c3 d3 e3))
+    (Black (King c7) (Man b6 c6 d6 a5 b5 c5 d5 e5))
+  )
+
+  (win-condition  (White) (absolute-config King (c7)))
+  (win-condition  (Black) (absolute-config King (c1)))
+
+  (loss-condition (White Black) (pieces-remaining 0 King))
+  (loss-condition (White Black) repetition)
+)

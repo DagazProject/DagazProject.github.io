@@ -1,0 +1,55 @@
+(define slide (
+  $1 (while empty? add $1)
+))
+
+(game
+  (title "Hunt")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/hunt/board.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+              (nnw -1 -2) (nne 1 -2) (ssw -1 2) (sse 1 2) 
+              (nww -2 -1) (nee 2 -1) (sww -2 1) (see 2 1)
+         )
+     )
+  )
+
+  (piece
+     (name Knight)
+     (image White "images/hunt/wknight.bmp")
+     (moves
+        (slide nnw) (slide nne) (slide ssw) (slide sse)
+        (slide nww) (slide nee) (slide sww) (slide see)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image Black "images/hunt/bbishop.bmp")
+     (moves
+        (slide nw) (slide ne) (slide sw) (slide se)
+     )
+  )
+
+  (board-setup
+    (Black (Bishop a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2 a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8))
+    (White (Knight d4))
+  )
+
+  (loss-condition (White) stalemated)
+)

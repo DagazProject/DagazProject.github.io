@@ -1,0 +1,204 @@
+(define shift (
+  $1 (verify not-friend?)  
+  add
+))
+
+(define slide (
+  $1 (while empty? add $1) 
+  (verify not-friend?) 
+  add
+))
+
+(define soldier-add
+   (if (in-zone? promotion-zone) (add Chariot ) else add)
+)
+
+(define soldier-move (
+  $1 (verify not-friend?)
+  (soldier-add)
+))
+
+(define first-move (
+  (verify (in-zone? second-rank))
+  $1 (verify empty?)
+  add $1
+  (verify empty?) add
+))
+
+(game
+   (title "Andalusia")
+
+   (players Red Blue)
+   (turn-order Red Blue)
+
+   (board
+        (image "images\andalusia\board.bmp")
+        (grid
+            (start-rectangle 2 2 44 44)
+            (dimensions
+                ("a/b/c/d/e/f/g/h/i" (44 0))
+                ("9/8/7/6/5/4/3/2/1" (0 44))
+            )
+        )
+        (links ne (a1 b2) (a3 b4) (a5 b6) (a7 b8)
+                  (b2 c3) (b4 c5) (b6 c7) (b8 c9)
+                  (c1 d2) (c3 d4) (c5 d6) (c7 d8)
+                  (d2 e3) (d4 e5) (d6 e7) (d8 e9)
+                  (e1 f2) (e3 f4) (e5 f6) (e7 f8)
+                  (f2 g3) (f4 g5) (f6 g7) (f8 g9)
+                  (g1 h2) (g3 h4) (g5 h6) (g7 h8)
+                  (h2 i3) (h4 i5) (h6 i7) (h8 i9)
+        )
+        (links nw (b2 a3) (b4 a5) (b6 a7) (b8 a9)
+                  (c1 b2) (c3 b4) (c5 b6) (c7 b8)
+                  (d2 c3) (d4 c5) (d6 c7) (d8 c9)
+                  (e1 d2) (e3 d4) (e5 d6) (e7 d8)
+                  (f2 e3) (f4 e5) (f6 e7) (f8 e9)
+                  (g1 f2) (g3 f4) (g5 f6) (g7 f8)
+                  (h2 g3) (h4 g5) (h6 g7) (h8 g9)
+                  (i1 h2) (i3 h4) (i5 h6) (i7 h8)
+        )
+        (links sw (b2 a1) (b4 a3) (b6 a5) (b8 a7)
+                  (c3 b2) (c5 b4) (c7 b6) (c9 b8)
+                  (d2 c1) (d4 c3) (d6 c5) (d8 c7)
+                  (e3 d2) (e5 d4) (e7 d6) (e9 d8)
+                  (f2 e1) (f4 e3) (f6 e5) (f8 e7)
+                  (g3 f2) (g5 f4) (g7 f6) (g9 f8)
+                  (h2 g1) (h4 g3) (h6 g5) (h8 g7)
+                  (i3 h2) (i5 h4) (i7 h6) (i9 h8)
+        )
+        (links se (a3 b2) (a5 b4) (a7 b6) (a9 b8)
+                  (b2 c1) (b4 c3) (b6 c5) (b8 c7)
+                  (c3 d2) (c5 d4) (c7 d6) (c9 d8)
+                  (d2 e1) (d4 e3) (d6 e5) (d8 e7)
+                  (e3 f2) (e5 f4) (e7 f6) (e9 f8)
+                  (f2 g1) (f4 g3) (f6 g5) (f8 g7)
+                  (g3 h2) (g5 h4) (g7 h6) (g9 h8)
+                  (h2 i1) (h4 i3) (h6 i5) (h8 i7)
+
+        )
+        (links e (a9 b9) (b9 c9) (c9 d9) (d9 e9) 
+                 (e9 f9) (f9 g9) (g9 h9) (h9 i9)
+                 (a7 b7) (b7 c7) (c7 d7) (d7 e7) 
+                 (e7 f7) (f7 g7) (g7 h7) (h7 i7)
+                 (a5 b5) (b5 c5) (c5 d5) (d5 e5) 
+                 (e5 f5) (f5 g5) (g5 h5) (h5 i5)
+                 (a3 b3) (b3 c3) (c3 d3) (d3 e3) 
+                 (e3 f3) (f3 g3) (g3 h3) (h3 i3)
+                 (a1 b1) (b1 c1) (c1 d1) (d1 e1) 
+                 (e1 f1) (f1 g1) (g1 h1) (h1 i1)
+         )
+        (links w (i9 h9) (h9 g9) (g9 f9) (f9 e9)
+                 (e9 d9) (d9 c9) (c9 b9) (b9 a9)
+                 (i7 h7) (h7 g7) (g7 f7) (f7 e7)
+                 (e7 d7) (d7 c7) (c7 b7) (b7 a7)
+                 (i5 h5) (h5 g5) (g5 f5) (f5 e5)
+                 (e5 d5) (d5 c5) (c5 b5) (b5 a5)
+                 (i3 h3) (h3 g3) (g3 f3) (f3 e3)
+                 (e3 d3) (d3 c3) (c3 b3) (b3 a3)
+                 (i1 h1) (h1 g1) (g1 f1) (f1 e1)
+                 (e1 d1) (d1 c1) (c1 b1) (b1 a1)
+        
+	)
+        (links n (a1 a2) (a2 a3) (a3 a4) (a4 a5)
+                 (a5 a6) (a6 a7) (a7 a8) (a8 a9)
+                 (c1 c2) (c2 c3) (c3 c4) (c4 c5)
+                 (c5 c6) (c6 c7) (c7 c8) (c8 c9)
+                 (e1 e2) (e2 e3) (e3 e4) (e4 e5)
+                 (e5 e6) (e6 e7) (e7 e8) (e8 e9)
+                 (g1 g2) (g2 g3) (g3 g4) (g4 g5)
+                 (g5 g6) (g6 g7) (g7 g8) (g8 g9)
+                 (i1 i2) (i2 i3) (i3 i4) (i4 i5)
+                 (i5 i6) (i6 i7) (i7 i8) (i8 i9)
+
+        )
+        (links s (a9 a8) (a8 a7) (a7 a6) (a6 a5)
+                 (a5 a4) (a4 a3) (a3 a2) (a2 a1)
+                 (c9 c8) (c8 c7) (c7 c6) (c6 c5)
+                 (c5 c4) (c4 c3) (c3 c2) (c2 c1)
+                 (e9 e8) (e8 e7) (e7 e6) (e6 e5)
+                 (e5 e4) (e4 e3) (e3 e2) (e2 e1)
+                 (g9 g8) (g8 g7) (g7 g6) (g6 g5)
+                 (g5 g4) (g4 g3) (g3 g2) (g2 g1)
+                 (i9 i8) (i8 i7) (i7 i6) (i6 i5)
+                 (i5 i4) (i4 i3) (i3 i2) (i2 i1)
+        )
+	(symmetry Blue (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (e e) (w w))
+        (zone
+                 (name promotion-zone)
+                 (players Red)
+                 (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 )
+        )
+        (zone
+                 (name promotion-zone)
+                 (players Blue)
+                 (positions a2 b2 c2 d2 e2 f2 g2 h2 i2 )
+        )
+        (zone
+                 (name second-rank)
+                 (players Red)
+                 (positions a2 b2 c2 d2 e2 f2 g2 h2 i2 )
+        )
+        (zone
+                 (name second-rank)
+                 (players Blue)
+                 (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 )
+        )
+   )
+
+    (piece
+      (name Soldier)
+      (image Blue "images\Andalusia\bpawn.bmp"
+             Red "images\Andalusia\wpawn.bmp")
+      (moves
+         (soldier-move n)
+         (soldier-move ne)
+         (soldier-move nw)
+         (soldier-move e)
+         (soldier-move w)
+         (first-move n)
+         (first-move ne)
+         (first-move nw)
+      )
+   )
+   (piece
+	    (name Chariot)
+	    (image Blue "images\Andalusia\brook.bmp"
+             Red "images\Andalusia\wrook.bmp")
+	    (moves
+                    (slide n)
+                    (slide s)
+                    (slide e)
+                    (slide w)
+                    (slide ne)
+                    (slide se)
+                    (slide sw)
+                    (slide nw)
+	    )
+    )
+    (piece
+	    (name King)
+	    (image Blue "images\Andalusia\bking.bmp"
+             Red "images\Andalusia\wking.bmp")
+	    (moves
+                    (shift n)
+                    (shift s)
+                    (shift e)
+                    (shift w)
+                    (shift ne)
+                    (shift se)
+                    (shift nw)
+                    (shift sw)
+	    )
+    )
+
+   (board-setup
+      (Blue   (Soldier a8 b8 c8 d8 e8 f8 g8 h8 i8) (Chariot b9 c9 d9 f9 g9 h9)
+              (King e9))
+      (Red    (Soldier a2 b2 c2 d2 e2 f2 g2 h2 i2) (Chariot b1 c1 d1 f1 g1 h1) 
+              (King e1))
+   )
+
+   (loss-condition (Blue Red) (checkmated King))
+   (loss-condition (Blue Red) repetition )
+)

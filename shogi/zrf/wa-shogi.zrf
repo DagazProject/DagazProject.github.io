@@ -1,0 +1,653 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (verify (in-zone? board-zone))
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone))
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  (verify (in-zone? board-zone))
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-3 (
+  (verify (in-zone? board-zone))
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Wa Shogi")
+  (description "https://en.wikipedia.org/wiki/Wa_shogi")
+
+  (option "animate captures"      false)
+  (option "smart moves"           false)
+
+  (players South North)
+  (turn-order South North)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/wa/board.bmp")
+        (grid
+             (start-rectangle 15 17 63 65)
+             (dimensions ("X/Y/M/a/b/c/d/e/f/g/h/i/j/k/N/Z/T" (48 0))
+                         ("11/10/9/8/7/6/5/4/3/2/1" (0 48))
+             )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                         (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                         (nx 0 -1)
+	     )
+        )
+        (links nx
+             (a11 b1) (b11 c1) (c11 d1) (d11 e1) (e11 f1) (f11 g1) (g11 h1) (h11 i1) (i11 j1) (j11 k1)
+        )
+        (links sr
+             (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1) (a6 Z1) (a7 Z1) (a8 Z1) (a9 Z1) (a10 Z1) (a11 Z1)
+             (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1) (b7 Z1) (b8 Z1) (b9 Z1) (b10 Z1) (b11 Z1)
+             (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1) (c7 Z1) (c8 Z1) (c9 Z1) (c10 Z1) (c11 Z1)
+             (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1) (d7 Z1) (d8 Z1) (d9 Z1) (d10 Z1) (d11 Z1)
+             (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1) (e7 Z1) (e8 Z1) (e9 Z1) (e10 Z1) (e11 Z1)
+             (f1 Z1) (f2 Z1) (f3 Z1) (f4 Z1) (f5 Z1) (f6 Z1) (f7 Z1) (f8 Z1) (f9 Z1) (f10 Z1) (f11 Z1)
+             (g1 Z1) (g2 Z1) (g3 Z1) (g4 Z1) (g5 Z1) (g6 Z1) (g7 Z1) (g8 Z1) (g9 Z1) (g10 Z1) (g11 Z1)
+             (h1 Z1) (h2 Z1) (h3 Z1) (h4 Z1) (h5 Z1) (h6 Z1) (h7 Z1) (h8 Z1) (h9 Z1) (h10 Z1) (h11 Z1)
+             (i1 Z1) (i2 Z1) (i3 Z1) (i4 Z1) (i5 Z1) (i6 Z1) (i7 Z1) (i8 Z1) (i9 Z1) (i10 Z1) (i11 Z1)
+             (j1 Z1) (j2 Z1) (j3 Z1) (j4 Z1) (j5 Z1) (j6 Z1) (j7 Z1) (j8 Z1) (j9 Z1) (j10 Z1) (j11 Z1)
+             (k1 Z1) (k2 Z1) (k3 Z1) (k4 Z1) (k5 Z1) (k6 Z1) (k7 Z1) (k8 Z1) (k9 Z1) (k10 Z1) (k11 Z1)
+             (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) (T3 Z4) (Z4 T4) (T4 Z5) (Z5 T5) (T5 Z6) (Z6 T6)
+             (T6 Z7) (Z7 T7) (T7 Z8) (Z8 T8) (T8 Z9) (Z9 T9) (T9 Z10) (Z10 T10) (T10 Z11) (Z11 T11)
+        )
+        (links nr
+             (a1 Y11) (a2 Y11) (a3 Y11) (a4 Y11) (a5 Y11) (a6 Y11) (a7 Y11) (a8 Y11) (a9 Y11) (a10 Y11) (a11 Y11)
+             (b1 Y11) (b2 Y11) (b3 Y11) (b4 Y11) (b5 Y11) (b6 Y11) (b7 Y11) (b8 Y11) (b9 Y11) (b10 Y11) (b11 Y11)
+             (c1 Y11) (c2 Y11) (c3 Y11) (c4 Y11) (c5 Y11) (c6 Y11) (c7 Y11) (c8 Y11) (c9 Y11) (c10 Y11) (c11 Y11)
+             (d1 Y11) (d2 Y11) (d3 Y11) (d4 Y11) (d5 Y11) (d6 Y11) (d7 Y11) (d8 Y11) (d9 Y11) (d10 Y11) (d11 Y11)
+             (e1 Y11) (e2 Y11) (e3 Y11) (e4 Y11) (e5 Y11) (e6 Y11) (e7 Y11) (e8 Y11) (e9 Y11) (e10 Y11) (e11 Y11)
+             (f1 Y11) (f2 Y11) (f3 Y11) (f4 Y11) (f5 Y11) (f6 Y11) (f7 Y11) (f8 Y11) (f9 Y11) (f10 Y11) (f11 Y11)
+             (g1 Y11) (g2 Y11) (g3 Y11) (g4 Y11) (g5 Y11) (g6 Y11) (g7 Y11) (g8 Y11) (g9 Y11) (g10 Y11) (g11 Y11)
+             (h1 Y11) (h2 Y11) (h3 Y11) (h4 Y11) (h5 Y11) (h6 Y11) (h7 Y11) (h8 Y11) (h9 Y11) (h10 Y11) (h11 Y11)
+             (i1 Y11) (i2 Y11) (i3 Y11) (i4 Y11) (i5 Y11) (i6 Y11) (i7 Y11) (i8 Y11) (i9 Y11) (i10 Y11) (i11 Y11)
+             (j1 Y11) (j2 Y11) (j3 Y11) (j4 Y11) (j5 Y11) (j6 Y11) (j7 Y11) (j8 Y11) (j9 Y11) (j10 Y11) (j11 Y11)
+             (k1 Y11) (k2 Y11) (k3 Y11) (k4 Y11) (k5 Y11) (k6 Y11) (k7 Y11) (k8 Y11) (k9 Y11) (k10 Y11) (k11 Y11)
+             (Y11 X11) (X11 Y10) (Y10 X10) (X10 Y9) (Y9 X9) (X9 Y8) (Y8 X8) (X8 Y7) (Y7 X7) (X7 Y6) (Y6 X6)
+             (X6 Y5) (Y5 X5) (X5 Y4) (Y4 X4) (X4 Y3) (Y3 X3) (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx))
+        (kill-positions M1 M2 M3 M4 M5 M6 M7 M8 M9 M10 M11 N1 N2 N3 N4 N5 N6 N7 N8 N9 N10 N11)
+        (zone (name board-zone) (players South North)
+              (positions a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11
+                         a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10
+                         a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9
+                         a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8
+                         a7  b7  c7  d7  e7  f7  g7  h7  i7  j7  k7
+                         a6  b6  c6  d6  e6  f6  g6  h6  i6  j6  k6
+                         a5  b5  c5  d5  e5  f5  g5  h5  i5  j5  k5
+                         a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4
+                         a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3
+                         a2  b2  c2  d2  e2  f2  g2  h2  i2  j2  k2
+                         a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11
+                         a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10
+                         a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9
+              )
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1
+                         a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 
+                         a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 
+              )
+        )
+  )
+
+  (piece 
+       (name CraneKing)
+       (image South "images/wa/sck.bmp" 
+              North "images/wa/nck.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step s) (step se)
+       )
+  )
+  (piece 
+       (name SparrowPawn)
+       (image South "images/wa/ssp.bmp" 
+              North "images/wa/nsp.bmp")
+       (moves
+           (move-type normal-type)
+           (step n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name ViolentWolf)
+       (image South "images/wa/svw.bmp" 
+              North "images/wa/nvw.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step e) (step w) (step s)
+           (step nw) (step ne)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name ViolentWolfP)
+       (image South "images/wa/svwp.bmp" 
+              North "images/wa/nvwp.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step e) (step w) (step s)
+           (step nw) (step ne)
+       )
+  )
+  (piece 
+       (name ViolentStag)
+       (image South "images/wa/svs.bmp" 
+              North "images/wa/nvs.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne) (step sw) (step se)
+           (step n) 
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name ViolentStagP)
+       (image South "images/wa/svsp.bmp" 
+              North "images/wa/nvsp.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne) (step sw) (step se)
+           (step n) 
+       )
+  )
+  (piece 
+       (name FlyingGoose)
+       (image South "images/wa/sfg.bmp" 
+              North "images/wa/nfg.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne)
+           (step n) (step s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name FlyingCock)
+       (image South "images/wa/sfc.bmp" 
+              North "images/wa/nfc.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne)
+           (step w) (step e)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name StruttingCrow)
+       (image South "images/wa/ssc.bmp" 
+              North "images/wa/nsc.bmp")
+       (moves
+           (move-type normal-type)
+           (step sw) (step se)
+           (step n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SwoopingOwl)
+       (image South "images/wa/sso.bmp" 
+              North "images/wa/nso.bmp")
+       (moves
+           (move-type normal-type)
+           (step sw) (step se)
+           (step n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name BlindDog)
+       (image South "images/wa/sbd.bmp" 
+              North "images/wa/nbd.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne)
+           (step w) (step e) (step s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name ClimbingMonkey)
+       (image South "images/wa/scm.bmp" 
+              North "images/wa/ncm.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw) (step ne)
+           (step n) (step s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Oxcart)
+       (image South "images/wa/soc.bmp" 
+              North "images/wa/noc.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name LiberatedHorse)
+       (image South "images/wa/slh.bmp" 
+              North "images/wa/nlh.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n)
+           (step s) (step-2 s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SwallowsWings)
+       (image South "images/wa/ssw.bmp" 
+              North "images/wa/nsw.bmp")
+       (moves
+           (move-type normal-type)
+           (slide e) (slide w)
+           (step n) (step s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SwallowsWingsP)
+       (image South "images/wa/sswp.bmp" 
+              North "images/wa/nswp.bmp")
+       (moves
+           (move-type normal-type)
+           (slide e) (slide w)
+           (step n) (step s)
+       )
+  )
+  (piece 
+       (name FlyingFalcon)
+       (image South "images/wa/sff.bmp" 
+              North "images/wa/nff.bmp")
+       (moves
+           (move-type normal-type)
+           (slide nw) (slide ne) (slide sw) (slide se)
+           (step n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name FlyingFalconP)
+       (image South "images/wa/sffp.bmp" 
+              North "images/wa/nffp.bmp")
+       (moves
+           (move-type normal-type)
+           (slide nw) (slide ne) (slide sw) (slide se)
+           (step n)
+       )
+  )
+  (piece 
+       (name CloudEagle)
+       (image South "images/wa/sce.bmp" 
+              North "images/wa/nce.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (step w) (step e) (step sw) (step se)
+           (step nw) (step ne) (step-2 nw) (step-2 ne) (step-3 nw) (step-3 ne)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name CloudEagleP)
+       (image South "images/wa/scep.bmp" 
+              North "images/wa/ncep.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (step w) (step e) (step sw) (step se)
+           (step nw) (step ne) (step-2 nw) (step-2 ne) (step-3 nw) (step-3 ne)
+       )
+  )
+  (piece 
+       (name TreacherousFox)
+       (image South "images/wa/sfox.bmp" 
+              North "images/wa/nfox.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step s) (step nw) (step sw) (step ne) (step se)
+           (jump n n) (jump s s) (jump nw nw) (jump sw sw) (jump ne ne) (jump se se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name TreacherousFoxP)
+       (image South "images/wa/sfoxp.bmp" 
+              North "images/wa/nfoxp.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step s) (step nw) (step sw) (step ne) (step se)
+           (jump n n) (jump s s) (jump nw nw) (jump sw sw) (jump ne ne) (jump se se)
+       )
+  )
+  (piece 
+       (name RunningRabbit)
+       (image South "images/wa/srr.bmp" 
+              North "images/wa/nrr.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n)
+           (step s) (step nw) (step ne) (step sw) (step se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name TenaciousFalcon)
+       (image South "images/wa/sfalcon.bmp" 
+              North "images/wa/nfalcon.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide nw) (slide ne) (slide sw) (slide se)
+           (step w) (step e)
+       )
+  )
+  (piece 
+       (name BearsEyes)
+       (image South "images/wa/sbe.bmp" 
+              North "images/wa/nbe.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step s) (step se)
+       )
+  )
+  (piece 
+       (name RoamingBoar)
+       (image South "images/wa/srb.bmp" 
+              North "images/wa/nrb.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step se)
+       )
+  )
+  (piece 
+       (name RaidingFalcon)
+       (image South "images/wa/srf.bmp" 
+              North "images/wa/nrf.bmp")
+       (moves
+           (move-type normal-type)
+           (step w) (step nw)
+           (step e) (step ne)
+           (slide n) (slide s)
+       )
+  )
+  (piece 
+       (name GlidingSwallow)
+       (image South "images/wa/sgs.bmp" 
+              North "images/wa/ngs.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (slide w) (slide e)
+       )
+  )
+  (piece 
+       (name HeavenlyHorse)
+       (image South "images/wa/shh.bmp" 
+              North "images/wa/nhh.bmp")
+       (moves
+           (move-type normal-type)
+           (jump n nw) (jump n ne)
+           (jump s sw) (jump s se)
+       )
+  )
+  (piece 
+       (name PloddingOx)
+       (image South "images/wa/spo.bmp" 
+              North "images/wa/npo.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step s) (step se)
+       )
+  )
+  (piece 
+       (name GoldenBird)
+       (image South "images/wa/sgb.bmp" 
+              North "images/wa/ngb.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w)
+           (step s)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (CraneKing f1)
+            (SparrowPawn a3 b3 c3 d4 e3 f3 g3 h4 i3 j3 k3)
+            (ViolentWolf e1)
+            (ViolentStag g1)
+            (FlyingGoose d1)
+            (FlyingCock h1)
+            (StruttingCrow c1)
+            (SwoopingOwl i1)
+            (BlindDog b1)
+            (ClimbingMonkey j1)
+            (Oxcart a1)
+            (LiberatedHorse k1)
+            (SwallowsWings f2)
+            (FlyingFalcon b2)
+            (CloudEagle j2)
+            (TreacherousFox d3)
+            (RunningRabbit h3)
+        )
+        ( North
+            (CraneKing f11)
+            (SparrowPawn a9 b9 c9 d8 e9 f9 g9 h8 i9 j9 k9)
+            (ViolentWolf g11)
+            (ViolentStag e11)
+            (FlyingGoose h11)
+            (FlyingCock d11)
+            (StruttingCrow i11)
+            (SwoopingOwl c11)
+            (BlindDog j11)
+            (ClimbingMonkey b11)
+            (Oxcart k11)
+            (LiberatedHorse a11)
+            (SwallowsWings f10)
+            (FlyingFalcon j10)
+            (CloudEagle b10)
+            (TreacherousFox h9)
+            (RunningRabbit d9)
+        )
+  )
+)
+
+(variant
+  (title "Wa Shogi (11x10)")
+  (default)
+
+  (board
+        (image "images/wa/11x10-1.bmp")
+        (grid
+             (start-rectangle 18 19 66 67)
+             (dimensions ("X/Y/M/a/b/c/d/e/f/g/h/i/j/k/N/Z/T" (48 0))
+                         ("10/9/8/7/6/5/4/3/2/1" (0 48))
+             )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                         (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                         (nx 0 -1)
+	     )
+        )
+        (links nx
+             (a10 b1) (b10 c1) (c10 d1) (d10 e1) (e10 f1) (f10 g1) (g10 h1) (h10 i1) (i10 j1) (j10 k1)
+        )
+        (links sr
+             (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1) (a6 Z1) (a7 Z1) (a8 Z1) (a9 Z1) (a10 Z1)
+             (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1) (b7 Z1) (b8 Z1) (b9 Z1) (b10 Z1)
+             (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1) (c7 Z1) (c8 Z1) (c9 Z1) (c10 Z1)
+             (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1) (d7 Z1) (d8 Z1) (d9 Z1) (d10 Z1)
+             (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1) (e7 Z1) (e8 Z1) (e9 Z1) (e10 Z1)
+             (f1 Z1) (f2 Z1) (f3 Z1) (f4 Z1) (f5 Z1) (f6 Z1) (f7 Z1) (f8 Z1) (f9 Z1) (f10 Z1)
+             (g1 Z1) (g2 Z1) (g3 Z1) (g4 Z1) (g5 Z1) (g6 Z1) (g7 Z1) (g8 Z1) (g9 Z1) (g10 Z1)
+             (h1 Z1) (h2 Z1) (h3 Z1) (h4 Z1) (h5 Z1) (h6 Z1) (h7 Z1) (h8 Z1) (h9 Z1) (h10 Z1)
+             (i1 Z1) (i2 Z1) (i3 Z1) (i4 Z1) (i5 Z1) (i6 Z1) (i7 Z1) (i8 Z1) (i9 Z1) (i10 Z1)
+             (j1 Z1) (j2 Z1) (j3 Z1) (j4 Z1) (j5 Z1) (j6 Z1) (j7 Z1) (j8 Z1) (j9 Z1) (j10 Z1)
+             (k1 Z1) (k2 Z1) (k3 Z1) (k4 Z1) (k5 Z1) (k6 Z1) (k7 Z1) (k8 Z1) (k9 Z1) (k10 Z1)
+             (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) (T3 Z4) (Z4 T4) (T4 Z5) (Z5 T5) (T5 Z6) (Z6 T6)
+             (T6 Z7) (Z7 T7) (T7 Z8) (Z8 T8) (T8 Z9) (Z9 T9) (T9 Z10) (Z10 T10)
+        )
+        (links nr
+             (a1 Y10) (a2 Y10) (a3 Y10) (a4 Y10) (a5 Y10) (a6 Y10) (a7 Y10) (a8 Y10) (a9 Y10) (a10 Y10)
+             (b1 Y10) (b2 Y10) (b3 Y10) (b4 Y10) (b5 Y10) (b6 Y10) (b7 Y10) (b8 Y10) (b9 Y10) (b10 Y10)
+             (c1 Y10) (c2 Y10) (c3 Y10) (c4 Y10) (c5 Y10) (c6 Y10) (c7 Y10) (c8 Y10) (c9 Y10) (c10 Y10)
+             (d1 Y10) (d2 Y10) (d3 Y10) (d4 Y10) (d5 Y10) (d6 Y10) (d7 Y10) (d8 Y10) (d9 Y10) (d10 Y10)
+             (e1 Y10) (e2 Y10) (e3 Y10) (e4 Y10) (e5 Y10) (e6 Y10) (e7 Y10) (e8 Y10) (e9 Y10) (e10 Y10)
+             (f1 Y10) (f2 Y10) (f3 Y10) (f4 Y10) (f5 Y10) (f6 Y10) (f7 Y10) (f8 Y10) (f9 Y10) (f10 Y10)
+             (g1 Y10) (g2 Y10) (g3 Y10) (g4 Y10) (g5 Y10) (g6 Y10) (g7 Y10) (g8 Y10) (g9 Y10) (g10 Y10)
+             (h1 Y10) (h2 Y10) (h3 Y10) (h4 Y10) (h5 Y10) (h6 Y10) (h7 Y10) (h8 Y10) (h9 Y10) (h10 Y10)
+             (i1 Y10) (i2 Y10) (i3 Y10) (i4 Y10) (i5 Y10) (i6 Y10) (i7 Y10) (i8 Y10) (i9 Y10) (i10 Y10)
+             (j1 Y10) (j2 Y10) (j3 Y10) (j4 Y10) (j5 Y10) (j6 Y10) (j7 Y10) (j8 Y10) (j9 Y10) (j10 Y10)
+             (k1 Y10) (k2 Y10) (k3 Y10) (k4 Y10) (k5 Y10) (k6 Y10) (k7 Y10) (k8 Y10) (k9 Y10) (k10 Y10)
+             (Y10 X10) (X10 Y9) (Y9 X9) (X9 Y8) (Y8 X8) (X8 Y7) (Y7 X7) (X7 Y6) (Y6 X6)
+             (X6 Y5) (Y5 X5) (X5 Y4) (Y4 X4) (X4 Y3) (Y3 X3) (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx))
+        (kill-positions M1 M2 M3 M4 M5 M6 M7 M8 M9 M10 N1 N2 N3 N4 N5 N6 N7 N8 N9 N10)
+        (zone (name board-zone) (players South North)
+              (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10
+                         a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9
+                         a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8
+                         a7  b7  c7  d7  e7  f7  g7  h7  i7  j7  k7
+                         a6  b6  c6  d6  e6  f6  g6  h6  i6  j6  k6
+                         a5  b5  c5  d5  e5  f5  g5  h5  i5  j5  k5
+                         a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4
+                         a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3
+                         a2  b2  c2  d2  e2  f2  g2  h2  i2  j2  k2
+                         a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10
+                         a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9
+                         a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8
+              )
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1
+                         a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 
+                         a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 
+              )
+        )
+  )
+
+  (board-setup
+        ( South 
+            (CraneKing f1)
+            (SparrowPawn a3 b3 c3 d4 e3 f3 g3 h4 i3 j3 k3)
+            (ViolentWolf e1)
+            (ViolentStag g1)
+            (FlyingGoose d1)
+            (FlyingCock h1)
+            (StruttingCrow c1)
+            (SwoopingOwl i1)
+            (BlindDog b1)
+            (ClimbingMonkey j1)
+            (Oxcart a1)
+            (LiberatedHorse k1)
+            (SwallowsWings f2)
+            (FlyingFalcon b2)
+            (CloudEagle j2)
+            (TreacherousFox d3)
+            (RunningRabbit h3)
+        )
+        ( North
+            (CraneKing f10)
+            (SparrowPawn a8 b8 c8 d7 e8 f8 g8 h7 i8 j8 k8)
+            (ViolentWolf g10)
+            (ViolentStag e10)
+            (FlyingGoose h10)
+            (FlyingCock d10)
+            (StruttingCrow i10)
+            (SwoopingOwl c10)
+            (BlindDog j10)
+            (ClimbingMonkey b10)
+            (Oxcart k10)
+            (LiberatedHorse a10)
+            (SwallowsWings f9)
+            (FlyingFalcon j9)
+            (CloudEagle b9)
+            (TreacherousFox h8)
+            (RunningRabbit d8)
+        )
+  )
+)

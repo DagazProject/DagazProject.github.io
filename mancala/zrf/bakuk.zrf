@@ -1,0 +1,59 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Bakuk")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/3x2.bmp")
+     (grid
+         (start-rectangle 168 8 248 88)
+         (dimensions
+           ("a/b/c" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X2    8 8 148 188)
+         (X1  468 8 608 188)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 c2)
+         (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links rv
+         (b1 a1) (c1 b1) (c2 c1)
+         (b2 c2) (a2 b2) (a1 a2)
+     )
+     (links fr (a2 X1))
+     (links er (a2 X2))
+     (symmetry North (fr er) (er fr) (nx nx) (rv rv))
+     (zone (name home) (players North)
+           (positions a2 b2 c2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves (step nx))
+  )
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 X1))
+    (North (Seed a2 b2 c2 X2))
+  )
+)

@@ -1,0 +1,228 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if enemy?
+      (add $2)
+   else
+      add
+  )
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  (if enemy?
+      (add $3)
+   else
+      add
+  )
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  (add $2)
+))
+
+(game
+  (title "Micro Shogi")
+  (history "Invented by Oyama Yasuharu before 1982.\
+            Published by Kerry Handscomb.")
+
+  (option "animate captures"      false)
+  (option "smart moves"           false)
+; (option "micro shogi extension" false)
+
+  (players South North)
+  (turn-order South North)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/4x5.bmp")
+        (grid
+             (start-rectangle 9 15 50 61)
+             (dimensions ("X/Y/I/a/b/c/d/J/Z/T" (41 0))
+                         ("5/4/3/2/1" (0 46))
+             )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                         (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+	     )
+        )
+        (links sr
+               (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1)
+               (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1)
+               (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1)
+               (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1)
+               (Z1 Z2) (Z2 Z3) (Z3 Z4) (Z4 Z5) (Z5 X1)
+               (X1 X2) (X2 X3) (X3 X4) (X4 X5)
+        )
+        (links nr
+               (a1 Y5) (a2 Y5) (a3 Y5) (a4 Y5) (a5 Y5)
+               (b1 Y5) (b2 Y5) (b3 Y5) (b4 Y5) (b5 Y5)
+               (c1 Y5) (c2 Y5) (c3 Y5) (c4 Y5) (c5 Y5)
+               (d1 Y5) (d2 Y5) (d3 Y5) (d4 Y5) (d5 Y5)
+               (Y5 Y4) (Y4 Y3) (Y3 Y2) (Y2 Y1) (Y1 T5)
+               (T5 T4) (T4 T3) (T3 T2) (T2 T1)
+        )
+        (links nx 
+               (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 b1)
+               (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 c1)
+               (c1 c2) (c2 c3) (c3 c4) (c4 c5) (c5 d1)
+               (d1 d2) (d2 d3) (d3 d4) (d4 d5) (d5 Z1)
+        )
+        (links pr
+               (Z1 T1) (T1 Z1) (Z2 T2) (T2 Z2) (Z3 T3) 
+               (T3 Z3) (Z4 T4) (T4 Z4) (Z5 T5) (T5 Z5)
+               (X1 Y1) (Y1 X1) (X2 Y2) (Y2 X2) (X3 Y3) 
+               (Y3 X3) (X4 Y4) (Y4 X4) (X5 Y5) (Y5 X5)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx) (pr pr))
+        (kill-positions I1 I2 I3 I4 I5 J1 J2 J3 J4 J5)
+        (zone (name board-zone) (players South North)
+              (positions a1 b1 c1 d1
+                         a2 b2 c2 d2
+                         a3 b3 c3 d3
+                         a4 b4 c4 d4
+                         a5 b5 c5 d5
+              )
+        )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/sking.bmp" 
+              North "images/nking.bmp")
+       (moves
+           (step n) (step nw)
+           (step s) (step se)
+           (step w) (step sw)
+           (step e) (step ne)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/sbishop.bmp" 
+              North "images/nbishop.bmp")
+       (moves
+           (slide nw Tokin)
+           (slide se Tokin)
+           (slide sw Tokin)
+           (slide ne Tokin)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Tokin)
+       (image South "images/spawnp.bmp" 
+              North "images/npawnp.bmp")
+       (moves
+           (leap n Bishop) (leap nw Bishop)
+           (leap s Bishop) (leap ne Bishop)
+           (leap w Bishop) (leap e  Bishop) 
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/sgold.bmp" 
+              North "images/ngold.bmp")
+       (moves
+           (leap n Rook) (leap nw Rook)
+           (leap s Rook) (leap ne Rook)
+           (leap w Rook) (leap e  Rook) 
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/srookp.bmp" 
+              North "images/nrookp.bmp")
+       (moves
+           (slide n Gold)
+           (slide e Gold)
+           (slide w Gold)
+           (slide s Gold)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/ssilver.bmp" 
+              North "images/nsilver.bmp")
+       (moves
+           (leap nw Lance) (leap sw Lance)
+           (leap se Lance) (leap ne Lance)
+           (leap n  Lance)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/slancep.bmp" 
+              North "images/nlancep.bmp")
+       (moves
+           (slide n Silver)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/spawn.bmp" 
+              North "images/npawn.bmp")
+       (moves
+           (leap n Knight)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/sknightp.bmp" 
+              North "images/nknightp.bmp")
+       (moves
+           (jump n nw Pawn)
+           (jump n ne Pawn)
+           (drop-piece nx)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   d1)
+            (Bishop c1)
+            (Gold   b1)
+            (Silver a1)
+            (Pawn   d2)
+        )
+        ( North
+            (King   a5)
+            (Bishop b5)
+            (Gold   c5)
+            (Silver d5)
+            (Pawn   a4)
+        )
+  )
+
+  (loss-condition (South North) (pieces-remaining 0 King))
+  (loss-condition (South North) repetition)
+)

@@ -1,0 +1,171 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-jump (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  add
+))
+
+(define en-passant (
+  $1
+  (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture
+  n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Balbo's Game")
+  (description "https://en.wikipedia.org/wiki/Balbo%27s_Game")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/balbo.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+              (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+              (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+     )
+     (kill-positions a1 a2 a3 a4 a7 a8 a9 a10 b1 b2 b3 b8 b9 b10 c1 c2 c9 c10 d1 d10 h1 h10 i1 i2 i9 i10 j1 j2 j3 j8 j9 j10 k1 k2 k3 k4 k7 k8 k9 k10)
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e) (nnw ssw) (ssw nnw) (nne sse) (sse nne) (wwn wws) (wws wwn) (ees een) (een ees))
+     (zone (name full-promotion) (players White)
+           (positions d9 e10 f10 g10 h9)
+     )
+     (zone (name full-promotion) (players Black)
+           (positions d2 e1 f1 g1 h2)
+     )
+     (zone (name light-promotion) (players White)
+           (positions c8 i8)
+     )
+     (zone (name light-promotion) (players Black)
+           (positions c3 i3)
+     )
+     (zone (name third-rank) (players White)
+           (positions c4 d4 e4 f4 g4 h4 i4)
+     )
+     (zone (name third-rank) (players Black)
+           (positions c7 d7 e7 f7 g7 h7 i7)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant e) (en-passant w)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (step nne) (step nnw) (step sse) (step ssw)
+         (step een) (step ees) (step wwn) (step wws)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn c3 d3 e3 f3 g3 h3 i3)
+         (Rook d2 h2)
+         (Knight e2 g2)
+         (Bishop f1 f2)
+         (Queen g1)
+         (King e1)
+    )
+    (Black 
+         (Pawn c8 d8 e8 f8 g8 h8 i8)
+         (Rook d9 h9)
+         (Knight e9 g9)
+         (Bishop f9 f10)
+         (Queen g10)
+         (King e10)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated King))
+  (draw-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

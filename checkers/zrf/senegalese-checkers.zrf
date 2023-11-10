@@ -1,0 +1,71 @@
+(version "2.0")
+
+(define checker-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Senegalese Checkers")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"     false)
+  (option "smart moves"          true)
+  (option "senegalese-extension" true)
+; (option "ko"                   situation)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/6x5.bmp")
+     (grid
+        (start-rectangle 2 2 52 52)
+        (dimensions
+           ("a/b/c/d/e/f" (50 0)) ; files
+           ("5/4/3/2/1" (0 50)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (symmetry Black (n s) (s n) (w e) (e w))
+     (zone (name last-rank) (players White)
+           (positions a5 b5 c5 d5 e5 f5)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump n) (checker-jump w) (checker-jump e)
+         (move-type normal-type)
+         (checker-shift n) (checker-shift w) (checker-shift e)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 b1 c1 d1 e1 f1 a2 b2 c2 d2 e2 f2 e3 f3))
+    (Black (Man a5 b5 c5 d5 e5 f5 a4 b4 c4 d4 e4 f4 a3 b3))
+  )
+
+  (loss-condition  (White Black) (pieces-remaining 0))
+  (count-condition (White Black) stalemated)
+  (count-condition (White Black) repetition)
+)

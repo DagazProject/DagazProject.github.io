@@ -1,0 +1,62 @@
+(define step (
+  $1 add
+))
+
+(define touch (
+  (verify friend?)
+  capture add
+))
+
+(game
+  (title "Redu")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/6x2.bmp")
+     (grid
+         (start-rectangle 188 8 268 88)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (positions
+         (B1  943 163 1015 194)
+         (B2  943   8 1015  39)
+         (X2   28   8  168 188)
+         (X1  788   8  928 188)
+     )
+     (links sr (a1 X1) (a2 X1) (b1 X1) (b2 X1) (c1 X1) (c2 X1) (d1 X1) (d2 X1) (e1 X1) (e2 X1) (f1 X1) (f2 X1))
+     (links nr (a1 X2) (a2 X2) (b1 X2) (b2 X2) (c1 X2) (c2 X2) (d1 X2) (d2 X2) (e1 X2) (e2 X2) (f1 X2) (f2 X2))
+     (symmetry North (n n) (s s) (w w) (e e) (nw nw) (ne ne) (sw sw) (se se) (sr nr) (nr sr))
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves
+        (step n) (step nw)
+        (step e) (step ne)
+        (step w) (step sw)
+        (step s) (step se)
+     )
+  )
+  (piece
+     (name Button)
+     (image South "images/undos.bmp"
+            North "images/undon.bmp")
+     (moves (touch))
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1))
+    (North (Seed a2 b2 c2 d2 e2 f2))
+  )
+)

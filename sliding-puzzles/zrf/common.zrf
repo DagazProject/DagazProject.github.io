@@ -1,0 +1,16 @@
+(define step (
+  $1 add
+))
+
+(define T
+  (piece
+     (name  $1$2)
+     (help  " ")
+     (image You "images/$1.bmp")
+     (attribute value $2)
+     (attribute key '$1')
+     (moves
+        (step n) (step s) (step w) (step e)
+     )
+  )
+)

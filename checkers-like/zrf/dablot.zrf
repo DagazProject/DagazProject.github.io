@@ -1,0 +1,669 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump-king (
+  $1 (verify enemy?)
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(define jump-prince (
+  $1 (verify enemy?)
+  (verify (not-piece? King))
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(define jump-man (
+  $1 (verify enemy?)
+  (verify (not-piece? King))
+  (verify (not-piece? Prince))
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(game
+  (title "Dablot Prejjesne")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+  (option "dablot-extension"  true)
+  (option "dablot-invariant"  true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/dablot/prejjesne.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (44 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9) (a9 a11) (a11 a13)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9) (c9 c11) (c11 c13)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9) (e9 e11) (e11 e13)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9) (g9 g11) (g11 g13)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9) (i9 i11) (i11 i13)
+        (k1 k3) (k3 k5) (k5 k7) (k7 k9) (k9 k11) (k11 k13)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7) (a11 a9) (a13 a11)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7) (c11 c9) (c13 c11)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7) (e11 e9) (e13 e11)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7) (g11 g9) (g13 g11)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7) (i11 i9) (i13 i11)
+        (k3 k1) (k5 k3) (k7 k5) (k9 k7) (k11 k9) (k13 k11)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1) (i1 k1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3) (i3 k3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5) (i5 k5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7) (i7 k7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9) (i9 k9)
+        (a11 c11) (c11 e11) (e11 g11) (g11 i11) (i11 k11)
+        (a13 c13) (c13 e13) (e13 g13) (g13 i13) (i13 k13)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1) (k1 i1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3) (k3 i3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5) (k5 i5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7) (k7 i7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9) (k9 i9)
+        (c11 a11) (e11 c11) (g11 e11) (i11 g11) (k11 i11)
+        (c13 a13) (e13 c13) (g13 e13) (i13 g13) (k13 i13)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8) (a9 b10) (a11 b12)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8) (c9 d10) (c11 d12)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8) (e9 f10) (e11 f12)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8) (g9 h10) (g11 h12)
+        (i1 j2) (i3 j4) (i5 j6) (i7 j8) (i9 j10) (i11 j12)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9) (b10 c11) (b12 c13)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9) (d10 e11) (d12 e13)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9) (f10 g11) (f12 g13)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9) (h10 i11) (h12 i13)
+        (j2 k3) (j4 k5) (j6 k7) (j8 k9) (j10 k11) (j12 k13)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7) (b10 a9) (b12 a11)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7) (d10 c9) (d12 c11)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7) (f10 e9) (f12 e11)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7) (h10 g9) (h12 g11)
+        (j2 i1) (j4 i3) (j6 i5) (j8 i7) (j10 i9) (j12 i11)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8) (c11 b10) (c13 b12)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8) (e11 d10) (e13 d12)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8) (g11 f10) (g13 f12)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8) (i11 h10) (i13 h12)
+        (k3 j2) (k5 j4) (k7 j6) (k9 j8) (k11 j10) (k13 j12)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9) (b10 a11) (b12 a13)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9) (d10 c11) (d12 c13)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9) (f10 e11) (f12 e13)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9) (h10 g11) (h12 g13)
+        (j2 i3) (j4 i5) (j6 i7) (j8 i9) (j10 i11) (j12 i13)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8) (c9 b10) (c11 b12)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8) (e9 d10) (e11 d12)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8) (g9 f10) (g11 f12)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8) (i9 h10) (i11 h12)
+        (k1 j2) (k3 j4) (k5 j6) (k7 j8) (k9 j10) (k11 j12)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8) (a11 b10) (a13 b12)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8) (c11 d10) (c13 d12)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8) (e11 f10) (e13 f12)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8) (g11 h10) (g13 h12)
+        (i3 j2) (i5 j4) (i7 j6) (i9 j8) (i11 j10) (i13 j12)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7) (b10 c9) (b12 c11)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7) (d10 e9) (d12 e11)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7) (f10 g9) (f12 g11)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7) (h10 i9) (h12 i11)
+        (j2 k1) (j4 k3) (j6 k5) (j8 k7) (j10 k9) (j12 k11)
+     )
+  )
+
+  (piece
+     (name King)
+     (image White "images/dablot/wking.bmp"
+            Black "images/dablot/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (move-type jump-type)
+         (jump-king n) (jump-king w) (jump-king s) (jump-king e)
+         (jump-king nw) (jump-king sw) (jump-king se) (jump-king ne)
+     )
+  )
+  (piece
+     (name Prince)
+     (image White "images/dablot/wprince.bmp"
+            Black "images/dablot/bprince.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (move-type jump-type)
+         (jump-prince n) (jump-prince w) (jump-prince s) (jump-prince e)
+         (jump-prince nw) (jump-prince sw) (jump-prince se) (jump-prince ne)
+     )
+  )
+  (piece
+     (name Man)
+     (image White "images/dablot/wman.bmp"
+            Black "images/dablot/bman.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (move-type jump-type)
+         (jump-man n) (jump-man w) (jump-man s) (jump-man e)
+         (jump-man nw) (jump-man sw) (jump-man se) (jump-man ne)
+     )
+  )
+
+  (board-setup
+    (White (King a7) (Prince b8) (Man a13 c13 e13 g13 i13 k13 b12 d12 f12 h12 j12 a11 c11 e11 g11 i11 k11 b10 d10 f10 h10 j10 a9 c9 e9 g9 i9 k9))
+    (Black (King k7) (Prince j6) (Man a1 c1 e1 g1 i1 k1 b2 d2 f2 h2 j2 a3 c3 e3 g3 i3 k3 b4 d4 f4 h4 j4 a5 c5 e5 g5 i5 k5))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0 King))
+  (loss-condition (White Black) (pieces-remaining 1))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Dablot Frostviken (Child)")
+
+  (board
+     (image "images/dablot/4x5.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g" (44 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1)
+        (a3 c3) (c3 e3) (e3 g3)
+        (a5 c5) (c5 e5) (e5 g5)
+        (a7 c7) (c7 e7) (e7 g7)
+        (a9 c9) (c9 e9) (e9 g9)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1)
+        (c3 a3) (e3 c3) (g3 e3)
+        (c5 a5) (e5 c5) (g5 e5)
+        (c7 a7) (e7 c7) (g7 e7)
+        (c9 a9) (e9 c9) (g9 e9)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7)
+     )
+  )
+
+  (board-setup
+    (Black (King g5) (Prince f4) (Man a1 c1 e1 g1 b2 d2 f2 a3 c3 e3 g3 b4 d4))
+    (White (King a5) (Prince b6) (Man a9 c9 e9 g9 b8 d8 f8 a7 c7 e7 i7 d6 f6))
+  )
+)
+
+(variant
+  (title "Dablot Frostviken")
+
+  (board
+     (image "images/dablot/5x5.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i" (44 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7)
+     )
+  )
+
+  (board-setup
+    (Black (King i5) (Prince h4) (Man a1 c1 e1 g1 i1 b2 d2 f2 h2 a3 c3 e3 g3 i3 b4 d4 f4))
+    (White (King a5) (Prince b6) (Man a9 c9 e9 g9 i9 b8 d8 f8 h8 a7 c7 e7 g7 i7 d6 f6 h6))
+  )
+)
+
+(variant
+  (title "Dablot Asele")
+
+  (board
+     (image "images/dablot/5x5.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i" (44 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7)
+     )
+  )
+
+  (board-setup
+    (Black (King i5) (Man a1 c1 e1 g1 i1 b2 d2 f2 h2 a3 c3 e3 g3 i3 b4 d4 f4 h4))
+    (White (King a5) (Man a9 c9 e9 g9 i9 b8 d8 f8 h8 a7 c7 e7 g7 i7 b6 d6 f6 h6))
+  )
+)
+
+(variant
+  (title "Dablot Dares (4 rows)")
+  (default)
+
+  (board
+     (image "images/dablot/7x7.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (44 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9) (a9 a11) (a11 a13)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9) (c9 c11) (c11 c13)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9) (e9 e11) (e11 e13)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9) (g9 g11) (g11 g13)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9) (i9 i11) (i11 i13)
+        (k1 k3) (k3 k5) (k5 k7) (k7 k9) (k9 k11) (k11 k13)
+        (m1 m3) (m3 m5) (m5 m7) (m7 m9) (m9 m11) (m11 m13)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7) (a11 a9) (a13 a11)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7) (c11 c9) (c13 c11)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7) (e11 e9) (e13 e11)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7) (g11 g9) (g13 g11)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7) (i11 i9) (i13 i11)
+        (k3 k1) (k5 k3) (k7 k5) (k9 k7) (k11 k9) (k13 k11)
+        (m3 m1) (m5 m3) (m7 m5) (m9 m7) (m11 m9) (m13 m11)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1) (i1 k1) (k1 m1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3) (i3 k3) (k3 m3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5) (i5 k5) (k5 m5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7) (i7 k7) (k7 m7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9) (i9 k9) (k9 m9)
+        (a11 c11) (c11 e11) (e11 g11) (g11 i11) (i11 k11) (k11 m11)
+        (a13 c13) (c13 e13) (e13 g13) (g13 i13) (i13 k13) (k13 m13)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1) (k1 i1) (m1 k1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3) (k3 i3) (m3 k3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5) (k5 i5) (m5 k5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7) (k7 i7) (m7 k7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9) (k9 i9) (m9 k9)
+        (c11 a11) (e11 c11) (g11 e11) (i11 g11) (k11 i11) (m11 k11)
+        (c13 a13) (e13 c13) (g13 e13) (i13 g13) (k13 i13) (m13 k13)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8) (a9 b10) (a11 b12)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8) (c9 d10) (c11 d12)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8) (e9 f10) (e11 f12)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8) (g9 h10) (g11 h12)
+        (i1 j2) (i3 j4) (i5 j6) (i7 j8) (i9 j10) (i11 j12)
+        (k1 l2) (k3 l4) (k5 l6) (k7 l8) (k9 l10) (k11 l12)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9) (b10 c11) (b12 c13)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9) (d10 e11) (d12 e13)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9) (f10 g11) (f12 g13)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9) (h10 i11) (h12 i13)
+        (j2 k3) (j4 k5) (j6 k7) (j8 k9) (j10 k11) (j12 k13)
+        (l2 m3) (l4 m5) (l6 m7) (l8 m9) (l10 m11) (l12 m13)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7) (b10 a9) (b12 a11)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7) (d10 c9) (d12 c11)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7) (f10 e9) (f12 e11)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7) (h10 g9) (h12 g11)
+        (j2 i1) (j4 i3) (j6 i5) (j8 i7) (j10 i9) (j12 i11)
+        (l2 k1) (l4 k3) (l6 k5) (l8 k7) (l10 k9) (l12 k11)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8) (c11 b10) (c13 b12)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8) (e11 d10) (e13 d12)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8) (g11 f10) (g13 f12)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8) (i11 h10) (i13 h12)
+        (k3 j2) (k5 j4) (k7 j6) (k9 j8) (k11 j10) (k13 j12)
+        (m3 l2) (m5 l4) (m7 l6) (m9 l8) (m11 l10) (m13 l12)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9) (b10 a11) (b12 a13)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9) (d10 c11) (d12 c13)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9) (f10 e11) (f12 e13)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9) (h10 g11) (h12 g13)
+        (j2 i3) (j4 i5) (j6 i7) (j8 i9) (j10 i11) (j12 i13)
+        (l2 k3) (l4 k5) (l6 k7) (l8 k9) (l10 k11) (l12 k13)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8) (c9 b10) (c11 b12)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8) (e9 d10) (e11 d12)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8) (g9 f10) (g11 f12)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8) (i9 h10) (i11 h12)
+        (k1 j2) (k3 j4) (k5 j6) (k7 j8) (k9 j10) (k11 j12)
+        (m1 l2) (m3 l4) (m5 l6) (m7 l8) (m9 l10) (m11 l12)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8) (a11 b10) (a13 b12)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8) (c11 d10) (c13 d12)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8) (e11 f10) (e13 f12)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8) (g11 h10) (g13 h12)
+        (i3 j2) (i5 j4) (i7 j6) (i9 j8) (i11 j10) (i13 j12)
+        (k3 l2) (k5 l4) (k7 l6) (k9 l8) (k11 l10) (k13 l12)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7) (b10 c9) (b12 c11)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7) (d10 e9) (d12 e11)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7) (f10 g9) (f12 g11)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7) (h10 i9) (h12 i11)
+        (j2 k1) (j4 k3) (j6 k5) (j8 k7) (j10 k9) (j12 k11)
+        (l2 m1) (l4 m3) (l6 m5) (l8 m7) (l10 m9) (l12 m11)
+     )
+  )
+
+  (board-setup
+    (Black (King m5) (Man a1 c1 e1 g1 i1 k1 m1 b2 d2 f2 h2 j2 l2 a3 c3 e3 g3 i3 k3 m3 b4 d4 f4 h4 j4 l4))
+    (White (King a9) (Man a13 c13 e13 g13 i13 k13 m13 b12 d12 f12 h12 j12 l12 a11 c11 e11 g11 i11 k11 m11 b10 d10 f10 h10 j10 l10))
+  )
+)
+
+(variant
+  (title "Dablot Dares (5 rows)")
+  (default)
+
+  (board
+     (image "images/dablot/7x7.bmp")
+     (grid
+        (start-rectangle 6 6 65 65)
+        (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (44 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 44)) ; ranks
+        )
+     )
+     (links n
+        (a1 a3) (a3 a5) (a5 a7) (a7 a9) (a9 a11) (a11 a13)
+        (c1 c3) (c3 c5) (c5 c7) (c7 c9) (c9 c11) (c11 c13)
+        (e1 e3) (e3 e5) (e5 e7) (e7 e9) (e9 e11) (e11 e13)
+        (g1 g3) (g3 g5) (g5 g7) (g7 g9) (g9 g11) (g11 g13)
+        (i1 i3) (i3 i5) (i5 i7) (i7 i9) (i9 i11) (i11 i13)
+        (k1 k3) (k3 k5) (k5 k7) (k7 k9) (k9 k11) (k11 k13)
+        (m1 m3) (m3 m5) (m5 m7) (m7 m9) (m9 m11) (m11 m13)
+     )
+     (links s
+        (a3 a1) (a5 a3) (a7 a5) (a9 a7) (a11 a9) (a13 a11)
+        (c3 c1) (c5 c3) (c7 c5) (c9 c7) (c11 c9) (c13 c11)
+        (e3 e1) (e5 e3) (e7 e5) (e9 e7) (e11 e9) (e13 e11)
+        (g3 g1) (g5 g3) (g7 g5) (g9 g7) (g11 g9) (g13 g11)
+        (i3 i1) (i5 i3) (i7 i5) (i9 i7) (i11 i9) (i13 i11)
+        (k3 k1) (k5 k3) (k7 k5) (k9 k7) (k11 k9) (k13 k11)
+        (m3 m1) (m5 m3) (m7 m5) (m9 m7) (m11 m9) (m13 m11)
+     )
+     (links e
+        (a1 c1) (c1 e1) (e1 g1) (g1 i1) (i1 k1) (k1 m1)
+        (a3 c3) (c3 e3) (e3 g3) (g3 i3) (i3 k3) (k3 m3)
+        (a5 c5) (c5 e5) (e5 g5) (g5 i5) (i5 k5) (k5 m5)
+        (a7 c7) (c7 e7) (e7 g7) (g7 i7) (i7 k7) (k7 m7)
+        (a9 c9) (c9 e9) (e9 g9) (g9 i9) (i9 k9) (k9 m9)
+        (a11 c11) (c11 e11) (e11 g11) (g11 i11) (i11 k11) (k11 m11)
+        (a13 c13) (c13 e13) (e13 g13) (g13 i13) (i13 k13) (k13 m13)
+     )
+     (links w
+        (c1 a1) (e1 c1) (g1 e1) (i1 g1) (k1 i1) (m1 k1)
+        (c3 a3) (e3 c3) (g3 e3) (i3 g3) (k3 i3) (m3 k3)
+        (c5 a5) (e5 c5) (g5 e5) (i5 g5) (k5 i5) (m5 k5)
+        (c7 a7) (e7 c7) (g7 e7) (i7 g7) (k7 i7) (m7 k7)
+        (c9 a9) (e9 c9) (g9 e9) (i9 g9) (k9 i9) (m9 k9)
+        (c11 a11) (e11 c11) (g11 e11) (i11 g11) (k11 i11) (m11 k11)
+        (c13 a13) (e13 c13) (g13 e13) (i13 g13) (k13 i13) (m13 k13)
+     )
+     (links ne
+        (a1 b2) (a3 b4) (a5 b6) (a7 b8) (a9 b10) (a11 b12)
+        (c1 d2) (c3 d4) (c5 d6) (c7 d8) (c9 d10) (c11 d12)
+        (e1 f2) (e3 f4) (e5 f6) (e7 f8) (e9 f10) (e11 f12)
+        (g1 h2) (g3 h4) (g5 h6) (g7 h8) (g9 h10) (g11 h12)
+        (i1 j2) (i3 j4) (i5 j6) (i7 j8) (i9 j10) (i11 j12)
+        (k1 l2) (k3 l4) (k5 l6) (k7 l8) (k9 l10) (k11 l12)
+        (b2 c3) (b4 c5) (b6 c7) (b8 c9) (b10 c11) (b12 c13)
+        (d2 e3) (d4 e5) (d6 e7) (d8 e9) (d10 e11) (d12 e13)
+        (f2 g3) (f4 g5) (f6 g7) (f8 g9) (f10 g11) (f12 g13)
+        (h2 i3) (h4 i5) (h6 i7) (h8 i9) (h10 i11) (h12 i13)
+        (j2 k3) (j4 k5) (j6 k7) (j8 k9) (j10 k11) (j12 k13)
+        (l2 m3) (l4 m5) (l6 m7) (l8 m9) (l10 m11) (l12 m13)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (b6 a5) (b8 a7) (b10 a9) (b12 a11)
+        (d2 c1) (d4 c3) (d6 c5) (d8 c7) (d10 c9) (d12 c11)
+        (f2 e1) (f4 e3) (f6 e5) (f8 e7) (f10 e9) (f12 e11)
+        (h2 g1) (h4 g3) (h6 g5) (h8 g7) (h10 g9) (h12 g11)
+        (j2 i1) (j4 i3) (j6 i5) (j8 i7) (j10 i9) (j12 i11)
+        (l2 k1) (l4 k3) (l6 k5) (l8 k7) (l10 k9) (l12 k11)
+        (c3 b2) (c5 b4) (c7 b6) (c9 b8) (c11 b10) (c13 b12)
+        (e3 d2) (e5 d4) (e7 d6) (e9 d8) (e11 d10) (e13 d12)
+        (g3 f2) (g5 f4) (g7 f6) (g9 f8) (g11 f10) (g13 f12)
+        (i3 h2) (i5 h4) (i7 h6) (i9 h8) (i11 h10) (i13 h12)
+        (k3 j2) (k5 j4) (k7 j6) (k9 j8) (k11 j10) (k13 j12)
+        (m3 l2) (m5 l4) (m7 l6) (m9 l8) (m11 l10) (m13 l12)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (b6 a7) (b8 a9) (b10 a11) (b12 a13)
+        (d2 c3) (d4 c5) (d6 c7) (d8 c9) (d10 c11) (d12 c13)
+        (f2 e3) (f4 e5) (f6 e7) (f8 e9) (f10 e11) (f12 e13)
+        (h2 g3) (h4 g5) (h6 g7) (h8 g9) (h10 g11) (h12 g13)
+        (j2 i3) (j4 i5) (j6 i7) (j8 i9) (j10 i11) (j12 i13)
+        (l2 k3) (l4 k5) (l6 k7) (l8 k9) (l10 k11) (l12 k13)
+        (c1 b2) (c3 b4) (c5 b6) (c7 b8) (c9 b10) (c11 b12)
+        (e1 d2) (e3 d4) (e5 d6) (e7 d8) (e9 d10) (e11 d12)
+        (g1 f2) (g3 f4) (g5 f6) (g7 f8) (g9 f10) (g11 f12)
+        (i1 h2) (i3 h4) (i5 h6) (i7 h8) (i9 h10) (i11 h12)
+        (k1 j2) (k3 j4) (k5 j6) (k7 j8) (k9 j10) (k11 j12)
+        (m1 l2) (m3 l4) (m5 l6) (m7 l8) (m9 l10) (m11 l12)
+     )
+     (links se
+        (a3 b2) (a5 b4) (a7 b6) (a9 b8) (a11 b10) (a13 b12)
+        (c3 d2) (c5 d4) (c7 d6) (c9 d8) (c11 d10) (c13 d12)
+        (e3 f2) (e5 f4) (e7 f6) (e9 f8) (e11 f10) (e13 f12)
+        (g3 h2) (g5 h4) (g7 h6) (g9 h8) (g11 h10) (g13 h12)
+        (i3 j2) (i5 j4) (i7 j6) (i9 j8) (i11 j10) (i13 j12)
+        (k3 l2) (k5 l4) (k7 l6) (k9 l8) (k11 l10) (k13 l12)
+        (b2 c1) (b4 c3) (b6 c5) (b8 c7) (b10 c9) (b12 c11)
+        (d2 e1) (d4 e3) (d6 e5) (d8 e7) (d10 e9) (d12 e11)
+        (f2 g1) (f4 g3) (f6 g5) (f8 g7) (f10 g9) (f12 g11)
+        (h2 i1) (h4 i3) (h6 i5) (h8 i7) (h10 i9) (h12 i11)
+        (j2 k1) (j4 k3) (j6 k5) (j8 k7) (j10 k9) (j12 k11)
+        (l2 m1) (l4 m3) (l6 m5) (l8 m7) (l10 m9) (l12 m11)
+     )
+  )
+
+  (board-setup
+    (Black (King l6) (Man a1 c1 e1 g1 i1 k1 m1 b2 d2 f2 h2 j2 l2 a3 c3 e3 g3 i3 k3 m3 b4 d4 f4 h4 j4 l4 a5 c5 e5 g5 i5 k5 m5))
+    (White (King b8) (Man a13 c13 e13 g13 i13 k13 m13 b12 d12 f12 h12 j12 l12 a11 c11 e11 g11 i11 k11 m11 b10 d10 f10 h10 j10 l10 a9 c9 e9 g9 i9 k9 m9))
+  )
+)

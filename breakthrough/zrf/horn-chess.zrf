@@ -1,0 +1,86 @@
+(define shift (
+   $1 (verify empty?) 
+   add
+))
+
+(game
+    (title "Horn Chess")
+    (description "https://sites.google.com/site/boardandpieces/list-of-games/horn-chess")
+
+    (option "highlight goals" false)
+
+    (players Black White)
+    (turn-order Black White)
+
+    (board
+        (image "images/horn/board.bmp")
+        (positions
+             (a1  18 462  63 507)
+             (b1 186 462 231 507)
+             (a2  41 326  86 371)
+             (b2 196 326 241 371)
+             (a3  72 239 117 284)
+             (b3 213 239 258 284)
+             (a4 112 171 157 216)
+             (b4 236 171 281 216)
+             (a5 159 120 204 165)
+             (b5 263 120 308 165)
+             (a6 216  76 261 121)
+             (b6 296  76 341 121)
+             (a7 369  22 414  67)
+        )
+        (links n
+             (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 a6) (a6 a7)
+             (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 b6)
+        )
+        (links s
+             (a2 a1) (a3 a2) (a4 a3) (a5 a4) (a6 a5) (a7 a6)
+             (b2 b1) (b3 b2) (b4 b3) (b5 b4) (b6 b5) 
+        )
+        (links e
+             (a1 b1) (a2 b2) (a3 b3) (a4 b4) (a5 b5) (a6 b6)
+        )
+        (links w
+             (b1 a1) (b2 a2) (b3 a3) (b4 a4) (b5 a5) (b6 a6)
+        )
+        (links nw
+             (b1 a2) (b2 a3) (b3 a4) (b4 a5) (b5 a6) (b6 a7)
+        )
+        (links se
+             (a2 b1) (a3 b2) (a4 b3) (a5 b4) (a6 b5) (a7 b6)
+        )
+    )
+
+   (piece
+      (name BlackStone)
+      (image Black "images/horn/black.bmp")
+      (moves
+         (move-type up-type)
+         (shift n) (shift nw) (shift se)
+         (move-type middle-type)
+         (shift w) (shift e)
+      )
+   )
+   (piece
+      (name WhiteStone)
+      (image White "images/horn/white.bmp")
+      (moves
+         (move-type up-type)
+         (shift n) (shift nw)
+         (move-type middle-type)
+         (shift w) (shift e)
+         (move-type down-type)
+         (shift s) (shift se)
+      )
+   )
+
+   (board-setup
+        (White (WhiteStone a7))
+        (Black (BlackStone a1 b1))
+   )
+
+   (loss-condition (White Black) repetition)
+   (loss-condition (White Black) stalemated)
+   (win-condition  (White) (absolute-config WhiteStone (a1)))
+   (win-condition  (White) (absolute-config WhiteStone (b1)))
+)

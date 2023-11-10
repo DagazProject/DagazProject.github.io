@@ -1,0 +1,1679 @@
+(define shiftPP (
+  $1 (verify not-friend?) add
+))
+
+(define slidePP (
+  $1 (while empty? add $1) 
+  (verify enemy?) add
+)) 
+
+(define leapPP (
+  $1 $1 (verify not-friend?) add
+))
+
+(define shift2PP (
+  $1 (verify empty?) 
+  $1 (verify not-friend?) add
+))
+
+(define shift3PP (
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify not-friend?) add
+))
+
+(define shift4PP (
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify not-friend?) add
+))
+
+(define shift5PP (
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify empty?) 
+  $1 (verify not-friend?) add
+))
+
+(define hookHV (
+  $1 
+  (while empty?
+    (add-partial move-twice-v) $1
+  ) 
+  (verify enemy?) add
+))
+
+(define hookHH (
+  $1 
+  (while empty?
+    (add-partial move-twice-h) $1
+  ) 
+  (verify enemy?) add
+))    
+
+(define shiftLD (
+  $1 (verify not-friend?)
+  (add-partial $2)
+))
+
+(define shiftPK (
+  $1 (verify not-friend?) add
+))
+
+(define shiftPKK (
+  $1 (verify not-friend?) add
+))
+
+(game
+  (title "Maka Dai Dai Shogi")
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities normal)
+
+  (board 
+    (image "makadaidai43/board_n.bmp")
+    
+    (grid
+      (start-rectangle 25 25 63 63)  ; доска
+     
+      (dimensions
+         ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s" (43 0))
+         ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 43))
+      )
+      (directions 
+        (n    0 -1) (e    1  0) 
+        (s    0  1) (w   -1  0)
+        (ne   1 -1) (nw  -1 -1) 
+        (se   1  1) (sw  -1  1)
+        (n2L -1 -2) (n2R  1 -2)
+        (s2L -1  2) (s2R  1  2)
+        (e2B  2  1) (e2T  2 -1)
+        (w2B -2  1) (w2T -2 -1)
+      )
+    )
+
+    (symmetry White 
+      (n  s)
+      (s  n) 
+      (e  w) 
+      (w  e) 
+      (nw se)
+      (sw ne) 
+      (ne sw)
+      (se nw)
+  
+      (n2L s2R)
+      (n2R s2L)
+      (s2R n2L)
+      (s2L n2R)
+
+      (e2B w2T)
+      (e2T w2B)
+      (w2T e2B)
+      (w2B e2T)
+    )
+  )
+
+  (piece
+    (name Go-Between)
+    (image White "makadaidai43/Posrednik_piece_W_norm.bmp"
+           Black "makadaidai43/Posrednik_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP n) 
+      (shiftPP s)
+    )
+  )
+
+  (piece
+    (name Free-Goer)
+    (image White "makadaidai43/Svobodnyj_hodok_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_hodok_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP n) 
+      (slidePP s)
+    )
+  )
+
+  (piece
+    (name Pawn)
+    (image White "makadaidai43/Peshka_piece_W_norm.bmp" 
+           Black "makadaidai43/Peshka_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP n)
+    )
+  )
+
+  (piece
+    (name Tokin)
+    (image White "makadaidai43/Tokin_piece_W_prom.bmp"
+           Black "makadaidai43/Tokin_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP s) 
+      (shiftPP n) 
+      (shiftPP ne) 
+      (shiftPP nw)
+      (shiftPP e) 
+      (shiftPP w)
+    )
+  )
+  
+  (piece
+    (name Rook)
+    (image White "makadaidai43/Ladja_piece_W_norm.bmp" 
+           Black "makadaidai43/Ladja_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP n) 
+      (slidePP e)
+      (slidePP s) 
+      (slidePP w)
+    )
+  )
+  
+  (piece
+    (name Gold-Promoted)
+    (image White "makadaidai43/Zolotoj_general_piece_W_prom.bmp"
+           Black "makadaidai43/Zolotoj_general_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP s) 
+      (shiftPP n)
+      (shiftPP ne)
+      (shiftPP nw)
+      (shiftPP e) 
+      (shiftPP w)
+    )
+  )
+
+  (piece 
+    (name Left-Chariot)
+    (image White "makadaidai43/Levaja_kolesnica_piece_W_norm.bmp"
+           Black "makadaidai43/Levaja_kolesnica_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP nw)
+      (slidePP se)
+      (slidePP n)
+      (shiftPP s)
+    )
+  )
+  
+  (piece 
+    (name Right-Chariot)
+    (image White "makadaidai43/Pravaja_kolesnica_piece_W_norm.bmp"
+           Black "makadaidai43/Pravaja_kolesnica_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP ne)
+      (slidePP sw)
+      (slidePP n)
+      (shiftPP s)
+    )
+  )
+
+  (piece
+    (name Side-Mover)
+    (image White "makadaidai43/Gorizontalnyj_hodok_piece_W_norm.bmp"
+           Black "makadaidai43/Gorizontalnyj_hodok_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP e) 
+      (slidePP w)
+      (shiftPP n) 
+      (shiftPP s)
+    )
+  )
+
+  (piece
+    (name Side-Flyer)
+    (image White "makadaidai43/Gorizontalnyj_letun_piece_W_norm.bmp"
+           Black "makadaidai43/Gorizontalnyj_letun_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (slidePP e) 
+      (slidePP w)
+      (shiftPP nw) 
+      (shiftPP ne)
+      (shiftPP sw) 
+      (shiftPP se)
+    )
+  )
+
+  (piece
+    (name Vertical-Mover)
+    (image White "makadaidai43/Vertikalnyj_hodok_piece_W_norm.bmp"
+           Black "makadaidai43/Vertikalnyj_hodok_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (slidePP s) 
+      (slidePP n)
+      (shiftPP e) 
+      (shiftPP w)
+    )
+  )
+
+  (piece
+    (name Bishop)
+    (image White "makadaidai43/Slon_piece_W_norm.bmp"
+           Black "makadaidai43/Slon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (slidePP ne) 
+      (slidePP nw) 
+      (slidePP se) 
+      (slidePP sw)
+    )
+  )
+
+  (piece
+    (name Dragon-Horse)
+    (image White "makadaidai43/Loshad_piece_W_norm.bmp"
+           Black "makadaidai43/Loshad_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP n) 
+      (shiftPP e)
+      (shiftPP s) 
+      (shiftPP w)
+      (slidePP nw) 
+      (slidePP ne)
+      (slidePP se) 
+      (slidePP sw)
+    )
+  )
+
+  (piece
+    (name Dragon-King)
+    (image White "makadaidai43/Car_Drakon_piece_W_norm.bmp"
+           Black "makadaidai43/Car_Drakon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (slidePP n)  
+      (slidePP e) 
+      (slidePP s)  
+      (slidePP w)
+      (shiftPP nw) 
+      (shiftPP ne)
+      (shiftPP se) 
+      (shiftPP sw)
+    )
+  )
+
+  (piece 
+    (name Capricorn)
+    (image White "makadaidai43/Kozerog_piece_W_norm.bmp"
+           Black "makadaidai43/Kozerog_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (hookHV ne)
+      (hookHV sw)
+      (hookHH nw)
+      (hookHH se)
+      
+      (move-type move-twice-v)
+      (slidePP nw)
+      (slidePP se)
+      
+      (move-type move-twice-h)
+      (slidePP ne)
+      (slidePP sw)
+    )
+  )
+  
+  (piece 
+    (name Hook-Mover)
+    (image White "makadaidai43/Krjukovoj_hodok_piece_W_norm.bmp"
+           Black "makadaidai43/Krjukovoj_hodok_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (hookHV n)
+      (hookHV s)
+      (hookHH e)
+      (hookHH w)
+      
+      (move-type move-twice-v)
+      (slidePP e)
+      (slidePP w)
+      
+      (move-type move-twice-h)
+      (slidePP n)
+      (slidePP s)
+    )
+  )
+
+  (piece
+    (name Free-King)
+    (image White "makadaidai43/Ferz_piece_W_norm.bmp"
+           Black "makadaidai43/Ferz_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (slidePP n)  
+      (slidePP e)
+      (slidePP s)  
+      (slidePP w)
+      (slidePP nw) 
+      (slidePP ne) 
+      (slidePP se) 
+      (slidePP sw)
+    )
+  )
+
+  (piece 
+    (name Donkey)
+    (image White "makadaidai43/Osjol_piece_W_norm.bmp"
+           Black "makadaidai43/Osjol_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (leapPP  n)
+      (leapPP  s)
+      (shiftPP n)
+      (shiftPP s)
+      (shiftPP w)
+      (shiftPP e)
+    )
+  )
+
+  (piece 
+    (name Knight)
+    (image White "makadaidai43/Kon_piece_W_norm.bmp"
+           Black "makadaidai43/Kon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP n2L)
+      (shiftPP n2R)  
+     )
+  )
+
+  (piece 
+    (name Violent-Ox)
+    (image White "makadaidai43/Silnyj_byk_piece_W_norm.bmp"
+           Black "makadaidai43/Silnyj_byk_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP  n)
+      (shiftPP  s)
+      (shiftPP  w)
+      (shiftPP  e)
+      (shift2PP n)
+      (shift2PP s)
+      (shift2PP w)
+      (shift2PP e)
+    )
+  )
+
+  (piece 
+    (name Flying-Dragon)
+    (image White "makadaidai43/Letajushij_drakon_piece_W_norm.bmp"
+           Black "makadaidai43/Letajushij_drakon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)      
+      (shiftPP  nw)
+      (shiftPP  se)
+      (shiftPP  sw)
+      (shiftPP  ne)
+      (shift2PP nw)
+      (shift2PP se)
+      (shift2PP sw)
+      (shift2PP ne)
+    )
+  )
+
+  (piece 
+    (name Buddhist-Devil)
+    (image White "makadaidai43/Demon_piece_W_norm.bmp"
+           Black "makadaidai43/Demon_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP  ne)
+      (shift2PP ne)
+      (shift3PP ne)
+      (shiftPP  e)
+      (shiftPP  s)
+      (shiftPP  w)
+      (shiftPP  nw)
+      (shift2PP nw)
+      (shift3PP nw)
+    )
+  )
+  
+  (piece 
+    (name She-Devil)
+    (image White "makadaidai43/Djavolica_piece_W_norm.bmp"
+           Black "makadaidai43/Djavolica_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP  n)
+      (shift2PP n)
+      (shift3PP n)
+      (shift4PP n)
+      (shift5PP n)
+      (shiftPP  ne)
+      (shift2PP ne)
+      (shiftPP  e)
+      (shift2PP e)
+      (shift3PP e)
+      (shift4PP e)
+      (shift5PP e)
+      (shiftPP  se)
+      (shift2PP se)
+      (shiftPP  s)
+      (shift2PP s)
+      (shift3PP s)
+      (shift4PP s)
+      (shift5PP s)
+      (shiftPP  sw)
+      (shift2PP sw)
+      (shiftPP  w)
+      (shift2PP w)
+      (shift3PP w)
+      (shift4PP w)
+      (shift5PP w)
+      (shiftPP  nw)
+      (shift2PP nw)
+    )
+  )
+
+  (piece 
+    (name Wrestler)
+    (image White "makadaidai43/Borec_piece_W_norm.bmp"
+           Black "makadaidai43/Borec_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP  ne)
+      (shift2PP ne)
+      (shift3PP ne)
+      (shiftPP  e)
+      (shiftPP  se)
+      (shift2PP se)
+      (shift3PP se)
+      (shiftPP  sw)
+      (shift2PP sw)
+      (shift3PP sw)
+      (shiftPP  w)
+      (shiftPP  nw)
+      (shift2PP nw)
+      (shift3PP nw)
+    )
+  )
+  
+  (piece 
+    (name Guardian-of-the-Gods)
+    (image White "makadaidai43/Almaz_piece_W_norm.bmp"
+           Black "makadaidai43/Almaz_piece_B_norm.bmp")
+    (moves
+      (move-type normal)   
+      (shiftPP  n)
+      (shift2PP n)
+      (shift3PP n)
+      (shiftPP  ne)
+      (shiftPP  e)
+      (shift2PP e)
+      (shift3PP e)
+      (shiftPP  s)
+      (shift2PP s)
+      (shift3PP s)
+      (shiftPP  nw)
+      (shiftPP  w)
+      (shift2PP w)
+      (shift3PP w)
+    )
+  )
+
+  (piece 
+    (name Lion-Dog)
+    (image White "makadaidai43/Lvinaja_sobaka_piece_W_norm.bmp"
+           Black "makadaidai43/Lvinaja_sobaka_piece_B_norm.bmp")
+    (moves
+
+      (move-type normal)
+      (shiftLD  n move-twice-v)
+      (shiftLD  s move-twice-v)
+      (shiftLD  w move-twice-h)
+      (shiftLD  e move-twice-h)
+      (shiftLD se move-twice-l)
+      (shiftLD nw move-twice-l)
+      (shiftLD ne move-twice-r)
+      (shiftLD sw move-twice-r)
+
+      (move-type move-twice-v)
+      (shiftLD n move-trice-v)
+      (shiftLD s move-trice-v)
+
+      (move-type move-twice-h)
+      (shiftLD w move-trice-h)
+      (shiftLD e move-trice-h)
+
+      (move-type move-twice-l)
+      (shiftLD se move-trice-l)
+      (shiftLD nw move-trice-l)
+
+      (move-type move-twice-r)
+      (shiftLD ne move-trice-r)
+      (shiftLD sw move-trice-r)
+
+      (move-type move-trice-v)
+      (shiftPP  n)
+      (shiftPP  s)
+
+      (move-type move-trice-h)
+      (shiftPP  w)
+      (shiftPP  e)
+
+      (move-type move-trice-l)
+      (shiftPP  se)
+      (shiftPP  nw)
+
+      (move-type move-trice-r)
+      (shiftPP  ne)
+      (shiftPP  sw)
+    )
+  )
+
+  ; ------------ 5 ряд
+
+  (piece 
+    (name Old-Rat)
+    (image White "makadaidai43/Staraja_krysa_piece_W_norm.bmp"
+           Black "makadaidai43/Staraja_krysa_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP  n)
+      (shiftPP  sw)
+      (shiftPP  se)
+    )
+  )
+  
+  (piece 
+    (name Bat)
+    (image White "makadaidai43/Letuchaja_mysh_piece_W_prom.bmp"
+           Black "makadaidai43/Letuchaja_mysh_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (slidePP n)
+      (slidePP sw)
+      (slidePP se)
+    )
+  )
+
+  (piece 
+    (name Angry-Boar)
+    (image White "makadaidai43/Dikij_kaban_piece_W_norm.bmp"
+           Black "makadaidai43/Dikij_kaban_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP n)
+      (shiftPP e)
+      (shiftPP w)
+      (shiftPP s)
+    )
+  )
+  
+  (piece
+    (name Free-Boar)
+    (image White "makadaidai43/Svobodnyj_kaban_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_kaban_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP e)  
+      (slidePP w)  
+      (slidePP nw)
+      (slidePP ne) 
+      (slidePP se) 
+      (slidePP sw)
+    )
+  )
+
+  (piece 
+    (name Blind-Bear)
+    (image White "makadaidai43/Slepoj_medved_piece_W_norm.bmp"
+           Black "makadaidai43/Slepoj_medved_piece_B_norm.bmp")
+    (moves
+      (move-type normal)   
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP sw)
+      (shiftPP se)
+      (slidePP s)
+    )
+  )
+  
+  (piece 
+    (name Free-Bear)
+    (image White "makadaidai43/Svobodnyj_medved_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_medved_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (leapPP  nw)
+      (leapPP  ne)
+      (slidePP nw)
+      (slidePP ne)
+      (slidePP w)
+      (slidePP sw)
+      (slidePP se)
+      (slidePP e)
+    )
+  )
+
+  (piece 
+    (name Evil-Wolf)
+    (image White "makadaidai43/Zloj_Volk_piece_W_norm.bmp"
+           Black "makadaidai43/Zloj_Volk_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP w)
+      (shiftPP nw)
+      (shiftPP n)
+      (shiftPP ne)
+      (shiftPP e)
+    )
+  )
+
+  (piece 
+    (name Free-Wolf)
+    (image White "makadaidai43/Svobodnyj_volk_piece_W_prom.bmp" 
+           Black "makadaidai43/Svobodnyj_volk_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP nw)
+      (slidePP ne)
+      (slidePP s)
+      (slidePP e)
+      (slidePP w)
+    )
+  )
+
+  (piece
+    (name Kylin)
+    (image White "makadaidai43/Edinorog_piece_W_norm.bmp"
+           Black "makadaidai43/Edinorog_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (leapPP  n)   
+      (leapPP  e)   
+      (leapPP  s)
+      (leapPP  w)   
+      (shiftPP nw) 
+      (shiftPP ne)
+      (shiftPP se) 
+      (shiftPP sw)
+    )
+  )
+  
+  (piece
+    (name Great-Dragon)
+    (image White "makadaidai43/Velikij_drakon_piece_W_prom.bmp"
+           Black "makadaidai43/Velikij_drakon_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP  n)  
+      (shift2PP n)
+      (shiftPP  s)  
+      (shift2PP s)  
+      (shiftPP  ne)
+      (shift2PP ne)
+      (shift3PP ne)
+      (slidePP  e)
+      (shiftPP  se)
+      (shift2PP se)
+      (shift3PP se)
+      (shiftPP  sw)
+      (shift2PP sw)
+      (shift3PP sw)
+      (slidePP  w)
+      (shiftPP  nw)
+      (shift2PP nw)
+      (shift3PP nw)  
+    )
+  )
+  
+  (piece
+    (name Phoenix)
+    (image White "makadaidai43/Feniks_piece_W_norm.bmp"
+           Black "makadaidai43/Feniks_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (leapPP  nw) 
+      (leapPP  ne) 
+      (leapPP  se) 
+      (leapPP  sw)
+      (shiftPP n) 
+      (shiftPP e)
+      (shiftPP s) 
+      (shiftPP w)
+    )
+  )
+  
+  (piece
+    (name Golden-Bird)
+    (image White "makadaidai43/Zolotoe_krylo_piece_W_prom.bmp"
+           Black "makadaidai43/Zolotoe_krylo_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP  n)  
+      (slidePP  s)  
+      (shiftPP  ne)
+      (shift2PP ne)
+      (shift3PP ne)
+      (shiftPP  e)
+      (shift2PP e)
+      (shiftPP  se)
+      (shift2PP se)
+      (shift3PP se)
+      (shiftPP  sw)
+      (shift2PP sw)
+      (shift3PP sw)
+      (shiftPP  w)
+      (shift2PP w)
+      (shiftPP  nw)
+      (shift2PP nw)
+      (shift3PP nw)
+    )
+  )
+
+  (piece
+    (name Lion)
+    (image White "makadaidai43/Lev_piece_W_norm.bmp"
+           Black "makadaidai43/Lev_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftLD n move-twice)
+      (shiftLD s move-twice)
+      (shiftLD w move-twice)
+      (shiftLD e move-twice)
+      (shiftLD se move-twice)
+      (shiftLD nw move-twice)
+      (shiftLD ne move-twice)
+      (shiftLD sw move-twice)
+
+      (move-type move-twice)
+      (shiftPP n)  
+      (shiftPP e)  
+      (shiftPP s)   
+      (shiftPP w)  
+      (shiftPP ne)  
+      (shiftPP nw)  
+      (shiftPP se)   
+      (shiftPP sw)  
+    )
+  )
+
+  (piece 
+    (name Furious-Fiend)
+    (image White "makadaidai43/JArostnoe_porozhdenie_piece_W_prom.bmp"
+           Black "makadaidai43/JArostnoe_porozhdenie_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (shift3PP n)
+      (shift3PP s)
+      (shift3PP w)
+      (shift3PP e)    
+      (shift3PP ne)
+      (shift3PP nw)
+      (shift3PP se)
+      (shift3PP sw) 
+      (shiftLD n move-twice)
+      (shiftLD s move-twice)
+      (shiftLD w move-twice)
+      (shiftLD e move-twice)
+      (shiftLD se move-twice)
+      (shiftLD nw move-twice)
+      (shiftLD ne move-twice)
+      (shiftLD sw move-twice)
+
+      (move-type move-twice)
+      (shiftPP n)  
+      (shiftPP e)  
+      (shiftPP s)   
+      (shiftPP w)  
+      (shiftPP ne)  
+      (shiftPP nw)  
+      (shiftPP se)   
+      (shiftPP sw)  
+    )
+  )
+
+  (piece
+    (name Reverse-Chariot)
+    (image White "makadaidai43/Kontrstrelka_piece_W_norm.bmp"
+           Black "makadaidai43/Kontrstrelka_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP n) 
+      (slidePP s)
+    )
+  )
+  
+  (piece 
+    (name Cat-Sword)
+    (image White "makadaidai43/Koshachij_mech_piece_W_norm.bmp"
+           Black "makadaidai43/Koshachij_mech_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP sw)
+      (shiftPP se)
+    )
+  )
+
+  (piece 
+    (name Free-Cat)
+    (image White "makadaidai43/Svobodnaja_koshka_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnaja_koshka_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP nw)
+      (slidePP ne)
+      (slidePP sw)
+      (slidePP se)
+    )
+  )
+  
+  (piece 
+    (name Chinese-Cock)
+    (image White "makadaidai43/Kitajskij_petuh_piece_W_norm.bmp"
+           Black "makadaidai43/Kitajskij_petuh_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP w)
+      (shiftPP s)
+      (shiftPP e)
+    )
+  )
+  
+  (piece 
+    (name Wizard-Stork)
+    (image White "makadaidai43/Volshebnyj_aist_piece_W_prom.bmp"
+           Black "makadaidai43/Volshebnyj_aist_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP s)
+      (slidePP n)
+      (slidePP sw)
+      (slidePP nw)
+      (slidePP se)
+      (slidePP ne)
+    )
+  )
+  
+  (piece 
+    (name Old-Monkey)
+    (image White "makadaidai43/Staraja_obezjana_piece_W_norm.bmp"
+           Black "makadaidai43/Staraja_obezjana_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP nw)
+      (shiftPP sw)
+      (shiftPP s)
+      (shiftPP ne)
+      (shiftPP se)
+    )
+  )
+ 
+  (piece 
+    (name Mountain-Witch)
+    (image White "makadaidai43/Gornaja_vedma_piece_W_prom.bmp"
+           Black "makadaidai43/Gornaja_vedma_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP n)
+      (slidePP s)
+      (slidePP sw)
+      (slidePP nw)
+      (slidePP se)
+      (slidePP ne)
+    )
+  )
+
+  (piece 
+    (name Coiled-Serpent)
+    (image White "makadaidai43/Svernuvshajasja_zmeja_piece_W_norm.bmp"
+           Black "makadaidai43/Svernuvshajasja_zmeja_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP sw)
+      (shiftPP se)
+      (shiftPP n)
+      (shiftPP s)
+    )
+  )
+  
+  (piece 
+    (name Free-Serpent)
+    (image White "makadaidai43/Svobodnaja_zmeja_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnaja_zmeja_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP n)
+      (slidePP sw)
+      (slidePP se)
+      (slidePP s)
+    )
+  )
+  
+  (piece 
+    (name Reclining-Dragon)
+    (image White "makadaidai43/Lezhashij_drakon_piece_W_norm.bmp"
+           Black "makadaidai43/Lezhashij_drakon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP n)
+      (shiftPP se)
+      (shiftPP sw)
+      (shiftPP w)
+      (shiftPP s)
+      (shiftPP e)
+    )
+  )
+  
+  (piece 
+    (name Free-Dragon)
+    (image White "makadaidai43/Svobodnyj_drakon_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_drakon_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP s)
+      (slidePP n)
+      (shiftPP sw)
+      (slidePP nw)
+      (shiftPP se)
+      (slidePP ne)
+    )
+  )
+  
+  (piece
+    (name Ferocious-Leopard)
+    (image White "makadaidai43/JArostnyj_leopard_piece_W_norm.bmp"
+           Black "makadaidai43/JArostnyj_leopard_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP s)  
+      (shiftPP n)  
+      (shiftPP ne) 
+      (shiftPP nw)
+      (shiftPP se) 
+      (shiftPP sw)
+    )
+  )
+  
+  (piece
+    (name Free-Leopard)
+    (image White "makadaidai43/Svobodnyj_leopard_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_leopard_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (slidePP s)  
+      (slidePP n)  
+      (slidePP ne) 
+      (slidePP nw)
+      (slidePP se) 
+      (slidePP sw)
+    )
+  )
+  
+  (piece
+    (name Blind-Tiger)
+    (image White "makadaidai43/Slepoj_tigr_piece_W_norm.bmp"
+           Black "makadaidai43/Slepoj_tigr_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP e)  
+      (shiftPP s)
+      (shiftPP w)  
+      (shiftPP ne)
+      (shiftPP nw) 
+      (shiftPP se) 
+      (shiftPP sw)
+    )
+  )
+  
+  (piece
+    (name Free-Tiger)
+    (image White "makadaidai43/Svobodnyj_tigr_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_tigr_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP s)  
+      (slidePP e)  
+      (slidePP w)
+      (slidePP se) 
+      (slidePP sw) 
+      (slidePP ne) 
+      (slidePP nw)
+    )
+  )
+  
+  (piece
+    (name Drunk-Elephant)
+    (image White "makadaidai43/Pjanyj_slon_piece_W_norm.bmp"
+           Black "makadaidai43/Pjanyj_slon_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPK e)  
+      (shiftPK n)  
+      (shiftPK w)  
+      (shiftPK ne)
+      (shiftPK nw) 
+      (shiftPK se) 
+      (shiftPK sw)
+    )
+  )
+
+  (piece
+    (name Crown-Prince)
+    (image White "makadaidai43/Kronprinc_piece_W_prom.bmp"
+           Black "makadaidai43/Kronprinc_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (shiftPK n)  
+      (shiftPK e)
+      (shiftPK s)  
+      (shiftPK w)
+      (shiftPK ne) 
+      (shiftPK nw)
+      (shiftPK se) 
+      (shiftPK sw)
+    )
+  )
+  
+  (piece
+    (name Lance)
+    (image White "makadaidai43/Strelka_piece_W_norm.bmp"
+           Black "makadaidai43/Strelka_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP n)
+    )
+  )
+
+  (piece
+    (name Earth-General)
+    (image White "makadaidai43/Zemljanoj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Zemljanoj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP s) 
+      (shiftPP n) 
+    )
+  )
+
+  (piece
+    (name Free-Earth)
+    (image White "makadaidai43/Svobodnaja_zemlja_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnaja_zemlja_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP s) 
+      (slidePP n) 
+    )
+  )
+  
+
+  (piece 
+    (name Stone-General)
+    (image White "makadaidai43/Kamennyj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Kamennyj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP nw)
+      (shiftPP ne)
+    )
+  )
+  
+  (piece 
+    (name Free-Stone)
+    (image White "makadaidai43/Svobodnyj_kamen_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnyj_kamen_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP nw)
+      (slidePP ne)
+    )
+  )
+
+  (piece 
+    (name Tile-General)
+    (image White "makadaidai43/Plitochnyj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Plitochnyj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP s)
+    )
+  )
+  
+  (piece 
+    (name Free-Tile)
+    (image White "makadaidai43/Svobodnaja_plitka_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnaja_plitka_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (slidePP nw)
+      (slidePP ne)
+      (slidePP s)
+    )
+  )
+
+  (piece 
+    (name Iron-General)
+    (image White "makadaidai43/ZHeleznyj_general_piece_W_norm.bmp"
+           Black "makadaidai43/ZHeleznyj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP nw)
+      (shiftPP n)
+      (shiftPP ne)
+    )
+  )
+  
+  (piece 
+    (name Free-Iron)
+    (image White "makadaidai43/Svobodnoe_zhelezo_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnoe_zhelezo_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (slidePP nw)
+      (slidePP n)
+      (slidePP ne)
+    )
+  )
+
+  (piece
+    (name Copper-General)
+    (image White "makadaidai43/Mednyj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Mednyj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP s) 
+      (shiftPP n) 
+      (shiftPP ne) 
+      (shiftPP nw)
+    )
+  )
+
+  (piece
+    (name Free-Copper)
+    (image White "makadaidai43/Svobodnaja_med_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnaja_med_piece_B_prom.bmp")
+    (moves
+      (move-type normal)  
+      (slidePP s) 
+      (slidePP n) 
+      (slidePP ne) 
+      (slidePP nw)
+    )
+  )
+  
+  (piece
+    (name Silver-General)
+    (image White "makadaidai43/Serebrjanyj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Serebrjanyj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal)    
+      (shiftPP se) 
+      (shiftPP sw) 
+      (shiftPP ne) 
+      (shiftPP nw) 
+      (shiftPP n)
+    )
+  )
+
+  (piece
+    (name Free-Silver)
+    (image White "makadaidai43/Svobodnoe_serebro_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnoe_serebro_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP se) 
+      (slidePP sw) 
+      (slidePP ne) 
+      (slidePP nw) 
+      (slidePP n)
+    )
+  )
+
+  (piece
+    (name Gold-General)
+    (image White "makadaidai43/Zolotoj_general_piece_W_norm.bmp"
+           Black "makadaidai43/Zolotoj_general_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+      (shiftPP s) 
+      (shiftPP n) 
+      (shiftPP ne)
+      (shiftPP nw)
+      (shiftPP e) 
+      (shiftPP w)
+    )
+  )
+  
+  (piece
+    (name Free-Gold)
+    (image White "makadaidai43/Svobodnoe_zoloto_piece_W_prom.bmp"
+           Black "makadaidai43/Svobodnoe_zoloto_piece_B_prom.bmp")
+    (moves
+      (move-type normal) 
+      (slidePP s) 
+      (slidePP n) 
+      (slidePP ne)
+      (slidePP nw)
+      (slidePP e) 
+      (slidePP w)
+    )
+  )
+  
+  (piece 
+    (name Deva)
+    (image White "makadaidai43/Deva_piece_W_norm.bmp"
+           Black "makadaidai43/Deva_piece_B_norm.bmp")
+    (moves
+      (move-type normal)  
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP w)
+      (shiftPP se)
+    )
+  )
+  
+  (piece
+    (name Teaching-King)
+    (image White "makadaidai43/Uchebnyj_korol_piece_W_prom.bmp"
+           Black "makadaidai43/Uchebnyj_korol_piece_B_prom.bmp")
+    (moves
+
+      (move-type normal)
+      (slidePP n)  
+      (slidePP e)
+      (slidePP s)  
+      (slidePP w)
+      (slidePP nw) 
+      (slidePP ne) 
+      (slidePP se) 
+      (slidePP sw)
+
+      (shiftLD  n move-twice-v)
+      (shiftLD  s move-twice-v)
+      (shiftLD  w move-twice-h)
+      (shiftLD  e move-twice-h)
+      (shiftLD se move-twice-l)
+      (shiftLD nw move-twice-l)
+      (shiftLD ne move-twice-r)
+      (shiftLD sw move-twice-r)
+
+
+      (move-type move-twice-v)
+      (shiftLD n move-trice-v)
+      (shiftLD s move-trice-v)
+
+      (move-type move-twice-h)
+      (shiftLD w move-trice-h)
+      (shiftLD e move-trice-h)
+
+      (move-type move-twice-l)
+      (shiftLD se move-trice-l)
+      (shiftLD nw move-trice-l)
+
+      (move-type move-twice-r)
+      (shiftLD ne move-trice-r)
+      (shiftLD sw move-trice-r)
+
+      (move-type move-trice-v)
+      (shiftPP  n)
+      (shiftPP  s)
+
+      (move-type move-trice-h)
+      (shiftPP  w)
+      (shiftPP  e)
+
+      (move-type move-trice-l)
+      (shiftPP  se)
+      (shiftPP  nw)
+
+      (move-type move-trice-r)
+      (shiftPP  ne)
+      (shiftPP  sw)
+    )
+  )
+  
+  (piece 
+    (name Dark-Spirit)
+    (image White "makadaidai43/Duh_nevezhestva_piece_W_norm.bmp"
+           Black "makadaidai43/Duh_nevezhestva_piece_B_norm.bmp")
+    (moves
+      (move-type normal) 
+      (shiftPP nw)
+      (shiftPP ne)
+      (shiftPP sw)
+      (shiftPP e)
+    )
+  )
+
+  (piece 
+    (name Buddhist-Spirit)
+    (image White "makadaidai43/Buddijskij_duh_piece_W_prom.bmp"
+           Black "makadaidai43/Buddijskij_duh_piece_B_prom.bmp")
+    (moves
+      (move-type normal)
+      (slidePP n)
+      (slidePP s)
+      (slidePP w)
+      (slidePP e)    
+      (slidePP ne)
+      (slidePP nw)
+      (slidePP se)
+      (slidePP sw) 
+      (shiftLD n move-twice)
+      (shiftLD s move-twice)
+      (shiftLD w move-twice)
+      (shiftLD e move-twice)
+      (shiftLD se move-twice)
+      (shiftLD nw move-twice)
+      (shiftLD ne move-twice)
+      (shiftLD sw move-twice)
+
+      (move-type move-twice)
+      (shiftPP n)  
+      (shiftPP e)  
+      (shiftPP s)   
+      (shiftPP w)  
+      (shiftPP ne)  
+      (shiftPP nw)  
+      (shiftPP se)   
+      (shiftPP sw)  
+    )
+  )
+  
+  (piece
+    (name King)
+    (image White "makadaidai43/Korol_piece_W_norm.bmp"
+           Black "makadaidai43/Korol_piece_B_norm.bmp")
+    (moves
+      (move-type normal)
+
+      (shiftPKK n)  
+      (shiftPKK e)  
+      (shiftPKK s)  
+      (shiftPKK w)
+      (shiftPKK ne) 
+      (shiftPKK nw) 
+      (shiftPKK se) 
+      (shiftPKK sw)
+    )
+  )
+
+  (piece
+    (name Emperor)
+    (image White "makadaidai43/Imperator_piece_W_prom.bmp"
+           Black "makadaidai43/Imperator_piece_B_prom.bmp")
+  )
+
+  (board-setup
+    (White
+      (Angry-Boar d17 p17)
+      (Bishop f15 n15)
+      (Blind-Bear f17 n17)
+      (Blind-Tiger i18 k18)
+      (Buddhist-Devil l16)
+      (Capricorn k15)
+      (Cat-Sword c18 q18)
+      (Chinese-Cock o18)
+      (Coiled-Serpent m18)
+      (Copper-General f19 n19)
+      (Dark-Spirit i19)
+      (Deva k19)
+      (Donkey a16 s16)
+      (Dragon-Horse g15 m15)
+      (Dragon-King h15 l15)
+      (Drunk-Elephant j18)
+      (Earth-General b19 r19)
+      (Evil-Wolf h17 l17)
+      (Ferocious-Leopard h18 l18)
+      (Flying-Dragon g16 m16)
+      (Free-King j15)
+      (Go-Between f13 n13)
+      (Gold-General h19 l19)
+      (Guardian-of-the-Gods i16)
+      (Hook-Mover i15)
+      (Iron-General e19 o19)
+      (King j19)
+      (Knight c16 q16)
+      (Kylin k17)
+      (Lance a19 s19)
+      (Left-Chariot r15)
+      (Lion j17)
+      (Lion-Dog j16)
+      (Old-Monkey e18)
+      (Old-Rat b17 r17)
+      (Pawn s14 r14 q14 p14 o14 n14 m14 l14 k14 j14 i14 h14 g14 f14 e14 d14 c14 b14 a14)
+      (Phoenix i17)
+      (Reclining-Dragon g18)
+      (Reverse-Chariot a18 s18)
+      (Right-Chariot b15)
+      (Rook a15 s15)
+      (She-Devil h16)
+      (Side-Flyer d15 p15)
+      (Side-Mover c15 q15)
+      (Silver-General g19 m19)
+      (Stone-General c19 q19)
+      (Tile-General d19 p19)
+      (Vertical-Mover e15 o15)
+      (Violent-Ox e16 o16)
+      (Wrestler k16)
+    )
+    (Black
+      (Angry-Boar d3 p3)
+      (Bishop f5 n5)
+      (Blind-Bear f3 n3)
+      (Blind-Tiger i2 k2)
+      (Buddhist-Devil h4)
+      (Capricorn i5)
+      (Cat-Sword c2 q2)
+      (Chinese-Cock e2)
+      (Coiled-Serpent g2)
+      (Copper-General f1 n1)
+      (Dark-Spirit k1)
+      (Deva i1)
+      (Donkey a4 s4)
+      (Dragon-Horse g5 m5)
+      (Dragon-King h5 l5)
+      (Drunk-Elephant j2)
+      (Earth-General b1 r1)
+      (Evil-Wolf h3 l3)
+      (Ferocious-Leopard h2 l2)
+      (Flying-Dragon g4 m4)
+      (Free-King j5)
+      (Go-Between f7 n7)
+      (Gold-General h1 l1)
+      (Guardian-of-the-Gods k4)
+      (Hook-Mover k5)
+      (Iron-General e1 o1)
+      (King j1)
+      (Knight c4 q4)
+      (Kylin i3)
+      (Lance a1 s1)
+      (Left-Chariot b5)
+      (Lion j3)
+      (Lion-Dog j4)
+      (Old-Monkey o2)
+      (Old-Rat b3 r3)
+      (Pawn s6 r6 q6 p6 o6 n6 m6 l6 k6 j6 i6 h6 g6 f6 e6 d6 c6 b6 a6)
+      (Phoenix k3)
+      (Reclining-Dragon m2)
+      (Reverse-Chariot a2 s2)
+      (Right-Chariot r5)
+      (Rook a5 s5)
+      (She-Devil l4)
+      (Side-Flyer d5 p5)
+      (Side-Mover c5 q5)
+      (Silver-General g1 m1)
+      (Stone-General c1 q1)
+      (Tile-General d1 p1)
+      (Vertical-Mover e5 o5)
+      (Violent-Ox e4 o4)
+      (Wrestler i4)
+    )
+  )
+)
+
+(variant
+  (title "Hishigata Shogi")
+  (board-setup
+    (White
+      (Free-King j19)
+      (Deva k19)
+      (Dark-Spirit i19)
+      (Bishop h18 l18)
+      (Capricorn j18)
+      (Wrestler j15)
+      (Drunk-Elephant j14)
+      (Blind-Tiger i14 k14)
+      (King j13)
+      (Kylin k13)
+      (Phoenix i13)
+      (Gold-General h13 l13)
+      (Hook-Mover j12)
+      (Evil-Wolf i12 k12)
+      (Knight h12 l12)
+      (Silver-General g12 m12)
+      (Coiled-Serpent j11)
+      (Iron-General i11 k11)
+      (Angry-Boar h11 l11)
+      (Left-Chariot m11)
+      (Right-Chariot g11)
+      (Side-Mover f11 n11)
+    )
+    (Black
+      (Free-King j1)
+      (Deva i1)
+      (Dark-Spirit k1)
+      (Bishop h2 l2)
+      (Capricorn j2)
+      (Wrestler j5)
+      (Drunk-Elephant j6)
+      (Blind-Tiger i6 k6)
+      (King j7)
+      (Kylin i7)
+      (Phoenix k7)
+      (Gold-General h7 l7)
+      (Hook-Mover j8)
+      (Evil-Wolf i8 k8)
+      (Knight h8 l8)
+      (Silver-General g8 m8)
+      (Coiled-Serpent j9)
+      (Iron-General i9 k9)
+      (Angry-Boar h9 l9)
+      (Left-Chariot g9)
+      (Right-Chariot m9)
+      (Side-Mover f9 n9)
+    )
+  )
+)
+
+(variant
+  (title "Macadamia Shogi")
+  (default)
+  (board 
+    (image "makadaidai43/13x13.bmp")
+    (grid
+      (start-rectangle 25 25 63 63)  ; доска
+      (dimensions
+         ("a/b/c/d/e/f/g/h/i/j/k/l/m" (43 0))
+         ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 43))
+      )
+      (directions 
+        (n    0 -1) (e    1  0) 
+        (s    0  1) (w   -1  0)
+        (ne   1 -1) (nw  -1 -1) 
+        (se   1  1) (sw  -1  1)
+        (n2L -1 -2) (n2R  1 -2)
+        (s2L -1  2) (s2R  1  2)
+        (e2B  2  1) (e2T  2 -1)
+        (w2B -2  1) (w2T -2 -1)
+      )
+    )
+    (symmetry White 
+      (n  s)
+      (s  n) 
+      (e  w) 
+      (w  e) 
+      (nw se)
+      (sw ne) 
+      (ne sw)
+      (se nw)
+      (n2L s2R)
+      (n2R s2L)
+      (s2R n2L)
+      (s2L n2R)
+      (e2B w2T)
+      (e2T w2B)
+      (w2T e2B)
+      (w2B e2T)
+    )
+  )
+  (board-setup
+    (Black
+      (King g1)
+      (Deva f1)
+      (Dark-Spirit h1)
+      (Gold-General e1 i1)
+      (Silver-General d1 j1)
+      (Copper-General c1 k1)
+      (Kylin b1)
+      (Phoenix l1)
+      (Lance a1 m1)
+      (Drunk-Elephant g2)
+      (Blind-Tiger f2 h2)
+      (Lion d2)
+      (Lion-Dog j2)
+      (Flying-Dragon b2 l2)
+      (Free-King g3)
+      (Capricorn f3)
+      (Hook-Mover h3)
+      (Dragon-King e3 i3)
+      (Bishop d3 j3)
+      (Wrestler c3 k3)
+      (Left-Chariot b3)
+      (Right-Chariot l3)
+      (Rook a3 m3)
+      (Pawn m4 l4 k4 j4 i4 h4 g4 f4 e4 d4 c4 b4 a4)
+      (Go-Between d5 j5)
+    )
+    (White
+      (King g13)
+      (Deva h13)
+      (Dark-Spirit f13)
+      (Gold-General e13 i13)
+      (Silver-General d13 j13)
+      (Copper-General c13 k13)
+      (Kylin l13)
+      (Phoenix b13)
+      (Lance a13 m13)
+      (Drunk-Elephant g12)
+      (Blind-Tiger f12 h12)
+      (Lion j12)
+      (Lion-Dog d12)
+      (Flying-Dragon b12 l12)
+      (Free-King g11)
+      (Capricorn h11)
+      (Hook-Mover f11)
+      (Dragon-King e11 i11)
+      (Bishop d11 j11)
+      (Wrestler c11 k11)
+      (Left-Chariot l11)
+      (Right-Chariot b11)
+      (Rook a11 m11)
+      (Pawn m10 l10 k10 j10 i10 h10 g10 f10 e10 d10 c10 b10 a10)
+      (Go-Between d9 j9)
+    )
+  )
+)

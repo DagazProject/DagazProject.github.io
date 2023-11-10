@@ -1,0 +1,59 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify friend?)
+  $1 (verify empty?)
+  add
+))
+
+(define kill (
+  (verify enemy?)
+  capture add
+))
+
+(game
+  (title "Da Fang")
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities kill-type drop-type normal-type)
+
+  (board
+     (image "images/fangqi/6x6.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f" (60 0)) ; files
+           ("6/5/4/3/2/1" (0 60)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (nw -1 -1) (se 1 1) (ne 1 -1) (sw -1 1)
+         )
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/fangqi/white.bmp"
+            Black "images/fangqi/black.bmp")
+     (drops
+         (move-type drop-type)
+         (drop)
+     )
+     (moves
+         (move-type kill-type)
+         (kill)
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 18))
+     (Black (Stone off 18))
+  )
+)

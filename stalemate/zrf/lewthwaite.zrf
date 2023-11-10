@@ -1,0 +1,90 @@
+(define step (
+  $1 (verify empty?) add
+))
+
+(define push (
+  $1 (set-flag is-friend true)
+  (while not-empty? 
+     (set-flag is-friend friend?)
+     cascade 
+     $1
+  )
+  (verify (flag? is-friend))
+  add
+))
+
+(game
+  (title "Lewthwaite's game (5x5)")
+  (history "Invented by G. Lewthwaite.")
+
+  (move-sound "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "prevent flipping" 2)
+  (option "animate captures" false)
+  (option "animate drops"    false)
+  (option "show hints"       false)
+
+  (players    White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/lewthwaite/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/lewthwaite/ManWhite.bmp"
+            Black "images/lewthwaite/ManBlack.bmp")
+     (moves
+        (step n) (step s) (step w) (step e)
+     )
+  )
+
+  (board-setup
+    (White (Man b1 d1 a2 c2 e2 b3 d3 a4 c4 e4 b5 d5))
+    (Black (Man a1 c1 e1 b2 d2 a3 e3 b4 d4 a5 c5 e5))
+  )
+
+  (loss-condition (White Black) stalemated )
+)
+
+(variant
+  (title "Lewthwaite's game (7x7)")
+
+  (board
+     (image "images/lewthwaite/7x7.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g" (68 0)) ; files
+           ("7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/lewthwaite/ManWhite.bmp"
+            Black "images/lewthwaite/ManBlack.bmp")
+     (moves
+        (push n) (push s) (push w) (push e)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 c1 e1 g1 b2 d2 f2 a3 c3 e3 g3 b4 f4 a5 c5 e5 g5 b6 d6 f6 a7 c7 e7 g7))
+    (White (Man b1 d1 f1 a2 c2 e2 g2 b3 d3 f3 a4 c4 e4 g4 b5 d5 f5 a6 c6 e6 g6 b7 d7 f7))
+  )
+)

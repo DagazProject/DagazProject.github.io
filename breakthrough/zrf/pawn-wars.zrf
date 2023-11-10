@@ -1,0 +1,222 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(game
+  (title "Pawn Wars (5x5)")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/5x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a5 b5 c5 d5 e5)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n)
+         (pawn-step nw) (pawn-step ne)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1 e1))
+    (Black (Pawn a5 b5 c5 d5 e5))
+  )
+)
+
+(variant
+  (title "Pawn Wars (6x6)")
+
+  (board
+     (image "images/6x6.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f" (68 0)) ; files
+           ("6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a6 b6 c6 d6 e6 f6)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1 e1 f1))
+    (Black (Pawn a6 b6 c6 d6 e6 f6))
+  )
+)
+
+(variant
+  (title "Pawn Wars (7x7)")
+
+  (board
+     (image "images/7x7.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g" (68 0)) ; files
+           ("7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a7 b7 c7 d7 e7 f7 g7)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1 e1 f1 g1))
+    (Black (Pawn a7 b7 c7 d7 e7 f7 g7))
+  )
+)
+
+(variant
+  (title "Pawn Wars (8x8)")
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1 e1 f1 g1 h1))
+    (Black (Pawn a8 b8 c8 d8 e8 f8 g8 h8))
+  )
+)
+
+(variant
+  (title "Pawn Wars (4x5)")
+  (default)
+
+  (board
+     (image "images/4x5.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d" (68 0)) ; files
+           ("5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a5 b5 c5 d5)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1))
+    (Black (Pawn a5 b5 c5 d5))
+  )
+)
+
+(variant
+  (title "Pawn Wars (5x4)")
+
+  (board
+     (image "images/5x4.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e" (68 0)) ; files
+           ("4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a4 b4 c4 d4 e4)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1)
+     )
+  )
+
+  (board-setup
+    (White (Pawn a1 b1 c1 d1 e1))
+    (Black (Pawn a4 b4 c4 d4 e4))
+  )
+)

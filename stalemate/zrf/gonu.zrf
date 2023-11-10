@@ -1,0 +1,82 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+   (title "4-line Gonu")
+   (description "Stones move one square orthogonally.\
+                 Two stones adjacent capture the enemy's stone\
+                 if that same line has a free square.\\
+                 To win, capture all the enemy's stones or stalemate him.")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+   (option "show hints"       false)
+   (option "gonu extension"   true)
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/gonu/board.bmp")
+      (grid
+          (start-rectangle 2 2 63 63)
+          (dimensions
+                ("a/b/c/d" (61 0)) ; files
+                ("4/3/2/1" (0 61)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+   )
+
+   (piece
+      (image White "images/gonu/white.bmp"
+             Black "images/gonu/black.bmp")
+      (name  Stone)
+      (help "Stone")
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+   )
+
+   (board-setup
+        (White (Stone a3 d3 a4 b4 c4 d4))
+        (Black (Stone a1 b1 c1 d1 a2 d2))
+   )
+
+   (loss-condition (Black White) stalemated)
+   (loss-condition (Black White) repetition)
+)
+
+(variant
+   (title "Cinc Camins")
+   (description "https://en.wikipedia.org/wiki/Cinc_Camins")
+   (default)
+
+   (board
+      (image "images/gonu/board.bmp")
+      (grid
+          (start-rectangle 2 2 63 63)
+          (dimensions
+                ("a/b/c/d/e" (61 0)) ; files
+                ("5/4/3/2/1" (0 61)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+   )
+
+   (board-setup
+        (White (Stone a1 b1 c1 d1 e1))
+        (Black (Stone a5 b5 c5 d5 e5))
+   )
+)

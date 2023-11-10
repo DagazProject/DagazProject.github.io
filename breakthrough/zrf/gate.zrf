@@ -1,0 +1,117 @@
+(define shift (
+   $1 (verify empty?)
+   (add-partial continue-type)
+))
+
+(define step (
+   $1 (verify not-empty?)
+   add
+))
+
+(define t
+  (piece
+     (name T$1)
+     (image White "images/gate/t$2.bmp"
+            Black "images/gate/t$2.bmp")
+  )
+)
+
+(game
+  (title "Gate")
+  (history "Copyright (c) 2010 Gregory Keith Van Patten.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "pass partial"      true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/gate/board.bmp")
+     (positions
+             (A4  55  55 117 117)
+             (B4 121  55 183 117)
+             (C4 187  55 249 117)
+             (D4 253  55 315 117)
+             (A3  55 121 117 183)
+             (B3 121 121 183 183)
+             (C3 187 121 249 183)
+             (D3 253 121 315 183)
+             (A2  55 187 117 249)
+             (B2 121 187 183 249)
+             (C2 187 187 249 249)
+             (D2 253 187 315 249)
+             (A1  55 253 117 315)
+             (B1 121 253 183 315)
+             (C1 187 253 249 315)
+             (D1 253 253 315 315)
+
+             (a5  33  33  73  73)
+             (b5  99  33 139  73)
+             (c5 165  33 205  73)
+             (d5 231  33 271  73)
+             (e5 297  33 337  73)
+             (a4  33  99  73 139)
+             (b4  99  99 139 139)
+             (c4 165  99 205 139)
+             (d4 231  99 271 139)
+             (e4 297  99 337 139)
+             (a3  33 165  73 205)
+             (b3  99 165 139 205)
+             (c3 165 165 205 205)
+             (d3 231 165 271 205)
+             (e3 297 165 337 205)
+             (a2  33 231  73 271)
+             (b2  99 231 139 271)
+             (c2 165 231 205 271)
+             (d2 231 231 271 271)
+             (e2 297 231 337 271)
+             (a1  33 297  73 337)
+             (b1  99 297 139 337)
+             (c1 165 297 205 337)
+             (d1 231 297 271 337)
+             (e1 297 297 337 337)
+     )
+     (links se  (a5 b4) (a4 b3) (a3 b2) (a2 b1) (b5 c4) (b4 c3) (b3 c2) (b2 c1) (c5 d4) (c4 d3) (c3 d2) (c2 d1) (d5 e4) (d4 e3) (d3 e2) (d2 e1))
+     (links sw  (b5 a4) (b4 a3) (b3 a2) (b2 a1) (c5 b4) (c4 b3) (c3 b2) (c2 b1) (d5 c4) (d4 c3) (d3 c2) (d2 c1) (e5 d4) (e4 d3) (e3 d2) (e2 d1))
+     (links ne  (a4 b5) (a3 b4) (a2 b3) (a1 b2) (b4 c5) (b3 c4) (b2 c3) (b1 c2) (c4 d5) (c3 d4) (c2 d3) (c1 d2) (d4 e5) (d3 e4) (d2 e3) (d1 e2))
+     (links nw  (b4 a5) (b3 a4) (b2 a3) (b1 a2) (c4 b5) (c3 b4) (c2 b3) (c1 b2) (d4 c5) (d3 c4) (d2 c3) (d1 c2) (e4 d5) (e3 d4) (e2 d3) (e1 d2))
+     (links dse (a5 A4) (a4 A3) (a3 A2) (a2 A1) (b5 B4) (b4 B3) (b3 B2) (b2 B1) (c5 C4) (c4 C3) (c3 C2) (c2 C1) (d5 D4) (d4 D3) (d3 D2) (d2 D1))
+     (links dsw (b5 A4) (b4 A3) (b3 A2) (b2 A1) (c5 B4) (c4 B3) (c3 B2) (c2 B1) (d5 C4) (d4 C3) (d3 C2) (d2 C1) (e5 D4) (e4 D3) (e3 D2) (e2 D1))
+     (links dne (a4 A4) (a3 A3) (a2 A2) (a1 A1) (b4 B4) (b3 B3) (b2 B2) (b1 B1) (c4 C4) (c3 C3) (c2 C2) (c1 C1) (d4 D4) (d3 D3) (d2 D2) (d1 D1))
+     (links dnw (b4 A4) (b3 A3) (b2 A2) (b1 A1) (c4 B4) (c3 B3) (c2 B2) (c1 B1) (d4 C4) (d3 C3) (d2 C2) (d1 C1) (e4 D4) (e3 D3) (e2 D2) (e1 D1))
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (dnw dse) (dse dnw) (dne dsw) (dsw dne))
+     (zone (name goal) (players Black)
+           (positions e5)
+     )
+     (zone (name goal) (players White)
+           (positions a1)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/gate/wstone.bmp"
+            Black "images/gate/bstone.bmp")
+     (moves
+         (move-type continue-type)
+         (shift ne) (shift nw) (shift se)
+         (move-type normal-type)
+         (step ne) (step nw) (step se)
+     )
+  )
+  (t 1 01) (t 2 02) (t 3 03) (t 4 04) (t 5 05) (t 6 06) (t 7 07) (t 8 08) (t 9 09) (t 10 10) (t 11 11) (t 12 12) (t 13 13) (t 14 14) (t 15 15) (t 16 16) 
+
+  (board-setup
+    (Black (Stone a1 b1 c1 d1 a2 b2 c2 a3 b3 a4))
+    (White (Stone b5 c5 d5 e5 c4 d4 e4 d3 e3 e2))
+  )
+
+  (loss-condition (White Black) stalemated)
+)

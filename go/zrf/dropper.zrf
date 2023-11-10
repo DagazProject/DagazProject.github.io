@@ -1,0 +1,64 @@
+(define drop-stone (
+  (verify empty?) add
+))
+
+(define move-stone (
+  (verify enemy?) $1 
+  (verify empty?) add
+))
+
+(game
+  (title "Dropper (12x12)")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+      (image "images/12x12.bmp")
+      (grid
+          (start-rectangle 5 5 37 37)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l" (32 0)) ; files
+            ("12/11/10/9/8/7/6/5/4/3/2/1" (0 32)) ; ranks
+          )
+          (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (nw -1 -1) (se 1 1) (ne 1 -1) (sw -1 1)
+          )
+      )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/bsmall.bmp"
+            White "images/wsmall.bmp")
+     (drops 
+         (move-type drop-type)
+         (drop-stone)
+     )
+     (moves
+         (move-type move-type)
+         (move-stone n) (move-stone e) (move-stone w) (move-stone s)
+         (move-stone nw) (move-stone ne) (move-stone sw) (move-stone se)
+     )
+  )  
+)
+
+(variant
+  (title "Dropper (10x10)")
+
+  (board
+      (image "images/10x10.bmp")
+      (grid
+          (start-rectangle 5 5 37 37)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j" (32 0)) ; files
+            ("10/9/8/7/6/5/4/3/2/1" (0 32)) ; ranks
+          )
+          (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (nw -1 -1) (se 1 1) (ne 1 -1) (sw -1 1)
+          )
+      )
+  )
+)

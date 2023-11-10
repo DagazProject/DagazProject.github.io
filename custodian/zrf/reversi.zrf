@@ -1,0 +1,86 @@
+(define drop-piece (
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Reversi")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+  (option "pass turn"        forced)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/reversi/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name strong) (players Black White)
+           (positions a1 a8 h1 h8)
+     )
+     (zone (name weak) (players Black White)
+           (positions b2 b7 g2 g7)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/reversi/wbig.bmp"
+            Black "images/reversi/bbig.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+
+  (board-setup
+     (White (Stone d5 e4 off 81)) 
+     (Black (Stone d4 e5 off 81))
+  )
+)
+
+(variant
+  (title "Reversi 10x10")
+  (default)
+
+  (board
+     (image "images/reversi/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone (name strong) (players Black White)
+           (positions a1 a10 j1 j10)
+     )
+     (zone (name weak) (players Black White)
+           (positions b2 b9 i2 i9)
+     )
+  )
+
+  (board-setup
+     (White (Stone e6 f5 off 100)) 
+     (Black (Stone e5 f6 off 100))
+  )
+)

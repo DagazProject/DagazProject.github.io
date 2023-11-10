@@ -1,0 +1,686 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone))
+  a12 (while (on-board? $1) (if empty? add) $1)
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone))
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define lion-step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (add-partial $2)
+))
+
+(define leap (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define leap-2 (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(game
+   (title "Heisei Shogi")
+
+   (option "smart moves"             false)
+   (option "pass partial"            true)
+
+   (players Black White)
+   (turn-order Black White)
+   (move-priorities normal-type)
+
+   (board 
+	   (image "images/tenjiku/heisei.bmp")
+	   (grid
+	     (start-rectangle 5 5 54 54)
+	     (dimensions
+	         ("X/M/a/b/c/d/e/f/g/h/i/j/k/l/N/Y" (35 0)) ; files
+	         ("12/11/10/9/8/7/6/5/4/3/2/1" (0 35))    ; ranks
+	     )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+		     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                     (nx 0 1)
+	     )
+	  )
+          (kill-positions M12 M11 M10 M9 M8 M7 M6 M5 M4 M3 M2 M1
+                          N12 N11 N10 N9 N8 N7 N6 N5 N4 N3 N2 N1)
+          (links nx
+             (a1 b12) (b1 c12) (c1 d12) (d1 e12) (e1 f12) (f1 g12) (g1 h12) (h1 i12) (i1 j12) (j1 k12) (k1 l12)
+          )
+	  (symmetry White (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
+ 	  (zone
+ 	     (name promotion-zone)				
+ 	     (players Black)
+             (positions a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12
+                        a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11 l11
+                        a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10 l10
+                        a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9  l9)
+ 	  )
+ 	  (zone
+ 	     (name promotion-zone)				
+ 	     (players White)
+             (positions a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4  l4
+                        a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3  l3
+                        a2  b2  c2  d2  e2  f2  g2  h2  i2  j2  k2  l2
+                        a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1  l1)
+ 	  )
+ 	  (zone
+ 	     (name board-zone)				
+ 	     (players Black White)
+             (positions a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12
+                        a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11 l11
+                        a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10 l10
+                        a9  b9  c9  d9  e9  f9  g9  h9  i9  j9  k9  l9
+                        a8  b8  c8  d8  e8  f8  g8  h8  i8  j8  k8  l8
+                        a7  b7  c7  d7  e7  f7  g7  h7  i7  j7  k7  l7
+                        a6  b6  c6  d6  e6  f6  g6  h6  i6  j6  k6  l6
+                        a5  b5  c5  d5  e5  f5  g5  h5  i5  j5  k5  l5
+                        a4  b4  c4  d4  e4  f4  g4  h4  i4  j4  k4  l4
+                        a3  b3  c3  d3  e3  f3  g3  h3  i3  j3  k3  l3
+                        a2  b2  c2  d2  e2  f2  g2  h2  i2  j2  k2  l2
+                        a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1  l1)
+ 	  )
+   )
+
+   (piece
+      (name Pawn)
+	(notation "P")
+	  (help "Pawn: steps and captures one square forward. Promotes to Gold-General.")
+      (description "Pawn\\A Pawn can move and capture straight ahead one square. \May promote to Gold-General upon reaching the promotion zone (rank 12 to 16). \\When reaching the last rank and has no further legal moves, the piece is forced-promoted to Gold-General!")
+      (image White "images/tenjiku/Pawn_W.bmp"  
+		 Black "images/tenjiku/Pawn_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n)
+      )
+   )
+   (piece
+      (name Go-Between)
+	(notation "GB")  
+      (help "Go-Between: moves 1 square forward or backwards. Promotes to Drunk Elephant.")
+      (description "Go-Between\\A Go-Between can either move 1 square straight forwards or straight backwards. When making a move that begins or ends within the promotion zone (ranks 9 to 12) the Go-between may be promoted to a Drunk Elephant.")
+      (image White "images/tenjiku/go-between_W.bmp"  
+		 Black "images/tenjiku/go-between_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s)
+      )
+   )
+   (piece
+      (name Bishop)
+	(notation "B")
+	  (help "Bishop: slides diagonally any number of squares. Promotes to Dragon-Horse.")
+      (description "Bishop\\A Bishop slides any number of empty squares on the two diagonals. It can not jump over other pieces. \May promote to Dragon-Horse upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Bishop_W.bmp"  
+      	 Black "images/tenjiku/Bishop_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide nw) (slide sw) (slide ne) (slide se)
+      )
+   )
+   (piece
+      (name Bishop!) 
+	(notation "B!")
+	  (help "Bishop: slides diagonally any number of squares.")
+      (description "Bishop (promoted Ferocious-Leopard)\\A Bishop moves any number of squares on the two diagonals. It can not jump over other pieces.")
+      (image White "images/tenjiku/PBishop_W.bmp" 
+		 Black "images/tenjiku/PBishop_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide nw) (slide sw) (slide ne) (slide se)
+      )
+   )
+   (piece
+      (name Rook) 
+      (notation "R")
+      (help "Rook: slides orthogonally any number of squares. Promotes to Dragon King.")
+      (description "Rook\\A Rook slides any number of empty squares orthogonally (on a rank or a file). It can not jump over other pieces.\May promote to Dragon-King upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Rook_W.bmp" 
+	 Black "images/tenjiku/Rook_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Rook!) 
+      (notation "R!")
+      (help "Rook: slides orthogonally any number of squares.")
+      (description "Rook (promoted Gold-General)\\A Rook slides any number of empty squares orthogonally (on a rank or a file). It can not jump over other pieces.")
+      (image White "images/tenjiku/PRook_W.bmp" 
+	 Black "images/tenjiku/PRook_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Free-King)	
+      (notation "FK")
+      (help "Free King: moves any number of squares in any direction.")
+      (description "Free King\\A Free King moves any number of squares in either an orthogonal or diagonal direction (ie: like a Queen in Western Chess). It does not promote and may not leap over other pieces.")
+      (image White "images/tenjiku/Queen_W.bmp" 
+	 Black "images/tenjiku/Queen_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+           (slide nw) (slide sw) (slide ne) (slide se)
+      )
+   )
+   (piece
+      (name Drunk-Elephant!)	
+      (notation "DE!")
+      (help "Drunk Elephant: steps one square in any direction, except backward. Promotes to Prince.")
+      (description "Drunk Elephant\\A Drunk Elephant can step to any adjacent square, except the back one. \May promote to Prince upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Elephant_W.bmp" 
+	 Black "images/tenjiku/Elephant_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Flying-Ox)	
+      (notation "FO")
+      (help "Flying Ox: slides any number of squares in any direction except sideways.")
+      (description "Flying Ox (promoted Vertical Mover)\\A Flying Ox slides any number of empty squares in any direction except horizontally. It can not jump over other pieces.")
+      (image White "images/tenjiku/POx_W.bmp" 
+	 Black "images/tenjiku/POx_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (slide nw) (slide sw) (slide ne) (slide se)
+      )
+   )
+   (piece
+      (name Free-Boar)	
+      (notation "FB")
+      (help "Free Boar: slides any number of squares in any direction except back and front.")
+      (description "Free Boar (promoted Side Mover)\\A Free Boar slides any number of empty squares in any direction except forwards or backwards. It can not jump over other pieces.")
+      (image White "images/tenjiku/FBoar_W.bmp" 
+	 Black "images/tenjiku/FBoar_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide w) (slide e)
+           (slide nw) (slide sw) (slide ne) (slide se)
+      )
+   )
+   (piece
+      (name Horned-Falcon)	
+      (notation "HF")
+      (help "Horned Falcon: slides in any direction except forward; which is a Lion-move. Promotes to Bishop-General.")
+      (description "Horned Falcon\\A Horned Falcon slides any number of empty squares in any direction except straight forwards; In the forwards direction it moves as a Lion. When using its Lion power the Horned Falcon may make two consecutive single step along the forward file during which it may capture up to TWICE or return to its starting square to pass a turn. (NOTE: To pass a turn when the front square is empty, select the piece and then drop it back on its starting square).\\The Horned Falcon can only jump over pieces on its front square: when making a forward Lion-jump-move, it can leap on the second square without capturing the first.\\May promote to Bishop-General upon reaching the promotion zone (rank 12 to 16). The Horned Falcon has a special move to promote when using its Lion-move just from outside the promotion zone: by making a capture into it with its first step, then stepping outside of it with the second (on the same turn so), it may be promoted!")
+      (image White "images/tenjiku/Falcon_W.bmp" 
+	 Black "images/tenjiku/Falcon_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide s) (slide w) (slide e)
+           (slide nw) (slide sw) (slide ne) (slide se)
+           (lion-step n left-1-type) (leap-2 n n)
+           (move-type left-1-type)
+           (step n) (step s)
+      )
+   )
+   (piece
+      (name Soaring-Eagle)	 
+      (notation "SE")
+      (help "Soaring Eagle: slides in any direction except diagonally forwards; which are Lion-moves. Promotes to Rook-General")
+      (description "Soaring Eagle\\A Soaring Eagle slides any number of empty squares in any direction except left-forward and right-forward; In these forwards directions it moves as a Lion. When using its Lion power the Soaring Eagle may make two consecutive single step along the forward-diagonals during which it may capture up to TWICE or return to its starting square to pass a turn. (NOTE: To pass a turn when at least one of the north-east/north-west squares are empty, select the piece and then drop it back on its starting square).\\The Soaring Eagle can only jump over pieces on its north-east/north-west squares: when making a diagonally forward Lion-jump-move, it can leap on the second square without capturing the first.\\May promote to Rook-General upon reaching the promotion zone (rank 12 to 16). The Soaring Eagle has a special move to promote when using its Lion-move just from outside the promotion zone: by making a capture into it with its first step, then stepping outside of it with the second (on the same turn so), it may be promoted!")
+      (image White "images/tenjiku/Eagle_W.bmp" 
+	 Black "images/tenjiku/Eagle_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+           (slide sw) (slide se)
+           (lion-step nw left-nw-type) (leap-2 nw nw)
+           (lion-step ne left-ne-type) (leap-2 ne ne)
+           (move-type left-nw-type)
+           (step nw) (step se)
+           (move-type left-ne-type)
+           (step ne) (step sw)
+      )
+   )
+   (piece
+      (name Whale)	
+      (notation "W")
+      (help "Whale: slides any number of squares backwards, forwards or diagonally backwards.")
+      (description "Whale (promoted Reverse Chariot)\\A Whale slides any number of empty squares backwards, forwards or diagonally backwards. It can not jump over other pieces.")
+      (image White "images/tenjiku/Whale_W.bmp" 
+ 	Black "images/tenjiku/Whale_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (slide sw) (slide se)
+      )
+   )
+   (piece
+      (name White-Horse)	
+      (notation "WH")
+      (help "White Horse: slides any number of squares backwards, forwards or diagonally forwards.")
+      (description "White Horse (promoted Lance)\\A White Horse slides any number of empty squares forwards, backwards or diagonally forwards. It can not jump over other pieces.")
+      (image White "images/tenjiku/WHorse_W.bmp" 
+	 Black "images/tenjiku/WHorse_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s)
+           (slide nw) (slide ne)
+      )
+   )
+   (piece
+      (name Lion)	
+      (notation "Ln")	 ;LLnn	(for rapid searching)
+      (help "Lion: makes one OR TWO single step/capture or may jump in any direction. Promotes to Lion-Hawk.")
+      (description "Lion\\A Lion has a very complex and powerful move:\it may move as a King (a single step move in any direction), or it may make TWO consecutive King step in any different directions, during which it may capture up to TWICE or return to its starting square to pass a turn. (NOTE: To pass a turn without actually moving, if there is at least one empty square around the Lion, select the piece and then drop it back on its starting square).
+      \\The Lion may also jump directly to any position two squares away (bypassing any friendly/adverse piece on the first square entirely): it can jump in any orthogonal/diagonal directions, but also 'mixed orthogonal-diagonal' ones, as a Knight in Western Chess!
+      \\May promote to Lion-Hawk upon reaching the promotion zone (rank 12 to 16). The Lion has a special move to promote when using its Lion-move just from outside the promotion zone: by making a capture into it with its first step, then stepping outside of it with the second (on the same turn so), it may be promoted! It can also begin its move inside the promotion zone and capture an enemy piece with its first step, and then step outside of it with the second step and be promoted.")
+      (image White "images/tenjiku/Lion_W.bmp" 
+	 Black "images/tenjiku/Lion_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (lion-step n left-1-type) (lion-step s left-1-type) (lion-step w left-1-type) (lion-step e left-1-type)
+           (lion-step nw left-1-type) (lion-step se left-1-type) (lion-step sw left-1-type) (lion-step ne left-1-type)
+           (leap-2 n n) (leap-2 nw nw)
+           (leap-2 s s) (leap-2 sw sw)
+           (leap-2 e e) (leap-2 se se)
+           (leap-2 w w) (leap-2 ne ne)
+           (leap-2 n ne) (leap-2 n nw)
+           (leap-2 s se) (leap-2 s sw)
+           (leap-2 e ne) (leap-2 e se)
+           (leap-2 w nw) (leap-2 w sw)
+           (move-type left-1-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step se) (step sw) (step ne)
+      )
+   )
+   (piece
+      (name Lion!)	
+      (notation "Ln!")
+      (help "Lion: makes one OR TWO single step or may jump in any direction. Can capture twice.")
+      (description "Lion (promoted Kylin)\\A Lion has a very complex and powerful move: it may move as a King (a single step move in any direction), or it may make TWO consecutive King step in any different directions, during which it may capture up to TWICE or return to its starting square to pass a turn. (NOTE: To pass a turn without actually moving, if there is at least one empty square around the Lion, select the piece and then drop it back on its starting square).\\The Lion may also jump directly to any position two squares away (it is like a normal slide but bypassing any friendly/adverse piece on the first square entirely): it can jump in any orthogonal/diagonal directions, but also 'mixed orthogonal-diagonal' ones, as a Knight in Western Chess!")
+      (image White "images/tenjiku/PLion_W.bmp" 
+	 Black "images/tenjiku/PLion_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (lion-step n left-1-type) (lion-step s left-1-type) (lion-step w left-1-type) (lion-step e left-1-type)
+           (lion-step nw left-1-type) (lion-step se left-1-type) (lion-step sw left-1-type) (lion-step ne left-1-type)
+           (leap-2 n n) (leap-2 nw nw)
+           (leap-2 s s) (leap-2 sw sw)
+           (leap-2 e e) (leap-2 se se)
+           (leap-2 w w) (leap-2 ne ne)
+           (leap-2 n ne) (leap-2 n nw)
+           (leap-2 s se) (leap-2 s sw)
+           (leap-2 e ne) (leap-2 e se)
+           (leap-2 w nw) (leap-2 w sw)
+           (move-type left-1-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step se) (step sw) (step ne)
+      )
+   )
+   (piece
+      (name Dragon-King)	 
+      (notation "DK")
+      (help "Dragon King: slides orthogonally or steps one square diagonally. Promotes to Soaring-Eagle.")
+      (description "Dragon King\\A Dragon King slides any number of empty squares orthogonally (on a rank or a file), or steps one square in the four diagonal directions. It can not jump over other pieces. \May promote to Soaring-Eagle upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Dragon_W.bmp" 
+	 Black "images/tenjiku/Dragon_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Dragon-King!)	 
+      (notation "DK!")
+      (help "Dragon King: slides any number of squares orthogonally, or steps one square diagonally.")
+      (description "Dragon King (promoted Rook)\\A Dragon King slides any number of empty squares orthogonally (on a rank or a file), or steps one square in the four diagonal directions. It can not jump over other pieces.")
+      (image White "images/tenjiku/PDragon_W.bmp" 
+	 Black "images/tenjiku/PDragon_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) (slide w) (slide e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Dragon-Horse)	 
+      (notation "DH")
+      (help "Dragon Horse: slides diagonally or steps one square orthogonally. Promotes to Horned-Falcon.")
+      (description "Dragon Horse\\A Dragon Horse slides any number of empty squares diagonally, or steps one square in the four orthogonal directions. It can not jump over other pieces. \May promote to Horned-Falcon upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Horse_W.bmp" 
+	 Black "images/tenjiku/Horse_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide nw) (slide sw) (slide ne) (slide se)
+           (step n) (step s) (step w) (step e)
+      )
+   )
+   (piece
+      (name Dragon-Horse!)  
+      (notation "DH!")
+      (help "Dragon Horse: slides diagonally any number of squares, or steps one square orthogonally.")
+      (description "Dragon Horse (promoted Bishop)\\A Dragon Horse slides any number of empty squares diagonally, or steps one square in the four orthogonal directions. It can not jump over other pieces.")
+      (image White "images/tenjiku/PHorse_W.bmp" 
+	 Black "images/tenjiku/PHorse_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide nw) (slide sw) (slide ne) (slide se)
+           (step n) (step s) (step w) (step e)
+      )
+   )
+   (piece
+      (name Kylin)		
+      (notation "Ky")
+      (help "Kylin: steps one square diagonally, or jumps orthogonally. Promotes to Lion.")
+      (description "Kylin\\A Kylin may step one square diagonally, or jump to the second square in the four orthogonal directions. \May promote to Lion upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Kylin_W.bmp" 
+	 Black "images/tenjiku/Kylin_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (leap n n) (leap s s) (leap w w) (leap e e)
+           (step nw) (step sw) (step ne) (step se)
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Phoenix)	
+      (notation "Ph")
+      (help "Phoenix: steps one square orthogonally, or jumps diagonally. Promotes to Queen.")
+      (description "Phoenix\\A Phoenix may step one square orthogonally, or jump to the second square in the four diagonal directions. \May promote to Queen upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Phoenix_W.bmp" 
+	 Black "images/tenjiku/Phoenix_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) (step w) (step e)
+           (leap nw nw) (leap sw sw) (leap ne ne) (leap se se)
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Reverse-Chariot)	
+      (notation "RC")
+      (help "Reverse Chariot: slides any number of squares forwards or backwards. Promotes to Whale.")
+      (description "Reverse Chariot\\A Reverse Chariot slides any number of empty squares straight forwards or backwards in a file. It can not jump over other pieces. \May promote to Whale upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Reverse_W.bmp" 
+	 Black "images/tenjiku/Reverse_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) 
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Side-Mover)	
+      (notation "SM")
+      (help "Side Mover: slides sideways, or steps one square forwards or backwards. Promotes to Free-Boar.")
+      (description "Side Mover\\A Side Mover slides any number of empty squares straight sideways in a rank, or steps one square vertically. It can not jump over other pieces. \May promote to Free-Boar upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Side_W.bmp" 
+	 Black "images/tenjiku/Side_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s)
+           (slide w) (slide e)
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Side-Mover!)	 
+      (notation "SM!")
+      (help "Side Mover: slides any number of squares sideways, or steps one square forwards or backwards.")
+      (description "Side Mover (promoted Copper General)\\A Side Mover slides any number of empty squares straight sideways in a rank, or steps one square vertically. It can not jump over other pieces.")
+      (image White "images/tenjiku/PSide_W.bmp" 
+	 Black "images/tenjiku/PSide_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s)
+           (slide w) (slide e)
+      )
+   )
+   (piece
+      (name Vertical-Mover)	
+      (notation "VM")
+      (help "Vertical Mover: slides vertically, or steps one square sideways. Promotes to Flying-Ox.")
+      (description "Vertical Mover\\A Vertical Mover may slide any number of squares straight forwards or backwards in a file, or step one square horizontally. It can not jump over other pieces. \May promote to Flying-Ox upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Vertical_W.bmp" 
+	 Black "images/tenjiku/Vertical_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step w) (step e)
+           (slide n) (slide s)
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Vertical-Mover!)	
+      (notation "VM!")
+      (help "Vertical Mover: slides any number of squares vertically, or steps one square sideways.")
+      (description "Vertical Mover (promoted Silver General)\\A Vertical Mover may slide any number of squares straight forwards or backwards in a file, or step one square horizontally. It can not jump over other pieces.")
+      (image White "images/tenjiku/PVertical_W.bmp" 
+	 Black "images/tenjiku/PVertical_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step w) (step e)
+           (slide n) (slide s)
+      )
+   )
+   (piece
+      (name Flying-Stag) 
+      (notation "FS")
+      (help "Flying Stag: slides forwards or backwards, or steps one square in other directions.")
+      (description "Flying Stag (promoted Blind Tiger)\\A Flying Stag may slide any number of squares straight forwards or backwards in a file, or steps one square in any other direction. It can not jump over other pieces.")
+      (image White "images/tenjiku/Stag_W.bmp" 
+	 Black "images/tenjiku/Stag_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) (slide s) 
+           (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Lance)	
+      (notation "L")
+      (help "Lance: can only slide straight forward. Promotes to White-Horse.")
+      (description "Lance\\A Lance slides any number of unobstructed squares straight forwards. It can not jump over other pieces. \May promote to White-Horse upon reaching the promotion zone (rank 12 to 16); Will be force-promoted when on the last row!")
+      (image White "images/tenjiku/Lance_W.bmp" 
+	 Black "images/tenjiku/Lance_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (slide n) 
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name King)	
+      (notation "K")
+      (help "King: steps one square in any direction. Always protect your royal pieces!")
+      (description "King\\A King can step to any adjacent square. \\The King is allowed to be in check in Tenjiku-Shogi (ie: it can be threatened by an enemy capture for one or more turn); Though it is not recommended. \If there is no Prince on the board for a player and his King is captured, the game is lost.")
+      (image White "images/tenjiku/King_W.bmp" 
+	 Black "images/tenjiku/King_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Crown-Prince)	
+      (notation "CP")
+      (help "Prince: steps one square in any direction. Always protect your royal pieces!")
+      (description "Prince (promoted Drunk-Elephant)\\A Prince is effectively a second King (ie: an additional royal piece to capture to win thre game) and can step to any adjacent square. If there is no longer a King for a player and his Prince is captured, the game is lost.")
+      (image White "images/tenjiku/Prince_W.bmp" 
+	 Black "images/tenjiku/Prince_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Blind-Tiger) 
+      (notation "BT")
+      (help "Blind Tiger: steps one square in any direction, except forward. Promotes to Flying-Stag.")
+      (description "Blind Tiger\\A Blind Tiger can step to any adjacent square, except the front one. \May promote to Flying-Stag upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Tiger_W.bmp" 
+	 Black "images/tenjiku/Tiger_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step s) (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Drunk-Elephant)	
+      (notation "DE")
+      (help "Drunk Elephant: steps one square in any direction, except backward. Promotes to Prince.")
+      (description "Drunk Elephant\\A Drunk Elephant can step to any adjacent square, except the back one. \May promote to Prince upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Elephant_W.bmp" 
+	 Black "images/tenjiku/Elephant_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step w) (step e)
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Ferocious-Leopard)	
+      (notation "FL")
+      (help "Ferocious Leopard: steps one square in any direction, except sideways. Promotes to Bishop.")
+      (description "Ferocious Leopard\\A Ferocious Leopard can step to any adjacent square, except horizontal ones. \May promote to Bishop upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Leopard_W.bmp" 
+	 Black "images/tenjiku/Leopard_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) 
+           (step nw) (step sw) (step ne) (step se)
+      )
+   )
+   (piece
+      (name Gold-General)	
+      (notation "G")
+      (help "Gold General: steps one square in any direction, except diagonally backwards. Promotes to Rook.")
+      (description "Gold General\\A Gold General can step to any adjacent square, except diagonally backward ones. \May promote to Rook upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Gold_W.bmp" 
+	 Black "images/tenjiku/Gold_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step ne) 
+      )
+   )
+   (piece
+      (name Tokin)	
+      (notation "+P")
+	(help "Tokin: steps 1 square in any direction except diagonally backwards.")
+      (description "Tokin (promoted Pawn)\\A Tokin is a promoted Pawn. It has the same move as the Gold General.  (ie: it can move to any adjacent square except diagonally backwards).")
+      (image White "images/tenjiku/Gold_W.bmp" 
+	 Black "images/tenjiku/Gold_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) (step w) (step e)
+           (step nw) (step ne) 
+      )
+   )
+   (piece
+      (name Silver-General)	
+      (notation "S")
+      (help "Silver General: steps one square diagonally, or straight forward. Promotes to Vertical Mover.")
+      (description "Silver General\\A Silver General can step to any adjacent square diagonally, or to the front one. \May promote to Vertical-Mover upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Silver_W.bmp" 
+	 Black "images/tenjiku/Silver_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) 
+           (step nw) (step sw) (step ne) (step se)
+           (drop-piece nx)
+      )
+   )
+   (piece
+      (name Copper-General)	
+      (notation "C")
+      (help "Copper General: steps forward and backward, or diagonally forwards. Promotes to Side-Mover.")
+      (description "Copper General\\A Copper General can step to any adjacent square forward, backward or diagonally forward. \May promote to Side-Mover upon reaching the promotion zone (rank 12 to 16).")
+      (image White "images/tenjiku/Copper_W.bmp" 
+	 Black "images/tenjiku/Copper_B.bmp" )
+      (moves
+           (move-type normal-type)
+           (step n) (step s) 
+           (step nw) (step ne)
+           (drop-piece nx)
+      )
+   )
+
+   (board-setup
+     (White
+        (Go-Between d8 i8)
+        (Pawn a9 b9 c9 d9 e9 f9 g9 h9 i9 j9 k9 l9)
+        (Lance X12)
+        (Ferocious-Leopard b12 k12)
+        (Copper-General X11)
+        (Silver-General X10)
+        (Gold-General e12 h12)
+        (King g12)
+        (Drunk-Elephant f12)
+        (Reverse-Chariot X9)
+        (Bishop c11 j11)
+        (Blind-Tiger e11 h11)
+        (Kylin X8)
+        (Phoenix X7)
+        (Side-Mover X6)
+        (Vertical-Mover X5)
+        (Rook c10 j10)
+        (Dragon-Horse d10 i10)
+        (Dragon-King e10 h10)
+        (Lion f10)
+        (Free-King g10)
+     )
+     (Black
+        (Go-Between d5 i5)
+        (Pawn a4 b4 c4 d4 e4 f4 g4 h4 i4 j4 k4 l4)
+        (Lance Y1)
+        (Ferocious-Leopard b1 k1)
+        (Copper-General Y2)
+        (Silver-General Y3)
+        (Gold-General e1 h1)
+        (King g1)
+        (Drunk-Elephant f1)
+        (Reverse-Chariot Y4)
+        (Bishop c2 j2)
+        (Blind-Tiger e2 h2)
+        (Kylin Y5)
+        (Phoenix Y6)
+        (Side-Mover Y7)
+        (Vertical-Mover Y8)
+        (Rook c3 j3)
+        (Dragon-Horse d3 i3)
+        (Dragon-King e3 h3)
+        (Lion f3)
+        (Free-King g3)
+     )
+  )
+
+  (loss-condition (White Black)
+     (and (pieces-remaining 0 King)(pieces-remaining 0 Crown-Prince)))
+)

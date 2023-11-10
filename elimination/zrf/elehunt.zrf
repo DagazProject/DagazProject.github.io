@@ -1,0 +1,190 @@
+(define step (
+  $1 add
+))
+
+(define check-down
+  mark down
+  (verify empty?)
+  back
+)
+
+(define leap (
+  $1 $2 (verify empty?)
+  (check-down)
+ add
+))
+
+(define shaman-step (
+  $1 (verify empty?)
+  (check-down) add
+  $1 (verify empty?)
+  (check-down) add
+))
+
+(game
+   (title "Elephant Hunt")
+   (description "In Elephant Hunt, one player starts with eight Pygmy hunters, and one Shaman.
+                 The other has one large piece representing the Elephant.  The Elephant is so big
+                 that it occupies four squares of the board at once, and moves two squares at a
+                 time.  The Elephant tramples the Pygmies by moving onto occupied squares.
+                 In order to kill the Elephant, the Pygmies must attack all four squares of it
+                 at once; in other words, all four squares occupied by the Elephant must be under
+                 attack (check) and then a move to one of these squares captures the Elephant and
+                 ends the game.  The Elephant wins if it tramples Pygmies until only four are left.")
+   (history "Elephant Hunt is a traditional game played by the Ituri Pygmies.  The board is
+             usually marked on the groumd and rocks are used as playing tokens, a bigger rock
+             signifying the Elephant.  This ritual game is played among tribesmen (women are
+             excluded) to forecast the outcome of a planned elephant hunt.  If the player of
+             the Elephant wins, this is regarded as a bad omen and the hunt is postponed.  The
+             number of `Pygmies` trampled by the `Elephant` before it is brought down also has
+             oracular significance.\\
+             The first written reference to the game of Elephant Hunt was found in the diaries
+             of father Maurice Morceau, a French missionary who dissappeared without a trace
+             in 1821 while on a mission to the Ituri forest.  His personal effects, including
+             the diaries, were later found in a cannibal village by an anthropological expedition.\
+             Elephant Hunt was implemented for Zillions by Freederick in 2004.")
+
+   (win-sound "Audio\\Orchestra_CF.wav")
+   (loss-sound "Audio\\Orchestra_FC.wav")
+   (click-sound "Audio\\Pickup.wav")
+   (release-sound "Audio\\WoodThunk.wav")
+   (move-sound "Audio\\EleHunt\\Elephant.wav")
+   (players Black White)
+   (turn-order Black White)
+   (pass-turn false)
+
+   (board
+      (image "images/elehunt/board.bmp")
+      (grid
+         (start-rectangle 8 8 48 48)
+         (dimensions
+             ("a/b/c/d/e/f/g/h/i/j" (45 0)) ; files
+             ("0/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (grid
+         (start-rectangle 6 6 96 96)
+         (dimensions
+             ("a/b/c/d/e" (90 0)) ; files
+             ("e/d/c/b/a" (0 90)) ; ranks
+         )
+         (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0))
+      )
+      (links unw
+         (aa a2) (ba c2) (ca e2) (da g2) (ea i2)
+         (ab a4) (bb c4) (cb e4) (db g4) (eb i4)
+         (ac a6) (bc c6) (cc e6) (dc g6) (ec i6)
+         (ad a8) (bd c8) (cd e8) (dd g8) (ed i8)
+         (ae a0) (be c0) (ce e0) (de g0) (ee i0)
+      )
+      (links usw
+         (aa a1) (ba c1) (ca e1) (da g1) (ea i1)
+         (ab a3) (bb c3) (cb e3) (db g3) (eb i3)
+         (ac a5) (bc c5) (cc e5) (dc g5) (ec i5)
+         (ad a7) (bd c7) (cd e7) (dd g7) (ed i7)
+         (ae a9) (be c9) (ce e9) (de g9) (ee i9)
+     )
+     (links une
+         (aa b2) (ba d2) (ca f2) (da h2) (ea j2)
+         (ab b4) (bb d4) (cb f4) (db h4) (eb j4)
+         (ac b6) (bc d6) (cc f6) (dc h6) (ec j6)
+         (ad b8) (bd d8) (cd f8) (dd h8) (ed j8)
+         (ae b0) (be d0) (ce f0) (de h0) (ee j0)
+     )
+     (links use
+         (aa b1) (ba d1) (ca f1) (da h1) (ea j1)
+         (ab b3) (bb d3) (cb f3) (db h3) (eb j3)
+         (ac b5) (bc d5) (cc f5) (dc h5) (ec j5)
+         (ad b7) (bd d7) (cd f7) (dd h7) (ed j7)
+         (ae b9) (be d9) (ce f9) (de h9) (ee j9)
+     )
+     (links down
+        (a1 aa) (a2 aa) (a3 ab) (a4 ab) (a5 ac) (a6 ac) (a7 ad) (a8 ad) (a9 ae) (a0 ae)
+        (b1 aa) (b2 aa) (b3 ab) (b4 ab) (b5 ac) (b6 ac) (b7 ad) (b8 ad) (b9 ae) (b0 ae)
+        (c1 ba) (c2 ba) (c3 bb) (c4 bb) (c5 bc) (c6 bc) (c7 bd) (c8 bd) (c9 be) (c0 be)
+        (d1 ba) (d2 ba) (d3 bb) (d4 bb) (d5 bc) (d6 bc) (d7 bd) (d8 bd) (d9 be) (d0 be)
+        (e1 ca) (e2 ca) (e3 cb) (e4 cb) (e5 cc) (e6 cc) (e7 cd) (e8 cd) (e9 ce) (e0 ce)
+        (f1 ca) (f2 ca) (f3 cb) (f4 cb) (f5 cc) (f6 cc) (f7 cd) (f8 cd) (f9 ce) (f0 ce)
+        (g1 da) (g2 da) (g3 db) (g4 db) (g5 dc) (g6 dc) (g7 dd) (g8 dd) (g9 de) (g0 de)
+        (h1 da) (h2 da) (h3 db) (h4 db) (h5 dc) (h6 dc) (h7 dd) (h8 dd) (h9 de) (h0 de)
+        (i1 ea) (i2 ea) (i3 eb) (i4 eb) (i5 ec) (i6 ec) (i7 ed) (i8 ed) (i9 ee) (i0 ee)
+        (j1 ea) (j2 ea) (j3 eb) (j4 eb) (j5 ec) (j6 ec) (j7 ed) (j8 ed) (j9 ee) (j0 ee)
+     )
+   )
+
+   (option "animate captures"  false)
+   (option "elehunt-extension" true)
+
+   (board-setup
+      (Black
+         (Shaman a1)
+         (Pygmy a9 a7 a5 a3 c1 e1 g1 i1)
+      )
+      (White
+         (Elephant dd)
+      )
+   )
+
+   (piece
+      (name Pygmy) 
+      (help "Pygmy: leaps like a chess Knight.")
+      (description "Pygmy\A Pygmy moves like an `L`, two squares vertically plus one
+          horizontally, or two squares horizontally plus one vertically.  It hops over
+          any pieces on the way.")
+      (image Black "images/elehunt/pygmy.bmp")
+      (moves
+         (leap n ne) (leap n nw)
+         (leap s se) (leap s sw)
+         (leap e ne) (leap e se)
+         (leap w nw) (leap w sw)
+      )
+   )
+
+   (piece
+      (name Shaman)
+      (help "Shaman: moves one or two squares orthogonally or diagonally")
+      (description "Shaman\A Shaman moves one or two squares in any direction,
+          including diagonally.  It cannot leap over other pieces.")
+      (image Black "images/elehunt/shaman.bmp")
+      (moves
+         (shaman-step n) (shaman-step nw)
+         (shaman-step s) (shaman-step se)
+         (shaman-step e) (shaman-step ne)
+         (shaman-step w) (shaman-step sw)
+      )
+   )
+
+   (piece
+      (name Elephant) 
+      (help "Elephant: moves two squares orthogonally.")
+      (description "Elephant\A Elephant moves exactly two squares in each orthogonal
+          direction.  You can think of it as making single-square steps, except that
+          its squares are twice as big.")
+      (image White "images/elehunt/elephant.bmp")
+      (moves
+         (step n) (step s)
+         (step e) (step w)
+      )                   
+   )
+
+   (loss-condition (White) (captured Elephant) )
+   (loss-condition (Black) (pieces-remaining 4) )
+   (loss-condition (White Black) repetition )
+)
+
+(variant
+   (title "Elephant Hunt (easy)")
+   (board-setup
+      (Black
+         (Shaman a1)
+         (Pygmy a9 a7 a5 a3 c1 e1 g1 i1 b8 b6 b4 d2 f2 h2)
+      )
+      (White
+         (Elephant dd)
+      )
+   )
+)
+

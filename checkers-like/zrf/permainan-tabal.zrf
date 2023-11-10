@@ -1,0 +1,173 @@
+(define man-step (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define man-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Permainan Tabal")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/permainan-tabal/permainan-tabal.bmp")
+     (grid
+        (start-rectangle 25 25 84 84)
+        (dimensions
+           ("a/b/c/d/e" (134 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 134)) ; ranks
+        )
+     )
+     (links n
+        (a3 a4) (a4 a5) (a5 a6) (a6 a7)
+        (b3 b4) (b4 b5) (b5 b6) (b6 b7)
+        (c3 c4) (c4 c5) (c5 c6) (c6 c7) 
+        (c1 c2) (c2 c3) (c7 c8) (c8 c9)
+        (d3 d4) (d4 d5) (d5 d6) (d6 d7) 
+        (e3 e4) (e4 e5) (e5 e6) (e6 e7) 
+     )
+     (links e
+        (a3 b3) (b3 c3) (c3 d3) (d3 e3)
+        (a4 b4) (b4 c4) (c4 d4) (d4 e4)
+        (a5 b5) (b5 c5) (c5 d5) (d5 e5)
+        (a6 b6) (b6 c6) (c6 d6) (d6 e6)
+        (a7 b7) (b7 c7) (c7 d7) (d7 e7)
+        (a1 c1) (c1 e1) (a9 c9) (c9 e9)
+        (b2 c2) (c2 d2) (b8 c8) (c8 d8)
+     )
+     (links w
+        (b3 a3) (c3 b3) (d3 c3) (e3 d3)
+        (b4 a4) (c4 b4) (d4 c4) (e4 d4)
+        (b5 a5) (c5 b5) (d5 c5) (e5 d5)
+        (b6 a6) (c6 b6) (d6 c6) (e6 d6)
+        (b7 a7) (c7 b7) (d7 c7) (e7 d7)
+        (c1 a1) (e1 c1) (c9 a9) (e9 c9)
+        (c2 b2) (d2 c2) (c8 b8) (d8 c8)
+     )
+     (links s
+        (a4 a3) (a5 a4) (a6 a5) (a7 a6)
+        (b4 b3) (b5 b4) (b6 b5) (b7 b6)
+        (c4 c3) (c5 c4) (c6 c5) (c7 c6) 
+        (c2 c1) (c3 c2) (c8 c7) (c9 c8)
+        (d4 d3) (d5 d4) (d6 d5) (d7 d6) 
+        (e4 e3) (e5 e4) (e6 e5) (e7 e6) 
+     )
+     (links nw
+        (e1 d2) (d2 c3) (c3 b4) (b4 a5)
+        (e3 d4) (d4 c5) (c5 b6) (b6 a7)
+        (e5 d6) (d6 c7) (c7 b8) (b8 a9)
+     )
+     (links ne
+        (a1 b2) (b2 c3) (c3 d4) (d4 e5)
+        (a3 b4) (b4 c5) (c5 d6) (d6 e7)
+        (a5 b6) (b6 c7) (c7 d8) (d8 e9)
+     )
+     (links sw
+        (b2 a1) (c3 b2) (d4 c3) (e5 d4)
+        (b4 a3) (c5 b4) (d6 c5) (e7 d6)
+        (b6 a5) (c7 b6) (d8 c7) (e9 d8)
+     )
+     (links se
+        (d2 e1) (c3 d2) (b4 c3) (a5 b4)
+        (d4 e3) (c5 d4) (b6 c5) (a7 b6)
+        (d6 e5) (c7 d6) (b8 c7) (a9 b8)
+     )
+     (symmetry Black (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions a9 c9 e9)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/permainan-tabal/wprince.bmp"
+            Black "images/permainan-tabal/bprince.bmp")
+     (moves
+         (move-type normal-type)
+         (man-step n) (man-step nw) (man-step ne) (man-step e) (man-step w)
+         (move-type jump-type)
+         (man-jump n) (man-jump w) (man-jump s) (man-jump e)
+         (man-jump nw) (man-jump sw) (man-jump se) (man-jump ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/permainan-tabal/wking.bmp"
+            Black "images/permainan-tabal/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (king-shift n) (king-shift s) (king-shift w) (king-shift e) 
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+         (move-type jump-type)
+         (king-jump n) (king-jump w) (king-jump s) (king-jump e)
+         (king-jump nw) (king-jump sw) (king-jump se) (king-jump ne)
+         (move-type continue-type)
+         (king-continue n) (king-continue w) (king-continue s) (king-continue e)
+         (king-continue nw) (king-continue sw) (king-continue se) (king-continue ne)
+     )
+  )
+
+  (board-setup
+    (White (Man a1 c1 e1 b2 c2 d2 a3 b3 c3 d3 e3 a4 b4 c4 d4 e4))
+    (Black (Man a9 c9 e9 b8 c8 d8 a7 b7 c7 d7 e7 a6 b6 c6 d6 e6))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

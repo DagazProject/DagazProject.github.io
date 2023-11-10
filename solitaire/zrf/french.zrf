@@ -1,0 +1,99 @@
+(define step (
+  $1 (verify not-empty?)
+  capture 
+  $1 (verify empty?)
+  add
+))
+
+(define board-def
+   (board
+      (image "images/french.bmp")
+      (grid
+          (start-rectangle 12 12 60 60)
+          (dimensions
+                ("a/b/c/d/e/f/g" (48 0)) ; files
+                ("7/6/5/4/3/2/1" (0 48)) ; ranks
+          )
+          (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+      )
+      (kill-positions a1 a2 a6 a7 b1 b7 f1 f7 g1 g2 g6 g7)
+      (zone (name goal) 
+         (players You) 
+         (positions $1)
+      )
+   )
+)
+
+(game
+   (title "French Solitaire")
+
+   (move-sound    "Audio/Pickup.wav")
+   (release-sound "Audio/Pickup.wav")
+   (change-sound  "Audio/Pickup.wav")
+   (capture-sound "Audio/Pickup.wav")
+   (click-sound   "")
+   (draw-sound    "")
+
+   (option "prevent flipping" 2)
+   (option "smart moves"      true)
+   (option "animate captures" false)
+;  (option "show hints"       false)
+
+   (players You)
+   (turn-order You)
+   (board-def d3)
+
+   (piece
+      (image You "images/man.bmp")
+      (name  Stone)
+      (help "Stone")
+      (moves
+            (step n) (step e)
+            (step s) (step w)
+      )
+   )
+
+   (board-setup
+      (You (Stone a3 a4 a5 b3 b4 b5 c1 c2 c3 c4 c5 c6 c7 d1 d2 d3 d4 d6 d7 e1 e2 e3 e4 e5 e6 e7 f3 f4 f5 g3 g4 g5 b2 b6 f2 f6))
+   )
+)
+
+(variant
+   (title "Cross")
+   (board-def d4)
+   (board-setup
+      (You (Stone b4 c4 d2 d3 d4 d5 d6 e4 f4))
+   )
+)
+
+(variant
+   (title "Hat")
+   (board-def d4)
+   (board-setup
+      (You (Stone b4 c4 c5 c6 c7 d4 d5 d6 d7 e4 e5 e6 e7 f4))
+   )
+)
+
+(variant
+   (title "Octagon")
+   (board-def d4)
+   (board-setup
+      (You (Stone a4 b2 b3 b4 b5 b6 c2 c3 c4 c5 c6 d1 d2 d3 d4 d5 d6 d7 e2 e3 e4 e5 e6 f2 f3 f4 f5 f6 g4))
+   )
+)
+
+(variant
+   (title "Butterfly")
+   (board-def d4)
+   (board-setup
+      (You (Stone b2 b3 b5 b6 c2 c3 c5 c6 d4 e2 e3 e5 e6 f2 f3 f5 f6))
+   )
+)
+
+(variant
+   (title "Square")
+   (board-def d3)
+   (board-setup
+      (You (Stone b2 b3 b4 b5 b6 c2 c3 c4 c5 c6 d2 d3 d4 d6 e2 e3 e4 e5 e6 f2 f3 f4 f5 f6))
+   )
+)

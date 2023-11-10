@@ -1,0 +1,56 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Step by step (17)")
+  (history "Hirofumi Fujiware")
+
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T G0100  2) (T G1000  2) 
+  (T G0100  3) (T G1000  3) 
+  (T B0000  4)
+  (T B0000  5)
+  (T G0010  6) (T G0001  6) 
+  (T G0010  7) (T G0001  7) 
+  (T G0010  8) (T G0001  8) 
+  (T G0010  9) (T G0001  9) 
+
+  (board-setup
+     (You 
+         (R0110F1 a5) (R1010F1 b5) (R0101F1 a4) (R1001F1 b4)
+         (G01002  c5) (G10002  d5) 
+         (G01003  c4) (G10003  d4) 
+         (B00004  a3)
+         (B00005  b3)
+         (G00106  a2) (G00016  a1) 
+         (G00107  b2) (G00017  b1) 
+         (G00108  c2) (G00018  c1) 
+         (G00109  d2) (G00019  d1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (a2))
+     (absolute-config R1010F1 (b2))
+     (absolute-config R0101F1 (a1))
+     (absolute-config R1001F1 (b1))
+  ))
+)

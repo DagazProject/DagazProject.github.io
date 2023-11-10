@@ -1,0 +1,126 @@
+(define queen-step (
+  $1 (verify not-friend?)
+  (verify (not-piece? Hole))
+  add
+))
+
+(define queen-slide (
+  $1 (verify (or empty? (piece? Hole))) $1
+  (while (or empty? (piece? Hole)) (if empty? add) $1)
+  (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2
+  (if (piece? Queen)
+      (verify not-friend?)
+  )
+  add
+))
+
+(define slide (
+  $1 
+  (while (or empty? (piece? Hole)) add $1)
+  (if (piece? Queen)
+      (verify not-friend?)
+  )
+  add
+))
+
+(game
+  (title "Caissa")
+  (history "Copyright (c) 1982-1999 Christian Freeling.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/caissa/board.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g" (50 0)) ; files
+           ("7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+  )
+
+  (piece
+     (name Hole)
+     (image White "images/caissa/hole.bmp"
+            Black "images/caissa/hole.bmp")
+  )
+  (piece
+     (name Queen)
+     (image White "images/caissa/wqueen.bmp"
+            Black "images/caissa/bqueen.bmp")
+     (moves
+         (move-type normal-type)
+         (queen-step n) (queen-step s) (queen-step w) (queen-step e)
+         (queen-step nw) (queen-step sw) (queen-step ne) (queen-step se)
+         (move-type slide-type)
+         (queen-slide n) (queen-slide s) (queen-slide w) (queen-slide e)
+         (queen-slide nw) (queen-slide sw) (queen-slide ne) (queen-slide se)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/caissa/wrook.bmp"
+            Black "images/caissa/brook.bmp")
+     (moves
+         (move-type normal-type)
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/caissa/wknight.bmp"
+            Black "images/caissa/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/caissa/wbishop.bmp"
+            Black "images/caissa/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+
+  (board-setup
+     (White
+        (Knight b2)
+        (Rook c3)
+        (Bishop d2)
+        (Queen c2)
+     )
+     (Black
+        (Knight f6)
+        (Rook e5)
+        (Bishop d6)
+        (Queen e6)
+     )
+  )
+
+  (loss-condition (White Black) (checkmated Queen))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

@@ -1,0 +1,167 @@
+(define step (
+  $1 (verify empty?)
+  (verify (not-in-zone? throne))
+  (verify (not-in-zone? goal))
+  add
+))
+
+(define king-step (
+  $1 (verify empty?)
+  (verify (not-in-zone? throne))
+  add
+))
+
+(game
+  (title "Fidchell")
+  (option "tafl-extension" true)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/fidchell.bmp")
+     (grid
+         (start-rectangle 21 23 90 92)
+         (dimensions
+           ("a/b/c/d/e/f/g" (69 0)) ; files
+           ("7/6/5/4/3/2/1" (0 69)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions d4)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a7 g1 g7)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 b4 f4 g4 d1 d2 d6 d7)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/w.bmp"
+            Black "images/b.bmp")
+     (moves
+        (step n) (step s) (step w) (step e)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/k.bmp")
+     (moves
+        (king-step n) (king-step s) (king-step w) (king-step e)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 b4 f4 g4 d1 d2 d6 d7))
+    (White (King d4) (Man c4 e4 d3 d5))
+  )
+
+  (win-condition  (White) (absolute-config King (a1 a7 g1 g7)))
+)
+
+(variant
+  (title "Gwyddbwyll")
+
+  (board
+     (image "images/gwyddbwyll.bmp")
+     (grid
+         (start-rectangle 21 23 90 92)
+         (dimensions
+           ("a/b/c/d/e/f/g" (69 0)) ; files
+           ("7/6/5/4/3/2/1" (0 69)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions d4)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a7 g1 g7)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a3 a5 c1 c7 e1 e7 g3 g5)
+     )
+  )
+
+  (board-setup
+    (Black (Man a3 a5 c1 c7 e1 e7 g3 g5))
+    (White (King d4) (Man c4 e4 d3 d5))
+  )
+)
+
+(variant
+  (title "Brandubh")
+
+  (board
+     (image "images/brandubh.bmp")
+     (grid
+         (start-rectangle 21 23 90 92)
+         (dimensions
+           ("a/b/c/d/e/f/g" (69 0)) ; files
+           ("7/6/5/4/3/2/1" (0 69)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions d4)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a7 g1 g7)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 g4 d1 d7 a5 b5 c1 c2 e6 e7 f3 g3)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 g4 d1 d7 a5 b5 c1 c2 e6 e7 f3 g3))
+    (White (King d4) (Man c4 e4 d3 d5 d2 d6))
+  )
+)
+
+(variant
+  (title "Ard-Ri")
+
+  (board
+     (image "images/ard-ri.bmp")
+     (grid
+         (start-rectangle 21 23 90 92)
+         (dimensions
+           ("a/b/c/d/e/f/g" (69 0)) ; files
+           ("7/6/5/4/3/2/1" (0 69)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name throne) (players Black White)
+         (positions d4)
+     )
+     (zone (name goal) (players Black White)
+         (positions a1 a7 g1 g7)
+     )
+     (zone (name enemies) (players Black White)
+         (positions a4 b4 f4 g4 d1 d2 d6 d7 a3 a5 g3 g5 c1 e1 c7 e7)
+     )
+  )
+
+  (board-setup
+    (Black (Man a4 b4 f4 g4 d1 d2 d6 d7 a3 a5 g3 g5 c1 e1 c7 e7))
+    (White (King d4) (Man c4 e4 d3 d5 c3 c5 e3 e5))
+  )
+)

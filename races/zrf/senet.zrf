@@ -1,0 +1,186 @@
+(define dice (
+  (verify (in-zone? dices))
+  (verify not-friend?)
+  add
+))
+
+(define step-1 (
+   $1 (verify not-friend?)
+   add
+))
+
+(define step-2 (
+   $1 $1 (verify not-friend?)
+   add
+))
+
+(define step-3 (
+   $1 $1 $1 (verify not-friend?)
+   add
+))
+
+(define step-4 (
+   $1 $1 $1 $1 (verify not-friend?)
+   add
+))
+
+(define step-5 (
+   $1 $1 $1 $1 $1 (verify not-friend?)
+   add
+))
+
+(game
+   (title "Senet")
+
+   (option "smart moves" false)
+
+   (players Blue Green)
+   (turn-order Blue Green)
+
+   (board
+      (image "images/senet/board.bmp")
+;     (grid
+;        (start-rectangle 6 8 55 57)
+;        (dimensions
+;            ("a/b/c/d/e/f/g/h/i/j" (60 0)) ; files
+;            ("3/2/1" (0 60)) ; ranks
+;        )    
+;     )
+;     (grid
+;        (start-rectangle 604 3 613 122)
+;        (dimensions
+;            ("A/B/C/D" (14 0)) ; files
+;            ("1" (0 120)) ; ranks
+;        )    
+;     )
+      (positions
+             (A1 604   3 613 122)
+             (B1 618   3 627 122)
+             (C1 632   3 641 122)
+             (D1 646   3 655 122)
+             (a3   6   8  55  57)
+             (a2   6  68  55 117)
+             (a1   6 128  55 177)
+             (b3  66   8 115  57)
+             (b2  66  68 115 117)
+             (b1  66 128 115 177)
+             (c3 126   8 175  57)
+             (c2 126  68 175 117)
+             (c1 126 128 175 177)
+             (d3 186   8 235  57)
+             (d2 186  68 235 117)
+             (d1 186 128 235 177)
+             (e3 246   8 295  57)
+             (e2 246  68 295 117)
+             (e1 246 128 295 177)
+             (f3 306   8 355  57)
+             (f2 306  68 355 117)
+             (f1 306 128 355 177)
+             (g3 366   8 415  57)
+             (g2 366  68 415 117)
+             (g1 366 128 415 177)
+             (h3 426   8 475  57)
+             (h2 426  68 475 117)
+             (h1 426 128 475 177)
+             (i3 486   8 535  57)
+             (i2 486  68 535 117)
+             (i1 486 128 535 177)
+             (j3 546   8 595  57)
+             (j2 546  68 595 117)
+             (j1 546 128 595 177)
+             (k1 606 128 655 177)
+      )
+      (links next
+         (a3 b3) (b3 c3) (c3 d3) (d3 e3) (e3 f3) (f3 g3) (g3 h3) (h3 i3) (i3 j3) (j3 j2)
+         (j2 i2) (i2 h2) (h2 g2) (g2 f2) (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) (g1 h1) (h1 i1) (i1 j1) (j1 k1)
+         (A1 B1) (B1 C1) (C1 D1)
+      )
+      (links prev
+         (b3 a3) (c3 b3) (d3 c3) (e3 d3) (f3 e3) (g3 f3) (h3 g3) (i3 h3) (j3 i3) (j2 j3)
+         (i2 j2) (h2 i2) (g2 h2) (f2 g2) (e2 f2) (d2 e2) (c2 d2) (b2 c2) (a2 b2) (a1 a2)
+         (b1 a1) (c1 b1) (d1 c1) (e1 d1) (f1 e1) (g1 f1) (h1 g1) (i1 h1) (j1 i1)
+      )
+      (links back
+         (g1 f2)
+      )
+      (zone
+         (name dices)
+         (players Blue Green)
+         (positions A1 B1 C1 D1)
+      )
+      (zone
+         (name reborn)
+         (players Blue Green)
+         (positions f2)
+      )
+      (zone
+         (name beauty)
+         (players Blue Green)
+         (positions f1)
+      )
+      (zone
+         (name water)
+         (players Blue Green)
+         (positions g1)
+      )
+      (zone
+         (name three)
+         (players Blue Green)
+         (positions h1)
+      )
+      (zone
+         (name isis)
+         (players Blue Green)
+         (positions i1)
+      )
+      (zone
+         (name ra)
+         (players Blue Green)
+         (positions j1)
+      )
+      (zone
+         (name end)
+         (players Blue Green)
+         (positions k1)
+      )
+      (zone
+         (name safe)
+         (players Blue Green)
+         (positions f1 g1 h1 i1 j1)
+      )
+   )
+
+   (piece
+      (name Zero)
+      (image Blue  "images/senet/light.bmp"
+             Green "images/senet/light.bmp")
+      (drops
+         (move-type dice-type)
+         (dice)
+      )			
+   )
+   (piece
+      (name One)
+      (image Blue  "images/senet/dark.bmp"
+             Green "images/senet/dark.bmp")
+      (drops
+         (move-type dice-type)
+         (dice)
+      )			
+   )
+   (piece
+      (name Stone)
+      (image Blue  "images/senet/blue.bmp"
+             Green "images/senet/green.bmp")
+      (moves
+         (move-type normal-type)
+         (step-1 next) (step-2 next) (step-3 next) (step-4 next) (step-5 next)
+      )			
+   )
+
+   (board-setup
+      (Green (Stone a3 c3 e3 g3 i3 j2 h2))
+      (Blue  (Stone b3 d3 f3 h3 j3 i2 g2))
+   )
+)

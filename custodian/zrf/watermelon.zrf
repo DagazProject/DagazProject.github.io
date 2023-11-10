@@ -1,0 +1,85 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Watermelon Chess")
+  (description "https://sites.google.com/site/boardandpieces/list-of-games/watermelon-chess")
+
+  (option "animate captures"  false)
+  (option "smart moves"       true)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/watermelon/board.bmp")
+     (positions
+        (l1 141 43 181 83)
+        (a1 197 34 237 74)
+        (b1 252 43 292 83)
+        (c1 350 141 390 181)
+        (d1 359 197 399 237)
+        (e1 350 252 390 292)
+        (f1 252 350 292 390)
+        (g1 197 359 237 399)
+        (h1 141 350 181 390)
+        (i1 46 252 86 292)
+        (j1 34 197 74 237)
+        (k1 46 141 86 181)
+        (a2 197 88  237 128)
+        (d2 303 197 343 237)
+        (g2 197 303 237 343)
+        (j2 88  197 128 237)
+        (a3 197 141 237 181)
+        (d3 252 197 292 237)
+        (g3 197 252 237 292)
+        (j3 141 197 181 237)
+        (a4 197 197 237 237)
+     )
+     (links n 
+        (g1 g2)(g2 g3)(g3 a4)(a4 a3)(a3 a2)(a2 a1)
+        (i1 j1)(j1 k1)(k1 l1) (e1 d1)(d1 c1)(c1 b1)
+        (d2 c1)(f1 g2)(h1 g2)(j2 k1)(d3 a3)(j3 a3)
+     )
+     (links s 
+        (a1 a2)(a2 a3)(a3 a4)(a4 g3)(g3 g2)(g2 g1)
+        (c1 d1)(d1 e1)(e1 f1) (k1 j1)(j1 i1)(i1 h1)
+        (b1 a2)(l1 a2)(d2 e1)(j2 i1)(d3 g3)(j3 g3)
+     )
+     (links w 
+        (d1 d2)(d2 d3)(d3 a4)(a4 j3)(j3 j2)(j2 j1)
+        (b1 a1)(a1 l1)(l1 k1) (f1 g1)(g1 h1)(h1 i1)
+        (c1 d2)(e1 d2)(g2 h1)(a2 l1)(a3 j3)(g3 j3)
+     )
+     (links e 
+        (j1 j2)(j2 j3)(j3 a4)(a4 d3)(d3 d2)(d2 d1)
+        (l1 a1)(a1 b1)(b1 c1) (h1 g1)(g1 f1)(f1 e1)
+        (a2 b1)(g2 f1)(k1 j2)(i1 j2)(a3 d3)(g3 d3)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/watermelon/white.bmp"
+            Black "images/watermelon/black.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+     )
+  )
+
+  (board-setup
+     (White (Stone e1 f1 g1 h1 i1 g2))
+     (Black (Stone a1 b1 c1 k1 l1 a2))
+  )
+
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) (pieces-remaining 2))
+)
+

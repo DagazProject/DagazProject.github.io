@@ -1,0 +1,565 @@
+(define dragon-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (if (in-zone? promotion)
+           (add-partial Queen cont-type) 
+        else
+           (add-partial jump-type) 
+       )
+       $1
+   )
+))
+
+(define dragon-shift (
+   $1 (while empty?
+       (if (in-zone? promotion)
+           (add Queen)
+        else
+           add
+       )
+       $1
+   )
+))
+
+(define queen-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define queen-cont (
+   $1 (while empty? (verify not-last-from?) $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define queen-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define camel-jump (
+  $1 $2 $3 (verify enemy?)
+  add
+))
+
+(define camel-shift (
+  $1 $2 $3 (verify empty?)
+  add
+))
+
+(define bishop-jump (
+  $1 (while empty? $1)
+  (verify enemy?)
+  add
+))
+
+(define bishop-shift (
+  $1 (while empty? add $1)
+))
+
+(define man-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define man-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define king-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Cheskers")
+  (history "Invented by Solomon W. Golomb. in 1948.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players Black)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw) (man-jump ne)
+         (move-type normal-type)
+         (man-shift nw) (man-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/cheskers/wking.bmp"
+            Black "images/cheskers/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw) (king-jump ne) (king-jump sw) (king-jump se)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (piece
+     (name Bishop)
+     (image White "images/cheskers/wbishop.bmp"
+            Black "images/cheskers/bbishop.bmp")
+     (moves
+         (move-type jump-type)
+         (bishop-jump nw) (bishop-jump ne)
+         (bishop-jump sw) (bishop-jump se)
+         (move-type normal-type)
+         (bishop-shift nw) (bishop-shift ne)
+         (bishop-shift sw) (bishop-shift se)
+     )
+  )
+  (piece
+     (name Camel)
+     (image White "images/cheskers/wknight.bmp"
+            Black "images/cheskers/bknight.bmp")
+     (moves
+         (move-type jump-type)
+         (camel-jump n n nw) (camel-jump n n ne)
+         (camel-jump s s sw) (camel-jump s s se)
+         (camel-jump w w sw) (camel-jump w w nw)
+         (camel-jump e e se) (camel-jump e e ne)
+         (move-type normal-type)
+         (camel-shift n n nw) (camel-shift n n ne)
+         (camel-shift s s sw) (camel-shift s s se)
+         (camel-shift w w sw) (camel-shift w w nw)
+         (camel-shift e e se) (camel-shift e e ne)
+     )
+  )
+
+  (board-setup
+     (Black (Man a3 b2 c3 d2 e3 f2 g3 h2)
+            (Bishop a1)
+            (King c1 e1)
+            (Camel g1)
+     )
+     (White (Man a7 b6 c7 d6 e7 f6 g7 h6)
+            (Bishop h8)
+            (King d8 f8)
+            (Camel b8)
+     )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0 King))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Cheskers (variant)")
+  (piece
+     (name Bishop)
+     (image White "images/cheskers/wbishop.bmp"
+            Black "images/cheskers/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (bishop-jump nw) (bishop-jump ne)
+         (bishop-jump sw) (bishop-jump se)
+         (bishop-shift nw) (bishop-shift ne)
+         (bishop-shift sw) (bishop-shift se)
+     )
+  )
+  (piece
+     (name Camel)
+     (image White "images/cheskers/wknight.bmp"
+            Black "images/cheskers/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (camel-jump n n nw) (camel-jump n n ne)
+         (camel-jump s s sw) (camel-jump s s se)
+         (camel-jump w w sw) (camel-jump w w nw)
+         (camel-jump e e se) (camel-jump e e ne)
+         (camel-shift n n nw) (camel-shift n n ne)
+         (camel-shift s s sw) (camel-shift s s se)
+         (camel-shift w w sw) (camel-shift w w nw)
+         (camel-shift e e se) (camel-shift e e ne)
+     )
+  )
+)
+
+(variant
+  (title "-")
+)
+
+(variant
+  (title "Grand Cheskers (9x9)")
+  (history "Invented by Peter Aronson.")
+
+  (board
+     (image "images/9x9.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players Black)
+           (positions a9 c9 e9 g9 i9)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (piece
+     (name Bishop)
+     (image White "images/cheskers/wbishop.bmp"
+            Black "images/cheskers/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (bishop-jump nw) (bishop-jump ne)
+         (bishop-jump sw) (bishop-jump se)
+         (bishop-shift nw) (bishop-shift ne)
+         (bishop-shift sw) (bishop-shift se)
+     )
+  )
+  (piece
+     (name Camel)
+     (image White "images/cheskers/wknight.bmp"
+            Black "images/cheskers/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (camel-jump n n nw) (camel-jump n n ne)
+         (camel-jump s s sw) (camel-jump s s se)
+         (camel-jump w w sw) (camel-jump w w nw)
+         (camel-jump e e se) (camel-jump e e ne)
+         (camel-shift n n nw) (camel-shift n n ne)
+         (camel-shift s s sw) (camel-shift s s se)
+         (camel-shift w w sw) (camel-shift w w nw)
+         (camel-shift e e se) (camel-shift e e ne)
+     )
+  )
+  (piece
+     (name Dragon)
+     (image White "images/cheskers/wdragon.bmp"
+            Black "images/cheskers/bdragon.bmp")
+     (moves
+         (move-type jump-type)
+         (dragon-jump nw) (dragon-jump ne)
+         (move-type normal-type)
+         (dragon-shift nw) (dragon-shift ne)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/cheskers/wqueen.bmp"
+            Black "images/cheskers/bqueen.bmp")
+     (moves
+         (move-type jump-type)
+         (queen-jump nw) (queen-jump ne)
+         (queen-jump sw) (queen-jump se)
+         (move-type cont-type)
+         (queen-cont nw) (queen-cont ne)
+         (queen-cont sw) (queen-cont se)
+         (move-type normal-type)
+         (queen-shift nw) (queen-shift ne)
+         (queen-shift sw) (queen-shift se)
+     )
+  )
+
+  (board-setup
+     (Black (Man a3 c3 e3 g3 i3 b2 h2)
+            (Bishop a1)
+            (King c1 g1)
+            (Camel i1)
+            (Queen e1)
+            (Dragon d2 f2)
+     )
+     (White (Man a7 c7 e7 g7 i7 b8 h8)
+            (Bishop i9)
+            (King c9 g9)
+            (Camel a9)
+            (Queen e9)
+            (Dragon d8 f8)
+     )
+  )
+)
+
+(variant
+  (title "-")
+)
+
+(variant
+  (title "Grand Cheskers (10x10)")
+  (history "Invented by Peter Aronson.")
+
+  (board
+     (image "images/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players Black)
+           (positions b10 d10 f10 h10 j10)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (piece
+     (name Bishop)
+     (image White "images/cheskers/wbishop.bmp"
+            Black "images/cheskers/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (bishop-jump nw) (bishop-jump ne)
+         (bishop-jump sw) (bishop-jump se)
+         (bishop-shift nw) (bishop-shift ne)
+         (bishop-shift sw) (bishop-shift se)
+     )
+  )
+  (piece
+     (name Camel)
+     (image White "images/cheskers/wknight.bmp"
+            Black "images/cheskers/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (camel-jump n n nw) (camel-jump n n ne)
+         (camel-jump s s sw) (camel-jump s s se)
+         (camel-jump w w sw) (camel-jump w w nw)
+         (camel-jump e e se) (camel-jump e e ne)
+         (camel-shift n n nw) (camel-shift n n ne)
+         (camel-shift s s sw) (camel-shift s s se)
+         (camel-shift w w sw) (camel-shift w w nw)
+         (camel-shift e e se) (camel-shift e e ne)
+     )
+  )
+  (piece
+     (name Dragon)
+     (image White "images/cheskers/wdragon.bmp"
+            Black "images/cheskers/bdragon.bmp")
+     (moves
+         (move-type jump-type)
+         (dragon-jump nw) (dragon-jump ne)
+         (move-type normal-type)
+         (dragon-shift nw) (dragon-shift ne)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/cheskers/wqueen.bmp"
+            Black "images/cheskers/bqueen.bmp")
+     (moves
+         (move-type jump-type)
+         (queen-jump nw) (queen-jump ne)
+         (queen-jump sw) (queen-jump se)
+         (move-type cont-type)
+         (queen-cont nw) (queen-cont ne)
+         (queen-cont sw) (queen-cont se)
+         (move-type normal-type)
+         (queen-shift nw) (queen-shift ne)
+         (queen-shift sw) (queen-shift se)
+     )
+  )
+
+  (board-setup
+     (Black (Man a3 c3 e3 g3 i3 b4 d4 f4 h4 j4)
+            (Bishop a1)
+            (King c1 g1)
+            (Camel i1)
+            (Queen e1)
+            (Dragon b2 d2 f2 h2 j2)
+     )
+     (White (Man a7 c7 e7 g7 i7 b8 d8 f8 h8 j8)
+            (Bishop j10)
+            (King d10 h10)
+            (Camel b10)
+            (Queen f10)
+            (Dragon a9 c9 e9 g9 i9)
+     )
+  )
+)
+
+(variant
+  (title "Grand Cheskers (10x10 variant)")
+  (history "Invented by Peter Aronson.")
+
+  (board
+     (image "images/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players Black)
+           (positions b10 d10 f10 h10 j10)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 c1 e1 g1 i1)
+     )
+  )
+
+  (piece
+     (name Bishop)
+     (image White "images/cheskers/wbishop.bmp"
+            Black "images/cheskers/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (bishop-jump nw) (bishop-jump ne)
+         (bishop-jump sw) (bishop-jump se)
+         (bishop-shift nw) (bishop-shift ne)
+         (bishop-shift sw) (bishop-shift se)
+     )
+  )
+  (piece
+     (name Camel)
+     (image White "images/cheskers/wknight.bmp"
+            Black "images/cheskers/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (camel-jump n n nw) (camel-jump n n ne)
+         (camel-jump s s sw) (camel-jump s s se)
+         (camel-jump w w sw) (camel-jump w w nw)
+         (camel-jump e e se) (camel-jump e e ne)
+         (camel-shift n n nw) (camel-shift n n ne)
+         (camel-shift s s sw) (camel-shift s s se)
+         (camel-shift w w sw) (camel-shift w w nw)
+         (camel-shift e e se) (camel-shift e e ne)
+     )
+  )
+  (piece
+     (name Dragon)
+     (image White "images/cheskers/wdragon.bmp"
+            Black "images/cheskers/bdragon.bmp")
+     (moves
+         (move-type jump-type)
+         (dragon-jump nw) (dragon-jump ne)
+         (move-type normal-type)
+         (dragon-shift nw) (dragon-shift ne)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/cheskers/wqueen.bmp"
+            Black "images/cheskers/bqueen.bmp")
+     (moves
+         (move-type jump-type)
+         (queen-jump nw) (queen-jump ne)
+         (queen-jump sw) (queen-jump se)
+         (move-type cont-type)
+         (queen-cont nw) (queen-cont ne)
+         (queen-cont sw) (queen-cont se)
+         (move-type normal-type)
+         (queen-shift nw) (queen-shift ne)
+         (queen-shift sw) (queen-shift se)
+     )
+  )
+
+  (board-setup
+     (Black (Man a3 c3 e3 g3 i3 b4 d4 f4 h4 j4)
+            (Bishop c1 g1)
+            (King e1 f2)
+            (Camel a1 i1)
+            (Queen d2 h2)
+            (Dragon b2 j2)
+     )
+     (White (Man a7 c7 e7 g7 i7 b8 d8 f8 h8 j8)
+            (Bishop d10 h10)
+            (King e9 f10)
+            (Camel b10 j10)
+            (Queen c9 g9)
+            (Dragon a9 i9)
+     )
+  )
+)

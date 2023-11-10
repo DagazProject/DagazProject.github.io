@@ -1,0 +1,119 @@
+(define capture-piece (
+  capture add
+))
+
+(define p
+  (piece
+     (name $1)
+     (image You "images/mahjong/$2.bmp")
+     (moves
+        (capture-piece)
+     )
+  )
+)
+
+(game
+  (title "Mahjong solitaire")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (image "images/mahjong/12x8.bmp")
+     (grid
+         (start-rectangle 624 10 698 99)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (-56 0))
+           ("8/7/6/5/4/3/2/1" (0 81))
+           ("a/b/c/d" (8 -8))
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (zone (name board-zone)
+           (players You)
+           (positions 
+              a1a b1a c1a d1a e1a f1a g1a h1a i1a j1a k1a l1a
+                      c2a d2a e2a f2a g2a h2a i2a j2a
+                  b3a c3a d3a e3a f3a g3a h3a i3a j3a k3a
+              a4a b4a c4a d4a e4a f4a g4a h4a i4a j4a k4a l4a
+              a5a b5a c5a d5a e5a f5a g5a h5a i5a j5a k5a l5a
+                  b6a c6a d6a e6a f6a g6a h6a i6a j6a k6a
+                      c7a d7a e7a f7a g7a h7a i7a j7a
+              a8a b8a c8a d8a e8a f8a g8a h8a i8a j8a k8a l8a
+
+                          d2b e2b f2b g2b h2b i2b
+                          d3b e3b f3b g3b h3b i3b
+                          d4b e4b f4b g4b h4b i4b
+                          d5b e5b f5b g5b h5b i5b
+                          d6b e6b f6b g6b h6b i6b
+                          d7b e7b f7b g7b h7b i7b
+
+                              e3c f3c g3c h3c
+                              e4c f4c g4c h4c
+                              e5c f5c g5c h5c
+                              e6c f6c g6c h6c
+
+                                  f4d g4d
+                                  f5d g5d
+           )
+     )
+  )
+
+  (p B1 bamboo1) (p B2 bamboo2) (p B3 bamboo3) (p B4 bamboo4) (p B5 bamboo5) (p B6 bamboo6) (p B7 bamboo7) (p B8 bamboo8) (p B9 bamboo9)
+  (p C1 circle1) (p C2 circle2) (p C3 circle3) (p C4 circle4) (p C5 circle5) (p C6 circle6) (p C7 circle7) (p C8 circle8) (p C9 circle9)
+  (p P1 pinyin1) (p P2 pinyin2) (p P3 pinyin3) (p P4 pinyin4) (p P5 pinyin5) (p P6 pinyin6) (p P7 pinyin7) (p P8 pinyin8) (p P9 pinyin9)  
+  (p P10 pinyin10) (p P11 pinyin11) (p P12 pinyin12) (p P13 pinyin13) (p P14 pinyin14) (p P15 pinyin15)
+  (p F1 chrysanthemum) (p F2 lotus) (p F3 orchid) (p F4 peony)
+)
+
+(variant
+  (title "Mahjong solitaire")
+  (board
+     (image "images/mahjong/12x8.bmp")
+     (grid
+         (start-rectangle 624 10 698 99)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (-56 0))
+           ("8/7/6/5/4/3/2/1" (0 81))
+           ("a/b/c/d" (8 -8))
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (zone (name board-zone)
+           (players You)
+           (positions 
+                              e1a         h1a
+                      c2a d2a e2a         h2a i2a j2a
+                  b3a c3a d3a e3a f3a g3a h3a i3a j3a k3a
+                          d4a e4a         h4a i4a
+                          d5a e5a         h5a i5a
+                  b6a c6a d6a e6a f6a g6a h6a i6a j6a k6a
+                      c7a d7a e7a         h7a i7a j7a
+                              e8a         h8a
+
+                              e1b         h1b
+                      c2b d2b e2b         h2b i2b j2b
+                  b3b c3b d3b e3b f3b g3b h3b i3b j3b k3b
+                          d4b e4b         h4b i4b
+                          d5b e5b         h5b i5b
+                  b6b c6b d6b e6b f6b g6b h6b i6b j6b k6b
+                      c7b d7b e7b         h7b i7b j7b
+                              e8b         h8b
+
+                      c3c d3c e3c f3c g3c h3c i3c j3c
+                      c6c d6c e6c f6c g6c h6c i6c j6c
+
+                      c3d d3d e3d f3d g3d h3d i3d j3d
+                      c6d d6d e6d f6d g6d h6d i6d j6d
+           )
+     )
+  )
+)

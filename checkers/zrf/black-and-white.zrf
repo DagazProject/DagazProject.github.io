@@ -1,0 +1,186 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add King)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define russian-checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+       (add-partial King continue-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define russian-king-shift (
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define king-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(define russian-king-jump (
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(define russian-king-continue (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial continue-type) $1
+   )
+))
+
+(game
+  (title "Black and White")
+  (history "Invented by David Parlett.")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (symmetry White (nw se) (se nw) (ne sw) (sw ne) (n s) (s n) (w e) (e w))
+     (zone (name promotion) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name promotion) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump n) (checker-jump w) (checker-jump e)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump n) (king-jump s) (king-jump w) (king-jump e)
+         (move-type normal-type)
+         (king-shift nw) (king-shift ne) (king-shift sw) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (Black (Man a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
+    (White (Man a8 c8 e8 g8  b7 d7 f7 h7  a6 c6 e6 g6) )
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Black and White (variant)")
+  (default)
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (russian-checker-jump n) (russian-checker-jump s) 
+         (russian-checker-jump w) (russian-checker-jump e)
+         (move-type normal-type)
+         (checker-shift nw) (checker-shift ne)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (russian-king-jump n) (russian-king-jump s) 
+         (russian-king-jump w) (russian-king-jump e)
+         (move-type continue-type)
+         (russian-king-continue n) (russian-king-continue s) 
+         (russian-king-continue w) (russian-king-continue e)
+         (move-type normal-type)
+         (russian-king-shift nw) (russian-king-shift ne) 
+         (russian-king-shift sw) (russian-king-shift se)
+     )
+  )
+  (board-setup
+    (Black (Man a2 b2 c2 d2 e2 f2 g2 h2 a3 b3 c3 d3 e3 f3 g3 h3) )
+    (White (Man a7 b7 c7 d7 e7 f7 g7 h7 a6 b6 c6 d6 e6 f6 g6 h6) )
+  )
+)

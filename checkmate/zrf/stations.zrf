@@ -1,0 +1,338 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+   (title "Stations")
+
+   (players Red Blue)
+   (turn-order Red Blue)
+
+   (board
+	(image "Images\Stations\board.bmp")
+	(positions
+	(a1   6 245  37 276)(a2   6 205  37 236)(a3   6 165  37 196)(a4   6 125  37 156)(a5   6  85  37 116)
+	(b1  39 265  70 296)(b2  39 225  70 256)(b3  39 185  70 216)(b4  39 145  70 176)(b5  39 105  70 136)(b6  39  65  70  96)
+	(c1  72 285 103 316)(c2  72 245 103 276)(c3  72 205 103 236)(c4  72 165 103 196)(c5  72 125 103 156)(c6  72  85 103 116)(c7  72  45 103  76)
+	(d1 105 305 136 336)(d2 105 265 136 296)(d3 105 225 136 256)(d4 105 185 136 216)(d5 105 145 136 176)(d6 105 105 136 136)(d7 105  65 136  96)(d8 105  25 136  56)
+	(e1 138 325 169 356)(e2 138 285 169 316)(e3 138 245 169 276)(e4 138 205 169 236)(e5 138 165 169 196)(e6 138 125 169 156)(e7 138  85 169 116)(e8 138  45 169  76)(e9 138   5 169  36)
+	(f1 171 305 202 336)(f2 171 265 202 296)(f3 171 225 202 256)(f4 171 185 202 216)(f5 171 145 202 176)(f6 171 105 202 136)(f7 171  65 202  96)(f8 171  25 202  56)
+	(g1 204 285 235 316)(g2 204 245 235 276)(g3 204 205 235 236)(g4 204 165 235 196)(g5 204 125 235 156)(g6 204  85 235 116)(g7 204  45 235  76)
+	(h1 237 265 268 296)(h2 237 225 268 256)(h3 237 185 268 216)(h4 237 145 268 176)(h5 237 105 268 136)(h6 237  65 268  96)
+	(i1 270 245 301 276)(i2 270 205 301 236)(i3 270 165 301 196)(i4 270 125 301 156)(i5 270  85 301 116)
+	)
+
+	(links n
+	(a1 a2)(a2 a3)(a3 a4)(a4 a5)
+	(b1 b2)(b2 b3)(b3 b4)(b4 b5)(b5 b6)
+	(c1 c2)(c2 c3)(c3 c4)(c4 c5)(c5 c6)(c6 c7)
+	(d1 d2)(d2 d3)(d3 d4)(d4 d5)(d5 d6)(d6 d7)(d7 d8)
+	(e1 e2)(e2 e3)(e3 e4)(e4 e5)(e5 e6)(e6 e7)(e7 e8)(e8 e9)
+	(f1 f2)(f2 f3)(f3 f4)(f4 f5)(f5 f6)(f6 f7)(f7 f8)
+	(g1 g2)(g2 g3)(g3 g4)(g4 g5)(g5 g6)(g6 g7)
+	(h1 h2)(h2 h3)(h3 h4)(h4 h5)(h5 h6)
+	(i1 i2)(i2 i3)(i3 i4)(i4 i5)
+	)
+
+	(links s
+	(a5 a4)(a4 a3)(a3 a2)(a2 a1)
+	(b6 b5)(b5 b4)(b4 b3)(b3 b2)(b2 b1)
+	(c7 c6)(c6 c5)(c5 c4)(c4 c3)(c3 c2)(c2 c1)
+	(d8 d7)(d7 d6)(d6 d5)(d5 d4)(d4 d3)(d3 d2)(d2 d1)
+	(e9 e8)(e8 e7)(e7 e6)(e6 e5)(e5 e4)(e4 e3)(e3 e2)(e2 e1)
+	(f8 f7)(f7 f6)(f6 f5)(f5 f4)(f4 f3)(f3 f2)(f2 f1)
+	(g7 g6)(g6 g5)(g5 g4)(g4 g3)(g3 g2)(g2 g1)
+	(h6 h5)(h5 h4)(h4 h3)(h3 h2)(h2 h1)
+	(i5 i4)(i4 i3)(i3 i2)(i2 i1)
+	)
+
+	(links ne
+	(e1 f1)(f1 g1)(g1 h1)(h1 i1)
+	(d1 e2)(e2 f2)(f2 g2)(g2 h2)(h2 i2)
+	(c1 d2)(d2 e3)(e3 f3)(f3 g3)(g3 h3)(h3 i3)
+	(b1 c2)(c2 d3)(d3 e4)(e4 f4)(f4 g4)(g4 h4)(h4 i4)
+	(a1 b2)(b2 c3)(c3 d4)(d4 e5)(e5 f5)(f5 g5)(g5 h5)(h5 i5)
+	(a2 b3)(b3 c4)(c4 d5)(d5 e6)(e6 f6)(f6 g6)(g6 h6)
+	(a3 b4)(b4 c5)(c5 d6)(d6 e7)(e7 f7)(f7 g7)
+	(a4 b5)(b5 c6)(c6 d7)(d7 e8)(e8 f8)
+	(a5 b6)(b6 c7)(c7 d8)(d8 e9)
+	)
+
+	(links sw
+	(i1 h1)(h1 g1)(g1 f1)(f1 e1)
+	(i2 h2)(h2 g2)(g2 f2)(f2 e2)(e2 d1)
+	(i3 h3)(h3 g3)(g3 f3)(f3 e3)(e3 d2)(d2 c1)
+	(i4 h4)(h4 g4)(g4 f4)(f4 e4)(e4 d3)(d3 c2)(c2 b1)
+	(i5 h5)(h5 g5)(g5 f5)(f5 e5)(e5 d4)(d4 c3)(c3 b2)(b2 a1)
+	(h6 g6)(g6 f6)(f6 e6)(e6 d5)(d5 c4)(c4 b3)(b3 a2)
+	(g7 f7)(f7 e7)(e7 d6)(d6 c5)(c5 b4)(b4 a3)
+	(f8 e8)(e8 d7)(d7 c6)(c6 b5)(b5 a4)
+	(e9 d8)(d8 c7)(c7 b6)(b6 a5)
+	)
+
+	(links nw
+	(e1 d1)(d1 c1)(c1 b1)(b1 a1)
+	(f1 e2)(e2 d2)(d2 c2)(c2 b2)(b2 a2)
+	(g1 f2)(f2 e3)(e3 d3)(d3 c3)(c3 b3)(b3 a3)
+	(h1 g2)(g2 f3)(f3 e4)(e4 d4)(d4 c4)(c4 b4)(b4 a4)
+	(i1 h2)(h2 g3)(g3 f4)(f4 e5)(e5 d5)(d5 c5)(c5 b5)(b5 a5)
+	(i2 h3)(h3 g4)(g4 f5)(f5 e6)(e6 d6)(d6 c6)(c6 b6)
+	(i3 h4)(h4 g5)(g5 f6)(f6 e7)(e7 d7)(d7 c7)
+	(i4 h5)(h5 g6)(g6 f7)(f7 e8)(e8 d8)
+	(i5 h6)(h6 g7)(g7 f8)(f8 e9)
+	)
+
+	(links se
+	(a1 b1)(b1 c1)(c1 d1)(d1 e1)
+	(a2 b2)(b2 c2)(c2 d2)(d2 e2)(e2 f1)
+	(a3 b3)(b3 c3)(c3 d3)(d3 e3)(e3 f2)(f2 g1)
+	(a4 b4)(b4 c4)(c4 d4)(d4 e4)(e4 f3)(f3 g2)(g2 h1)
+	(a5 b5)(b5 c5)(c5 d5)(d5 e5)(e5 f4)(f4 g3)(g3 h2)(h2 i1)
+	(b6 c6)(c6 d6)(d6 e6)(e6 f5)(f5 g4)(g4 h3)(h3 i2)
+	(c7 d7)(d7 e7)(e7 f6)(f6 g5)(g5 h4)(h4 i3)
+	(d8 e8)(e8 f7)(f7 g6)(g6 h5)(h5 i4)
+	(e9 f8)(f8 g7)(g7 h6)(h6 i5)
+	)
+   )
+
+   (piece
+	(name ST)
+	(image  Red "Images\Stations\r-st.bmp"
+		Blue "Images\Stations\g-st.bmp"
+	)
+	(moves	
+		(step n)(step s)
+		(step ne)(step se)
+		(step nw)(step sw)
+	)
+   )
+
+   (piece
+	(name DNN)
+	(image  Red "Images\Stations\r-dn-n.bmp"
+		Blue "Images\Stations\g-dn-n.bmp"
+	)
+	(moves	
+		(slide n)
+		(slide nw) (slide ne)
+		(slide sw) (slide se)
+	)
+   )
+   (piece
+	(name DNNE)
+	(image  Red "Images\Stations\r-dn-ne.bmp"
+		Blue "Images\Stations\g-dn-ne.bmp"
+	)
+	(moves	
+		(slide ne)
+		(slide n) (slide se)
+		(slide nw) (slide s)
+	)
+   )
+   (piece
+	(name DNNW)
+	(image  Red "Images\Stations\r-dn-nw.bmp"
+		Blue "Images\Stations\g-dn-nw.bmp"
+	)
+	(moves	
+		(slide nw)
+		(slide sw) (slide n)
+		(slide s) (slide ne)
+	)
+   )
+   (piece
+	(name DNS)
+	(image  Red "Images\Stations\r-dn-s.bmp"
+		Blue "Images\Stations\g-dn-s.bmp"
+	)
+	(moves	
+		(slide s)
+		(slide nw) (slide ne)
+		(slide sw) (slide se)
+	)
+   )
+   (piece
+	(name DNSE)
+	(image  Red "Images\Stations\r-dn-se.bmp"
+		Blue "Images\Stations\g-dn-se.bmp"
+	)
+	(moves	
+		(slide se)
+		(slide ne) (slide s)
+		(slide sw) (slide n)
+	)
+   )
+   (piece
+	(name DNSW)
+	(image  Red "Images\Stations\r-dn-sw.bmp"
+		Blue "Images\Stations\g-dn-sw.bmp"
+	)
+	(moves	
+		(slide sw)
+		(slide nw) (slide s)
+		(slide se) (slide n)
+	)
+   )
+
+   (piece
+	(name CRN)
+	(image  Red "Images\Stations\r-cr-n.bmp"
+		Blue "Images\Stations\g-cr-n.bmp"
+	)
+	(moves	
+		(slide nw) (slide ne)
+		(slide sw) (slide se)
+	)
+   )
+   (piece
+	(name CRNE)
+	(image  Red "Images\Stations\r-cr-ne.bmp"
+		Blue "Images\Stations\g-cr-ne.bmp"
+	)
+	(moves	
+		(slide n) (slide se)
+		(slide nw) (slide s)
+	)
+   )
+   (piece
+	(name CRNW)
+	(image  Red "Images\Stations\r-cr-nw.bmp"
+		Blue "Images\Stations\g-cr-nw.bmp"
+	)
+	(moves	
+		(slide sw) (slide n)
+		(slide s) (slide ne)
+	)
+   )
+
+   (piece
+	(name DSN)
+	(image  Red "Images\Stations\r-ds-n.bmp"
+		Blue "Images\Stations\g-ds-n.bmp"
+	)
+	(moves	
+		(slide n)
+		(slide sw) (slide se)
+	)
+   )
+   (piece
+	(name DSS)
+	(image  Red "Images\Stations\r-ds-s.bmp"
+		Blue "Images\Stations\g-ds-s.bmp"
+	)
+	(moves	
+		(slide s)
+		(slide nw) (slide ne)
+	)
+   )
+
+   (piece
+	(name CTN)
+	(image  Red "Images\Stations\r-ct-n.bmp"
+		Blue "Images\Stations\g-ct-n.bmp"
+	)
+	(moves	
+		(slide n) (slide s)
+	)
+   )
+   (piece
+	(name CTNE)
+	(image  Red "Images\Stations\r-ct-ne.bmp"
+		Blue "Images\Stations\g-ct-ne.bmp"
+	)
+	(moves	
+		(slide ne) (slide sw)
+	)
+   )
+   (piece
+	(name CTNW)
+	(image  Red "Images\Stations\r-ct-nw.bmp"
+		Blue "Images\Stations\g-ct-nw.bmp"
+	)
+	(moves	
+		(slide nw) (slide se)
+	)
+   )
+
+   (piece
+	(name FTN)
+	(image  Red "Images\Stations\r-ft-n.bmp"
+		Blue "Images\Stations\g-ft-n.bmp"
+	)
+	(moves	
+		(slide n)
+	)
+   )
+   (piece
+	(name FTNW)
+	(image  Red "Images\Stations\r-ft-nw.bmp"
+		Blue "Images\Stations\g-ft-nw.bmp"
+	)
+	(moves	
+		(slide nw)
+	)
+   )
+   (piece
+	(name FTNE)
+	(image  Red "Images\Stations\r-ft-ne.bmp"
+		Blue "Images\Stations\g-ft-ne.bmp"
+	)
+	(moves	
+		(slide ne)
+	)
+   )
+   (piece
+	(name FTS)
+	(image  Red "Images\Stations\r-ft-s.bmp"
+		Blue "Images\Stations\g-ft-s.bmp"
+	)
+	(moves	
+		(slide s)
+	)
+   )
+   (piece
+	(name FTSW)
+	(image  Red "Images\Stations\r-ft-sw.bmp"
+		Blue "Images\Stations\g-ft-sw.bmp"
+	)
+	(moves	
+		(slide sw)
+	)
+   )
+   (piece
+	(name FTSE)
+	(image  Red "Images\Stations\r-ft-se.bmp"
+		Blue "Images\Stations\g-ft-se.bmp"
+	)
+	(moves	
+		(slide se)
+	)
+   )
+
+   (board-setup
+	(Red
+		(ST e1)
+		(DNS e2)
+		(CRN d1 f1)
+		(DSN d2 f2)
+		(CTN c1 g1)
+                (FTN b1 c2 d3 e3 f3 g2 h1)
+	)
+	(Blue
+		(ST e9)
+		(DNN e8)
+		(CRN d8 f8)
+                (DSS d7 f7)
+		(CTN c7 g7)
+                (FTS b6 c6 d6 e7 f6 g6 h6)
+	)
+   )
+)

@@ -1,0 +1,50 @@
+(define drop-piece (
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Atari Go (9x9)")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate drops"    false)
+  (option "animate captures" false)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/9x9.bmp")
+     (grid
+         (start-rectangle 12 12 73 73)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (60 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 60)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (zone (name death-line) (players White Black)
+           (positions b2 b3 b4 b5 b6 b7 b8 c2 c8 d2 d8 e2 e8 f2 f8 g2 g8 h2 h3 h4 h5 h6 h7 h8)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/wbig.bmp"
+            Black "images/bbig.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 81)) 
+     (Black (Stone off 81))
+  )
+)

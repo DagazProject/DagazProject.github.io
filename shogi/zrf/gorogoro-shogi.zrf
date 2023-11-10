@@ -1,0 +1,265 @@
+(define check-piece
+  (set-flag is-pawn? (or (piece? Chick) (piece? ChickP)))
+  (set-flag is-cat?  (or (piece? Cat) (piece? CatP)))
+  (set-flag is-dog?  (piece? Dog))
+)
+
+(define create-piece
+  (if (flag? is-pawn?) (create Chick))
+  (if (flag? is-cat?)  (create Cat))
+  (if (flag? is-dog?)  (create Dog))
+)
+
+(define drop-piece (
+  (verify (not-in-zone? board-zone))
+  a1
+  (while (on-board? $1)
+     (if empty? add)
+     $1
+  )
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if (and not-empty? (not-piece? Lion))
+      (check-piece)
+      mark th
+      (while not-empty? th)
+      (create-piece)
+      back
+  )
+  add
+))
+
+(define step-p (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if (and not-empty? (not-piece? Lion))
+      (check-piece)
+      mark th
+      (while not-empty? th)
+      (create-piece)
+      back
+  )
+  (if (in-zone? promotion-zone)
+      (add $2)
+   else
+      add
+  )
+))
+
+(game
+  (title "Goro Goro Doubutsu Shogi")
+
+  (option "animate captures" false)
+  (option "highlight goals"  false)
+
+  (players Green Red)
+  (turn-order Green Red)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+        (image "images/gorogoro/board.bmp")
+        (grid
+               (start-rectangle 30 8 124 102)
+               (dimensions ("X/Y/a/b/c/d/e/Z/T" (94 0))
+                           ("6/5/4/3/2/1" (0 94))
+               )
+        )
+        (zone (name board-zone) (players Green Red)
+              (positions a1 b1 c1 d1 e1
+                         a2 b2 c2 d2 e2
+                         a3 b3 c3 d3 e3
+                         a4 b4 c4 d4 e4
+                         a5 b5 c5 d5 e5
+                         a6 b6 c6 d6 e6
+              )
+        )
+        (zone (name promotion-zone) (players Green)
+              (positions 
+                         a5 b5 c5 d5 e5
+                         a6 b6 c6 d6 e6
+              )
+        )
+        (zone (name promotion-zone) (players Red)
+              (positions
+                         a1 b1 c1 d1 e1
+                         a2 b2 c2 d2 e2
+              )
+        )
+        (links nx 
+               (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 a6) (a6 b1)
+               (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 b6) (b6 c1)
+               (c1 c2) (c2 c3) (c3 c4) (c4 c5) (c5 c6) (c6 d1)
+               (d1 d2) (d2 d3) (d3 d4) (d4 d5) (d5 d6) (d6 e1)
+               (e1 e2) (e2 e3) (e3 e4) (e4 e5) (e5 e6) (e6 Z1)
+        )
+        (links n  
+               (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a5 a6) 
+               (b1 b2) (b2 b3) (b3 b4) (b4 b5) (b5 b6) 
+               (c1 c2) (c2 c3) (c3 c4) (c4 c5) (c5 c6) 
+               (d1 d2) (d2 d3) (d3 d4) (d4 d5) (d5 d6) 
+               (e1 e2) (e2 e3) (e3 e4) (e4 e5) (e5 e6) 
+        )
+        (links s  
+               (a2 a1) (a3 a2) (a4 a3) (a5 a4) (a6 a5)
+               (b2 b1) (b3 b2) (b4 b3) (b5 b4) (b6 b5)
+               (c2 c1) (c3 c2) (c4 c3) (c5 c4) (c6 c5)
+               (d2 d1) (d3 d2) (d4 d3) (d5 d4) (d6 d5)
+               (e2 e1) (e3 e2) (e4 e3) (e5 e4) (e6 e5)
+        )
+        (links w
+               (b1 a1) (b2 a2) (b3 a3) (b4 a4) (b5 a5) (b6 a6)
+               (c1 b1) (c2 b2) (c3 b3) (c4 b4) (c5 b5) (c6 b6)
+               (d1 c1) (d2 c2) (d3 c3) (d4 c4) (d5 c5) (d6 c6)
+               (e1 d1) (e2 d2) (e3 d3) (e4 d4) (e5 d5) (e6 d6)
+        )
+        (links e
+               (a1 b1) (a2 b2) (a3 b3) (a4 b4) (a5 b5) (a6 b6)
+               (b1 c1) (b2 c2) (b3 c3) (b4 c4) (b5 c5) (b6 c6)
+               (c1 d1) (c2 d2) (c3 d3) (c4 d4) (c5 d5) (c6 d6)
+               (d1 e1) (d2 e2) (d3 e3) (d4 e4) (d5 e5) (d6 e6)
+        )
+        (links ne
+               (a1 b2) (a2 b3) (a3 b4) (a4 b5) (a5 b6)
+               (b1 c2) (b2 c3) (b3 c4) (b4 c5) (b5 c6)
+               (c1 d2) (c2 d3) (c3 d4) (c4 d5) (c5 d6)
+               (d1 e2) (d2 e3) (d3 e4) (d4 e5) (d5 e6)
+        )
+        (links sw
+               (b2 a1) (b3 a2) (b4 a3) (b5 a4) (b6 a5)
+               (c2 b1) (c3 b2) (c4 b3) (c5 b4) (c6 b5)
+               (d2 c1) (d3 c2) (d4 c3) (d5 c4) (d6 c5)
+               (e2 d1) (e3 d2) (e4 d3) (e5 d4) (e6 d5)
+        )
+        (links nw
+               (b1 a2) (b2 a3) (b3 a4) (b4 a5) (b5 a6)
+               (c1 b2) (c2 b3) (c3 b4) (c4 b5) (c5 b6)
+               (d1 c2) (d2 c3) (d3 c4) (d4 c5) (d5 c6)
+               (e1 d2) (e2 d3) (e3 d4) (e4 d5) (e5 d6)
+        )
+        (links se
+               (a2 b1) (a3 b2) (a4 b3) (a5 b4) (a6 b5)
+               (b2 c1) (b3 c2) (b4 c3) (b5 c4) (b6 c5)
+               (c2 d1) (c3 d2) (c4 d3) (c5 d4) (c6 d5)
+               (d2 e1) (d3 e2) (d4 e3) (d5 e4) (d6 e5)
+        )
+        (links th
+               (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1) (a6 Z1)
+               (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1)
+               (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1)
+               (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1)
+               (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1)
+               (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) (T3 Z4)
+               (Z4 T4) (T4 Z5) (Z5 T5) (T5 Z6) (Z6 T6) (T6 Y1)
+               (Y1 X1) (X1 Y2) (Y2 X2) (X2 Y3) (Y3 X3) (X3 Y4)
+               (Y4 X4) (X4 Y5) (Y5 X5) (X5 Y6) (Y6 X6)
+        )
+        (links tn
+               (a1 Y6) (a2 Y6) (a3 Y6) (a4 Y6) (a5 Y6) (a6 Y6)
+               (b1 Y6) (b2 Y6) (b3 Y6) (b4 Y6) (b5 Y6) (b6 Y6)
+               (c1 Y6) (c2 Y6) (c3 Y6) (c4 Y6) (c5 Y6) (c6 Y6)
+               (d1 Y6) (d2 Y6) (d3 Y6) (d4 Y6) (d5 Y6) (d6 Y6)
+               (e1 Y6) (e2 Y6) (e3 Y6) (e4 Y6) (e5 Y6) (e6 Y6)
+               (Y6 X6) (X6 Y5) (Y5 X5) (X5 Y4) (Y4 X4) (X4 Y3)
+               (Y3 X3) (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1) (X1 Z6)
+               (Z6 T6) (T6 Z5) (Z5 T5) (T5 Z4) (Z4 T4) (T4 Z3)
+               (Z3 T3) (T3 Z2) (Z2 T2) (T2 Z1) (Z1 T1)
+        )
+        (symmetry Red (n s) (s n) (w w) (e e) (nw sw) (sw nw) (ne se) (se ne) (th tn) (tn th))
+  )
+
+  (piece
+        (name  Lion)
+        (help  "Lion: steps 1 square in any direction to a safe square")
+        (image Green "images/gorogoro/king-green.bmp"
+               Red   "images/gorogoro/king-red.bmp"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step sw) (step ne) (step se) 
+        )
+  )
+  (piece
+        (name  Chick)
+        (help  "Chick: steps 1 square to forward")
+        (image Green "images/gorogoro/pawn-green.bmp"
+               Red   "images/gorogoro/pawn-red.bmp"
+        )
+        (moves
+;              (step-p n ChickP) (drop-piece nx)
+               (step n) (drop-piece nx)
+        )
+  )
+  (piece
+        (name  ChickP)
+        (help  "Hen: steps 1 square in any direction except diagonally backwards")
+        (image Green "images/gorogoro/gold-green.bmp"
+               Red   "images/gorogoro/gold-red.bmp"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step ne)
+        )
+  )
+  (piece
+        (name  Cat)
+        (help  "Cat: steps 1 square to diagonally or forward")
+        (image Green "images/gorogoro/silver-green.bmp"
+               Red   "images/gorogoro/silver-red.bmp"
+        )
+        (moves
+;              (step-p n CatP) 
+;              (step-p nw CatP) (step-p ne CatP) 
+;              (step-p sw CatP) (step-p se CatP) 
+               (step n) 
+               (step nw) (step ne) 
+               (step sw) (step se) 
+               (drop-piece nx)
+        )
+  )
+  (piece
+        (name  CatP)
+        (help  "Cat: steps 1 square in any direction except diagonally backwards")
+        (image Green "images/gorogoro/gold-cat-green.bmp"
+               Red   "images/gorogoro/gold-cat-red.bmp"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step ne)
+        )
+  )
+  (piece
+        (name  Dog)
+        (help  "Dog: steps 1 square in any direction except diagonally backwards")
+        (image Green "images/gorogoro/gold-dog-green.bmp"
+               Red   "images/gorogoro/gold-dog-red.bmp"
+        )
+        (moves
+               (step n) (step s) (step w) (step e) 
+               (step nw) (step ne)
+               (drop-piece nx)
+        )
+  )
+
+  (board-setup
+        ( Green (Lion  c1)
+                (Chick b3 c3 d3)
+                (Dog   b1 d1)
+                (Cat   a1 e1)
+        )
+        ( Red   (Lion  c6)
+                (Chick b4 c4 d4)
+                (Dog   b6 d6)
+                (Cat   a6 e6)
+        )
+  )
+
+  (loss-condition (Green Red) (pieces-remaining 0 Lion))
+  (loss-condition (Green Red) repetition)
+)

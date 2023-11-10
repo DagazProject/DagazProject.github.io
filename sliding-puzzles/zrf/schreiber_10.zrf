@@ -1,0 +1,56 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Schreiber's puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T B0000  1)
+  (T B0000  2)
+  (T B0000  3)
+  (T B0010  4) (T B0001  4) 
+  (T R0110F 5) (T R1010F 5) (T R0101F 5) (T R1001F 5)
+  (T B0010  6) (T B0001  6) 
+  (T B0010  7) (T B0001  7) 
+  (T B0000  8)
+  (T B0100  9) (T B1000  9) 
+  (T B0100 10) (T B1000 10) 
+
+  (board-setup
+     (You 
+         (B00001  a5)
+         (B00002  b5)
+         (B00003  c5)
+         (B00104  d5) (B00014  d4) 
+         (R0110F5 a4) (R1010F5 b4) (R0101F5 a3) (R1001F5 b3)
+         (B00106  c4) (B00016  c3) 
+         (B00107  d3) (B00017  d2) 
+         (B00008  a2)
+         (B01009  b2) (B10009  c2) 
+         (B010010 c1) (B100010 d1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F5 (b2))
+     (absolute-config R1010F5 (c2))
+     (absolute-config R0101F5 (b1))
+     (absolute-config R1001F5 (c1))
+  ))
+)

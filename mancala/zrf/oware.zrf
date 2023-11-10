@@ -1,0 +1,121 @@
+(define step (
+  $1 add
+))
+
+(game
+  (title "Oware")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+; (option "smart moves"       from)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/6x2.bmp")
+     (grid
+         (start-rectangle 163 3 243 83)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X2    3 3 143 183)
+         (X1  763 3 903 183)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 f2)
+         (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links rv
+         (b1 a1) (c1 b1) (d1 c1) (e1 d1) (f1 e1) (f2 f1)
+         (e2 f2) (d2 e2) (c2 d2) (b2 c2) (a2 b2) (a1 a2)
+     )
+     (links fr (a2 X1))
+     (links er (a2 X2))
+     (symmetry North (fr er) (er fr) (nx nx) (rv rv))
+     (zone (name home) (players North)
+           (positions a2 b2 c2 d2 e2 f2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1 d1 e1 f1)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves (step nx))
+  )
+  (piece
+     (name None)
+     (image South "images/none.bmp"
+            North "images/none.bmp")
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1))
+    (North (Seed a2 b2 c2 d2 e2 f2))
+  )
+)
+
+(variant
+  (title "Cross-Wari")
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves 
+        (move-type normal-type) (step nx)
+        (move-type revert-type) (step rv)
+     )
+  )
+)
+
+(variant
+  (title "Mangala")
+  (default)
+  (board
+     (image "images/7x2.bmp")
+     (grid
+         (start-rectangle 168 8 248 88)
+         (dimensions
+           ("a/b/c/d/e/f/g" (100 0)) ; files
+           ("2/1" (0 100)) ; ranks
+         )
+     )
+     (positions
+         (X2    8 8  148 188)
+         (X1  868 8 1008 188)
+     )
+     (links nx
+         (a1 b1) (b1 c1) (c1 d1) (d1 e1) (e1 f1) (f1 g1) (g1 g2)
+         (g2 f2) (f2 e2) (e2 d2) (d2 c2) (c2 b2) (b2 a2) (a2 a1)
+     )
+     (links rv
+         (b1 a1) (c1 b1) (d1 c1) (e1 d1) (f1 e1) (g1 f1) (g2 g1)
+         (f2 g2) (e2 f2) (d2 e2) (c2 d2) (b2 c2) (a2 b2) (a1 a2)
+     )
+     (links fr (a2 X1))
+     (links er (a2 X2))
+     (symmetry North (fr er) (er fr) (nx nx) (rv rv))
+     (zone (name home) (players North)
+           (positions a2 b2 c2 d2 e2 f2 g2)
+     )
+     (zone (name home) (players South)
+           (positions a1 b1 c1 d1 e1 f1 g1)
+     )
+  )
+
+  (board-setup
+    (South (Seed a1 b1 c1 d1 e1 f1 g1))
+    (North (Seed a2 b2 c2 d2 e2 f2 g2))
+  )
+)

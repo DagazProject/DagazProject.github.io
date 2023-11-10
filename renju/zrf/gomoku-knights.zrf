@@ -1,0 +1,67 @@
+(define drop (
+  (verify empty?) add
+))
+
+(define jump (
+  $1 $2 (verify empty?) add
+))
+
+(game
+  (title "Gomoku Knights")
+
+  (move-sound    "Audio/Pickup.wav")
+  (release-sound "Audio/Pickup.wav")
+  (drop-sound    "Audio/Pickup.wav")
+  (capture-sound "")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+      (image "images/15x15.bmp")
+      (grid
+          (start-rectangle 5 5 35 35)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o" (30 0)) ; files
+            ("15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 30)) ; ranks
+          )
+          (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+          )
+      )
+      (zone (name first-move)  
+          (players Black) 
+          (positions h8)
+      )
+      (zone (name second-move)  
+          (players White) 
+          (positions g7 g8 g9 h7 h9 i7 i8 i9 f6 f7 f8 f9 f10 g6 g10 h6 h10 i6 i10 j6 j7 j8 j9 j10)
+      )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/bsmall.bmp"
+            White "images/wsmall.bmp")
+  )  
+  (piece
+     (name Knight)
+     (image Black "images/bknight.bmp"
+            White "images/wknight.bmp")
+     (drops 
+        (drop)
+     )
+     (moves 
+        (jump n nw) (jump n ne)
+        (jump s sw) (jump s se)
+        (jump w nw) (jump w sw)
+        (jump e ne) (jump e se)
+     )
+  )  
+
+  (board-setup
+     (Black (Knight off 1))
+     (White (Knight off 1))
+  )
+)

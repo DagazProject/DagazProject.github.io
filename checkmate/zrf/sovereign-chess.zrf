@@ -1,0 +1,670 @@
+(define step (
+  $1 add
+))
+
+(define pawn-jump (
+  (verify (in-zone? $1))
+  $1 (verify empty?)
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify not-empty?)
+  add
+))
+
+(define jump (
+  $1 $2 add
+))
+
+(define slide-8 (
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add
+))
+
+(define slide-6 (
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add (verify empty?)
+  $1 add
+))
+
+(game
+  (title "Sovereign Chess")
+
+  (players White Black Pink Red Orange Yellow Green Cyan Navy Violet Ash Slate)
+  (turn-order White Black)
+
+  (board
+     (image "images/sovereign/16x16.bmp")
+     (grid
+         (start-rectangle 46 6 92 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p" (46 0)) ; files
+           ("16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 46)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (grid
+         (start-rectangle 0 3 46 49)
+         (dimensions
+           ("z/y" (46 0)) ; files
+           ("16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 46)) ; ranks
+         )
+     )
+     (zone (name promotion-zone) (players White Black)
+           (positions g7 h7 i7 j7 g8 h8 i8 j8 g9 h9 i9 j9 g10 h10 i10 j10)
+     )
+     (zone (name white-zone) (players White Black)
+           (positions h9 i8)
+     )
+     (zone (name black-zone) (players White Black)
+           (positions h8 i9)
+     )
+     (zone (name pink-zone) (players White Black)
+           (positions h11 i6)
+     )
+     (zone (name red-zone) (players White Black)
+           (positions e12 l5)
+     )
+     (zone (name orange-zone) (players White Black)
+           (positions f9 k8)
+     )
+     (zone (name yellow-zone) (players White Black)
+           (positions f11 k6)
+     )
+     (zone (name green-zone) (players White Black)
+           (positions f6 k11)
+     )
+     (zone (name cyan-zone) (players White Black)
+           (positions f8 k9)
+     )
+     (zone (name navy-zone) (players White Black)
+           (positions e5 l12)
+     )
+     (zone (name violet-zone) (players White Black)
+           (positions h6 i11)
+     )
+     (zone (name ash-zone) (players White Black)
+           (positions g7 j10)
+     )
+     (zone (name slate-zone) (players White Black)
+           (positions g10 j7)
+     )
+     (zone (name v-zone) (players White Black)
+           (positions h1 i1 h2 i2 h3 i3 h4 i4 h5 i5 h6 i6 h11 i11 h12 i12 h13 i13 h14 i14 h15 i15 h16 i16)
+     )
+     (zone (name h-zone) (players White Black)
+           (positions a8 a9 b8 b9 c8 c9 d8 d9 e8 e9 f8 f9 k8 k9 l8 l9 m8 m9 n8 n9 o8 o9 p8 p9)
+     )
+     (zone (name sw-zone) (players White Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2 a3 b3 c3 d3 e3 f3 g3 h3 a4 b4 c4 d4 e4 f4 g4 h4 a5 b5 c5 d5 e5 f5 g5 h5 a6 b6 c6 d6 e6 f6 g6 h6 a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name nw-zone) (players White Black)
+           (positions a9 b9 c9 d9 e9 f9 g9 h9 a10 b10 c10 d10 e10 f10 g10 h10 a11 b11 c11 d11 e11 f11 g11 h11 a12 b12 c12 d12 e12 f12 g12 h12 a13 b13 c13 d13 e13 f13 g13 h13 a14 b14 c14 d14 e14 f14 g14 h14 a15 b15 c15 d15 e15 f15 g15 h15 a16 b16 c16 d16 e16 f16 g16 h16)
+     )
+     (zone (name ne-zone) (players White Black)
+           (positions i9 j9 k9 l9 m9 n9 o9 p9 i10 j10 k10 l10 m10 n10 o10 p10 i11 j11 k11 l11 m11 n11 o11 p11 i12 j12 k12 l12 m12 n12 o12 p12 i13 j13 k13 l13 m13 n13 o13 p13 i14 j14 k14 l14 m14 n14 o14 p14 i15 j15 k15 l15 m15 n15 o15 p15 i16 j16 k16 l16 m16 n16 o16 p16)
+     )
+     (zone (name se-zone) (players White Black)
+           (positions i1 j1 k1 l1 m1 n1 o1 p1 i2 j2 k2 l2 m2 n2 o2 p2 i3 j3 k3 l3 m3 n3 o3 p3 i4 j4 k4 l4 m4 n4 o4 p4 i5 j5 k5 l5 m5 n5 o5 p5 i6 j6 k6 l6 m6 n6 o6 p6 i7 j7 k7 l7 m7 n7 o7 p7 i8 j8 k8 l8 m8 n8 o8 p8)
+     )
+     (zone (name n-zone) (players White Black)
+           (positions a15 b15 c15 d15 e15 f15 g15 h15 i15 j15 k15 l15 m15 n15 o15 p15 a16 b16 c16 d16 e16 f16 g16 h16 i16 j16 k16 l16 m16 n16 o16 p16)
+     )
+     (zone (name e-zone) (players White Black)
+           (positions o1 o2 o3 o4 o5 o6 o7 o8 o9 o10 o11 o12 o13 o14 o15 o16 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16)
+     )
+     (zone (name w-zone) (players White Black)
+           (positions a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16)
+     )
+     (zone (name s-zone) (players White Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1 p1 a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2 m2 n2 o2 p2)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White  "images/sovereign/wpawn.bmp"
+            Black  "images/sovereign/bpawn.bmp"
+            Pink   "images/sovereign/ppawn.bmp"
+            Red    "images/sovereign/rpawn.bmp"
+            Orange "images/sovereign/opawn.bmp"
+            Yellow "images/sovereign/ypawn.bmp"
+            Green  "images/sovereign/gpawn.bmp"
+            Cyan   "images/sovereign/cpawn.bmp"
+            Navy   "images/sovereign/npawn.bmp"
+            Violet "images/sovereign/vpawn.bmp"
+            Ash    "images/sovereign/apawn.bmp"
+            Slate  "images/sovereign/spawn.bmp"
+     )
+     (moves
+         (pawn-jump s-zone n) (pawn-jump w-zone e)
+         (pawn-jump n-zone s) (pawn-jump e-zone w)
+         (pawn-shift n) (pawn-shift e)
+         (pawn-shift s) (pawn-shift w)
+         (pawn-step nw) (pawn-step ne)
+         (pawn-step sw) (pawn-step se)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White  "images/sovereign/wrook.bmp"
+            Black  "images/sovereign/brook.bmp"
+            Pink   "images/sovereign/prook.bmp"
+            Red    "images/sovereign/rrook.bmp"
+            Orange "images/sovereign/orook.bmp"
+            Yellow "images/sovereign/yrook.bmp"
+            Green  "images/sovereign/grook.bmp"
+            Cyan   "images/sovereign/crook.bmp"
+            Navy   "images/sovereign/nrook.bmp"
+            Violet "images/sovereign/vrook.bmp"
+            Ash    "images/sovereign/arook.bmp"
+            Slate  "images/sovereign/srook.bmp"
+     )
+     (moves
+         (slide-8 n) (slide-8 e) (slide-8 w) (slide-8 s)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White  "images/sovereign/wknight.bmp"
+            Black  "images/sovereign/bknight.bmp"
+            Pink   "images/sovereign/pknight.bmp"
+            Red    "images/sovereign/rknight.bmp"
+            Orange "images/sovereign/oknight.bmp"
+            Yellow "images/sovereign/yknight.bmp"
+            Green  "images/sovereign/gknight.bmp"
+            Cyan   "images/sovereign/cknight.bmp"
+            Navy   "images/sovereign/nknight.bmp"
+            Violet "images/sovereign/vknight.bmp"
+            Ash    "images/sovereign/aknight.bmp"
+            Slate  "images/sovereign/sknight.bmp"
+     )
+     (moves
+         (jump n nw) (jump n ne)
+         (jump s sw) (jump s se)
+         (jump w nw) (jump w sw)
+         (jump e ne) (jump e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White  "images/sovereign/wbishop.bmp"
+            Black  "images/sovereign/bbishop.bmp"
+            Pink   "images/sovereign/pbishop.bmp"
+            Red    "images/sovereign/rbishop.bmp"
+            Orange "images/sovereign/obishop.bmp"
+            Yellow "images/sovereign/ybishop.bmp"
+            Green  "images/sovereign/gbishop.bmp"
+            Cyan   "images/sovereign/cbishop.bmp"
+            Navy   "images/sovereign/nbishop.bmp"
+            Violet "images/sovereign/vbishop.bmp"
+            Ash    "images/sovereign/abishop.bmp"
+            Slate  "images/sovereign/sbishop.bmp"
+     )
+     (moves
+         (slide-8 nw) (slide-8 ne) (slide-8 sw) (slide-8 se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White  "images/sovereign/wqueen.bmp"
+            Black  "images/sovereign/bqueen.bmp"
+            Pink   "images/sovereign/pqueen.bmp"
+            Red    "images/sovereign/rqueen.bmp"
+            Orange "images/sovereign/oqueen.bmp"
+            Yellow "images/sovereign/yqueen.bmp"
+            Green  "images/sovereign/gqueen.bmp"
+            Cyan   "images/sovereign/cqueen.bmp"
+            Navy   "images/sovereign/nqueen.bmp"
+            Violet "images/sovereign/vqueen.bmp"
+            Ash    "images/sovereign/aqueen.bmp"
+            Slate  "images/sovereign/squeen.bmp"
+     )
+     (moves
+         (slide-8 n) (slide-8 e) (slide-8 w) (slide-8 s)
+         (slide-8 nw) (slide-8 ne) (slide-8 sw) (slide-8 se)
+     )
+  )
+  (piece
+     (name King)
+     (image White  "images/sovereign/wking.bmp"
+            Black  "images/sovereign/bking.bmp"
+            Pink   "images/sovereign/pking.bmp"
+            Red    "images/sovereign/rking.bmp"
+            Orange "images/sovereign/oking.bmp"
+            Yellow "images/sovereign/yking.bmp"
+            Green  "images/sovereign/gking.bmp"
+            Cyan   "images/sovereign/cking.bmp"
+            Navy   "images/sovereign/nking.bmp"
+            Violet "images/sovereign/vking.bmp"
+            Ash    "images/sovereign/aking.bmp"
+            Slate  "images/sovereign/sking.bmp"
+     )
+     (moves
+         (step n) (step e) (step w) (step s)
+         (step nw) (step ne) (step sw) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn e2 f2 g2 h2 i2 j2 k2 l2)
+         (Rook e1 l1)
+         (Knight f1 k1)
+         (Bishop g1 j1)
+         (Queen h1)
+         (King i1 z16)
+    )
+    (Black 
+         (Pawn e15 f15 g15 h15 i15 j15 k15 l15)
+         (Rook e16 l16)
+         (Knight f16 k16)
+         (Bishop g16 j16)
+         (Queen h16)
+         (King i16 z5)
+    )
+    (Pink 
+         (Pawn c2 d2 o9 o10)
+         (Rook c1)
+         (Knight d1)
+         (Bishop p10)
+         (Queen p9)
+         (King z15)
+    )
+    (Green
+         (Pawn m2 n2 b9 b10)
+         (Rook n1)
+         (Knight m1)
+         (Bishop a10)
+         (Queen a9)
+         (King z14)
+    )
+    (Slate
+         (Rook a2 p15)
+         (Knight b2 o15)
+         (Bishop b1 o16)
+         (Queen a1 p16)
+         (King z13)
+    )
+    (Ash
+         (Rook a15 p2)
+         (Knight b15 o2)
+         (Bishop b16 o1)
+         (Queen a16 p1)
+         (King z12)
+    )
+    (Red
+         (Pawn b3 b4 o11 o12)
+         (Rook p12)
+         (Knight p11)
+         (Bishop a3)
+         (Queen a4)
+         (King z11)
+    )
+    (Orange
+         (Pawn b5 b6 o13 o14)
+         (Rook a5)
+         (Knight a6)
+         (Bishop p14)
+         (Queen p13)
+         (King z10)
+    )
+    (Yellow
+         (Pawn b7 b8 m15 n15)
+         (Rook n16)
+         (Knight m16)
+         (Bishop a7)
+         (Queen a8)
+         (King z9)
+    )
+    (Cyan
+         (Pawn b11 b12 o3 o4)
+         (Rook a12)
+         (Knight a11)
+         (Bishop p3)
+         (Queen p4)
+         (King z8)
+    )
+    (Navy
+         (Pawn b13 b14 o5 o6)
+         (Rook p5)
+         (Knight p6)
+         (Bishop a14)
+         (Queen a13)
+         (King z7)
+    )
+    (Violet
+         (Pawn c15 d15 o7 o8)
+         (Rook c16)
+         (Knight d16)
+         (Bishop p7)
+         (Queen p8)
+         (King z6)
+    )
+  )
+)
+
+(variant
+  (title "Sovereign Chess Arena (12x12)")
+
+  (piece
+     (name Pawn)
+     (image White  "images/sovereign/wpawn.bmp"
+            Black  "images/sovereign/bpawn.bmp"
+            Pink   "images/sovereign/ppawn.bmp"
+            Red    "images/sovereign/rpawn.bmp"
+            Orange "images/sovereign/opawn.bmp"
+            Yellow "images/sovereign/ypawn.bmp"
+            Green  "images/sovereign/gpawn.bmp"
+            Cyan   "images/sovereign/cpawn.bmp"
+            Navy   "images/sovereign/npawn.bmp"
+            Violet "images/sovereign/vpawn.bmp"
+            Ash    "images/sovereign/apawn.bmp"
+            Slate  "images/sovereign/spawn.bmp"
+     )
+     (moves
+         (pawn-jump s-zone n) (pawn-jump w-zone e)
+         (pawn-jump n-zone s) (pawn-jump e-zone w)
+         (pawn-shift n) (pawn-shift e)
+         (pawn-shift s) (pawn-shift w)
+         (pawn-step nw) (pawn-step ne)
+         (pawn-step sw) (pawn-step se)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White  "images/sovereign/wrook.bmp"
+            Black  "images/sovereign/brook.bmp"
+            Pink   "images/sovereign/prook.bmp"
+            Red    "images/sovereign/rrook.bmp"
+            Orange "images/sovereign/orook.bmp"
+            Yellow "images/sovereign/yrook.bmp"
+            Green  "images/sovereign/grook.bmp"
+            Cyan   "images/sovereign/crook.bmp"
+            Navy   "images/sovereign/nrook.bmp"
+            Violet "images/sovereign/vrook.bmp"
+            Ash    "images/sovereign/arook.bmp"
+            Slate  "images/sovereign/srook.bmp"
+     )
+     (moves
+         (slide-6 n) (slide-6 e) (slide-6 w) (slide-6 s)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White  "images/sovereign/wknight.bmp"
+            Black  "images/sovereign/bknight.bmp"
+            Pink   "images/sovereign/pknight.bmp"
+            Red    "images/sovereign/rknight.bmp"
+            Orange "images/sovereign/oknight.bmp"
+            Yellow "images/sovereign/yknight.bmp"
+            Green  "images/sovereign/gknight.bmp"
+            Cyan   "images/sovereign/cknight.bmp"
+            Navy   "images/sovereign/nknight.bmp"
+            Violet "images/sovereign/vknight.bmp"
+            Ash    "images/sovereign/aknight.bmp"
+            Slate  "images/sovereign/sknight.bmp"
+     )
+     (moves
+         (jump n nw) (jump n ne)
+         (jump s sw) (jump s se)
+         (jump w nw) (jump w sw)
+         (jump e ne) (jump e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White  "images/sovereign/wbishop.bmp"
+            Black  "images/sovereign/bbishop.bmp"
+            Pink   "images/sovereign/pbishop.bmp"
+            Red    "images/sovereign/rbishop.bmp"
+            Orange "images/sovereign/obishop.bmp"
+            Yellow "images/sovereign/ybishop.bmp"
+            Green  "images/sovereign/gbishop.bmp"
+            Cyan   "images/sovereign/cbishop.bmp"
+            Navy   "images/sovereign/nbishop.bmp"
+            Violet "images/sovereign/vbishop.bmp"
+            Ash    "images/sovereign/abishop.bmp"
+            Slate  "images/sovereign/sbishop.bmp"
+     )
+     (moves
+         (slide-6 nw) (slide-6 ne) (slide-6 sw) (slide-6 se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White  "images/sovereign/wqueen.bmp"
+            Black  "images/sovereign/bqueen.bmp"
+            Pink   "images/sovereign/pqueen.bmp"
+            Red    "images/sovereign/rqueen.bmp"
+            Orange "images/sovereign/oqueen.bmp"
+            Yellow "images/sovereign/yqueen.bmp"
+            Green  "images/sovereign/gqueen.bmp"
+            Cyan   "images/sovereign/cqueen.bmp"
+            Navy   "images/sovereign/nqueen.bmp"
+            Violet "images/sovereign/vqueen.bmp"
+            Ash    "images/sovereign/aqueen.bmp"
+            Slate  "images/sovereign/squeen.bmp"
+     )
+     (moves
+         (slide-6 n) (slide-6 e) (slide-6 w) (slide-6 s)
+         (slide-6 nw) (slide-6 ne) (slide-6 sw) (slide-6 se)
+     )
+  )
+  (piece
+     (name King)
+     (image White  "images/sovereign/wking.bmp"
+            Black  "images/sovereign/bking.bmp"
+            Pink   "images/sovereign/pking.bmp"
+            Red    "images/sovereign/rking.bmp"
+            Orange "images/sovereign/oking.bmp"
+            Yellow "images/sovereign/yking.bmp"
+            Green  "images/sovereign/gking.bmp"
+            Cyan   "images/sovereign/cking.bmp"
+            Navy   "images/sovereign/nking.bmp"
+            Violet "images/sovereign/vking.bmp"
+            Ash    "images/sovereign/aking.bmp"
+            Slate  "images/sovereign/sking.bmp"
+     )
+     (moves
+         (step n) (step e) (step w) (step s)
+         (step nw) (step ne) (step sw) (step se)
+     )
+  )
+
+  (players White Black Pink Red Orange Yellow Green Cyan Navy Violet Ash Slate)
+  (turn-order White Black)
+
+  (board
+     (image "images/sovereign/12x12.bmp")
+     (grid
+         (start-rectangle 43 3 89 49)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (45 0)) ; files
+           ("12/11/10/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (grid
+         (start-rectangle 0 3 46 49)
+         (dimensions
+           ("z" (45 0)) ; files
+           ("12/11/10/9/8/7/6/5/4/3/2/1" (0 45)) ; ranks
+         )
+     )
+     (zone (name promotion-zone) (players White Black)
+           (positions f6 g6 f7 g7)
+     )
+     (zone (name white-zone) (players White Black)
+           (positions e8 h5)
+     )
+     (zone (name black-zone) (players White Black)
+           (positions e5 h8)
+     )
+     (zone (name pink-zone) (players White Black)
+           (positions f8 g5)
+     )
+     (zone (name red-zone) (players White Black)
+           (positions e9 h4)
+     )
+     (zone (name orange-zone) (players White Black)
+           (positions d8 i5)
+     )
+     (zone (name yellow-zone) (players White Black)
+           (positions e7 h6)
+     )
+     (zone (name green-zone) (players White Black)
+           (positions e6 h7)
+     )
+     (zone (name cyan-zone) (players White Black)
+           (positions d5 i8)
+     )
+     (zone (name navy-zone) (players White Black)
+           (positions e4 h9)
+     )
+     (zone (name violet-zone) (players White Black)
+           (positions f5 g8)
+     )
+     (zone (name ash-zone) (players White Black)
+           (positions)
+     )
+     (zone (name slate-zone) (players White Black)
+           (positions)
+     )
+     (zone (name v-zone) (players White Black)
+           (positions f1 g1 f2 g2 f3 g3 f4 g4 f5 g5 f8 g8 f9 g9 f10 g10 f11 g11 f12 g12)
+     )
+     (zone (name h-zone) (players White Black)
+           (positions a6 a7 b6 b7 c6 c7 d6 d7 e6 e7 h6 h7 i6 i7 j6 j7 k6 k7 l6 l7)
+     )
+     (zone (name sw-zone) (players White Black)
+           (positions a1 b1 c1 d1 e1 f1 a2 b2 c2 d2 e2 f2 a3 b3 c3 d3 e3 f3 a4 b4 c4 d4 e4 f4 a5 b5 c5 d5 e5 f5 a6 b6 c6 d6 e6 f6)
+     )
+     (zone (name nw-zone) (players White Black)
+           (positions a7 b7 c7 d7 e7 f7 a8 b8 c8 d8 e8 f8 a9 b9 c9 d9 e9 f9 a10 b10 c10 d10 e10 f10 a11 b11 c11 d11 e11 f11 a12 b12 c12 d12 e12 f12)
+     )
+     (zone (name ne-zone) (players White Black)
+           (positions g7 h7 i7 j7 k7 l7 g8 h8 i8 j8 k8 l8 g9 h9 i9 j9 k9 l9 g10 h10 i10 j10 k10 l10 g11 h11 i11 j11 k11 l11 g12 h12 i12 j12 k12 l12)
+     )
+     (zone (name se-zone) (players White Black)
+           (positions g1 h1 i1 j1 k1 l1 g2 h2 i2 j2 k2 l2 g3 h3 i3 j3 k3 l3 g4 h4 i4 j4 k4 l4 g5 h5 i5 j5 k5 l5 g6 h6 i6 j6 k6 l6)
+     )
+     (zone (name n-zone) (players White Black)
+           (positions a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12 l12 a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11 l11)
+     )
+     (zone (name e-zone) (players White Black)
+           (positions k1 k2 k3 k4 k5 k6 k7 k8 k9 k10 k11 k12 l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 l11 l12)
+     )
+     (zone (name w-zone) (players White Black)
+           (positions a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12)
+     )
+     (zone (name s-zone) (players White Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn c2 d2 e2 f2 g2 h2 i2 j2)
+         (Rook c1 j1)
+         (Knight d1 i1)
+         (Bishop e1 h1)
+         (Queen f1)
+         (King g1 z12)
+    )
+    (Black 
+         (Pawn c11 d11 e11 f11 g11 h11 i11 j11)
+         (Rook c12 j12)
+         (Knight d12 i12)
+         (Bishop e12 h12)
+         (Queen f12)
+         (King g12 z3)
+    )
+    (Pink 
+         (Pawn b5 b6)
+         (Rook l2)
+         (Knight b11)
+         (Bishop a5)
+         (Queen a6)
+         (King z11)
+    )
+    (Green
+         (Pawn k5 k6)
+         (Rook a2)
+         (Knight k11)
+         (Bishop l5)
+         (Queen l6)
+         (King z10)
+    )
+    (Red
+         (Pawn b3 b4)
+         (Rook a3)
+         (Knight a4)
+         (Bishop k1)
+         (Queen a12)
+         (King z9)
+    )
+    (Orange
+         (Pawn k9 k10)
+         (Rook l10)
+         (Knight l9)
+         (Bishop b12)
+         (Queen l1)
+         (King z8)
+    )
+    (Yellow
+         (Pawn k7 k8)
+         (Rook a11)
+         (Knight k2)
+         (Bishop l8)
+         (Queen l7)
+         (King z7)
+    )
+    (Cyan
+         (Pawn k3 k4)
+         (Rook l3)
+         (Knight l4)
+         (Bishop b1)
+         (Queen l12)
+         (King z6)
+    )
+    (Navy
+         (Pawn b9 b10)
+         (Rook a10)
+         (Knight a9)
+         (Bishop k12)
+         (Queen a1)
+         (King z5)
+    )
+    (Violet
+         (Pawn b7 b8)
+         (Rook l11)
+         (Knight b2)
+         (Bishop a8)
+         (Queen a7)
+         (King z4)
+    )
+  )
+)

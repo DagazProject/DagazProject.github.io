@@ -1,0 +1,188 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-jump (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  add
+))
+
+(define en-passant (
+  $1
+  (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture
+  n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Troitzky Chess (Byway’s setup)")
+  (description "http://mlwi.magix.net/bg/troitzkychess.htm")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/troitzky.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("i/a/b/c/d/e/f/g/h/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+              (nne 1 -2) (nnw -1 -2) (sse 1 2) (ssw -1 2)
+              (een 2 -1) (ees 2 1) (wwn -2 -1) (wws -2 1)
+         )
+     )
+     (kill-positions i1 i2 i3 i4 i7 i8 i9 i10 a1 a2 a9 a10 b1 b10 c1 c10 f1 f10 g1 g10 h1 h2 h9 h10 j1 j2 j3 j4 j7 j8 j9 j10)
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e) (nnw ssw) (ssw nnw) (nne sse) (sse nne) (wwn wws) (wws wwn) (ees een) (een ees))
+     (zone (name full-promotion) (players White)
+           (positions i6 a8 b9 c9 d10 e10 f9 g9 h8 j6)
+     )
+     (zone (name full-promotion) (players Black)
+           (positions i5 a3 b2 c2 d1 e1 f2 g2 h3 j5)
+     )
+     (zone (name third-rank) (players White)
+           (positions a4 b4 c4 d4 e4 f4 g4 h4)
+     )
+     (zone (name third-rank) (players Black)
+           (positions a7 b7 c7 d7 e7 f7 g7 h7)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant e) (en-passant w)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (step nne) (step nnw) (step sse) (step ssw)
+         (step een) (step ees) (step wwn) (step wws)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a3 b3 c3 d3 e3 f3 g3 h3)
+         (Rook d1 e1)
+         (Knight b2 g2)
+         (Bishop c2 f2)
+         (Queen d2)
+         (King e2)
+    )
+    (Black 
+         (Pawn a8 b8 c8 d8 e8 f8 g8 h8)
+         (Rook d10 e10)
+         (Knight b9 g9)
+         (Bishop c9 f9)
+         (Queen d9)
+         (King e9)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated King))
+  (draw-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Troitzky Chess")
+  (default)
+  (board-setup
+    (White 
+         (Pawn a3 b3 c3 d3 e3 f3 g3 h3)
+         (Rook b2 g2)
+         (Knight c2 f2)
+         (Bishop d2 e2)
+         (Queen d1)
+         (King e1)
+    )
+    (Black 
+         (Pawn a8 b8 c8 d8 e8 f8 g8 h8)
+         (Rook b9 g9)
+         (Knight c9 f9)
+         (Bishop d9 e9)
+         (Queen d10)
+         (King e10)
+    )
+  )
+)

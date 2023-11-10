@@ -1,0 +1,190 @@
+(define glide (
+   $1 (while empty?
+       (add-partial shoot-type) $1
+   )
+))
+
+(define shoot-1 (
+   (create Amazon)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-2 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-3 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-4 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-5 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-6 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-7 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-8 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(define shoot-9 (
+   (create Amazon)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   (add Hole)
+))
+
+(game
+  (title "Amazons")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities normal-type)
+
+  (board
+     (image "images/amazons/10x10.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+  )
+
+  (piece
+     (name Amazon)
+     (image White "images/amazons/wqueen.bmp"
+            Black "images/amazons/bqueen.bmp")
+     (moves
+         (move-type normal-type)
+         (glide n) (glide nw)
+         (glide e) (glide ne)
+         (glide w) (glide sw)
+         (glide s) (glide se)
+         (move-type shoot-type)
+         (shoot-1 n) (shoot-1 nw)
+         (shoot-1 e) (shoot-1 ne)
+         (shoot-1 w) (shoot-1 sw)
+         (shoot-1 s) (shoot-1 se)
+         (shoot-2 n) (shoot-2 nw)
+         (shoot-2 e) (shoot-2 ne)
+         (shoot-2 w) (shoot-2 sw)
+         (shoot-2 s) (shoot-2 se)
+         (shoot-3 n) (shoot-3 nw)
+         (shoot-3 e) (shoot-3 ne)
+         (shoot-3 w) (shoot-3 sw)
+         (shoot-3 s) (shoot-3 se)
+         (shoot-4 n) (shoot-4 nw)
+         (shoot-4 e) (shoot-4 ne)
+         (shoot-4 w) (shoot-4 sw)
+         (shoot-4 s) (shoot-4 se)
+         (shoot-5 n) (shoot-5 nw)
+         (shoot-5 e) (shoot-5 ne)
+         (shoot-5 w) (shoot-5 sw)
+         (shoot-5 s) (shoot-5 se)
+         (shoot-6 n) (shoot-6 nw)
+         (shoot-6 e) (shoot-6 ne)
+         (shoot-6 w) (shoot-6 sw)
+         (shoot-6 s) (shoot-6 se)
+         (shoot-7 n) (shoot-7 nw)
+         (shoot-7 e) (shoot-7 ne)
+         (shoot-7 w) (shoot-7 sw)
+         (shoot-7 s) (shoot-7 se)
+         (shoot-8 n) (shoot-8 nw)
+         (shoot-8 e) (shoot-8 ne)
+         (shoot-8 w) (shoot-8 sw)
+         (shoot-8 s) (shoot-8 se)
+         (shoot-9 n) (shoot-9 nw)
+         (shoot-9 e) (shoot-9 ne)
+         (shoot-9 w) (shoot-9 sw)
+         (shoot-9 s) (shoot-9 se)
+     )
+  )
+  (piece
+     (name Hole)
+     (image White "images/amazons/hole.bmp"
+            Black "images/amazons/hole.bmp")
+  )
+
+  (board-setup
+    (Black 
+         (Amazon a7 d10 g10 j7)
+    )
+    (White
+         (Amazon a4 d1 g1 j4)
+    )
+  )
+)

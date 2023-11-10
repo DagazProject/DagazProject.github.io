@@ -1,0 +1,232 @@
+(define a-step (
+  $1 (verify empty?)
+  (if (in-zone? goal-zone)
+      (add Jotunn)
+   else
+      (add JotunnR)
+  )
+))
+
+(define r-step (
+  $1 (verify empty?)
+  (if (in-zone? goal-zone)
+      (add Jotunn)
+   else
+      (add JotunnA)
+  )
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define a-slide (
+  $1 (while empty?
+      (add ValkyrieR) $1
+  )
+; (while (empty? $1)
+;     $1
+;     (add ValkyrieR)
+; )
+))
+
+(define r-slide (
+  $1 (while empty?
+      (add ValkyrieA) $1
+  )
+))
+
+(define a-jump (
+  $1 (while empty?  $1)
+  (verify enemy?)
+  $1 (while empty?
+      mark
+      (while empty? 
+         (opposite $1)
+      ) 
+      capture
+      back
+      (add-partial ValkyrieR continue-type) $1
+  )
+; (while (empty? $1)
+;     $1
+; )
+; (verify (enemy? $1))
+; $1
+; (verify (empty? $1))
+; $1
+; (while empty?
+;     mark
+;     (while empty? 
+;       (opposite $1)
+;     ) 
+;     capture
+;     back
+;     (add-partial ValkyrieR continue-type)
+;     $1
+; )
+))
+
+(define r-jump (
+  $1 (while empty?  $1)
+  (verify enemy?)
+  $1 (while empty?
+      mark
+      (while empty? 
+         (opposite $1)
+      ) 
+      capture
+      back
+      (add-partial ValkyrieA continue-type) $1
+  )
+))
+
+(game
+  (title "Walhall (easy)")
+
+  (move-sound    "Audio/Clack.wav")
+  (release-sound "Audio/Clack.wav")
+  (drop-sound    "Audio/Clack.wav")
+  (capture-sound "")
+  (change-sound  "")
+  (click-sound   "")
+  (draw-sound    "")
+
+  (option "animate captures"  false)
+  (option "pass partial"      true)
+  (option "smart moves"       false)
+  (option "walhall extension" true)
+
+  (players Light Dark)
+  (turn-order Light Dark)
+
+  (board
+    (image "images/walhall/walhall.bmp")
+    (grid
+      (start-rectangle 2 2 82 82)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (80 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 80)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+          (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+      )
+    )
+    (zone (name goal-zone) (players Dark)
+          (positions a1 b1 c1 d1 e1 f1 g1 h1)
+    )
+  )
+
+  (piece
+     (name JotunnA)
+     (help "Jotunn")
+     (image Dark "images/walhall/jta.bmp")
+     (moves
+        (move-type normal-type)
+        (a-step nw) (a-step sw)
+        (a-step ne) (a-step se)
+     )
+  )
+  (piece
+     (name JotunnR)
+     (help "Jotunn")
+     (image Dark "images/walhall/jtr.bmp")
+     (moves
+        (move-type normal-type)
+        (r-step n) (r-step s)
+        (r-step e) (r-step w)
+     )
+  )
+  (piece
+     (name Jotunn)
+     (help "Jotunn")
+     (image Dark "images/walhall/jt.bmp")
+     (moves
+        (move-type normal-type)
+        (step nw) (step sw)
+        (step ne) (step se)
+        (step n)  (step s)
+        (step e)  (step w)
+     )
+  )
+  (piece
+     (name ValkyrieA)
+     (help "Valkyrie")
+     (image Light "images/walhall/vla.bmp")
+     (moves
+        (move-type normal-type)
+        (a-slide nw) (a-slide ne)
+        (a-slide sw) (a-slide se)
+        (move-type continue-type)
+        (a-jump nw) (a-jump ne)
+        (a-jump sw) (a-jump se)
+     )
+  )
+  (piece
+     (name ValkyrieR)
+     (help "Valkyrie")
+     (image Light "images/walhall/vlr.bmp")
+     (moves
+        (move-type normal-type)
+        (r-slide n) (r-slide e)
+        (r-slide s) (r-slide w)
+        (move-type continue-type)
+        (r-jump n) (r-jump e)
+        (r-jump s) (r-jump w)
+     )
+  )
+
+  (board-setup
+     (Dark 
+       (JotunnA b8 c8 d8 e8 f8 g8)
+     )
+     (Light
+       (ValkyrieA c1 d1 e1 f1)
+     )
+  )
+
+  (win-condition (Dark) (pieces-remaining 4 Jotunn) )
+  (loss-condition (Dark) (pieces-remaining 3) )
+  (loss-condition (Light) (pieces-remaining 0) )
+  (loss-condition (Light Dark) stalemated )
+)
+
+(variant
+  (title "Walhall (normal)")
+
+  (board-setup
+     (Dark 
+       (JotunnA b8 c8 d8 e8 f8 g8 b7 c7 d7 e7 f7 g7)
+     )
+     (Light
+       (ValkyrieA c1 d1 e1 f1)
+     )
+  )
+)
+
+(variant
+  (title "Walhall (hard)")
+
+  (board-setup
+     (Dark 
+       (JotunnA b8 c8 d8 e8 f8 g8 b7 c7 d7 e7 f7 g7 b6 c6 d6 e6 f6 g6)
+     )
+     (Light
+       (ValkyrieA c1 d1 e1 f1)
+     )
+  )
+)
+
+(variant
+  (title "Walhall (impossible)")
+  (default)
+  (board-setup
+     (Dark 
+       (JotunnA b8 c8 d8 e8 f8 g8 b7 c7 d7 e7 f7 g7 b6 c6 d6 e6 f6 g6 b5 c5 d5 e5 f5 g5)
+     )
+     (Light
+       (ValkyrieA c1 d1 e1 f1)
+     )
+  )
+)

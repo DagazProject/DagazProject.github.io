@@ -1,0 +1,127 @@
+(define step (
+  (verify (in-zone? $2))
+  $1 add
+))
+
+(define slide (
+  $1 (while not-friend? add $1)
+))
+
+(game
+  (title "Ohojichi (2x6)")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       from)
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+     (image "images/2x6.bmp")
+     (grid
+         (start-rectangle 8 8 88 88)
+         (dimensions
+           ("a/b" (100 0)) ; files
+           ("6/5/4/3/2/1" (0 100)) ; ranks
+         )
+     )
+     (links nx
+         (a1 b1) (b1 b2) (b2 b3) (b3 a3) (a3 a2) (a2 a1)
+         (a4 b4) (b4 b5) (b5 b6) (b6 a6) (a6 a5) (a5 a4)
+     )
+     (links rv
+         (b1 a1) (b2 b1) (b3 b2) (a3 b3) (a2 a3) (a1 a2)
+         (b4 a4) (b5 b4) (b6 b5) (a6 b6) (a5 a6) (a4 a5)
+     )
+     (links tn
+         (a1 a6) (a2 a6) (a3 a6) (b1 a6) (b2 a6) (b3 a6)
+         (a6 b6) (b6 a5) (a5 b5) (b5 a4) (a4 b4)
+     )
+     (links ts
+         (a4 a3) (a5 a3) (a6 a3) (b4 a3) (b5 a3) (b6 a3)
+         (a3 b3) (b3 a2) (a2 b2) (b2 a1) (a1 b1)
+     )
+     (links ss
+         (a6 b6)
+     )
+     (links ns
+         (a6 a1)
+     )
+     (symmetry North (nx nx) (rv rv) (tn ts) (ts tn) (ss ns) (ns ss))
+     (zone (name home) (players North)
+           (positions a4 a5 a6 b4 b5 b6)
+     )
+     (zone (name home) (players South)
+           (positions a1 a2 a3 b1 b2 b3)
+     )
+  )
+
+  (piece
+     (name Seed)
+     (image South "images/small.bmp"
+            North "images/small.bmp")
+     (moves 
+        (step nx) (slide tn)
+     )
+  )
+
+  (board-setup
+    (South (Seed a1 a2 a3 b1 b2 b3))
+    (North (Seed a4 a5 a6 b4 b5 b6))
+  )
+)
+
+(variant
+  (title "Ohojichi (2x8)")
+  (default)
+
+  (board
+     (image "images/2x8.bmp")
+     (grid
+         (start-rectangle 8 8 88 88)
+         (dimensions
+           ("a/b" (100 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 100)) ; ranks
+         )
+     )
+     (links nx
+         (a1 b1) (b1 b2) (b2 b3) (b3 b4) (b4 a4) (a4 a3) (a3 a2) (a2 a1)
+         (a5 b5) (b5 b6) (b6 b7) (b7 b8) (b8 a8) (a8 a7) (a7 a6) (a6 a5)
+     )
+     (links rv
+         (b1 a1) (b2 b1) (b3 b2) (b4 b3) (a4 b4) (a3 a4) (a2 a3) (a1 a2)
+         (b5 a5) (b6 b5) (b7 b6) (b8 b7) (a8 b8) (a7 a8) (a6 a7) (a5 a6)
+     )
+     (links tn
+         (a1 a8) (a2 a8) (a3 a8) (a4 a8) (b1 a8) (b2 a8) (b3 a8) (b4 a8)
+         (a8 b8) (b8 a7) (a7 b7) (b7 a6) (a6 b6) (b6 a5) (a5 b5)
+     )
+     (links ts
+         (a5 a4) (a6 a4) (a7 a4) (a8 a4) (b5 a4) (b6 a4) (b7 a4) (b8 a4)
+         (a4 b4) (b4 a3) (a3 b3) (b3 a2) (a2 b2) (b2 a1) (a1 b1)
+     )
+     (links ss
+         (a8 b8)
+     )
+     (links ns
+         (a8 a1)
+     )
+     (symmetry North (nx nx) (rv rv) (tn ts) (ts tn) (ss ns) (ns ss))
+     (zone (name home) (players North)
+           (positions a5 a6 a7 a8 b5 b6 b7 b8)
+     )
+     (zone (name home) (players South)
+           (positions a1 a2 a3 a4 b1 b2 b3 b4)
+     )
+  )
+
+  (board-setup
+    (South (Seed a1 a2 a3 a4 b1 b2 b3 b4))
+    (North (Seed a5 a6 a7 a8 b5 b6 b7 b8))
+  )
+)

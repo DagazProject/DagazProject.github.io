@@ -1,0 +1,92 @@
+(define shift (
+  $1 (verify empty?)
+  add
+))
+
+(game
+   (title "Mu torere")
+   (description "https://en.wikipedia.org/wiki/M%C5%AB_t%C5%8Drere")
+
+   (move-sound "Audio\Pickup.wav")
+   (release-sound "Audio\Pickup.wav")
+   (capture-sound "")
+   (drop-sound "")
+
+   (option "smart moves" true)
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/mu-torere/board.bmp")
+      (positions
+             (a3  60  60 108 108)
+             (b3 199   2 247  50)
+             (c3 340  60 388 108)
+             (a2   2 199  50 247)
+             (b2 199 199 247 247)
+             (c2 396 199 444 247)
+             (a1  60 341 108 389)
+             (b1 199 395 247 443)
+             (c1 341 341 389 389)
+      )
+      (links n
+             (a1 a2) (b1 b2) (c1 c2)
+             (a2 a3) (b2 b3) (c2 c3)
+      )
+      (links s
+             (a2 a1) (b2 b1) (c2 c1)
+             (a3 a2) (b3 b2) (c3 c2)
+      )
+      (links w
+             (b1 a1) (b2 a2) (b3 a3)
+             (c1 b1) (c2 b2) (c3 b3)
+      )
+      (links e
+             (a1 b1) (a2 b2) (a3 b3)
+             (b1 c1) (b2 c2) (b3 c3)
+      )
+      (links ne
+             (a1 b2) (b2 c3)
+      )
+      (links sw
+             (b2 a1) (c3 b2)
+      )
+      (links nw
+             (b2 a3) (c1 b2)
+      )
+      (links se
+             (a3 b2) (b2 c1)
+      )
+      (links nn
+             (b1 b2) (b2 b3)
+      )
+      (links ee
+             (a2 b2) (b2 c2)
+      )
+      (zone (name putahi) (players Black White)
+            (positions b2)
+      )
+   )
+
+   (piece
+      (name Piece)
+      (image Black "images/mu-torere/black.bmp"
+             White "images/mu-torere/white.bmp")
+      (moves
+         (shift n)
+         (shift s)
+         (shift e)
+         (shift w)
+         (shift nw)
+	 (shift ne)
+         (shift sw)
+	 (shift se)
+      )
+   )
+
+   (board-setup
+        (Black (Piece a1 b1 c1 c2))
+        (White (Piece a2 a3 b3 c3))
+   )
+)

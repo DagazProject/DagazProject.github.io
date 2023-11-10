@@ -1,0 +1,95 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define jump (
+  $1 (verify enemy?)
+  capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
+(game
+  (title "Bagh-Chal")
+  (description "http://www.iggamecenter.com/info/en/bagh.html")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       false)
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/dablot/alquerque.bmp")
+     (grid
+        (start-rectangle 5 5 64 64)
+        (dimensions
+           ("a/b/c/d/e" (88 0)) ; files
+           ("5/4/3/2/1" (0 88)) ; ranks
+        )
+        (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links ne
+        (a1 b2) (a3 b4) (b2 c3) (b4 c5)
+        (c1 d2) (c3 d4) (d2 e3) (d4 e5)
+     )
+     (links sw
+        (b2 a1) (b4 a3) (c3 b2) (c5 b4)
+        (d2 c1) (d4 c3) (e3 d2) (e5 d4)
+     )
+     (links nw
+        (b2 a3) (b4 a5) (c1 b2) (c3 b4)
+        (d2 c3) (d4 c5) (e1 d2) (e3 d4)
+     )
+     (links se
+        (a3 b2) (a5 b4) (b2 c1) (b4 c3)
+        (c3 d2) (c5 d4) (d2 e1) (d4 e3)
+     )
+  )
+
+  (piece
+     (name Goat)
+     (image Black "images/dablot/bking.bmp")
+     (drops
+         (move-type normal-type)
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+     )
+  )
+  (piece
+     (name Tiger)
+     (image White "images/dablot/wking.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+         (move-type jump-type)
+         (jump n) (jump w) (jump s) (jump e)
+         (jump nw) (jump sw) (jump se) (jump ne)
+     )
+  )
+
+  (board-setup
+    (White (Tiger a1 a5 e1 e5 off 0))
+    (Black (Goat off 20))
+  )
+
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)

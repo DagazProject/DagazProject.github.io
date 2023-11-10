@@ -1,0 +1,128 @@
+(define checker-shift (
+   $1 (verify empty?)
+   (if (in-zone? promotion)
+      (add King)
+    else
+      add
+   )
+))
+
+(define checker-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (if (not-in-zone? promotion)
+      (add-partial jump-type)
+    else
+      (add King)
+   )
+))
+
+(define king-shift (
+   $1 (verify empty?)
+   add
+))
+
+(define king-jump (
+   $1 (verify enemy?) 
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+(game
+  (title "Palestinian Dama")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures" false)
+  (option "smart moves"      true)
+  (option "maximal captures" true)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/turkish.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (symmetry Black (n s) (s n) (w w) (e e))
+     (zone (name promotion) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/wman.bmp"
+            Black "images/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (checker-jump n) (checker-jump w) (checker-jump e)
+         (move-type normal-type)
+         (checker-shift n) (checker-shift w) (checker-shift e)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wdamone.bmp"
+            Black "images/bdamone.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump n) (king-jump w) (king-jump e) (king-jump s)
+         (move-type normal-type)
+         (king-shift n) (king-shift w) (king-shift e) (king-shift s)
+     )
+  )
+
+  (board-setup
+    (White (Man a2 b2 c2 d2 e2 f2 g2 h2  a3 b3 c3 d3 e3 f3 g3 h3))
+    (Black (Man a7 b7 c7 d7 e7 f7 g7 h7  a6 b6 c6 d6 e6 f6 g6 h6))
+  )
+
+  (loss-condition (White Black) (pieces-remaining 0))
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Palestinian Dama (5x8)")
+  (default)
+
+  (board
+     (image "images/5x8.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e" (50 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (symmetry Black (n s) (s n) (w w) (e e))
+     (zone (name promotion) (players White)
+           (positions a8 b8 c8 d8 e8)
+     )
+     (zone (name promotion) (players Black)
+           (positions a1 b1 c1 d1 e1)
+     )
+  )
+
+  (board-setup
+    (White (Man a2 b2 c2 d2 e2  a3 b3 c3 d3 e3))
+    (Black (Man a7 b7 c7 d7 e7  a6 b6 c6 d6 e6))
+  )
+)

@@ -1,0 +1,58 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "11 puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T B0010  2) (T B0001  2) 
+  (T B0010  3) (T B0001  3) 
+  (T B0100  4) (T B1000  4) 
+  (T B0100  5) (T B1000  5) 
+  (T B0000  6)
+  (T B0100  7) (T B1000  7) 
+  (T B0010  8) (T B0001  8) 
+  (T B0010  9) (T B0001  9) 
+  (T B0000 10)
+  (T B0100 11) (T B1000 11) 
+
+  (board-setup
+     (You 
+         (R0110F1 a4) (R1010F1 b4) (R0101F1 a3) (R1001F1 b3)
+         (B00102  c4) (B00012  c3) 
+         (B00103  d4) (B00013  d3) 
+         (B01004  e4) (B10004  f4) 
+         (B01005  e3) (B10005  f3) 
+         (B00006  b2)
+         (B01007  c2) (B10007  d2) 
+         (B00108  e2) (B00018  e1) 
+         (B00109  f2) (B00019  f1) 
+         (B000010 b1)
+         (B010011 c1) (B100011 d1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (e2))
+     (absolute-config R1010F1 (f2))
+     (absolute-config R0101F1 (e1))
+     (absolute-config R1001F1 (f1))
+  ))
+)

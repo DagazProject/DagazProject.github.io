@@ -1,0 +1,146 @@
+(define drop (
+  (verify (in-zone? board-zone))
+  (verify empty?)
+  add
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Rhombic Chess")
+  (description "https://sites.google.com/site/boardandpieces/list-of-games/rhombic-chess")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "animate drops"     false)
+  (option "smart moves"       false)
+
+  (players Black White)
+  (turn-order Black White)
+  (move-priorities drop-type normal-type)
+
+  (board
+     (image "images/rhombic/board.bmp")
+     (grid
+        (start-rectangle 2 2 62 62)
+        (dimensions
+           ("a/b/c/d/e" (89 0)) ; files
+           ("5/4/3/2/1" (0 89)) ; ranks
+        )
+     )
+     (zone (name board-zone) 
+           (players Black White)
+           (positions a5 c5 e5 b4 d4 a3 c3 e3 b2 d2 a1 c1 e1)
+     )
+     (links n
+           (a1 a3) (a3 a5) (e1 e3) (e3 e5)
+     )
+     (links s
+           (a3 a1) (a5 a3) (e3 e1) (e5 e3)
+     )
+     (links e
+           (a1 c1) (c1 e1) (a5 c5) (c5 e5)
+     )
+     (links w
+           (c1 a1) (e1 c1) (c5 a5) (e5 c5)
+     )
+     (links ne
+           (a3 b4) (b4 c5) (b2 c3) (c3 d4) (c1 d2) (d2 e3)
+     )
+     (links sw
+           (b4 a3) (c5 b4) (c3 b2) (d4 c3) (d2 c1) (e3 d2)
+     )
+     (links se
+           (a3 b2) (b2 c1) (b4 c3) (c3 d2) (c5 d4) (d4 e3)
+     )
+     (links nw
+           (b2 a3) (c1 b2) (c3 b4) (d2 c3) (d4 c5) (e3 d4)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/rhombic/black.bmp"
+            White "images/rhombic/white.bmp")
+     (drops
+         (move-type drop-type)
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+         (step nw) (step sw) (step se) (step ne)
+     )
+  )
+
+  (board-setup
+    (White (Stone off 5))
+    (Black (Stone off 5))
+  )
+
+  (loss-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
+
+(variant
+  (title "Rhombic Chess (variant)")
+  (default)
+
+  (board
+     (image "images/rhombic/variant.bmp")
+     (grid
+        (start-rectangle 2 2 62 62)
+        (dimensions
+           ("a/b/c/d" (108 0)) ; files
+           ("3/2/1" (0 178)) ; ranks
+        )
+     )
+     (zone (name board-zone) 
+           (players Black White)
+           (positions a1 b1 c1 d1 b2 c2 a3 b3 c3 d3)
+     )
+     (links n
+           (a1 a3) (b1 b2) (b2 b3) (c1 c2) (c2 c3) (d1 d3)
+     )
+     (links s
+           (a3 a1) (b2 b1) (b3 b2) (c2 c1) (c3 c2) (d3 d1)
+     )
+     (links e
+           (a1 b1) (b1 c1) (c1 d1) (b2 c2) (a3 b3) (b3 c3) (c3 d3)
+     )
+     (links w
+           (b1 a1) (c1 b1) (d1 c1) (c2 b2) (b3 a3) (c3 b3) (d3 c3)
+     )
+     (links m
+           (a3 d1) (d1 a3) (b3 c1) (c1 b3) (c3 b1) (b1 c3) (d3 a1) (a1 d3)
+           (a1 d3) (d3 a1) (b1 c3) (c3 b1) (c1 b3) (b3 c1) (d1 a3) (a3 d1)
+           (b2 c2) (c2 b2)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (image Black "images/rhombic/black.bmp"
+            White "images/rhombic/white.bmp")
+     (drops
+         (move-type drop-type)
+         (drop)
+     )
+     (moves
+         (move-type normal-type)
+         (step n) (step w) (step s) (step e)
+     )
+  )
+
+  (board-setup
+    (White (Stone off 4))
+    (Black (Stone off 4))
+  )
+)

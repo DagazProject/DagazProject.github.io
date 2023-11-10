@@ -1,0 +1,91 @@
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define drop-piece (
+  (verify (not-in-zone? board-zone))
+  (while (on-board? $1) $1 (if empty? add))
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Jasir")
+  (description "https://sites.google.com/site/boardandpieces/list-of-games/jarmo")
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players    Black White)
+  (turn-order Black White)
+
+  (board
+    (image "images/jarmo/jasir.bmp")
+    (grid
+      (start-rectangle 6 6 51 51)
+      (dimensions
+        ("a/b/c/d/e" (57 0)) ; files
+        ("6/5/4/3/2/1/0" (0 57)) ; ranks
+      )
+    )
+    (zone (name board-zone) (players Black White)
+          (positions a1 b1 c1 d1 e1 a2 b2 c2 d2 e2 a3 b3 c3 d3 e3 a4 b4 c4 d4 e4 a5 b5 c5 d5 e5)
+    )
+    (zone (name goal-zone) (players Black)
+          (positions a5 b5 c5 d5 e5)
+    )
+    (zone (name goal-zone) (players White)
+          (positions a1 b1 c1 d1 e1)
+    )
+    (links br  (a1 a0) (a0 b0) (b0 c0) (c0 d0) (d0 e0))
+    (links wr  (a1 a6) (a6 b6) (b6 c6) (c6 d6) (d6 e6))
+    (links bn  (a0 a1) (b0 a1) (c0 a1) (d0 a1) (e0 a1) (a1 b1) (b1 c1) (c1 d1) (d1 e1))
+    (links wn  (a6 a5) (b6 a5) (c6 a5) (d6 a5) (e6 a5) (a5 b5) (b5 c5) (c5 d5) (d5 e5))
+    (links nne (a1 b3) (c1 d3) (b2 c4) (a3 b5) (d3 e5) (b3 c5))
+    (links ssw (b3 a1) (d3 c1) (c4 b2) (b5 a3) (e5 d3) (c5 b3))
+    (links nee (a1 c2) (b1 d2) (c1 e2) (a2 c3) (c2 e3) (c3 e4) (a4 c5) (b4 d5) (c4 e5))
+    (links sww (c2 a1) (d2 b1) (e2 c1) (c3 a2) (e3 c2) (e4 c3) (c5 a4) (d5 b4) (e5 c4))
+    (links nnw (b1 a3) (e2 d4) (b3 a5) (e3 d5) (d1 c3) (e1 d3))
+    (links sse (a3 b1) (d4 e2) (a5 b3) (d5 e3) (c3 d1) (d3 e1))
+    (links nww (c1 a2) (d2 b3) (c3 a4) (d3 b4) (c4 a5) (d4 b5) (e4 c5) (d1 b2) (e1 c2))
+    (links see (a2 c1) (b3 d2) (a4 c3) (b4 d3) (a5 c4) (b5 d4) (c5 e4) (b2 d1) (c2 e1))
+    (links n   (b2 b3) (d2 d3) (b3 b4) (d3 d4))
+    (links s   (b3 b2) (d3 d2) (b4 b3) (d4 d3))
+    (links e   (b2 c2) (c2 d2) (b3 c3) (b4 c4) (c4 d4))
+    (links w   (c2 b2) (d2 c2) (c3 b3) (c4 b4) (d4 c4))
+    (symmetry White (n s) (s n) (w e) (e w) (nnw sse) (sse nnw) (nne ssw) (ssw nne) (nww see) (see nww) (nee sww) (sww nee) (br wr) (wr br) (bn wn) (wn bn))
+  )
+
+  (piece
+     (name Man)
+     (image White "images/jarmo/wman.bmp"
+            Black "images/jarmo/bman.bmp")
+     (moves
+         (step n) (step w) (step e)
+         (step nnw) (step nww) (step nne) (step nee) 
+         (drop-piece bn)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/jarmo/wprince.bmp"
+            Black "images/jarmo/bprince.bmp")
+     (moves
+         (step n) (step w) (step e)
+         (step nnw) (step nww) (step nne) (step nee) 
+     )
+  )
+
+  (board-setup
+    (White (Man a5 b5 c5 d5 e5))
+    (Black (Man a1 b1 c1 d1 e1))
+  )
+)
+

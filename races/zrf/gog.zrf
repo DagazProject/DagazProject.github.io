@@ -1,0 +1,304 @@
+(define drop (
+  (verify empty?)
+  (verify (in-zone? home))
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Game of Generals")
+
+  (option "animate drops"     false)
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+
+  (players White Black)
+  (turn-order White White White White White White White White White White
+        White White White White White White White White White White White
+        repeat White Black)
+  (move-priorities priority-type drop-type normal-type)
+
+  (move-sound "Audio\Pickup.wav")
+  (release-sound "Audio\Pickup.wav")
+  (capture-sound "")
+  (drop-sound "")
+
+  (board
+     (image "images/gog/board.bmp")
+     (grid
+         (start-rectangle 3 3 83 63)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (81 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 61)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+     (symmetry Black (n s) (s n) (w e) (e w))
+     (zone (name home) (players White)
+           (positions b1 e1 h1 a2 b2 c2 d2 e2 f2 g2 h2 i2 a3 b3 c3 d3 e3 f3 g3 h3 i3)
+     )
+     (zone (name home) (players Black)
+           (positions b8 e8 h8 a7 b7 c7 d7 e7 f7 g7 h7 i7 a6 b6 c6 d6 e6 f6 g6 h6 i6)
+     )
+     (zone (name goal) (players White)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1)
+     )
+     (zone (name goal) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8 i8)
+     )
+  )
+
+  (piece
+     (name General-5)
+     (image White "images/gog/gen5.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name General-4)
+     (image White "images/gog/gen4.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name General-3)
+     (image White "images/gog/gen3.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name General-2)
+     (image White "images/gog/gen2.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name General-1)
+     (image White "images/gog/gen1.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Colonel-1)
+     (image White "images/gog/col1.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Colonel-2)
+     (image White "images/gog/col2.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Major)
+     (image White "images/gog/maj.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Captain)
+     (image White "images/gog/cpt.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Lieutenant-1)
+     (image White "images/gog/lt1.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Lieutenant-2)
+     (image White "images/gog/lt2.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Sergeant)
+     (image White "images/gog/sgt.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Private)
+     (image White "images/gog/pvt.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Spy)
+     (image White "images/gog/spy.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type drop-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Flag)
+     (image White "images/gog/flg.bmp"
+            Black "images/gog/enemy.bmp")
+     (help " ")
+     (drops
+        (move-type priority-type)
+        (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step n) (step e) (step w) (step s)
+     )
+  )
+
+  (board-setup
+    (White 
+       (Flag off 1)
+       (General-5 off 1)
+       (General-4 off 1)
+       (General-3 off 1)
+       (General-2 off 1)
+       (General-1 off 1)
+       (Colonel-1 off 1)
+       (Colonel-2 off 1)
+       (Major off 1)
+       (Captain off 1)
+       (Lieutenant-2 off 1)
+       (Lieutenant-1 off 1)
+       (Sergeant off 1)
+       (Private off 6)
+       (Spy off 2)
+    )
+    (Black
+       (Flag off 1)
+       (General-5 off 1)
+       (General-4 off 1)
+       (General-3 off 1)
+       (General-2 off 1)
+       (General-1 off 1)
+       (Colonel-1 off 1)
+       (Colonel-2 off 1)
+       (Major off 1)
+       (Captain off 1)
+       (Lieutenant-2 off 1)
+       (Lieutenant-1 off 1)
+       (Sergeant off 1)
+       (Private off 6)
+       (Spy off 2)
+    )
+  )
+)

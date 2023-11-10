@@ -1,0 +1,64 @@
+(version "3.0")
+
+(include "common.zrf")
+
+(game
+  (title "Airman puzzle")
+  (option "smart-moves"    from)
+  (option "sliding-puzzle" true)
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (start-rectangle 0 0 100 100)
+         (dimensions
+           ("a/b/c/d/e/f" (100 0)) ; files
+           ("5/4/3/2/1" (0 100)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (T R0110F 1) (T R1010F 1) (T R0101F 1) (T R1001F 1)
+  (T B0100  2) (T B1000  2) 
+  (T B0010  3) (T B0001  3) 
+  (T B0010  4) (T B0001  4) 
+  (T B0100  5) (T B1000  5) 
+  (T B0000  6)
+  (T B0000  7)
+  (T B0100  8) (T B1000  8) 
+  (T B0100  9) (T B1000  9) 
+  (T B0010 10) (T B0001 10) 
+  (T B0010 11) (T B0001 11) 
+  (T B0100 12) (T B1000 12) 
+  (T B0100 13) (T B1000 13) 
+  (T B0100 14) (T B1000 14) 
+
+  (board-setup
+     (You 
+         (R0110F1 a5) (R1010F1 b5) (R0101F1 a4) (R1001F1 b4)
+         (B01002  c5) (B10002  d5) 
+         (B00103  e5) (B00013  e4) 
+         (B00104  f5) (B00014  f4) 
+         (B01005  c4) (B10005  d4) 
+         (B00006  a3)
+         (B00007  b3)
+         (B01008  e3) (B10008  f3) 
+         (B01009  a2) (B10009  b2) 
+         (B001010 c2) (B000110 c1) 
+         (B001011 d2) (B000111 d1) 
+         (B010012 e2) (B100012 f2) 
+         (B010013 a1) (B100013 b1) 
+         (B010014 e1) (B100014 f1) 
+     )
+  )
+
+  (win-condition (You) (and 
+     (absolute-config R0110F1 (e2))
+     (absolute-config R1010F1 (f2))
+     (absolute-config R0101F1 (e1))
+     (absolute-config R1001F1 (f1))
+  ))
+)

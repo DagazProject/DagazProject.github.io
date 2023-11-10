@@ -1,0 +1,224 @@
+(version "3.0")
+
+(define slide (
+   $1
+   (while empty?
+      add
+      $1
+   )
+))
+
+(define step-1 (
+   $1 (verify empty?)
+   add
+))
+
+(define step-2 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   add
+))
+
+(define step-3 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   add
+))
+
+(define step-4 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   add
+))
+
+(define step-5 (
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   $1 (verify empty?)
+   add
+))
+
+(define push (
+   $1 (verify enemy?)
+   (verify (or 
+      (piece? OrangeDragon)
+      (piece? BlueDragon)
+      (piece? PurpleDragon)
+      (piece? PinkDragon)
+      (piece? YellowDragon)
+      (piece? RedDragon)
+      (piece? GreenDragon)
+      (piece? BrownDragon)
+   ))
+   cascade $1 (verify empty?)
+   add
+))
+
+(define dragon
+   (piece
+      (name $1Dragon)
+      (help "Dragon: must be moved in a straight line, either directly forwards or diagonally forwards.")
+      (image White "images/kamisado/w$2.bmp"
+             Black "images/kamisado/b$2.bmp")
+      (moves
+         (slide n) (slide nw) (slide ne)
+      )
+   )
+)
+
+(define sumo
+   (piece
+      (name $1Sumo)
+      (help "Sumo: May be moved up to a maximum of 5 space and may perform a ''Sumo push'' move.")
+      (image White "images/kamisado/w$2s.bmp"
+             Black "images/kamisado/b$2s.bmp")
+      (moves
+         (step-1 n) (step-1 nw) (step-1 ne)
+         (step-2 n) (step-2 nw) (step-2 ne)
+         (step-3 n) (step-3 nw) (step-3 ne)
+         (step-4 n) (step-4 nw) (step-4 ne)
+         (step-5 n) (step-5 nw) (step-5 ne)
+         (push   n) (push   nw) (push   ne)
+      )
+   )
+)
+
+(game
+   (title "Kamisado")
+   (history "Invented by Peter Burley in 2008.")
+
+   (option "pass turn"          forced)
+   (option "highlight goals"    false)
+   (option "kamisado-extension" true)
+
+   (players    White Black)
+   (turn-order White Black)
+
+   (board
+      (image "images/kamisado/board.bmp")
+      (grid
+         (start-rectangle 5 5 53 53)
+         (dimensions
+             ("a/b/c/d/e/f/g/h" (49 0)) ; files
+             ("8/7/6/5/4/3/2/1" (0 49)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (w -1 0) (e 1 0) 
+                     (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+      )
+      (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) )
+      (zone (name orange) 
+         (players White Black) 
+         (positions a8 b7 c6 d5 e4 f3 g2 h1)
+      )
+      (zone (name blue)   
+         (players White Black) 
+         (positions a3 b8 c5 d2 e7 f4 g1 h6)
+      )
+      (zone (name purple) 
+         (players White Black) 
+         (positions a2 b5 c8 d3 e6 f1 g4 h7)
+      )
+      (zone (name pink)   
+         (players White Black) 
+         (positions a5 b6 c7 d8 e1 f2 g3 h4)
+      )
+      (zone (name yellow) 
+         (players White Black) 
+         (positions a4 b3 c2 d1 e8 f7 g6 h5)
+      )
+      (zone (name red)    
+         (players White Black) 
+         (positions a7 b4 c1 d6 e3 f8 g5 h2)
+      )
+      (zone (name green)  
+         (players White Black) 
+         (positions a6 b1 c4 d7 e2 f5 g8 h3)
+      )
+      (zone (name brown)  
+         (players White Black) 
+         (positions a1 b2 c3 d4 e5 f6 g7 h8)
+      )
+      (zone (name last-rank)  
+         (players White) 
+         (positions a8 b8 c8 d8 e8 f8 g8 h8)
+      )
+      (zone (name last-rank)  
+         (players Black) 
+         (positions a1 b1 c1 d1 e1 f1 g1 h1)
+      )
+   )
+
+   (dragon Orange o) (sumo Orange o)
+   (dragon Blue   b) (sumo Blue   b)
+   (dragon Purple p) (sumo Purple p)
+   (dragon Pink   i) (sumo Pink   i)
+   (dragon Yellow y) (sumo Yellow y)
+   (dragon Red    r) (sumo Red    r)
+   (dragon Green  g) (sumo Green  g)
+   (dragon Brown  w) (sumo Brown  w)
+
+   (board-setup
+      (White 
+         (OrangeDragon h1)
+         (BlueDragon   g1) 
+         (PurpleDragon f1) 
+         (PinkDragon   e1) 
+         (YellowDragon d1) 
+         (RedDragon    c1) 
+         (GreenDragon  b1) 
+         (BrownDragon  a1) 
+      )
+      (Black 
+         (OrangeDragon a8) 
+         (BlueDragon   b8) 
+         (PurpleDragon c8) 
+         (PinkDragon   d8) 
+         (YellowDragon e8) 
+         (RedDragon    f8) 
+         (GreenDragon  g8) 
+         (BrownDragon  h8) 
+      )
+   )
+
+   (win-condition (White) (absolute-config OrangeDragon (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config BlueDragon   (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config PurpleDragon (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config PinkDragon   (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config YellowDragon (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config RedDragon    (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config GreenDragon  (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config BrownDragon  (a8 b8 c8 d8 e8 f8 g8 h8)))
+
+   (win-condition (Black) (absolute-config OrangeDragon (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config BlueDragon   (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config PurpleDragon (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config PinkDragon   (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config YellowDragon (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config RedDragon    (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config GreenDragon  (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config BrownDragon  (a1 b1 c1 d1 e1 f1 g1 h1)))
+
+   (win-condition (White) (absolute-config OrangeSumo (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config BlueSumo   (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config PurpleSumo (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config PinkSumo   (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config YellowSumo (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config RedSumo    (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config GreenSumo  (a8 b8 c8 d8 e8 f8 g8 h8)))
+   (win-condition (White) (absolute-config BrownSumo  (a8 b8 c8 d8 e8 f8 g8 h8)))
+
+   (win-condition (Black) (absolute-config OrangeSumo (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config BlueSumo   (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config PurpleSumo (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config PinkSumo   (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config YellowSumo (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config RedSumo    (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config GreenSumo  (a1 b1 c1 d1 e1 f1 g1 h1)))
+   (win-condition (Black) (absolute-config BrownSumo  (a1 b1 c1 d1 e1 f1 g1 h1)))
+)
