@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<img id="Board" style="display:none" src="images/8x8.png">
+<img id="Board" style="display:none" src="images/cyclic.png">
 <img id="WhiteMan" style="display:none" src="images/wman.png">
 <img id="BlackMan" style="display:none" src="images/bman.png">
 <img id="WhiteKing" style="display:none" src="images/wdamone.png">
@@ -20,11 +20,10 @@
         <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
         <a href="werewolf-checkers.htm">AI</a>
         <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
-        <a href="javascript:Dagaz.Controller.go('russian-checkers-editor.htm')">Edit</a>
         <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
         </div>
         <div class="cc2">
-        <canvas id="Canvas" width="404" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        <canvas id="Canvas" width="524" height="404" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
         </div>
     </div>
 </div>
@@ -38,8 +37,8 @@
 <script src="../common-scripts/move-list-v1.js"></script>
 <script src="../common-scripts/session-manager.js"></script>
 <script src="../common-scripts/sound-manager-v2.js"></script>
-<script src="scripts/editor-extension.js"></script>
-<script src="scripts/checkers-fen.js"></script>
+<script src="scripts/cyclic-checkers-fen.js"></script>
+<script src="scripts/cyclic-checkers-extension.js"></script>
 <script src="scripts/werewolf-extension.js"></script>
 <script src="scripts/werewolf.js"></script>
 <script src="../common-scripts/app-v2.js"></script>
