@@ -751,7 +751,6 @@ function GenerateValidMoves() {
         if (Dagaz.AI.MakeMove(allMoves[i])) {
             moveList[moveList.length] = allMoves[i];
             Dagaz.AI.UnmakeMove(allMoves[i]);
-//          console.log('*** ' + Dagaz.AI.FormatMove(allMoves[i]) + ' (' + allMoves[i] + ')');
         }
     }
     return moveList;
