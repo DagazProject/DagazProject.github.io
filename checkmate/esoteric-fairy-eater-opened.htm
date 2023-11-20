@@ -1,0 +1,77 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Esoteric Fairy Eater</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="WhiteBoard" style="display:none" src="images/fairy-eater/wboard.png">
+<img id="BlackBoard" style="display:none" src="images/fairy-eater/bboard.png">
+<img id="Promote" style="display:none" src="images/fairy-eater/dialog-5.png">
+<img id="WhitePawn" style="display:none" src="images/fairy-eater/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/fairy-eater/bpawn.png">
+<img id="WhiteUnknownPawn" style="display:none" src="images/fairy-eater/wpawno.png">
+<img id="BlackUnknownPawn" style="display:none" src="images/fairy-eater/bpawno.png">
+<img id="WhiteShield" style="display:none" src="images/fairy-eater/wshield.png">
+<img id="BlackShield" style="display:none" src="images/fairy-eater/bshield.png">
+<img id="WhiteUnknownShield" style="display:none" src="images/fairy-eater/wshieldo.png">
+<img id="BlackUnknownShield" style="display:none" src="images/fairy-eater/bshieldo.png">
+<img id="WhiteGhost" style="display:none" src="images/fairy-eater/wghost.png">
+<img id="BlackGhost" style="display:none" src="images/fairy-eater/bghost.png">
+<img id="WhiteUnknownGhost" style="display:none" src="images/fairy-eater/wghosto.png">
+<img id="BlackUnknownGhost" style="display:none" src="images/fairy-eater/bghosto.png">
+<img id="WhiteChaos" style="display:none" src="images/fairy-eater/wchaos.png">
+<img id="BlackChaos" style="display:none" src="images/fairy-eater/bchaos.png">
+<img id="WhiteUnknownChaos" style="display:none" src="images/fairy-eater/wchaoso.png">
+<img id="BlackUnknownChaos" style="display:none" src="images/fairy-eater/bchaoso.png">
+<img id="WhiteReaper" style="display:none" src="images/fairy-eater/wreaper.png">
+<img id="BlackReaper" style="display:none" src="images/fairy-eater/breaper.png">
+<img id="WhiteUnknownReaper" style="display:none" src="images/fairy-eater/wreapero.png">
+<img id="BlackUnknownReaper" style="display:none" src="images/fairy-eater/breapero.png">
+<img id="WhiteKnightrider" style="display:none" src="images/fairy-eater/wknightrider.png">
+<img id="BlackKnightrider" style="display:none" src="images/fairy-eater/bknightrider.png">
+<img id="WhiteUnknownKnightrider" style="display:none" src="images/fairy-eater/wknightridero.png">
+<img id="BlackUnknownKnightrider" style="display:none" src="images/fairy-eater/bknightridero.png">
+<img id="WhiteKing" style="display:none" src="images/fairy-eater/wking.png">
+<img id="BlackKing" style="display:none" src="images/fairy-eater/bking.png">
+<img id="WhiteUnknownKing" style="display:none" src="images/fairy-eater/wkingo.png">
+<img id="BlackUnknownKing" style="display:none" src="images/fairy-eater/bkingo.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2021 Vadrya Pokshtya (<a target="_blank" href="https://fairyeaterchess.blogspot.com/2021/12/welcome-to-world-of-fairy-eater-chess.html#more">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="esoteric-fairy-eater-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="619" height="620" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/seedrandom.min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/heuristic-ai-v3.js"></script>
+<script src="scripts/fairy-eater-chess-promotion.js"></script>
+<script src="scripts/esoteric-fairy-goal.js"></script>
+<script src="scripts/esoteric-fairy-setup.js"></script>
+<script src="scripts/esoteric-fairy-eater.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>
