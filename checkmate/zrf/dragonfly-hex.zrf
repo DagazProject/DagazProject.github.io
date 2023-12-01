@@ -1,0 +1,231 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a5
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Rook)
+   else
+      add
+  )
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Rook)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define O-O (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  to
+  $1 (verify friend?) (verify (piece? Rook))
+  cascade
+  $2 $2
+  add
+))
+
+(game
+  (title "Hexagonal Dragonfly")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/hex/dragonfly.bmp")
+     (grid
+         (start-rectangle 186 -120 235 -71)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (60 35)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 70)) ; ranks
+         )
+         (directions 
+           (n 0 -1) (s 0 1) (w -2 1) (e 2 -1)
+           (nw -1 0) (se 1 0) (ne 1 -1) (sw -1 1)
+           (nnw -1 -1) (sse 1 1) (nne 1 -2) (ssw -1 2)
+         )
+     )
+     (grid
+         (start-rectangle 0 12 68 80)
+         (dimensions
+           ("X/Y" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (sr 1 0) (nr -1 0)
+         )
+     )
+     (grid
+         (start-rectangle 768 12 836 80)
+         (dimensions
+           ("Z/T" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (sr 1 0) (nr -1 0)
+         )
+     )
+     (kill-positions a6 a7 a8 a9 b7 b8 b9 c8 c9 d9 f1 g1 g2 h1 h2 h3 i1 i2 i3 i4)
+     (links nx
+                                         (a5 a4) (a4 a3) (a3 a2) (a2 a1) (a1 b6)
+                                 (b6 b5) (b5 b4) (b4 b3) (b3 b2) (b2 b1) (b1 c7)
+                         (c7 c6) (c6 c5) (c5 c4) (c4 c3) (c3 c2) (c2 c1) (c1 d8)
+                 (d8 d7) (d7 d6) (d6 d5) (d5 d4) (d4 d3) (d3 d2) (d2 d1) (d1 e9)
+         (e9 e8) (e8 e7) (e7 e6) (e6 e5) (e5 e4) (e4 e3) (e3 e2) (e2 e1) (e1 f9)
+         (f9 f8) (f8 f7) (f7 f6) (f6 f5) (f5 f4) (f4 f3) (f3 f2) (f2 g9)
+         (g9 g8) (g8 g7) (g7 g6) (g6 g5) (g5 g4) (g4 g3) (g3 h9)
+         (h9 h8) (h8 h7) (h7 h6) (h6 h5) (h5 h4) (h4 i9)
+         (i9 i8) (i8 i7) (i7 i6) (i6 i5) 
+     )
+     (links sr
+         (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1)
+         (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1)
+         (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1) (c7 Z1)
+         (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1) (d7 Z1) (d8 Z1)
+         (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1) (e7 Z1) (e8 Z1) (e9 Z1)
+                 (f2 Z1) (f3 Z1) (f4 Z1) (f5 Z1) (f6 Z1) (f7 Z1) (f8 Z1) (f9 Z1)
+                         (g3 Z1) (g4 Z1) (g5 Z1) (g6 Z1) (g7 Z1) (g8 Z1) (g9 Z1)
+                                 (h4 Z1) (h5 Z1) (h6 Z1) (h7 Z1) (h8 Z1) (h9 Z1)
+                                         (i5 Z1) (i6 Z1) (i7 Z1) (i8 Z1) (i9 Z1)
+         (T1 Z2) (T2 Z3) (T3 Z4) (T4 Z5) (T5 Z6) (T6 Z7) (T7 Z8) (T8 Z9) (T9 Z10)
+     )
+     (links nr
+         (a1 Y10) (a2 Y10) (a3 Y10) (a4 Y10) (a5 Y10)
+         (b1 Y10) (b2 Y10) (b3 Y10) (b4 Y10) (b5 Y10) (b6 Y10)
+         (c1 Y10) (c2 Y10) (c3 Y10) (c4 Y10) (c5 Y10) (c6 Y10) (c7 Y10)
+         (d1 Y10) (d2 Y10) (d3 Y10) (d4 Y10) (d5 Y10) (d6 Y10) (d7 Y10) (d8 Y10)
+         (e1 Y10) (e2 Y10) (e3 Y10) (e4 Y10) (e5 Y10) (e6 Y10) (e7 Y10) (e8 Y10) (e9 Y10)
+                  (f2 Y10) (f3 Y10) (f4 Y10) (f5 Y10) (f6 Y10) (f7 Y10) (f8 Y10) (f9 Y10)
+                           (g3 Y10) (g4 Y10) (g5 Y10) (g6 Y10) (g7 Y10) (g8 Y10) (g9 Y10)
+                                    (h4 Y10) (h5 Y10) (h6 Y10) (h7 Y10) (h8 Y10) (h9 Y10)
+                                             (i5 Y10) (i6 Y10) (i7 Y10) (i8 Y10) (i9 Y10)
+         (X10 Y9) (X9  Y8) (X8  Y7) (X7  Y6) (X6  Y5) (X5  Y4) (X4  Y3) (X3  Y2) (X2  Y1)
+     )
+     (symmetry Black (n s) (s n) (e w) (w e) (nw se) (sw ne) (ne sw) (se nw) (nnw sse) (sse nnw) (nne ssw) (ssw nne) (sr nr) (nr sr) (nx nx))
+     (zone (name last-rank) (players White)
+           (positions a5 b6 c7 d8 e9 f9 g9 h9 i9)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f2 g3 h4 i5)
+     )
+     (zone (name board-zone) (players White Black)
+           (positions a1 b1 c1 d1 e1      
+                      a2 b2 c2 d2 e2 f2   
+                      a3 b3 c3 d3 e3 f3 g3
+                      a4 b4 c4 d4 e4 f4 g4 h4
+                      a5 b5 c5 d5 e5 f5 g5 h5 i5
+                         b6 c6 d6 e6 f6 g6 h6 i6
+                            c7 d7 e7 f7 g7 h7 i7
+                               d8 e8 f8 g8 h8 i8
+                                  e9 f9 g9 h9 i9
+           )
+     )
+     (zone (name prev-rank) (players White)
+           (positions a4 b5 c6 d7 e8 f8 g8 h8 i8)
+     )
+     (zone (name prev-rank) (players Black)
+           (positions a2 b2 c2 d2 e2 f3 g4 h5 i6)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (pawn-shift n)
+         (pawn-step nw) (pawn-step ne)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (slide n) (slide s) 
+         (slide nw) (slide ne)
+         (slide sw) (slide se)
+         (drop-piece nx)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (leap e ne) (leap e se) (leap w nw) (leap w sw) 
+         (leap nnw n) (leap nnw nw) (leap nne n) (leap nne ne) 
+         (leap ssw s) (leap ssw sw) (leap sse s) (leap sse se) 
+         (drop-piece nx)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (slide nnw) (slide ssw) (slide nne) (slide sse)
+         (slide e) (slide w) 
+         (drop-piece nx)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step se) (step sw) (step ne)
+         (step nnw) (step sse) (step ssw) (step nne)
+         (O-O ne sw) (O-O nw se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a1 b2 c3 d3 e3 f4 g5 h5 i5)
+         (Rook b1 h4)
+         (Knight f2 g3)
+         (Bishop c1 d1)
+         (King e1)
+    )
+    (Black 
+         (Pawn a5 b5 c5 d6 e7 f7 g7 h8 i9)
+         (Rook b6 h9)
+         (Knight f9 g9)
+         (Bishop c7 d8)
+         (King e9)
+    )
+  )
+
+  (loss-condition (White Black) (checkmated King))
+  (draw-condition (White Black) stalemated)
+  (loss-condition (White Black) repetition)
+)
