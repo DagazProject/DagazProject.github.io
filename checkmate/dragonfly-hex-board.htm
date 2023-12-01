@@ -1,0 +1,58 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Hexagonal Dragonfly</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/hex/dragonfly.png">
+<img id="Promote-2" style="display:none" src="images/dragonfly-2.png">
+<img id="Promote-3" style="display:none" src="images/dragonfly-3.png">
+<img id="WhitePawn" style="display:none" src="images/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/wrook.png">
+<img id="BlackRook" style="display:none" src="images/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/bbishop.png">
+<img id="WhiteKing" style="display:none" src="images/wking.png">
+<img id="BlackKing" style="display:none" src="images/bking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1983 Christian Freeling 
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Dragonfly_(chess_variant)">Rules</a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="dragonfly-hex.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="904" height="701" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/dragonfly-hex-fen.js"></script>
+<script src="scripts/chess-goal.js"></script>
+<script src="scripts/dragonfly-extension.js"></script>
+<script src="scripts/dragonfly-promotion.js"></script>
+<script src="scripts/dragonfly-hex-invariant.js"></script>
+<script src="scripts/dragonfly-hex.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>

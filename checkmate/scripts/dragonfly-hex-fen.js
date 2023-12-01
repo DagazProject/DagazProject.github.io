@@ -1,9 +1,9 @@
 Dagaz.Controller.persistense = "setup";
 
-Dagaz.Model.WIDTH     = 7;
-Dagaz.Model.HEIGHT    = 7;
+var WIDTH  = 9;
+var HEIGHT = 10;
 
-Dagaz.AI.RESERVE_SIZE = 2;
+var RESERVE_SIZE = 2;
 
 (function() {
 
@@ -100,13 +100,13 @@ var toBoard = function(pos) {
 }
 
 var toReserve = function(pos) {
-  var y = (pos / (Dagaz.AI.RESERVE_SIZE * 2)) | 0;
-  var x = pos % (Dagaz.AI.RESERVE_SIZE * 2);
-  var r = y * Dagaz.AI.RESERVE_SIZE + (x % Dagaz.AI.RESERVE_SIZE);
-  if (x > (Dagaz.AI.RESERVE_SIZE - 1)) {
-      r += 2 * Dagaz.Model.HEIGHT;
+  var y = (pos / (RESERVE_SIZE * 2)) | 0;
+  var x = pos % (RESERVE_SIZE * 2);
+  var r = y * RESERVE_SIZE + (x % RESERVE_SIZE);
+  if (x > (RESERVE_SIZE - 1)) {
+      r += 2 * HEIGHT;
   }
-  return r + Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT;
+  return r + WIDTH * WIDTH;
 }
 
 Dagaz.Model.setup = function(board, init) {
@@ -128,7 +128,7 @@ Dagaz.Model.setup = function(board, init) {
                    board.setPiece(toBoard(pos), piece);
                    pos++;
                }
-               if (pos >= Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT) break;
+               if (pos >= WIDTH * WIDTH) break;
            }
       }
       setup = chunks[1]; pos = 0; 
@@ -142,7 +142,7 @@ Dagaz.Model.setup = function(board, init) {
                    board.setPiece(toReserve(pos), piece);
                    pos++;
                }
-               if (pos >= Dagaz.AI.RESERVE_SIZE * 2 * Dagaz.Model.HEIGHT) break;
+               if (pos >= RESERVE_SIZE * 2 * HEIGHT) break;
            }
       }
       setup = chunks[3];
@@ -150,10 +150,10 @@ Dagaz.Model.setup = function(board, init) {
       if (r) {
           var mask = r[1];
           if (mask == '-') mask = '----';
-          checkCastling(board, 48, mask[0]);
-          checkCastling(board, 42, mask[1]);
-          checkCastling(board,  6, mask[2]);
-          checkCastling(board,  0, mask[3]);
+          checkCastling(board, 73, mask[0]);
+          checkCastling(board, 52, mask[1]);
+          checkCastling(board, 28, mask[2]);
+          checkCastling(board,  7, mask[3]);
       }
       var turn = getTurn(init);
       if (turn) {
@@ -185,29 +185,29 @@ var isMoved = function(design, board, pos, type) {
 
 var getCastling = function(design, board) {
   var r = "";
-  if (isMoved(design, board, 45, 4)) {
+  if (isMoved(design, board, 76, 4)) {
       r += "--";
   } else {
-      if (isMoved(design, board, 48, 1)) {
+      if (isMoved(design, board, 73, 1)) {
           r += "-";
       } else {
           r += "K";
       }
-      if (isMoved(design, board, 42, 1)) {
+      if (isMoved(design, board, 52, 1)) {
           r += "-";
       } else {
           r += "Q";
       }
   }
-  if (isMoved(design, board, 3, 4)) {
+  if (isMoved(design, board, 4, 4)) {
       r += "--";
   } else {
-      if (isMoved(design, board, 6, 1)) {
+      if (isMoved(design, board, 28, 1)) {
           r += "-";
       } else {
           r += "k";
       }
-      if (isMoved(design, board, 0, 1)) {
+      if (isMoved(design, board, 7, 1)) {
           r += "-";
       } else {
           r += "q";
@@ -219,8 +219,8 @@ var getCastling = function(design, board) {
 Dagaz.Model.getSetup = function(design, board) {
   var str = "?turn=" + board.turn + ";&setup=";
   var k = 0; var c = 0;
-  for (var pos = 0; pos < Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT; pos++) {
-       if (k >= Dagaz.Model.WIDTH) {
+  for (var pos = 0; pos < WIDTH * WIDTH; pos++) {
+       if (k >= WIDTH) {
            if (c > 0) {
                str += c;
            }
@@ -257,8 +257,8 @@ Dagaz.Model.getSetup = function(design, board) {
   }
   str += '+';
   k = 0; c = 0;
-  for (var pos = 0; pos < 2 * Dagaz.AI.RESERVE_SIZE * Dagaz.Model.HEIGHT; pos++) {
-       if (k >= (Dagaz.AI.RESERVE_SIZE * 2)) {
+  for (var pos = 0; pos < 2 * RESERVE_SIZE * HEIGHT; pos++) {
+       if (k >= (RESERVE_SIZE * 2)) {
            if (c > 0) {
                str += c;
            }

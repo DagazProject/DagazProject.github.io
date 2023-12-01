@@ -10,7 +10,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 
 Dagaz.Model.moveToString = function(move) {
   var r = "";
-  for (var i = 0; i < move.actions.length; i++) {
+  for (var i = 0; i < Math.min(move.actions.length, 1); i++) {
       var a = move.actions[i];
       if (a[0] != null) {
           r = r + Dagaz.Model.posToString(a[0][0]);
@@ -42,7 +42,7 @@ var PostProcessing = Dagaz.Model.PostProcessing;
 Dagaz.Model.PostProcessing = function(board, moves) {
   var design = Dagaz.Model.design;
   var list = [];
-  for (var pos = 49; pos < design.positions.length; pos++) {
+  for (var pos = Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT; pos < design.positions.length; pos++) {
        var piece = board.getPiece(pos);
        if ((piece !== null) && (piece.player != board.player) && (findReserve(board, list, pos) < 0)) {
            list.push(pos);
@@ -70,11 +70,13 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   var pawn   = design.getPieceType("Pawn");
-  var list = [];
-  for (var pos = 49; pos < design.positions.length; pos++) {
+  var list = []; var types = [];
+  for (var pos = Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT; pos < design.positions.length; pos++) {
        var piece = board.getPiece(pos);
        if ((piece !== null) && (piece.player != board.player) && (findReserve(board, list, pos) < 0)) {
+           if (_.indexOf(types, +piece.type) >= 0) continue;
            list.push(pos);
+           types.push(+piece.type);
        }
   }
   _.each(board.moves, function(move) {
