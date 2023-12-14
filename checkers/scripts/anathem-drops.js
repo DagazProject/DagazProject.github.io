@@ -28,26 +28,30 @@ Dagaz.Model.CheckInvariants = function(board) {
              if (piece === null) return;
              if (piece.player != board.player) return;
              f = false;
-             c++;
+             c++; 
          });
       }
       if (move.mode == 4) {
+         var n = 0;
          _.each(design.allDirections(), function(dir) {
              var p = design.navigate(1, pos, dir);
              if (p === null) return;
              var piece = board.getPiece(p);
              if (piece === null) return;
              if (piece.player != board.player) return;
-             f = false;
+             n++;
          });
+         if (n > 1) f = false;
       }
       if (move.mode == 5) {
+         var n = 0;
          _.each(design.allDirections(), function(dir) {
              var p = design.navigate(1, pos, dir);
              if (p === null) return;
              if (board.getPiece(p) !== null) return;
-             f = false;
+             n++;
          });
+         if (n > 1) f = false;
       }
       if (f) {
          move.failed = true;

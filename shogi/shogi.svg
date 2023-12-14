@@ -113,8 +113,10 @@
 </g>
 <!-- Tori shogi -->
 <g class="node" id="node8"><title>Tori shogi</title>
+<a xlink:href="tori-shogi.htm">
 <ellipse fill="red" stroke="black" cx="51" cy="-18" rx="51.0027" ry="18" />
 <text font-family="Times,serif" font-size="14" text-anchor="middle" x="51" y="-13.8">Tori shogi</text>
+</a>
 </g>
 <!-- Wa shogi&#45;&gt;Tori shogi -->
 <g class="edge" id="edge24"><title>Wa shogi-&gt;Tori shogi</title>

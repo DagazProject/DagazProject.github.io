@@ -246,27 +246,19 @@ Dagaz.Model.getSetup = function(design, board) {
            c = 0;
        }
        k++;
-       if (design.isKilledPos(toBoard(pos))) {
+       var piece = board.getPiece(toBoard(pos));
+       if (piece === null) {
+           if (c > 8) {
+               str += c;
+               c = 0;
+           }
+           c++;
+       } else {
            if (c > 0) {
                str += c;
            }
            c = 0;
-           str += 'X';
-       } else {
-           var piece = board.getPiece(toBoard(pos));
-           if (piece === null) {
-               if (c > 8) {
-                   str += c;
-                   c = 0;
-               }
-               c++;
-           } else {
-               if (c > 0) {
-                   str += c;
-               }
-               c = 0;
-               str += getPieceNotation(design, piece);
-           }
+           str += getPieceNotation(design, piece);
        }
   }
   if (c > 0) {

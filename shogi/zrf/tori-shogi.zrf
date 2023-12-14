@@ -1,0 +1,241 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a1
+  (while (on-board? $1)
+     (verify (in-zone? board-zone))
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define slide (
+  (verify (in-zone? board-zone))
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  (verify (in-zone? board-zone))
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Tori Shogi")
+  (description "https://en.wikipedia.org/wiki/Tori_shogi")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+        (image "images/tori/7x7.bmp")
+        (grid
+             (start-rectangle 15 17 63 65)
+             (dimensions ("X/Y/M/a/b/c/d/e/f/g/N/Z/T" (48 0))
+                         ("7/6/5/4/3/2/1" (0 48))
+             )
+	     (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                         (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+                         (nx 0 -1)
+	     )
+        )
+        (links nx
+             (a7 b1) (b7 c1) (c7 d1) (d7 e1) (e7 f1) (f7 g1)
+        )
+        (links sr
+             (a1 Z1) (a2 Z1) (a3 Z1) (a4 Z1) (a5 Z1) (a6 Z1) (a7 Z1)
+             (b1 Z1) (b2 Z1) (b3 Z1) (b4 Z1) (b5 Z1) (b6 Z1) (b7 Z1)
+             (c1 Z1) (c2 Z1) (c3 Z1) (c4 Z1) (c5 Z1) (c6 Z1) (c7 Z1)
+             (d1 Z1) (d2 Z1) (d3 Z1) (d4 Z1) (d5 Z1) (d6 Z1) (d7 Z1)
+             (e1 Z1) (e2 Z1) (e3 Z1) (e4 Z1) (e5 Z1) (e6 Z1) (e7 Z1)
+             (f1 Z1) (f2 Z1) (f3 Z1) (f4 Z1) (f5 Z1) (f6 Z1) (f7 Z1)
+             (g1 Z1) (g2 Z1) (g3 Z1) (g4 Z1) (g5 Z1) (g6 Z1) (g7 Z1)
+             (Z1 T1) (T1 Z2) (Z2 T2) (T2 Z3) (Z3 T3) (T3 Z4) (Z4 T4) 
+             (T4 Z5) (Z5 T5) (T5 Z6) (Z6 T6) (T6 Z7) (Z7 T7)
+        )
+        (links nr
+             (a1 Y7) (a2 Y7) (a3 Y7) (a4 Y7) (a5 Y7) (a6 Y7) (a7 Y7)
+             (b1 Y7) (b2 Y7) (b3 Y7) (b4 Y7) (b5 Y7) (b6 Y7) (b7 Y7)
+             (c1 Y7) (c2 Y7) (c3 Y7) (c4 Y7) (c5 Y7) (c6 Y7) (c7 Y7)
+             (d1 Y7) (d2 Y7) (d3 Y7) (d4 Y7) (d5 Y7) (d6 Y7) (d7 Y7)
+             (e1 Y7) (e2 Y7) (e3 Y7) (e4 Y7) (e5 Y7) (e6 Y7) (e7 Y7)
+             (f1 Y7) (f2 Y7) (f3 Y7) (f4 Y7) (f5 Y7) (f6 Y7) (f7 Y7)
+             (g1 Y7) (g2 Y7) (g3 Y7) (g4 Y7) (g5 Y7) (g6 Y7) (g7 Y7)
+             (Y7 X7) (X7 Y6) (Y6 X6) (X6 Y5) (Y5 X5) (X5 Y4) (Y4 X4) 
+             (X4 Y3) (Y3 X3) (X3 Y2) (Y2 X2) (X2 Y1) (Y1 X1)
+        )
+        (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (sr nr) (nr sr) (nx nx))
+        (kill-positions M1 M2 M3 M4 M5 M6 M7 N1 N2 N3 N4 N5 N6 N7)
+        (zone (name board-zone) (players South North)
+              (positions a7  b7  c7  d7  e7  f7  g7
+                         a6  b6  c6  d6  e6  f6  g6
+                         a5  b5  c5  d5  e5  f5  g5
+                         a4  b4  c4  d4  e4  f4  g4
+                         a3  b3  c3  d3  e3  f3  g3
+                         a2  b2  c2  d2  e2  f2  g2
+                         a1  b1  c1  d1  e1  f1  g1
+              )
+        )
+        (zone (name promotion-zone) (players South)
+              (positions a7 b7 c7 d7 e7 f7 g7
+                         a6 b6 c6 d6 e6 f6 g6
+              )
+        )
+        (zone (name promotion-zone) (players North)
+              (positions a1 b1 c1 d1 e1 f1 g1
+                         a2 b2 c2 d2 e2 f2 g2
+              )
+        )
+  )
+
+  (piece 
+       (name Phoenix)
+       (image South "images/tori/sph.bmp" 
+              North "images/tori/nph.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step s) (step se)
+       )
+  )
+  (piece 
+       (name Falcon)
+       (image South "images/tori/sfa.bmp" 
+              North "images/tori/nfa.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step nw)
+           (step e) (step ne)
+           (step w) (step sw)
+           (step se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name FalconP)
+       (image South "images/tori/sfap.bmp" 
+              North "images/tori/nfap.bmp")
+       (moves
+           (move-type normal-type)
+           (slide nw) (slide ne)
+           (slide s) (step n)
+           (step e) (step w)
+           (step se) (step sw)
+           (step-2 se) (step-2 sw)
+       )
+  )
+  (piece 
+       (name Crane)
+       (image South "images/tori/scr.bmp" 
+              North "images/tori/ncr.bmp")
+       (moves
+           (move-type normal-type)
+           (step n) (step s)
+           (step nw) (step ne)
+           (step sw) (step se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Pheasant)
+       (image South "images/tori/spt.bmp" 
+              North "images/tori/npt.bmp")
+       (moves
+           (move-type normal-type)
+           (jump n n)
+           (step sw) (step se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name LeftQuail)
+       (image South "images/tori/sql.bmp" 
+              North "images/tori/nql.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide se)
+           (step sw)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name RightQuail)
+       (image South "images/tori/sqr.bmp" 
+              North "images/tori/nqr.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n) (slide sw)
+           (step se)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Swallow)
+       (image South "images/tori/ssw.bmp" 
+              North "images/tori/nsw.bmp")
+       (moves
+           (move-type normal-type)
+           (step n)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name SwallowP)
+       (image South "images/tori/sswp.bmp" 
+              North "images/tori/nswp.bmp")
+       (moves
+           (move-type normal-type)
+           (jump nw nw) (jump ne ne)
+           (jump s s)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (Swallow a3 b3 c3 d3 e3 f3 g3 e4)
+            (Falcon d2)
+            (LeftQuail a1)
+            (RightQuail g1)
+            (Pheasant b1 f1)
+            (Crane c1 e1)
+            (Phoenix d1)
+        )
+        ( North
+            (Swallow a5 b5 c5 d5 e5 f5 g5 c4)
+            (Falcon d6)
+            (LeftQuail g7)
+            (RightQuail a7)
+            (Pheasant b7 f7)
+            (Crane c7 e7)
+            (Phoenix d7)
+        )
+  )
+)

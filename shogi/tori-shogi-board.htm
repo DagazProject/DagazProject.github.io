@@ -1,0 +1,63 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+<title>Tori Shogi</title>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="svg/tori/7x7.png">
+<img id="SouthPhoenix" style="display:none" src="svg/tori/sph.svg">
+<img id="NorthPhoenix" style="display:none" src="svg/tori/nph.svg">
+<img id="SouthFalcon" style="display:none" src="svg/tori/sfa.svg">
+<img id="NorthFalcon" style="display:none" src="svg/tori/nfa.svg">
+<img id="SouthFalconP" style="display:none" src="svg/tori/sfap.svg">
+<img id="NorthFalconP" style="display:none" src="svg/tori/nfap.svg">
+<img id="SouthCrane" style="display:none" src="svg/tori/scr.svg">
+<img id="NorthCrane" style="display:none" src="svg/tori/ncr.svg">
+<img id="SouthPheasant" style="display:none" src="svg/tori/spt.svg">
+<img id="NorthPheasant" style="display:none" src="svg/tori/npt.svg">
+<img id="SouthLeftQuail" style="display:none" src="svg/tori/sql.svg">
+<img id="NorthLeftQuail" style="display:none" src="svg/tori/nql.svg">
+<img id="SouthRightQuail" style="display:none" src="svg/tori/sqr.svg">
+<img id="NorthRightQuail" style="display:none" src="svg/tori/nqr.svg">
+<img id="SouthSwallow" style="display:none" src="svg/tori/ssw.svg">
+<img id="NorthSwallow" style="display:none" src="svg/tori/nsw.svg">
+<img id="SouthSwallowP" style="display:none" src="svg/tori/sswp.svg">
+<img id="NorthSwallowP" style="display:none" src="svg/tori/nswp.svg">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 1799 Toyota Genryu (<a target="_blank" href="https://en.wikipedia.org/wiki/Tori_shogi">rules</a>) designed by Morgreek.
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="tori-shogi.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="654" height="370" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/tori-shogi-fen.js"></script>
+<script src="scripts/tori-shogi-extension.js"></script>
+<script src="scripts/tori-shogi-invariant.js"></script>
+<script src="scripts/tori-shogi-promotion.js"></script>
+<script src="scripts/tori-shogi-restriction.js"></script>
+<script src="scripts/tori-shogi.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

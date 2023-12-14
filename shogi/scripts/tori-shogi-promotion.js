@@ -5,21 +5,9 @@ var promote = [];
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "wa-shogi-promotion") {
-      promote[16] = 23; // Flying Falcon -> Tenacious Falcon
-      promote[22] = 21; // Running Rabbit -> Treacherous fox
-      promote[ 2] = 24; // Violent Wolf -> Bear's Eyes
-      promote[ 4] = 25; // Violent Stag -> Roaming Boar
-      promote[10] =  3; // Blind Dog -> Violent Wolf
-      promote[11] =  5; // Climbing Monkey -> Violent Stag
-      promote[ 6] = 15; // Flying Goose -> Swallow's Wings
-      promote[ 7] = 26; // Flying Cock -> Raiding Falcon
-      promote[14] = 27; // Swallow's Wings -> Gliding Swallow
-      promote[ 8] = 17; // Strutting Crow -> Flying Falcon
-      promote[ 9] = 19; // Swooping Owl -> Cloud Eagle
-      promote[13] = 28; // Liberated Horse -> Heavenly Horse
-      promote[12] = 29; // Oxcart -> Plodding Ox
-      promote[ 1] = 30; // Sparrow Pawn -> Golden Bird
+  if (name != "tori-shogi-promotion") {
+      promote[1] = 2; // Falcon -> FalconP
+      promote[7] = 8; // Swallow -> SwallowP
       checkVersion(design, name, value);
   }
 }
