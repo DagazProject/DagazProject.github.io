@@ -937,7 +937,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     }
 
     // Crane quiet moves
-    pieceIdx = (Dagaz.AI.g_toMove | piecePheasant) << Dagaz.AI.COUNTER_SIZE;
+    pieceIdx = (Dagaz.AI.g_toMove | pieceCrane) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from - 16; 
