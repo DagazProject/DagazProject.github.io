@@ -1,3 +1,19 @@
+(define royal-shift (
+   (verify friend?)
+   $1 (verify empty?)
+   add
+))
+
+(define royal-jump (
+   (verify friend?)
+   $1 (verify enemy?)
+   (verify (not-piece? King))
+   capture 
+   $1 (verify empty?)
+   (add-partial jump-type)
+))
+
+
 (define man-shift (
    $1 (verify empty?)
    (if (in-zone? $2Promotion)
@@ -97,5 +113,64 @@
   (board-setup
     (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) )
     (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) )
+  )
+)
+
+(variant
+  (title "King Stavropol Adiuh Checkers")
+  (default)
+
+  (piece
+     (name WhiteMan)
+     (image White "images/adiuh/wman.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw Black White) (man-jump ne Black White) (man-jump sw Black White) (man-jump se Black White)
+         (move-type normal-type)
+         (man-shift nw White) (man-shift ne White)
+     )
+  )
+  (piece
+     (name BlackMan)
+     (image Black "images/adiuh/bman.bmp")
+     (moves
+         (move-type jump-type)
+         (man-jump nw White Black) (man-jump ne White Black) (man-jump sw White Black) (man-jump se White Black)
+         (move-type normal-type)
+         (man-shift sw Black) (man-shift se Black)
+     )
+  )
+  (piece
+     (name WhiteKing)
+     (image White "images/adiuh/wking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw Black) (king-jump ne Black) (king-jump sw Black) (king-jump se Black)
+     )
+  )
+  (piece
+     (name BlackKing)
+     (image Black "images/adiuh/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-jump nw White) (king-jump ne White) (king-jump sw White) (king-jump se White)
+     )
+  )
+
+  (piece
+     (name King)
+     (image White "images/adiuh/red.bmp"
+            Black "images/adiuh/blue.bmp")
+     (moves
+         (move-type normal-type)
+         (royal-shift nw) (royal-shift ne) (royal-shift sw) (royal-shift se)
+         (move-type jump-type)
+         (royal-jump nw) (royal-jump ne) (royal-jump sw) (royal-jump se)
+     )
+  )
+
+  (board-setup
+    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) (King e1))
+    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) (King d8))
   )
 )
