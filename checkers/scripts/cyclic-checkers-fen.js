@@ -131,18 +131,20 @@ Dagaz.Model.setup = function(board, init) {
            }
       }
       setup = chunks[1]; pos = 0; 
-      for (var i = 0; i < setup.length; i++) {
-           var c = setup[i];
-           if (c != '/') {
-               if ((c >= '0') && (c <= '9')) {
-                   pos += +c;
-               } else {
-                   var piece = createPiece(design, c);
-                   board.setPiece(toReserve(pos), piece);
-                   pos++;
+      if (setup) {
+          for (var i = 0; i < setup.length; i++) {
+               var c = setup[i];
+               if (c != '/') {
+                   if ((c >= '0') && (c <= '9')) {
+                       pos += +c;
+                   } else {
+                       var piece = createPiece(design, c);
+                       board.setPiece(toReserve(pos), piece);
+                       pos++;
+                   }
+                  if (pos >= (Dagaz.AI.RESERVE_SIZE * 2) * Dagaz.Model.HEIGHT) break;
                }
-               if (pos >= (Dagaz.AI.RESERVE_SIZE * 2) * Dagaz.Model.HEIGHT) break;
-           }
+          }
       }
       var turn = getTurn(init);
       if (turn) {

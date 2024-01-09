@@ -62,7 +62,24 @@ Dagaz.Model.checkGoals = function(design, board, player) {
           f = false;
       });
   }
-  if (f) return checkGoals(design, board, player);
+  var g = false;
+  board.generate(design);
+  _.each(board.moves, function(move) {
+      if (!_.isUndefined(move.failed)) return;
+      var pos = null;
+      _.each(move.actions, function(a) {
+          if (pos !== null) return;
+          if (a[0] === null) return;
+          if (a[1] === null) return;
+          pos = a[0][0];
+      });
+      if (pos === null) return;
+      var piece = board.getPiece(pos);
+      if (piece === null) return;
+      if (piece.type == 4) return;
+      g = true;
+  });
+  if (f && g) return checkGoals(design, board, player);
   w = 0; var b = 0;
   for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {
        var piece = board.getPiece(pos);
