@@ -16,6 +16,7 @@ Dagaz.Model.HEIGHT       = 8;
 Dagaz.AI.STALMATED       = false;
 Dagaz.AI.INC_CHECK_PLY   = true;
 Dagaz.AI.USE_HIST_TABLE  = true;
+Dagaz.AI.CHECK_OPT       = false;
 
 Dagaz.AI.PIECE_MASK      = 0xF;
 Dagaz.AI.TYPE_MASK       = 0x7;
@@ -43,6 +44,8 @@ Dagaz.AI.g_moveCount = 0;
 
 Dagaz.AI.g_move50 = 0;
 Dagaz.AI.g_repMoveStack = new Array();
+
+Dagaz.AI.check_optionally = false;
 
 var g_hashSize = 1 << 22;
 var g_hashMask = g_hashSize - 1;
@@ -115,7 +118,12 @@ function Search(finishMoveCallback, maxPly, finishPlyCallback, moves) {
 
     var i;
     for (i = 1; i <= maxPly && g_searchValid; i++) {
+        Dagaz.AI.check_optionally = Dagaz.AI.CHECK_OPT;
         var tmp = AlphaBeta(i, 0, alpha, beta, moves);
+        if (Dagaz.AI.CHECK_OPT && (tmp == minEval)) {
+            Dagaz.AI.check_optionally = false;
+            tmp = AlphaBeta(i, 0, alpha, beta, moves);
+        }
         if (!g_searchValid) break;
 
         value = tmp;

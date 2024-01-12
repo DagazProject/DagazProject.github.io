@@ -2,7 +2,9 @@
 
 (function() {
 
-Dagaz.AI.NOISE_FACTOR     = 0;
+Dagaz.AI.NOISE_FACTOR     = 3;
+Dagaz.AI.STALMATED        = true;
+Dagaz.AI.CHECK_OPT        = true;
 
 Dagaz.AI.PIECE_MASK       = 0xF;
 Dagaz.AI.TYPE_MASK        = 0x7;
@@ -80,13 +82,61 @@ function getAttacked(color) {
              if (Dagaz.AI.g_board[square - dir] != pieceEmpty) return;
              _.each([1, -1, 16, -16], function(d) {
                  if (_.indexOf(r, square) >= 0) return;
-                 if (d == -dir) return;
-                 if ((Dagaz.AI.g_board[square + dir + d] & Dagaz.AI.PLAYERS_MASK) != color) return;
+                 if (d == dir) return;
+                 if ((Dagaz.AI.g_board[square - dir + d] & Dagaz.AI.PLAYERS_MASK) != color) return;
                  r.push(square);
              });
          });
     }
     return r;
+}
+
+function logPosition() {
+    for (var row = 0; row < Dagaz.Model.HEIGHT; row++) {
+         var s = '';
+         for (var col = 0; col < Dagaz.Model.WIDTH; col++) {
+              var square = MakeSquare(row, col);
+              var piece = Dagaz.AI.g_board[square];
+              if (piece == pieceEmpty) {
+                  s = s + ' .';
+              } else if ((piece & Dagaz.AI.TYPE_MASK) == pieceKing) {
+                  s = s + ' O';
+              } else if (piece & Dagaz.AI.colorWhite) {
+                  s = s + ' x';
+              } else {
+                  s = s + ' o';
+              }
+         }
+         console.log(s);
+    }
+}
+
+function logAttacked(attacked) {
+    for (var row = 0; row < Dagaz.Model.HEIGHT; row++) {
+         var s = '';
+         for (var col = 0; col < Dagaz.Model.WIDTH; col++) {
+              var square = MakeSquare(row, col);
+              if (_.indexOf(attacked, square) < 0) {
+                  s = s + ' .';
+              } else {
+                  s = s + ' X';
+              }
+         }
+         console.log(s);
+    }
+}
+
+function logPath(path) {
+    for (var row = 0; row < Dagaz.Model.HEIGHT; row++) {
+         var s = '';
+         for (var col = 0; col < Dagaz.Model.WIDTH; col++) {
+              var pos = row * Dagaz.Model.WIDTH + col;
+              var t = '' + (path[pos] / 100);
+              while (t.length < 3) t = ' ' + t;
+              s = s + t;
+         }
+         console.log(s);
+    }
 }
 
 function getPath(attacked) {
@@ -144,7 +194,8 @@ function getPath(attacked) {
 
 Dagaz.AI.Evaluate = function() {
     var curEval  = Dagaz.AI.g_baseEval;
-    var ba = getAttacked(Dagaz.AI.colorWhite); var wa = getAttacked(Dagaz.AI.colorBlack);
+    var ba = getAttacked(Dagaz.AI.colorWhite); 
+    var wa = getAttacked(Dagaz.AI.colorBlack);
     var mobility = Mobility(Dagaz.AI.colorWhite, wa) - Mobility(0, ba);
     var evalAdjust = 0;
 
@@ -163,9 +214,11 @@ Dagaz.AI.Evaluate = function() {
     if (Dagaz.AI.g_toMove == 0) {
         // Black
         curEval -= mobility;
+        curEval -= evalAdjust;
     }
     else {
         curEval += mobility;
+        curEval += evalAdjust;
     }
     return curEval;
 }
@@ -177,6 +230,7 @@ Dagaz.AI.ScoreMove = function(move) {
          if (mask & 1) score++;
          mask = mask >> 1;
     }
+    if (mask & 0x10) score += 10;
     return score;
 }
 
@@ -380,6 +434,17 @@ Dagaz.AI.MakeMove = function(move) {
     Dagaz.AI.g_toMove = otherColor;
     Dagaz.AI.g_baseEval = -Dagaz.AI.g_baseEval;
 
+    if (Dagaz.AI.check_optionally) {
+        var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
+        if (kingPos != 0) {
+            var a = getAttacked(Dagaz.AI.g_toMove);
+            if (_.indexOf(a, kingPos) >= 0) {
+                Dagaz.AI.UnmakeMove(move);
+                return false;
+            }
+        }
+    }
+
     Dagaz.AI.g_repMoveStack[Dagaz.AI.g_moveCount - 1] = Dagaz.AI.g_hashKeyLow;
     Dagaz.AI.g_move50++;
 
@@ -432,6 +497,7 @@ function GenerateMove(from, to) {
                  if (((Dagaz.AI.g_board[pos] & Dagaz.AI.PLAYERS_MASK) == friend) ||
                      (((Dagaz.AI.g_board[pos] & Dagaz.AI.PLAYERS_MASK) == 0) && (pieceSquareAdj[piecePawn][pos] < 0))){
                       r |= mask;
+                      if ((Dagaz.AI.g_board[pos] & Dagaz.AI.TYPE_MASK) == pieceKing) r |= 0x10;
                  }
              }
          }
@@ -440,7 +506,12 @@ function GenerateMove(from, to) {
     return from | (to << 8) | (r << 16);
 }
 
+function NoKing() {
+    return (Dagaz.AI.g_pieceCount[pieceKing] == 0) && (Dagaz.AI.g_toMove == 0);
+}
+
 Dagaz.AI.GenerateAllMoves = function(moveStack) {
+    if (NoKing()) return;
     var from, to, pieceIdx;
 
     // Pawn quiet moves
@@ -475,6 +546,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 }
 
 Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
+    if (NoKing()) return;
     var from, to, pieceIdx;
 
     // Pawn capture moves
