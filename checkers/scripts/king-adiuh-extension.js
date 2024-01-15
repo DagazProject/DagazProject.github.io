@@ -227,7 +227,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (!isAttacked(design, b, piece.player, to, dir, isKing)) return;
           f = true;
       });
-      if (f) {
+      if (f && (piece.type < 4)) {
           move.goTo(board.turn);
           move.setValue(0, to);
           move.setValue(1, from);

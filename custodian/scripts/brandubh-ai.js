@@ -349,10 +349,10 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     Dagaz.AI.g_baseEval = 0;
     for (var i = 0; i < 256; i++) {
         if (Dagaz.AI.g_board[i] & Dagaz.AI.colorWhite) {
-//            Dagaz.AI.g_baseEval += pieceSquareAdj[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK][i];
+            Dagaz.AI.g_baseEval += pieceSquareAdj[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK][i];
             Dagaz.AI.g_baseEval += materialTable[(Dagaz.AI.g_board[i] & Dagaz.AI.colorWhite) >> Dagaz.AI.TYPE_SIZE];
         } else if (Dagaz.AI.g_board[i] & Dagaz.AI.colorBlack) {
-//            Dagaz.AI.g_baseEval -= pieceSquareAdj[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK][i];
+            Dagaz.AI.g_baseEval -= pieceSquareAdj[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK][i];
             Dagaz.AI.g_baseEval -= materialTable[(Dagaz.AI.g_board[i] & Dagaz.AI.colorWhite) >> Dagaz.AI.TYPE_SIZE];
         }
     }

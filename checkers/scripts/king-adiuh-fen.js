@@ -2,7 +2,7 @@ Dagaz.Controller.persistense = "setup";
 
 (function() {
 
-var LETTERS = ['P', 'p', 'K', 'k'];
+var LETTERS = ['P', 'p', 'K', 'k', 'G', 'g'];
 
 Dagaz.Model.moveToString = function(move) {
   var r = "";
@@ -153,11 +153,11 @@ Dagaz.Model.setup = function(board, init) {
 }
 
 var getPieceNotation = function(design, piece) {
-  if (piece.type > 3) {
-      if (piece.player > 1) return 'g';
-          else return 'G';
-  }
   var r = LETTERS[piece.type];
+  if (piece.type > 3) {
+      if (piece.player > 1) r = 'g';
+          else r = 'G';
+  }
   var v = piece.getValue(0);
   if (v !== null) {
       var s = '';
