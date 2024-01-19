@@ -1,3 +1,8 @@
+Dagaz.Controller.persistense = "setup";
+
+Dagaz.Model.WIDTH  = 9;
+Dagaz.Model.HEIGHT = 9;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -24,8 +29,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
-    design.checkVersion("advisor-wait", "25");
-    design.checkVersion("tafl-extension", "restricted");
     design.checkVersion("tafl-extension", "goals");
 
     design.addDirection("w");
@@ -121,24 +124,26 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addZone("throne", 2, [40]);
     design.addZone("throne", 1, [40]);
     design.addZone("goal", 2, [0]);
-    design.addZone("goal", 1, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 53, 54, 62, 63, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]);
-    design.addZone("enemies", 2, [45, 36, 27, 37, 75, 3, 76, 67, 13, 4, 77, 5, 43, 53, 44, 35]);
-    design.addZone("enemies", 1, [45, 36, 27, 37, 75, 3, 76, 67, 13, 4, 77, 5, 43, 53, 44, 35]);
+    design.addZone("goal", 1, [0]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PARAM,	0);	// $1
     design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.IF,	9);
+    design.addCommand(0, ZRF.IF,	13);
     design.addCommand(0, ZRF.IN_ZONE,	0);	// throne
-    design.addCommand(0, ZRF.IF,	4);
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.IN_ZONE,	1);	// goal
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FORK,	3);
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
     design.addCommand(0, ZRF.PARAM,	1);	// $2
     design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(0, ZRF.JUMP,	-10);
+    design.addCommand(0, ZRF.JUMP,	-14);
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
     design.addPiece("Man", 0);

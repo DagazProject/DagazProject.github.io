@@ -23,6 +23,55 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+var cover = function(design, board, player, cover, serial) {
+  board.player = player;
+  _.each(design.allPositions(), function(pos) {
+      var piece = board.getPiece(pos);
+      if ((piece !== null) && (piece.player != player)) {
+          board.setPiece(pos, null);
+      }
+  });
+  board.generate(design);
+  _.each(board.moves, function(move) {
+      if (move.isSimpleMove()) {
+          var src = move.actions[0][0][0];
+          var pos = move.actions[0][1][0];
+          _.each(design.allDirections(), function(dir) {
+              var t = design.navigate(player, pos, dir);
+              if ((t !== null) && (board.getPiece(t) === null)) {
+                  var p = design.navigate(player, t, dir);
+                  if ((p !== null) && (p != src)) {
+                      if (design.inZone(0, player, p) || design.inZone(1, player, p)) {
+                          cover[pos].push(pos);
+                          serial[pos].push(move.serial);
+                          return;
+                      }
+                      var piece = board.getPiece(p);
+                      if ((piece !== null) && (piece.player == player)) {
+                          cover[pos].push(pos);
+                          serial[pos].push(move.serial);
+                      }
+                  }
+              }
+          });
+      }
+  });
+}
+
+Dagaz.Model.GetCover = function(design, board) {
+  if (_.isUndefined(board.cover)) {
+      board.cover  = [];
+      board.serial = [];
+      for (var pos = 0; pos < design.positions.length; pos++) {
+           board.cover[pos]  = [];
+           board.serial[pos] = [];
+      }
+      cover(design, board.copy(), board.player, board.cover, board.serial);
+      cover(design, board.copy(), design.nextPlayer(board.player), board.cover, board.serial);
+  }
+  return board.cover;
+}
+
 Dagaz.AI.heuristic = function(ai, design, board, move) {
   var r = move.actions.length;
   var pos = null;
