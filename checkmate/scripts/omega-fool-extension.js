@@ -8,6 +8,10 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+if (!_.isUndefined(Dagaz.Controller.addSound)) {
+  Dagaz.Controller.addSound(10,  "../sounds/magic.wav");
+}
+
 var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
@@ -31,37 +35,18 @@ Dagaz.Model.checkGoals = function(design, board, player) {
 }
 
 var isFoolSpawn = function(board, pos) {
-  if (_.isUndefined(board.parent) || (board.parent === null)) return false;
-  var b = board.parent;
-  if (_.isUndefined(b.move)) return false;
-  var move = b.move;
-  if (!move.isSimpleMove()) return false;
-  if (pos != move.actions[0][0][0]) return false;
-  if (_.isUndefined(b.parent) || (b.parent === null)) return false;
-  var b = b.parent;
-  var piece = b.getPiece(pos);
-  if (piece === null) return false;
-  return piece.getValue(0) === null;
+  var ix = (board.player - 1) * 2;
+  var v = board.getValue(ix);
+  if (v === null) return false;
+  if (v >= 200) return false;
+  return v == pos;
 }
 
 var isValidFoolMove = function(board, type) {
-  if (_.isUndefined(board.parent) || (board.parent === null)) return false;
-  var b = board.parent;
-  if (_.isUndefined(board.move)) return false;
-  var move = board.move;
-  if (!move.isSimpleMove()) return false;
-  var piece = b.getPiece(move.actions[0][0][0]);
-  if (piece === null) return false;
-  while (piece.type == 8) {
-      if (_.isUndefined(b.parent) || (b.parent === null)) return false;
-      if (_.isUndefined(b.move)) return false;
-      move = b.move;
-      b = b.parent;
-      if (!move.isSimpleMove()) return false;
-      piece = b.getPiece(move.actions[0][0][0]);
-      if (piece === null) return false;
-  }
-  return piece.type == type;
+  var ix = (2 - board.player) * 2;
+  var v = board.getValue(ix + 1);
+  if (v === null) return false;
+  return v == type;
 }
 
 var isImmobilized = function(design, board, player, pos) {
@@ -91,7 +76,10 @@ Dagaz.Model.CheckInvariants = function(board) {
               return;
           } else {
               board.ko = [ pos ];
+              move.playSound(10, 500);
           }
+          var ix = (board.player - 1) * 2;
+          move.setValue(ix, 200);
       } else {
           _.each(move.actions, function(a) {
               if ((a[0] !== null) && (a[1] !== null)) {
@@ -106,13 +94,43 @@ Dagaz.Model.CheckInvariants = function(board) {
                   move.failed = true;
                   return;
               }
+              var pos = null;
+              _.each(move.actions, function(a) {
+                  if (pos !== null) return;
+                  if (a[0] === null) return;
+                  if (a[1] === null) return;
+                  pos = a[0][0];
+              });
+              if (pos !== null) {
+                  var ix = (board.player - 1) * 2;
+                  var v = board.getValue(ix);
+                  if ((v === null) || (v < 200)) {
+                      move.setValue(ix, pos);
+                  }
+                  move.setValue(ix + 1, +move.mode);
+              }
           } else {
+              var pos = null;
               _.each(move.actions, function(a) {
                   if ((a[0] !== null) && (a[1] !== null) && isImmobilized(design, board, board.player, a[0][0])) {
                       move.failed = true;
                       return;
                   }
+                  if (pos !== null) return;
+                  if (a[0] === null) return;
+                  if (a[1] === null) return;
+                  pos = a[0][0];
               });
+              if (pos !== null) {
+                  var piece = board.getPiece(pos);
+                  if (piece === null) return;
+                  var ix = (board.player - 1) * 2;
+                  var v = board.getValue(ix);
+                  if ((v === null) || (v < 200)) {
+                      move.setValue(ix, pos);
+                  }
+                  move.setValue(ix + 1, +piece.type);
+              }
           }
       }
   });
