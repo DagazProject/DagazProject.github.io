@@ -51,7 +51,7 @@ var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
   var w = 0; var b = 0; var f = true;
-  var pos = findPiece(design, board, player, 4);
+/*var pos = findPiece(design, board, player, 4);
   if (pos !== null) {
       _.each(design.allDirections(), function(dir) {
           var p = design.navigate(player, pos, dir);
@@ -61,7 +61,7 @@ Dagaz.Model.checkGoals = function(design, board, player) {
           if (piece.type != 4) return;
           f = false;
       });
-  }
+  }*/
   var g = false;
   board.generate(design);
   _.each(board.moves, function(move) {
