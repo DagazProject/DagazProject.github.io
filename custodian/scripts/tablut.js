@@ -3,6 +3,40 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH  = 9;
 Dagaz.Model.HEIGHT = 9;
 
+Dagaz.AI.pieceAdj = [
+[   0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0
+],
+[   0,    0,    0,    0,    0,    0,    0,    0,    0, // piecePawn
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0, -100,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0
+],
+[   2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, // pieceKing
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,  -10,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
+    2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000
+]];
+
+Dagaz.AI.RESTRICTED = [0x68];
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -30,6 +64,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("tafl-extension", "goals");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("w");
     design.addDirection("e");
@@ -123,8 +158,6 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addZone("throne", 2, [40]);
     design.addZone("throne", 1, [40]);
-    design.addZone("goal", 2, [0]);
-    design.addZone("goal", 1, [0]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PARAM,	0);	// $1

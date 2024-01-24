@@ -22,9 +22,6 @@ var pieceNo               = 0x80;
 
 var g_moveUndoStack = new Array();
 
-// Evaulation variables
-var g_mobUnit;
-
 var materialTable = [200, 100];
 
 Dagaz.AI.pieceAdj = [
@@ -276,23 +273,6 @@ Dagaz.AI.ResetGame = function() {
   pieceSquareAdj[pieceEmpty]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
   pieceSquareAdj[piecePawn]   = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
   pieceSquareAdj[pieceKing]   = MakeTable(Dagaz.AI.pieceAdj[pieceKing]);
-
-  InitializeEval();
-}
-
-function InitializeEval() {
-    g_mobUnit = new Array(2);
-    for (var i = 0; i < 2; i++) {
-        g_mobUnit[i] = new Array();
-        var enemy = i == 0 ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
-        var friend = i == 0 ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
-        g_mobUnit[i][0] = 1;
-        g_mobUnit[i][pieceNo] = 0;
-        g_mobUnit[i][enemy  | piecePawn]   = 1;
-        g_mobUnit[i][enemy  | pieceKing]   = 6;
-        g_mobUnit[i][friend | piecePawn]   = 0;
-        g_mobUnit[i][friend | pieceKing]   = 0;
-    }
 }
 
 Dagaz.AI.InitializeFromFen = function(fen) {

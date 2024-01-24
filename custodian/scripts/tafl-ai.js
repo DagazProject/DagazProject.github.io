@@ -2,7 +2,7 @@
 
 (function() {
 
-Dagaz.AI.NOISE_FACTOR     = 0;
+Dagaz.AI.NOISE_FACTOR     = 3;
 Dagaz.AI.STALMATED        = true;
 Dagaz.AI.CHECK_OPT        = true;
 
@@ -23,40 +23,6 @@ var pieceNo               = 0x80;
 var g_moveUndoStack = new Array();
 
 var materialTable = [200, 100];
-
-Dagaz.AI.pieceAdj = [
-[   0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0
-],
-[   0,    0,    0,    0,    0,    0,    0,    0,    0, // piecePawn
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0, -100,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0
-],
-[   2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, // pieceKing
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,  -10,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000,    0,    0,    0,    0,    0,    0,    0,    2000000,
-    2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000
-]];
-
-var RESTRICTED = [0x68];
 
 var pieceSquareAdj = new Array(2);
 var g_vectorDelta  = new Array(512);
@@ -460,7 +426,7 @@ function GenerateMove(from, to) {
              if ((Dagaz.AI.g_board[pos] & Dagaz.AI.PLAYERS_MASK) == enemy) {
                  pos += g_rookDeltas[ix];
                  if (((Dagaz.AI.g_board[pos] & Dagaz.AI.PLAYERS_MASK) == friend) ||
-                     ((Dagaz.AI.g_board[pos] == pieceEmpty) && (_.indexOf(RESTRICTED, pos) >= 0))){
+                     ((Dagaz.AI.g_board[pos] == pieceEmpty) && (_.indexOf(Dagaz.AI.RESTRICTED, pos) >= 0))){
                       r |= mask;
                       if ((Dagaz.AI.g_board[pos] & Dagaz.AI.TYPE_MASK) == pieceKing) r |= 0x10;
                  }
