@@ -28,14 +28,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("omega-fool-extension", "true");
     design.checkVersion("advisor-wait", "25");
 
-    design.addDirection("w");
-    design.addDirection("e");
-    design.addDirection("s");
-    design.addDirection("ne");
-    design.addDirection("n");
-    design.addDirection("se");
-    design.addDirection("sw");
-    design.addDirection("nw");
+    design.addDirection("w");  // 0
+    design.addDirection("e");  // 1
+    design.addDirection("s");  // 2
+    design.addDirection("ne"); // 3
+    design.addDirection("n");  // 4
+    design.addDirection("se"); // 5
+    design.addDirection("sw"); // 6
+    design.addDirection("nw"); // 7
 
     design.addPlayer("White", [1, 0, 4, 6, 2, 7, 3, 5]);
     design.addPlayer("Black", [0, 1, 4, 5, 2, 3, 7, 6]);

@@ -50,18 +50,20 @@ var isValidFoolMove = function(board, type) {
 }
 
 var isImmobilized = function(design, board, player, pos) {
-  var r = false;
-  for (var dir = 0; dir < design.dirs.length; dir++) {
-       var p = design.navigate(player, pos, dir);
-       if (p !== null) {
-           var piece = board.getPiece(p);
-           if ((piece !== null) && (piece.type == 8)) {
-               if (piece.player == player) return false;
-               r = true;
-           }
-       }
-  }
-  return r;
+  var e = false; var f = false;
+  _.each([0, 1, 2, 4], function(dir) {
+      var p = design.navigate(player, pos, dir);
+      if (p === null) return;
+      var piece = board.getPiece(p);
+      if (piece === null) return;
+      if (piece.type != 8)  return;
+      if (piece.player == player) {
+          f = true;
+      } else {
+          e = true;
+      }
+  });
+  return e && !f;
 }
 
 var CheckInvariants = Dagaz.Model.CheckInvariants;
@@ -104,8 +106,9 @@ Dagaz.Model.CheckInvariants = function(board) {
               if (pos !== null) {
                   var ix = (board.player - 1) * 2;
                   var v = board.getValue(ix);
-                  if ((v === null) || (v < 200)) {
-                      move.setValue(ix, pos);
+                  if ((v === null) || (v != 200)) {
+                      var f = piece.getValue(0);
+                      move.setValue(ix, (f === null) ? pos : 300);
                   }
                   move.setValue(ix + 1, +move.mode);
               }
@@ -126,8 +129,9 @@ Dagaz.Model.CheckInvariants = function(board) {
                   if (piece === null) return;
                   var ix = (board.player - 1) * 2;
                   var v = board.getValue(ix);
-                  if ((v === null) || (v < 200)) {
-                      move.setValue(ix, pos);
+                  if ((v === null) || (v != 200)) {
+                      var f = piece.getValue(0);
+                      move.setValue(ix, (f === null) ? pos : 300);
                   }
                   move.setValue(ix + 1, +piece.type);
               }
