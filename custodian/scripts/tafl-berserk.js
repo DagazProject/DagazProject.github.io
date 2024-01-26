@@ -121,16 +121,20 @@ Dagaz.Model.CheckInvariants = function(board) {
                    if (piece.player == board.player) return;
                    var t = design.navigate(1, q, d);
                    if (t === null) return;
-                   piece = board.getPiece(t);
-                   if (piece !== null) {
-                       if (piece.player != board.player) return;
+                   var target = board.getPiece(t);
+                   if (target !== null) {
+                       if (target.player != board.player) return;
                    } else {
                        if (q != Dagaz.Model.CENTR) return;
                    }
-                   m.capturePiece(q, rn + 1);
+                   if (piece.type == 0) {
+                       m.capturePiece(q, rn + 1);
+                   }
                    f = true;
                });
-               if (f) board.moves.push(m);
+               if (f) {
+                   board.moves.push(m);
+               }
                p = design.navigate(1, p, dir);
            }
        });

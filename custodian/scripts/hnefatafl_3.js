@@ -243,7 +243,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
-
     design.addPiece("Man", 0);
     design.addMove(0, 0, [3, 3], 0);
     design.addMove(0, 0, [2, 2], 0);
@@ -255,6 +254,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 1, [2], 0);
     design.addMove(1, 1, [0], 0);
     design.addMove(1, 1, [1], 0);
+
+    design.addPiece("CapturedKing", 2);
 
     design.setup("Black", "Man", 104);
     design.setup("Black", "Man", 91);
@@ -314,6 +315,7 @@ Dagaz.View.configure = function(view) {
     view.defPiece("WhiteMan", "White Man");
     view.defPiece("BlackMan", "Black Man");
     view.defPiece("WhiteKing", "White King");
+    view.defPiece("WhiteKing", "White CapturedKing");
  
     view.defPosition("a13", 12, 12, 34, 34);
     view.defPosition("b13", 47, 12, 34, 34);

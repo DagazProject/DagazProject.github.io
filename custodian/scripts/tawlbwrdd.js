@@ -3,6 +3,10 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH  = 11;
 Dagaz.Model.HEIGHT = 11;
 
+Dagaz.Model.NEIGB  = [49, 59, 61, 71];
+Dagaz.Model.CENTR  = 60;
+Dagaz.Model.RESTR  = [60];
+
 Dagaz.AI.pieceAdj = [
 [   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -39,6 +43,18 @@ Dagaz.AI.pieceAdj = [
     2000000,    0,    0,    0,    0,    0,    0,    0,    0,    0,    2000000,
     2000000,    0,    0,    0,    0,    0,    0,    0,    0,    0,    2000000,
     2000000,    2000000,    2000000,    2000000,    2000000,    2000000,    2000000,    2000000,    2000000,    2000000,    0
+],
+[   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceCaptured
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0
 ]];
 
 Dagaz.AI.RESTRICTED = [0x79];
@@ -236,6 +252,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 0, [0, 0], 0);
     design.addMove(1, 0, [1, 1], 0);
 
+    design.addPiece("CapturedKing", 2);
+
     design.setup("Black", "Man", 77);
     design.setup("Black", "Man", 66);
     design.setup("Black", "Man", 55);
@@ -282,6 +300,7 @@ Dagaz.View.configure = function(view) {
     view.defPiece("WhiteMan", "White Man");
     view.defPiece("BlackMan", "Black Man");
     view.defPiece("WhiteKing", "White King");
+    view.defPiece("WhiteKing", "White CapturedKing");
  
     view.defPosition("a11", 21, 23, 69, 69);
     view.defPosition("b11", 90, 23, 69, 69);

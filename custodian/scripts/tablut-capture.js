@@ -35,7 +35,6 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (target === null) return;
       if (cnt != 3) return;
       move.capturePiece(target);
-
   });
   CheckInvariants(board);
 }

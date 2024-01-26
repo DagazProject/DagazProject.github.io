@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.CENTR  = 24;
+
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {

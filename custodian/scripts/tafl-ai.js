@@ -18,11 +18,12 @@ Dagaz.AI.colorWhite       = 0x08;
 var pieceEmpty            = 0x00;
 var piecePawn             = 0x01;
 var pieceKing             = 0x02;
+var pieceCaptured         = 0x03;
 var pieceNo               = 0x80;
 
 var g_moveUndoStack = new Array();
 
-var materialTable = [200, 100];
+var materialTable = [200, 100, -1000000];
 
 var pieceSquareAdj = new Array(2);
 var g_vectorDelta  = new Array(512);
@@ -142,9 +143,10 @@ var ResetGame = Dagaz.AI.ResetGame;
 Dagaz.AI.ResetGame = function() {
   ResetGame();
 
-  pieceSquareAdj[pieceEmpty]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[piecePawn]   = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
-  pieceSquareAdj[pieceKing]   = MakeTable(Dagaz.AI.pieceAdj[pieceKing]);
+  pieceSquareAdj[pieceEmpty]    = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
+  pieceSquareAdj[piecePawn]     = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
+  pieceSquareAdj[pieceKing]     = MakeTable(Dagaz.AI.pieceAdj[pieceKing]);
+  pieceSquareAdj[pieceCaptured] = MakeTable(Dagaz.AI.pieceAdj[pieceCaptured]);
 
   var pieceDeltas = [[], g_rookDeltas, g_rookDeltas];
 
@@ -253,6 +255,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                     case 'k':
                         piece |= pieceKing;
+                        break;
+                    case 'c':
+                        piece |= pieceCaptured;
                         break;
                 }
                 
@@ -363,6 +368,7 @@ Dagaz.AI.MakeMove = function(move) {
 
     if (Dagaz.AI.check_optionally) {
         var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
+        if (kingPos == 0) kingPos = Dagaz.AI.g_pieceList[(pieceCaptured | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
         if (kingPos != 0) {
             var a = getAttacked(Dagaz.AI.g_toMove);
             if (_.indexOf(a, kingPos) >= 0) {
@@ -371,7 +377,7 @@ Dagaz.AI.MakeMove = function(move) {
             }
         }
     }
-    if (Dagaz.AI.g_toMove && (Dagaz.AI.g_pieceCount[pieceKing] == 0)) {
+    if (Dagaz.AI.g_toMove && (Dagaz.AI.g_pieceCount[pieceKing] == 0) && (Dagaz.AI.g_pieceCount[pieceCaptured] == 0)) {
         Dagaz.AI.UnmakeMove(move);
         return false;
     }
