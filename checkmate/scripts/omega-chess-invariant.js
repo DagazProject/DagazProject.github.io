@@ -89,6 +89,10 @@ Dagaz.Model.checkPositions = function(design, board, player, positions) {
        if (checkLeap(design, board, player, pos, ne, e, knight)) return true;
        if (checkLeap(design, board, player, pos, se, s, knight)) return true;
        if (checkLeap(design, board, player, pos, se, e, knight)) return true;
+       if (checkLeap(design, board, player, pos, n,  n,  champion)) return true;
+       if (checkLeap(design, board, player, pos, e,  e,  champion)) return true;
+       if (checkLeap(design, board, player, pos, w,  w,  champion)) return true;
+       if (checkLeap(design, board, player, pos, s,  s,  champion)) return true;
        if (checkLeap(design, board, player, pos, nw, nw, champion)) return true;
        if (checkLeap(design, board, player, pos, ne, ne, champion)) return true;
        if (checkLeap(design, board, player, pos, se, se, champion)) return true;

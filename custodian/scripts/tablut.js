@@ -78,7 +78,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
-    design.checkVersion("tafl-extension", "goals");
     design.checkVersion("advisor-wait", "25");
 
     design.addDirection("w");

@@ -18,6 +18,7 @@ Dagaz.AI.colorWhite       = 0x08;
 var pieceEmpty            = 0x00;
 var piecePawn             = 0x01;
 var pieceKing             = 0x02;
+var pieceCaptured         = 0x03;
 var pieceNo               = 0x80;
 
 var g_moveUndoStack = new Array();
@@ -25,7 +26,7 @@ var g_moveUndoStack = new Array();
 // Evaulation variables
 var g_mobUnit;
 
-var materialTable = [200, 100];
+var materialTable = [200, 100, -1000000];
 
 Dagaz.AI.pieceAdj = [
 [   0,    0,    0,    0,    0,    0,    0, // pieceEmpty
@@ -51,6 +52,14 @@ Dagaz.AI.pieceAdj = [
    20,   10,    0,   10,    0,   10,   20,
    50,   20,   10,    0,   10,   20,   50,
  2000000,   50,   20,   10,   20,   50, 2000000
+],
+[   0,    0,    0,    0,    0,    0,    0, // pieceCaptured
+    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0
 ]];
 
 var RESTRICTED = [0x24, 0x2A, 0x84, 0x8A];
@@ -276,23 +285,7 @@ Dagaz.AI.ResetGame = function() {
   pieceSquareAdj[pieceEmpty]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
   pieceSquareAdj[piecePawn]   = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
   pieceSquareAdj[pieceKing]   = MakeTable(Dagaz.AI.pieceAdj[pieceKing]);
-
-  InitializeEval();
-}
-
-function InitializeEval() {
-    g_mobUnit = new Array(2);
-    for (var i = 0; i < 2; i++) {
-        g_mobUnit[i] = new Array();
-        var enemy = i == 0 ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
-        var friend = i == 0 ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
-        g_mobUnit[i][0] = 1;
-        g_mobUnit[i][pieceNo] = 0;
-        g_mobUnit[i][enemy  | piecePawn]   = 1;
-        g_mobUnit[i][enemy  | pieceKing]   = 6;
-        g_mobUnit[i][friend | piecePawn]   = 0;
-        g_mobUnit[i][friend | pieceKing]   = 0;
-    }
+  pieceSquareAdj[pieceCaptured] = MakeTable(Dagaz.AI.pieceAdj[pieceCaptured]);
 }
 
 Dagaz.AI.InitializeFromFen = function(fen) {
@@ -329,6 +322,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                     case 'k':
                         piece |= pieceKing;
+                        break;
+                    case 'c':
+                        piece |= pieceCaptured;
                         break;
                 }
                 
@@ -446,6 +442,7 @@ Dagaz.AI.MakeMove = function(move) {
 
     if (Dagaz.AI.check_optionally) {
         var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
+        if (kingPos == 0) kingPos = Dagaz.AI.g_pieceList[(pieceCaptured | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
         if (kingPos != 0) {
             var a = getAttacked(Dagaz.AI.g_toMove);
             if (_.indexOf(a, kingPos) >= 0) {
@@ -454,7 +451,7 @@ Dagaz.AI.MakeMove = function(move) {
             }
         }
     }
-    if (Dagaz.AI.g_toMove && (Dagaz.AI.g_pieceCount[pieceKing] == 0)) {
+    if (Dagaz.AI.g_toMove && (Dagaz.AI.g_pieceCount[pieceKing] == 0) && (Dagaz.AI.g_pieceCount[pieceCaptured] == 0)) {
         Dagaz.AI.UnmakeMove(move);
         return false;
     }
