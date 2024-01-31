@@ -12,6 +12,9 @@ Dagaz.AI.PLAYERS_MASK     = 0x18;
 Dagaz.AI.COUNTER_SIZE     = 6;
 Dagaz.AI.TYPE_SIZE        = 3;
 
+Dagaz.AI.MAXX             = 0x09;
+Dagaz.AI.MAXY             = 0x90;
+
 Dagaz.AI.colorBlack       = 0x10;
 Dagaz.AI.colorWhite       = 0x08;
 
@@ -30,12 +33,12 @@ var g_vectorDelta  = new Array(512);
 var g_rookDeltas   = [-1, +1, -16, +16];
 
 function MakeSquare(row, column) {
-    return ((row + 2) << 4) | (column + 4);
+    return ((row + 2) << 4) | (column + 2);
 }
 
 function FormatSquare(square) {
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-    return letters[(square & 0xF) - 4] + (((Dagaz.Model.HEIGHT + 1) - (square >> 4)) + 1);
+    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'];
+    return letters[(square & 0xF) - 2] + (((Dagaz.Model.HEIGHT + 1) - (square >> 4)) + 1);
 }
 
 Dagaz.AI.FormatMove = function(move) {
@@ -133,8 +136,8 @@ function MakeTable(table) {
 
 function onBoard(target) {
   if (target < 0) return false;
-  if ((target & 0xF0) >= 0x90) return false;
-  if ((target & 0x0F) >= 0x09) return false;
+  if ((target & 0xF0) >= Dagaz.AI.MAXY) return false;
+  if ((target & 0x0F) >= Dagaz.AI.MAXX) return false;
   return true;
 }
 

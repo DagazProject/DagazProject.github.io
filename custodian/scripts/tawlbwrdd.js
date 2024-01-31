@@ -7,6 +7,9 @@ Dagaz.Model.NEIGB  = [49, 59, 61, 71];
 Dagaz.Model.CENTR  = 60;
 Dagaz.Model.RESTR  = [60];
 
+Dagaz.AI.MAXX      = 0x0B;
+Dagaz.AI.MAXY      = 0xB0;
+
 Dagaz.AI.pieceAdj = [
 [   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -57,7 +60,7 @@ Dagaz.AI.pieceAdj = [
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0
 ]];
 
-Dagaz.AI.RESTRICTED = [0x79];
+Dagaz.AI.RESTRICTED = [0x77];
 
 ZRF = {
     JUMP:          0,

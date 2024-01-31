@@ -50,7 +50,7 @@ Dagaz.AI.pieceAdj = [
     0,    0,    0,    0,    0,    0,    0,    0,    0
 ]];
 
-Dagaz.AI.RESTRICTED = [0x68];
+Dagaz.AI.RESTRICTED = [0x66];
 
 ZRF = {
     JUMP:          0,
