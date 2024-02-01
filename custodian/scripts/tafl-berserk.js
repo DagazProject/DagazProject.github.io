@@ -8,7 +8,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
-var redo = function(board, move) {
+var redo = function(board, move, log) {
   var f = false; 
   var p = null; var q = null; var x = null;
   for (var i = 0; i < move.actions.length; i++) {
@@ -20,27 +20,24 @@ var redo = function(board, move) {
                if (piece.type > 0) f = true;
            }
        } else {
+           log.push({
+              pos: a[1][0],
+              piece: board.getPiece(a[1][0])
+           });
            board.setPiece(a[1][0], board.getPiece(a[0][0]));
            p = a[0][0]; q = a[1][0];
            if (piece !== null) {
                if (x === null) x = piece;
            }
        }
+       log.push({
+           pos: a[0][0],
+           piece: board.getPiece(a[0][0])
+       });
+       board.setPiece(a[0][0], null);
        if (f) {
-           var enemy = Dagaz.Model.createPiece(0, (board.player == 1) ? 2 : 1);
-           for (var j = i - 1; j >= 0; j--) {
-                var a = move.actions[j];
-                if (a[0] === null) continue;
-                if (a[1] === null) {
-                    board.setPiece(a[0][0], enemy);
-                } else {
-                    board.setPiece(a[0][0], board.getPiece(a[1][0]));
-                    board.setPiece(a[1][0], null);
-                }
-           }
            return null;
        }
-       board.setPiece(a[0][0], null);
   }
   if (p === null) return null;
   return {
@@ -50,17 +47,9 @@ var redo = function(board, move) {
   };
 }
 
-var undo = function(board, move) {
-  var enemy = Dagaz.Model.createPiece(0, (board.player == 1) ? 2 : 1);
-  for (var i = move.actions.length - 1; i >= 0; i--) {
-       var a = move.actions[i];
-       if (a[0] === null) continue;
-       if (a[1] === null) {
-           board.setPiece(a[0][0], enemy);
-       } else {
-           board.setPiece(a[0][0], board.getPiece(a[1][0]));
-           board.setPiece(a[1][0], null);
-       }
+var undo = function(board, log) {
+  for (var i = log.length - 1; i >= 0; i--) {
+       board.setPiece(log[i].pos, log[i].piece);
   }
 }
 
@@ -103,7 +92,8 @@ Dagaz.Model.CheckInvariants = function(board) {
   for (var i = 0; i < board.moves.length; i++) {
        var move = board.moves[i];
        if (move.isSimpleMove()) continue;
-       var r = redo(board, move);
+       var log = [];
+       var r = redo(board, move, log);
        if (r === null) continue;
        var rn = getRn(move);
        _.each(design.allDirections(), function(dir) {
@@ -161,7 +151,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                p = design.navigate(1, p, dir);
            }
        });
-       undo(board, move);
+       undo(board, log);
   }
   CheckInvariants(board);
 }
