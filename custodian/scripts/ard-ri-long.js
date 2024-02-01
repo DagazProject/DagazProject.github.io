@@ -3,7 +3,7 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH  = 7;
 Dagaz.Model.HEIGHT = 7;
 
-Dagaz.Model.NEIGB  = [17, 23, 25, 31];
+Dagaz.Model.NEIGB  = [];
 Dagaz.Model.CENTR  = -1;
 Dagaz.Model.RESTR  = [42, 0, 48, 6];
 
