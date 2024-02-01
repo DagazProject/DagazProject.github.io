@@ -26,10 +26,9 @@ var redo = function(board, move) {
                if (x === null) x = piece;
            }
        }
-       board.setPiece(a[0][0], null);
        if (f) {
            var enemy = Dagaz.Model.createPiece(0, (board.player == 1) ? 2 : 1);
-           for (var j = i; j >= 0; j--) {
+           for (var j = i - 1; j >= 0; j--) {
                 var a = move.actions[j];
                 if (a[0] === null) continue;
                 if (a[1] === null) {
@@ -41,6 +40,7 @@ var redo = function(board, move) {
            }
            return null;
        }
+       board.setPiece(a[0][0], null);
   }
   if (p === null) return null;
   return {
@@ -81,7 +81,7 @@ var copy = function(move) {
        if (a[1] === null) {
            m.capturePiece(a[0][0], a[3]);
        } else {
-           m.movePiece(a[0][0], a[1][0], a[2], a[3]);
+           m.movePiece(a[0][0], a[1][0], a[2][0], a[3]);
        }
   }
   return m;
@@ -116,19 +116,42 @@ Dagaz.Model.CheckInvariants = function(board) {
                _.each(design.allDirections(), function(d) {
                    var q = design.navigate(1, p, d);
                    if (q === null) return;
+                   if (q == r.to) return;
                    var piece = board.getPiece(q);
                    if (piece === null) return;
                    if (piece.player == board.player) return;
+                   if (piece.type == 1) {
+                       if ((q == Dagaz.Model.CENTR) || (_.indexOf(Dagaz.Model.NEIGB, q) >= 0)) {
+                           var c = 0;
+                           _.each(design.allDirections(), function(dir) {
+                               var x = design.navigate(1, q, dir);
+                               if (x === null) return;
+                               if (x == p) {
+                                   c++;
+                                   return;
+                               }
+                               var piece = board.getPiece(x);
+                               if (piece !== null) {
+                                   if (piece.player == board.player) c++;
+                               } else {
+                                   if (x == Dagaz.Model.CENTR) c++;
+                               }
+                           });
+                           if (c < 4) return;
+                       }
+                   }
                    var t = design.navigate(1, q, d);
                    if (t === null) return;
                    var target = board.getPiece(t);
                    if (target !== null) {
                        if (target.player != board.player) return;
                    } else {
-                       if (q != Dagaz.Model.CENTR) return;
+                       if (t != Dagaz.Model.CENTR) return;
                    }
                    if (piece.type == 0) {
                        m.capturePiece(q, rn + 1);
+                   } else {
+                       m.movePiece(q, q, piece.promote(2), rn + 1);
                    }
                    f = true;
                });
