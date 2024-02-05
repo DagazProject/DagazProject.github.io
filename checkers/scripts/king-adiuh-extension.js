@@ -77,17 +77,17 @@ Dagaz.View.showPiece = function(view, ctx, frame, pos, piece, model, x, y) {
           if (inversed) {
               f = !f;
           }
-          if (t < 2) {
+          if (t < 4) {
               if (f) {
                   p = view.piece["White WhiteMan"];
               } else {
                   p = view.piece["Black BlackMan"];
               }
           } else {
-              if (f) {
-                  p = view.piece["White WhiteKing"];
+              if (model.player > 1) {
+                  p = view.piece["White Queen"];
               } else {
-                  p = view.piece["Black BlackKing"];
+                  p = view.piece["Black Queen"];
               }
           }
           if (p !== null) {
@@ -189,7 +189,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                     last = action[0][0];
                 }
             } else {
-                nove.failed = true;
+                move.failed = true;
             }
         });
         _.each(captured, function(pos) {

@@ -188,7 +188,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                     last = action[0][0];
                 }
             } else {
-                nove.failed = true;
+                move.failed = true;
             }
         });
         _.each(captured, function(pos) {

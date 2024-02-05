@@ -50,38 +50,14 @@ Dagaz.AI.eval = function(design, params, board, player) {
 var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
-  var w = 0; var b = 0; var f = true;
-/*var pos = findPiece(design, board, player, 4);
-  if (pos !== null) {
-      _.each(design.allDirections(), function(dir) {
-          var p = design.navigate(player, pos, dir);
-          if (p === null) return;
-          var piece = board.getPiece(p);
-          if (piece === null) return;
-          if (piece.type != 4) return;
-          f = false;
-      });
-  }*/
+  var w = 0; var b = 0;
   var g = false;
   board.generate(design);
   _.each(board.moves, function(move) {
       if (!_.isUndefined(move.failed)) return;
-      if (move.actions.length == 1) {
-          var pos = null;
-          _.each(move.actions, function(a) {
-              if (pos !== null) return;
-              if (a[0] === null) return;
-              if (a[1] === null) return;
-              pos = a[0][0];
-          });
-          if (pos === null) return;
-          var piece = board.getPiece(pos);
-          if (piece === null) return;
-          if (piece.type == 4) return;
-      }
       g = true;
   });
-  if (f && g) return checkGoals(design, board, player);
+  if (g) return checkGoals(design, board, player);
   w = 0; var b = 0;
   for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {
        var piece = board.getPiece(pos);
