@@ -57,6 +57,19 @@ Dagaz.Model.checkGoals = function(design, board, player) {
       if (!_.isUndefined(move.failed)) return;
       g = true;
   });
+  if (g) {
+      _.each(design.allPositions(), function(pos) {
+          var piece = board.getPiece(pos);
+          if (piece === null) return;
+          if (piece.player == 1) {
+              w++;
+          } else {
+              b++;
+          }
+      });
+      if ((w == 0) || (b == 0)) g = false;
+  }
+  w = 0; b = 0;
   if (g) return checkGoals(design, board, player);
   w = 0; var b = 0;
   for (var pos = 0; pos < Dagaz.Model.BOARD_SIZE; pos++) {

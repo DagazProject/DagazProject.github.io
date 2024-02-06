@@ -101,8 +101,9 @@ var getTail = function(setup, pos, piece) {
        if (setup[i] == ']') break;
        if (setup[i] != '[') {
            if (i == pos + 1) break;
-           var t = setup[i].toLowerCase() == 'k' ? 2 : 0;
+           var t = setup[i].toLowerCase() == 'k' ? 2 : 0;           
            if ((setup[i] == 'p') || (setup[i] == 'k')) t++;
+           if (setup[i].toLowerCase() == 'g') t = 4;
            s = s + t;
        }
   }
