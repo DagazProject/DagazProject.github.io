@@ -2,6 +2,25 @@ Dagaz.Controller.persistense = "setup";
 
 (function() {
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  _.each(move.actions, function(a) {
+      if (a[0] === null) return;
+      if (a[1] === null) return;
+      if (a[0][0] == a[1][0]) return;
+      if (r != "") {
+          r = r + "-";
+      }
+      if (a[0] != null) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
+      }
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+  });
+  return r;
+}
+
 var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
