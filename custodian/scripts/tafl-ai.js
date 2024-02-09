@@ -519,6 +519,8 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
 }
 
 Dagaz.AI.See = function(move) {
+    // TODO:
+
     return true;
 }
 
