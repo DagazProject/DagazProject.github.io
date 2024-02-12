@@ -3,10 +3,6 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH  = 12;
 Dagaz.Model.HEIGHT = 8;
 
-Dagaz.Model.NEIGB  = [];
-Dagaz.Model.CENTR  = -1;
-Dagaz.Model.RESTR  = [];
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -33,7 +29,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
-//  design.checkVersion("advisor-wait", "0");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("s"); // 0
     design.addDirection("e"); // 1
@@ -198,8 +194,8 @@ Dagaz.Model.BuildDesign = function(design) {
 
 Dagaz.View.configure = function(view) {
     view.defBoard("Board");
-    view.defPiece("WhiteMan", "White Man");
-    view.defPiece("BlackMan", "Black Man");
+    view.defPieceSvg("WhiteMan", "White Man", 49, 49);
+    view.defPieceSvg("BlackMan", "Black Man", 49, 49);
     view.defPiece("WhiteKing", "White King");
     view.defPiece("BlackKing", "Black King");
     view.defPiece("WhiteKing", "White CapturedKing");
