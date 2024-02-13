@@ -317,7 +317,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(7, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(7, ZRF.FUNCTION,	0);	// not
-    design.addCommand(7, ZRF.IF,	18);
+    design.addCommand(7, ZRF.IF,	17);
     design.addCommand(7, ZRF.FUNCTION,	6);	// mark
     design.addCommand(7, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(7, ZRF.FUNCTION,	0);	// not
@@ -328,12 +328,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(7, ZRF.JUMP,	-6);
     design.addCommand(7, ZRF.FUNCTION,	26);	// capture
     design.addCommand(7, ZRF.FUNCTION,	7);	// back
-    design.addCommand(7, ZRF.FORK,	4);
+    design.addCommand(7, ZRF.FORK,	3);
     design.addCommand(7, ZRF.FUNCTION,	25);	// to
     design.addCommand(7, ZRF.FUNCTION,	28);	// end
     design.addCommand(7, ZRF.PARAM,	4);	// $5
     design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(7, ZRF.JUMP,	-19);
+    design.addCommand(7, ZRF.JUMP,	-18);
     design.addCommand(7, ZRF.FUNCTION,	28);	// end
 
     design.addPriority(0);			// jump-type

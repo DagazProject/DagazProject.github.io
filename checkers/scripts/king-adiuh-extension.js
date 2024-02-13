@@ -216,7 +216,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (piece === null) return;
       var b = board.apply(move);
       var f = false;
-      var isKing = (piece.type == 2) || (piece.type == 3);
+      var isKing = piece.type > 1;
       if (design.inZone(piece.player == 1 ? 0 : 1, board.player, to)) {
           isKing = true;
       }
