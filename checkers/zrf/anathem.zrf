@@ -1,0 +1,204 @@
+(define jump (
+  (verify friend?)
+  $1 (verify enemy?) capture
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  (add-partial jump-mode)
+))
+
+(define shift (
+  (verify friend?)
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  add
+))
+
+(define shift-from-mark (
+  (verify enemy?)
+  (verify (piece? MarkFriend))
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  (add Rhetors)
+))
+
+(define shift-to-mark (
+  (verify enemy?)
+  $1 (verify (piece? MarkEmpty))
+  add
+))
+
+(define jump-from-mark (
+  (verify enemy?)
+  (verify (piece? MarkFriend))
+  $1 (verify (or (piece? I00) (piece? I01) (piece? I02)
+                 (piece? I03) (piece? I04) (piece? I05)
+                 (piece? I06) (piece? I07) (piece? I08)
+                 (piece? I09) (piece? I10) (piece? I11))) 
+  capture
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  (add-partial Rhetors cont-mode)
+))
+
+(define jump-to-mark (
+  (verify enemy?)
+  $1 (verify (or (piece? M00) (piece? M01) (piece? M02)
+                 (piece? M03) (piece? M04) (piece? M05)
+                 (piece? M06) (piece? M07) (piece? M08)
+                 (piece? M09) (piece? M10) (piece? M11))) 
+  capture
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  (add-partial cont-mode)
+))
+
+(define jump-rhetor (
+  $1 (verify (or (piece? I00) (piece? I01) (piece? I02)
+                 (piece? I03) (piece? I04) (piece? I05)
+                 (piece? I06) (piece? I07) (piece? I08)
+                 (piece? I09) (piece? I10) (piece? I11))) 
+  capture
+  $1 (verify (or empty?
+                 (piece? P00) (piece? P01) (piece? P02)
+                 (piece? P03) (piece? P04) (piece? P05)
+                 (piece? P06) (piece? P07) (piece? P08)
+                 (piece? P09) (piece? P10) (piece? P11))) 
+  (add-partial cont-mode)
+))
+
+(define mark-empty (
+  (verify empty?)
+  add
+))
+
+(define mark-friend (
+  (verify friend?)
+  add
+))
+
+(define mark-enemy (
+  (verify enemy?)
+  (verify (piece? $1))
+  add
+))
+
+(define i
+  (piece
+     (name I$1)
+     (image Incanters "images/anathem/incanter.bmp")
+     (moves
+        (move-type jump-mode)
+        (jump n) (jump e) (jump w) (jump s) 
+        (jump ne) (jump nw) (jump se) (jump sw)
+        (move-type normal-mode)
+        (shift n) (shift e) (shift w) (shift s) 
+        (shift ne) (shift nw) (shift se) (shift sw)
+     )
+  )
+  (piece
+     (name M$1)
+     (image Rhetors "images/Anathem/incanterm.bmp")
+     (drops
+        (move-type incanter-mode)
+        (mark-enemy I$1)
+     )
+  )
+  (piece
+     (name P$1)
+     (image Incanters "images/Anathem/point.bmp")
+  )
+)
+
+(game
+  (title "Anathem")
+
+  (option "animate captures"  false)
+  (option "smart moves"       false)
+  (option "shared-pieces"     true)
+
+  (players Incanters Rhetors)
+  (turn-order Incanters Rhetors Incanters)
+  (move-priorities jump-mode normal-mode)
+
+  (board
+    (image "images/anathem/board.bmp")
+    (grid
+      (start-rectangle 5 5 54 54)
+      (dimensions
+        ("a/b/c/d/e/f/g/h" (49 0)) ; files
+        ("8/7/6/5/4/3/2/1" (0 49)) ; ranks
+      )
+      (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+                  (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+      ) 
+    )
+  )
+
+  (i 00) (i 01) (i 02) (i 03) (i 04) (i 05) 
+  (i 06) (i 07) (i 08) (i 09) (i 10) (i 11)
+
+  (piece
+     (name Rhetor)
+     (image Rhetors "images/anathem/ritor.bmp")
+     (moves
+        (move-type jump-mode)
+        (jump-to-mark n) (jump-to-mark nw) (jump-to-mark e) (jump-to-mark ne)
+        (jump-to-mark s) (jump-to-mark sw) (jump-to-mark w) (jump-to-mark se)
+        (move-type cont-mode)
+        (jump-rhetor n) (jump-rhetor nw) (jump-rhetor e) (jump-rhetor ne)
+        (jump-rhetor s) (jump-rhetor sw) (jump-rhetor w) (jump-rhetor se)
+        (move-type normal-mode)
+        (shift-to-mark n) (shift-to-mark nw) (shift-to-mark e) (shift-to-mark ne)
+        (shift-to-mark s) (shift-to-mark sw) (shift-to-mark w) (shift-to-mark se)
+     )
+  )
+  (piece
+     (name MarkEmpty)
+     (image Rhetors "images/anathem/mark.bmp")
+     (drops
+        (move-type incanter-mode)
+        (mark-empty)
+     )
+  )
+  (piece
+     (name MarkFriend)
+     (image Rhetors "images/Anathem/ritorm.bmp")
+     (drops
+        (move-type incanter-mode)
+        (mark-friend)
+     )
+     (moves
+        (move-type jump-mode)
+        (jump-from-mark n) (jump-from-mark nw) (jump-from-mark e) (jump-from-mark ne)
+        (jump-from-mark s) (jump-from-mark sw) (jump-from-mark w) (jump-from-mark se)
+        (move-type normal-mode)
+        (shift-from-mark n) (shift-from-mark nw) (shift-from-mark e) (shift-from-mark ne)
+        (shift-from-mark s) (shift-from-mark sw) (shift-from-mark w) (shift-from-mark se)
+     )
+  )
+
+  (board-setup
+    (Incanters
+       (I00 b2) (I01 c2) (I02 d2) (I03 e2) (I04 f2) (I05 g2)
+       (I06 b3) (I07 c3) (I08 d3) (I09 e3) (I10 f3) (I11 g3)
+    )
+    (Rhetors 
+       (Rhetor b7 c7 d7 e7 f7 g7 b6 c6 d6 e6 f6 g6) 
+    )
+  )
+)

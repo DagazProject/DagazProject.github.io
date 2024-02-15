@@ -38,10 +38,10 @@
   (board
      (image "images/tablut.bmp")
      (grid
-         (start-rectangle 12 12 46 46)
+         (start-rectangle 21 23 90 92)
          (dimensions
-           ("a/b/c/d/e/f/g/h/i" (35 0)) ; files
-           ("9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+           ("a/b/c/d/e/f/g/h/i" (69 0)) ; files
+           ("9/8/7/6/5/4/3/2/1" (0 69)) ; ranks
          )
          (directions 
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
@@ -60,17 +60,17 @@
 
   (piece
      (name Man)
-     (image White "images/ws.bmp"
-            Black "images/bs.bmp")
+     (image White "images/w.bmp"
+            Black "images/b.bmp")
      (moves
         (slide n) (slide s) (slide w) (slide e)
      )
   )
   (piece
      (name King)
-     (image White "images/ks.bmp")
+     (image White "images/k.bmp")
      (moves
-        (king-step n) (king-step s) (king-step w) (king-step e)
+        (slide n) (slide s) (slide w) (slide e)
      )
   )
 
@@ -133,10 +133,10 @@
   (board
      (image "images/tawlbwrdd.bmp")
      (grid
-         (start-rectangle 12 12 46 46)
+         (start-rectangle 21 23 90 92)
          (dimensions
-           ("a/b/c/d/e/f/g/h/i/j/k" (35 0)) ; files
-           ("11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+           ("a/b/c/d/e/f/g/h/i/j/k" (69 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 69)) ; ranks
          )
          (directions 
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
@@ -201,14 +201,15 @@
 
 (variant  
   (title "Hnefatafl")
+  (default)
 
   (board
      (image "images/hnefatafl_1.bmp")
      (grid
-         (start-rectangle 12 12 46 46)
+         (start-rectangle 21 23 90 92)
          (dimensions
-           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (35 0)) ; files
-           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 35)) ; ranks
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m" (69 0)) ; files
+           ("13/12/11/10/9/8/7/6/5/4/3/2/1" (0 69)) ; ranks
          )
          (directions 
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
@@ -307,7 +308,6 @@
 
 (variant  
   (title "Alea Evangeli")
-  (default)
 
   (players White Black)
   (turn-order White Black)

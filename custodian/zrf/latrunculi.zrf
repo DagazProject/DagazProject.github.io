@@ -1,0 +1,49 @@
+(define slide (
+  $1 
+  (while empty?
+     add $1
+  )
+))
+
+(game
+  (title "Ludus Latrunculi")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/12x8.bmp")
+     (grid
+         (start-rectangle 5 5 74 74)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l" (69 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 69)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name Man)
+     (image White "images/w.bmp"
+            Black "images/b.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/k.bmp"
+            Black "images/bk.bmp")
+     (moves
+        (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+
+  (board-setup
+    (Black (King g2) (Man a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1))
+    (White (King f7) (Man a8 b8 c8 d8 e8 f8 g8 h8 i8 j8 k8 l8))
+  )
+)

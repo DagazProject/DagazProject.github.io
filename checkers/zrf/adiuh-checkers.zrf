@@ -114,7 +114,6 @@
 
 (variant
   (title "Adiuh Checkers (10x10)")
-  (default)
 
   (board
      (image "images/adiuh/10x10.bmp")

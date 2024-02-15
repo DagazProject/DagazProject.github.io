@@ -1,18 +1,41 @@
 (define royal-shift (
    (verify friend?)
-   $1 (verify empty?)
-   add
+   (verify (not-in-zone? Promotion))
+   $1 (while empty?
+       add $1
+   )
 ))
 
 (define royal-jump (
    (verify friend?)
-   $1 (verify enemy?)
-   (verify (not-piece? King))
-   capture 
-   $1 (verify empty?)
-   (add-partial jump-type)
+   $1 (while empty?  $1)
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       add $1
+   )
 ))
 
+(define royal-cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify enemy?)
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
 
 (define man-shift (
    $1 (verify empty?)
@@ -117,8 +140,26 @@
 )
 
 (variant
-  (title "King Stavropol Adiuh Checkers")
+  (title "King Adiuh Checkers")
   (default)
+
+  (board
+     (image "images/adiuh/8x8.bmp")
+     (grid
+         (start-rectangle 2 44 70 112)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (zone (name Promotion) (players White)
+           (positions b8 d8 f8 h8)
+     )
+     (zone (name Promotion) (players Black)
+           (positions a1 c1 e1 g1)
+     )
+  )
 
   (piece
      (name WhiteMan)
@@ -158,7 +199,7 @@
   )
 
   (piece
-     (name King)
+     (name Queen)
      (image White "images/adiuh/red.bmp"
             Black "images/adiuh/blue.bmp")
      (moves
@@ -170,7 +211,7 @@
   )
 
   (board-setup
-    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) (King e1))
-    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) (King d8))
+    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) (Queen e1))
+    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) (Queen d8))
   )
 )
