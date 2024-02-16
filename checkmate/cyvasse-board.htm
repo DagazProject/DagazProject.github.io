@@ -1,0 +1,65 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Nine-Tile Cyvasse</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/cyvasse/board.png">
+<img id="WhiteKing" style="display:none" src="images/cyvasse/wking.png">
+<img id="BlackKing" style="display:none" src="images/cyvasse/bking.png">
+<img id="WhiteRabble" style="display:none" src="images/cyvasse/wrabble.png">
+<img id="BlackRabble" style="display:none" src="images/cyvasse/brabble.png">
+<img id="WhiteSpears" style="display:none" src="images/cyvasse/wspears.png">
+<img id="BlackSpears" style="display:none" src="images/cyvasse/bspears.png">
+<img id="WhiteLightHorse" style="display:none" src="images/cyvasse/wlighth.png">
+<img id="BlackLightHorse" style="display:none" src="images/cyvasse/blighth.png">
+<img id="WhiteHeavyHorse" style="display:none" src="images/cyvasse/wheavyh.png">
+<img id="BlackHeavyHorse" style="display:none" src="images/cyvasse/bheavyh.png">
+<img id="WhiteElephant" style="display:none" src="images/cyvasse/weleph.png">
+<img id="BlackElephant" style="display:none" src="images/cyvasse/beleph.png">
+<img id="WhiteCrossbow" style="display:none" src="images/cyvasse/wcrossb.png">
+<img id="BlackCrossbow" style="display:none" src="images/cyvasse/bcrossb.png">
+<img id="WhiteTrebuchet" style="display:none" src="images/cyvasse/wtrebuch.png">
+<img id="BlackTrebuchet" style="display:none" src="images/cyvasse/btrebuch.png">
+<img id="WhiteDragon" style="display:none" src="images/cyvasse/wdragon.png">
+<img id="BlackDragon" style="display:none" src="images/cyvasse/bdragon.png">
+<img id="WhiteTower" style="display:none" src="images/cyvasse/wtower.png">
+<img id="BlackTower" style="display:none" src="images/cyvasse/btower.png">
+<img id="WhiteRock" style="display:none" src="images/cyvasse/rock.png">
+<img id="BlackRock" style="display:none" src="images/cyvasse/rock.png">
+<img id="WhiteWater" style="display:none" src="images/cyvasse/water.png">
+<img id="BlackWater" style="display:none" src="images/cyvasse/water.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+            <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+            <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+            <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+            <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="967" height="468" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/cyvasse-setup.js"></script>
+<script src="scripts/cyvasse.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>

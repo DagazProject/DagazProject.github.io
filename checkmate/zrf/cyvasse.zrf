@@ -1,0 +1,236 @@
+(define step (
+  $1 (verify empty?) 
+  add
+))
+
+(game
+   (title "Nine-Tile Cyvasse")
+
+   (players Black White)
+   (turn-order Black White)
+
+   (board
+      (image "images/cyvasse/board.bmp")
+      (grid
+        (start-rectangle 280 9 330 59)
+        (dimensions
+            ("A/B/C/D/E/F/G/H/I/J/K/L" (50 0))
+            ("1/2/3/4/5/6/7/8/9" (-25 50))
+        )
+        (directions (se 1 1) (w -1 0) (sw 0 1)
+                    (nw -1 -1) (e 1 0) (ne 0 -1)
+        )
+      )
+      (grid
+        (start-rectangle 280 9 330 59)
+        (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l" (50 0))
+            ("1/2/3/4/5/6/7/8/9" (-25 50))
+        )
+        (directions (se 1 1) (w -1 0) (sw 0 1)
+                    (nw -1 -1) (e 1 0) (ne 0 -1)
+        )
+      )
+      (grid
+        (start-rectangle 10 9 60 59)
+        (dimensions
+            ("X/Y/Z" (50 0))
+            ("1/2/3/4/5/6/7/8/9" (0 50))
+        )
+      )
+      (grid
+        (start-rectangle 807 9 857 59)
+        (dimensions
+            ("x/y/z" (50 0))
+            ("1/2/3/4/5/6/7/8/9" (0 50))
+        )
+      )
+      (symmetry White (nw sw) (sw nw) (ne se) (se ne) (w e) (e w))
+      (kill-positions
+         c9 d9 b8 c8 a7 b7 a6 i1 j1
+         k1 l1 j2 k2 l2 k3 l3 l4 b9
+         C9 D9 B8 C8 A7 B7 A6 I1 J1
+         K1 L1 J2 K2 L2 K3 L3 L4 B9
+      )
+      (zone (name home) (players Black)
+         (positions 
+             b6 c6 d6 e6 f6 g6 h6 i6 j6 k6 l6
+             c7 d7 e7 f7 g7 h7 i7 j7 k7 l7
+             d8 e8 f8 g8 h8 i8 j8 k8 l8
+             e9 f9 g9 h9 i9 j9 k9 l9
+         )
+      )
+      (zone (name home) (players White)
+         (positions 
+             a4 b4 c4 d4 e4 f4 g4 h4 i4 j4 k4
+             a3 b3 c3 d3 e3 f3 g3 h3 i3 j3
+             a2 b2 c2 d2 e2 f2 g2 h2 i2
+             a1 b1 c1 d1 e1 f1 g1 h1
+         )
+      )
+      (zone (name trone) (players Black)
+         (positions f8 h8 j8)
+      )
+      (zone (name trone) (players White)
+         (positions c2 e2 g2)
+      )
+   )
+
+   (piece
+      (name King)
+      (image White "images/cyvasse/wking.bmp"
+             Black "images/cyvasse/bking.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Rabble)
+      (image White "images/cyvasse/wrabble.bmp"
+             Black "images/cyvasse/brabble.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Spears)
+      (image White "images/cyvasse/wspears.bmp"
+             Black "images/cyvasse/bspears.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name LightHorse)
+      (image White "images/cyvasse/wlighth.bmp"
+             Black "images/cyvasse/blighth.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name HeavyHorse)
+      (image White "images/cyvasse/wheavyh.bmp"
+             Black "images/cyvasse/bheavyh.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Elephant)
+      (image White "images/cyvasse/weleph.bmp"
+             Black "images/cyvasse/beleph.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Crossbow)
+      (image White "images/cyvasse/wcrossb.bmp"
+             Black "images/cyvasse/bcrossb.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Trebuchet)
+      (image White "images/cyvasse/wtrebuch.bmp"
+             Black "images/cyvasse/btrebuch.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Dragon)
+      (image White "images/cyvasse/wdragon.bmp"
+             Black "images/cyvasse/bdragon.bmp")
+      (moves
+         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+      )
+   )
+   (piece
+      (name Tower)
+      (image White "images/cyvasse/wtower.bmp"
+             Black "images/cyvasse/btower.bmp")
+   )
+   (piece
+      (name Rock)
+      (image White "images/cyvasse/rock.bmp"
+             Black "images/cyvasse/rock.bmp")
+   )
+   (piece
+      (name Water)
+      (image White "images/cyvasse/water.bmp"
+             Black "images/cyvasse/water.bmp")
+   )
+
+   (board-setup
+      (White
+         (Rock d1)
+         (Rock f2)
+         (Rock c3)
+         (Rock g3)
+         (Water D4)
+         (Water E4)
+         (Water H3)
+         (Water B2)
+
+         (King Z9)
+         (Tower Z8)
+         (Tower Z7)
+         (Rabble Z6)
+         (Rabble Z5)
+         (Rabble Z4)
+         (Rabble Z3)
+         (Rabble Z2)
+         (Rabble Z1)
+         (Spears Y9)
+         (Spears Y8)
+         (Spears Y7)
+         (LightHorse Y6)
+         (LightHorse Y5)
+         (LightHorse Y4)
+         (HeavyHorse Y3)
+         (HeavyHorse Y2)
+         (Trebuchet Y1)
+         (Elephant X9)
+         (Elephant X8)
+         (Crossbow X7)
+         (Crossbow X6)
+         (Dragon X5)
+      )
+      (Black
+         (Rock b6)
+         (Rock d7)
+         (Rock f8)
+         (Rock l8)
+         (Water E6)
+         (Water I6)
+         (Water I8)
+
+         (King x1)
+         (Tower x2)
+         (Tower x3)
+         (Rabble x4)
+         (Rabble x5)
+         (Rabble x6)
+         (Rabble x7)
+         (Rabble x8)
+         (Rabble x9)
+         (Spears y1)
+         (Spears y2)
+         (Spears y3)
+         (LightHorse y4)
+         (LightHorse y5)
+         (LightHorse y6)
+         (HeavyHorse y7)
+         (HeavyHorse y8)
+         (Trebuchet y9)
+         (Elephant z1)
+         (Elephant z2)
+         (Crossbow z3)
+         (Crossbow z4)
+         (Dragon z5)
+      )
+   )
+)
