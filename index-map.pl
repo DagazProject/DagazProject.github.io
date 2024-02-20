@@ -5,7 +5,7 @@ print "    <META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\
 print "    <META name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n";
 print "    <link rel=\"stylesheet\" href=\"css/map.css\"/>\n";
 print "    <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"/>\n";
-print "    <title>Dagaz Release 1.4.0</title>\n";
+print "    <title>Dagaz Release 1.4.1</title>\n";
 print "  </head>\n";
 print "  <body>\n";
 print "    <div class=\"divGameIconWrap\">\n";

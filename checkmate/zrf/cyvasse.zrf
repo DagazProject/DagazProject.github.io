@@ -3,6 +3,58 @@
   add
 ))
 
+(define jump-1 (
+  $1 (verify enemy?) 
+  add
+))
+
+(define jump-2 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify enemy?) 
+  add
+))
+
+(define jump-3 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify enemy?) 
+  add
+))
+
+(define jump-4 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify enemy?) 
+  add
+))
+
+(define horse-1-1 (
+  $1 (verify enemy?) capture
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  add
+))
+
+(define horse-1-2 (
+  $1 (verify enemy?) capture
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  add
+))
+
+(define horse-2-1 (
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify enemy?) capture
+  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  add
+))
+
+(define elephant-2 (
+  $1 (verify empty?) 
+  $1 (verify enemy?) 
+  add
+))
+
 (game
    (title "Nine-Tile Cyvasse")
 
@@ -82,6 +134,7 @@
              Black "images/cyvasse/bking.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
       )
    )
    (piece
@@ -90,6 +143,7 @@
              Black "images/cyvasse/brabble.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
       )
    )
    (piece
@@ -97,7 +151,8 @@
       (image White "images/cyvasse/wspears.bmp"
              Black "images/cyvasse/bspears.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (step nw) (step ne)
+         (jump-1 nw) (jump-1 ne)
       )
    )
    (piece
@@ -105,7 +160,12 @@
       (image White "images/cyvasse/wlighth.bmp"
              Black "images/cyvasse/blighth.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
+         (horse-1-1 nw) (horse-1-1 ne) (horse-1-1 sw) (horse-1-1 se) (horse-1-1 w) (horse-1-1 e)
+         (horse-1-2 nw) (horse-1-2 ne) (horse-1-2 sw) (horse-1-2 se) (horse-1-2 w) (horse-1-2 e)
+         (horse-2-1 nw) (horse-2-1 ne) (horse-2-1 sw) (horse-2-1 se) (horse-2-1 w) (horse-2-1 e)
       )
    )
    (piece
@@ -113,7 +173,9 @@
       (image White "images/cyvasse/wheavyh.bmp"
              Black "images/cyvasse/bheavyh.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (horse-1-1 nw) (horse-1-1 ne) (horse-1-1 sw) (horse-1-1 se) (horse-1-1 w) (horse-1-1 e)
       )
    )
    (piece
@@ -122,15 +184,14 @@
              Black "images/cyvasse/beleph.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (elephant-2 nw) (elephant-2 ne) (elephant-2 sw) (elephant-2 se) (elephant-2 w) (elephant-2 e)
       )
    )
    (piece
       (name Crossbow)
       (image White "images/cyvasse/wcrossb.bmp"
              Black "images/cyvasse/bcrossb.bmp")
-      (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
-      )
    )
    (piece
       (name Trebuchet)
@@ -138,6 +199,9 @@
              Black "images/cyvasse/btrebuch.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
+         (jump-4 nw) (jump-4 ne) (jump-4 sw) (jump-4 se) (jump-4 w) (jump-4 e)
       )
    )
    (piece
@@ -145,7 +209,10 @@
       (image White "images/cyvasse/wdragon.bmp"
              Black "images/cyvasse/bdragon.bmp")
       (moves
-         (step nw) (step ne) (step sw) (step se) (step w) (step e)
+         (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
+         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
+         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
+         (jump-4 nw) (jump-4 ne) (jump-4 sw) (jump-4 se) (jump-4 w) (jump-4 e)
       )
    )
    (piece
