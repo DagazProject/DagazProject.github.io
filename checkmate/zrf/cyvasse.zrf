@@ -4,54 +4,61 @@
 ))
 
 (define jump-1 (
-  $1 (verify enemy?) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
   add
 ))
 
 (define jump-2 (
   $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify enemy?) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
   add
 ))
 
 (define jump-3 (
   $1 (verify not-enemy?) (verify (not-piece? Rock)) 
   $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify enemy?) 
-  add
-))
-
-(define jump-4 (
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify enemy?) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
   add
 ))
 
 (define horse-1-1 (
-  $1 (verify enemy?) capture
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
+  $1 (verify empty?) 
   add
 ))
 
 (define horse-1-2 (
-  $1 (verify enemy?) capture
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
   $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify empty?) 
   add
 ))
 
 (define horse-2-1 (
   $1 (verify not-enemy?) (verify (not-piece? Rock)) 
-  $1 (verify enemy?) capture
-  $1 (verify not-enemy?) (verify (not-piece? Rock)) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) capture
+  $1 (verify empty?) 
   add
 ))
 
 (define elephant-2 (
   $1 (verify empty?) 
-  $1 (verify enemy?) 
+  $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-2 (
+  $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-3 (
+  $1 $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
+  add
+))
+
+(define dragon-4 (
+  $1 $1 $1 $1 (verify (not-piece? Rock)) (verify enemy?) 
   add
 ))
 
@@ -68,9 +75,6 @@
         (dimensions
             ("A/B/C/D/E/F/G/H/I/J/K/L" (50 0))
             ("1/2/3/4/5/6/7/8/9" (-25 50))
-        )
-        (directions (se 1 1) (w -1 0) (sw 0 1)
-                    (nw -1 -1) (e 1 0) (ne 0 -1)
         )
       )
       (grid
@@ -199,9 +203,9 @@
              Black "images/cyvasse/btrebuch.bmp")
       (moves
          (step nw) (step ne) (step sw) (step se) (step w) (step e)
-         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
-         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
-         (jump-4 nw) (jump-4 ne) (jump-4 sw) (jump-4 se) (jump-4 w) (jump-4 e)
+         (dragon-2 nw) (dragon-2 ne) (dragon-2 sw) (dragon-2 se) (dragon-2 w) (dragon-2 e)
+         (dragon-3 nw) (dragon-3 ne) (dragon-3 sw) (dragon-3 se) (dragon-3 w) (dragon-3 e)
+         (dragon-4 nw) (dragon-4 ne) (dragon-4 sw) (dragon-4 se) (dragon-4 w) (dragon-4 e)
       )
    )
    (piece
@@ -210,9 +214,9 @@
              Black "images/cyvasse/bdragon.bmp")
       (moves
          (jump-1 nw) (jump-1 ne) (jump-1 sw) (jump-1 se) (jump-1 w) (jump-1 e)
-         (jump-2 nw) (jump-2 ne) (jump-2 sw) (jump-2 se) (jump-2 w) (jump-2 e)
-         (jump-3 nw) (jump-3 ne) (jump-3 sw) (jump-3 se) (jump-3 w) (jump-3 e)
-         (jump-4 nw) (jump-4 ne) (jump-4 sw) (jump-4 se) (jump-4 w) (jump-4 e)
+         (dragon-2 nw) (dragon-2 ne) (dragon-2 sw) (dragon-2 se) (dragon-2 w) (dragon-2 e)
+         (dragon-3 nw) (dragon-3 ne) (dragon-3 sw) (dragon-3 se) (dragon-3 w) (dragon-3 e)
+         (dragon-4 nw) (dragon-4 ne) (dragon-4 sw) (dragon-4 se) (dragon-4 w) (dragon-4 e)
       )
    )
    (piece

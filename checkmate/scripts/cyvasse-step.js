@@ -8,7 +8,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
-var isDefended = function(design, board, pos) {
+Dagaz.Model.isDefended = function(design, board, pos) {
   if (board.getPiece(pos) !== null) return false;
   var r = false;
   _.each([4, 5], function(dir) {
@@ -43,7 +43,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        });
        var n = to.length;
        for (var ix = 0; ix < n; ix++) {
-           if (isDefended(design, board, to[ix])) continue;
+           if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
            _.each(design.allDirections(), function(dir) {
                 var pos = design.navigate(1, to[ix], dir);
                 if (pos === null) return;
@@ -58,7 +58,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        if (piece.type == 3) {
            var m = to.length;
            for (var ix = n; ix < m; ix++) {
-                if (isDefended(design, board, to[ix])) continue;
+                if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
                 _.each(design.allDirections(), function(dir) {
                      var pos = design.navigate(1, to[ix], dir);
                      if (pos === null) return;
@@ -91,7 +91,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        });
        var n = to.length;
        for (var ix = 0; ix < n; ix++) {
-           if (isDefended(design, board, to[ix])) continue;
+           if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
            _.each(design.allDirections(), function(dir) {
                 var pos = design.navigate(1, to[ix], dir);
                 if (pos === null) return;
@@ -101,7 +101,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        }
        var m = to.length;
        for (var ix = n; ix < m; ix++) {
-           if (isDefended(design, board, to[ix])) continue;
+           if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
            _.each(design.allDirections(), function(dir) {
                 var pos = design.navigate(1, to[ix], dir);
                 if (pos === null) return;
@@ -111,7 +111,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        }
        var k = to.length;
        for (var ix = m; ix < k; ix++) {
-           if (isDefended(design, board, to[ix])) continue;
+           if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
            _.each(design.allDirections(), function(dir) {
                 var pos = design.navigate(1, to[ix], dir);
                 if (pos === null) return;
