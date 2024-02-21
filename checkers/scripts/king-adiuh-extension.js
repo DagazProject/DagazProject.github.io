@@ -36,6 +36,7 @@ var isAttacked = function(design, board, player, pos, dir, isKing) {
       }
   }
   if (piece.player == player) return false;
+  if (!isKing && (piece.type == 4)) return false;
   p = design.navigate(player, p, dir);
   if (p === null) return false;
   return board.getPiece(p) === null;
