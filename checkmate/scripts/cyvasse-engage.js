@@ -51,8 +51,6 @@ Dagaz.Model.CheckInvariants = function(board) {
                            cnt--;
                            return;
                        }
-                   } else {
-                       if (Dagaz.Model.isDefended(design, board, p)) return;
                    }
               }
               p = design.navigate(board.player, p, dir);
