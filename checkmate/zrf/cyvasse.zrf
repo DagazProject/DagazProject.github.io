@@ -234,6 +234,11 @@
       (image White "images/cyvasse/water.bmp"
              Black "images/cyvasse/water.bmp")
    )
+   (piece
+      (name Empty)
+      (image White "images/cyvasse/i.bmp"
+             Black "images/cyvasse/i.bmp")
+   )
 
    (board-setup
       (White
