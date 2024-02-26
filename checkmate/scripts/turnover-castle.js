@@ -129,7 +129,7 @@ var checkmate = function(design, board) {
                 if (k.length > 0) {
                     if (k.length > 1) f = false;
                     if (isAttacked(design, b, board.player, k[0])) {
-                        if (k.length == 1) move.failed = true;
+//                      if (k.length == 1) move.failed = true;
                     } else {
                         f = false;
                     }

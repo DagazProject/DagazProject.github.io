@@ -3,7 +3,7 @@
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "cyvasse-trebuchet") {
+  if (name != "cyvasse-rabble") {
       checkVersion(design, name, value);
   }
 }
@@ -12,23 +12,30 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
+  var v = board.getValue(0);
   _.each(board.moves, function(move) {
-      if (move.mode < 2) return;
-      var pos = move.actions[0][0][0];
-      var piece = board.getPiece(pos);
-      if (piece === null) return;
-      if (piece.type != 7) return;
-      var dir = move.mode - 2;
-      var p = design.navigate(0, pos, dir);
-      if ((p === null) || (board.getPiece(p) !== null)) {
+      if (!move.isSimpleMove()) {
           move.failed = true;
           return;
       }
-      move.dropPiece(p, piece);
+      var pos = move.actions[0][0][0];
+      var piece = board.getPiece(pos);
+      if ((piece === null) || (pos == v)) {
+          move.failed = true;
+          return;
+      }
+      if (piece.type != 1) {
+          move.setValue(0, null);
+          if (v !== null) move.failed = true;
+          return;
+      }
       pos = move.actions[0][1][0];
-      move.capturePiece(pos);
-      piece = Dagaz.Model.createPiece(12, board.player);
-      move.actions[0][2] = [piece];
+      if (v !== null) {
+          move.setValue(0, null);
+      } else {
+          move.setValue(0, pos);
+          move.goTo(board.turn);
+      }
   });
   CheckInvariants(board);
 }
