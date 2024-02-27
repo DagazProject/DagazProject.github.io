@@ -47,6 +47,18 @@ Dagaz.Model.CheckInvariants = function(board) {
                    if (x !== null) {
                        if (x.type == 10) return;
                        if (x.player == piece.player) return;
+                       var f = false;
+                       _.each(design.allDirections(), function(d) {
+                           var q = design.navigate(board.player, p, d);
+                           if (q === null) return;
+                           var y = board.getPiece(q);
+                           if (y === null) return;
+                           if (y.player == piece.player) return;
+                           if (y.type == 9) f = true;
+                       });
+                       if (f) {
+                           if ((piece.type == 9) || (l > 1)) return;
+                       }
                        if (isEngaged(l, +x.type)) {
                            cnt--;
                            return;

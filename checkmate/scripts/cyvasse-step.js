@@ -48,6 +48,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                 if (pos === null) return;
                 if (_.indexOf(to, pos) >= 0) return;
                 if (board.getPiece(pos) !== null) return;
+                if (piece.type == 10) return;
                 to.push(pos);
             });
        }
@@ -68,7 +69,8 @@ Dagaz.Model.CheckInvariants = function(board) {
            var pos = design.navigate(1, from, dir);
            if (pos === null) return;
            var piece = board.getPiece(pos);
-           if ((piece !== null) && (piece.type != 10)) {
+           if (piece !== null) {
+               if (piece.type == 10) return;
                if (piece.player != board.player) return;
            }
            to.push(pos);
@@ -81,7 +83,8 @@ Dagaz.Model.CheckInvariants = function(board) {
                 if (pos === null) return;
                 if (_.indexOf(to, pos) >= 0) return;
                 var piece = board.getPiece(pos);
-                if ((piece !== null) && (piece.type != 10)) {
+                if (piece !== null) {
+                    if (piece.type == 10) return;
                     if (piece.player != board.player) return;
                 }
                 to.push(pos);
@@ -96,7 +99,8 @@ Dagaz.Model.CheckInvariants = function(board) {
                      if (pos === null) return;
                      if (_.indexOf(to, pos) >= 0) return;
                      var piece = board.getPiece(pos);
-                         if ((piece !== null) && (piece.type != 10)) {
+                     if (piece !== null) {
+                         if (piece.type == 10) return;
                          if (piece.player != board.player) return;
                      }
                      to.push(pos);

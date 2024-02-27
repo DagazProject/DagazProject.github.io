@@ -29,8 +29,15 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (v !== null) move.failed = true;
           return;
       }
+      var cnt = 0;
+      _.each(design.allPositions(), function(p) {
+          var piece = board.getPiece(p);
+          if (piece === null) return;
+          if (piece.player != board.player) return;
+          if (piece.type == 1) cnt++;
+      });
       pos = move.actions[0][1][0];
-      if (v !== null) {
+      if ((cnt < 2) || (v !== null)) {
           move.setValue(0, null);
       } else {
           move.setValue(0, pos);
