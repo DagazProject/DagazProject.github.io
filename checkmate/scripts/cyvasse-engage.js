@@ -21,14 +21,27 @@ var isEngaged = function(len, type) {
   else return type == 7;
 }
 
+var getPos = function(move) {
+  for (var i = 0; i < move.actions.length; i++) {
+       var a = move.actions[i];
+       if (a[0] !== null) {
+           if (a[1] !== null) {
+               return a[1][0];
+           } else {
+               return a[0][0];
+           }
+       }
+  }
+  return null;
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   _.each(board.moves, function(move) {
-      if (!move.isSimpleMove()) return;
       if (move.mode < 2) return;
-      var pos = move.actions[0][1][0];
+      var pos = getPos(move);
       var piece = board.getPiece(pos);
       if (piece === null) return;
       if (piece.type > 9) {

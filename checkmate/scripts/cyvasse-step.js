@@ -71,7 +71,9 @@ Dagaz.Model.CheckInvariants = function(board) {
            var piece = board.getPiece(pos);
            if (piece !== null) {
                if (piece.type == 10) return;
-               if (piece.player != board.player) return;
+               if (piece.type < 13) {
+                   if (piece.player != board.player) return;
+               }
            }
            to.push(pos);
        });
@@ -85,7 +87,9 @@ Dagaz.Model.CheckInvariants = function(board) {
                 var piece = board.getPiece(pos);
                 if (piece !== null) {
                     if (piece.type == 10) return;
-                    if (piece.player != board.player) return;
+                    if (piece.type < 13) {
+                        if (piece.player != board.player) return;
+                    }
                 }
                 to.push(pos);
            });
@@ -101,14 +105,19 @@ Dagaz.Model.CheckInvariants = function(board) {
                      var piece = board.getPiece(pos);
                      if (piece !== null) {
                          if (piece.type == 10) return;
-                         if (piece.player != board.player) return;
+                         if (piece.type < 13) {
+                             if (piece.player != board.player) return;
+                         }
                      }
                      to.push(pos);
                 });
            }
        }
        _.each(to, function(pos) {
-              if (board.getPiece(pos) !== null) return;
+              var x = board.getPiece(pos);
+              if (x !== null) {
+                  if (x.type < 11) return;
+              }
               var move = Dagaz.Model.createMove(1);
               move.movePiece(from, pos, piece);
               board.moves.push(move);

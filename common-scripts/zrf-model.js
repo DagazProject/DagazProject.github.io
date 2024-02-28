@@ -2035,6 +2035,11 @@ ZrfBoard.prototype.generateInternal = function(callback, cont, cover, serial) {
       Dagaz.Model.Extension(this);
       if (cont) {
           Dagaz.Model.CheckInvariants(this);
+          _.each(this.moves, function(move) {
+              if (!design.isValidMode(this.turn, move.mode)) {
+                  move.failed = true;
+              }
+          }, this);
           Dagaz.Model.PostActions(this);
           if (Dagaz.Model.passTurn == 1) {
               this.moves.push(new ZrfMove());
