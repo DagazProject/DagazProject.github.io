@@ -22,6 +22,17 @@ Dagaz.Model.isDefended = function(design, board, pos) {
   return r;
 }
 
+var isMoveExists = function(board, from, to) {
+  for (var i = 0; i < board.moves.length; i++) {
+       var move = board.moves[i];
+       for (var j = 0; j < move.actions.length; j++) {
+            var a = move.actions[j];
+            if ((a[0] !== null) && (a[1] !== null) && (a[0][0] == from) && (a[1][0] == to)) return true;
+       }
+  }
+  return false;
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -54,6 +65,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        }
        _.each(to, function(pos) {
               if (board.getPiece(pos) !== null) return;
+              if (isMoveExists(board, from, pos)) return;
               var move = Dagaz.Model.createMove(1);
               move.movePiece(from, pos, piece);
               board.moves.push(move);
@@ -114,6 +126,7 @@ Dagaz.Model.CheckInvariants = function(board) {
            }
        }
        _.each(to, function(pos) {
+              if (isMoveExists(board, from, pos)) return;
               var x = board.getPiece(pos);
               if (x !== null) {
                   if (x.type < 11) return;
@@ -166,6 +179,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        }
        _.each(to, function(pos) {
               if (board.getPiece(pos) !== null) return;
+              if (isMoveExists(board, from, pos)) return;
               var move = Dagaz.Model.createMove(1);
               move.movePiece(from, pos, piece);
               board.moves.push(move);

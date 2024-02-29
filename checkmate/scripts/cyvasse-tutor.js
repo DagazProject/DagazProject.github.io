@@ -28,9 +28,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-captures", "false");
+    design.checkVersion("progressive-levels", "true");
 
     design.setupSelector(9);
     design.checkVersion("cyvasse-goal", "Point", 2);
+    design.checkVersion("cyvasse-goal", "Tower", 6);
+    design.checkVersion("cyvasse-goal", "Tower", 7);
     design.checkVersion("cyvasse-goal", "King", 9);
 
     design.addDirection("se"); // 0
@@ -764,7 +767,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("White", "Rabble", 175, 5);
     design.setup("White", "Rabble", 151, 5);
     design.setup("White", "Rabble", 148, 5);
-    design.setup("You", "LightHorse", 199, 5);
+    design.setup("You", "LightHorse", 172, 5);
     design.setup("You", "Crossbow", 176, 5);
 
     design.setup("White", "Water", 28, 6);

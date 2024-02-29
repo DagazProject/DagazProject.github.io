@@ -856,7 +856,7 @@ ZrfDesign.prototype.getAttribute = function(type, name) {
 
 ZrfDesign.prototype.addPiece = function(name, type, price) {
   this.pieceNames[type] = name;
-  this.price[type] = price ? price : 1;
+  this.price[type] = _.isUndefined(price) ? 1 : price;
 }
 
 ZrfDesign.prototype.addMove = function(type, template, params, mode, sound, selector) {
