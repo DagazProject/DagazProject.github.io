@@ -100,11 +100,14 @@ Dagaz.Model.checkVersion = function(design, name, value) {
      }
      if (name == "progressive-levels") {
          Dagaz.Model.progressive = (value == "true");
+         if ((value == "selector") && (Dagaz.Model.maxSetupSelector > Dagaz.Model.getSetupSelector())) {
+             Dagaz.Model.progressive = true;
+         }
          if (value == "silent") {
              Dagaz.Model.progressive = true;
              Dagaz.Model.silent      = true;
          }
-         if ((value != "silent") && (value != "true")) {
+         if ((value != "selector") && (value != "silent") && (value != "true")) {
              Dagaz.Model.progressive = true;
              Dagaz.Model.progressiveUrl = value;
          }
@@ -2688,6 +2691,7 @@ Dagaz.Model.getSetupSelector = function(val) {
 }
 
 ZrfDesign.prototype.setupSelector = function(val) {
+  Dagaz.Model.maxSetupSelector = val;
   Dagaz.Model.getSetupSelector(val);
 }
 

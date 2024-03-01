@@ -109,7 +109,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        if (piece.type == 3) {
            var m = to.length;
            for (var ix = n; ix < m; ix++) {
-                if (Dagaz.Model.isDefended(design, board, to[ix])) continue;
+                if (Dagaz.Model.isDefended(design, board, to[ix]))  continue;
                 _.each(design.allDirections(), function(dir) {
                      var pos = design.navigate(1, to[ix], dir);
                      if (pos === null) return;

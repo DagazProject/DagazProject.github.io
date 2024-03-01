@@ -22,15 +22,16 @@ ZRF = {
 };
 
 Dagaz.Model.BuildDesign = function(design) {
+    design.setupSelector(9);
+
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-captures", "false");
-    design.checkVersion("progressive-levels", "true");
+    design.checkVersion("progressive-levels", "selector");
 
-    design.setupSelector(9);
     design.checkVersion("cyvasse-goal", "Point", 2);
     design.checkVersion("cyvasse-goal", "Tower", 6);
     design.checkVersion("cyvasse-goal", "Tower", 7);
