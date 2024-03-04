@@ -113,7 +113,7 @@ var checkmate = function(design, board) {
        if (piece.player != board.player) continue;
        if (isCastle(design, board, pos)) kings.push(pos);
   }
-  if ((kings.length == 1) && isAttacked(design, board, board.player, kings[0])) {
+  if ((kings.length < 3) && isAttacked(design, board, board.player, kings[0])) {
        var f = true;
        board.generate(design);
        if (board.moves.length > 0) {
@@ -129,7 +129,7 @@ var checkmate = function(design, board) {
                 if (k.length > 0) {
                     if (k.length > 1) f = false;
                     if (isAttacked(design, b, board.player, k[0])) {
-//                      if (k.length == 1) move.failed = true;
+                        if (k.length == 1) move.failed = true;
                     } else {
                         f = false;
                     }
