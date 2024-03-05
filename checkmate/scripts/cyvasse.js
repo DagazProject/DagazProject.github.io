@@ -282,7 +282,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("j7", [13, 12, 1, -1, -12, -13]);
     design.addPosition("k7", [13, 12, 1, -1, -12, -13]);
     design.addPosition("l7", [0, 12, 0, -1, -12, -13]);
-    design.addPosition("a8", [0, 12, 0, 0, 0, 0]);
+    design.addPosition("a8", [0, 0, 0, 0, 0, 0]);
     design.addPosition("b8", [0, 0, 0, 0, 0, 0]);
     design.addPosition("c8", [0, 0, 0, 0, 0, 0]);
     design.addPosition("d8", [13, 0, 1, 0, -12, -13]);
@@ -294,7 +294,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("j8", [13, 12, 1, -1, -12, -13]);
     design.addPosition("k8", [13, 12, 1, -1, -12, -13]);
     design.addPosition("l8", [0, 12, 0, -1, -12, -13]);
-    design.addPosition("a9", [0, 0, 0, 0, -12, 0]);
+    design.addPosition("a9", [0, 0, 0, 0, 0, 0]);
     design.addPosition("b9", [0, 0, 0, 0, 0, 0]);
     design.addPosition("c9", [0, 0, 0, 0, 0, 0]);
     design.addPosition("d9", [0, 0, 0, 0, 0, 0]);

@@ -73,25 +73,29 @@ var isAttackedSlide = function(design, board, player, pos, dirs, types) {
   return false;
 }
 
-var isAttacked = function(design, board, player, pos) {
-  return isAttackedSlide(design, board, player, pos, [0, 1, 2, 3], [6, 4]) ||
-         isAttackedSlide(design, board, player, pos, [4, 5, 6, 7], [6, 2]) ||
-         isAttackedJump(design, board, player, pos, 0, 4) ||
-         isAttackedJump(design, board, player, pos, 0, 5) ||
-         isAttackedJump(design, board, player, pos, 3, 6) ||
-         isAttackedJump(design, board, player, pos, 3, 7) ||
-         isAttackedJump(design, board, player, pos, 1, 5) ||
-         isAttackedJump(design, board, player, pos, 1, 7) ||
-         isAttackedJump(design, board, player, pos, 2, 4) ||
-         isAttackedJump(design, board, player, pos, 2, 6) ||
-         isAttackedStep(design, board, player, pos, 0, [7]) ||
-         isAttackedStep(design, board, player, pos, 1, [7]) ||
-         isAttackedStep(design, board, player, pos, 2, [7]) ||
-         isAttackedStep(design, board, player, pos, 3, [7]) ||
-         isAttackedStep(design, board, player, pos, 4, [1, 7]) ||
-         isAttackedStep(design, board, player, pos, 5, [1, 7]) ||
-         isAttackedStep(design, board, player, pos, 6, [7]) ||
-         isAttackedStep(design, board, player, pos, 7, [7]);
+var isAttacked = function(design, board, player, list) {
+  for (var i = 0; i < list.length; i++) {
+       var pos = list[i];
+       if (isAttackedSlide(design, board, player, pos, [0, 1, 2, 3], [6, 4]) ||
+           isAttackedSlide(design, board, player, pos, [4, 5, 6, 7], [6, 2]) ||
+           isAttackedJump(design, board, player, pos, 0, 4) ||
+           isAttackedJump(design, board, player, pos, 0, 5) ||
+           isAttackedJump(design, board, player, pos, 3, 6) ||
+           isAttackedJump(design, board, player, pos, 3, 7) ||
+           isAttackedJump(design, board, player, pos, 1, 5) ||
+           isAttackedJump(design, board, player, pos, 1, 7) ||
+           isAttackedJump(design, board, player, pos, 2, 4) ||
+           isAttackedJump(design, board, player, pos, 2, 6) ||
+           isAttackedStep(design, board, player, pos, 0, [7]) ||
+           isAttackedStep(design, board, player, pos, 1, [7]) ||
+           isAttackedStep(design, board, player, pos, 2, [7]) ||
+           isAttackedStep(design, board, player, pos, 3, [7]) ||
+           isAttackedStep(design, board, player, pos, 4, [1, 7]) ||
+           isAttackedStep(design, board, player, pos, 5, [1, 7]) ||
+           isAttackedStep(design, board, player, pos, 6, [7]) ||
+           isAttackedStep(design, board, player, pos, 7, [7])) return true;
+  }
+  return false;
 }
 
 var disableMoves = function(design, board, pos) {
@@ -113,7 +117,7 @@ var checkmate = function(design, board) {
        if (piece.player != board.player) continue;
        if (isCastle(design, board, pos)) kings.push(pos);
   }
-  if ((kings.length < 3) && isAttacked(design, board, board.player, kings[0])) {
+  if ((kings.length < 3) && isAttacked(design, board, board.player, kings)) {
        var f = true;
        board.generate(design);
        if (board.moves.length > 0) {
@@ -128,7 +132,7 @@ var checkmate = function(design, board) {
                 }
                 if (k.length > 0) {
                     if (k.length > 1) f = false;
-                    if (isAttacked(design, b, board.player, k[0])) {
+                    if (isAttacked(design, b, board.player, k)) {
                         if (k.length == 1) move.failed = true;
                     } else {
                         f = false;
@@ -158,7 +162,7 @@ Dagaz.Model.CheckInvariants = function(board) {
   }
   _.each(f, function(pos) {
        if (f.length > 1) {
-           if (!isAttacked(design, board, board.player, pos)) return;
+           if (!isAttacked(design, board, board.player, [pos])) return;
        }
        _.each(_.range(8), function(dir) {
             var p = design.navigate(1, pos, dir);
@@ -191,7 +195,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                 if (p !== null) {
                     if ((e.length > 1) || !isCastle(design, board, p)) {
                         var b = board.apply(move);
-                        if (isAttacked(design, b, board.player, p)) return;
+                        if (isAttacked(design, b, board.player, [p])) return;
                     }
                 }
             }
@@ -243,9 +247,7 @@ Dagaz.Model.checkGoals = function(design, board, player) {
                }
            }
       }
-      for (var i = 0; i < f.length; i++) {
-           if (!isAttacked(design, board, board.player, f[i])) return 0;
-      }
+      if (!isAttacked(design, board, board.player, f)) return 0;
   }
   return checkGoals(design, board, player);
 }

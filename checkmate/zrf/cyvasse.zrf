@@ -103,10 +103,10 @@
       )
       (symmetry White (nw sw) (sw nw) (ne se) (se ne) (w e) (e w))
       (kill-positions
-         c9 d9 b8 c8 a7 b7 a6 i1 j1
-         k1 l1 j2 k2 l2 k3 l3 l4 b9
-         C9 D9 B8 C8 A7 B7 A6 I1 J1
-         K1 L1 J2 K2 L2 K3 L3 L4 B9
+         i1 j1 k1 l1 a6 j2 k2 l2 a7 b7
+         k3 l3 a8 b8 c8 l4 a9 b9 c9 d9
+         I1 J1 K1 L1 A6 J2 K2 L2 A7 B7
+         K3 L3 A8 B8 C8 L4 A9 B9 C9 D9
       )
       (zone (name home) (players Black)
          (positions 

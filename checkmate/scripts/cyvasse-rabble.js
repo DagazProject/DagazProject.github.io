@@ -14,6 +14,7 @@ Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   var v = board.getValue(0);
   _.each(board.moves, function(move) {
+      if (move.mode == 0) return;
       if (!move.isSimpleMove()) {
           move.setValue(0, null);
           return;
