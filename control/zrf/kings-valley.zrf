@@ -1,0 +1,68 @@
+(define man-slide (
+  $1 (verify empty?)
+  (while (and (on-board? $1) empty?) $1)
+  (if not-empty? (opposite $1))
+  (verify (not-in-zone? center))
+  add
+))
+
+(define king-slide (
+  $1 (verify empty?)
+  (while (and (on-board? $1) empty?) $1)
+  (if not-empty? (opposite $1))
+  add
+))
+
+(game
+  (title "Kings Valley")
+  (history "2006 Mitsuo Yamamoto")
+
+  (players Blue Red)
+  (turn-order Blue Red)
+
+  (board
+     (image "images/kings-valley/board.bmp")
+     (grid
+         (start-rectangle 1 1 55 55)
+         (dimensions
+           ("a/b/c/d/e" (54 0)) ; files
+           ("5/4/3/2/1" (0 54)) ; ranks
+         )
+         (directions 
+             (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+             (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+         )
+     )
+     (zone (name center) (players Blue Red)
+         (positions c3)
+     )
+  )
+
+  (piece
+     (name  Man)
+     (image Red "images/kings-valley/rman.bmp"
+            Blue "images/kings-valley/bman.bmp")
+     (moves
+        (move-type normal-type)
+        (man-slide n) (man-slide s) (man-slide w) (man-slide e)
+        (man-slide nw) (man-slide se) (man-slide sw) (man-slide ne)
+     )
+  )
+  (piece
+     (name  King)
+     (image Red "images/kings-valley/rking.bmp"
+            Blue "images/kings-valley/bking.bmp")
+     (moves
+        (move-type normal-type)
+        (king-slide n) (king-slide s) (king-slide w) (king-slide e)
+        (king-slide nw) (king-slide se) (king-slide sw) (king-slide ne)
+     )
+  )
+
+  (board-setup
+     (Blue (King c1) (Man a1 b1 d1 e1))
+     (Red (King c5) (Man a5 b5 d5 e5))
+  )
+
+  (win-condition (Blue Red) (absolute-config King (c3)))
+)
