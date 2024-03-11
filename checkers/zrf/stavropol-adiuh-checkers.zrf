@@ -140,24 +140,25 @@
 )
 
 (variant
-  (title "King Adiuh Checkers")
+  (title "King Adiuh Checkers (10x10)")
   (default)
 
   (board
-     (image "images/adiuh/8x8.bmp")
+     (image "images/adiuh/10x10.bmp")
      (grid
          (start-rectangle 2 44 70 112)
          (dimensions
-           ("a/b/c/d/e/f/g/h" (68 0)) ; files
-           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+           ("a/b/c/d/e/f/g/h/i/j" (68 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
          )
          (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
      )
-     (zone (name Promotion) (players White)
-           (positions b8 d8 f8 h8)
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions b10 d10 f10 h10 j10)
      )
-     (zone (name Promotion) (players Black)
-           (positions a1 c1 e1 g1)
+     (zone (name promotion) (players Black)
+           (positions a1 c1 e1 g1 i1)
      )
   )
 
@@ -211,7 +212,7 @@
   )
 
   (board-setup
-    (White (WhiteMan a1 c1 e1 g1  b2 d2 f2 h2  a3 c3 e3 g3) (Queen e1))
-    (Black (BlackMan b8 d8 f8 h8  a7 c7 e7 g7  b6 d6 f6 h6) (Queen d8))
+    (White (WhiteMan a1 c1 g1 i1  b2 d2 f2 h2 j2  a3 c3 e3 g3 i3  b4 d4 f4 h4 j4) (Queen e1))
+    (Black (BlackMan b10 d10 h10 j10  a9 c9 e9 g9 i9  b8 d8 f8 h8 j8  a7 c7 e7 g7 i7) (Queen f10))
   )
 )
