@@ -686,10 +686,6 @@ View2D.prototype.draw = function(canvas) {
                ctx.drawImage(b.h, b.x, b.y);
            }
       });
-      if (!_.isUndefined(Dagaz.View.showBoard)) {
-           var board = this.controller.getBoard();
-           Dagaz.View.showBoard(board, ctx);
-      }
       drawLabels(ctx, this);
       _.chain(_.range(this.setup.length))
        .sortBy(function(ix) {
@@ -724,6 +720,10 @@ View2D.prototype.draw = function(canvas) {
           Dagaz.View.showPieceHint(this, ctx, hintedPiece);
       }
       this.animate();
+      if (!_.isUndefined(Dagaz.View.showBoard)) {
+           var board = this.controller.getBoard();
+           Dagaz.View.showBoard(board, ctx);
+      }
   }
 }
 
