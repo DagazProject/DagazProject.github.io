@@ -2099,23 +2099,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(24, 75, [1], 4);
 
     design.setup("Red", "King", 67);
-    design.setup("Red", "D13", 64);
-    design.setup("Red", "D13", 70);
-    design.setup("Red", "D23", 65);
-    design.setup("Red", "D23", 69);
-    design.setup("Red", "D53", 63);
-    design.setup("Red", "D53", 71);
-    design.setup("Red", "D63", 66);
-    design.setup("Red", "D63", 68);
     design.setup("White", "King", 4);
-    design.setup("White", "D14", 1);
-    design.setup("White", "D14", 7);
-    design.setup("White", "D24", 2);
-    design.setup("White", "D24", 6);
-    design.setup("White", "D54", 0);
-    design.setup("White", "D54", 8);
-    design.setup("White", "D64", 3);
-    design.setup("White", "D64", 5);
 }
 
 Dagaz.View.configure = function(view) {
