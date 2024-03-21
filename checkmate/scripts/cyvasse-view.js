@@ -335,8 +335,10 @@ Dagaz.View.showBoard = function(board, ctx) {
           ctx.beginPath();
           ctx.moveTo(a.x + a.dx / 2, a.y + a.dy / 2);
           ctx.lineTo(b.x + b.dx / 2, b.y + b.dy / 2);
-          ctx.arc(b.x + b.dx / 2, b.y + b.dy / 2, 2, 0, 2 * Math.PI);
           ctx.stroke();
+          ctx.fillStyle = '#0000FF';
+          ctx.arc(b.x + b.dx / 2, b.y + b.dy / 2, 3, 0, 2 * Math.PI);
+          ctx.fill();
       }
   }
   for (var i = 0; i < c.length; i++) {
@@ -352,8 +354,11 @@ Dagaz.View.showBoard = function(board, ctx) {
           ctx.beginPath();
           ctx.moveTo(a.x + a.dx / 2, a.y + a.dy / 2);
           ctx.lineTo(b.x + b.dx / 2, b.y + b.dy / 2);
-          ctx.arc(b.x + b.dx / 2, b.y + b.dy / 2, 2, 0, 2 * Math.PI);
           ctx.stroke();
+          ctx.beginPath();
+          ctx.fillStyle = '#FF0000';
+          ctx.arc(b.x + b.dx / 2, b.y + b.dy / 2, 3, 0, 2 * Math.PI);
+          ctx.fill();
       }
   }
   ctx.restore();
