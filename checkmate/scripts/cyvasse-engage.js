@@ -14,8 +14,9 @@ var isWater = function(board, pos) {
   return piece.type == 11;
 }
 
-var isEngaged = function(len, type, dir) {
-  if ((len == 1) && (type == 2)) return _.indexOf([0, 1], dir) >= 0;
+var isEngaged = function(len, player, type, dir) {
+  if ((len == 1) && (type == 2) && (player == 1)) return _.indexOf([0, 1], dir) >= 0;
+  else if ((len == 1) && (type == 2) && (player == 2)) return _.indexOf([4, 5], dir) >= 0;
   else if (len == 1) return _.indexOf([0, 1, 3, 4, 5, 6, 8, 9], type) >= 0;
   else if (len == 2) return _.indexOf([5, 6, 7, 8], type) >= 0;
   else if (len == 3) return _.indexOf([6, 7], type) >= 0;
@@ -71,7 +72,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                        if (f) {
                            if ((piece.type != 9) && (l == 1)) return;
                        }
-                       if (isEngaged(l, +x.type, dir)) cnt--;
+                       if (isEngaged(l, board.player, +x.type, dir)) cnt--;
                    }
               }
               p = design.navigate(board.player, p, dir);

@@ -37,7 +37,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addDirection("nw"); // 5
 
     design.addPlayer("Black", [5, 4, 3, 2, 1, 0]);
-    design.addPlayer("White", [4, 5, 3, 2, 0, 1]);
+    design.addPlayer("White", [0, 1, 2, 3, 4, 5]);
 
     design.addTurn(2, [0]); // 0
     design.addTurn(2, [0]); // 1
@@ -601,6 +601,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("Spears", 2, 1);
     design.addMove(2, 0, [5], 1);
     design.addMove(2, 0, [4], 1);
+    design.addMove(2, 0, [0], 1);
+    design.addMove(2, 0, [1], 1);
+    design.addMove(2, 1, [0], 2 + 0);
+    design.addMove(2, 1, [1], 2 + 1);
     design.addMove(2, 1, [5], 2 + 5);
     design.addMove(2, 1, [4], 2 + 4);
 

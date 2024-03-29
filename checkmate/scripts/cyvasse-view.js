@@ -28,7 +28,8 @@ var noTower = function(from, engage) {
 
 var getEngages = function(design, board) {
   var r = [];
-  _.each(design.allPositions(), function(pos) {
+  _.each(_.range(108, 216), function(pos) {
+      if (design.isKilledPos(pos)) return;
       if (isWater(board, pos)) return;
       var piece = board.getPiece(pos);
       if (piece === null) return;
@@ -39,6 +40,7 @@ var getEngages = function(design, board) {
           if (e < 1) return;
           var p = design.navigate(piece.player, pos, dir);
           if (piece.type == 7) {
+              if (p === null) return;
               var target = board.getPiece(p);
               if ((target !== null) &&(target.type == 10)) return;
               p = design.navigate(piece.player, p, dir);
@@ -84,7 +86,7 @@ var isEngaged = function(design, board, player, pos, engage) {
 }
 
 var isSpears = function(design, board, player, pos, dir) {
-  if (_.indexOf([4, 5], +dir) < 0) return false;
+  if (_.indexOf((board.player == 1) ? [4, 5] : [0, 1], +dir) < 0) return false;
   var p = design.navigate(player, pos, dir);
   if (p == null) return false;
   var piece = board.getPiece(p);
@@ -95,7 +97,8 @@ var isSpears = function(design, board, player, pos, dir) {
 
 var getCaptures = function(design, board, engage) {
   var r = [];
-  _.each(design.allPositions(), function(pos) {
+  _.each(_.range(108, 216), function(pos) {
+      if (design.isKilledPos(pos)) return;
       var piece = board.getPiece(pos);
       if (piece === null) return;
       if (_.indexOf([0, 1], +piece.type) >= 0) {
@@ -111,7 +114,7 @@ var getCaptures = function(design, board, engage) {
           });
       }
       if (piece.type == 2) {
-          _.each([4, 5], function(dir) {
+          _.each((board.player == 1) ? [4, 5] : [0, 1], function(dir) {
                var p = design.navigate(piece.player, pos, dir);
                if (p === null) return;
                if (isEngaged(design, board, piece.player, p, engage)) {

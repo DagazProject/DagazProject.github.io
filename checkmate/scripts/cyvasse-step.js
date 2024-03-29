@@ -11,7 +11,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 Dagaz.Model.isDefended = function(design, board, pos) {
   if (board.getPiece(pos) !== null) return false;
   var r = false;
-  _.each([4, 5], function(dir) {
+  _.each((board.player == 1) ? [4, 5] : [0, 1], function(dir) {
       var p = design.navigate(board.player, pos, dir);
       if (p === null) return;
       var piece = board.getPiece(p);

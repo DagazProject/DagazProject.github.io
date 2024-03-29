@@ -45,7 +45,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addDirection("nw"); // 5
 
     design.addPlayer("You", [5, 4, 3, 2, 1, 0]);
-    design.addPlayer("White", [4, 5, 3, 2, 0, 1]);
+    design.addPlayer("White", [0, 1, 2, 3, 4, 5]);
 
     design.addTurn(1);
     design.addTurn(1);

@@ -101,7 +101,7 @@
             ("1/2/3/4/5/6/7/8/9" (0 50))
         )
       )
-      (symmetry White (nw sw) (sw nw) (ne se) (se ne) (w e) (e w))
+;     (symmetry White (nw sw) (sw nw) (ne se) (se ne) (w e) (e w))
       (kill-positions
          i1 j1 k1 l1 a6 j2 k2 l2 a7 b7
          k3 l3 a8 b8 c8 l4 a9 b9 c9 d9

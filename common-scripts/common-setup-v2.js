@@ -260,6 +260,7 @@ Dagaz.Model.setup = function(board, init) {
           }
       }
   }
+  Dagaz.Model.Done(design, board);
 }
 
 Dagaz.Model.getGlobal = function(design, board) {

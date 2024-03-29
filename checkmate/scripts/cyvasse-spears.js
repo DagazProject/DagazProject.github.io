@@ -35,6 +35,20 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   _.each(board.moves, function(move) {
+      if (move.isSimpleMove()) {
+          var pos = move.actions[0][0][0];
+          var piece = board.getPiece(pos);
+          if ((piece !== null) && (piece.type == 2)) {
+              var dir = design.findDirection(pos, move.actions[0][1][0]);
+              if (dir !== null) {
+                  if (board.player == 1) {
+                      if (_.indexOf([0, 1], dir) >= 0) move.failed = true;
+                  } else {
+                      if (_.indexOf([4, 5], dir) >= 0) move.failed = true;
+                  }
+              }
+          }
+      }
       if (move.mode < 2) return;
       var from = getFrom(move);
       if (from === null) return;
