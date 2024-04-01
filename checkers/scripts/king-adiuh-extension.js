@@ -23,7 +23,7 @@ var isRestricted = function(design, player, pos, dir, from) {
   return false;
 }
 
-var isAttacked = function(design, board, player, pos, dir, isKing) {
+var isAttacked = function(design, board, player, pos, dir, isKing, type) {
   var p = design.navigate(player, pos, dir);
   if (p === null) return false;
   var piece = board.getPiece(p);
@@ -36,7 +36,7 @@ var isAttacked = function(design, board, player, pos, dir, isKing) {
       }
   }
   if (piece.player == player) return false;
-  if (!isKing && (piece.type == 4)) return false;
+  if ((type < 4) && (piece.type == 4)) return false;
   p = design.navigate(player, p, dir);
   if (p === null) return false;
   return board.getPiece(p) === null;
@@ -224,7 +224,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       _.each(design.allDirections(), function(dir) {
           if (f) return;
           if (isRestricted(design, piece.player, to, dir, from)) return;
-          if (!isAttacked(design, b, piece.player, to, dir, isKing)) return;
+          if (!isAttacked(design, b, piece.player, to, dir, isKing, piece.type)) return;
           f = true;
       });
       if (f) {
