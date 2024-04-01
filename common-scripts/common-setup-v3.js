@@ -183,6 +183,7 @@ Dagaz.Model.setup = function(board, init) {
           Dagaz.Model.setGlobal(design, board, g);
       }
   }
+  Dagaz.Model.Done(design, board);
 }
 
 var toChar = function(n) {
