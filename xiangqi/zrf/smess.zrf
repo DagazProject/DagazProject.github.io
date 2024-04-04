@@ -1,0 +1,131 @@
+(define step-ninny (
+  $1 (verify not-friend?)
+  (if (in-zone? promotion-zone)
+      (add Numskull)
+   else
+       add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(game
+   (title "SMESS")
+   (history "Copyright (c) 1970 Parker Brothers.")
+
+   (players Red Blue)
+   (turn-order Red Blue)
+
+   (board
+     (image "images/ivory/smess.bmp")
+     (grid
+       (start-rectangle 2 2 61 61)
+       (dimensions
+           ("a/b/c/d/e/f/g" (60 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 60)) ; ranks
+       )
+     )
+     (zone (name promotion-zone) (players Red) (positions b8 c8 e8 f8))
+     (zone (name promotion-zone) (players Blue) (positions b1 c1 e1 f1))
+     (links n
+       (a1 a2) (a2 a3) (a3 a4) (a4 a5) (a6 a7) (a7 a8)
+       (b1 b2) (b2 b3) (b4 b5) (b6 b7)
+       (c1 c2) (c2 c3) (c4 c5) (c5 c6) (c7 c8)
+       (d1 d2) (d2 d3) (d4 d5) (d5 d6)
+       (e1 e2) (e2 e3) (e4 e5) (e5 e6) (e7 e8)
+       (f1 f2) (f2 f3) (f3 f4) (f5 f6) (f6 f7)
+       (g1 g2) (g2 g3) (g3 g4) (g5 g6) (g6 g7) (g7 g8)
+     )
+     (links e
+       (a3 b3) (a5 b5) (a6 b6) (a8 b8)
+       (b1 c1) (b2 c2) (b3 c3) (b4 c4) (b5 c5) (b6 c6) (b7 c7) (b8 c8)
+       (c1 d1) (c2 d2) (c5 d5) (c7 d7) (c8 d8)
+       (d1 e1) (d2 e2) (d3 e3) (d4 e4) (d5 e5) (d6 e6) (d7 e7) (d8 e8)
+       (e1 f1) (e2 f2) (e5 f5) (e7 f7) (e8 f8)
+       (f1 g1) (f3 g3) (f5 g5) (f6 g6) (f8 g8)
+     )
+     (links w
+       (b1 a1) (b3 a3) (b4 a4) (b6 a6) (b8 a8)
+       (c1 b1) (c2 b2) (c4 b4) (c7 b7) (c8 b8)
+       (d1 c1) (d2 c2) (d3 c3) (d4 c4) (d5 c5) (d6 c6) (d7 c7) (d8 c8)
+       (e1 d1) (e2 d2) (e4 d4) (e7 d7) (e8 d8)
+       (f1 e1) (f2 e2) (f3 e3) (f4 e4) (f5 e5) (f6 e6) (f7 e7) (f8 e8)
+       (g1 f1) (g3 f3) (g4 f4) (g6 f6)
+     )
+     (links s
+       (a2 a1) (a3 a2) (a4 a3) (a6 a5) (a7 a6) (a8 a7)
+       (b3 b2) (b4 b3) (b6 b5) (b7 b6) (b8 b7)
+       (c2 c1) (c4 c3) (c5 c4) (c7 c6) (c8 c7)
+       (d4 d3) (d5 d4) (d7 d6) (d8 d7)
+       (e2 e1) (e4 e3) (e5 e4) (e7 e6) (e8 e7)
+       (f3 f2) (f5 f4) (f7 f6) (f8 f7)
+       (g2 g1) (g3 g2) (g5 g4) (g6 g5) (g7 g6) (g8 g7)
+     )
+     (links nw
+       (b7 a8) (c3 b4) (c6 b7) (d4 c5) (d5 c6) (e3 d4) (e6 d7) (g4 f5)
+     )
+     (links ne
+       (a5 b6) (c3 d4) (c6 d7) (d4 e5) (d5 e6) (e3 f4) (e6 f7)
+     )
+     (links sw
+       (c3 b2) (c6 b5) (d4 c3) (d5 c4) (e3 d2) (e6 d5) (g4 f3)
+     )
+     (links se
+       (a5 b4) (c3 d2) (c6 d5) (d4 e3) (d5 e4) (e3 f2) (e6 f5) (f2 g1)
+     )
+   )
+
+   (piece
+      (name Ninny)
+      (image Red "images/ivory/rninny.bmp" 
+             Blue "images/ivory/bninny.bmp")
+      (moves
+         (step-ninny n) (step-ninny e) (step-ninny w) (step-ninny s)
+         (step-ninny nw) (step-ninny ne) (step-ninny sw) (step-ninny se)
+      )
+   )
+   (piece
+      (name Numskull)
+      (image Red "images/ivory/rnumskull.bmp" 
+             Blue "images/ivory/bnumskull.bmp")
+      (moves
+         (slide n) (slide e) (slide w) (slide s)
+         (slide nw) (slide ne) (slide sw) (slide se)
+      )
+   )
+   (piece
+      (name Brain)
+      (image Red "images/ivory/rbrain.bmp" 
+             Blue "images/ivory/bbrain.bmp")
+      (moves
+         (step n) (step e) (step w) (step s)
+         (step nw) (step ne) (step sw) (step se)
+      )
+   )
+
+   (board-setup
+      (Red
+         (Ninny a2 b2 c2 d2 e2 f2 g2)
+         (Numskull b1 c1 e1 f1)
+         (Brain d1)
+      )
+      (Blue
+         (Ninny a7 b7 c7 d7 e7 f7 g7)
+         (Numskull b8 c8 e8 f8)
+         (Brain d8)
+      )
+   )
+)
