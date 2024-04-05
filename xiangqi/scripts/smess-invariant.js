@@ -27,7 +27,10 @@ var checkDirection = function(design, board, player, pos, dir, leapers, riders) 
   var piece = board.getPiece(p);
   if (piece !== null) {
       if (piece.player == player) return false;
-      return (_.indexOf(leapers, +piece.type) >= 0) || (_.indexOf(riders, +piece.type) >= 0);
+      if ((_.indexOf(leapers, +piece.type) < 0) && (_.indexOf(riders, +piece.type) < 0)) return false;
+      p = design.navigate(player, p, +dir + 8);
+      if (p === null) return false;
+      return p == pos;
   }
   while (piece === null) {
       p = design.navigate(player, p, dir);
@@ -35,17 +38,22 @@ var checkDirection = function(design, board, player, pos, dir, leapers, riders) 
       piece = board.getPiece(p);
   }
   if (piece.player == player) return false;
-  return _.indexOf(riders, +piece.type) >= 0;
+  if (_.indexOf(riders, +piece.type) < 0) return false;
+  while (p !== null) {
+      if (p == pos) return true;
+      p = design.navigate(player, p, +dir + 8);
+  }
+  return false;
 }
 
 Dagaz.Model.checkPositions = function(design, board, player, positions) {
   var king   = design.getPieceType("Brain");
   var pawn   = design.getPieceType("Ninny");
   var rook   = design.getPieceType("Numskull");
-  var n  = design.getDirection("n");  var w  = design.getDirection("w");
-  var s  = design.getDirection("s");  var e  = design.getDirection("e");
-  var nw = design.getDirection("nw"); var sw = design.getDirection("sw");
-  var ne = design.getDirection("ne"); var se = design.getDirection("se");
+  var n  = design.getDirection("fn");  var w  = design.getDirection("fw");
+  var s  = design.getDirection("fs");  var e  = design.getDirection("fe");
+  var nw = design.getDirection("fnw"); var sw = design.getDirection("fsw");
+  var ne = design.getDirection("fne"); var se = design.getDirection("fse");
   for (var i = 0; i < positions.length; i++) {
        var pos = positions[i];
        if (checkDirection(design, board, player, pos, n,  [king, pawn], [rook])) return true;
