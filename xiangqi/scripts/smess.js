@@ -160,14 +160,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 0, [14], 0);
 
     design.addPiece("Numskull", 1, 1000);
-    design.addMove(1, 1, [13, 13], 0);
-    design.addMove(1, 1, [8, 8], 0);
-    design.addMove(1, 1, [15, 15], 0);
-    design.addMove(1, 1, [9, 9], 0);
-    design.addMove(1, 1, [10, 10], 0);
-    design.addMove(1, 1, [11, 11], 0);
-    design.addMove(1, 1, [12, 12], 0);
-    design.addMove(1, 1, [14, 14], 0);
+    design.addMove(1, 1, [13, 1], 0);
+    design.addMove(1, 1, [8, 7], 0);
+    design.addMove(1, 1, [15, 0], 0);
+    design.addMove(1, 1, [9, 5], 0);
+    design.addMove(1, 1, [10, 6], 0);
+    design.addMove(1, 1, [11, 4], 0);
+    design.addMove(1, 1, [12, 3], 0);
+    design.addMove(1, 1, [14, 2], 0);
 
     design.addPiece("Brain", 2, 20000);
     design.addMove(2, 2, [13], 0);

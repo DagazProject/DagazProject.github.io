@@ -596,28 +596,28 @@ function IsSquareAttackableFrom(target, from) {
 
     if (pieceType == pieceRook) {
         if (_.indexOf(g_e, +from) >= 0) {
-            to = from; do { to++; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_e, +to) >= 0));
+            to = from; do { to++; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_w, +from) >= 0) {
-            to = from; do { to--; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_w, +to) >= 0));
+            to = from; do { to--; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_s, +from) >= 0) {
-            to = from; do { to += 16; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_s, +to) >= 0));
+            to = from; do { to += 16; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_n, +from) >= 0) {
-            to = from; do { to -= 16; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_n, +to) >= 0));
+            to = from; do { to -= 16; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_nw, +from) >= 0) {
-            to = from; do { to -= 17; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_nw, +to) >= 0));
+            to = from; do { to -= 17; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_se, +from) >= 0) {
-            to = from; do { to += 17; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_se, +to) >= 0));
+            to = from; do { to += 17; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_ne, +from) >= 0) {
-            to = from; do { to -= 15; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_ne, +to) >= 0));
+            to = from; do { to -= 15; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
         if (_.indexOf(g_sw, +from) >= 0) {
-            to = from; do { to += 15; if (to == target) return true; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_sw, +to) >= 0));
+            to = from; do { to += 15; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
         }
     }
     return false;
@@ -712,28 +712,28 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
         if (_.indexOf(g_w, +from) >= 0) {
-            to = from - 1;  while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_w, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to--; }
+            to = from - 1;  while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to--; }
         }
         if (_.indexOf(g_e, +from) >= 0) {
-            to = from + 1;  while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_e, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to++; }
+            to = from + 1;  while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to++; }
         }
         if (_.indexOf(g_s, +from) >= 0) {
-            to = from + 16; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_s, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 16; }
+            to = from + 16; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 16; }
         }
         if (_.indexOf(g_n, +from) >= 0) {
-            to = from - 16; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_n, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 16; }
+            to = from - 16; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 16; }
         }
         if (_.indexOf(g_nw, +from) >= 0) {
-            to = from - 17; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_nw, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 17; }
+            to = from - 17; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 17; }
         }
         if (_.indexOf(g_se, +from) >= 0) {
-            to = from + 17; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_se, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 17; }
+            to = from + 17; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 17; }
         }
         if (_.indexOf(g_ne, +from) >= 0) {
-            to = from - 15; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_ne, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 15; }
+            to = from - 15; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 15; }
         }
         if (_.indexOf(g_sw, +from) >= 0) {
-            to = from + 15; while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_sw, +to) >= 0)) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 15; }
+            to = from + 15; while (Dagaz.AI.g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 15; }
         }
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
     }
@@ -827,28 +827,28 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
         if (_.indexOf(g_w, +from) >= 0) {
-            to = from; do { to--; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_w, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to--; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_e, +from) >= 0) {
-            to = from; do { to++; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_e, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to++; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_n, +from) >= 0) {
-            to = from; do { to -= 16; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_n, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to -= 16; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_s, +from) >= 0) {
-            to = from; do { to += 16; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_s, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to += 16; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_nw, +from) >= 0) {
-            to = from; do { to -= 17; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_nw, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to -= 17; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_se, +from) >= 0) {
-            to = from; do { to += 17; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_se, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to += 17; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_ne, +from) >= 0) {
-            to = from; do { to -= 15; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_ne, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to -= 15; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
         if (_.indexOf(g_sw, +from) >= 0) {
-            to = from; do { to += 15; } while ((Dagaz.AI.g_board[to] == 0) && (_.indexOf(g_sw, +to) >= 0)); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+            to = from; do { to += 15; } while (Dagaz.AI.g_board[to] == 0); if (Dagaz.AI.g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
         }
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
     }

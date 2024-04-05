@@ -39,11 +39,8 @@ var checkDirection = function(design, board, player, pos, dir, leapers, riders) 
   }
   if (piece.player == player) return false;
   if (_.indexOf(riders, +piece.type) < 0) return false;
-  while (p !== null) {
-      if (p == pos) return true;
-      p = design.navigate(player, p, +dir + 8);
-  }
-  return false;
+  p = design.navigate(player, p, +dir + 8);
+  return p !== null;
 }
 
 Dagaz.Model.checkPositions = function(design, board, player, positions) {
