@@ -587,10 +587,10 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     }
 
     // Check for king capture (invalid FEN)
-    kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
+/*  kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, Dagaz.AI.g_toMove)) {
         return 'Invalid FEN: Can capture king';
-    }
+    }*/
 
     // Checkmate/stalemate
     if (GenerateValidMoves().length == 0) {
@@ -1013,7 +1013,7 @@ function IsSquareAttackableFrom(target, from) {
             }
         }
     }
-    if (((target & 0xF) != (from & 0xF)) && ((target & 0xF0) != (from & 0xF0))) return false;
+//  if (((target & 0xF) != (from & 0xF)) && ((target & 0xF0) != (from & 0xF0))) return false;
     if (pieceType == pieceRook) {
         if (_.indexOf(g_e, +from) >= 0) {
             to = from; do { to++; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
@@ -1180,7 +1180,7 @@ function GenerateValidMoves() {
 
 Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var from, to, pos, piece, pieceIdx, color;
-    var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
+//  var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
 
     // Pawn quiet moves
     pieceIdx = (Dagaz.AI.g_toMove | piecePawn) << Dagaz.AI.COUNTER_SIZE;
@@ -1559,7 +1559,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 
 Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
     var from, to, pos, piece, pieceIdx, color;
-    var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
+//  var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
     var enemy = Dagaz.AI.g_toMove == Dagaz.AI.colorWhite ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
 
     // Pawn captures

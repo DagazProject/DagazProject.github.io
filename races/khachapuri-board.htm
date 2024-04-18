@@ -1,0 +1,61 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Khachapuri</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="WhiteBoard" style="display:none" src="images/backgammon/slong.png">
+<img id="BlackBoard" style="display:none" src="images/backgammon/nlong.png">
+<img id="WhiteMan" style="display:none" src="images/backgammon/white.png">
+<img id="BlackMan" style="display:none" src="images/backgammon/black.png">
+<img id="WhiteD1" style="display:none" src="images/backgammon/1.png">
+<img id="BlackD1" style="display:none" src="images/backgammon/1.png">
+<img id="WhiteD2" style="display:none" src="images/backgammon/2.png">
+<img id="BlackD2" style="display:none" src="images/backgammon/2.png">
+<img id="WhiteD3" style="display:none" src="images/backgammon/3.png">
+<img id="BlackD3" style="display:none" src="images/backgammon/3.png">
+<img id="WhiteD4" style="display:none" src="images/backgammon/4.png">
+<img id="BlackD4" style="display:none" src="images/backgammon/4.png">
+<img id="WhiteD5" style="display:none" src="images/backgammon/5.png">
+<img id="BlackD5" style="display:none" src="images/backgammon/5.png">
+<img id="WhiteD6" style="display:none" src="images/backgammon/6.png">
+<img id="BlackD6" style="display:none" src="images/backgammon/6.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Traditional (<a target="_blank" href="https://www.bkgm.com/rgb/rgb.cgi?view+1537">rules</a>) designed by W. D. Troyka 
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="khachapuri.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="552" height="350" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/backgammon-goal.js"></script>
+<script src="scripts/backgammon-dices.js"></script>
+<script src="scripts/backgammon-drops.js"></script>
+<script src="scripts/khachapuri-extension.js"></script>
+<script src="scripts/backgammon-restriction.js"></script>
+<script src="scripts/backgammon-turns.js"></script>
+<script src="scripts/khachapuri.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>
