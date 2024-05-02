@@ -25,29 +25,25 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   _.each(board.moves, function(move) {
-      if (board.turn == 13) {
-          move.goTo(2);
-          return;
-      }
-      if (board.turn == 19) {
+      if (board.turn == 20) {
           move.goTo(4);
           return;
       }
-      if (board.turn == 25) {
+      if (board.turn == 26) {
           move.goTo(10);
           return;
       }
       if ((board.turn == 3) && (move.mode == 0)) {
           var dice = move.actions[0][2][0];          
           if (isDouble(design, board, dice.type)) {
-              move.goTo(14);
+              move.goTo(15);
               return;
           }
       }
       if ((board.turn == 9) && (move.mode == 0)) {
           var dice = move.actions[0][2][0];          
           if (isDouble(design, board, dice.type)) {
-              move.goTo(20);
+              move.goTo(21);
               return;
           }
       }

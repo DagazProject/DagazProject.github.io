@@ -58,20 +58,21 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 11
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 12
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 13
+    design.endMark();                      // 14
 
-    design.addTurn(1, [1, 2, 3, 4, 5, 6]); // 14
     design.addTurn(1, [1, 2, 3, 4, 5, 6]); // 15
     design.addTurn(1, [1, 2, 3, 4, 5, 6]); // 16
     design.addTurn(1, [1, 2, 3, 4, 5, 6]); // 17
-    design.addRandom(1, [0]); // 18
+    design.addTurn(1, [1, 2, 3, 4, 5, 6]); // 18
     design.addRandom(1, [0]); // 19
+    design.addRandom(1, [0]); // 20
 
-    design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 20
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 21
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 22
     design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 23
-    design.addRandom(2, [0]); // 24
+    design.addTurn(2, [1, 2, 3, 4, 5, 6]); // 24
     design.addRandom(2, [0]); // 25
+    design.addRandom(2, [0]); // 26
 
     design.addPosition("m1a", [451, 450, 442, 204, 17, 1, 391, 187]);
     design.addPosition("m1b", [0, 0, 0, 203, 16, 1, 0, 0]);

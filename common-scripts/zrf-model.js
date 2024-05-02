@@ -32,9 +32,12 @@ Dagaz.Model.passForcedDraw  = true;
 Dagaz.Model.animateRedo     = false;
 Dagaz.Model.completePartial = false;
 Dagaz.Model.zrfCompatible   = false;
-Dagaz.Model.showLose        = true;
+Dagaz.Model.showLose        = false;
 
-Dagaz.Model.checkVersion = function(design, name, value) {  
+Dagaz.Model.checkVersion = function(design, name, value, selector) {  
+  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getSetupSelector())) {
+      return;
+  }
   if (name == "z2j") {
      if (value > Z2J_VERSION) {
          design.failed = true;
@@ -963,6 +966,7 @@ ZrfDesign.prototype.addTurn = function(player, modes, selector) {
       player: player,
       modes:  modes
   });
+  Dagaz.Controller.NO_UNDO = true;
 }
 
 ZrfDesign.prototype.addRandom = function(player, modes, selector) {
@@ -977,11 +981,20 @@ ZrfDesign.prototype.addRandom = function(player, modes, selector) {
   });
 }
 
-ZrfDesign.prototype.repeatMark = function() {
+ZrfDesign.prototype.repeatMark = function(selector) {
+  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   if (_.isUndefined(this.turns)) {
       this.turns = [];
   }
   this.repeat = this.turns.length;
+}
+
+ZrfDesign.prototype.endMark = function() {
+  if (_.isUndefined(this.turns)) {
+      this.turns = [];
+  }
+  this.end = this.turns.length;
+  this.turns.push({});
 }
 
 ZrfDesign.prototype.isPuzzle = function() {
@@ -1007,7 +1020,7 @@ ZrfDesign.prototype.nextTurn = function(board) {
           }
       }
   } else {
-      if (turn >= this.turns.length) {
+      if ((this.end && (turn == this.end)) || (turn >= this.turns.length)) {
           turn = 0;
           if (this.repeat) {
               turn += this.repeat;
@@ -1225,7 +1238,7 @@ ZrfDesign.prototype.navigate = function(player, pos, dir) {
       dir = this.players[player][dir];
   }
   if (this.positions[pos][dir] != 0) {
-      return + pos + this.positions[pos][dir];
+      return +pos + this.positions[pos][dir];
   } else {
       return null;
   }
@@ -2046,7 +2059,7 @@ ZrfBoard.prototype.generateInternal = function(callback, cont, cover, serial) {
           Dagaz.Model.PostActions(this);
           if (Dagaz.Model.passTurn == 1) {
               this.moves.push(new ZrfMove());
-          }
+          }          
           if (Dagaz.Model.passTurn == 2) {
               if (this.moves.length == 0) {
                   this.moves.push(new ZrfMove());
