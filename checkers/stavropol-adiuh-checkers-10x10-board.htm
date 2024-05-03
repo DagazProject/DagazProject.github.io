@@ -1,0 +1,61 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stavropol Adiyukh Checkers (10x10)</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="WhiteBoard" style="display:none" src="images/adiuh/10x10w.png">
+<img id="BlackBoard" style="display:none" src="images/adiuh/10x10b.png">
+<img id="WhiteWhiteMan" style="display:none" src="images/adiuh/wman.png">
+<img id="BlackBlackMan" style="display:none" src="images/adiuh/bman.png">
+<img id="WhiteWhiteKing" style="display:none" src="images/adiuh/wking.png">
+<img id="BlackBlackKing" style="display:none" src="images/adiuh/bking.png">
+<img id="0" style="display:none" src="images/adiuh/0.png">
+<img id="1" style="display:none" src="images/adiuh/1.png">
+<img id="2" style="display:none" src="images/adiuh/2.png">
+<img id="3" style="display:none" src="images/adiuh/3.png">
+<img id="4" style="display:none" src="images/adiuh/4.png">
+<img id="5" style="display:none" src="images/adiuh/5.png">
+<img id="6" style="display:none" src="images/adiuh/6.png">
+<img id="7" style="display:none" src="images/adiuh/7.png">
+<img id="8" style="display:none" src="images/adiuh/8.png">
+<img id="9" style="display:none" src="images/adiuh/9.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2007 Viktor Pankovich (<a target="_blank" href="https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D0%BE%D0%BB%D0%B1%D0%BE%D0%B2%D1%8B%D0%B5_%D1%88%D0%B0%D1%88%D0%BA%D0%B8#%D0%A8%D0%B0%D1%88%D0%BA%D0%B8_%D0%90%D0%B4%D0%B8%D1%8E%D1%85">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="stavropol-adiuh-checkers-10x10.htm">AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="684" height="726" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/stavropol-adiuh-goal.js"></script>
+<script src="scripts/stavropol-adiuh-fen.js"></script>
+<script src="scripts/adiuh-checkers-restriction.js"></script>
+<script src="scripts/stavropol-adiuh-extension.js"></script>
+<script src="scripts/russian-captures.js"></script>
+<script src="scripts/column-checkers-restriction.js"></script>
+<script src="scripts/stavropol-adiuh-checkers-10x10.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>
