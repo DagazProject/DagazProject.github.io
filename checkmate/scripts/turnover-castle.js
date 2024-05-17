@@ -98,6 +98,18 @@ var isAttacked = function(design, board, player, list) {
   return false;
 }
 
+var isLegal = function(design, board, move) {
+  var b = board.apply(move);
+  var c = 0;
+  for (var pos = Dagaz.Model.stringToPos("a8b"); pos < design.positions.length; pos++) {
+       var piece = b.getPiece(pos);
+       if (piece === null) continue;
+       if (piece.player != board.player) continue;
+       if (isCastle(design, board, pos)) c++;
+  }
+  return c > 0;
+}
+
 var disableMoves = function(design, board, pos) {
   _.each(board.moves, function(move) {
       if (move.mode == 16) return;
@@ -105,13 +117,14 @@ var disableMoves = function(design, board, pos) {
       if (move.actions[0][0] === null) return;
       if (move.actions[0][1] === null) return;
       if (move.actions[0][0][0] != pos) return;
+      if (isLegal(design, board, move)) return;
       move.failed = true;
   });
 }
 
 var checkmate = function(design, board) {
   var kings = [];
-  for (pos = Dagaz.Model.stringToPos("a8b"); pos < design.positions.length; pos++) {
+  for (var pos = Dagaz.Model.stringToPos("a8b"); pos < design.positions.length; pos++) {
        var piece = board.getPiece(pos);
        if (piece === null) continue;
        if (piece.player != board.player) continue;
@@ -221,6 +234,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (move.actions[0][0] === null) return;
           if (move.actions[0][1] === null) return;
           if (move.actions[0][0][0] != f[0]) return;
+          if (isLegal(design, board, move)) return;
           move.failed = true;
       });
   }
