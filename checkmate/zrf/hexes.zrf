@@ -12,7 +12,7 @@
 ))
 
 (define Pawn-add
-   (if (in-zone? promotion-zone) (add Bishop Knight Rook Queen) else add)
+   (if (in-zone? promotion-zone) (add Queen) else add)
 )
 
 (define Pawn-capture (
@@ -21,47 +21,25 @@
 ))
 
 (define Pawn-move (  
-  $1 (verify empty?) (Pawn-add)
-  (verify (in-zone? fast-through))
-  $1 (verify empty?) add
+  $1 (verify empty?)
+  (if (in-zone? fast-through)
+     $1 (verify empty?) (Pawn-add)
+   else
+     add
+  )
 ))
 
 (define Pawn-move2 (  
   $1 (verify empty?) (Pawn-add)
 ))
 
-;(define En-Passant-1 (
-; $1 (verify enemy?)
-; (verify last-to?)
-; (verify (piece? Pawn))
-; capture z0 to z0
-; (verify (or last-from? (last-from? z0)))
-; add
-;))
-
-(define En-Passant-2 (
+(define En-Passant (
   $1 (verify enemy?)
   (verify last-to?)
   (verify (piece? Pawn))
-  capture z0 to z0
+  capture n to n
   (verify last-from?)
   add
-))
-
-(define O-O ( 
-  z2 (verify empty?)
-  cascade z2 
-  (verify (and friend? (piece? Rook)))
-  from back z2 z9 to
-  z3 z2 add
-))
-
-(define O-O-O ( 
-  z9 (verify empty?)
-  cascade zx
-  (verify (and friend? (piece? Rook)))
-  from back to
-  z9 add
 ))
 
 (game
@@ -75,62 +53,62 @@
   (board
      (image "images/hexes/hexes.bmp")
      (positions
-         (a3 52 502 108 552)
-         (a5 52 448 108 498)
-         (a7 52 394 108 444)
-         (a9 52 340 108 390)
-         (a11 52 286 108 336)
-         (a13 52 232 108 282)
-         (a15 52 178 108 228)
-         (a17 52 124 108 174)
-         (b2 97 529 153 579)
-         (b4 97 475 153 525)
-         (b6 97 421 153 471)
-         (b8 97 367 153 417)
-         (b10 97 313 153 363)
-         (b12 97 259 153 309)
-         (b14 97 205 153 255)
-         (b16 97 151 153 201)
-         (b18 97 97 153 147)
-         (c1 143 556 197 606)
-         (c3 143 502 197 552)
-         (c5 143 448 197 498)
-         (c7 143 394 197 444)
-         (c9 143 340 197 390)
-         (c11 143 286 197 336)
-         (c13 143 232 197 282)
-         (c15 143 178 197 228)
-         (c17 143 124 197 174)
-         (c19 143 70 197 120)
-         (d2 188 529 242 579)
-         (d4 188 475 242 525)
-         (d6 188 421 242 471)
-         (d8 188 367 242 417)
-         (d10 188 313 242 363)
-         (d12 188 259 242 309)
-         (d14 188 205 242 255)
-         (d16 188 151 242 201)
-         (d18 188 97 242 147)
          (d20 188 43 242 93)
-         (e3 232 502 288 552)
-         (e5 232 448 288 498)
-         (e7 232 394 288 444)
-         (e9 232 340 288 390)
-         (e11 232 286 288 336)
-         (e13 232 232 288 282)
-         (e15 232 178 288 228)
-         (e17 232 124 288 174)
          (e19 232 70 288 120)
-         (f4 277 475 333 525)
-         (f6 277 421 333 471)
-         (f8 277 367 333 417)
-         (f10 277 313 333 363)
-         (f12 277 259 333 309)
-         (f14 277 205 333 255)
-         (f16 277 151 333 201)
          (f18 277 97 333 147)
+         (c19 143 70 197 120)
+         (d18 188 97 242 147)
+         (e17 232 124 288 174)
+         (f16 277 151 333 201)
+         (b18 97 97 153 147)
+         (c17 143 124 197 174)
+         (d16 188 151 242 201)
+         (e15 232 178 288 228)
+         (f14 277 205 333 255)
+         (a17 52 124 108 174)
+         (b16 97 151 153 201)
+         (c15 143 178 197 228)
+         (d14 188 205 242 255)
+         (e13 232 232 288 282)
+         (f12 277 259 333 309)
+         (a15 52 178 108 228)
+         (b14 97 205 153 255)
+         (c13 143 232 197 282)
+         (d12 188 259 242 309)
+         (e11 232 286 288 336)
+         (f10 277 313 333 363)
+         (a13 52 232 108 282)
+         (b12 97 259 153 309)
+         (c11 143 286 197 336)
+         (d10 188 313 242 363)
+         (e9 232 340 288 390)
+         (f8 277 367 333 417)
+         (a11 52 286 108 336)
+         (b10 97 313 153 363)
+         (c9 143 340 197 390)
+         (d8 188 367 242 417)
+         (e7 232 394 288 444)
+         (f6 277 421 333 471)
+         (a9 52 340 108 390)
+         (b8 97 367 153 417)
+         (c7 143 394 197 444)
+         (d6 188 421 242 471)
+         (e5 232 448 288 498)
+         (f4 277 475 333 525)
+         (a7 52 394 108 444)
+         (b6 97 421 153 471)
+         (c5 143 448 197 498)
+         (d4 188 475 242 525)
+         (e3 232 502 288 552)
+         (a5 52 448 108 498)
+         (b4 97 475 153 525)
+         (c3 143 502 197 552)
+         (d2 188 529 242 579)
+         (a3 52 502 108 552)
+         (b2 97 529 153 579)
+         (c1 143 556 197 606)
      )
-     (links z0
+     (links n
          (a3 a5) (a5 a7) (a7 a9) (a9 a11) (a11 a13) (a13 a15) (a15 a17)
          (b2 b4) (b4 b6) (b6 b8) (b8 b10) (b10 b12) (b12 b14) (b14 b16) (b16 b18)
          (c1 c3) (c3 c5) (c5 c7) (c7 c9) (c9 c11) (c11 c13) (c13 c15) (c15 c17) (c17 c19)
@@ -138,38 +116,38 @@
          (e3 e5) (e5 e7) (e7 e9) (e9 e11) (e11 e13) (e13 e15) (e15 e17) (e17 e19)
          (f4 f6) (f6 f8) (f8 f10) (f10 f12) (f12 f14) (f14 f16) (f16 f18) 
      )
-     (links z1
+     (links nne
          (a15 b18) (a13 b16) (b16 c19) (a11 b14) (b14 c17) (c17 d20) (a9 b12) (b12 c15) (c15 d18)
          (a7 b10) (b10 c13) (c13 d16) (d16 e19) (a5 b8) (b8 c11) (c11 d14) (d14 e17)
          (a3 b6) (b6 c9) (c9 d12) (d12 e15) (e15 f18) (b4 c7) (c7 d10) (d10 e13) (e13 f16)
          (b2 c5) (c5 d8) (d8 e11) (e11 f14) (c3 d6) (d6 e9) (e9 f12) (c1 d4) (d4 e7) (e7 f10) (d2 e5) (e5 f8) (e3 f6)
      )
-     (links z2
+     (links ne
          (a17 b18) (b18 c19) (c19 d20) (a15 b16) (b16 c17) (c17 d18) (d18 e19) (a13 b14) (b14 c15) (c15 d16) (d16 e17) 
          (e17 f18) (a11 b12) (b12 c13) (c13 d14) (d14 e15) (e15 f16) (a9 b10) (b10 c11) (c11 d12) (d12 e13) (e13 f14)
          (a7 b8) (b8 c9) (c9 d10) (d10 e11) (e11 f12) (a5 b6) (b6 c7) (c7 d8) (d8 e9) (e9 f10) (a3 b4) (b4 c5) (c5 d6) 
          (d6 e7) (e7 f8) (b2 c3) (c3 d4) (d4 e5) (e5 f6) (c1 d2) (d2 e3) (e3 f4)
      )
-     (links z3
+     (links e
          (b2 d2) (a3 c3) (c3 e3) (b4 d4) (d4 f4) (a5 c5) (c5 e5) (b6 d6) (d6 f6) (a7 c7) (c7 e7)
          (b8 d8) (d8 f8) (a9 c9) (c9 e9) (b10 d10) (d10 f10) (a11 c11) (c11 e11) (b12 d12) (d12 f12)
          (a13 c13) (c13 e13) (b14 d14) (d14 f14) (a15 c15) (c15 e15) (b16 d16) (d16 f16)
          (a17 c17) (c17 e17) (b18 d18) (d18 f18) (c19 e19)
      )
-     (links z4
+     (links se
          (d20 e19) (e19 f18) (c19 d18) (d18 e17) (e17 f16) (b18 c17) (c17 d16) (d16 e15) (e15 f14)
          (a17 b16) (b16 c15) (c15 d14) (d14 e13) (e13 f12) (a15 b14) (b14 c13) (c13 d12) (d12 e11) (e11 f10)
          (a13 b12) (b12 c11) (c11 d10) (d10 e9) (e9 f8) (a11 b10) (b10 c9) (c9 d8) (d8 e7) (e7 f6)
          (a9 b8) (b8 c7) (c7 d6) (d6 e5) (e5 f4) (a7 b6) (b6 c5) (c5 d4) (d4 e3)
          (a5 b4) (b4 c3) (c3 d2) (a3 b2) (b2 c1)
      )
-     (links z5
+     (links sse
          (a5 b2) (a7 b4) (b4 c1) (a9 b6) (b6 c3) (a11 b8) (b8 c5) (c5 d2) (a13 b10) (b10 c7) (c7 d4)
          (a15 b12) (b12 c9) (c9 d6) (d6 e3) (a17 b14) (b14 c11) (c11 d8) (d8 e5) (b16 c13) (c13 d10) 
          (d10 e7) (e7 f4) (b18 c15) (c15 d12) (d12 e9) (e9 f6) (c17 d14) (d14 e11) (e11 f8)
          (c19 d16) (d16 e13) (e13 f10) (d18 e15) (e15 f12) (d20 e17) (e17 f14) (e19 f16)
      )
-     (links z6
+     (links s
          (a5 a3) (a7 a5) (a9 a7) (a11 a9) (a13 a11) (a15 a13) (a17 a15)
          (b4 b2) (b6 b4) (b8 b6) (b10 b8) (b12 b10) (b14 b12) (b16 b14) (b18 b16)
          (c3 c1) (c5 c3) (c7 c5) (c9 c7) (c11 c9) (c13 c11) (c15 c13) (c17 c15) (c19 c17)
@@ -177,37 +155,37 @@
          (e5 e3) (e7 e5) (e9 e7) (e11 e9) (e13 e11) (e15 e13) (e17 e15) (e19 e17)
          (f6 f4) (f8 f6) (f10 f8) (f12 f10) (f14 f12) (f16 f14) (f18 f16) 
      )
-     (links z7
+     (links ssw
          (b18 a15) (b16 a13) (c19 b16) (b14 a11) (c17 b14) (d20 c17) (b12 a9) (c15 b12) (d18 c15)
          (b10 a7) (c13 b10) (d16 c13) (e19 d16) (b8 a5) (c11 b8) (d14 c11) (e17 d14) (b6 a3) (c9 b6) 
          (d12 c9) (e15 d12) (f18 e15) (c7 b4) (d10 c7) (e13 d10) (f16 e13) (c5 b2) (d8 c5) (e11 d8) (f14 e11)
          (d6 c3) (e9 d6) (f12 e9) (d4 c1) (e7 d4) (f10 e7) (e5 d2) (f8 e5) (f6 e3)
      )
-     (links z8
+     (links sw
          (b18 a17) (c19 b18) (d20 c19) (b16 a15) (c17 b16) (d18 c17) (e19 d18) (b14 a13) (c15 b14) (d16 c15) 
          (e17 d16) (f18 e17) (b12 a11) (c13 b12) (d14 c13) (e15 d14) (f16 e15) (b10 a9) (c11 b10) (d12 c11) 
          (e13 d12) (f14 e13) (b8 a7) (c9 b8) (d10 c9) (e11 d10) (f12 e11) (b6 a5) (c7 b6) (d8 c7) (e9 d8) (f10 e9)
          (b4 a3) (c5 b4) (d6 c5) (e7 d6) (f8 e7) (c3 b2) (d4 c3) (e5 d4) (f6 e5) (d2 c1) (e3 d2) (f4 e3)
      )
-     (links z9
+     (links w
         (d2 b2) (c3 a3) (e3 c3)  (d4 b4) (f4 d4) (c5 a5) (e5 c5) (d6 b6) (f6 d6) (c7 a7) (e7 c7) (d8 b8) (f8 d8)
         (c9 a9) (e9 c9) (d10 b10) (f10 d10) (c11 a11) (e11 c11) (d12 b12) (f12 d12) (c13 a13) (e13 c13)
         (d14 b14) (f14 d14) (c15 a15) (e15 c15) (d16 b16) (f16 d16) (c17 a17) (e17 c17) (d18 b18) (f18 d18) (e19 c19)
      )
-     (links zx
+     (links nw
         (e19 d20) (f18 e19) (d18 c19) (e17 d18) (f16 e17) (c17 b18) (d16 c17) (e15 d16) (f14 e15) (b16 a17) (c15 b16) 
         (d14 c15) (e13 d14) (f12 e13) (b14 a15) (c13 b14) (d12 c13) (e11 d12) (f10 e11) (b12 a13) (c11 b12) (d10 c11) 
         (e9 d10) (f8 e9) (b10 a11) (c9 b10) (d8 c9) (e7 d8) (f6 e7) (b8 a9) (c7 b8) (d6 c7) (e5 d6) (f4 e5) (b6 a7) 
         (c5 b6) (d4 c5) (e3 d4) (b4 a5) (c3 b4) (d2 c3) (b2 a3) (c1 b2)
      )
-     (links zy
+     (links nnw
         (b2 a5) (b4 a7) (c1 b4) (b6 a9) (c3 b6) (b8 a11) (c5 b8) (d2 c5) (b10 a13) (c7 b10) (d4 c7) (b12 a15) (c9 b12) 
         (d6 c9) (e3 d6) (b14 a17) (c11 b14) (d8 c11) (e5 d8) (c13 b16) (d10 c13) (e7 d10) (f4 e7) (c15 b18) (d12 c15) 
         (e9 d12) (f6 e9) (d14 c17) (e11 d14) (f8 e11) (d16 c19) (e13 d16) (f10 e13) (e15 d18) (f12 e15) (e17 d20) (f14 e17) (f16 e19)
      )
      (symmetry Black
-        (z0 z6)(z6 z0) (z1 z7)(z7 z1) (z2 z8)(z8 z2)
-        (z3 z9)(z9 z3) (zx z4)(z4 zx) (zy z5)(z5 zy)
+        (n s)(s n) (nne ssw)(ssw nne) (ne sw)(sw ne)
+        (e w)(w e) (nw se)(se nw) (nnw sse)(sse nnw)
      )
      (zone
         (name promotion-zone) (players Black)
@@ -232,11 +210,10 @@
      (image White "images/hexes/wpawn.bmp" 
             Black "images/hexes/bpawn.bmp")
      (moves
-        (Pawn-capture zx) (Pawn-capture z2)
-        (Pawn-move z0)
-        (Pawn-move2 zy) (Pawn-move2 z1)
-        ;(En-Passant-1 z2) (En-Passant-1 zx)
-        (En-Passant-2 z4) (En-Passant-2 z8)
+        (Pawn-capture nw) (Pawn-capture ne)
+        (Pawn-move n)
+        (Pawn-move2 nnw) (Pawn-move2 nne)
+        (En-Passant se) (En-Passant sw)
      )
   )
    (piece
@@ -244,8 +221,8 @@
       (image White "images/hexes/wbishop.bmp" 
              Black "images/hexes/bbishop.bmp")
       (moves
-	 (slide z1) (slide z3) (slide z5)
-	 (slide z7) (slide z9) (slide zy)
+	 (slide nne) (slide e) (slide sse)
+	 (slide ssw) (slide w) (slide nnw)
       )
    )
    (piece
@@ -253,12 +230,12 @@
       (image White "images/hexes/Wknight.bmp" 
              Black "images/hexes/bknight.bmp")
       (moves
-         (leap2 z0 zy) (leap2 z0 z1)
-         (leap2 z2 z1) (leap2 z2 z3)
-         (leap2 z4 z3) (leap2 z4 z5)
-         (leap2 z6 z5) (leap2 z6 z7)
-         (leap2 z8 z7) (leap2 z8 z9)
-         (leap2 zx z9) (leap2 zx zy)
+         (leap2 n nnw) (leap2 n nne)
+         (leap2 ne nne) (leap2 ne e)
+         (leap2 se e) (leap2 se sse)
+         (leap2 s sse) (leap2 s ssw)
+         (leap2 sw ssw) (leap2 sw w)
+         (leap2 nw w) (leap2 nw nnw)
       )
    )
    (piece
@@ -266,8 +243,8 @@
       (image White "images/hexes/wrook.bmp" 
              Black "images/hexes/brook.bmp")
       (moves
-	 (slide z0) (slide z2) (slide z4)
-	 (slide z6) (slide z8) (slide zx)
+	 (slide n) (slide ne) (slide se)
+	 (slide s) (slide sw) (slide nw)
       )
    )
    (piece
@@ -275,10 +252,10 @@
       (image White "images/hexes/wqueen.bmp" 
              Black "images/hexes/bqueen.bmp")
       (moves
-	 (slide z0) (slide z2) (slide z4)
-	 (slide z6) (slide z8) (slide zx)
-	 (slide z1) (slide z3) (slide z5)
-	 (slide z7) (slide z9) (slide zy)
+	 (slide n) (slide ne) (slide se)
+	 (slide s) (slide sw) (slide nw)
+	 (slide nne) (slide e) (slide sse)
+	 (slide ssw) (slide w) (slide nnw)
       )
    )
    (piece
@@ -286,11 +263,10 @@
       (image White "images/hexes/wking.bmp" 
              Black "images/hexes/bking.bmp")
       (moves
-	 (king-shift z0) (king-shift z1) (king-shift z2)
-	 (king-shift z3) (king-shift z4) (king-shift z5)
-	 (king-shift z6) (king-shift z7) (king-shift z8)
-	 (king-shift z9) (king-shift zx) (king-shift zy)
-         (O-O) (O-O-O)
+	 (king-shift n) (king-shift nne) (king-shift ne)
+	 (king-shift e) (king-shift se) (king-shift sse)
+	 (king-shift s) (king-shift ssw) (king-shift sw)
+	 (king-shift w) (king-shift nw) (king-shift nnw)
       )
    )
 
