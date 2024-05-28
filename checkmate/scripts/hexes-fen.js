@@ -2,6 +2,8 @@ Dagaz.Controller.persistense = "none";
 
 (function() {
 
+var LINES = [3, 4, 5, 6, 6, 6, 6, 6, 5, 4, 3];
+
 var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
@@ -85,6 +87,17 @@ var createPiece = function(design, c) {
   return null;
 }
 
+var checkPassant = function(design, board, pos, dir) {
+  var p = design.navigate(board.player, pos, dir);
+  if (p === null) return;
+  var piece = board.getPiece(p);
+  if (piece !== null) {
+      board.lastt = p;
+  } else {
+      board.lastf = p;
+  }
+}
+
 Dagaz.Model.setup = function(board, init) {
   var design = Dagaz.Model.design;
   var setup  = getSetup(init);
@@ -94,6 +107,7 @@ Dagaz.Model.setup = function(board, init) {
       var pos = 0;
       for (var i = 0; i < setup.length; i++) {
            var c = setup[i];
+           if (c == 'X') continue;
            if (c != '/') {
                if ((c >= '0') && (c <= '9')) {
                    pos += +c;
@@ -104,6 +118,14 @@ Dagaz.Model.setup = function(board, init) {
                }
                if (pos >= design.positions.length) break;
            }
+      }
+      var r = setup.match(/-[wb]-([a-l]\d+)/);
+      if (r) {
+          var pos = Dagaz.Model.stringToPos(r[1], design);
+          if (pos !== null) {
+              checkPassant(design, board, pos, 6);
+              checkPassant(design, board, pos, 0);
+          }
       }
       var turn = getTurn(init);
       if (turn) {
@@ -133,10 +155,10 @@ var getEnPassant = function(design, board) {
       var piece = board.getPiece(board.lastt);
       if (piece === null) return r;
       if (piece.type != 0) return r;
-      var pos = design.navigate(piece.player, board.lastt, 1);
+      var pos = design.navigate(piece.player, board.lastt, 6);
       if (pos === null) return r;
       if (board.getPiece(pos) !== null) return r;
-      var p = design.navigate(piece.player, pos, 1);
+      var p = design.navigate(piece.player, pos, 6);
       if (p === null) return r;
       if (p == board.lastf) r = Dagaz.Model.posToString(pos, design);
   }
@@ -144,9 +166,25 @@ var getEnPassant = function(design, board) {
 }
 
 Dagaz.Model.getSetup = function(design, board) {
-  var str = "?turn=" + board.turn + ";&setup=";
-  var c = 0;
-  for (var pos = 0; pos < design.positions.length; pos++) {
+  var str = "?turn=" + board.turn + ";&setup=XXX";
+  var c = 0; var ix = 0; var l = 0; var cn = 2;
+  for (var pos = 0; pos < design.positions.length; pos++, l++) {
+       if (l >= LINES[ix]) {
+           if (c > 0) {
+               str += c;
+           }
+           c = 0;
+           str += '/';
+           l = 0;
+           ix++;
+           if (ix >= LINES.length) break;
+           if (cn > 0) {
+               for (var i = 0; i < cn; i++) {
+                  str += 'X';
+               }
+               cn--;
+           }
+       }
        if (design.isKilledPos(pos)) {
            if (c > 0) {
                str += c;
@@ -174,10 +212,11 @@ Dagaz.Model.getSetup = function(design, board) {
       str += c;
   }
   if (board.turn == 0) {
-      str += "-w";
+      str += "-w-";
   } else {
-      str += "-b";
+      str += "-b-";
   }
+  str += getEnPassant(design, board);
   if (Dagaz.Controller.persistense == "setup") {
       var s = str + "&game=" + getName() + "*";
       localStorage.setItem('dagaz.setup', s);
