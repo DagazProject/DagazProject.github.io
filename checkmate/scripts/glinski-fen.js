@@ -145,7 +145,7 @@ var getPieceNotation = function(design, piece) {
 }
 
 var getEnPassant = function(design, board) {
-  var r = "";
+  var r = "-";
   if (board.lastt) {
       var piece = board.getPiece(board.lastt);
       if (piece === null) return r;
@@ -200,9 +200,9 @@ Dagaz.Model.getSetup = function(design, board) {
       str += c;
   }
   if (board.turn == 0) {
-      str += "-w-";
+      str += "+w+";
   } else {
-      str += "-b-";
+      str += "+b+";
   }
   str += getEnPassant(design, board);
   if (Dagaz.Controller.persistense == "setup") {

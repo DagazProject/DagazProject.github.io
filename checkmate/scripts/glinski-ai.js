@@ -133,7 +133,7 @@ Dagaz.AI.Evaluate = function() {
     return curEval;
 }
 
-Dagaz.AI.ScoreMove = function(move){
+Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
     var piece = Dagaz.AI.g_board[move & 0xFF];
@@ -249,8 +249,8 @@ function MakeTable(table) {
 
 function onBoard(target) {
   if (target < 0) return false;
-  if ((target >> 4) >= Dagaz.Model.HEIGHT) return false;
-  if ((target & 0x0F) >= Dagaz.Model.WIDTH) return false;
+  if ((target >> 4) - 3 >= Dagaz.Model.HEIGHT) return false;
+  if ((target & 0x0F) - 2 >= Dagaz.Model.WIDTH) return false;
   return true;
 }
 
@@ -368,7 +368,7 @@ function InitializeEval() {
 }
 
 Dagaz.AI.InitializeFromFen = function(fen) {
-    var chunks = fen.split('-');
+    var chunks = fen.split('+');
     
     for (var i = 0; i < 512; i++) 
         Dagaz.AI.g_board[i] = pieceNo;
@@ -800,7 +800,7 @@ function GeneratePawnMoves(moveStack, from) {
     // Quiet pawn moves
     var to = from + inc;
     if (Dagaz.AI.g_board[to] == 0) {
-	MovePawnTo(moveStack, from, to, pieceEmpty);
+	MovePawnTo(moveStack, from, to);
 	// Check if we can do a 2 square jump
         to += inc;
         var row = (from >> 4) - 3;
