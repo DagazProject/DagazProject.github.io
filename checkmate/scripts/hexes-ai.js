@@ -509,7 +509,7 @@ Dagaz.AI.MakeMove = function(move) {
     } else if ((piece & Dagaz.AI.TYPE_MASK) == piecePawn) {
         var diff = to - from;
         if (diff < 0) diff = -diff;
-        if (diff > 16) {
+        if (diff == 32) {
             g_enPassentSquare = me ? (to + 0x10) : (to - 0x10);
         }
         Dagaz.AI.g_move50 = 0;
@@ -796,15 +796,14 @@ function GeneratePawnMoves(moveStack, from) {
             }
         }
     }
-    // DEBUG:
-/*  to = from + (inc * 17);
+    to = from + (inc * 17);
     if (Dagaz.AI.g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
     }
     to = from + (inc * 31);
     if (Dagaz.AI.g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
-    }*/
+    }
 }
 
 Dagaz.AI.See = function(move) {
