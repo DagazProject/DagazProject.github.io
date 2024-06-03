@@ -56,6 +56,42 @@ Dagaz.AI.pieceAdj = [
     0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0
+],
+[   0,    0,    0,    0,    0,    0, // piecePawn
+    0,    0,    0,  200,  150,   50,
+    0,    0,  150,  150,  100,   30,
+    0,  100,  100,  100,   50,   10,
+   50,   50,   50,   50,   20,    0,
+   10,   10,   20,   10,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0
+],
+[   0,    0,    0,   30,   40,   30, // pieceCommon
+    0,    0,   40,  150,  100,   20,
+    0,   30,  100,  200,  150,   10,
+   10,   20,  150,  150,  100,    0,
+    0,   10,  100,   80,   50,    0,
+    0,    0,   50,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0
+],
+[   0,    0,    0,    0,    0,    0, // pieceKing
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,
+    0,    0,   10,   10,   10,   10,
+    0,   10,   30,   50,  100,   10,
+    0,   50,   50,  150,   80,    0,
+   10,  130,  100,   80,    0,    0,
+   10,   80,   50,    0,    0,    0
 ]];
 
 var pieceSquareAdj = new Array(8);
@@ -247,13 +283,13 @@ Dagaz.AI.ResetGame = function() {
        }
   }
 
-  pieceSquareAdj[pieceEmpty]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[piecePawn]   = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceKnight] = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceBishop] = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceRook]   = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceQueen]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceKing]   = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
+  pieceSquareAdj[pieceEmpty]  = MakeTable(Dagaz.AI.pieceAdj[0]);
+  pieceSquareAdj[piecePawn]   = MakeTable(Dagaz.AI.pieceAdj[1]);
+  pieceSquareAdj[pieceKnight] = MakeTable(Dagaz.AI.pieceAdj[2]);
+  pieceSquareAdj[pieceBishop] = MakeTable(Dagaz.AI.pieceAdj[2]);
+  pieceSquareAdj[pieceRook]   = MakeTable(Dagaz.AI.pieceAdj[2]);
+  pieceSquareAdj[pieceQueen]  = MakeTable(Dagaz.AI.pieceAdj[2]);
+  pieceSquareAdj[pieceKing]   = MakeTable(Dagaz.AI.pieceAdj[3]);
 
   var pieceDeltas = [[], [], g_knightDeltas, g_bishopDeltas, g_rookDeltas, g_queenDeltas, g_queenDeltas];
 
