@@ -306,3 +306,36 @@
   (loss-condition (White Black) stalemated)
   (loss-condition (White Black) repetition)
 )
+
+(variant
+  (title "Dama Triestina")
+  (default)
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities priority-type jump-type normal-type)
+
+  (board
+     (image "images/10x10i.bmp")
+     (grid
+         (start-rectangle 2 2 52 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1))
+     )
+     (symmetry Black (nw se) (se nw) (ne sw) (sw ne))
+     (zone (name promotion) (players White)
+           (positions a10 c10 e10 g10 i10)
+     )
+     (zone (name promotion) (players Black)
+           (positions b1 d1 f1 h1 j1)
+     )
+  )
+
+  (board-setup
+    (White (Man b1 d1 f1 h1 j1 a2 c2 e2 g2 i2 b3 d3 f3 h3 j3 a4 c4 e4 g4 i4) )
+    (Black (Man a10 c10 e10 g10 i10 b9 d9 f9 h9 j9 a8 c8 e8 g8 i8 b7 d7 f7 h7 j7) )
+  )
+)
