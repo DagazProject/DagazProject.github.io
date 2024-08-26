@@ -1,0 +1,30 @@
+(define shift (
+   $1 (verify empty?)
+   add
+))
+
+(game
+  (title "Dragon Eyes")
+
+  (players Gold Silver)
+  (turn-order Gold Silver)
+
+  (board
+     (image "images/dragon-eyes/board.bmp")
+     (grid
+         (start-rectangle 22 -173 89 -106)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/k/l" (66 38)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 76)) ; ranks
+         )         
+     )
+     (kill-positions a7 a8 a9 a10 a11 b8 b9 b10 b11 c9 c10 c11 d10 d11 e11 g1 h1 h2 i1 i2 i3 k1 k2 k3 k4 l1 l2 l3 l4 l5)
+  )
+
+  (piece
+     (name Man)
+     (image Gold "images/dragon-eyes/gold.bmp"
+            Silver "images/dragon-eyes/silver.bmp")
+  )
+
+)
