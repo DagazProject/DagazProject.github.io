@@ -1,6 +1,68 @@
+(define promote (
+  (add Man)
+))
+
+(define jump (
+   (verify friend?)
+   (verify (not-in-zone? queen))
+   $1 (verify enemy?)
+   (verify (piece? Man))
+   capture 
+   $1 (verify empty?)
+   (if (in-zone? queen)
+       (add-partial cont-type)
+    else
+       (add-partial jump-type)
+   )
+))
+
 (define shift (
+   (verify friend?)
+   (verify (not-in-zone? queen))
    $1 (verify empty?)
    add
+))
+
+(define long-shift (
+   (verify friend?)
+   (verify (in-zone? queen))
+   $1 (while empty?
+       add $1
+   )
+))
+
+(define long-jump (
+   (verify friend?)
+   (verify (in-zone? queen))
+   $1 (while empty? $1)
+   (verify (piece? Man))
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
+))
+
+(define cont (
+   $1 (while empty? 
+       $1 (verify not-last-from?)
+   )
+   (verify (piece? Man))
+   (verify enemy?) 
+   $1 (while empty?
+       mark
+       (while empty? 
+          (opposite $1)
+       ) 
+       capture
+       back
+       (add-partial cont-type) $1
+   )
 ))
 
 (game
@@ -8,6 +70,7 @@
 
   (players Gold Silver)
   (turn-order Gold Silver)
+  (move-priorities jump-type normal-type)
 
   (board
      (image "images/dragon-eyes/board.bmp")
@@ -17,14 +80,46 @@
            ("a/b/c/d/e/f/g/h/i/k/l" (66 38)) ; files
            ("11/10/9/8/7/6/5/4/3/2/1" (0 76)) ; ranks
          )         
+         (directions (n 0 -1) (s 0 1) (nw -1 0) (se 1 0) (ne 1 -1) (sw -1 1))
      )
      (kill-positions a7 a8 a9 a10 a11 b8 b9 b10 b11 c9 c10 c11 d10 d11 e11 g1 h1 h2 i1 i2 i3 k1 k2 k3 k4 l1 l2 l3 l4 l5)
+     (zone (name queen) (players Gold Silver)
+           (positions f11 a6 l11 f6 a1 l6 f1)
+     )
   )
 
+  (piece
+     (name Init)
+     (image Gold "images/dragon-eyes/white.bmp"
+            Silver "images/dragon-eyes/white.bmp")
+     (moves
+         (move-type jump-type)
+         (promote)
+     )
+  )
   (piece
      (name Man)
      (image Gold "images/dragon-eyes/gold.bmp"
             Silver "images/dragon-eyes/silver.bmp")
+     (moves
+         (move-type cont-type)
+         (cont n) (cont nw) (cont ne)
+         (cont s) (cont sw) (cont se)
+         (move-type jump-type)
+         (jump n) (jump nw) (jump ne)
+         (jump s) (jump sw) (jump se)
+         (long-jump n) (long-jump nw) (long-jump ne)
+         (long-jump s) (long-jump sw) (long-jump se)
+         (move-type normal-type)
+         (shift n) (shift nw) (shift ne)
+         (shift s) (shift sw) (shift se)
+         (long-shift n) (long-shift nw) (long-shift ne)
+         (long-shift s) (long-shift sw) (long-shift se)
+     )
   )
 
+  (board-setup
+    (Gold (Init g11 i9 g5 c7 f8 d9 d5 e8 h9 g8 f4 d7 l10 g9 i11 f10 i10 i5 k7 c4 d2 h6 b5 c8 h11 f9 k9 f3 e10 d3 b3 a5 b2 e4 k8 h3 a2 d1 b1 g3 k5 g2))
+    (Silver (Init e3 c5 h10 f7 c3 b6 g6 e5 g7 e7 i8 l8 g10 e6 k11 g4 d6 b4 f5 k10 e2 h7 c6 k6 d8 i6 i7 e9 h8 d4 a3 l9 b7 h5 l7 c2 a4 c1 e1 f2 h4 i4))
+  )
 )
