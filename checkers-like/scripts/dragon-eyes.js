@@ -174,23 +174,32 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
-    design.addCommand(1, ZRF.IF,	7);
+    design.addCommand(1, ZRF.IF,	10);
     design.addCommand(1, ZRF.PARAM,	1);	// $2
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(1, ZRF.FUNCTION,	4);	// last-from?
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.JUMP,	-8);
+    design.addCommand(1, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.JUMP,	-11);
     design.addCommand(1, ZRF.LITERAL,	1);	// Man
     design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.PARAM,	2);	// $3
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
-    design.addCommand(1, ZRF.IF,	18);
+    design.addCommand(1, ZRF.IF,	21);
+    design.addCommand(1, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.FUNCTION,	6);	// mark
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
@@ -202,12 +211,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	26);	// capture
     design.addCommand(1, ZRF.FUNCTION,	7);	// back
     design.addCommand(1, ZRF.FORK,	4);
-    design.addCommand(1, ZRF.MODE,	2);	// cont-type
+    design.addCommand(1, ZRF.MODE,	3);	// cont-type
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
     design.addCommand(1, ZRF.PARAM,	4);	// $5
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(1, ZRF.JUMP,	-19);
+    design.addCommand(1, ZRF.JUMP,	-22);
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
     design.addCommand(2, ZRF.FUNCTION,	24);	// from
@@ -231,7 +240,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.IN_ZONE,	0);	// queen
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.IF,	4);
-    design.addCommand(2, ZRF.MODE,	2);	// cont-type
+    design.addCommand(2, ZRF.MODE,	3);	// cont-type
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
     design.addCommand(2, ZRF.JUMP,	3);
     design.addCommand(2, ZRF.MODE,	0);	// jump-type
@@ -247,10 +256,16 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.IF,	4);
+    design.addCommand(3, ZRF.IF,	7);
+    design.addCommand(3, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
     design.addCommand(3, ZRF.PARAM,	1);	// $2
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(3, ZRF.JUMP,	-5);
+    design.addCommand(3, ZRF.JUMP,	-8);
+    design.addCommand(3, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
     design.addCommand(3, ZRF.LITERAL,	1);	// Man
     design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
@@ -260,7 +275,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.IF,	18);
+    design.addCommand(3, ZRF.IF,	21);
+    design.addCommand(3, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
     design.addCommand(3, ZRF.FUNCTION,	6);	// mark
     design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
@@ -272,12 +290,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	26);	// capture
     design.addCommand(3, ZRF.FUNCTION,	7);	// back
     design.addCommand(3, ZRF.FORK,	4);
-    design.addCommand(3, ZRF.MODE,	2);	// cont-type
+    design.addCommand(3, ZRF.MODE,	3);	// cont-type
     design.addCommand(3, ZRF.FUNCTION,	25);	// to
     design.addCommand(3, ZRF.FUNCTION,	28);	// end
     design.addCommand(3, ZRF.PARAM,	4);	// $5
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(3, ZRF.JUMP,	-19);
+    design.addCommand(3, ZRF.JUMP,	-22);
     design.addCommand(3, ZRF.FUNCTION,	28);	// end
 
     design.addCommand(4, ZRF.FUNCTION,	24);	// from
@@ -302,28 +320,32 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(5, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(5, ZRF.FUNCTION,	0);	// not
-    design.addCommand(5, ZRF.IF,	7);
+    design.addCommand(5, ZRF.IF,	10);
+    design.addCommand(5, ZRF.IN_ZONE,	0);	// queen
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
     design.addCommand(5, ZRF.FORK,	3);
     design.addCommand(5, ZRF.FUNCTION,	25);	// to
     design.addCommand(5, ZRF.FUNCTION,	28);	// end
     design.addCommand(5, ZRF.PARAM,	1);	// $2
     design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(5, ZRF.JUMP,	-8);
+    design.addCommand(5, ZRF.JUMP,	-11);
     design.addCommand(5, ZRF.FUNCTION,	28);	// end
 
     design.addPriority(0);			// jump-type
-    design.addPriority(1);			// normal-type
+    design.addPriority(1);			// init-type
+    design.addPriority(2);			// normal-type
 
-    design.addPiece("Init", 0);
-    design.addMove(0, 0, [], 0);
+    design.addPiece("Init", 0, 90);
+    design.addMove(0, 0, [], 1);
 
-    design.addPiece("Man", 1);
-    design.addMove(1, 1, [5, 5, 5, 5, 5], 2);
-    design.addMove(1, 1, [4, 4, 4, 4, 4], 2);
-    design.addMove(1, 1, [3, 3, 3, 3, 3], 2);
-    design.addMove(1, 1, [1, 1, 1, 1, 1], 2);
-    design.addMove(1, 1, [2, 2, 2, 2, 2], 2);
-    design.addMove(1, 1, [0, 0, 0, 0, 0], 2);
+    design.addPiece("Man", 1, 100);
+    design.addMove(1, 1, [5, 5, 5, 5, 5], 3);
+    design.addMove(1, 1, [4, 4, 4, 4, 4], 3);
+    design.addMove(1, 1, [3, 3, 3, 3, 3], 3);
+    design.addMove(1, 1, [1, 1, 1, 1, 1], 3);
+    design.addMove(1, 1, [2, 2, 2, 2, 2], 3);
+    design.addMove(1, 1, [0, 0, 0, 0, 0], 3);
     design.addMove(1, 2, [5, 5], 0);
     design.addMove(1, 2, [4, 4], 0);
     design.addMove(1, 2, [3, 3], 0);
@@ -336,20 +358,20 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 3, [1, 1, 1, 1, 1], 0);
     design.addMove(1, 3, [2, 2, 2, 2, 2], 0);
     design.addMove(1, 3, [0, 0, 0, 0, 0], 0);
-    design.addMove(1, 4, [5], 1);
-    design.addMove(1, 4, [4], 1);
-    design.addMove(1, 4, [3], 1);
-    design.addMove(1, 4, [1], 1);
-    design.addMove(1, 4, [2], 1);
-    design.addMove(1, 4, [0], 1);
-    design.addMove(1, 5, [5, 5], 1);
-    design.addMove(1, 5, [4, 4], 1);
-    design.addMove(1, 5, [3, 3], 1);
-    design.addMove(1, 5, [1, 1], 1);
-    design.addMove(1, 5, [2, 2], 1);
-    design.addMove(1, 5, [0, 0], 1);
+    design.addMove(1, 4, [5], 2);
+    design.addMove(1, 4, [4], 2);
+    design.addMove(1, 4, [3], 2);
+    design.addMove(1, 4, [1], 2);
+    design.addMove(1, 4, [2], 2);
+    design.addMove(1, 4, [0], 2);
+    design.addMove(1, 5, [5, 5], 2);
+    design.addMove(1, 5, [4, 4], 2);
+    design.addMove(1, 5, [3, 3], 2);
+    design.addMove(1, 5, [1, 1], 2);
+    design.addMove(1, 5, [2, 2], 2);
+    design.addMove(1, 5, [0, 0], 2);
 
-    design.setup("Gold", "Init", 6);
+/*  design.setup("Gold", "Init", 6);
     design.setup("Gold", "Init", 30);
     design.setup("Gold", "Init", 72);
     design.setup("Gold", "Init", 46);
@@ -432,7 +454,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("Silver", "Init", 114);
     design.setup("Silver", "Init", 104);
     design.setup("Silver", "Init", 84);
-    design.setup("Silver", "Init", 85);
+    design.setup("Silver", "Init", 85);*/
 }
 
 Dagaz.View.configure = function(view) {
