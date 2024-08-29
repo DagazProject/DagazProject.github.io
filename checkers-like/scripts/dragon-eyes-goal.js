@@ -31,7 +31,10 @@ Dagaz.Model.checkGoals = function(design, board, player) {
           }
       });
       if (f > e) return 1;
-      if (f < e) return -1;
+      if (board.moves.length == 0) {
+          if (f < e) return -1;
+          return 0;
+      }
   }
   return checkGoals(design, board, player);
 }
