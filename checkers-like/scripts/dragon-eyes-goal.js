@@ -12,7 +12,11 @@ var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
   board.generate(design);
-  if (board.moves.length == 0) {
+  var c = 0;
+  for (var i = 0; i < board.moves.length; i++) {
+      if (board.moves[i].mode < 2) c++;
+  }
+  if (c == 0) {
       var e = 0; var f = 0;
       _.each(design.allPositions(), function(pos) {
           if (design.isKilledPos(pos)) return;
@@ -28,7 +32,6 @@ Dagaz.Model.checkGoals = function(design, board, player) {
       });
       if (f > e) return 1;
       if (f < e) return -1;
-      return 0;
   }
   return checkGoals(design, board, player);
 }
