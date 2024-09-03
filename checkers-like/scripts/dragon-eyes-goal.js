@@ -20,7 +20,7 @@ Dagaz.Model.checkGoals = function(design, board, player) {
       var e = 0; var f = 0;
       _.each(design.allPositions(), function(pos) {
           if (design.isKilledPos(pos)) return;
-          if (design.inZone(0, 1, pos)) return;
+          if (!design.inZone(0, 1, pos)) return;
           var piece = board.getPiece(pos);
           if (piece !== null) {
               if (piece.player != player) {
@@ -30,9 +30,9 @@ Dagaz.Model.checkGoals = function(design, board, player) {
               }
           }
       });
-      if (f > e) return 1;
+      if (f < e) return -1;
       if (board.moves.length == 0) {
-          if (f < e) return -1;
+          if (f > e) return 1;
           return 0;
       }
   }
