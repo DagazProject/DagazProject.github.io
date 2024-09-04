@@ -53,8 +53,8 @@
 
 (define cont (
    $1 (while empty? 
-       $1 (verify not-last-from?)
        (verify (not-in-zone? queen))
+       $1 (verify not-last-from?)
    )
    (verify (piece? Man))
    (verify enemy?) 
@@ -96,8 +96,8 @@
 
   (piece
      (name Init)
-     (image Gold "images/dragon-eyes/white.bmp"
-            Silver "images/dragon-eyes/white.bmp")
+     (image Gold "images/dragon-eyes/silver.bmp"
+            Silver "images/dragon-eyes/silver.bmp")
      (moves
          (move-type init-type)
          (promote)
@@ -106,7 +106,7 @@
   (piece
      (name Man)
      (image Gold "images/dragon-eyes/gold.bmp"
-            Silver "images/dragon-eyes/silver.bmp")
+            Silver "images/dragon-eyes/white.bmp")
      (moves
          (move-type cont-type)
          (cont n) (cont nw) (cont ne)
@@ -122,10 +122,5 @@
          (long-shift n) (long-shift nw) (long-shift ne)
          (long-shift s) (long-shift sw) (long-shift se)
      )
-  )
-
-  (board-setup
-    (Gold (Init g11 i9 g5 c7 f8 d9 d5 e8 h9 g8 f4 d7 l10 g9 i11 f10 i10 i5 k7 c4 d2 h6 b5 c8 h11 f9 k9 f3 e10 d3 b3 a5 b2 e4 k8 h3 a2 d1 b1 g3 k5 g2))
-    (Silver (Init e3 c5 h10 f7 c3 b6 g6 e5 g7 e7 i8 l8 g10 e6 k11 g4 d6 b4 f5 k10 e2 h7 c6 k6 d8 i6 i7 e9 h8 d4 a3 l9 b7 h5 l7 c2 a4 c1 e1 f2 h4 i4))
   )
 )
