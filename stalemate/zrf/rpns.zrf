@@ -1,0 +1,50 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(game
+  (title "RPnS")
+
+  (players Red Blue)
+  (turn-order Red Blue)
+
+  (board
+     (image "images/rpns/board.bmp")
+     (grid
+         (start-rectangle 124 95 254 208)
+         (dimensions
+           ("a/b/c/d" (159 0)) ; files
+           ("4/2" (0 318)) ; ranks
+         )
+     )
+     (grid
+         (start-rectangle 44 253 174 366)
+         (dimensions
+           ("a/b/c/d" (159 0)) ; files
+           ("3/1" (0 318)) ; ranks
+         )
+     )
+     (links e  (a4 b4) (b4 c4) (c4 d4) (a3 b3) (b3 c3) (c3 d3) (a2 b2) (b2 c2) (c2 d2) (a1 b1) (b1 c1) (c1 d1))
+     (links w  (b4 a4) (c4 b4) (d4 c4) (b3 a3) (c3 b3) (d3 c3) (b2 a2) (c2 b2) (d2 c2) (b1 a1) (c1 b1) (d1 c1))
+     (links ne (a3 a4) (b3 b4) (c3 c4) (d3 d4) (a2 b3) (b2 c3) (c2 d3) (a1 a2) (b1 b2) (c1 c2) (d1 d2))
+     (links sw (a4 a3) (b4 b3) (c4 c3) (d4 d3) (b3 a2) (c3 b2) (d3 c2) (a2 a1) (b2 b1) (c2 c1) (d2 d1))
+     (links nw (b3 a4) (c3 b4) (d3 c4) (a2 a3) (b2 b3) (c2 c3) (d2 d3) (b1 a2) (c1 b2) (d1 c2))
+     (links se (a4 b3) (b4 c3) (c4 d3) (a3 a2) (b3 b2) (c3 c2) (d3 d2) (a2 b1) (b2 c1) (c2 d1))
+  )
+
+  (piece
+     (name Man)
+     (image Red "images/rpns/rpfn.bmp"
+            Blue "images/rpns/bpfn.bmp")
+     (moves
+         (step nw) (step sw) (step w)
+         (step ne) (step se) (step e)
+     )
+  )
+
+  (board-setup
+     (Red (Man a1 b1 c1 d1))
+     (Blue (Man a4 b4 c4 d4))
+  )
+)
