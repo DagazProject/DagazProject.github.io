@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "none";
+Dagaz.Controller.persistense = "setup";
 
 ZRF = {
     JUMP:          0,
