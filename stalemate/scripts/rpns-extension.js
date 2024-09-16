@@ -54,7 +54,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       var target = board.getPiece(q);
       if (target === null) return;
       var v = design.price[+target.type] % 10;
-      if (!isBetter(move.mode, v, piece.type >= 12)) {
+      if (!isBetter(move.mode, v, (piece.type >= 12) || (target.type <= 5))) {
           move.failed = true;
           return;
       }
