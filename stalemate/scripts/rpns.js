@@ -378,12 +378,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(17, 17, [0], 3);
 
     design.setup("Red", "RockMan", 12);
-    design.setup("Red", "ScissorsMan", 15);
-    design.setup("Red", "RockKing", 13);
+    design.setup("Red", "RockMan", 15);
+    design.setup("Red", "ScissorsKing", 13);
     design.setup("Red", "PaperQueen", 14);
     design.setup("Blue", "RockMan", 3);
-    design.setup("Blue", "ScissorsMan", 0);
-    design.setup("Blue", "RockKing", 2);
+    design.setup("Blue", "RockMan", 0);
+    design.setup("Blue", "ScissorsKing", 2);
     design.setup("Blue", "PaperQueen", 1);
 }
 

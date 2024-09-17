@@ -197,7 +197,7 @@
   )
 
   (board-setup
-     (Red (RockMan a1) (ScissorsMan d1) (RockKing b1) (PaperQueen c1))
-     (Blue (RockMan d4) (ScissorsMan a4) (RockKing c4) (PaperQueen b4))
+     (Red (RockMan a1) (RockMan d1) (ScissorsKing b1) (PaperQueen c1))
+     (Blue (RockMan d4) (RockMan a4) (ScissorsKing c4) (PaperQueen b4))
   )
 )
