@@ -1,0 +1,171 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (add Knight)
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (add Knight)
+))
+
+(define shift (
+  $1 (verify empty?)
+  (add $2)
+))
+
+(define step (
+  $1 (verify enemy?)
+  (add $2)
+))
+
+(define leap (
+  $1 $2 (verify empty?)
+  (add Bishop)
+))
+
+(define jump (
+  $1 $2 (verify enemy?)
+  (add Bishop)
+))
+
+(define slide (
+  $1 
+  (while empty? (add $2) $1)
+))
+
+(define glide (
+  $1 
+  (while empty? $1)
+  (verify enemy?)
+  (add $2)
+))
+
+(define king-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      add
+   else
+      (add Pawn)
+  )
+))
+
+(define king-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      add
+   else
+      (add Pawn)
+  )
+))
+
+(game
+  (title "Jabberwocky Chess")
+
+  (players White Black)
+  (turn-order White Black)
+  (move-priorities jump-type normal-type)
+
+  (board
+     (image "images/8x8.bmp")
+     (grid
+         (start-rectangle 2 2 70 70)
+         (dimensions
+           ("a/b/c/d/e/f/g/h" (68 0)) ; files
+           ("8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/wpawn.bmp"
+            Black "images/bpawn.bmp")
+     (moves
+         (move-type jump-type)
+         (pawn-step nw) (pawn-step ne)
+         (move-type normal-type)
+         (pawn-shift n)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/wrook.bmp"
+            Black "images/brook.bmp")
+     (moves
+         (move-type jump-type)
+         (glide n Queen) (glide s Queen) (glide w Queen) (glide e Queen)
+         (move-type normal-type)
+         (slide n Queen) (slide s Queen) (slide w Queen) (slide e Queen)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/wknight.bmp"
+            Black "images/bknight.bmp")
+     (moves
+         (move-type jump-type)
+         (jump n nw) (jump n ne) (jump s sw) (jump s se)
+         (jump w nw) (jump w sw) (jump e ne) (jump e se)
+         (move-type normal-type)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/wbishop.bmp"
+            Black "images/bbishop.bmp")
+     (moves
+         (move-type jump-type)
+         (glide nw Rook) (glide sw Rook) (glide ne Rook) (glide se Rook)
+         (move-type normal-type)
+         (slide nw Rook) (slide sw Rook) (slide ne Rook) (slide se Rook)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/wqueen.bmp"
+            Black "images/bqueen.bmp")
+     (moves
+         (move-type jump-type)
+         (glide n King) (glide s King) (glide w King) (glide e King)
+         (glide nw King) (glide sw King) (glide ne King) (glide se King)
+         (move-type normal-type)
+         (slide n King) (slide s King) (slide w King) (slide e King)
+         (slide nw King) (slide sw King) (slide ne King) (slide se King)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (move-type jump-type)
+         (king-step n) (king-step s) (king-step w) (king-step e)
+         (king-step nw) (king-step sw) (king-step ne) (king-step se)
+         (move-type normal-type)
+         (king-shift n) (king-shift s) (king-shift w) (king-shift e)
+         (king-shift nw) (king-shift sw) (king-shift ne) (king-shift se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (King a1 b1 c1 d1 e1 f1 g1 h1 a2 b2 c2 d2 e2 f2 g2 h2)
+    )
+    (Black 
+         (King a7 b7 c7 d7 e7 f7 g7 h7 a8 b8 c8 d8 e8 f8 g8 h8)
+    )
+  )
+)
