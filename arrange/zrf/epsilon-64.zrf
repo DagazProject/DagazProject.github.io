@@ -3,6 +3,17 @@
   add
 ))
 
+(define jump (
+  $1 (verify not-empty?)
+  $1 (verify empty?)
+  (add-partial continue-type)
+))
+
+(define step (
+  $1 (verify empty?)
+  add
+))
+
 (game
   (title "Epsilon 64")
 
@@ -29,7 +40,20 @@
      (image White "images/epsilon/white.bmp"
             Black "images/epsilon/black.bmp")
      (drops
+        (move-type normal-type)
         (drop)
+     )
+     (moves
+        (move-type normal-type)
+        (step nw) (step ne)
+        (step sw) (step se)
+        (step e)  (step w) 
+        (step n)  (step s) 
+        (move-type continue-type)
+        (jump nw) (jump ne)
+        (jump sw) (jump se)
+        (jump e)  (jump w) 
+        (jump n)  (jump s) 
      )
   )
 )

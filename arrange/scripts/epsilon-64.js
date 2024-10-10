@@ -1,3 +1,5 @@
+Dagaz.Controller.persistense = "setup";
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -109,8 +111,46 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
+    design.addCommand(1, ZRF.FUNCTION,	24);	// from
+    design.addCommand(1, ZRF.PARAM,	0);	// $1
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	25);	// to
+    design.addCommand(1, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(2, ZRF.FUNCTION,	24);	// from
+    design.addCommand(2, ZRF.PARAM,	0);	// $1
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.PARAM,	1);	// $2
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.MODE,	1);	// continue-type
+    design.addCommand(2, ZRF.FUNCTION,	25);	// to
+    design.addCommand(2, ZRF.FUNCTION,	28);	// end
+
     design.addPiece("Stone", 0);
     design.addDrop(0, 0, [], 0);
+    design.addMove(0, 1, [6], 0);
+    design.addMove(0, 1, [5], 0);
+    design.addMove(0, 1, [2], 0);
+    design.addMove(0, 1, [0], 0);
+    design.addMove(0, 1, [3], 0);
+    design.addMove(0, 1, [4], 0);
+    design.addMove(0, 1, [7], 0);
+    design.addMove(0, 1, [1], 0);
+    design.addMove(0, 2, [6, 6], 1);
+    design.addMove(0, 2, [5, 5], 1);
+    design.addMove(0, 2, [2, 2], 1);
+    design.addMove(0, 2, [0, 0], 1);
+    design.addMove(0, 2, [3, 3], 1);
+    design.addMove(0, 2, [4, 4], 1);
+    design.addMove(0, 2, [7, 7], 1);
+    design.addMove(0, 2, [1, 1], 1);
 }
 
 Dagaz.View.configure = function(view) {
