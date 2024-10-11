@@ -56,4 +56,9 @@
         (jump n)  (jump s) 
      )
   )
+
+  (board-setup
+     (White (Stone off 7))
+     (Black (Stone off 7))
+  )
 )

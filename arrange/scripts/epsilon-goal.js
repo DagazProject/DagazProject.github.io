@@ -20,6 +20,7 @@ var calcDirection = function(design, board, pos, player, dir) {
   }
   p = design.navigate(0, pos, dir);
   while (p !== null) {
+      var piece = board.getPiece(p);
       if (piece === null) break;
       if (piece.player != player) break;
       p = design.navigate(0, p, dir);
