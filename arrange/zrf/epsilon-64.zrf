@@ -1,14 +1,3 @@
-(define drop (
-  (verify empty?)
-  add
-))
-
-(define jump (
-  $1 (verify not-empty?)
-  $1 (verify empty?)
-  (add-partial continue-type)
-))
-
 (define step (
   $1 (verify empty?)
   add
@@ -23,7 +12,7 @@
   (board
      (image "images/epsilon/8x8.bmp")
      (grid
-         (start-rectangle 29 32 98 101)
+         (start-rectangle 99 32 168 101)
          (dimensions
            ("a/b/c/d/e/f/g/h" (71 0)) ; files
            ("8/7/6/5/4/3/2/1" (0 71)) ; ranks
@@ -33,32 +22,30 @@
               (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
          )
      )
+     (grid
+         (start-rectangle 1 0 70 69)
+         (dimensions
+           ("X/Y" (695 66)) ; files
+           ("8/7/6/5/4/3/2/1" (0 71)) ; ranks
+         )
+     )
   )
 
   (piece
      (name  Stone)
      (image White "images/epsilon/white.bmp"
             Black "images/epsilon/black.bmp")
-     (drops
-        (move-type normal-type)
-        (drop)
-     )
      (moves
         (move-type normal-type)
         (step nw) (step ne)
         (step sw) (step se)
         (step e)  (step w) 
         (step n)  (step s) 
-        (move-type continue-type)
-        (jump nw) (jump ne)
-        (jump sw) (jump se)
-        (jump e)  (jump w) 
-        (jump n)  (jump s) 
      )
   )
 
   (board-setup
-     (White (Stone off 7))
-     (Black (Stone off 7))
+     (White (Stone Y1 Y2 Y3 Y4 Y5 Y6 Y7))
+     (Black (Stone X8 X7 X6 X5 X4 X3 X2))
   )
 )

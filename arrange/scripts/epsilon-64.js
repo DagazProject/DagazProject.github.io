@@ -25,9 +25,9 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
     design.checkVersion("animate-drops", "false");
+    design.checkVersion("show-blink", "false");
     design.checkVersion("smart-moves", "false");
-    design.checkVersion("pass-partial", "true");
-    design.checkVersion("detect-loops", "true");
+    design.checkVersion("show-hints", "false");
 
     design.addDirection("se"); // 0
     design.addDirection("s");  // 1
@@ -105,55 +105,55 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("f1", [0, 0, 0, 1, -1, -7, -9, -8]);
     design.addPosition("g1", [0, 0, 0, 1, -1, -7, -9, -8]);
     design.addPosition("h1", [0, 0, 0, 0, -1, 0, -9, -8]);
+    design.addPosition("X8", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y8", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X7", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y7", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X6", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y6", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X5", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y5", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X4", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y4", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X3", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y3", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X2", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y2", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X1", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("Y1", [0, 0, 0, 0, 0, 0, 0, 0]);
 
+    design.addCommand(0, ZRF.FUNCTION,	24);	// from
+    design.addCommand(0, ZRF.PARAM,	0);	// $1
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
-    design.addCommand(1, ZRF.FUNCTION,	24);	// from
-    design.addCommand(1, ZRF.PARAM,	0);	// $1
-    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.FUNCTION,	25);	// to
-    design.addCommand(1, ZRF.FUNCTION,	28);	// end
-
-    design.addCommand(2, ZRF.FUNCTION,	24);	// from
-    design.addCommand(2, ZRF.PARAM,	0);	// $1
-    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(2, ZRF.FUNCTION,	0);	// not
-    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.PARAM,	1);	// $2
-    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.MODE,	1);	// continue-type
-    design.addCommand(2, ZRF.FUNCTION,	25);	// to
-    design.addCommand(2, ZRF.FUNCTION,	28);	// end
-
     design.addPiece("Stone", 0);
-    design.addDrop(0, 0, [], 0);
-    design.addMove(0, 1, [6], 0);
-    design.addMove(0, 1, [5], 0);
-    design.addMove(0, 1, [2], 0);
-    design.addMove(0, 1, [0], 0);
-    design.addMove(0, 1, [3], 0);
-    design.addMove(0, 1, [4], 0);
-    design.addMove(0, 1, [7], 0);
-    design.addMove(0, 1, [1], 0);
-    design.addMove(0, 2, [6, 6], 1);
-    design.addMove(0, 2, [5, 5], 1);
-    design.addMove(0, 2, [2, 2], 1);
-    design.addMove(0, 2, [0, 0], 1);
-    design.addMove(0, 2, [3, 3], 1);
-    design.addMove(0, 2, [4, 4], 1);
-    design.addMove(0, 2, [7, 7], 1);
-    design.addMove(0, 2, [1, 1], 1);
+    design.addMove(0, 0, [6], 0);
+    design.addMove(0, 0, [5], 0);
+    design.addMove(0, 0, [2], 0);
+    design.addMove(0, 0, [0], 0);
+    design.addMove(0, 0, [3], 0);
+    design.addMove(0, 0, [4], 0);
+    design.addMove(0, 0, [7], 0);
+    design.addMove(0, 0, [1], 0);
 
-    design.reserve("White", "Stone", 7);
-    design.reserve("Black", "Stone", 7);
+    design.setup("White", "Stone", 79);
+    design.setup("White", "Stone", 77);
+    design.setup("White", "Stone", 75);
+    design.setup("White", "Stone", 73);
+    design.setup("White", "Stone", 71);
+    design.setup("White", "Stone", 69);
+    design.setup("White", "Stone", 67);
+    design.setup("Black", "Stone", 64);
+    design.setup("Black", "Stone", 66);
+    design.setup("Black", "Stone", 68);
+    design.setup("Black", "Stone", 70);
+    design.setup("Black", "Stone", 72);
+    design.setup("Black", "Stone", 74);
+    design.setup("Black", "Stone", 76);
 }
 
 Dagaz.View.configure = function(view) {
@@ -162,68 +162,84 @@ Dagaz.View.configure = function(view) {
     view.defPiece("WhiteStone", "White Stone");
     view.defPiece("BlackStone", "Black Stone");
  
-    view.defPosition("a8", 29, 32, 69, 69);
-    view.defPosition("b8", 100, 32, 69, 69);
-    view.defPosition("c8", 171, 32, 69, 69);
-    view.defPosition("d8", 242, 32, 69, 69);
-    view.defPosition("e8", 313, 32, 69, 69);
-    view.defPosition("f8", 384, 32, 69, 69);
-    view.defPosition("g8", 455, 32, 69, 69);
-    view.defPosition("h8", 526, 32, 69, 69);
-    view.defPosition("a7", 29, 103, 69, 69);
-    view.defPosition("b7", 100, 103, 69, 69);
-    view.defPosition("c7", 171, 103, 69, 69);
-    view.defPosition("d7", 242, 103, 69, 69);
-    view.defPosition("e7", 313, 103, 69, 69);
-    view.defPosition("f7", 384, 103, 69, 69);
-    view.defPosition("g7", 455, 103, 69, 69);
-    view.defPosition("h7", 526, 103, 69, 69);
-    view.defPosition("a6", 29, 174, 69, 69);
-    view.defPosition("b6", 100, 174, 69, 69);
-    view.defPosition("c6", 171, 174, 69, 69);
-    view.defPosition("d6", 242, 174, 69, 69);
-    view.defPosition("e6", 313, 174, 69, 69);
-    view.defPosition("f6", 384, 174, 69, 69);
-    view.defPosition("g6", 455, 174, 69, 69);
-    view.defPosition("h6", 526, 174, 69, 69);
-    view.defPosition("a5", 29, 245, 69, 69);
-    view.defPosition("b5", 100, 245, 69, 69);
-    view.defPosition("c5", 171, 245, 69, 69);
-    view.defPosition("d5", 242, 245, 69, 69);
-    view.defPosition("e5", 313, 245, 69, 69);
-    view.defPosition("f5", 384, 245, 69, 69);
-    view.defPosition("g5", 455, 245, 69, 69);
-    view.defPosition("h5", 526, 245, 69, 69);
-    view.defPosition("a4", 29, 316, 69, 69);
-    view.defPosition("b4", 100, 316, 69, 69);
-    view.defPosition("c4", 171, 316, 69, 69);
-    view.defPosition("d4", 242, 316, 69, 69);
-    view.defPosition("e4", 313, 316, 69, 69);
-    view.defPosition("f4", 384, 316, 69, 69);
-    view.defPosition("g4", 455, 316, 69, 69);
-    view.defPosition("h4", 526, 316, 69, 69);
-    view.defPosition("a3", 29, 387, 69, 69);
-    view.defPosition("b3", 100, 387, 69, 69);
-    view.defPosition("c3", 171, 387, 69, 69);
-    view.defPosition("d3", 242, 387, 69, 69);
-    view.defPosition("e3", 313, 387, 69, 69);
-    view.defPosition("f3", 384, 387, 69, 69);
-    view.defPosition("g3", 455, 387, 69, 69);
-    view.defPosition("h3", 526, 387, 69, 69);
-    view.defPosition("a2", 29, 458, 69, 69);
-    view.defPosition("b2", 100, 458, 69, 69);
-    view.defPosition("c2", 171, 458, 69, 69);
-    view.defPosition("d2", 242, 458, 69, 69);
-    view.defPosition("e2", 313, 458, 69, 69);
-    view.defPosition("f2", 384, 458, 69, 69);
-    view.defPosition("g2", 455, 458, 69, 69);
-    view.defPosition("h2", 526, 458, 69, 69);
-    view.defPosition("a1", 29, 529, 69, 69);
-    view.defPosition("b1", 100, 529, 69, 69);
-    view.defPosition("c1", 171, 529, 69, 69);
-    view.defPosition("d1", 242, 529, 69, 69);
-    view.defPosition("e1", 313, 529, 69, 69);
-    view.defPosition("f1", 384, 529, 69, 69);
-    view.defPosition("g1", 455, 529, 69, 69);
-    view.defPosition("h1", 526, 529, 69, 69);
+    view.defPosition("a8", 99, 32, 69, 69);
+    view.defPosition("b8", 170, 32, 69, 69);
+    view.defPosition("c8", 241, 32, 69, 69);
+    view.defPosition("d8", 312, 32, 69, 69);
+    view.defPosition("e8", 383, 32, 69, 69);
+    view.defPosition("f8", 454, 32, 69, 69);
+    view.defPosition("g8", 525, 32, 69, 69);
+    view.defPosition("h8", 596, 32, 69, 69);
+    view.defPosition("a7", 99, 103, 69, 69);
+    view.defPosition("b7", 170, 103, 69, 69);
+    view.defPosition("c7", 241, 103, 69, 69);
+    view.defPosition("d7", 312, 103, 69, 69);
+    view.defPosition("e7", 383, 103, 69, 69);
+    view.defPosition("f7", 454, 103, 69, 69);
+    view.defPosition("g7", 525, 103, 69, 69);
+    view.defPosition("h7", 596, 103, 69, 69);
+    view.defPosition("a6", 99, 174, 69, 69);
+    view.defPosition("b6", 170, 174, 69, 69);
+    view.defPosition("c6", 241, 174, 69, 69);
+    view.defPosition("d6", 312, 174, 69, 69);
+    view.defPosition("e6", 383, 174, 69, 69);
+    view.defPosition("f6", 454, 174, 69, 69);
+    view.defPosition("g6", 525, 174, 69, 69);
+    view.defPosition("h6", 596, 174, 69, 69);
+    view.defPosition("a5", 99, 245, 69, 69);
+    view.defPosition("b5", 170, 245, 69, 69);
+    view.defPosition("c5", 241, 245, 69, 69);
+    view.defPosition("d5", 312, 245, 69, 69);
+    view.defPosition("e5", 383, 245, 69, 69);
+    view.defPosition("f5", 454, 245, 69, 69);
+    view.defPosition("g5", 525, 245, 69, 69);
+    view.defPosition("h5", 596, 245, 69, 69);
+    view.defPosition("a4", 99, 316, 69, 69);
+    view.defPosition("b4", 170, 316, 69, 69);
+    view.defPosition("c4", 241, 316, 69, 69);
+    view.defPosition("d4", 312, 316, 69, 69);
+    view.defPosition("e4", 383, 316, 69, 69);
+    view.defPosition("f4", 454, 316, 69, 69);
+    view.defPosition("g4", 525, 316, 69, 69);
+    view.defPosition("h4", 596, 316, 69, 69);
+    view.defPosition("a3", 99, 387, 69, 69);
+    view.defPosition("b3", 170, 387, 69, 69);
+    view.defPosition("c3", 241, 387, 69, 69);
+    view.defPosition("d3", 312, 387, 69, 69);
+    view.defPosition("e3", 383, 387, 69, 69);
+    view.defPosition("f3", 454, 387, 69, 69);
+    view.defPosition("g3", 525, 387, 69, 69);
+    view.defPosition("h3", 596, 387, 69, 69);
+    view.defPosition("a2", 99, 458, 69, 69);
+    view.defPosition("b2", 170, 458, 69, 69);
+    view.defPosition("c2", 241, 458, 69, 69);
+    view.defPosition("d2", 312, 458, 69, 69);
+    view.defPosition("e2", 383, 458, 69, 69);
+    view.defPosition("f2", 454, 458, 69, 69);
+    view.defPosition("g2", 525, 458, 69, 69);
+    view.defPosition("h2", 596, 458, 69, 69);
+    view.defPosition("a1", 99, 529, 69, 69);
+    view.defPosition("b1", 170, 529, 69, 69);
+    view.defPosition("c1", 241, 529, 69, 69);
+    view.defPosition("d1", 312, 529, 69, 69);
+    view.defPosition("e1", 383, 529, 69, 69);
+    view.defPosition("f1", 454, 529, 69, 69);
+    view.defPosition("g1", 525, 529, 69, 69);
+    view.defPosition("h1", 596, 529, 69, 69);
+    view.defPosition("X8", 1, 0, 69, 69);
+    view.defPosition("Y8", 696, 66, 69, 69);
+    view.defPosition("X7", 1, 71, 69, 69);
+    view.defPosition("Y7", 696, 137, 69, 69);
+    view.defPosition("X6", 1, 142, 69, 69);
+    view.defPosition("Y6", 696, 208, 69, 69);
+    view.defPosition("X5", 1, 213, 69, 69);
+    view.defPosition("Y5", 696, 279, 69, 69);
+    view.defPosition("X4", 1, 284, 69, 69);
+    view.defPosition("Y4", 696, 350, 69, 69);
+    view.defPosition("X3", 1, 355, 69, 69);
+    view.defPosition("Y3", 696, 421, 69, 69);
+    view.defPosition("X2", 1, 426, 69, 69);
+    view.defPosition("Y2", 696, 492, 69, 69);
+    view.defPosition("X1", 1, 497, 69, 69);
+    view.defPosition("Y1", 696, 563, 69, 69);
 }

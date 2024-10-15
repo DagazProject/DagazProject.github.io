@@ -34,14 +34,14 @@ var checkGoals = Dagaz.Model.checkGoals;
 Dagaz.Model.checkGoals = function(design, board, player) {
   var p = design.nextPlayer(board.player);
   var f = false;
-  _.each(design.allPositions(), function(pos) {
+  for (var pos = 0; pos < 64; pos ++) {
       var piece = board.getPiece(pos);
-      if (piece === null) return;
-      if (piece.player != p) return;
+      if (piece === null) continue;
+      if (piece.player != p) continue;
       _.each(design.allDirections(), function(dir) {
           if (calcDirection(design, board, pos, p, dir) == 5) f = true;
       });
-  });
+  }
   if (f) {
       return (p == player) ? 1 : -1;
   }
