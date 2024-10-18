@@ -1,0 +1,63 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Random King</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/8x8.png">
+<img id="Promote" style="display:none" src="images/dialog-4.png">
+<img id="WhitePawn" style="display:none" src="images/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/wrook.png">
+<img id="BlackRook" style="display:none" src="images/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/bqueen.png">
+<img id="WhiteKing" style="display:none" src="images/wking.png">
+<img id="BlackKing" style="display:none" src="images/bking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        Copyright (c) 2024 Lucio Jose Patrocinio Filho (<a target="_blank" href="https://random-king-chess.blogspot.com/2024/10/random-king.html">rules</a>)
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="random-king-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.go('chess-editor.htm')">Edit</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="548" height="548" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/fen-setup.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai.js"></script>
+<script src="scripts/garbochess-ai.js"></script>
+<script src="scripts/common-edit.js"></script>
+<script src="scripts/random-king-extension.js"></script>
+<script src="scripts/chess-goal.js"></script>
+<script src="scripts/chess-promotion.js"></script>
+<script src="scripts/chess-invariant.js"></script>
+<script src="scripts/random-king.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>
