@@ -1,0 +1,78 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(define drop-piece (
+  (verify empty?) add
+))
+
+(game
+  (title "Nyout")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/nyout/board.bmp")
+     (positions
+             (a3  21 240  82 301)
+             (a4  14 187  75 248)
+             (a5  21 133  82 194)
+
+             (b3  45 290 106 351)
+             (b4  70 187 131 248)
+             (b5  45  84 106 145)
+
+             (c1 134 352 195 413)
+             (c2  85 327 146 388)
+             (c4 130 187 191 248)
+             (c6  85  45 146 106)
+             (c7 134  20 195 81)
+
+             (d1 187 361 248 422)
+             (d2 187 304 248 365)
+             (d3 187 247 248 308)
+             (d4 187 187 248 248)
+             (d5 187 130 248 191)
+             (d6 187  70 248 131)
+             (d7 187  13 248 74)
+
+             (e1 242 352 303 413)
+             (e2 290 327 351 388)
+             (e4 246 187 307 248)
+             (e6 290  45 351 106)
+             (e7 242  20 303 81)
+
+             (f3 329 290 390 351)
+             (f4 302 187 363 248)
+             (f5 329  84 390 145)
+
+             (g3 354 240 415 301)
+             (g4 362 187 423 248)
+             (g5 354 133 415 194)
+     )
+     (links n (d1 d2) (d2 d3) (d3 d4) (d4 d5) (d5 d6) (d6 d7))
+     (links s (d2 d1) (d3 d2) (d4 d3) (d5 d4) (d6 d5) (d7 d6))
+     (links e (a4 b4) (b4 c4) (c4 d4) (d4 e4) (e4 f4) (f4 g4))
+     (links w (b4 a4) (c4 b4) (d4 c4) (e4 d4) (f4 e4) (g4 f4))
+     (links x (d1 e1) (e1 e2) (e2 f3) (f3 g3) (g3 g4) (g4 g5)
+              (g5 f5) (f5 e6) (e6 e7) (e7 d7) (d7 c7) (c7 c6)
+              (c6 b5) (b5 a5) (a5 a4) (a4 a3) (a3 b3) (b3 c2)
+              (c2 c1) (c1 d1))    
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/nyout/wbig.bmp"
+            Black "images/nyout/bbig.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+
+  (board-setup
+     (White (Stone off 4)) 
+     (Black (Stone off 4))
+  )
+)
