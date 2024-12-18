@@ -244,16 +244,78 @@ Dagaz.Model.CheckInvariants = function(board) {
       var piece = board.getPiece(src);
       if (piece === null) return;
       var b = board.apply(move);
-      _.each(getTargets(design, b, dst, piece), function(p) {
+     _.each([1, 3, 4, 7], function(dir) {
+          var c = [];
+          var erruption = [];
+          var target = null;
+          var p = design.navigate(1, dst, dir);
+          while (p !== null) {
+              target = b.getPiece(p);
+              if (target !== null) break;
+              p = design.navigate(1, p, dir);
+          }
+          if (target === null) return;
+          if (target.player == board.player) return;
+          getErruption(design, b, dst, p, piece, target, erruption);
+/*        if (indexOf(erruption, target.type) >= 0) {
+              move.capturePiece(p);
+          }*/
+          _.each(erruption, function(p) {
+              c.push(p);
+          });
+          if (c.length > 0) {
+              var s = 0; var cn = 0; var v = 0;
+              for (var ix = 0; ix < 6; ix++) {
+                   var t = target.getValue(ix);
+                   if (t !== null) {
+                       if (indexOf(c, t) >= 0) {
+                           target = target.setValue(ix, null);
+                       } else {               
+                           s += design.price[t];
+                           v += t;
+                           cn++;
+                       }
+                   }
+              }
+              var player = design.nextPlayer(board.player);
+              _.each(design.allPositions(), function(p) {
+                  if (!design.inZone(0, player, p)) return;
+                  var piece = board.getPiece(p);
+                  if (piece === null) return;
+                  if ((cn < 2) || (indexOf(c, piece.type) >= 0))  {
+                      move.capturePiece(p);
+                  }
+              });
+              if (cn == 0) {
+                  move.capturePiece(p);
+                  return;
+              }
+              if (cn > 1) {
+                  var x = target.promote(design.getPieceType("P" + s));
+                  var ix = 0;
+                  for (var i = 0; i < 6; i++) {
+                       var v = target.getValue(i);
+                       if (v !== null) {
+                           x = x.setValue(ix++, v);
+                       }
+                  }
+                  target = x;
+              } else {
+                  target = target.promote(v);
+              }
+              move.movePiece(p, p, target);
+          }
+     });
+     _.each(getTargets(design, b, dst, piece), function(p) {
           if ((p == src) || isCaptured(p, move)) return;
           var target = board.getPiece(p);
           if ((target === null) || (target.player == board.player)) return;
           var c = [];
           getEqual(design, piece, target, c);
-          if (indexOf(c, target.type) >= 0) {
+/*        if (indexOf(c, target.type) >= 0) {
               move.capturePiece(p);
               return;
-          }
+          }*/
           var ambush = [];
           _.each(design.allPositions(), function(q) {
               if (q == dst) return;
@@ -262,20 +324,11 @@ Dagaz.Model.CheckInvariants = function(board) {
               if (indexOf(getTargets(design, b, q, x), p) < 0) return;
               getAmbush(design, target, piece, x, ambush);
           });
-          if (indexOf(ambush, target.type) >= 0) {
+/*        if (indexOf(ambush, target.type) >= 0) {
               move.capturePiece(p);
               return;
-          }
+          }*/
           _.each(ambush, function(p) {
-              c.push(p);
-          });
-          var erruption = [];
-          getErruption(design, b, dst, p, piece, target, erruption);
-          if (indexOf(erruption, target.type) >= 0) {
-              move.capturePiece(p);
-              return;
-          }
-          _.each(erruption, function(p) {
               c.push(p);
           });
           if (c.length > 0) {
