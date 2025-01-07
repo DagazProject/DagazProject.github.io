@@ -536,11 +536,13 @@
 
          (D1 110 160 144 189)
          (D2 144 160 178 189)
-         (D3 338 160 372 189)
-         (D4 372 160 406 189)
+         (D3 178 160 212 189)
+         (D4 338 160 372 189)
+         (D5 372 160 406 189)
+         (D6 406 160 440 189)
      )
      (links nx
-         (nul D1) (D1 D2) (D2 D3) (D3 D4)
+         (nul D1) (D1 D2) (D2 D3) (D3 D4) (D4 D5) (D5 D6)
      )
      (links bx
          (nul D1)
@@ -676,10 +678,10 @@
            )
      )
      (zone (name dice-zone) (players Black)
-           (positions D1 D2)
+           (positions D1 D2 D3)
      )
      (zone (name dice-zone) (players White)
-           (positions D3 D4)
+           (positions D4 D5 D6)
      )
      (zone (name out-zone) (players White Black)
            (positions H1a H2a 
