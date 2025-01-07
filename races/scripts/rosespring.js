@@ -725,7 +725,7 @@ Dagaz.View.configure = function(view) {
     view.defPiece("WhiteD6", "White D6");
     view.defPiece("BlackD6", "Black D6");
  
-    view.defPosition("nul", 59, 10, 34, 32);
+    view.defPosition("nul", 59, -100, 34, 32);
     view.defPosition("m1a", 59, 10, 34, 32);
     view.defPosition("m1b", 59, 18, 34, 32);
     view.defPosition("m1c", 59, 26, 34, 32);
