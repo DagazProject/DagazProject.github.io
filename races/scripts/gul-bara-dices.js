@@ -48,6 +48,11 @@ Dagaz.Model.CheckInvariants = function(board) {
   while (pos !== null) {
       var piece = board.getPiece(pos);
       if ((piece !== null) && (piece.player == board.player)) {
+          console.log(piece);
+          var v = piece.getValue(0);
+          if (v !== null) {
+              if (v > 1) cnt++;
+          }
           cnt++;
       }
       pos = design.navigate(board.player, pos, 0);
@@ -70,9 +75,9 @@ Dagaz.Model.CheckInvariants = function(board) {
                                     move.dropPiece(pos, dice);
                                 });
                                 if (board.turn == 5) {
-                                    move.goTo(3);
+                                    move.goTo(2);
                                 } else {
-                                    move.goTo(9);
+                                    move.goTo(8);
                                 }
                             } else {
                                 if (board.turn == 5) {
@@ -82,14 +87,25 @@ Dagaz.Model.CheckInvariants = function(board) {
                                 }
                             }
                         } else {
-                            move.capturePiece(pos);
                             if ((cnt == 1) && (board.getPiece(0) !== null)) {
-                                move.capturePiece(0);
-                                if (board.player == 1) {
-                                    move.goTo(0);
+                                var v = board.getPiece(0).type;
+                                if (v < 6) {
+                                    move.dropPiece(0, Dagaz.Model.createPiece(+v + 1, board.player));
+                                    if (board.player == 1) {
+                                        move.dropPiece(445, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
+                                        move.dropPiece(446, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
+                                        move.goTo(2);
+                                    } else {
+                                        move.dropPiece(443, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
+                                        move.dropPiece(444, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
+                                        move.goTo(8);
+                                    }
                                 } else {
-                                    move.goTo(6);
+                                    move.capturePiece(0);
+                                    move.capturePiece(pos);
                                 }
+                            } else {
+                                move.capturePiece(pos);
                             }
                         }
                    }
