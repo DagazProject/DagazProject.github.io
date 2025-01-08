@@ -3,7 +3,7 @@
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "backgammon-drops") {
+  if (name != "gul-bara-drops") {
       checkVersion(design, name, value);
   }
 }

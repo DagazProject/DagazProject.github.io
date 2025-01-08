@@ -6,7 +6,7 @@ var isBonus = false;
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name == "backgammon-dices") {
+  if (name == "rosespring-dices") {
       if (value == "bonus") isBonus = true;
   } else {
       checkVersion(design, name, value);

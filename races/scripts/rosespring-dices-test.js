@@ -6,7 +6,7 @@ var isBonus = false;
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name == "gul-bara-dices") {
+  if (name == "rosespring-dices") {
       if (value == "bonus") isBonus = true;
   } else {
       checkVersion(design, name, value);
@@ -48,11 +48,6 @@ Dagaz.Model.CheckInvariants = function(board) {
   while (pos !== null) {
       var piece = board.getPiece(pos);
       if ((piece !== null) && (piece.player == board.player)) {
-          console.log(piece);
-          var v = piece.getValue(0);
-          if (v !== null) {
-              if (v > 1) cnt++;
-          }
           cnt++;
       }
       pos = design.navigate(board.player, pos, 0);
@@ -67,45 +62,34 @@ Dagaz.Model.CheckInvariants = function(board) {
                         piece = piece.setValue(0, v - 1);
                         move.movePiece(pos, pos, piece);
                    } else {
-                        if (isBonus && ((board.turn == 5) || (board.turn == 11))) {
+                        if (isBonus && ((board.turn == 7) || (board.turn == 13))) {
                             if (piece.type < 7) {
                                 var dice = Dagaz.Model.createPiece(design.price[piece.type] + 6, board.player).setValue(0, 2);
                                 _.each(design.allPositions(), function(pos) {
                                     if (!design.inZone(1, board.player, pos)) return;
                                     move.dropPiece(pos, dice);
                                 });
-                                if (board.turn == 5) {
+                                if (board.turn == 7) {
+                                    move.goTo(5);
+                                } else {
+                                    move.goTo(11);
+                                }
+                            } else {
+                                if (board.turn == 7) {
                                     move.goTo(2);
                                 } else {
                                     move.goTo(8);
                                 }
-                            } else {
-                                if (board.turn == 5) {
-                                    move.goTo(0);
-                                } else {
-                                    move.goTo(6);
-                                }
                             }
                         } else {
+                            move.capturePiece(pos);
                             if ((cnt == 1) && (board.getPiece(0) !== null)) {
-                                var v = board.getPiece(0).type;
-                                if (v < 6) {
-                                    move.dropPiece(0, Dagaz.Model.createPiece(+v + 1, board.player));
-                                    if (board.player == 1) {
-                                        move.dropPiece(445, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
-                                        move.dropPiece(446, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
-                                        move.goTo(2);
-                                    } else {
-                                        move.dropPiece(443, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
-                                        move.dropPiece(444, Dagaz.Model.createPiece(+v + 1, board.player).setValue(0, 2));
-                                        move.goTo(8);
-                                    }
+                                move.capturePiece(0);
+                                if (board.player == 1) {
+                                    move.goTo(2);
                                 } else {
-                                    move.capturePiece(0);
-                                    move.capturePiece(pos);
+                                    move.goTo(8);
                                 }
-                            } else {
-                                move.capturePiece(pos);
                             }
                         }
                    }
