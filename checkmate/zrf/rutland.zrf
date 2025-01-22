@@ -1,0 +1,212 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-jump-1 (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?) add
+))
+
+(define pawn-jump-2 (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?) add
+  $1 (verify empty?) add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define en-passant-1 (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define en-passant-2 (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n mark n n
+  (verify last-from?)
+  back add
+))
+
+(define en-passant-ex (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n n mark n
+  (verify last-from?)
+  back add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? 
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "Rutland's Chess")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (image "images/rutland/14x10.bmp")
+     (grid
+         (start-rectangle 1 2 51 52)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n" (50 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 50)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10 l10 m10 n10)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1)
+     )
+     (zone (name third-rank) (players White)
+           (positions a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3)
+     )
+     (zone (name third-rank) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 j8 k8 l8 m8 n8)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/rutland/wpawn.bmp"
+            Black "images/rutland/bpawn.bmp")
+     (moves
+         (pawn-shift n) (pawn-jump-1 n) (pawn-jump-2 n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant-1 e) (en-passant-2 e) (en-passant-ex se)
+         (en-passant-1 w) (en-passant-2 w) (en-passant-ex sw)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/rutland/wrook.bmp"
+            Black "images/rutland/brook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/rutland/wknight.bmp"
+            Black "images/rutland/bknight.bmp")
+     (moves
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/rutland/wbishop.bmp"
+            Black "images/rutland/bbishop.bmp")
+     (moves
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/rutland/wqueen.bmp"
+            Black "images/rutland/bqueen.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Concubine)
+     (image White "images/rutland/wconcubine.bmp"
+            Black "images/rutland/bconcubine.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name CrownRook)
+     (image White "images/rutland/wcrook.bmp"
+            Black "images/rutland/bcrook.bmp")
+     (moves
+         (slide n) (slide s) (slide w) (slide e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/rutland/wking.bmp"
+            Black "images/rutland/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2 m2 n2)
+         (Rook a1 n1)
+         (Knight c1 k1 l1)
+         (Bishop d1 e1 i1 j1)
+         (Queen h1)
+         (Concubine f1)
+         (CrownRook b1 m1)
+         (King g1)
+    )
+    (Black 
+         (Pawn a9 b9 c9 d9 e9 f9 g9 h9 i9 j9 k9 l9 m9 n9)
+         (Rook a10 n10)
+         (Knight c10 k10 l10)
+         (Bishop d10 e10 i10 j10)
+         (Queen h10)
+         (Concubine f10)
+         (CrownRook b10 m10)
+         (King g10)
+    )
+  )
+)
