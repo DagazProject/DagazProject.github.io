@@ -122,8 +122,8 @@ Dagaz.Model.setup = function(board, init) {
       if (r) {
           var pos = Dagaz.Model.stringToPos(r[1], design);
           if (pos !== null) {
-              checkPassant(board, pos + 10);
-              checkPassant(board, pos - 10);
+              checkPassant(board, pos + 14);
+              checkPassant(board, pos - 14);
           }
       }
       var turn = getTurn(init);
@@ -155,13 +155,13 @@ var getEnPassant = function(design, board) {
       var piece = board.getPiece(board.lastt);
       if (piece === null) return r;
       if (piece.type != 0) return r;
-      var pos = design.navigate(piece.player, board.lastt, 2);
+      var pos = design.navigate(piece.player, board.lastt, 1);
       if (pos === null) return r;
       if (board.getPiece(pos) !== null) return r;
-      var p = design.navigate(piece.player, pos, 2);
+      var p = design.navigate(piece.player, pos, 1);
       if (p === null) return r;
       if (p != board.lastf) {
-          var p = design.navigate(piece.player, p, 2);
+          var p = design.navigate(piece.player, p, 1);
           if (p === null) return r;
       }
       if (p == board.lastf) r = Dagaz.Model.posToString(pos, design);
