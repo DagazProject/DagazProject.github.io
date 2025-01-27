@@ -1,3 +1,23 @@
+(define drop-piece (
+  (verify (in-zone? init))
+  (verify not-empty?) a1
+  a1
+  (while (on-board? nx)
+     (if empty? add)
+     $1
+  )
+  (verify empty?)
+  add
+))
+
+(define jump (
+  (verify (in-zone? fields))
+  (verify not-empty?) (verify (not-piece? Empty))
+  $1 (verify not-empty?) (verify (not-piece? $2)) capture
+  $1 (verify empty?)
+  (add-partial jump-type)
+))
+
 (game
   (title "ZERTZ")
   (history "ZERTZ was created by Kris Burm. Zillions implementation by L. Lynn Smith")
@@ -94,6 +114,21 @@
 		(d7 c6)(c6 b5)(b5 a4)
     )
 
+    (links nx
+		(a1 a2)(a2 a3)(a3 a4)
+		(a4 b5)(b5 c6)(c6 d7)
+		(d7 e6)(e6 f5)(f5 g4)
+		(g4 g3)(g3 g2)(g2 g1)
+		(g1 f1)(f1 e1)(e1 d1)
+		(d1 c1)(c1 b1)(b1 b2)
+		(b2 b3)(b3 b4)(b4 c5)
+		(c5 d6)(d6 e5)(e5 f4)
+		(f4 f3)(f3 f2)(f2 e2)
+		(e2 d2)(d2 c2)(c2 c3)
+		(c3 c4)(c4 d5)(d5 e4)
+		(e4 e3)(e3 d3)(d3 d4)
+    )
+
     (zone
 	(name init)
 	(players First Second)
@@ -103,23 +138,80 @@
 		W1 W2 W3 W4 W5 W6
 	)
     )
+    (zone
+	(name fields)
+	(players First Second)
+	(positions
+                a1 a2 a3 a4
+                b1 b2 b3 b4 b5
+                c1 c2 c3 c4 c5 c6
+                d1 d2 d3 d4 d5 d6 d7
+                e1 e2 e3 e4 e5 e6
+                f1 f2 f3 f4 f5
+                g1 g2 g3 g4
+	)
+    )
+    (zone
+	(name hand)
+	(players First)
+	(positions
+			B11 B12 B13 B14 B15 B16
+			G11 G12 G13 G14 G15
+			W11 W12 W13 W14
+	)
+    )
+    (zone
+	(name hand)
+	(players Second)
+	(positions
+			B21 B22 B23 B24 B25 B26
+			G21 G22 G23 G24 G25
+			W21 W22 W23 W24
+	)
+    )
   )
 
   (piece
-    (name Empty)
-    (image N "images\zertz\empty.bmp")
+     (name Empty)
+     (image N "images\zertz\empty.bmp"
+           First "images\zertz\empty.bmp"
+           Second "images\zertz\empty.bmp")
   )
   (piece
-    (name Black)
-    (image N "images\zertz\black.bmp")
+     (name Black)
+     (image N "images\zertz\black.bmp"
+           First "images\zertz\black.bmp"
+           Second "images\zertz\black.bmp")
+     (moves
+        (move-type init-type)
+        (drop-piece nx)
+        (move-type jump-type)
+        (jump n Black) (jump s Black) (jump nw Black) (jump ne Black) (jump sw Black) (jump se Black)
+     )
   )
   (piece
-    (name Gray)
-    (image N "images\zertz\gray.bmp")
+     (name Gray)
+     (image N "images\zertz\gray.bmp"
+           First "images\zertz\gray.bmp"
+           Second "images\zertz\gray.bmp")
+     (moves
+        (move-type init-type)
+        (drop-piece nx)
+        (move-type jump-type)
+        (jump n Gray) (jump s Gray) (jump nw Gray) (jump ne Gray) (jump sw Gray) (jump se Gray)
+     )
   )
   (piece
-    (name White)
-    (image N "images\zertz\white.bmp")
+     (name White)
+     (image N "images\zertz\white.bmp"
+           First "images\zertz\white.bmp"
+           Second "images\zertz\white.bmp")
+     (moves
+        (move-type init-type)
+        (drop-piece nx)
+        (move-type jump-type)
+        (jump n White) (jump s White) (jump nw White) (jump ne White) (jump sw White) (jump se White)
+     )
   )
 
   (board-setup
