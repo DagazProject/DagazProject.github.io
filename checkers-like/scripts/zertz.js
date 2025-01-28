@@ -26,21 +26,24 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "true");
     design.checkVersion("shared-pieces", "true");
+    design.checkVersion("pass-turn", "forced");
 
-    design.addDirection("s");
-    design.addDirection("n");
-    design.addDirection("ne");
-    design.addDirection("sw");
-    design.addDirection("se");
-    design.addDirection("nw");
-    design.addDirection("nx");
+    design.addDirection("s");  // 0
+    design.addDirection("n");  // 1
+    design.addDirection("ne"); // 2
+    design.addDirection("sw"); // 3
+    design.addDirection("se"); // 4
+    design.addDirection("nw"); // 5
+    design.addDirection("nx"); // 6
 
     design.addPlayer("First", [1, 0, 3, 2, 5, 4, 6]);
     design.addPlayer("Second", [0, 1, 2, 3, 4, 5, 6]);
     design.addPlayer("N", [0, 1, 2, 3, 4, 5, 6]);
 
-    design.addTurn(1);
-    design.addTurn(2);
+    design.addTurn(1, [0, 1]);
+    design.addTurn(1, [2]);
+    design.addTurn(2, [0, 1]);
+    design.addTurn(2, [2]);
 
     design.addPosition("B10", [0, 0, 0, 0, 0, 0, 0]);
     design.addPosition("B9", [0, 0, 0, 0, 0, 0, 0]);
@@ -141,58 +144,37 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addZone("hand", 2, [76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]);
     design.addZone("hand", 1, [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75]);
 
-    design.addCommand(0, ZRF.FUNCTION,	24);	// from
-    design.addCommand(0, ZRF.IN_ZONE,	0);	// init
+    design.addCommand(0, ZRF.IN_ZONE,	1);	// fields
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(0, ZRF.PARAM,	0);	// $1
-    design.addCommand(0, ZRF.FUNCTION,	21);	// position
-    design.addCommand(0, ZRF.PARAM,	1);	// $2
-    design.addCommand(0, ZRF.FUNCTION,	21);	// position
-    design.addCommand(0, ZRF.ON_BOARD_DIR,	6);	// name
-    design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.IF,	10);
-    design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.IF,	4);
-    design.addCommand(0, ZRF.FORK,	3);
-    design.addCommand(0, ZRF.FUNCTION,	25);	// to
-    design.addCommand(0, ZRF.FUNCTION,	28);	// end
-    design.addCommand(0, ZRF.PARAM,	2);	// $3
-    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(0, ZRF.JUMP,	-11);
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
     design.addCommand(1, ZRF.FUNCTION,	24);	// from
-    design.addCommand(1, ZRF.IN_ZONE,	1);	// fields
+    design.addCommand(1, ZRF.IN_ZONE,	0);	// init
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(1, ZRF.FUNCTION,	0);	// not
-    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.LITERAL,	0);	// Empty
-    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.PARAM,	0);	// $1
-    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(1, ZRF.FUNCTION,	0);	// not
-    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.LITERAL,	1);	// Black
-    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(1, ZRF.FUNCTION,	0);	// not
-    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.FUNCTION,	26);	// capture
+    design.addCommand(1, ZRF.FUNCTION,	21);	// position
     design.addCommand(1, ZRF.PARAM,	1);	// $2
+    design.addCommand(1, ZRF.FUNCTION,	21);	// position
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	10);
+    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	4);
+    design.addCommand(1, ZRF.FORK,	3);
+    design.addCommand(1, ZRF.FUNCTION,	25);	// to
+    design.addCommand(1, ZRF.FUNCTION,	28);	// end
+    design.addCommand(1, ZRF.PARAM,	2);	// $3
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.JUMP,	-11);
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(1, ZRF.MODE,	1);	// jump-type
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
@@ -211,7 +193,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.LITERAL,	2);	// Gray
+    design.addCommand(2, ZRF.LITERAL,	1);	// Black
     design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
@@ -220,7 +202,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.MODE,	1);	// jump-type
+    design.addCommand(2, ZRF.MODE,	0);	// jump-type
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
     design.addCommand(2, ZRF.FUNCTION,	28);	// end
 
@@ -239,7 +221,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.LITERAL,	3);	// White
+    design.addCommand(3, ZRF.LITERAL,	2);	// Gray
     design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
@@ -248,39 +230,70 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.MODE,	1);	// jump-type
+    design.addCommand(3, ZRF.MODE,	0);	// jump-type
     design.addCommand(3, ZRF.FUNCTION,	25);	// to
     design.addCommand(3, ZRF.FUNCTION,	28);	// end
 
+    design.addCommand(4, ZRF.FUNCTION,	24);	// from
+    design.addCommand(4, ZRF.IN_ZONE,	1);	// fields
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.LITERAL,	0);	// Empty
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.PARAM,	0);	// $1
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.LITERAL,	3);	// White
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	26);	// capture
+    design.addCommand(4, ZRF.PARAM,	1);	// $2
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.MODE,	0);	// jump-type
+    design.addCommand(4, ZRF.FUNCTION,	25);	// to
+    design.addCommand(4, ZRF.FUNCTION,	28);	// end
+
+//  design.addPriority(0);			// jump-type
+//  design.addPriority(1);			// init-type
 
     design.addPiece("Empty", 0);
+    design.addDrop(0, 0, [], 2);
 
     design.addPiece("Black", 1);
-    design.addMove(1, 0, [27, 27, 6], 0);
-    design.addMove(1, 1, [1, 1], 1);
-    design.addMove(1, 1, [0, 0], 1);
-    design.addMove(1, 1, [5, 5], 1);
-    design.addMove(1, 1, [2, 2], 1);
-    design.addMove(1, 1, [3, 3], 1);
-    design.addMove(1, 1, [4, 4], 1);
+    design.addMove(1, 1, [27, 27, 6], 1);
+    design.addMove(1, 2, [1, 1], 0);
+    design.addMove(1, 2, [0, 0], 0);
+    design.addMove(1, 2, [5, 5], 0);
+    design.addMove(1, 2, [2, 2], 0);
+    design.addMove(1, 2, [3, 3], 0);
+    design.addMove(1, 2, [4, 4], 0);
 
     design.addPiece("Gray", 2);
-    design.addMove(2, 0, [27, 27, 6], 0);
-    design.addMove(2, 2, [1, 1], 1);
-    design.addMove(2, 2, [0, 0], 1);
-    design.addMove(2, 2, [5, 5], 1);
-    design.addMove(2, 2, [2, 2], 1);
-    design.addMove(2, 2, [3, 3], 1);
-    design.addMove(2, 2, [4, 4], 1);
+    design.addMove(2, 1, [27, 27, 6], 1);
+    design.addMove(2, 3, [1, 1], 0);
+    design.addMove(2, 3, [0, 0], 0);
+    design.addMove(2, 3, [5, 5], 0);
+    design.addMove(2, 3, [2, 2], 0);
+    design.addMove(2, 3, [3, 3], 0);
+    design.addMove(2, 3, [4, 4], 0);
 
     design.addPiece("White", 3);
-    design.addMove(3, 0, [27, 27, 6], 0);
-    design.addMove(3, 3, [1, 1], 1);
-    design.addMove(3, 3, [0, 0], 1);
-    design.addMove(3, 3, [5, 5], 1);
-    design.addMove(3, 3, [2, 2], 1);
-    design.addMove(3, 3, [3, 3], 1);
-    design.addMove(3, 3, [4, 4], 1);
+    design.addMove(3, 1, [27, 27, 6], 1);
+    design.addMove(3, 4, [1, 1], 0);
+    design.addMove(3, 4, [0, 0], 0);
+    design.addMove(3, 4, [5, 5], 0);
+    design.addMove(3, 4, [2, 2], 0);
+    design.addMove(3, 4, [3, 3], 0);
+    design.addMove(3, 4, [4, 4], 0);
 
     design.setup("N", "Black", 9);
     design.setup("N", "Black", 8);
@@ -310,7 +323,6 @@ Dagaz.Model.BuildDesign = function(design) {
 
 Dagaz.View.configure = function(view) {
     view.defBoard("Board");
-    view.defPiece("NEmpty", "N Empty");
     view.defPiece("FirstEmpty", "First Empty");
     view.defPiece("SecondEmpty", "Second Empty");
     view.defPiece("NBlack", "N Black");

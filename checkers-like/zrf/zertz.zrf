@@ -1,3 +1,9 @@
+(define drop-empty (
+  (verify (in-zone? fields))
+  (verify empty?) 
+  add
+))
+
 (define drop-piece (
   (verify (in-zone? init))
   (verify not-empty?) a1
@@ -24,6 +30,7 @@
 
   (players First Second N)
   (turn-order First Second)
+  (move-priorities jump-type init-type)
 
   (board
     (image "images/zertz/board.bmp")
@@ -173,15 +180,18 @@
 
   (piece
      (name Empty)
-     (image N "images\zertz\empty.bmp"
-           First "images\zertz\empty.bmp"
-           Second "images\zertz\empty.bmp")
+     (image First "images\zertz\empty.bmp"
+            Second "images\zertz\empty.bmp")
+     (drops
+        (move-type drop-type)
+        (drop-empty)
+     )
   )
   (piece
      (name Black)
      (image N "images\zertz\black.bmp"
-           First "images\zertz\black.bmp"
-           Second "images\zertz\black.bmp")
+            First "images\zertz\black.bmp"
+            Second "images\zertz\black.bmp")
      (moves
         (move-type init-type)
         (drop-piece nx)
@@ -192,8 +202,8 @@
   (piece
      (name Gray)
      (image N "images\zertz\gray.bmp"
-           First "images\zertz\gray.bmp"
-           Second "images\zertz\gray.bmp")
+            First "images\zertz\gray.bmp"
+            Second "images\zertz\gray.bmp")
      (moves
         (move-type init-type)
         (drop-piece nx)
@@ -204,8 +214,8 @@
   (piece
      (name White)
      (image N "images\zertz\white.bmp"
-           First "images\zertz\white.bmp"
-           Second "images\zertz\white.bmp")
+            First "images\zertz\white.bmp"
+            Second "images\zertz\white.bmp")
      (moves
         (move-type init-type)
         (drop-piece nx)
