@@ -25,6 +25,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "true");
+    design.checkVersion("show-drops", "all");
     design.checkVersion("shared-pieces", "true");
     design.checkVersion("pass-turn", "forced");
 
