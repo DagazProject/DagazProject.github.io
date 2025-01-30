@@ -19,7 +19,8 @@
 (define jump (
   (verify (in-zone? fields))
   (verify not-empty?) (verify (not-piece? Empty))
-  $1 (verify not-empty?) (verify (not-piece? $2)) capture
+  $1 (verify not-empty?) (verify (not-piece? $2)) 
+  (verify (not-piece? Empty)) capture
   $1 (verify empty?)
   (add-partial jump-type)
 ))
@@ -159,20 +160,44 @@
 	)
     )
     (zone
-	(name hand)
+	(name black-hand)
 	(players First)
 	(positions
 			B11 B12 B13 B14 B15 B16
+	)
+    )
+    (zone
+	(name black-hand)
+	(players Second)
+	(positions
+			B21 B22 B23 B24 B25 B26
+	)
+    )
+    (zone
+	(name gray-hand)
+	(players First)
+	(positions
 			G11 G12 G13 G14 G15
+	)
+    )
+    (zone
+	(name gray-hand)
+	(players Second)
+	(positions
+			G21 G22 G23 G24 G25
+	)
+    )
+    (zone
+	(name white-hand)
+	(players First)
+	(positions
 			W11 W12 W13 W14
 	)
     )
     (zone
-	(name hand)
+	(name white-hand)
 	(players Second)
 	(positions
-			B21 B22 B23 B24 B25 B26
-			G21 G22 G23 G24 G25
 			W21 W22 W23 W24
 	)
     )

@@ -26,6 +26,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "true");
     design.checkVersion("show-drops", "all");
+    design.checkVersion("show-captures", "false");
+    design.checkVersion("show-lose", "false");
     design.checkVersion("shared-pieces", "true");
     design.checkVersion("pass-turn", "forced");
 
@@ -41,10 +43,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("Second", [0, 1, 2, 3, 4, 5, 6]);
     design.addPlayer("N", [0, 1, 2, 3, 4, 5, 6]);
 
-    design.addTurn(1, [0, 1]);
-    design.addTurn(1, [2]);
-    design.addTurn(2, [0, 1]);
-    design.addTurn(2, [2]);
+    design.addTurn(1, [0, 1]); // 0
+    design.addTurn(1, [2]);    // 1
+    design.addTurn(2, [0, 1]); // 2
+    design.addTurn(2, [2]);    // 3
 
     design.addPosition("B10", [0, 0, 0, 0, 0, 0, 0]);
     design.addPosition("B9", [0, 0, 0, 0, 0, 0, 0]);
@@ -142,8 +144,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addZone("init", 1, [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 23, 22, 21, 20, 19, 18]);
     design.addZone("fields", 2, [27, 26, 25, 24, 32, 31, 30, 29, 28, 38, 37, 36, 35, 34, 33, 45, 44, 43, 42, 41, 40, 39, 51, 50, 49, 48, 47, 46, 56, 55, 54, 53, 52, 60, 59, 58, 57]);
     design.addZone("fields", 1, [27, 26, 25, 24, 32, 31, 30, 29, 28, 38, 37, 36, 35, 34, 33, 45, 44, 43, 42, 41, 40, 39, 51, 50, 49, 48, 47, 46, 56, 55, 54, 53, 52, 60, 59, 58, 57]);
-    design.addZone("hand", 2, [76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]);
-    design.addZone("hand", 1, [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75]);
+    design.addZone("black-hand", 2, [76, 77, 78, 79, 80, 81]);
+    design.addZone("black-hand", 1, [61, 62, 63, 64, 65, 66]);
+    design.addZone("gray-hand", 2, [82, 83, 84, 85, 86]);
+    design.addZone("gray-hand", 1, [67, 68, 69, 70, 71]);
+    design.addZone("white-hand", 2, [87, 88, 89, 90]);
+    design.addZone("white-hand", 1, [72, 73, 74, 75]);
 
     design.addCommand(0, ZRF.IN_ZONE,	1);	// fields
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
@@ -198,6 +204,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.LITERAL,	0);	// Empty
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
     design.addCommand(2, ZRF.FUNCTION,	26);	// capture
     design.addCommand(2, ZRF.PARAM,	1);	// $2
     design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
@@ -226,6 +236,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(3, ZRF.FUNCTION,	0);	// not
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.LITERAL,	0);	// Empty
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
     design.addCommand(3, ZRF.FUNCTION,	26);	// capture
     design.addCommand(3, ZRF.PARAM,	1);	// $2
     design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
@@ -251,6 +265,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(4, ZRF.FUNCTION,	0);	// not
     design.addCommand(4, ZRF.FUNCTION,	20);	// verify
     design.addCommand(4, ZRF.LITERAL,	3);	// White
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.LITERAL,	0);	// Empty
     design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(4, ZRF.FUNCTION,	0);	// not
     design.addCommand(4, ZRF.FUNCTION,	20);	// verify

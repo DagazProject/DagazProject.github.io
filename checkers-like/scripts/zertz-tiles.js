@@ -32,7 +32,43 @@ Dagaz.Model.CheckInvariants = function(board) {
       });
       if (cnt < 2) {
           move.failed = true;
+          return;
       }
+      _.each([0, 1, 2, 3, 4, 5], function(dir) {
+          var p = design.navigate(1, pos, dir);
+          if (p === null) return;
+          var piece = board.getPiece(p);
+          if (piece === null) return;
+          if (piece.type == 0) return;
+          var group = [p]; var f = true;
+          for (var i = 0; i < group.length; i++) {
+              _.each([0, 1, 2, 3, 4, 5], function(d) {
+                   var p = design.navigate(1, group[i], d);
+                   if (p === null) return;
+                   if (p == pos) return;
+                   if (_.indexOf(group, p) >= 0) return;
+                   var piece = board.getPiece(p);
+                   if (piece === null) {
+                       f = false;
+                       return;
+                   }
+                   if (piece.type == 0) return;
+                   group.push(p);
+              });
+          }
+          if (f) {
+              for (var i = 0; i < group.length; i++) {
+                   var p = group[i];                   
+                   var piece = board.getPiece(p);
+                   if (piece === null) continue;
+                   var q = Dagaz.Model.getDestination(design, board, board.player, +piece.type + 1);
+                   if (q === null) continue;
+                   move.movePiece(p, q, piece);
+                   piece = Dagaz.Model.createPiece(0, board.player);
+                   move.dropPiece(p, piece);
+              }
+          }
+      });
   });
   CheckInvariants(board);
 }
