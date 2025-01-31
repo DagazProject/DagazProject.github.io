@@ -200,10 +200,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
     design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.LITERAL,	1);	// Black
-    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(2, ZRF.FUNCTION,	0);	// not
-    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
     design.addCommand(2, ZRF.LITERAL,	0);	// Empty
     design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(2, ZRF.FUNCTION,	0);	// not
@@ -216,70 +212,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.MODE,	0);	// jump-type
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
     design.addCommand(2, ZRF.FUNCTION,	28);	// end
-
-    design.addCommand(3, ZRF.FUNCTION,	24);	// from
-    design.addCommand(3, ZRF.IN_ZONE,	1);	// fields
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.LITERAL,	0);	// Empty
-    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.PARAM,	0);	// $1
-    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.LITERAL,	2);	// Gray
-    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.LITERAL,	0);	// Empty
-    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(3, ZRF.FUNCTION,	0);	// not
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.FUNCTION,	26);	// capture
-    design.addCommand(3, ZRF.PARAM,	1);	// $2
-    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(3, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(3, ZRF.MODE,	0);	// jump-type
-    design.addCommand(3, ZRF.FUNCTION,	25);	// to
-    design.addCommand(3, ZRF.FUNCTION,	28);	// end
-
-    design.addCommand(4, ZRF.FUNCTION,	24);	// from
-    design.addCommand(4, ZRF.IN_ZONE,	1);	// fields
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(4, ZRF.FUNCTION,	0);	// not
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.LITERAL,	0);	// Empty
-    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(4, ZRF.FUNCTION,	0);	// not
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.PARAM,	0);	// $1
-    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(4, ZRF.FUNCTION,	0);	// not
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.LITERAL,	3);	// White
-    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(4, ZRF.FUNCTION,	0);	// not
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.LITERAL,	0);	// Empty
-    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
-    design.addCommand(4, ZRF.FUNCTION,	0);	// not
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.FUNCTION,	26);	// capture
-    design.addCommand(4, ZRF.PARAM,	1);	// $2
-    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(4, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(4, ZRF.MODE,	0);	// jump-type
-    design.addCommand(4, ZRF.FUNCTION,	25);	// to
-    design.addCommand(4, ZRF.FUNCTION,	28);	// end
 
 //  design.addPriority(0);			// jump-type
 //  design.addPriority(1);			// init-type
@@ -298,21 +230,21 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPiece("Gray", 2);
     design.addMove(2, 1, [27, 27, 6], 1);
-    design.addMove(2, 3, [1, 1], 0);
-    design.addMove(2, 3, [0, 0], 0);
-    design.addMove(2, 3, [5, 5], 0);
-    design.addMove(2, 3, [2, 2], 0);
-    design.addMove(2, 3, [3, 3], 0);
-    design.addMove(2, 3, [4, 4], 0);
+    design.addMove(2, 2, [1, 1], 0);
+    design.addMove(2, 2, [0, 0], 0);
+    design.addMove(2, 2, [5, 5], 0);
+    design.addMove(2, 2, [2, 2], 0);
+    design.addMove(2, 2, [3, 3], 0);
+    design.addMove(2, 2, [4, 4], 0);
 
     design.addPiece("White", 3);
     design.addMove(3, 1, [27, 27, 6], 1);
-    design.addMove(3, 4, [1, 1], 0);
-    design.addMove(3, 4, [0, 0], 0);
-    design.addMove(3, 4, [5, 5], 0);
-    design.addMove(3, 4, [2, 2], 0);
-    design.addMove(3, 4, [3, 3], 0);
-    design.addMove(3, 4, [4, 4], 0);
+    design.addMove(3, 2, [1, 1], 0);
+    design.addMove(3, 2, [0, 0], 0);
+    design.addMove(3, 2, [5, 5], 0);
+    design.addMove(3, 2, [2, 2], 0);
+    design.addMove(3, 2, [3, 3], 0);
+    design.addMove(3, 2, [4, 4], 0);
 
     design.setup("N", "Black", 9);
     design.setup("N", "Black", 8);
