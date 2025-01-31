@@ -19,7 +19,7 @@
 (define jump (
   (verify (in-zone? fields))
   (verify not-empty?) (verify (not-piece? Empty))
-  $1 (verify not-empty?) (verify (not-piece? $2)) 
+  $1 (verify not-empty?)
   (verify (not-piece? Empty)) capture
   $1 (verify empty?)
   (add-partial jump-type)
@@ -221,7 +221,7 @@
         (move-type init-type)
         (drop-piece nx)
         (move-type jump-type)
-        (jump n Black) (jump s Black) (jump nw Black) (jump ne Black) (jump sw Black) (jump se Black)
+        (jump n) (jump s) (jump nw) (jump ne) (jump sw) (jump se)
      )
   )
   (piece
@@ -233,7 +233,7 @@
         (move-type init-type)
         (drop-piece nx)
         (move-type jump-type)
-        (jump n Gray) (jump s Gray) (jump nw Gray) (jump ne Gray) (jump sw Gray) (jump se Gray)
+        (jump n) (jump s) (jump nw) (jump ne) (jump sw) (jump se)
      )
   )
   (piece
@@ -245,7 +245,7 @@
         (move-type init-type)
         (drop-piece nx)
         (move-type jump-type)
-        (jump n White) (jump s White) (jump nw White) (jump ne White) (jump sw White) (jump se White)
+        (jump n) (jump s) (jump nw) (jump ne) (jump sw) (jump se)
      )
   )
 
