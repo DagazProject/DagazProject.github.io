@@ -6,7 +6,7 @@
 
 (define drop-piece (
   (verify (in-zone? init))
-  (verify not-empty?) a1
+  (verify not-empty?)
   a1
   (while (on-board? nx)
      (if empty? add)

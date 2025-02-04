@@ -6,7 +6,7 @@ Dagaz.Model.WIDTH         = 14;
 Dagaz.Model.HEIGHT        = 10;
 
 Dagaz.AI.NOISE_FACTOR     = 5;
-Dagaz.AI.Q_SEARCH_LIMIT   = -20;
+Dagaz.AI.Q_SEARCH_LIMIT   = -10;
 
 Dagaz.AI.PIECE_MASK       = 0x1F;
 Dagaz.AI.TYPE_MASK        = 0xF;
@@ -547,12 +547,12 @@ Dagaz.AI.ResetGame = function() {
                              g_vectorDelta[index].delta = flip * 17;
                          }
  
-                         if ((i == pieceCrownRook) && (dir < 4)) {
+                         if ((i == pieceCrownRook) && (dir >= 4)) {
                              g_vectorDelta[index].delta = pieceDeltas[i][dir];
                              break;
                          }
 
-                         if ((i == pieceConcubine) && (dir < 4)) {
+                         if ((i == pieceConcubine) && (dir >= 4)) {
                              g_vectorDelta[index].delta = pieceDeltas[i][dir];
                              break;
                          }

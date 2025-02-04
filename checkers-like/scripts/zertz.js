@@ -166,8 +166,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
     design.addCommand(1, ZRF.PARAM,	0);	// $1
     design.addCommand(1, ZRF.FUNCTION,	21);	// position
-    design.addCommand(1, ZRF.PARAM,	1);	// $2
-    design.addCommand(1, ZRF.FUNCTION,	21);	// position
     design.addCommand(1, ZRF.ON_BOARD_DIR,	6);	// name
     design.addCommand(1, ZRF.FUNCTION,	0);	// not
     design.addCommand(1, ZRF.IF,	10);
@@ -177,7 +175,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FORK,	3);
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
-    design.addCommand(1, ZRF.PARAM,	2);	// $3
+    design.addCommand(1, ZRF.PARAM,	1);	// $2
     design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(1, ZRF.JUMP,	-11);
     design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
@@ -220,7 +218,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addDrop(0, 0, [], 2);
 
     design.addPiece("Black", 1);
-    design.addMove(1, 1, [27, 27, 6], 1);
+    design.addMove(1, 1, [27, 6], 1);
     design.addMove(1, 2, [1, 1], 0);
     design.addMove(1, 2, [0, 0], 0);
     design.addMove(1, 2, [5, 5], 0);
@@ -229,7 +227,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 2, [4, 4], 0);
 
     design.addPiece("Gray", 2);
-    design.addMove(2, 1, [27, 27, 6], 1);
+    design.addMove(2, 1, [27, 6], 1);
     design.addMove(2, 2, [1, 1], 0);
     design.addMove(2, 2, [0, 0], 0);
     design.addMove(2, 2, [5, 5], 0);
@@ -238,7 +236,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(2, 2, [4, 4], 0);
 
     design.addPiece("White", 3);
-    design.addMove(3, 1, [27, 27, 6], 1);
+    design.addMove(3, 1, [27, 6], 1);
     design.addMove(3, 2, [1, 1], 0);
     design.addMove(3, 2, [0, 0], 0);
     design.addMove(3, 2, [5, 5], 0);
