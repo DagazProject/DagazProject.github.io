@@ -16,19 +16,21 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (design.inZone(0, board.player, pos)) return;
       var piece = board.getPiece(pos);
       if (piece === null) return;
-      var v = +piece.type;
-      if ((v % 4) == 1) {
-          v++;
-      } else if ((v % 4) == 2) {
-          v--;
-      }
-      var y = (v / 4) | 0;
-      var x = v % 4;
-      if (x > 1) x += 8;
-      var p = (y * 12) + x;
-      var m = Dagaz.Model.createMove(0);
-      m.movePiece(pos, p, piece);
-      board.moves.push(m);
+      _.each(design.allPositions(), function(p) {
+          if (!design.inZone(0, board.player, p)) return;
+          if (board.getPiece(p) !== null) return;
+          var m = Dagaz.Model.createMove(0);
+          m.movePiece(pos, p, piece);
+          board.moves.push(m);
+      });
+  });
+  _.each(board.moves, function(move) {
+      if (!move.isSimpleMove()) return;
+      var p = move.actions[0][0][0];
+      var q = move.actions[0][1][0];
+      var piece = board.getPiece(q);
+      if (piece === null) return;
+      move.movePiece(q, p, piece);
   });
   CheckInvariants(board);
 }
