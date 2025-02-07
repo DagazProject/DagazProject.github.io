@@ -1,0 +1,297 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-jump (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?)
+  add
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define en-passant (
+  $1
+  (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture
+  n mark n
+  (verify last-from?)
+  back
+  add
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define jump (
+  $1 $1 $2 (verify empty?)
+  add
+))
+
+(define glide (
+  $1 (while empty? add $1)
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define slide-1f (
+  $1 
+  (while empty? $1)
+  (verify friend?)
+  (add-partial enemy-type)
+))
+
+(define slide-1e (
+  $1 
+  (while empty? $1)
+  (verify enemy?)
+  (add-partial friend-type)
+))
+
+(define slide-2f (
+  $1 
+  (while empty? $1)
+  (verify friend?)
+  add
+))
+
+(define slide-2e (
+  $1 
+  (while empty? $1)
+  (verify enemy?)
+  add
+))
+
+(define jump-1f (
+  $1 $1 $2 (verify friend?)
+  (add-partial enemy-type)
+))
+
+(define jump-1e (
+  $1 $1 $2 (verify enemy?)
+  (add-partial friend-type)
+))
+
+(define jump-2f (
+  $1 $1 $2 (verify friend?)
+  add
+))
+
+(define jump-2e (
+  $1 $1 $2 (verify enemy?)
+  add
+))
+
+(game
+  (title "Abyss Angel Chess")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (move-priorities normal-type)
+
+  (board
+     (image "images/abyss/board.bmp")
+     (grid
+         (start-rectangle 2 2 75 75)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (72 0)) ; files
+           ("10/9/8/7/6/5/4/3/2/1" (0 72)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e))
+     (zone (name last-rank) (players White)
+           (positions a10 b10 c10 d10 e10 f10 g10 h10 i10 j10 k10)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1)
+     )
+     (zone (name third-rank) (players White)
+           (positions a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3)
+     )
+     (zone (name third-rank) (players Black)
+           (positions a8 b8 c8 d8 e8 f8 g8 h8 i8 j8 k8)
+     )
+  )
+
+  (piece
+     (name Pawn)
+     (image White "images/abyss/wpawn.bmp"
+            Black "images/abyss/bpawn.bmp")
+     (moves
+         (move-type normal-type)
+         (pawn-shift n) (pawn-jump n) 
+         (pawn-step nw) (pawn-step ne)
+         (en-passant e) (en-passant w)
+     )
+  )
+  (piece
+     (name Rook)
+     (image White "images/abyss/wrook.bmp"
+            Black "images/abyss/brook.bmp")
+     (moves
+         (move-type normal-type)
+         (slide n) (slide s) (slide w) (slide e)
+     )
+  )
+  (piece
+     (name Knight)
+     (image White "images/abyss/wknight.bmp"
+            Black "images/abyss/bknight.bmp")
+     (moves
+         (move-type normal-type)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+     )
+  )
+  (piece
+     (name Bishop)
+     (image White "images/abyss/wbishop.bmp"
+            Black "images/abyss/bbishop.bmp")
+     (moves
+         (move-type normal-type)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name Queen)
+     (image White "images/abyss/wqueen.bmp"
+            Black "images/abyss/bqueen.bmp")
+     (moves
+         (move-type normal-type)
+         (slide n) (slide s) (slide w) (slide e)
+         (slide nw) (slide sw) (slide ne) (slide se)
+     )
+  )
+  (piece
+     (name KnightK)
+     (image White "images/abyss/wknightk.bmp"
+            Black "images/abyss/bknightk.bmp")
+     (moves
+         (move-type normal-type)
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name BishopK)
+     (image White "images/abyss/wbishopk.bmp"
+            Black "images/abyss/bbishopk.bmp")
+     (moves
+         (move-type normal-type)
+         (slide nw) (slide sw) (slide ne) (slide se)
+         (step n) (step s) (step w) (step e)
+     )
+  )
+  (piece
+     (name RookK)
+     (image White "images/abyss/wrookk.bmp"
+            Black "images/abyss/brookk.bmp")
+     (moves
+         (move-type normal-type)
+         (slide n) (slide s) (slide w) (slide e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+  (piece
+     (name Angel)
+     (image White "images/abyss/wangel.bmp"
+            Black "images/abyss/bangel.bmp")
+     (moves
+         (move-type normal-type)
+         (glide n) (glide s) (glide w) (glide e)
+         (glide nw) (glide sw) (glide ne) (glide se)
+         (jump n nw) (jump n ne) (jump s sw) (jump s se)
+         (jump w nw) (jump w sw) (jump e ne) (jump e se)
+         (jump-1f n nw) (jump-1f n ne) (jump-1f s sw) (jump-1f s se)
+         (jump-1f w nw) (jump-1f w sw) (jump-1f e ne) (jump-1f e se)
+         (jump-1e n nw) (jump-1e n ne) (jump-1e s sw) (jump-1e s se)
+         (jump-1e w nw) (jump-1e w sw) (jump-1e e ne) (jump-1e e se)
+         (slide-1f n) (slide-1f s) (slide-1f w) (slide-1f e)
+         (slide-1f nw) (slide-1f sw) (slide-1f ne) (slide-1f se)
+         (slide-1e n) (slide-1e s) (slide-1e w) (slide-1e e)
+         (slide-1e nw) (slide-1e sw) (slide-1e ne) (slide-1e se)
+         (move-type enemy-type)
+         (jump-2e n nw) (jump-2e n ne) (jump-2e s sw) (jump-2e s se)
+         (jump-2e w nw) (jump-2e w sw) (jump-2e e ne) (jump-2e e se)
+         (slide-2e n) (slide-2e s) (slide-2e w) (slide-2e e)
+         (slide-2e nw) (slide-2e sw) (slide-2e ne) (slide-2e se)
+         (move-type friend-type)
+         (jump-2f n nw) (jump-2f n ne) (jump-2f s sw) (jump-2f s se)
+         (jump-2f w nw) (jump-2f w sw) (jump-2f e ne) (jump-2f e se)
+         (slide-2f n) (slide-2f s) (slide-2f w) (slide-2f e)
+         (slide-2f nw) (slide-2f sw) (slide-2f ne) (slide-2f se)
+     )
+  )
+  (piece
+     (name King)
+     (image White "images/abyss/wking.bmp"
+            Black "images/abyss/bking.bmp")
+     (moves
+         (move-type normal-type)
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (Pawn a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2)
+         (Rook a1)
+         (Knight b1 e1)
+         (Bishop c1 d1)
+         (Queen f1)
+         (Angel h1)
+         (BishopK i1)
+         (KnightK j1)
+         (RookK k1)
+         (King g1)
+    )
+    (Black 
+         (Pawn a9 b9 c9 d9 e9 f9 g9 h9 i9 j9 k9)
+         (Rook a10)
+         (Knight b10 e10)
+         (Bishop c10 d10)
+         (Queen f10)
+         (Angel h10)
+         (BishopK i10)
+         (KnightK j10)
+         (RookK k10)
+         (King g10)
+    )
+  )
+)
