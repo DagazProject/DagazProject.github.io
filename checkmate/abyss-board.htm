@@ -1,0 +1,59 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Abyss Angel Chess</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/abyss/board.png">
+<img id="WhitePawn" style="display:none" src="images/abyss/wpawn.png">
+<img id="BlackPawn" style="display:none" src="images/abyss/bpawn.png">
+<img id="WhiteRook" style="display:none" src="images/abyss/wrook.png">
+<img id="BlackRook" style="display:none" src="images/abyss/brook.png">
+<img id="WhiteKnight" style="display:none" src="images/abyss/wknight.png">
+<img id="BlackKnight" style="display:none" src="images/abyss/bknight.png">
+<img id="WhiteBishop" style="display:none" src="images/abyss/wbishop.png">
+<img id="BlackBishop" style="display:none" src="images/abyss/bbishop.png">
+<img id="WhiteQueen" style="display:none" src="images/abyss/wqueen.png">
+<img id="BlackQueen" style="display:none" src="images/abyss/bqueen.png">
+<img id="WhiteKnightK" style="display:none" src="images/abyss/wknightk.png">
+<img id="BlackKnightK" style="display:none" src="images/abyss/bknightk.png">
+<img id="WhiteBishopK" style="display:none" src="images/abyss/wbishopk.png">
+<img id="BlackBishopK" style="display:none" src="images/abyss/bbishopk.png">
+<img id="WhiteRookK" style="display:none" src="images/abyss/wrookk.png">
+<img id="BlackRookK" style="display:none" src="images/abyss/brookk.png">
+<img id="WhiteAngel" style="display:none" src="images/abyss/wangel.png">
+<img id="BlackAngel" style="display:none" src="images/abyss/bangel.png">
+<img id="WhiteKing" style="display:none" src="images/abyss/wking.png">
+<img id="BlackKing" style="display:none" src="images/abyss/bking.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="794" height="722" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/2d-view-v3.js"></script>
+<script src="../common-scripts/move-list-v1.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="scripts/abyss.js"></script>
+<script src="../common-scripts/app-v5.js"></script>
+
+</body>
+</html>
