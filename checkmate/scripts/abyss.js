@@ -148,6 +148,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("i1", [0, 0, 0, 1, -1, -10, -12, -11]);
     design.addPosition("j1", [0, 0, 0, 1, -1, -10, -12, -11]);
     design.addPosition("k1", [0, 0, 0, 0, -1, 0, -12, -11]);
+    design.addPosition("X1", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X2", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X3", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X4", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X5", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X6", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X7", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X8", [0, 0, 0, 0, 0, 0, 0, 0]);
 
     design.addZone("last-rank", 1, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     design.addZone("last-rank", 2, [99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109]);
@@ -741,4 +749,14 @@ Dagaz.View.configure = function(view) {
     view.defPosition("i1", 578, 650, 73, 73);
     view.defPosition("j1", 650, 650, 73, 73);
     view.defPosition("k1", 722, 650, 73, 73);
+
+    view.defPopup("Promote", 107, 100);
+    view.defPopupPosition("X1", 10, 7, 68, 68);
+    view.defPopupPosition("X2", 80, 7, 68, 68);
+    view.defPopupPosition("X3", 150, 7, 68, 68);
+    view.defPopupPosition("X4", 220, 7, 68, 68);
+    view.defPopupPosition("X5", 290, 7, 68, 68);
+    view.defPopupPosition("X6", 360, 7, 68, 68);
+    view.defPopupPosition("X7", 430, 7, 68, 68);
+    view.defPopupPosition("X8", 500, 7, 68, 68);
 }
