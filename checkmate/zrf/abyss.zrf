@@ -7,12 +7,19 @@
   )
 ))
 
-(define pawn-jump (
+(define pawn-jump-1 (
   $1
   (verify empty?)
   (verify (in-zone? third-rank))
-  $1 (verify empty?)
-  add
+  $1 (verify empty?) add
+))
+
+(define pawn-jump-2 (
+  $1
+  (verify empty?)
+  (verify (in-zone? third-rank))
+  $1 (verify empty?) add
+  $1 (verify empty?) add
 ))
 
 (define pawn-step (
@@ -24,16 +31,32 @@
   )
 ))
 
-(define en-passant (
-  $1
-  (verify enemy?)
+(define en-passant-1 (
+  $1 (verify enemy?)
   (verify last-to?)
   (verify (piece? Pawn))
-  capture
-  n mark n
+  capture n mark n
   (verify last-from?)
   back
   add
+))
+
+(define en-passant-2 (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n mark n n
+  (verify last-from?)
+  back add
+))
+
+(define en-passant-ex (
+  $1 (verify enemy?)
+  (verify last-to?)
+  (verify (piece? Pawn))
+  capture n n mark n
+  (verify last-from?)
+  back add
 ))
 
 (define step (
@@ -110,6 +133,19 @@
   add
 ))
 
+(define O-O-O (
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  $1 (verify empty?)
+  to
+  $1 (verify empty?)
+  $1 (verify friend?) (verify (piece? Rook))
+  cascade
+  $2 $2 $2
+  add
+))
+
 (game
   (title "Abyss Angel Chess")
 
@@ -152,9 +188,10 @@
             Black "images/abyss/bpawn.bmp")
      (moves
          (move-type normal-type)
-         (pawn-shift n) (pawn-jump n) 
+         (pawn-shift n) (pawn-jump-1 n) (pawn-jump-2 n) 
          (pawn-step nw) (pawn-step ne)
-         (en-passant e) (en-passant w)
+         (en-passant-1 e) (en-passant-2 e) (en-passant-ex se)
+         (en-passant-1 w) (en-passant-2 w) (en-passant-ex sw)
      )
   )
   (piece
@@ -265,6 +302,7 @@
          (move-type normal-type)
          (step n) (step s) (step w) (step e)
          (step nw) (step sw) (step ne) (step se)
+         (O-O-O w e)
      )
   )
 
