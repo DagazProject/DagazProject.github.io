@@ -85,7 +85,13 @@ var createPiece = function(design, c) {
   return null;
 }
 
-var checkPassant = function(board, pos) {
+var checkPassant = function(design, board, pos, dir) {
+  pos = design.navigate(1, pos, dir);
+  if (pos === null) return;
+  if (design.inZone(1, 1, pos) || design.inZone(1, 2, pos)) {
+      pos = design.navigate(1, pos, dir);
+      if (pos === null) return;
+  }
   var piece = board.getPiece(pos);
   if (piece !== null) {
       board.lastt = pos;
@@ -114,12 +120,12 @@ Dagaz.Model.setup = function(board, init) {
                if (pos >= Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT) break;
            }
       }
-      var r = setup.match(/-[wb]-([a-l]\d+)/);
+      var r = setup.match(/\+[wb]\+([a-i]\d+)/);
       if (r) {
           var pos = Dagaz.Model.stringToPos(r[1], design);
           if (pos !== null) {
-              checkPassant(board, pos + Dagaz.Model.WIDTH);
-              checkPassant(board, pos - Dagaz.Model.WIDTH);
+              checkPassant(design, board, pos, 1);
+              checkPassant(design, board, pos, 11);
           }
       }
       var turn = getTurn(init);

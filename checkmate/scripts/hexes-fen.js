@@ -119,7 +119,7 @@ Dagaz.Model.setup = function(board, init) {
                if (pos >= design.positions.length) break;
            }
       }
-      var r = setup.match(/-[wb]-([a-l]\d+)/);
+      var r = setup.match(/\+[wb]\+([a-l]\d+)/);
       if (r) {
           var pos = Dagaz.Model.stringToPos(r[1], design);
           if (pos !== null) {
