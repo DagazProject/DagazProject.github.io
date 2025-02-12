@@ -114,7 +114,11 @@ var createPiece = function(design, c) {
   return null;
 }
 
-var checkPassant = function(board, pos) {
+var checkPassant = function(design, board, pos, delta) {
+  pos += delta;
+  if (design.inZone(1, 1, pos) || design.inZone(1, 2, pos)) {
+      pos += delta;
+  }
   var piece = board.getPiece(pos);
   if (piece !== null) {
       board.lastt = pos;
@@ -147,8 +151,8 @@ Dagaz.Model.setup = function(board, init) {
       if (r) {
           var pos = Dagaz.Model.stringToPos(r[1], design);
           if (pos !== null) {
-              checkPassant(board, pos + 11);
-              checkPassant(board, pos - 11);
+              checkPassant(design, board, pos, +11);
+              checkPassant(design, board, pos, -11);
           }
       }
       var turn = getTurn(init);
