@@ -6,19 +6,21 @@ var HEIGHT = 10;
 (function() {
 
 Dagaz.Model.moveToString = function(move) {
-  var r = "";
-  var a = move.actions[0];
-  if (a[0] != null) {
-      r = r + Dagaz.Model.posToString(a[0][0]);
-      if (a[1] !== null) {
-          r = r + '-';
+  var r = ""; var t = "";
+  _.each(move.actions, function(a) {
+      if (a[1] === null) return;
+      if ((r == "") && (a[0] != null)) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
       }
-  }
-  if (a[1] !== null) {
-      r = r + Dagaz.Model.posToString(a[1][0]);
-  }
-  if ((a[2] !== null) && ((a[0] != null) || (a[1] !== null))) {
-      r = r + " " + a[2][0].getType();
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+      if ((a[2] !== null) && ((a[0] != null) || (a[1] !== null))) {
+          t = a[2][0].getType();
+      }
+  });
+  if (t.length > 0) {
+      r = r + " " + t;
   }
   return r;
 }
