@@ -93,7 +93,7 @@ var addPattern = function(design, board, sx, sy, p, o, a, move) {
   for (var y = 0; y < PATTERN_SIZE; y++) {
        for (var x = 0; x < PATTERN_SIZE; x++) {
             if (p[y * PATTERN_SIZE + x] == 0) continue;
-            if ((x + sx >= 20) || (y + sy >= 20)) return false;
+            if ((x + sx >= 20) || (y + sy >= 10)) return false;
             var pos = (y + sy) * 20 + x + sx;
             var piece = board.getPiece(pos);
             if (piece !== null) return false;
@@ -112,7 +112,7 @@ Dagaz.Model.CheckInvariants = function(board) {
   if ((v !== null) && (board.player != 1)) {
       v = design.nextPlayer(v);
   }
-  for (var y = 10; y < 20 - 2; y++) {
+  for (var y = 0; y < 10 - 2; y++) {
       for (var x = 0; x < 20 - 2; x++) {
            for (var i = 0; i < 2; i++) {
                 if (v !== null) {
@@ -142,17 +142,6 @@ Dagaz.Model.CheckInvariants = function(board) {
            }
       }
   }
-/*if (board.turn == 1) {
-      if (v === null) v = 2;
-      for (var pos = 20 * 10; pos < 20 * 20; pos++) {
-           var piece = board.getPiece(pos);
-           if (piece === null) continue;
-           var move = Dagaz.Model.createMove(0);
-           move.movePiece(pos, pos, piece);
-           move.setValue(0, v);
-           board.moves.add(move);
-      }
-  }*/
   CheckInvariants(board);
 }
 

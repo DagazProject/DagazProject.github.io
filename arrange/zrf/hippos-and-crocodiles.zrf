@@ -17,7 +17,7 @@
      (grid
          (start-rectangle 12 12 30 30)
          (dimensions ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (18 0))
-                     ("20/19/18/17/16/15/14/13/12/11/1/2/3/4/5/6/7/8/9/10" (0 18))
+                     ("1/2/3/4/5/6/7/8/9/10" (0 18))
          )
          (directions 
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
@@ -112,19 +112,4 @@
   (tile h 8 n)
   (tile h 9 n)
   (tile h 10 n)
-
-  (board-setup
-     (First 
-        (cw1 d3) (cw2 e4) (cw3 e3) (cw4 e2) (cw5 f3) (cw6 g4) (cw7 g3) (cw8 g2) (cw9 h3) (cw10 i3)
-        (cn1 k3) (cn2 j4) (cn3 k4) (cn4 l4) (cn5 k5) (cn6 j6) (cn7 k6) (cn8 l6) (cn9 k7) (cn10 k8)
-        (ce1 i7) (ce2 h6) (ce3 h7) (ce4 h8) (ce5 g7) (ce6 f6) (ce7 f7) (ce8 f8) (ce9 e7) (ce10 d7)
-        (cs1 b7) (cs2 c6) (cs3 b6) (cs4 a6) (cs5 b5) (cs6 c4) (cs7 b4) (cs8 a4) (cs9 b3) (cs10 b2)
-     )
-     (Second
-        (hn1 n1) (hn2 m2) (hn3 n2) (hn4 o2) (hn5 m3) (hn6 n3) (hn7 o3) (hn8 m4) (hn9 n4) (hn10 o4)
-        (he1 t3) (he2 s2) (he3 s3) (he4 s4) (he5 r2) (he6 r3) (he7 r4) (he8 q2) (he9 q3) (he10 q4)
-        (hw1 l7) (hw2 m8) (hw3 m7) (hw4 m6) (hw5 n8) (hw6 n7) (hw7 n6) (hw8 o8) (hw9 o7) (hw10 o6)
-        (hs1 r9) (hs2 s8) (hs3 r8) (hs4 q8) (hs5 s7) (hs6 r7) (hs7 q7) (hs8 s6) (hs9 r6) (hs10 q6)
-     )
-  )
 )
