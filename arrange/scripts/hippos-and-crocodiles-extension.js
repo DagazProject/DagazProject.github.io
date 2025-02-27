@@ -71,22 +71,8 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 }
 
 Dagaz.Model.getTiles = function(board, pos) {
-  var r = [];
-  if (pos >= 20 * 10) return r;
-  var piece = board.getPiece(pos);
-  if (piece === null) return r;
-  var val = piece.getValue(0);
-  if (val === null) return r;
-  for (var p = 0; p < 20 * 10; p++) {
-       var x = board.getPiece(p);
-       if (x === null) continue;
-       if (x.player != piece.player) continue;
-       var v = x.getValue(0);
-       if (v === null) continue;
-       if (v != val) continue;
-       r.push(pos);
-  }
-  return r;
+  var design = Dagaz.Model.design;
+  return design.allPositions();
 }
 
 var addPattern = function(design, board, sx, sy, p, o, a, move) {

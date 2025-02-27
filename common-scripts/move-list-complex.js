@@ -47,13 +47,8 @@ function getTile(move, pos) {
   return null;
 }
 
-function notCaptured(move, pos) {
-  for (var i = 0; i < move.actions.length; i++) {
-       var a = move.actions[i];
-       if ((a[0] !== null) && (a[1] === null) && (a[0][0] == pos)) return false;
-       if ((a[0] === null) && (a[1] !== null) && (a[1][0] == pos)) return false;
-  }
-  return true;
+Dagaz.Model.notValidMove = function(move, pos) {
+  return false;
 }
 
 MoveList.prototype.getMoves = function() {
@@ -62,7 +57,7 @@ MoveList.prototype.getMoves = function() {
           this.list = [];
           _.each(this.moves, function(move) {
               if (this.isComplex()) {
-                  if (notCaptured(move, this.src)) return;             
+                  if (Dagaz.Model.notValidMove(move, this.src)) return;             
                   if ((this.dst !== null) && (this.tile !== null)) {
                       var tile = getTile(move, this.dst);
                       if ((tile === null) || (tile != this.tile)) return;

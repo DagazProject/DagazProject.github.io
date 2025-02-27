@@ -8,6 +8,15 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+Dagaz.Model.notValidMove = function(move, pos) {
+  for (var i = 0; i < move.actions.length; i++) {
+       var a = move.actions[i];
+       if ((a[0] !== null) && (a[1] === null) && (a[0][0] == pos)) return false;
+       if ((a[0] === null) && (a[1] !== null) && (a[1][0] == pos)) return false;
+  }
+  return true;
+}
+
 Dagaz.Model.getTiles = function(board, pos) {
   if (!_.isUndefined(board.tiles)) return board.tiles;
   var design = Dagaz.Model.design;
