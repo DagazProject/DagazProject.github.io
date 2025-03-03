@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.AutoDrop = true;
+
 const PATTERN_SIZE = 6;
 
 var patterns = [[
@@ -75,7 +77,7 @@ Dagaz.Model.getTiles = function(board, pos) {
   return design.allPositions();
 }
 
-var addPattern = function(design, board, sx, sy, p, o, a, move) {
+var addPattern = function(design, board, sx, sy, p, o, move) {
   for (var y = 0; y < PATTERN_SIZE; y++) {
        for (var x = 0; x < PATTERN_SIZE; x++) {
             if (p[y * PATTERN_SIZE + x] == 0) continue;
@@ -83,7 +85,7 @@ var addPattern = function(design, board, sx, sy, p, o, a, move) {
             var pos = (y + sy) * 20 + x + sx;
             var piece = board.getPiece(pos);
             if (piece !== null) return false;
-            piece = Dagaz.Model.createPiece(o + p[y * PATTERN_SIZE + x], board.player).setValue(0, a);
+            piece = Dagaz.Model.createPiece(o + (p[y * PATTERN_SIZE + x] - 1), board.player).setValue(0, p[y * PATTERN_SIZE + x]);
             move.dropPiece(pos, piece);
        }
   }
@@ -94,32 +96,13 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
-  var v = board.getValue(0);
-  if ((v !== null) && (board.player != 1)) {
-      v = design.nextPlayer(v);
-  }
   for (var y = 0; y < 10 - 2; y++) {
       for (var x = 0; x < 20 - 2; x++) {
            for (var i = 0; i < 2; i++) {
-                if (v !== null) {
-                    if (i + 1 != v) continue;
-                }
+                if (i + 1 != board.player) continue;
                 for (var j = 0; j < 4; j++) {
                      var move = Dagaz.Model.createMove(j + 1);
-                     if (addPattern(design, board, x, y, patterns[i][j], (i * 4 + j) * 10, j + 1, move)) {
-                         for (var pos = 0; pos < 20 * 10; pos++) {
-                              var piece = board.getPiece(pos);
-                              if (piece === null) continue;
-                              var m = piece.getValue(0);
-                              if (m === null) continue;
-                              if (m != j + 1) continue;
-                              if ((i == 0) && (piece.type >= 40)) continue;
-                              if ((i == 1) && (piece.type < 40)) continue;
-                              move.movePiece(pos, pos, piece);
-                         }
-                         if (v === null) {
-                              move.setValue(0, i + 1);
-                         }
+                     if (addPattern(design, board, x, y, patterns[i][j], (i * 4 + j) * 10, move)) {
 //                       console.log('x = ' + x + ', y = ' + y + ', player = ' + (i + 1) + ', mode = ' + (j + 1));
 //                       console.log(move);
                          board.moves.push(move);
