@@ -1,0 +1,149 @@
+"use strict";
+
+(function() {
+
+var isConfigured  = false;
+var isInitialized = false;
+var isFirstDraw   = true;
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#Canvas'),
+});
+
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+};
+
+const aspectRatio = sizes.width / sizes.height;
+const scene = new THREE.Scene();
+const textureLoader = new THREE.TextureLoader();
+
+const viewDistance = 50;
+
+const camera = new THREE.OrthographicCamera(
+  viewDistance * -1 * aspectRatio, 
+  viewDistance * aspectRatio,  
+  viewDistance,  
+  viewDistance * -1,
+);
+
+const updateRender = () => {
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+};
+
+Dagaz.View.configure = function(view) {}
+
+function View3D() {
+  this.board   = null;
+  this.res     = [];
+  this.pos     = [];
+  this.ready   = false;
+}
+
+Dagaz.View.getView = function() {
+  if (_.isUndefined(Dagaz.View.view)) {
+      Dagaz.View.view = new View3D();
+  }
+  return Dagaz.View.view;
+}
+
+View3D.prototype.init = function(canvas, controller) {
+  if (!isInitialized) {
+     scene.background = new THREE.Color('#eee');
+     camera.position.set(100, 100, 100);
+     camera.lookAt(0, 0, 0);
+     const ambientLight = new THREE.AmbientLight('white', 2);
+     scene.add(ambientLight);
+     const directionalLight = new THREE.DirectionalLight('white', 2);
+     directionalLight.position.set(100, 180, 60);
+     scene.add(directionalLight);
+     updateRender();
+     isInitialized = true;
+  }
+}
+
+View3D.prototype.defBoard = function(res) {
+  const img = document.getElementById(res);
+  const texture = textureLoader.load(
+    img.currentSrc,
+    undefined,
+    undefined,
+    undefined,
+    { crossOrigin: 'anonymous' }
+  );
+  var board = {
+     h: img,
+     t: texture
+  };
+  this.res.push(board);
+}
+
+View3D.prototype.defPiece = function(img, name) {
+}
+
+View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
+  var ix = Dagaz.Model.stringToPos(name);
+  this.pos[ix] = {
+      x: x, dx: dx,
+      y: y, dy: dy
+  };
+}
+
+View3D.prototype.allResLoaded = function() {
+  if (this.ready) return true;
+  for (var i = 0; i < this.res.length; i++) {
+       var image = this.res[i].h;
+       if (!image.complete || (image.naturalWidth == 0)) return false;
+       this.res[i].dx = image.naturalWidth;
+       this.res[i].dy = image.naturalHeight;
+  }
+  this.ready = true;
+  return true;
+}
+
+View3D.prototype.configure = function() {
+  if (!isConfigured) {
+      Dagaz.View.configure(this);
+/*    var board = this.controller.getBoard();
+      board.setup(this, true);
+      this.controller.done();*/
+      isConfigured = true;
+  }
+}
+
+View3D.prototype.draw = function(canvas) {
+  this.configure();
+  if (this.allResLoaded()) {
+      if (isFirstDraw) {
+         const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
+         const materials = [
+            new THREE.MeshBasicMaterial({ color: '#444' }),
+            new THREE.MeshBasicMaterial({ color: '#444' }),
+            new THREE.MeshBasicMaterial({ map: this.res[0].t }),
+            new THREE.MeshBasicMaterial({ color: '#444' }),
+            new THREE.MeshBasicMaterial({ color: '#444' }),
+            new THREE.MeshBasicMaterial({ color: '#444' })
+         ];
+         const boardBlock = new THREE.Mesh(boardGeometry, materials);
+         scene.add(boardBlock);
+         new THREE.OrbitControls(camera, renderer.domElement);
+         isFirstDraw = false;
+      }
+      renderer.render(scene, camera);
+  }
+}
+
+window.addEventListener('resize', () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+  const aspectRatio = sizes.width / sizes.height;
+  camera.left = viewDistance * -1 * aspectRatio;
+  camera.right = viewDistance * aspectRatio;
+  camera.updateProjectionMatrix();
+  updateRender();
+  renderer.render(scene, camera);
+});
+
+})();
