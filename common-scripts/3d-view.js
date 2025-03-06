@@ -5,6 +5,10 @@
 var isConfigured  = false;
 var isInitialized = false;
 var isFirstDraw   = true;
+var currPos       = null;
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
@@ -32,6 +36,38 @@ const updateRender = () => {
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 };
+
+const posGeometry = new THREE.SphereGeometry(3, 32, 32);
+
+const posMaterial = new THREE.MeshStandardMaterial({
+    color: 0x101010,
+    metalness: 0.3,
+    roughness: 0.2,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false
+});
+
+const markMaterial = new THREE.MeshStandardMaterial({
+    color: 0x101010,
+    metalness: 0.3,
+    roughness: 0.2,
+    transparent: true,
+    opacity: 0.3,
+    depthWrite: false
+});
+
+const blackMaterial = new THREE.MeshStandardMaterial({
+    color: 0x101010,
+    metalness: 0.3,
+    roughness: 0.2
+});
+
+const whiteMaterial = new THREE.MeshStandardMaterial({
+    color: 0x505050,
+    metalness: 0.3,
+    roughness: 0.2
+});
 
 Dagaz.View.configure = function(view) {}
 
@@ -84,11 +120,21 @@ View3D.prototype.defPiece = function(img, name) {
 }
 
 View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
+  if (_.isUndefined(dz)) {
+      dz = dx;
+  }
   var ix = Dagaz.Model.stringToPos(name);
+  const p = new THREE.Mesh(posGeometry, posMaterial);
+  p.position.set((x / 10) - 27, (z / 10) + 1, (y / 10) - 27);
+  p.name = name;
+  p.isPosition = true;
   this.pos[ix] = {
       x: x, dx: dx,
-      y: y, dy: dy
+      y: y, dy: dy,
+      z: z, dz: dz,
+      p: p, nm: name
   };
+  scene.add(p);
 }
 
 View3D.prototype.allResLoaded = function() {
@@ -119,12 +165,12 @@ View3D.prototype.draw = function(canvas) {
       if (isFirstDraw) {
          const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
          const materials = [
-            new THREE.MeshBasicMaterial({ color: '#444' }),
-            new THREE.MeshBasicMaterial({ color: '#444' }),
+            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
+            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
             new THREE.MeshBasicMaterial({ map: this.res[0].t }),
-            new THREE.MeshBasicMaterial({ color: '#444' }),
-            new THREE.MeshBasicMaterial({ color: '#444' }),
-            new THREE.MeshBasicMaterial({ color: '#444' })
+            new THREE.MeshBasicMaterial({ color: '#FFEDCB' }),
+            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
+            new THREE.MeshBasicMaterial({ color: '#AC5146' })
          ];
          const boardBlock = new THREE.Mesh(boardGeometry, materials);
          scene.add(boardBlock);
@@ -144,6 +190,22 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   updateRender();
   renderer.render(scene, camera);
+});
+
+window.addEventListener('mousemove', (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(scene.children);
+  if ((intersects.length > 0) && intersects[0].object.isPosition) {
+     if ((currPos === null) || (currPos != intersects[0].object)) {
+        if (currPos !== null) {
+           currPos.material = posMaterial;
+        }
+        currPos = intersects[0].object;
+        currPos.material = markMaterial;
+     }
+  }
 });
 
 })();
