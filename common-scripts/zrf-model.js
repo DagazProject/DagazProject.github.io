@@ -35,9 +35,7 @@ Dagaz.Model.zrfCompatible   = false;
 Dagaz.Model.showLose        = false;
 
 Dagaz.Model.checkVersion = function(design, name, value, selector) {  
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getSetupSelector())) {
-      return;
-  }
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getSetupSelector())) return;
   if (name == "z2j") {
      if (value > Z2J_VERSION) {
          design.failed = true;
@@ -939,7 +937,7 @@ ZrfDesign.prototype.opposite = function(dir) {
 }
 
 ZrfDesign.prototype.addPlayer = function(player, symmetries, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var ix = this.playerNames.length;
   if (this.playerNames.length == 0) {
       ix = 0;
@@ -954,7 +952,7 @@ ZrfDesign.prototype.getPlayersCount = function() {
 }
 
 ZrfDesign.prototype.addTurn = function(player, modes, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   if (_.isUndefined(this.turns)) {
       this.turns = [];
   }
@@ -970,7 +968,7 @@ ZrfDesign.prototype.addTurn = function(player, modes, selector) {
 }
 
 ZrfDesign.prototype.addRandom = function(player, modes, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   if (_.isUndefined(this.turns)) {
       this.turns = [];
   }
@@ -982,7 +980,7 @@ ZrfDesign.prototype.addRandom = function(player, modes, selector) {
 }
 
 ZrfDesign.prototype.repeatMark = function(selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   if (_.isUndefined(this.turns)) {
       this.turns = [];
   }
@@ -1124,7 +1122,7 @@ ZrfDesign.prototype.linkPosition = function(dir, from, to) {
 }
 
 ZrfDesign.prototype.linkPositions = function(commands, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   _.each(commands, function(c) {
      this.linkPosition(c.dir, c.from, c.to);
   }, this);
@@ -1137,7 +1135,7 @@ ZrfDesign.prototype.unlinkPosition = function(dir, from) {
 }
 
 ZrfDesign.prototype.unlinkPositions = function(commands, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   _.each(commands, function(c) {
      var dirs = _.range(this.dirs.length);
      if (!_.isUndefined(c.dir)) {
@@ -1176,7 +1174,7 @@ ZrfDesign.prototype.killPosition = function(pos) {
 }
 
 ZrfDesign.prototype.killPositions = function(positions, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   _.each(positions, function(pos) {
      this.killPosition(pos);
   }, this);
@@ -1251,7 +1249,7 @@ ZrfDesign.prototype.getZone = function(name) {
 }
 
 ZrfDesign.prototype.addZone = function(name, player, positions, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var zone = Dagaz.find(this.zoneNames, name);
   if (zone < 0) {
       zone = this.zoneNames.length;

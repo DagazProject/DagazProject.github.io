@@ -65,7 +65,7 @@ Region.prototype.addRegion = function(x, y, dx, dy, isActive, turns, draw, event
 }
 
 Region.prototype.addBoard = function(name, turns, selector, draw) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {
       h: document.getElementById(name),
       t: turns,
@@ -106,7 +106,7 @@ Region.prototype.findAndLocate = function(ix) {
 }
 
 Region.prototype.addPosition = function(name, x, y, dx, dy, turns, selector, draw) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var pos = this.findPosition(name, true);
   if (pos === null) {
       pos = {

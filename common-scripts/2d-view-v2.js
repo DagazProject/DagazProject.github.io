@@ -133,7 +133,7 @@ View2D.prototype.clearDrops = function() {
 }
 
 View2D.prototype.defPosition = function(name, x, y, dx, dy, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   this.pos.push({
       name: name,
       x:    x,
@@ -144,7 +144,7 @@ View2D.prototype.defPosition = function(name, x, y, dx, dy, selector) {
 }
 
 View2D.prototype.defBoard = function(img, x, y, selector, turns) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {
      h: document.getElementById(img),
      t: turns,
@@ -160,7 +160,7 @@ View2D.prototype.defBoard = function(img, x, y, selector, turns) {
 }
 
 View2D.prototype.defBoardSvg = function(img, x, y, dx, dy, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {
      h: document.getElementById(img),
      x: x ? x : 0,

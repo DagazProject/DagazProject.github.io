@@ -149,7 +149,7 @@ View2D.prototype.defPosition = function(name, x, y, dx, dy) {
 }
 
 View2D.prototype.defBoard = function(img, x, y, selector, turns) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {
      h: document.getElementById(img),
      t: turns,
@@ -165,7 +165,7 @@ View2D.prototype.defBoard = function(img, x, y, selector, turns) {
 }
 
 View2D.prototype.defPopup = function(img, x, y, selector) {
-  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var res = {
      h: document.getElementById(img),
      g: [],
