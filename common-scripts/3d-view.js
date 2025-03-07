@@ -10,6 +10,9 @@ var currPos       = null;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
+const clock = new THREE.Clock();
+let prevTime = 0;
+
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
 });
@@ -34,7 +37,7 @@ const camera = new THREE.OrthographicCamera(
 
 const updateRender = () => {
   renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio * 2, 2));
 };
 
 const posGeometry = new THREE.SphereGeometry(3, 32, 32);
@@ -48,8 +51,17 @@ const posMaterial = new THREE.MeshStandardMaterial({
     depthWrite: false
 });
 
-const markMaterial = new THREE.MeshStandardMaterial({
+const blackMarkMaterial = new THREE.MeshStandardMaterial({
     color: 0x101010,
+    metalness: 0.3,
+    roughness: 0.2,
+    transparent: true,
+    opacity: 0.3,
+    depthWrite: false
+});
+
+const whiteMarkMaterial = new THREE.MeshStandardMaterial({
+    color: 0x505050,
     metalness: 0.3,
     roughness: 0.2,
     transparent: true,
@@ -75,6 +87,9 @@ function View3D() {
   this.board   = null;
   this.res     = [];
   this.pos     = [];
+  this.drops   = [];
+  this.filled  = [];
+  this.setup   = [];
   this.ready   = false;
 }
 
@@ -88,7 +103,7 @@ Dagaz.View.getView = function() {
 View3D.prototype.init = function(canvas, controller) {
   if (!isInitialized) {
      scene.background = new THREE.Color('#eee');
-     camera.position.set(100, 100, 100);
+     camera.position.set(100, 250, 100);
      camera.lookAt(0, 0, 0);
      const ambientLight = new THREE.AmbientLight('white', 2);
      scene.add(ambientLight);
@@ -97,7 +112,33 @@ View3D.prototype.init = function(canvas, controller) {
      scene.add(directionalLight);
      updateRender();
      isInitialized = true;
+     console.log('Initialized!');
   }
+  this.controller = controller;
+}
+
+View3D.prototype.clear = function() {
+  _.each(this.filled, function(pos) {
+      const p = this.pos[pos].p;
+      p.material = posMaterial;
+  }, this);
+  this.setup  = [];
+  this.filled = [];
+  this.invalidate();
+}
+
+View3D.prototype.addPiece = function(piece, pos, model) {
+  this.filled.push(+pos);
+  const p = this.pos[pos].p;
+  if (model.player == 2) {
+      p.material = blackMaterial;
+  } else {
+      p.material = whiteMaterial;
+  }
+}
+
+View3D.prototype.sync = function(board) {
+  this.board = board;
 }
 
 View3D.prototype.defBoard = function(res) {
@@ -127,6 +168,7 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
   const p = new THREE.Mesh(posGeometry, posMaterial);
   p.position.set((x / 10) - 27, (z / 10) + 1, (y / 10) - 27);
   p.name = name;
+  p.ix = ix;
   p.isPosition = true;
   this.pos[ix] = {
       x: x, dx: dx,
@@ -150,18 +192,85 @@ View3D.prototype.allResLoaded = function() {
 }
 
 View3D.prototype.configure = function() {
-  if (!isConfigured) {
+  if (!isConfigured && this.controller) {
       Dagaz.View.configure(this);
-/*    var board = this.controller.getBoard();
+      var board = this.controller.getBoard();
       board.setup(this, true);
-      this.controller.done();*/
+      this.controller.done();
       isConfigured = true;
+      console.log('Configured!');
   }
+}
+
+View3D.prototype.reInit = function(board) {
+  board.setup(this, false);
+  this.invalidate();
+}
+
+View3D.prototype.clearDrops = function() {
+  this.drops = [];
+  this.invalidate();
+}
+
+View3D.prototype.setDrops = function(positions) {
+  positions = _.difference(positions, this.filled);
+  this.drops = _.map(positions, function(ix) {
+     return this.pos[ix].p;
+  }, this);
+  this.invalidate();
+}
+
+View3D.prototype.invalidate = function() {
+  renderer.render(scene, camera);
+}
+
+View3D.prototype.dropPiece = function(move, pos, piece, phase) {
+  if (!phase) { phase = 1; }
+  console.log('Drop: ' + phase);
+  console.log(move);
+  this.filled.push(+pos);
+  const p = this.pos[pos].p;
+  if (piece.player == 2) {
+      p.material = blackMaterial;
+  } else {
+      p.material = whiteMaterial;
+  }
+  currPos = null;
+}
+
+View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
+  if (!phase) { phase = 1; }
+  console.log('Move: ' + phase);
+  console.log(move);
+  if (from == to) return;
+  // TODO:
+
+}
+
+View3D.prototype.capturePiece = function(move, pos, phase) {
+  if (!phase) { phase = 1; }
+  console.log('Capture: ' + phase);
+  console.log(move);
+  this.filled = _.without(this.filled, +pos);
+  const p = this.pos[pos].p;
+  p.material = posMaterial;
+  // TODO:
+
+}
+
+View3D.prototype.commit = function(move) {
+  console.log('Commit:');
+  console.log(move);
+  // TODO:
+
 }
 
 View3D.prototype.draw = function(canvas) {
   this.configure();
   if (this.allResLoaded()) {
+      const elapsedTime = clock.getElapsedTime();
+      const deltaTime = elapsedTime - prevTime;
+      prevTime = elapsedTime;
       if (isFirstDraw) {
          const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
          const materials = [
@@ -177,7 +286,7 @@ View3D.prototype.draw = function(canvas) {
          new THREE.OrbitControls(camera, renderer.domElement);
          isFirstDraw = false;
       }
-      renderer.render(scene, camera);
+      this.invalidate();
   }
 }
 
@@ -196,15 +305,31 @@ window.addEventListener('mousemove', (event) => {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(scene.children);
+  if (_.isUndefined(Dagaz.View.view) || _.isUndefined(Dagaz.View.view.drops)) return;
+  const intersects = raycaster.intersectObjects(Dagaz.View.view.drops);
   if ((intersects.length > 0) && intersects[0].object.isPosition) {
      if ((currPos === null) || (currPos != intersects[0].object)) {
         if (currPos !== null) {
            currPos.material = posMaterial;
         }
         currPos = intersects[0].object;
-        currPos.material = markMaterial;
+        if (Dagaz.View.view.controller.board.player == 2) {
+            currPos.material = blackMarkMaterial;
+        } else {
+            currPos.material = whiteMarkMaterial;
+        }
      }
+  } else {
+     if (currPos !== null) {
+        currPos.material = posMaterial;
+        currPos = null;
+     }
+  }
+});
+
+window.addEventListener('click', (event) => {
+  if (currPos !== null) {
+      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
   }
 });
 
