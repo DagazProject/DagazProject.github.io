@@ -166,7 +166,7 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
   }
   var ix = Dagaz.Model.stringToPos(name);
   const p = new THREE.Mesh(posGeometry, posMaterial);
-  p.position.set((x / 10) - 27, (z / 10) + 1, (y / 10) - 27);
+  p.position.set((x / 10) - 27, (z / 10) + 0.5, (y / 10) - 27);
   p.name = name;
   p.ix = ix;
   p.isPosition = true;
@@ -277,7 +277,7 @@ View3D.prototype.draw = function(canvas) {
             new THREE.MeshBasicMaterial({ color: '#AC5146' }),
             new THREE.MeshBasicMaterial({ color: '#AC5146' }),
             new THREE.MeshBasicMaterial({ map: this.res[0].t }),
-            new THREE.MeshBasicMaterial({ color: '#FFEDCB' }),
+            new THREE.MeshBasicMaterial({ color: '#FFEDCB', transparent: true, opacity: 0.3 }),
             new THREE.MeshBasicMaterial({ color: '#AC5146' }),
             new THREE.MeshBasicMaterial({ color: '#AC5146' })
          ];
