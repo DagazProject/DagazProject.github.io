@@ -191,6 +191,9 @@ View3D.prototype.allResLoaded = function() {
   return true;
 }
 
+const overlay = document.getElementById('overlay');
+const ctx = overlay.getContext('2d');
+
 View3D.prototype.configure = function() {
   if (!isConfigured && this.controller) {
       Dagaz.View.configure(this);
@@ -199,6 +202,10 @@ View3D.prototype.configure = function() {
       this.controller.done();
       isConfigured = true;
       console.log('Configured!');
+
+      // DEBUG:
+      overlay.width = 800;
+      overlay.height = 600;  
   }
 }
 
@@ -222,6 +229,11 @@ View3D.prototype.setDrops = function(positions) {
 
 View3D.prototype.invalidate = function() {
   renderer.render(scene, camera);
+
+  // DEBUG:
+  ctx.clearRect(0, 0, overlay.width, overlay.height);
+  ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+  ctx.fillRect(5, 5, 200, 30);
 }
 
 View3D.prototype.dropPiece = function(move, pos, piece, phase) {
@@ -324,6 +336,14 @@ window.addEventListener('mousemove', (event) => {
         currPos.material = posMaterial;
         currPos = null;
      }
+  }
+});
+
+overlay.addEventListener('click', (event) => {
+  mouse.x = event.clientX - 5;
+  mouse.y = event.clientY - 5;
+  if ((mouse.x > 0) && (mouse.y > 0) && (mouse.x < 200) && (mouse.y < 30)) {
+     console.log(mouse);
   }
 });
 
