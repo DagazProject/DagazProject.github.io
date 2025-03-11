@@ -35,6 +35,7 @@ Dagaz.Controller.createApp = function(canvas) {
 }
 
 Dagaz.Controller.newGame = function() {
+  if (!confirm("Restart Game?")) return;
   if (!_.isUndefined(Dagaz.Controller.clearGame)) {
       Dagaz.Controller.clearGame();
   }

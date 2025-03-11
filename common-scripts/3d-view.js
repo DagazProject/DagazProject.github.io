@@ -90,6 +90,7 @@ function View3D() {
   this.drops   = [];
   this.filled  = [];
   this.setup   = [];
+  this.ctrls   = [];
   this.ready   = false;
 }
 
@@ -112,7 +113,6 @@ View3D.prototype.init = function(canvas, controller) {
      scene.add(directionalLight);
      updateRender();
      isInitialized = true;
-     console.log('Initialized!');
   }
   this.controller = controller;
 }
@@ -157,8 +157,26 @@ View3D.prototype.defBoard = function(res) {
   this.res.push(board);
 }
 
-View3D.prototype.defPiece = function(img, name) {
+View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
+  if (!_.isArray(imgs)) {
+     imgs = [imgs];
+  }
+  imgs = _.map(imgs, function(res) {
+     const img = document.getElementById(res);
+     this.res.push({h:img});
+     return img;
+  }, this);
+  this.ctrls.push({
+     h: imgs,
+     x: 0,
+     t: hint,
+     v: isVisible,
+     p: proc,
+     a: args
+  });
 }
+
+View3D.prototype.defPiece = function(img, name) {}
 
 View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
   if (_.isUndefined(dz)) {
@@ -201,7 +219,6 @@ View3D.prototype.configure = function() {
       board.setup(this, true);
       this.controller.done();
       isConfigured = true;
-      console.log('Configured!');
 
       // DEBUG:
       overlay.width = 800;
@@ -229,17 +246,39 @@ View3D.prototype.setDrops = function(positions) {
 
 View3D.prototype.invalidate = function() {
   renderer.render(scene, camera);
+  let o = 5 + 3;
+  for (let i = 0; i < this.ctrls.length; i++) {
+      const t = this.ctrls[i];
+      if (!t.v) continue;
+      ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight);
+      ctx.drawImage(t.h[t.x], o, 5 + 3, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight);
+      o += t.h[t.x].naturalWidth + 6;
+  }
+}
 
-  // DEBUG:
-  ctx.clearRect(0, 0, overlay.width, overlay.height);
-  ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-  ctx.fillRect(5, 5, 200, 30);
+View3D.prototype.menuClick = function(x) {
+  let o = 3;
+  for (let i = 0; i < this.ctrls.length; i++) {
+      const t = this.ctrls[i];
+      if (!t.v) continue;
+      if ((x > o) && (x < o + t.h[t.x].naturalWidth)) {
+         if (t.h.length > 1) {
+             t.x++;
+             if (t.x >= t.h.length) {
+                 t.x = 0;
+             }
+         }
+         if (!_.isUndefined(t.p)) {
+             t.p(t.a);
+         }
+         this.invalidate();
+      }
+      o += t.h[t.x].naturalWidth + 6;
+  }
 }
 
 View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   if (!phase) { phase = 1; }
-  console.log('Drop: ' + phase);
-  console.log(move);
   this.filled.push(+pos);
   const p = this.pos[pos].p;
   if (piece.player == 2) {
@@ -252,8 +291,6 @@ View3D.prototype.dropPiece = function(move, pos, piece, phase) {
 
 View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
   if (!phase) { phase = 1; }
-  console.log('Move: ' + phase);
-  console.log(move);
   if (from == to) return;
   // TODO:
 
@@ -261,8 +298,6 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
 
 View3D.prototype.capturePiece = function(move, pos, phase) {
   if (!phase) { phase = 1; }
-  console.log('Capture: ' + phase);
-  console.log(move);
   this.filled = _.without(this.filled, +pos);
   const p = this.pos[pos].p;
   p.material = posMaterial;
@@ -271,8 +306,6 @@ View3D.prototype.capturePiece = function(move, pos, phase) {
 }
 
 View3D.prototype.commit = function(move) {
-  console.log('Commit:');
-  console.log(move);
   // TODO:
 
 }
@@ -342,8 +375,8 @@ window.addEventListener('mousemove', (event) => {
 overlay.addEventListener('click', (event) => {
   mouse.x = event.clientX - 5;
   mouse.y = event.clientY - 5;
-  if ((mouse.x > 0) && (mouse.y > 0) && (mouse.x < 200) && (mouse.y < 30)) {
-     console.log(mouse);
+  if ((mouse.y > 0) && (mouse.y < 38)) {
+     Dagaz.View.view.menuClick(mouse.x);
   }
 });
 

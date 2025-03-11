@@ -350,6 +350,13 @@ Dagaz.View.configure = function(view) {
     view.defPiece("WhiteStone", "White Stone");
     view.defPiece("BlackStone", "Black Stone");
     view.defPiece("Ko", "Ko");
+
+    view.defControl("InfoControl", "2006 Cameron Browne", true, Dagaz.Controller.open, 'https://games.dtco.ru/mirror/upload/margo-basics.pdf');
+    view.defControl("UndoControl", "Undo Move", false);
+    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", null, true);
+    view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], null, true, Dagaz.Controller.switchSound);
+    view.defControl("RedoControl", "Redo Move", false);
  
     view.defPosition("aa9", 30, 30, 60, 60, 30);
     view.defPosition("aa8", 30, 90, 60, 60, 30);
