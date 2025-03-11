@@ -328,7 +328,8 @@ View3D.prototype.draw = function(canvas) {
          ];
          const boardBlock = new THREE.Mesh(boardGeometry, materials);
          scene.add(boardBlock);
-         new THREE.OrbitControls(camera, renderer.domElement);
+         const orbits = new THREE.OrbitControls(camera, renderer.domElement);
+         orbits.addEventListener('change', () => this.invalidate());
          isFirstDraw = false;
       }
       this.invalidate();
