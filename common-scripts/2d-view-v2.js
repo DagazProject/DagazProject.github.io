@@ -159,6 +159,8 @@ View2D.prototype.defBoard = function(img, x, y, selector, turns) {
   this.back.push(board);
 }
 
+View2D.prototype.defControl = function(imgs, hint, isVisible) {}
+
 View2D.prototype.defBoardSvg = function(img, x, y, dx, dy, selector) {
   if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {

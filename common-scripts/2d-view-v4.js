@@ -131,6 +131,8 @@ View2D.prototype.defBoard = function(res, x, y, selector, turns) {
   this.back.push(board);
 }
 
+View2D.prototype.defControl = function(imgs, hint, isVisible) {}
+
 View2D.prototype.defPopup = function(img, x, y, selector) {
   if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var res = {

@@ -119,6 +119,8 @@ View2D.prototype.defBoard = function(img, x, y) {
   this.board.push(board);
 }
 
+View2D.prototype.defControl = function(imgs, hint, isVisible) {}
+
 View2D.prototype.defPiece = function(img, name, help, glyph) {
   var piece = {
      h:    document.getElementById(img),
