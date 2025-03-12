@@ -112,6 +112,9 @@ App.prototype.boardApply = function(move) {
   if (!_.isUndefined(this.view.sync)) {
       this.view.sync(this.board);
   }
+  if (!_.isUndefined(Dagaz.Controller.addState)) {
+      Dagaz.Controller.addState(move, this.board);
+  }
 }
 
 App.prototype.click = function(pos, name) {
@@ -325,6 +328,10 @@ App.prototype.exec = function() {
 
 Dagaz.Model.InitGame();
 Dagaz.Controller.app = Dagaz.Controller.createApp(Canvas);
+
+if (!_.isUndefined(Dagaz.Controller.getSessionManager)) {
+  Dagaz.Controller.getSessionManager(Dagaz.Controller.app);
+}
 
 App.prototype.run = function() {
   var timestamp = Date.now();

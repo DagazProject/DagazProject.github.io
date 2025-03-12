@@ -158,7 +158,10 @@ View3D.prototype.defBoard = function(res) {
 }
 
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
+  var type = 0;
   if (!_.isArray(imgs)) {
+     if (imgs == "UndoControl") type = 1;
+     if (imgs == "RedoControl") type = 2;
      imgs = [imgs];
   }
   imgs = _.map(imgs, function(res) {
@@ -172,7 +175,8 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
      t: hint,
      v: isVisible,
      p: proc,
-     a: args
+     a: args,
+     y: type
   });
 }
 
@@ -244,9 +248,21 @@ View3D.prototype.setDrops = function(positions) {
   this.invalidate();
 }
 
+View3D.prototype.showControl = function(type, isVisible) {
+  for (let i = 0; i < this.ctrls.length; i++) {
+     const t = this.ctrls[i];
+     if (t.y == type) {
+         t.v = isVisible;
+         this.invalidate();
+         break;
+     }
+  }
+}
+
 View3D.prototype.invalidate = function() {
   renderer.render(scene, camera);
   let o = 5 + 3;
+  ctx.clearRect(o, 5 + 3, 300, 32);
   for (let i = 0; i < this.ctrls.length; i++) {
       const t = this.ctrls[i];
       if (!t.v) continue;
