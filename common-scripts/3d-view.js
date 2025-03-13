@@ -9,6 +9,8 @@ var currPos       = null;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+const mobileCoeff = isTouchDevice ? 2 : 1;
 
 const clock = new THREE.Clock();
 let prevTime = 0;
@@ -266,9 +268,10 @@ View3D.prototype.invalidate = function() {
   for (let i = 0; i < this.ctrls.length; i++) {
       const t = this.ctrls[i];
       if (!t.v) continue;
-      ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight);
-      ctx.drawImage(t.h[t.x], o, 5 + 3, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight);
-      o += t.h[t.x].naturalWidth + 6;
+      ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
+                            , o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
   }
 }
 
@@ -277,7 +280,7 @@ View3D.prototype.menuClick = function(x) {
   for (let i = 0; i < this.ctrls.length; i++) {
       const t = this.ctrls[i];
       if (!t.v) continue;
-      if ((x > o) && (x < o + t.h[t.x].naturalWidth)) {
+      if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
          if (t.h.length > 1) {
              t.x++;
              if (t.x >= t.h.length) {
@@ -289,7 +292,7 @@ View3D.prototype.menuClick = function(x) {
          }
          this.invalidate();
       }
-      o += t.h[t.x].naturalWidth + 6;
+      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
   }
 }
 
@@ -344,8 +347,10 @@ View3D.prototype.draw = function(canvas) {
          ];
          const boardBlock = new THREE.Mesh(boardGeometry, materials);
          scene.add(boardBlock);
-         const orbits = new THREE.OrbitControls(camera, renderer.domElement);
-         orbits.addEventListener('change', () => this.invalidate());
+         if (!isTouchDevice) {
+            const orbits = new THREE.OrbitControls(camera, renderer.domElement);
+            orbits.addEventListener('change', () => this.invalidate());
+         }
          isFirstDraw = false;
       }
       this.invalidate();
@@ -394,7 +399,7 @@ window.addEventListener('mousemove', (event) => {
   mouseMove(event);
 });
 
-window.addEventListener('click', (event) => {
+window.addEventListener('mouseup', (event) => {
   mouseMove(event);
   if (currPos !== null) {
       Dagaz.View.view.controller.click(currPos.ix, currPos.name);
@@ -405,7 +410,7 @@ window.addEventListener('click', (event) => {
 overlay.addEventListener('click', (event) => {
   mouse.x = event.clientX - 5;
   mouse.y = event.clientY - 5;
-  if ((mouse.y > 0) && (mouse.y < 38)) {
+  if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
      Dagaz.View.view.menuClick(mouse.x);
   }
 });
