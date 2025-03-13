@@ -145,7 +145,7 @@ View3D.prototype.defBoard = function(res) {
   const img = document.getElementById(res);
   const texture = textureLoader.load(
     img.currentSrc,
-    undefined,
+    () => {this.invalidate();},
     undefined,
     undefined,
     { crossOrigin: 'anonymous' }
@@ -387,6 +387,7 @@ function mouseMove(event) {
         currPos = null;
      }
   }
+  Dagaz.View.view.invalidate();
 }
 
 window.addEventListener('mousemove', (event) => {
@@ -397,6 +398,7 @@ window.addEventListener('click', (event) => {
   mouseMove(event);
   if (currPos !== null) {
       Dagaz.View.view.controller.click(currPos.ix, currPos.name);
+      Dagaz.View.view.invalidate();
   }
 });
 

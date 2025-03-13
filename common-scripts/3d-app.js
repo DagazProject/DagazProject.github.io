@@ -14,6 +14,7 @@ const WAIT_FRAME = 100;
 
 var dropIndex    = 0;
 var once         = false;
+let onceDraw     = true;
 var onceGameOver = true;
 
 function App(canvas) {
@@ -177,7 +178,10 @@ App.prototype.exec = function() {
       Dagaz.Model.load(board);
       delete Dagaz.Model.load;
   }
-  this.view.draw(this.canvas);
+  if (onceDraw) {
+      this.view.draw(this.canvas);
+      onceDraw = false;
+  }
   if (this.state == STATE.STOP) {
       this.state = STATE.IDLE;
       return;
@@ -191,7 +195,7 @@ App.prototype.exec = function() {
          if (!_.isUndefined(Dagaz.Controller.AI_DELAY)) {
              Dagaz.Controller.delayTimestamp = Date.now();
          }
-//       Canvas.style.cursor = "wait";
+         Canvas.style.cursor = "wait";
          this.timestamp = Date.now();
          once = true;
       } else {
