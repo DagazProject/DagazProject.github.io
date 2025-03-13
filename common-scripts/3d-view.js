@@ -363,7 +363,7 @@ window.addEventListener('resize', () => {
   renderer.render(scene, camera);
 });
 
-window.addEventListener('mousemove', (event) => {
+function mouseMove(event) {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
@@ -387,6 +387,17 @@ window.addEventListener('mousemove', (event) => {
         currPos = null;
      }
   }
+}
+
+window.addEventListener('mousemove', (event) => {
+  mouseMove(event);
+});
+
+window.addEventListener('click', (event) => {
+  mouseMove(event);
+  if (currPos !== null) {
+      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
+  }
 });
 
 overlay.addEventListener('click', (event) => {
@@ -394,12 +405,6 @@ overlay.addEventListener('click', (event) => {
   mouse.y = event.clientY - 5;
   if ((mouse.y > 0) && (mouse.y < 38)) {
      Dagaz.View.view.menuClick(mouse.x);
-  }
-});
-
-window.addEventListener('click', (event) => {
-  if (currPos !== null) {
-      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
   }
 });
 
