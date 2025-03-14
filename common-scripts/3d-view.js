@@ -2,18 +2,19 @@
 
 (function() {
 
-var isConfigured  = false;
-var isInitialized = false;
-var isFirstDraw   = true;
-var currPos       = null;
+let isConfigured  = false;
+let isInitialized = false;
+let isFirstDraw   = true;
+let currPos       = null;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-const mobileCoeff = isTouchDevice ? 2 : 1;
+const mobileCoeff = isTouchDevice ? 3 : 1;
 
 const clock = new THREE.Clock();
-let prevTime = 0;
+let   prevTime = 0;
+let   tooltipIx = null;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
@@ -261,17 +262,56 @@ View3D.prototype.showControl = function(type, isVisible) {
   }
 }
 
+function drawTooltip(text, x, y) {
+  ctx.font = '14px Arial';
+  const padding = 8;
+  const lines = text.split('\n');
+  const lineHeight = 20;
+  
+  const maxWidth = Math.max(...lines.map(line => 
+    ctx.measureText(line).width
+  ));
+  const height = lineHeight * lines.length;
+  
+  let tipX = x + 15;
+  let tipY = y - 15;
+  if (tipX + maxWidth > overlay.width) tipX = x - maxWidth - 15;
+  if (tipY + height > overlay.height) tipY = overlay.height - height;
+
+  ctx.fillStyle = 'rgba(255, 255, 220, 0.95)';
+  ctx.strokeStyle = '#333';
+  ctx.beginPath();
+  ctx.roundRect(tipX, tipY, maxWidth + padding * 2, height + padding, 5);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = '#000';
+  lines.forEach((line, i) => {
+    ctx.fillText(line, tipX + padding, tipY + padding + lineHeight * (i + 0.5));
+  });
+}
+
 View3D.prototype.invalidate = function() {
   renderer.render(scene, camera);
-  let o = 5 + 3;
-  ctx.clearRect(o, 5 + 3, 300, 32);
+  let o = 5 + 3; let h = null;
+  ctx.clearRect(o, 5 + 3, 300 * mobileCoeff, 70 * mobileCoeff);
   for (let i = 0; i < this.ctrls.length; i++) {
       const t = this.ctrls[i];
       if (!t.v) continue;
       ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
       ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
                             , o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      if ((tooltipIx !== null) && (tooltipIx == i) && t.t) {
+         h = {
+            t: t.t,
+            x: o,
+            y: 60
+         };
+      }
       o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+  }
+  if (h !== null) {
+      drawTooltip(h.t, h.x, h.y);
   }
 }
 
@@ -291,6 +331,18 @@ View3D.prototype.menuClick = function(x) {
              t.p(t.a);
          }
          this.invalidate();
+      }
+      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+  }
+}
+
+View3D.prototype.menuHint = function(x) {
+  let o = 3;
+  for (let i = 0; i < this.ctrls.length; i++) {
+      const t = this.ctrls[i];
+      if (!t.v) continue;
+      if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
+          return i;
       }
       o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
   }
@@ -404,6 +456,19 @@ window.addEventListener('mouseup', (event) => {
   if (currPos !== null) {
       Dagaz.View.view.controller.click(currPos.ix, currPos.name);
       Dagaz.View.view.invalidate();
+  }
+});
+
+overlay.addEventListener('mousemove', (event) => {
+  mouse.x = event.clientX - 5;
+  mouse.y = event.clientY - 5;
+  let ix = null;
+  if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
+     ix = Dagaz.View.view.menuHint(mouse.x);
+  }
+  if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
+     tooltipIx = ix;
+     Dagaz.View.view.invalidate();
   }
 });
 
