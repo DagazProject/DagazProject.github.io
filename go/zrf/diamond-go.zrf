@@ -1,0 +1,102 @@
+(define drop-piece (
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Diamond Go")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (positions
+
+             (fa2 -180 -120 -90 -30) ; -60
+             (fc2  -60 -120  30 -30) ; -60
+             (fe2   60 -120 150 -30) ; -60
+             (fg2  180 -120 270 -30) ; -60
+
+             (fa4 -180    0 -90  90) ; -60
+             (fc4  -60    0  30  90) ; -60
+             (fe4   60    0 150  90) ; -60
+             (fg4  180    0 270  90) ; -60
+
+             (fa6 -180  120 -90 210) ; -60
+             (fc6  -60  120  30 210) ; -60
+             (fe6   60  120 150 210) ; -60
+             (fg6  180  120 270 210) ; -60
+
+             (ga1 -180 -180 -90 -90) ; 0
+             (gc1  -60 -180  30 -90) ; 0
+             (ge1   60 -180 150 -90) ; 0
+             (gg1  180 -180 270 -90) ; 0
+
+             (ga3 -180  -60 -90  30) ; 0
+             (gc3  -60  -60  30  30) ; 0
+             (ge3   60  -60 150  30) ; 0
+             (gg3  180  -60 270  30) ; 0
+
+             (ga5 -180   60 -90 150) ; 0
+             (gc5  -60   60  30 150) ; 0
+             (ge5   60   60 150 150) ; 0
+             (gg5  180   60 270 150) ; 0
+
+             (ga7 -180  180 -90 270) ; 0
+             (gc7  -60  180  30 270) ; 0
+             (ge7   60  180 150 270) ; 0
+             (gg7  180  180 270 270) ; 0
+
+             (hb1 -120 -180 -30 -90) ; 60
+             (hd1    0 -180  90 -90) ; 60
+             (hf1  120 -180 210 -90) ; 60
+
+             (hb3 -120  -60 -30  30) ; 60
+             (hd3    0  -60  90  30) ; 60
+             (hf3  120  -60 210  30) ; 60
+
+             (hb5 -120   60 -30 150) ; 60
+             (hd5    0   60  90 150) ; 60
+             (hf5  120   60 210 150) ; 60
+
+             (hb7 -120  180 -30 270) ; 60
+             (hd7    0  180  90 270) ; 60
+             (hf7  120  180 210 270) ; 60
+
+     )
+     (links n
+             (ga1 fa2) (fa2 ga3) (ga3 fa4) (fa4 ga5) (ga5 fa6) (fa6 ga7)
+             (gc1 fc2) (fc2 gc3) (gc3 fc4) (fc4 gc5) (gc5 fc6) (fc6 gc7)
+             (ge1 fe2) (fe2 ge3) (ge3 fe4) (fe4 ge5) (ge5 fe6) (fe6 ge7)
+             (gg1 fg2) (fg2 gg3) (gg3 fg4) (fg4 gg5) (gg5 fg6) (fg6 gg7)
+     )
+     (links e
+             (ga1 hb1) (hb1 gc1) (gc1 hd1) (hd1 ge1) (ge1 hf1) (hf1 gg1)
+             (ga3 hb3) (hb3 gc3) (gc3 hd3) (hd3 ge3) (ge3 hf3) (hf3 gg3)
+             (ga5 hb5) (hb5 gc5) (gc5 hd5) (hd5 ge5) (ge5 hf5) (hf5 gg5)
+             (ga7 hb7) (hb7 gc7) (gc7 hd7) (hd7 ge7) (ge7 hf7) (hf7 gg7)
+     )
+     (links w
+             (hb1 ga1) (gc1 hb1) (hd1 gc1) (ge1 hd1) (hf1 ge1) (gg1 hf1)
+             (hb3 ga3) (gc3 hb3) (hd3 gc3) (ge3 hd3) (hf3 ge3) (gg3 hf3)
+             (hb5 ga5) (gc5 hb5) (hd5 gc5) (ge5 hd5) (hf5 ge5) (gg5 hf5)
+             (hb7 ga7) (gc7 hb7) (hd7 gc7) (ge7 hd7) (hf7 ge7) (gg7 hf7)
+     )
+     (links s
+             (fa2 ga1) (ga3 fa2) (fa4 ga3) (ga5 fa4) (fa6 ga5) (ga7 fa6)
+             (fc2 gc1) (gc3 fc2) (fc4 gc3) (gc5 fc4) (fc6 gc5) (gc7 fc6)
+             (fe2 ge1) (ge3 fe2) (fe4 ge3) (ge5 fe4) (fe6 ge5) (ge7 fe6)
+             (fg2 gg1) (gg3 fg2) (fg4 gg3) (gg5 fg4) (fg6 gg5) (gg7 fg6)
+     )
+
+  )
+
+  (piece
+     (name Stone)
+     (image White "images/margo/w.bmp"
+            Black "images/margo/b.bmp")
+     (drops
+         (drop-piece)
+     )
+  )
+)

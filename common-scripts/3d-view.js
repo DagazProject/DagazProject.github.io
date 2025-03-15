@@ -2,6 +2,7 @@
 
 (function() {
 
+let boardPresent  = false;
 let isConfigured  = false;
 let isInitialized = false;
 let isFirstDraw   = true;
@@ -158,6 +159,7 @@ View3D.prototype.defBoard = function(res) {
      t: texture
   };
   this.res.push(board);
+  boardPresent = true;
 }
 
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
@@ -388,17 +390,19 @@ View3D.prototype.draw = function(canvas) {
       const deltaTime = elapsedTime - prevTime;
       prevTime = elapsedTime;
       if (isFirstDraw) {
-         const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
-         const materials = [
-            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-            new THREE.MeshBasicMaterial({ map: this.res[0].t }),
-            new THREE.MeshBasicMaterial({ color: '#FFEDCB', transparent: true, opacity: 0.3 }),
-            new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-            new THREE.MeshBasicMaterial({ color: '#AC5146' })
-         ];
-         const boardBlock = new THREE.Mesh(boardGeometry, materials);
-         scene.add(boardBlock);
+         if (boardPresent) {
+            const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
+            const materials = [
+               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
+               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
+               new THREE.MeshBasicMaterial({ map: this.res[0].t }),
+               new THREE.MeshBasicMaterial({ color: '#FFEDCB', transparent: true, opacity: 0.3 }),
+               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
+               new THREE.MeshBasicMaterial({ color: '#AC5146' })
+            ];
+            const boardBlock = new THREE.Mesh(boardGeometry, materials);
+            scene.add(boardBlock);
+         }
          if (!isTouchDevice) {
             const orbits = new THREE.OrbitControls(camera, renderer.domElement);
             orbits.addEventListener('change', () => this.invalidate());
