@@ -11,84 +11,147 @@
 
   (board
      (positions
-
-             (fa2 -180 -120 -90 -30) ; -60
-             (fc2  -60 -120  30 -30) ; -60
-             (fe2   60 -120 150 -30) ; -60
-             (fg2  180 -120 270 -30) ; -60
-
-             (fa4 -180    0 -90  90) ; -60
-             (fc4  -60    0  30  90) ; -60
-             (fe4   60    0 150  90) ; -60
-             (fg4  180    0 270  90) ; -60
-
-             (fa6 -180  120 -90 210) ; -60
-             (fc6  -60  120  30 210) ; -60
-             (fe6   60  120 150 210) ; -60
-             (fg6  180  120 270 210) ; -60
-
+             (ad4    0    0  90  90) ; -252
+             (bc4  -60    0  30  90) ; -210
+             (be4   60    0 150  90) ; -210
+             (cc3  -60  -60  30  30) ; -168
+             (cc5  -60   60  30 150) ; -168
+             (ce3   60  -60 150  30) ; -168
+             (ce5   60   60 150 150) ; -168
+             (db3 -120  -60 -30  30) ; -126
+             (db5 -120   60 -30 150) ; -126
+             (dd3    0  -60  90  30) ; -126
+             (dd5    0   60  90 150) ; -126
+             (df3  120  -60 210  30) ; -126
+             (df5  120   60 210 150) ; -126
+             (eb2 -120 -120 -30 -30) ; -84
+             (eb4 -120    0 -30  90) ; -84
+             (eb6 -120  120 -30 210) ; -84
+             (ed2    0 -120  90 -30) ; -84
+             (ed4    0    0  90  90) ; -84
+             (ed6    0  120  90 210) ; -84
+             (ef2  120 -120 210 -30) ; -84
+             (ef4  120    0 210  90) ; -84
+             (ef6  120  120 210 210) ; -84
+             (fa2 -180 -120 -90 -30) ; -42
+             (fc2  -60 -120  30 -30) ; -42
+             (fe2   60 -120 150 -30) ; -42
+             (fg2  180 -120 270 -30) ; -42
+             (fa4 -180    0 -90  90) ; -42
+             (fc4  -60    0  30  90) ; -42
+             (fe4   60    0 150  90) ; -42
+             (fg4  180    0 270  90) ; -42
+             (fa6 -180  120 -90 210) ; -42
+             (fc6  -60  120  30 210) ; -42
+             (fe6   60  120 150 210) ; -42
+             (fg6  180  120 270 210) ; -42
              (ga1 -180 -180 -90 -90) ; 0
              (gc1  -60 -180  30 -90) ; 0
              (ge1   60 -180 150 -90) ; 0
              (gg1  180 -180 270 -90) ; 0
-
              (ga3 -180  -60 -90  30) ; 0
              (gc3  -60  -60  30  30) ; 0
              (ge3   60  -60 150  30) ; 0
              (gg3  180  -60 270  30) ; 0
-
              (ga5 -180   60 -90 150) ; 0
              (gc5  -60   60  30 150) ; 0
              (ge5   60   60 150 150) ; 0
              (gg5  180   60 270 150) ; 0
-
              (ga7 -180  180 -90 270) ; 0
              (gc7  -60  180  30 270) ; 0
              (ge7   60  180 150 270) ; 0
              (gg7  180  180 270 270) ; 0
-
-             (hb1 -120 -180 -30 -90) ; 60
-             (hd1    0 -180  90 -90) ; 60
-             (hf1  120 -180 210 -90) ; 60
-
-             (hb3 -120  -60 -30  30) ; 60
-             (hd3    0  -60  90  30) ; 60
-             (hf3  120  -60 210  30) ; 60
-
-             (hb5 -120   60 -30 150) ; 60
-             (hd5    0   60  90 150) ; 60
-             (hf5  120   60 210 150) ; 60
-
-             (hb7 -120  180 -30 270) ; 60
-             (hd7    0  180  90 270) ; 60
-             (hf7  120  180 210 270) ; 60
-
+             (hb1 -120 -180 -30 -90) ; 42
+             (hd1    0 -180  90 -90) ; 42
+             (hf1  120 -180 210 -90) ; 42
+             (hb3 -120  -60 -30  30) ; 42
+             (hd3    0  -60  90  30) ; 42
+             (hf3  120  -60 210  30) ; 42
+             (hb5 -120   60 -30 150) ; 42
+             (hd5    0   60  90 150) ; 42
+             (hf5  120   60 210 150) ; 42
+             (hb7 -120  180 -30 270) ; 42
+             (hd7    0  180  90 270) ; 42
+             (hf7  120  180 210 270) ; 42
+             (ib2 -120 -120 -30 -30) ; 84
+             (id2    0 -120  90 -30) ; 84
+             (if2  120 -120 210 -30) ; 84
+             (ib4 -120    0 -30  90) ; 84
+             (id4    0    0  90  90) ; 84
+             (if4  120    0 210  90) ; 84
+             (ib6 -120  120 -30 210) ; 84
+             (id6    0  120  90 210) ; 84
+             (if6  120  120 210 210) ; 84
+             (jc2  -60 -120  30 -30) ; 126
+             (je2   60 -120 150 -30) ; 126
+             (jc4  -60    0  30  90) ; 126
+             (je4   60    0 150  90) ; 126
+             (jc6  -60  120  30 210) ; 126
+             (je6   60  120 150 210) ; 126
+             (kc3  -60  -60  30  30) ; 168
+             (ke3   60  -60 150  30) ; 168
+             (kc5  -60   60  30 150) ; 168
+             (ke5   60   60 150 150) ; 168
+             (ld3    0  -60  90  30) ; 210
+             (ld5    0   60  90 150) ; 210
+             (md4    0    0  90  90) ; 252
      )
      (links n
              (ga1 fa2) (fa2 ga3) (ga3 fa4) (fa4 ga5) (ga5 fa6) (fa6 ga7)
              (gc1 fc2) (fc2 gc3) (gc3 fc4) (fc4 gc5) (gc5 fc6) (fc6 gc7)
              (ge1 fe2) (fe2 ge3) (ge3 fe4) (fe4 ge5) (ge5 fe6) (fe6 ge7)
              (gg1 fg2) (fg2 gg3) (gg3 fg4) (fg4 gg5) (gg5 fg6) (fg6 gg7)
+             (hb1 ib2) (hd1 id2) (hf1 if2) (ib2 hb3) (id2 hd3) (if2 hf3)
+             (hb3 ib4) (hd3 id4) (hf3 if4) (ib4 hb5) (id4 hd5) (if4 hf5)
+             (hb5 ib6) (hd5 id6) (hf5 if6) (ib6 hb7) (id6 hd7) (if6 hf7)
+             (jc2 kc3) (kc3 jc4) (jc4 kc5) (kc5 jc6) (je2 ke3) (ke3 je4) 
+             (je4 ke5) (ke5 je6) (ld3 md4) (md4 ld5) (eb2 db3) (db3 eb4) 
+             (eb4 db5) (db5 eb6) (ed2 dd3) (dd3 ed4) (ed4 dd5) (dd5 ed6)
+             (ef2 df3) (df3 ef4) (ef4 df5) (df5 ef6) (cc3 bc4) (bc4 cc5) 
+             (ce3 be4) (be4 ce5)
      )
      (links e
              (ga1 hb1) (hb1 gc1) (gc1 hd1) (hd1 ge1) (ge1 hf1) (hf1 gg1)
              (ga3 hb3) (hb3 gc3) (gc3 hd3) (hd3 ge3) (ge3 hf3) (hf3 gg3)
              (ga5 hb5) (hb5 gc5) (gc5 hd5) (hd5 ge5) (ge5 hf5) (hf5 gg5)
              (ga7 hb7) (hb7 gc7) (gc7 hd7) (hd7 ge7) (ge7 hf7) (hf7 gg7)
+             (ib2 jc2) (jc2 id2) (id2 je2) (je2 if2) (ib4 jc4) (jc4 id4) 
+             (id4 je4) (je4 if4) (ib6 jc6) (jc6 id6) (id6 je6) (je6 if6)
+             (kc3 ld3) (ld3 ke3) (kc5 ld5) (ld5 ke5) (fa2 eb2) (eb2 fc2) 
+             (fc2 ed2) (ed2 fe2) (fe2 ef2) (ef2 fg2) (fa4 eb4) (eb4 fc4) 
+             (fc4 ed4) (ed4 fe4) (fe4 ef4) (ef4 fg4) (fa6 eb6) (eb6 fc6) 
+             (fc6 ed6) (ed6 fe6) (fe6 ef6) (ef6 fg6) (db3 cc3) (cc3 dd3) 
+             (dd3 ce3) (ce3 df3) (db5 cc5) (cc5 dd5) (dd5 ce5) (ce5 df5)
+             (bc4 ad4) (ad4 be4)
      )
      (links w
              (hb1 ga1) (gc1 hb1) (hd1 gc1) (ge1 hd1) (hf1 ge1) (gg1 hf1)
              (hb3 ga3) (gc3 hb3) (hd3 gc3) (ge3 hd3) (hf3 ge3) (gg3 hf3)
              (hb5 ga5) (gc5 hb5) (hd5 gc5) (ge5 hd5) (hf5 ge5) (gg5 hf5)
              (hb7 ga7) (gc7 hb7) (hd7 gc7) (ge7 hd7) (hf7 ge7) (gg7 hf7)
+             (jc2 ib2) (id2 jc2) (je2 id2) (if2 je2) (jc4 ib4) (id4 jc4) 
+             (je4 id4) (if4 je4) (jc6 ib6) (id6 jc6) (je6 id6) (if6 je6)
+             (kc3 ld3) (ld3 ke3) (kc5 ld5) (ld5 ke5) (eb2 fa2) (fc2 eb2) 
+             (ed2 fc2) (fe2 ed2) (ef2 fe2) (fg2 ef2) (eb4 fa4) (fc4 eb4)
+             (ed4 fc4) (fe4 ed4) (ef4 fe4) (fg4 ef4) (eb6 fa6) (fc6 eb6) 
+             (ed6 fc6) (fe6 ed6) (ef6 fe6) (fg6 ef6) (cc3 db3) (dd3 cc3) 
+             (ce3 dd3) (df3 ce3) (cc5 db5) (dd5 cc5) (ce5 dd5) (df5 ce5)
+             (ad4 bc4) (be4 ad4)
      )
      (links s
              (fa2 ga1) (ga3 fa2) (fa4 ga3) (ga5 fa4) (fa6 ga5) (ga7 fa6)
              (fc2 gc1) (gc3 fc2) (fc4 gc3) (gc5 fc4) (fc6 gc5) (gc7 fc6)
              (fe2 ge1) (ge3 fe2) (fe4 ge3) (ge5 fe4) (fe6 ge5) (ge7 fe6)
              (fg2 gg1) (gg3 fg2) (fg4 gg3) (gg5 fg4) (fg6 gg5) (gg7 fg6)
+             (ib2 hb1) (id2 hd1) (if2 hf1) (hb3 ib2) (hd3 id2) (hf3 if2)
+             (ib4 hb3) (id4 hd3) (if4 hf3) (hb5 ib4) (hd5 id4) (hf5 if4)
+             (ib6 hb5) (id6 hd5) (if6 hf5) (hb7 ib6) (hd7 id6) (hf7 if6)
+             (kc3 jc2) (jc4 kc3) (kc5 jc4) (jc6 kc5) (ke3 je2) (je4 ke3) 
+             (ke5 je4) (je6 ke5) (md4 ld3) (ld5 md4) (db3 eb2) (eb4 db3) 
+             (db5 eb4) (eb6 db5) (dd3 ed2) (ed4 dd3) (dd5 ed4) (ed6 dd5)
+             (df3 ef2) (ef4 df3) (df5 ef4) (ef6 df5) (bc4 cc3) (cc5 bc4) 
+             (be4 ce3) (ce5 be4)
      )
-
   )
 
   (piece
