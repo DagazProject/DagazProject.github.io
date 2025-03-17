@@ -8,6 +8,15 @@ let isInitialized = false;
 let isFirstDraw   = true;
 let currPos       = null;
 
+const settings = {
+  x: 100,
+  y: 100,
+  z: 250,
+  dx: -27,
+  dy: -27,
+  dz: 0.5
+};
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -44,7 +53,10 @@ const updateRender = () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio * 2, 2));
 };
 
+const lineMaterial = new THREE.LineBasicMaterial({ color: 0x333333 });
+
 const posGeometry = new THREE.SphereGeometry(3, 32, 32);
+const dotGeometry = new THREE.SphereGeometry(0.5, 25, 25);
 
 const posMaterial = new THREE.MeshStandardMaterial({
     color: 0x101010,
@@ -105,10 +117,19 @@ Dagaz.View.getView = function() {
   return Dagaz.View.view;
 }
 
+View3D.prototype.setCamera = function(dx, dy, dz, x, y, z) {
+  if (!_.isUndefined(x)) settings.x = x;
+  if (!_.isUndefined(y)) settings.y = y;
+  if (!_.isUndefined(z)) settings.z = z;
+  if (!_.isUndefined(dx)) settings.dx = dx;
+  if (!_.isUndefined(dy)) settings.dy = dy;
+  if (!_.isUndefined(dz)) settings.dz = dz;
+}
+
 View3D.prototype.init = function(canvas, controller) {
   if (!isInitialized) {
      scene.background = new THREE.Color('#eee');
-     camera.position.set(100, 250, 100);
+     camera.position.set(settings.x, settings.z, settings.y);
      camera.lookAt(0, 0, 0);
      const ambientLight = new THREE.AmbientLight('white', 2);
      scene.add(ambientLight);
@@ -165,8 +186,9 @@ View3D.prototype.defBoard = function(res) {
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
   var type = 0;
   if (!_.isArray(imgs)) {
-     if (imgs == "UndoControl") type = 1;
-     if (imgs == "RedoControl") type = 2;
+     if (imgs == "UndoControl")   type = 1;
+     if (imgs == "RedoControl")   type = 2;
+     if (imgs == "CameraControl") type = 3;
      imgs = [imgs];
   }
   imgs = _.map(imgs, function(res) {
@@ -193,7 +215,7 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
   }
   var ix = Dagaz.Model.stringToPos(name);
   const p = new THREE.Mesh(posGeometry, posMaterial);
-  p.position.set((x / 10) - 27, (z / 10) + 0.5, (y / 10) - 27);
+  p.position.set((x / 10) + settings.dx, (z / 10) + settings.dz, (y / 10) + settings.dy);
   p.name = name;
   p.ix = ix;
   p.isPosition = true;
@@ -312,6 +334,12 @@ View3D.prototype.invalidate = function() {
       }
       o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
   }
+  for (let i = 0; i < this.ctrls.length; i++) {
+      if (this.ctrls[i].y == 3) {
+          this.ctrls[i].t = Math.round(camera.position.x) + "," + Math.round(camera.position.y) + "," + Math.round(camera.position.z);
+          break;
+      }
+  }
   if (h !== null) {
       drawTooltip(h.t, h.x, h.y);
   }
@@ -383,6 +411,31 @@ View3D.prototype.commit = function(move) {
 
 }
 
+View3D.prototype.addDir = function(p, q) {
+  const pointA = new THREE.Vector3(this.pos[p].x / 10, this.pos[p].z / 10, this.pos[p].y / 10);
+  const pointB = new THREE.Vector3(this.pos[q].x / 10, this.pos[q].z / 10, this.pos[q].y / 10);
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setFromPoints([pointA, pointB]);
+
+  const line = new THREE.Line(geometry, lineMaterial);
+  scene.add(line);
+
+  if (!this.pos[p].marked) {
+     this.pos[p].marked = true;
+     const x = new THREE.Mesh(dotGeometry, blackMaterial);
+     x.position.set(pointA.x, pointA.y, pointA.z);
+     scene.add(x);
+  }
+
+  if (!this.pos[q].marked) {
+     this.pos[q].marked = true;
+     const x = new THREE.Mesh(dotGeometry, blackMaterial);
+     x.position.set(pointB.x, pointB.y, pointB.z);
+     scene.add(x);
+  }
+}
+
 View3D.prototype.draw = function(canvas) {
   this.configure();
   if (this.allResLoaded()) {
@@ -402,6 +455,9 @@ View3D.prototype.draw = function(canvas) {
             ];
             const boardBlock = new THREE.Mesh(boardGeometry, materials);
             scene.add(boardBlock);
+         }
+         if (!_.isUndefined(Dagaz.View.augBoard)) {
+            Dagaz.View.augBoard(this);
          }
          if (!isTouchDevice) {
             const orbits = new THREE.OrbitControls(camera, renderer.domElement);
