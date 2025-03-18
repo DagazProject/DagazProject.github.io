@@ -214,6 +214,11 @@ App.prototype.exec = function() {
              if (this.drops.length > 0) {
                  this.view.setDrops(this.drops);
              }
+             var ko = [];
+             if (!_.isUndefined(this.board.ko)) {
+                 ko = this.board.ko;
+             }
+             this.view.markPositions(Dagaz.View.markType.KO, ko);
          }
       }
   }

@@ -2,11 +2,16 @@
 
 (function() {
 
+Dagaz.View.markType = {
+   KO: 4
+};
+
 let boardPresent  = false;
 let isConfigured  = false;
 let isInitialized = false;
 let isFirstDraw   = true;
 let currPos       = null;
+let ko            = null;
 
 const settings = {
   x: 100,
@@ -57,6 +62,13 @@ const lineMaterial = new THREE.LineBasicMaterial({ color: 0x333333 });
 
 const posGeometry = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry = new THREE.SphereGeometry(0.5, 25, 25);
+const koGeometry  = new THREE.SphereGeometry(1, 15, 15);
+
+const koMaterial = new THREE.MeshStandardMaterial({
+    color: 0xFF0000,
+    metalness: 0.3,
+    roughness: 0.2
+});
 
 const posMaterial = new THREE.MeshStandardMaterial({
     color: 0x101010,
@@ -107,6 +119,7 @@ function View3D() {
   this.filled  = [];
   this.setup   = [];
   this.ctrls   = [];
+  this.ko      = [];
   this.ready   = false;
 }
 
@@ -124,6 +137,29 @@ View3D.prototype.setCamera = function(dx, dy, dz, x, y, z) {
   if (!_.isUndefined(dx)) settings.dx = dx;
   if (!_.isUndefined(dy)) settings.dy = dy;
   if (!_.isUndefined(dz)) settings.dz = dz;
+}
+
+View3D.prototype.markPositions = function(type, positions) {
+  if (type == Dagaz.View.markType.KO) {
+      this.ko = positions;
+      if (this.ko.length > 0) {
+          if (ko === null) {
+              ko = new THREE.Mesh(koGeometry, koMaterial);
+              scene.add(ko);
+          } else {
+              ko.material = koMaterial;
+          }
+          const p = this.pos[this.ko[0]];
+          if (p) {
+              ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
+          }
+      } else {
+          if (ko !== null) {
+              ko.material = posMaterial;
+          }
+      }
+      this.invalidate();
+  }
 }
 
 View3D.prototype.init = function(canvas, controller) {
