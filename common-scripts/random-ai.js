@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.AI.ON = true;
+
 function RandomAi(params) {
   this.params = params;
   if (_.isUndefined(this.params.rand)) {

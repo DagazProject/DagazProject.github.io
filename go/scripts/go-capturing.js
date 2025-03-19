@@ -8,6 +8,13 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+Dagaz.Model.moveToString = function(move) {
+  if ((move.actions.length > 0) && (move.actions[0][1] !== null)) {
+      return Dagaz.Model.posToString(move.actions[0][1][0]);
+  }
+  return "";
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {

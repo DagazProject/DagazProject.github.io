@@ -40,6 +40,13 @@ Dagaz.Controller.open = function(url) {
   link.click();
 }
 
+Dagaz.Controller.go = function(url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.rel = 'noopener noreferrer';
+  link.click();
+}
+
 Dagaz.Controller.newGame = function() {
   if (!confirm("Restart Game?")) return;
   if (!_.isUndefined(Dagaz.Controller.clearGame)) {
@@ -80,7 +87,8 @@ var gameOver = function(text, self, player) {
 App.prototype.gameOver = function(text, player) {
   Dagaz.Controller.Done(this.board);
   if (onceGameOver) {
-      _.delay(gameOver, 1000, text, this, player);
+      this.view.clearControls();
+      _.delay(gameOver, 2000, text, this, player);
       onceGameOver = false;
   }
 }
@@ -238,6 +246,7 @@ App.prototype.exec = function() {
           once = false;
       }
       if (result) {
+          Canvas.style.cursor = "default";
           if (_.isUndefined(result.move)) {
               if (result.done) {
                   this.state = STATE.DONE;
@@ -330,6 +339,7 @@ App.prototype.exec = function() {
                   this.doneMessage = "Draw" + message;
                   this.winPlayer   = 0;
               }
+              this.done();
           }
       }
   }

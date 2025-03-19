@@ -61,7 +61,7 @@ const updateRender = () => {
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x333333 });
 
 const posGeometry = new THREE.SphereGeometry(3, 32, 32);
-const dotGeometry = new THREE.SphereGeometry(0.5, 25, 25);
+const dotGeometry = new THREE.SphereGeometry(0.5, 15, 15);
 const koGeometry  = new THREE.SphereGeometry(1, 15, 15);
 
 const koMaterial = new THREE.MeshStandardMaterial({
@@ -137,6 +137,8 @@ View3D.prototype.setCamera = function(dx, dy, dz, x, y, z) {
   if (!_.isUndefined(dx)) settings.dx = dx;
   if (!_.isUndefined(dy)) settings.dy = dy;
   if (!_.isUndefined(dz)) settings.dz = dz;
+  camera.position.set(settings.x, settings.z, settings.y);
+  this.invalidate();
 }
 
 View3D.prototype.markPositions = function(type, positions) {
@@ -217,6 +219,13 @@ View3D.prototype.defBoard = function(res) {
   };
   this.res.push(board);
   boardPresent = true;
+}
+
+View3D.prototype.clearControls = function() {
+  for (let i = 0; i < this.ctrls.length; i++) {
+       if ((this.ctrls[i].y == 1) || (this.ctrls[i].y == 2)) this.ctrls[i].v = false;
+  }
+  this.invalidate();
 }
 
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
