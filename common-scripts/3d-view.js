@@ -30,6 +30,7 @@ const mobileCoeff = isTouchDevice ? 3 : 1;
 const clock = new THREE.Clock();
 let   prevTime = 0;
 let   tooltipIx = null;
+let   leastTouch = null;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
@@ -504,30 +505,46 @@ View3D.prototype.draw = function(canvas) {
          if (!_.isUndefined(Dagaz.View.augBoard)) {
             Dagaz.View.augBoard(this);
          }
-         if (!isTouchDevice) {
             const orbits = new THREE.OrbitControls(camera, renderer.domElement);
             orbits.addEventListener('change', () => this.invalidate());
-         }
          isFirstDraw = false;
       }
       this.invalidate();
+  }else{
+      setTimeout(()=>this.draw(canvas), 100);
   }
 }
 
-window.addEventListener('resize', () => {
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-  const aspectRatio = sizes.width / sizes.height;
-  camera.left = viewDistance * -1 * aspectRatio;
-  camera.right = viewDistance * aspectRatio;
-  camera.updateProjectionMatrix();
-  updateRender();
-  renderer.render(scene, camera);
-});
+function changeDimensions() {
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    const aspectRatio = sizes.width / sizes.height;
+    camera.left = viewDistance * -1 * aspectRatio;
+    camera.right = viewDistance * aspectRatio;
+    camera.updateProjectionMatrix();
+    updateRender();
+    renderer.render(scene, camera);
+}
 
-function mouseMove(event) {
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+function processMenu({x, y, click}) {
+    mouse.x = x - 5;
+    mouse.y = y - 5;
+    let ix = null;
+    if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
+        ix = Dagaz.View.view.menuHint(mouse.x);
+        if (click) {
+            Dagaz.View.view.menuClick(mouse.x);
+        }
+    }
+    if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
+        tooltipIx = ix;
+        Dagaz.View.view.invalidate();
+    }
+}
+
+function mouseMove({x, y}, clean = false) {
+  mouse.x = (x / window.innerWidth) * 2 - 1;
+  mouse.y = -(y / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
   if (_.isUndefined(Dagaz.View.view) || _.isUndefined(Dagaz.View.view.drops)) return;
   const intersects = raycaster.intersectObjects(Dagaz.View.view.drops);
@@ -549,40 +566,53 @@ function mouseMove(event) {
         currPos = null;
      }
   }
+
+  processMenu({x, y});
+
+  if(clean && currPos !== null) {
+      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
+  }
   Dagaz.View.view.invalidate();
 }
 
+// resize event
+
+window.addEventListener('resize', changeDimensions);
+
+// mouse events
+
 window.addEventListener('mousemove', (event) => {
-  mouseMove(event);
+  mouseMove({x: event.clientX, y: event.clientY});
 });
-
 window.addEventListener('mouseup', (event) => {
-  mouseMove(event);
-  if (currPos !== null) {
-      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
-      Dagaz.View.view.invalidate();
-  }
+    mouseMove({x: event.clientX, y: event.clientY}, true);
 });
 
-overlay.addEventListener('mousemove', (event) => {
-  mouse.x = event.clientX - 5;
-  mouse.y = event.clientY - 5;
-  let ix = null;
-  if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
-     ix = Dagaz.View.view.menuHint(mouse.x);
-  }
-  if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
-     tooltipIx = ix;
-     Dagaz.View.view.invalidate();
-  }
+// touch events
+
+window.addEventListener('touchstart', (event) => {
+    leastTouch = event.touches[0];
+    mouseMove({x: leastTouch.clientX, y: leastTouch.clientY});
 });
 
-overlay.addEventListener('click', (event) => {
-  mouse.x = event.clientX - 5;
-  mouse.y = event.clientY - 5;
-  if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
-     Dagaz.View.view.menuClick(mouse.x);
-  }
+window.addEventListener('touchmove', (event) => {
+    if(event.touches.length) {
+        leastTouch = event.touches[0];
+        mouseMove({x: leastTouch.clientX, y: leastTouch.clientY});
+    }
+});
+
+window.addEventListener('touchend', (event) => {
+    if(leastTouch) {
+        mouseMove({x: leastTouch.clientX, y: leastTouch.clientY}, true);
+        leastTouch = null;
+    }
+});
+
+// click events
+
+window.addEventListener('click', (event) => {
+  processMenu({x: event.clientX, y: event.clientY, click: true});
 });
 
 })();
