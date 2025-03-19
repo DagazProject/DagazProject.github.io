@@ -131,7 +131,7 @@
              (hb7 ga7) (gc7 hb7) (hd7 gc7) (ge7 hd7) (hf7 ge7) (gg7 hf7)
              (jc2 ib2) (id2 jc2) (je2 id2) (if2 je2) (jc4 ib4) (id4 jc4) 
              (je4 id4) (if4 je4) (jc6 ib6) (id6 jc6) (je6 id6) (if6 je6)
-             (kc3 ld3) (ld3 ke3) (kc5 ld5) (ld5 ke5) (eb2 fa2) (fc2 eb2) 
+             (ld3 kc3) (ke3 ld3) (ld5 kc5) (ke5 ld5) (eb2 fa2) (fc2 eb2) 
              (ed2 fc2) (fe2 ed2) (ef2 fe2) (fg2 ef2) (eb4 fa4) (fc4 eb4)
              (ed4 fc4) (fe4 ed4) (ef4 fe4) (fg4 ef4) (eb6 fa6) (fc6 eb6) 
              (ed6 fc6) (fe6 ed6) (ef6 fe6) (fg6 ef6) (cc3 db3) (dd3 cc3) 

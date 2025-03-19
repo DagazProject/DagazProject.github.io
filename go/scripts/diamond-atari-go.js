@@ -114,12 +114,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("je4", [6, -7, -8, 4]);
     design.addPosition("jc6", [0, -6, -7, 4]);
     design.addPosition("je6", [0, -6, -7, 4]);
-    design.addPosition("kc3", [-4, 4, 4, -6]);
-    design.addPosition("ke3", [-4, 0, 0, -6]);
-    design.addPosition("kc5", [-4, 3, 3, -6]);
-    design.addPosition("ke5", [-4, 0, 0, -6]);
-    design.addPosition("ld3", [2, -3, -3, 0]);
-    design.addPosition("ld5", [0, -2, -2, 1]);
+    design.addPosition("kc3", [-4, 4, 0, -6]);
+    design.addPosition("ke3", [-4, 0, 3, -6]);
+    design.addPosition("kc5", [-4, 3, 0, -6]);
+    design.addPosition("ke5", [-4, 0, 2, -6]);
+    design.addPosition("ld3", [2, -3, -4, 0]);
+    design.addPosition("ld5", [0, -2, -3, 1]);
     design.addPosition("md4", [-1, 0, 0, -2]);
 
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
