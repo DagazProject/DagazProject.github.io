@@ -60,6 +60,7 @@ const updateRender = () => {
 };
 
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x333333 });
+const redMaterial = new THREE.LineBasicMaterial({ color: 0xFF0000 });
 
 const posGeometry = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry = new THREE.SphereGeometry(0.5, 15, 15);
@@ -457,7 +458,7 @@ View3D.prototype.commit = function(move) {
 
 }
 
-View3D.prototype.addDir = function(p, q) {
+View3D.prototype.addDir = function(p, q, f) {
   const pointA = new THREE.Vector3(this.pos[p].x / 10, this.pos[p].z / 10, this.pos[p].y / 10);
   const pointB = new THREE.Vector3(this.pos[q].x / 10, this.pos[q].z / 10, this.pos[q].y / 10);
 
@@ -465,6 +466,9 @@ View3D.prototype.addDir = function(p, q) {
   geometry.setFromPoints([pointA, pointB]);
 
   const line = new THREE.Line(geometry, lineMaterial);
+  if (f) {
+      line.material = redMaterial;
+  }
   scene.add(line);
 
   if (!this.pos[p].marked) {
@@ -510,7 +514,7 @@ View3D.prototype.draw = function(canvas) {
          isFirstDraw = false;
       }
       this.invalidate();
-  }else{
+  } else {
       setTimeout(()=>this.draw(canvas), 100);
   }
 }

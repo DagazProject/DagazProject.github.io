@@ -45,7 +45,8 @@ Dagaz.View.augBoard = function(view) {
               from: p,
               to: q
            });
-           view.addDir(p, q);
+           var t = design.navigate(0, q, d);
+           view.addDir(p, q, (t === null) || (t != p));
       });
   });
   if (!_.isUndefined(augBoard)) {
