@@ -13,6 +13,9 @@ let isFirstDraw   = true;
 let currPos       = null;
 let ko            = null;
 
+let lastX = null;
+let lastY = null;
+
 const settings = {
   x: 100,
   y: 100,
@@ -570,32 +573,35 @@ function mouseMove({x, y}, clean = false) {
         currPos = null;
      }
   }
-
   processMenu({x, y});
-
   if(clean && currPos !== null) {
-      Dagaz.View.view.controller.click(currPos.ix, currPos.name);
+      if ((Math.abs(lastX - x) <= 10) && (Math.abs(lastY - y) <= 10)) {
+          Dagaz.View.view.controller.click(currPos.ix, currPos.name);
+      }
   }
   Dagaz.View.view.invalidate();
 }
 
 // resize event
-
 window.addEventListener('resize', changeDimensions);
 
 // mouse events
-
+window.addEventListener('mousedown', (event) => {
+  lastX = event.clientX;
+  lastY = event.clientY;
+});
 window.addEventListener('mousemove', (event) => {
   mouseMove({x: event.clientX, y: event.clientY});
 });
 window.addEventListener('mouseup', (event) => {
-    mouseMove({x: event.clientX, y: event.clientY}, true);
+  mouseMove({x: event.clientX, y: event.clientY}, true);
 });
 
 // touch events
-
 window.addEventListener('touchstart', (event) => {
     leastTouch = event.touches[0];
+    lastX = leastTouch.clientX;
+    lastY = leastTouch.clientY;
     mouseMove({x: leastTouch.clientX, y: leastTouch.clientY});
 });
 
@@ -614,7 +620,6 @@ window.addEventListener('touchend', (event) => {
 });
 
 // click events
-
 window.addEventListener('click', (event) => {
   processMenu({x: event.clientX, y: event.clientY, click: true});
 });
