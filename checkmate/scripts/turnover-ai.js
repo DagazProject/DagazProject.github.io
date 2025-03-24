@@ -994,7 +994,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
-        var attackable = IsSquareAttackable(from, 8 - Dagaz.AI.g_toMove);
+/*      var attackable = IsSquareAttackable(from, 8 - Dagaz.AI.g_toMove);
         if (Dagaz.AI.g_pieceCount[pieceKing | Dagaz.AI.g_toMove] < 2) attackable = true;
         if (attackable) {
             to = from - 16; if (Dagaz.AI.g_board[to] == 0) MovePawnTo(moveStack, from, to, Dagaz.AI.g_toMove, 0);
@@ -1005,9 +1005,9 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
             to = from + 17; if (Dagaz.AI.g_board[to] == 0) MovePawnTo(moveStack, from, to, Dagaz.AI.g_toMove, 0);
             to = from - 1;  if (Dagaz.AI.g_board[to] == 0) MovePawnTo(moveStack, from, to, Dagaz.AI.g_toMove, 0);
             to = from + 1;  if (Dagaz.AI.g_board[to] == 0) MovePawnTo(moveStack, from, to, Dagaz.AI.g_toMove, 0);
-        } else {
+        } else {*/
             GeneratePawnMoves(moveStack, from, moveflagPromotePawn | moveflagUnpromQueen);
-        }
+//      }
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
     }
 }
@@ -1089,7 +1089,7 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
     pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
-        var attackable = IsSquareAttackable(from, 8 - Dagaz.AI.g_toMove);
+/*      var attackable = IsSquareAttackable(from, 8 - Dagaz.AI.g_toMove);
         if (Dagaz.AI.g_pieceCount[pieceKing | Dagaz.AI.g_toMove] < 2) attackable = true;
         if (attackable) {
             to = from - 17; if (Dagaz.AI.g_board[to] & enemy) PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, 0);
@@ -1100,7 +1100,7 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
             to = from + 1;  if (Dagaz.AI.g_board[to] & enemy) PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, 0);
             to = from - 16; if (Dagaz.AI.g_board[to] & enemy) PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, 0);
             to = from + 16; if (Dagaz.AI.g_board[to] & enemy) PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, 0);
-        } else {
+        } else {*/
             to = from + inc - 1;
             if (Dagaz.AI.g_board[to] & enemy) {
                 if (!PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, moveflagPromotePawn | moveflagUnpromQueen)) {
@@ -1113,7 +1113,7 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
                     if (attackable) PawnCapture(moveStack, from, to, Dagaz.AI.g_toMove, 0);
                 }
             }
-        }
+//      }
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
     }
 }
