@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.AutoDrop = false;
+
 function MoveList(board) {
   this.board = board;
   this.moves = board.moves;
@@ -24,8 +26,8 @@ MoveList.prototype.isEmpty = function() {
 
 function isDropMove(m) {
   for (var j = 0; j < m.actions.length; j++) {
-      var a = m.actions[j];
-      if ((a[0] === null) && (a[1] !== null)) return true;
+       var a = m.actions[j];
+       if ((a[0] === null) && (a[1] !== null)) return true;
   }
   return false;
 }
@@ -48,7 +50,12 @@ function getTile(move, pos) {
 }
 
 Dagaz.Model.notValidMove = function(move, pos) {
-  return false;
+  for (var i = 0; i < move.actions.length; i++) {
+       var a = move.actions[i];
+       if ((a[0] !== null) && (a[1] === null) && (a[0][0] == pos)) return false;
+       if ((a[0] === null) && (a[1] !== null) && (a[1][0] == pos)) return false;
+  }
+  return true;
 }
 
 MoveList.prototype.getMoves = function() {
@@ -154,11 +161,26 @@ MoveList.prototype.clear = function() {
   delete this.stops;
 }
 
+MoveList.prototype.getTileFromMoves = function(pos) {
+  this.tile  = null;
+  for (var i = 0; i < this.board.moves.length; i++) {
+       var r = getTile(this.board.moves[i], pos);
+       if (r !== null) return r;
+  }
+}
+
 MoveList.prototype.solve = function(pos) {
   var positions = Dagaz.Model.getTiles(this.board, pos);
-  var tiles = _.map(positions, function(p) {
-      return this.board.getPiece(p).getValue(0);
-  }, this);
+  if (Dagaz.Model.AutoDrop) {
+      positions = [+pos];
+  }
+  var tiles = _.uniq(_.map(positions, function(p) {
+      if (Dagaz.Model.AutoDrop) {
+          return this.getTileFromMoves(pos);
+      } else {
+          return this.board.getPiece(p).getValue(0);
+      }
+  }, this));
   this.clear();
   if (this.getMoves().length == 0) {
       _.each(tiles, function(t) {
@@ -185,8 +207,12 @@ MoveList.prototype.setPosition = function(pos) {
       if (_.indexOf(Dagaz.Model.getTiles(this.board, pos), +pos) >= 0) {
           this.src = +pos;
           this.dst = +pos;
-          this.tile = this.board.getPiece(pos).getValue(0);
-          this.solve(pos);
+          if (Dagaz.Model.AutoDrop) {
+              this.tile = this.getTileFromMoves(+pos);
+          } else {
+              this.tile = this.board.getPiece(pos).getValue(0);
+          }
+          this.solve(+pos);
           return;
       }
       // Start move

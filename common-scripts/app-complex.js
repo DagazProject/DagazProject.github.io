@@ -184,6 +184,11 @@ App.prototype.mouseLocate = function(view, pos) {
           Canvas.style.cursor = "pointer";
       }
       if (_.isUndefined(this.currPos) || (this.currPos != pos[0])) {
+          if (!this.list.isComplex() && Dagaz.Model.AutoDrop) {
+              this.list.setPosition(+pos[0]);
+
+
+          }
           if (!_.isUndefined(this.currTile)) {
               this.isPosChanged = true;
               this.list.setPosition(pos[0]);
