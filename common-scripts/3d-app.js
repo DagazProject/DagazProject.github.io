@@ -57,6 +57,7 @@ Dagaz.Controller.newGame = function() {
   if (result) {
       str = result[1];
   }
+  localStorage.removeItem('dagaz.camera');
   window.location = str;
 }
 

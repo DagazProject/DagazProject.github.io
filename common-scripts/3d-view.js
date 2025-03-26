@@ -6,12 +6,13 @@ Dagaz.View.markType = {
    KO: 4
 };
 
-let boardPresent  = false;
-let isConfigured  = false;
-let isInitialized = false;
-let isFirstDraw   = true;
-let currPos       = null;
-let ko            = null;
+let boardPresent   = false;
+let isConfigured   = false;
+let isInitialized  = false;
+let isFirstDraw    = true;
+let currPos        = null;
+let ko             = null;
+let cameraSettings = null;
 
 let lastX = null;
 let lastY = null;
@@ -142,6 +143,17 @@ View3D.prototype.setCamera = function(dx, dy, dz, x, y, z) {
   if (!_.isUndefined(dx)) settings.dx = dx;
   if (!_.isUndefined(dy)) settings.dy = dy;
   if (!_.isUndefined(dz)) settings.dz = dz;
+  settings.zoom = 1;
+  const s = localStorage.getItem('dagaz.camera');
+  if (s) {
+      const v = s.split(';');
+      if (v.length == 4) {
+          settings.x = +v[0];
+          settings.y = +v[2];
+          settings.z = +v[1];
+          settings.zoom = +v[3];
+      }
+  }
   camera.position.set(settings.x, settings.z, settings.y);
   this.invalidate();
 }
@@ -389,6 +401,11 @@ View3D.prototype.invalidate = function() {
           this.ctrls[i].t = Math.round(camera.position.x) + "," + Math.round(camera.position.y) + "," + Math.round(camera.position.z);
           break;
       }
+  }
+  const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
+  if ((cameraSettings === null) || (cameraSettings != s)) {
+      localStorage.setItem('dagaz.camera', s);
+      cameraSettings = s;
   }
   if (h !== null) {
       drawTooltip(h.t, h.x, h.y);
