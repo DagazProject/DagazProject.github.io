@@ -245,7 +245,8 @@ View3D.prototype.clearControls = function() {
   this.invalidate();
 }
 
-View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
+View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, selector) {
+  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var type = 0;
   if (!_.isArray(imgs)) {
      if (imgs == "UndoControl")   type = 1;
@@ -271,7 +272,8 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args) {
 
 View3D.prototype.defPiece = function(img, name) {}
 
-View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz) {
+View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
+  if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   if (_.isUndefined(dz)) {
       dz = dx;
   }
@@ -529,8 +531,8 @@ View3D.prototype.draw = function(canvas) {
          if (!_.isUndefined(Dagaz.View.augBoard)) {
             Dagaz.View.augBoard(this);
          }
-            const orbits = new THREE.OrbitControls(camera, renderer.domElement);
-            orbits.addEventListener('change', () => this.invalidate());
+         const orbits = new THREE.OrbitControls(camera, renderer.domElement);
+         orbits.addEventListener('change', () => this.invalidate());
          isFirstDraw = false;
       }
       this.invalidate();
