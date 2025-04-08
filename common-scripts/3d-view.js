@@ -26,6 +26,33 @@ const settings = {
   dz: 0.5
 };
 
+const PLAYER_1_COLOR = 0x101010;
+const PLAYER_2_COLOR = 0x505050;
+
+let playerColors = [];
+
+function getPlayerMaterial(player, transparent) {
+    if (playerColors.length == 0) {
+        playerColors = [0x101010, 0x505050];
+    }
+    if (transparent) {
+        return new THREE.MeshStandardMaterial({
+            color: playerColors[player - 1],
+            metalness: 0.3,
+            roughness: 0.2,
+            transparent: true,
+            opacity: 0.3,
+            depthWrite: false
+        });
+    } else {
+        return new THREE.MeshStandardMaterial({
+            color: playerColors[player - 1],
+            metalness: 0.3,
+            roughness: 0.2
+        });
+    }
+}
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -85,32 +112,8 @@ const posMaterial = new THREE.MeshStandardMaterial({
     depthWrite: false
 });
 
-const blackMarkMaterial = new THREE.MeshStandardMaterial({
-    color: 0x101010,
-    metalness: 0.3,
-    roughness: 0.2,
-    transparent: true,
-    opacity: 0.3,
-    depthWrite: false
-});
-
-const whiteMarkMaterial = new THREE.MeshStandardMaterial({
-    color: 0x505050,
-    metalness: 0.3,
-    roughness: 0.2,
-    transparent: true,
-    opacity: 0.3,
-    depthWrite: false
-});
-
 const blackMaterial = new THREE.MeshStandardMaterial({
     color: 0x101010,
-    metalness: 0.3,
-    roughness: 0.2
-});
-
-const whiteMaterial = new THREE.MeshStandardMaterial({
-    color: 0x505050,
     metalness: 0.3,
     roughness: 0.2
 });
@@ -211,9 +214,9 @@ View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
   const p = this.pos[pos].p;
   if (model.player == 2) {
-      p.material = blackMaterial;
+      p.material = getPlayerMaterial(1, false);
   } else {
-      p.material = whiteMaterial;
+      p.material = getPlayerMaterial(2, false);
   }
 }
 
@@ -270,7 +273,9 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
   });
 }
 
-View3D.prototype.defPiece = function(img, name) {}
+View3D.prototype.defPiece = function(type, player, color) {
+  playerColors[player - 1] = color;
+}
 
 View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
@@ -452,9 +457,9 @@ View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   this.filled.push(+pos);
   const p = this.pos[pos].p;
   if (piece.player == 2) {
-      p.material = blackMaterial;
+      p.material = getPlayerMaterial(1, false);
   } else {
-      p.material = whiteMaterial;
+      p.material = getPlayerMaterial(2, false);
   }
   currPos = null;
 }
@@ -581,9 +586,9 @@ function mouseMove({x, y}, clean = false) {
         }
         currPos = intersects[0].object;
         if (Dagaz.View.view.controller.board.player == 2) {
-            currPos.material = blackMarkMaterial;
+            currPos.material = getPlayerMaterial(1, true);
         } else {
-            currPos.material = whiteMarkMaterial;
+            currPos.material = getPlayerMaterial(2, true);
         }
      }
   } else {
