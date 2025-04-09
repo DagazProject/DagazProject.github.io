@@ -12,10 +12,11 @@ const STATE = {
 
 const WAIT_FRAME = 100;
 
-var dropIndex    = 0;
-var once         = false;
+let dropIndex    = 0;
+let once         = false;
 let onceDraw     = true;
-var onceGameOver = true;
+let onceGameOver = true;
+let isAnimating  = false;
 
 function App(canvas) {
   this.design = Dagaz.Model.getDesign();
@@ -94,6 +95,39 @@ Dagaz.Controller.switchSound = function() {
   console.log('Dagaz.Controller.soundOff = ' + Dagaz.Controller.soundOff);
 }
 
+App.prototype.getStarts = function() {
+  if (_.isUndefined(this.starts)) {
+      if (_.isUndefined(this.list)) {
+          this.starts = [];
+      } else {
+          this.starts = this.list.getStarts();
+      }
+  }
+  return this.starts;
+}
+
+App.prototype.getStops = function() {
+  if (_.isUndefined(this.stops)) {
+      if (_.isUndefined(this.list)) {
+          this.stops = [];
+      } else {
+          this.stops = this.list.getStops();
+      }
+  }
+  return this.stops;
+}
+
+App.prototype.getTargets = function() {
+  if (_.isUndefined(this.targets)) {
+      if (_.isUndefined(this.list)) {
+          this.targets = [];
+      } else {
+          this.targets = this.list.getTargets();
+      }
+  }
+  return this.targets;
+}
+
 App.prototype.getDrops = function() {
   if (_.isUndefined(this.list) || (Dagaz.Model.showDrops == 0)) {
       this.drops = [];
@@ -106,6 +140,9 @@ App.prototype.getDrops = function() {
 }
 
 App.prototype.clearPositions = function() {
+  delete this.starts;
+  delete this.stops;
+  delete this.targets;
   delete this.drops;
   this.view.clearDrops();
 }
@@ -114,7 +151,7 @@ App.prototype.setPosition = function(pos) {
   this.move = this.list.setPosition(pos);
   this.clearPositions();
   this.state = STATE.EXEC;
-  Canvas.style.cursor = "default";
+  overlay.style.cursor = "default";
 }
 
 App.prototype.boardApply = function(move) {
@@ -127,8 +164,31 @@ App.prototype.boardApply = function(move) {
   }
 }
 
+App.prototype.mouseLocate = function(view, pos) {
+  if ((this.state == STATE.IDLE) && !_.isUndefined(this.list)) {
+       if (_.indexOf(this.getStarts(), pos) >= 0) {
+           overlay.style.cursor = "pointer";
+       } else {
+           overlay.style.cursor = "default";
+       }
+  }
+}
+
 App.prototype.click = function(pos, name) {
-  this.setPosition(pos);
+  if (_.indexOf(this.getDrops(), +pos) >= 0) {
+      this.setPosition(pos);
+      return;
+  }
+  if (_.indexOf(this.getStarts(), +pos) >= 0) {
+      this.setPosition(pos);
+      const targets = this.getTargets();
+      this.view.markPositions(Dagaz.View.markType.TARGET, targets);
+  }
+  if (_.indexOf(this.getTargets(), +pos) >= 0) {
+      this.view.markPositions(Dagaz.View.markType.TARGET, []);
+      this.setPosition(pos);
+      this.clearPositions();
+  }
 }
 
 App.prototype.getBoard = function() {
@@ -180,6 +240,10 @@ App.prototype.getAI = function() {
   return this.ai;
 }
 
+App.prototype.animate = function(f) {
+  isAnimating = f;
+}
+
 App.prototype.exec = function() {
   this.view.configure();
   if (!_.isUndefined(Dagaz.Model.load) && (Dagaz.Controller.persistense == "session")) {
@@ -187,7 +251,7 @@ App.prototype.exec = function() {
       Dagaz.Model.load(board);
       delete Dagaz.Model.load;
   }
-  if (onceDraw) {
+  if (onceDraw || isAnimating) {
       this.view.draw(this.canvas);
       onceDraw = false;
   }
@@ -204,7 +268,7 @@ App.prototype.exec = function() {
          if (!_.isUndefined(Dagaz.Controller.AI_DELAY)) {
              Dagaz.Controller.delayTimestamp = Date.now();
          }
-         Canvas.style.cursor = "wait";
+         overlay.style.cursor = "wait";
          this.timestamp = Date.now();
          once = true;
       } else {
@@ -247,11 +311,11 @@ App.prototype.exec = function() {
           once = false;
       }
       if (result) {
-          Canvas.style.cursor = "default";
+          overlay.style.cursor = "default";
           if (_.isUndefined(result.move)) {
               if (result.done) {
                   this.state = STATE.DONE;
-                  Canvas.style.cursor = "default";
+                  overlay.style.cursor = "default";
                   if (!_.isUndefined(Dagaz.Controller.play)) {
                       Dagaz.Controller.play(Dagaz.Sounds.win);
                   }
@@ -312,7 +376,7 @@ App.prototype.exec = function() {
           if (g !== null) {
               var player = this.design.playerNames[this.board.parent.player];
               this.state = STATE.DONE;
-              Canvas.style.cursor = "default";
+              overlay.style.cursor = "default";
               if (g > 0) {
                   if (!_.isUndefined(Dagaz.Controller.play)) {
                       if (this.board.parent.player == 1) {
