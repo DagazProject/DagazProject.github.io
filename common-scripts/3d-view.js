@@ -248,11 +248,7 @@ View3D.prototype.clear = function() {
 View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
   const p = this.pos[pos].p;
-  if (model.player == 2) {
-      p.material = getPlayerMaterial(1, false);
-  } else {
-      p.material = getPlayerMaterial(2, false);
-  }
+  p.material = getPlayerMaterial(model.player, false);
 }
 
 View3D.prototype.sync = function(board) {
@@ -523,7 +519,7 @@ View3D.prototype.animate = function() {
       } else {
           q.state = ANIMATE_STATE.DONE;
           if (Dagaz.View.NO_PIECE) {
-              q.final.material = q.piece.material;
+              q.final.material = getPlayerMaterial(q.player, false);
               q.piece.material = posMaterial;
               q.piece.position.x = q.sx;
               q.piece.position.y = q.sy;
@@ -545,11 +541,7 @@ View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   if (!phase) { phase = 1; }
   this.filled.push(+pos);
   const p = this.pos[pos].p;
-  if (piece.player == 2) {
-      p.material = getPlayerMaterial(1, false);
-  } else {
-      p.material = getPlayerMaterial(2, false);
-  }
+  p.material = getPlayerMaterial(piece.player, false);
   currPos = null;
 }
 
@@ -574,8 +566,11 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       dz: (stop.p.position.z - start.p.position.z)/(steps + 1),
       sx: start.p.position.x, ex: stop.p.position.x,
       sy: start.p.position.y, ey: stop.p.position.y,
-      sz: start.p.position.z, ez: stop.p.position.z
+      sz: start.p.position.z, ez: stop.p.position.z,
+      player: piece.player
   });
+  this.filled = _.without(this.filled, +from);
+  this.filled.push(+to);
 }
 
 View3D.prototype.capturePiece = function(move, pos, phase) {
@@ -588,12 +583,14 @@ View3D.prototype.capturePiece = function(move, pos, phase) {
 }
 
 View3D.prototype.commit = function(move) {
+  let f = false;
   _.each(this.queue, function(q) {
        if (q.state == ANIMATE_STATE.INIT) {
            q.state = ANIMATE_STATE.READY;
+           f = true;
        }
   });
-  this.controller.animate(true);
+  this.controller.animate(f);
 }
 
 View3D.prototype.addDir = function(p, q, f) {
@@ -697,11 +694,7 @@ function mouseMove({x, y}, clean = false) {
            currPos.material = posMaterial;
         }
         currPos = intersects[0].object;
-        if (Dagaz.View.view.controller.board.player == 2) {
-            currPos.material = getPlayerMaterial(1, true);
-        } else {
-            currPos.material = getPlayerMaterial(2, true);
-        }
+        currPos.material = getPlayerMaterial(Dagaz.View.view.controller.board.player, true);
      }
   } else {
      if (currPos !== null) {

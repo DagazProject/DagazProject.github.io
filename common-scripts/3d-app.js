@@ -165,8 +165,9 @@ App.prototype.boardApply = function(move) {
 }
 
 App.prototype.mouseLocate = function(view, pos) {
+  if (isAnimating) return;
   if ((this.state == STATE.IDLE) && !_.isUndefined(this.list)) {
-       if (_.indexOf(this.getStarts(), pos) >= 0) {
+       if ((_.indexOf(this.getStarts(), pos) >= 0) || (_.indexOf(this.getDrops(), pos))) {
            overlay.style.cursor = "pointer";
        } else {
            overlay.style.cursor = "default";
@@ -175,6 +176,7 @@ App.prototype.mouseLocate = function(view, pos) {
 }
 
 App.prototype.click = function(pos, name) {
+  if (isAnimating) return;
   if (_.indexOf(this.getDrops(), +pos) >= 0) {
       this.setPosition(pos);
       return;
@@ -284,8 +286,8 @@ App.prototype.exec = function() {
              }
              this.list = Dagaz.Model.getMoveList(this.board);
              var drops = this.getDrops();
-             if (this.drops.length > 0) {
-                 this.view.setDrops(this.drops);
+             if (drops.length > 0) {
+                 this.view.setDrops(drops);
              }
              var ko = [];
              if (!_.isUndefined(this.board.ko)) {

@@ -1,3 +1,5 @@
+Dagaz.Controller.persistense = "setup";
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -78,8 +80,11 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
+    design.addPriority(1);			// drop-type
+    design.addPriority(0);			// normal-type
+
     design.addPiece("Stone", 0);
-    design.addDrop(0, 0, [], 0);
+    design.addDrop(0, 0, [], 1);
     design.addMove(0, 1, [3], 0);
     design.addMove(0, 1, [0], 0);
     design.addMove(0, 1, [2], 0);
@@ -99,7 +104,7 @@ Dagaz.View.configure = function(view) {
  
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'diamond-atari-go-board.htm' : 'diamond-atari-go.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? '3d-morris-board.htm' : '3d-morris.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 

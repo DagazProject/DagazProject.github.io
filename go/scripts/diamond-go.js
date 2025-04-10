@@ -132,6 +132,9 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
+    view.defPiece(0, 1, 0x505050); // White
+    view.defPiece(0, 2, 0x101010); // Black
+
     view.setCamera(0, 0, 0, 98, 113, 245);
 
     view.defControl("InfoControl", "1999 Walt McKibben", true, Dagaz.Controller.open, 'http://www.segerman.org/diamond/');

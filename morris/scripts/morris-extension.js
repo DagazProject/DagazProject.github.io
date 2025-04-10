@@ -92,10 +92,9 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   var dirs   = [];
-  dirs.push(design.getDirection("n")); dirs.push(design.getDirection("ne"));
-  dirs.push(design.getDirection("e")); dirs.push(design.getDirection("se"));
-  dirs.push(design.getDirection("s")); dirs.push(design.getDirection("sw"));
-  dirs.push(design.getDirection("w")); dirs.push(design.getDirection("nw"));
+  _.each(design.allDirections(), function(dir) {
+      dirs.push(dir);
+  });
   _.each(board.moves, function(move) {
       var cnt   = 0;
       var empty = null;
