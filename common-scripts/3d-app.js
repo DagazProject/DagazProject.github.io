@@ -167,7 +167,7 @@ App.prototype.boardApply = function(move) {
 App.prototype.mouseLocate = function(view, pos) {
   if (isAnimating) return;
   if ((this.state == STATE.IDLE) && !_.isUndefined(this.list)) {
-       if ((_.indexOf(this.getStarts(), pos) >= 0) || (_.indexOf(this.getDrops(), pos))) {
+       if (pos !== null) {
            overlay.style.cursor = "pointer";
        } else {
            overlay.style.cursor = "default";
@@ -185,6 +185,8 @@ App.prototype.click = function(pos, name) {
       this.setPosition(pos);
       const targets = this.getTargets();
       this.view.markPositions(Dagaz.View.markType.TARGET, targets);
+      const starts = this.getStarts();
+      this.view.setHots(_.union(starts, targets));
   }
   if (_.indexOf(this.getTargets(), +pos) >= 0) {
       this.view.markPositions(Dagaz.View.markType.TARGET, []);
@@ -208,10 +210,22 @@ App.prototype.isReady = function() {
   return this.state == STATE.IDLE;
 }
 
+App.prototype.setHots = function() {
+  this.list = Dagaz.Model.getMoveList(this.board);
+  if (!this.list) return;
+  const drops = this.getDrops();
+  if (drops.length > 0) {
+      this.view.setDrops(drops);
+  }
+  const starts = _.union(drops, this.getStarts());
+  this.view.setHots(starts);
+}
+
 App.prototype.setBoard = function(board, isForced) {
   if (this.isReady() || isForced) {
       this.board = board;
       this.view.reInit(board);
+      this.setHots();
       delete this.list;
   }
 }
@@ -284,11 +298,7 @@ App.prototype.exec = function() {
              if (!Dagaz.Controller.noDropIndex) {
                  dropIndex = 0;
              }
-             this.list = Dagaz.Model.getMoveList(this.board);
-             var drops = this.getDrops();
-             if (drops.length > 0) {
-                 this.view.setDrops(drops);
-             }
+             this.setHots();
              var ko = [];
              if (!_.isUndefined(this.board.ko)) {
                  ko = this.board.ko;
