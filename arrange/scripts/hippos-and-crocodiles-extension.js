@@ -73,8 +73,27 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 }
 
 Dagaz.Model.getTiles = function(board, pos) {
+  if (!_.isUndefined(board.tiles)) return board.tiles;
   var design = Dagaz.Model.design;
-  return design.allPositions();
+  board.tiles = [];
+  board.generate(design);
+  _.each(board.moves, function(move) {
+    var f = false;
+    _.each(move.actions, function(a) {
+         if (a[0] !== null) return;
+         if (a[1] === null) return;
+         if (a[1][0] != pos) return;
+         f = true;
+    });
+//    if (!f) return;
+    _.each(move.actions, function(a) {
+         if (a[0] !== null) return;
+         if (a[1] === null) return;         
+         if (_.indexOf(board.tiles, +a[1][0]) >= 0) return;
+         board.tiles.push(+a[1][0]);
+    });
+  });
+  return board.tiles;
 }
 
 var addPattern = function(design, board, sx, sy, p, o, move) {

@@ -1,3 +1,19 @@
+27/03/2025 - 1.4.2
+  Nine-Tile Cyvasse
+  Kings Valley
+  CubWars
+  SMESS
+  Khachapuri
+  Crazy Long Backgammon
+  Hexes Hexagonal Chess
+  Half Chess
+  RPnS
+  Jabberwocky Chess
+  Equinox Rosespring Gammon
+  Rutland's Chess
+  ZERTZ
+  Abyss Angel Chess
+  Diamond Atari Go
 19/02/2024 - 1.4.1
   Chessgi
   5x7 Shogi
