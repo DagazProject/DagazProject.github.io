@@ -211,6 +211,7 @@ App.prototype.isReady = function() {
 }
 
 App.prototype.setHots = function() {
+  this.view.markPositions(Dagaz.View.markType.TARGET, []);
   this.list = Dagaz.Model.getMoveList(this.board);
   if (!this.list) return;
   const drops = this.getDrops();
