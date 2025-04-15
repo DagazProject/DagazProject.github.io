@@ -1,0 +1,64 @@
+(define p
+  (piece
+     (name $1)
+  )
+)
+
+(game
+  (title "Rubik (3x3)")
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (dimensions ; -84
+           ("a/b/c" (84 0)) ; files
+           ("3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; 0
+           ("d/e/f" (84 0)) ; files
+           ("3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; 84
+           ("g/h/i" (84 0)) ; files
+           ("3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links u
+         (a1 d1) (b1 e1) (c1 f1) 
+         (a2 d2) (b2 e2) (c2 f2) 
+         (a3 d3) (b3 e3) (c3 f3) 
+         (d1 g1) (e1 h1) (f1 i1)
+         (d2 g2) (e2 h2) (f2 i2)
+         (d3 g3) (e3 h3) (f3 i3)
+     )
+     (links d 
+         (d1 a1) (e1 b1) (f1 c1) 
+         (d2 a2) (e2 b2) (f2 c2) 
+         (d3 a3) (e3 b3) (f3 c3) 
+         (g1 d1) (h1 e1) (i1 f1)
+         (g2 d2) (h2 e2) (i2 f2)
+         (g3 d3) (h3 e3) (i3 f3)
+     )
+  )
+
+  (p WRBYOG) (p WBOYGR) (p WGRYBO) (p WOGYRB)
+  (p RWGOYB) (p RBWOGY) (p RGYOBW) (p RYBOWG)
+  (p BWRGYO) (p BRYGOW) (p BOWGRY) (p BYOGWR)
+  (p GWOBYR) (p GRWBOY) (p GOYBRW) (p GYRBWO)
+  (p OWBRYG) (p OBYRGW) (p OGWRBY) (p OYGRWB)
+  (p YRGWOB) (p YBRWGO) (p YGOWBR) (p YOBWRG)
+
+  (board-setup
+     (You (WRBYOG a1 a2 a3 b1 b2 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f1 f2 f3 g1 g2 g3 h1 h2 h3 i1 i2 i3))
+  )
+)
+

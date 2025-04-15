@@ -16,6 +16,10 @@ const ANIMATE_STATE = {
   DONE:               2
 };
 
+const PIECE_TYPE = {
+   CUBE:              1
+};
+
 let boardPresent   = false;
 let isConfigured   = false;
 let isInitialized  = false;
@@ -39,8 +43,9 @@ const settings = {
 const PLAYER_1_COLOR = 0x101010;
 const PLAYER_2_COLOR = 0x505050;
 
-let allPositions = [];
-let playerColors = [];
+let allPositions     = [];
+let playerColors     = [];
+let pieceTypes       = [];
 
 function getPlayerMaterial(player, transparent) {
     if (playerColors.length == 0) {
@@ -76,6 +81,7 @@ let   leastTouch = null;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
+    antialias: true
 });
 
 const sizes = {
@@ -248,8 +254,30 @@ View3D.prototype.clear = function() {
 
 View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
-  const p = this.pos[pos].p;
-  p.material = getPlayerMaterial(model.player, false);
+  const p = this.pos[pos];
+  if (Dagaz.View.NO_PIECE) {
+      p.material = getPlayerMaterial(model.player, false);
+  } else {
+      const pieceType = pieceTypes[model.type*10 + model.player];
+      const pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
+      const materials = _.map(pieceType.colors, function(c) {
+          return new THREE.MeshBasicMaterial({ color: c });
+      });
+      const group = new THREE.Group();
+      const piece = new THREE.Mesh(pieceGeometry, materials);
+      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      group.add(piece);
+      const edgeColor = 0x000000;
+      const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
+      const edgesMaterial = new THREE.LineBasicMaterial({ 
+            color: edgeColor,
+            linewidth: 3
+      });
+      const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+      edges.position.set(p.x / 10, p.z / 10, p.y / 10);
+      group.add(edges);
+      scene.add(group);
+  }
 }
 
 View3D.prototype.sync = function(board) {
@@ -303,6 +331,14 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      a: args,
      y: type
   });
+}
+
+View3D.prototype.defPieceCube = function(type, player, colors) {
+  Dagaz.View.NO_PIECE = false;
+  pieceTypes[type*10 + player] = {
+     type: PIECE_TYPE.CUBE,
+     colors: colors
+  };
 }
 
 View3D.prototype.defPiece = function(type, player, color) {
