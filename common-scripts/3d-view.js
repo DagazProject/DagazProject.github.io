@@ -260,12 +260,16 @@ View3D.prototype.addPiece = function(piece, pos, model) {
   } else {
       const pieceType = pieceTypes[model.type*10 + model.player];
       const pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
-      const materials = _.map(pieceType.colors, function(c) {
-          return new THREE.MeshBasicMaterial({ color: c });
-      });
+      const materials = [
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
+            new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
+      ];
       const group = new THREE.Group();
       const piece = new THREE.Mesh(pieceGeometry, materials);
-      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
       group.add(piece);
       const edgeColor = 0x000000;
       const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
@@ -274,9 +278,9 @@ View3D.prototype.addPiece = function(piece, pos, model) {
             linewidth: 3
       });
       const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
-      edges.position.set(p.x / 10, p.z / 10, p.y / 10);
       group.add(edges);
-      scene.add(group);
+      group.position.set(p.x / 10, p.z / 10, p.y / 10);
+      scene.add(group);   
   }
 }
 

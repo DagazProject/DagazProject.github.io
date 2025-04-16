@@ -59,93 +59,93 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("h1", [0, 1, -1, -3, 0, -9]);
     design.addPosition("i1", [0, 0, -1, -3, 0, -9]);
 
-    design.addPiece("WRBYOG", 0);
-    design.addPiece("WBOYGR", 1);
-    design.addPiece("WGRYBO", 2);
-    design.addPiece("WOGYRB", 3);
-    design.addPiece("RWGOYB", 4);
-    design.addPiece("RBWOGY", 5);
-    design.addPiece("RGYOBW", 6);
-    design.addPiece("RYBOWG", 7);
-    design.addPiece("BWRGYO", 8);
-    design.addPiece("BRYGOW", 9);
-    design.addPiece("BOWGRY", 10);
-    design.addPiece("BYOGWR", 11);
-    design.addPiece("GWOBYR", 12);
-    design.addPiece("GRWBOY", 13);
-    design.addPiece("GOYBRW", 14);
-    design.addPiece("GYRBWO", 15);
-    design.addPiece("OWBRYG", 16);
-    design.addPiece("OBYRGW", 17);
-    design.addPiece("OGWRBY", 18);
-    design.addPiece("OYGRWB", 19);
-    design.addPiece("YRGWOB", 20);
-    design.addPiece("YBRWGO", 21);
-    design.addPiece("YGOWBR", 22);
-    design.addPiece("YOBWRG", 23);
+    design.addPiece("WRBGOY", 0);
+    design.addPiece("WBORGY", 1);
+    design.addPiece("WGROBY", 2);
+    design.addPiece("WOGBRY", 3);
+    design.addPiece("RWGBYO", 4);
+    design.addPiece("RBWYGO", 5);
+    design.addPiece("RGYWBO", 6);
+    design.addPiece("RYBGWO", 7);
+    design.addPiece("BWROYG", 8);
+    design.addPiece("BRYWOG", 9);
+    design.addPiece("BOWYRG", 10);
+    design.addPiece("BYORWG", 11);
+    design.addPiece("GWORYB", 12);
+    design.addPiece("GRWYOB", 13);
+    design.addPiece("GOYWRB", 14);
+    design.addPiece("GYROWB", 15);
+    design.addPiece("OWBGYR", 16);
+    design.addPiece("OBYWGR", 17);
+    design.addPiece("OGWYBR", 18);
+    design.addPiece("OYGBWR", 19);
+    design.addPiece("YRGBOW", 20);
+    design.addPiece("YBROGW", 21);
+    design.addPiece("YGORBW", 22);
+    design.addPiece("YOBGRW", 23);
 
-    design.setup("You", "WRBYOG", 6);
-    design.setup("You", "WRBYOG", 3);
-    design.setup("You", "WRBYOG", 0);
-    design.setup("You", "WRBYOG", 7);
-    design.setup("You", "WRBYOG", 4);
-    design.setup("You", "WRBYOG", 1);
-    design.setup("You", "WRBYOG", 8);
-    design.setup("You", "WRBYOG", 5);
-    design.setup("You", "WRBYOG", 2);
-    design.setup("You", "WRBYOG", 15);
-    design.setup("You", "WRBYOG", 12);
-    design.setup("You", "WRBYOG", 9);
-    design.setup("You", "WRBYOG", 16);
-    design.setup("You", "WRBYOG", 13);
-    design.setup("You", "WRBYOG", 10);
-    design.setup("You", "WRBYOG", 17);
-    design.setup("You", "WRBYOG", 14);
-    design.setup("You", "WRBYOG", 11);
-    design.setup("You", "WRBYOG", 24);
-    design.setup("You", "WRBYOG", 21);
-    design.setup("You", "WRBYOG", 18);
-    design.setup("You", "WRBYOG", 25);
-    design.setup("You", "WRBYOG", 22);
-    design.setup("You", "WRBYOG", 19);
-    design.setup("You", "WRBYOG", 26);
-    design.setup("You", "WRBYOG", 23);
-    design.setup("You", "WRBYOG", 20);
+    design.setup("You", "WRBGOY", 6);
+    design.setup("You", "WRBGOY", 3);
+    design.setup("You", "WRBGOY", 0);
+    design.setup("You", "WRBGOY", 7);
+    design.setup("You", "WRBGOY", 4);
+    design.setup("You", "WRBGOY", 1);
+    design.setup("You", "WRBGOY", 8);
+    design.setup("You", "WRBGOY", 5);
+    design.setup("You", "WRBGOY", 2);
+    design.setup("You", "WRBGOY", 15);
+    design.setup("You", "WRBGOY", 12);
+    design.setup("You", "WRBGOY", 9);
+    design.setup("You", "WRBGOY", 16);
+    design.setup("You", "WRBGOY", 13);
+    design.setup("You", "WRBGOY", 10);
+    design.setup("You", "WRBGOY", 17);
+    design.setup("You", "WRBGOY", 14);
+    design.setup("You", "WRBGOY", 11);
+    design.setup("You", "WRBGOY", 24);
+    design.setup("You", "WRBGOY", 21);
+    design.setup("You", "WRBGOY", 18);
+    design.setup("You", "WRBGOY", 25);
+    design.setup("You", "WRBGOY", 22);
+    design.setup("You", "WRBGOY", 19);
+    design.setup("You", "WRBGOY", 26);
+    design.setup("You", "WRBGOY", 23);
+    design.setup("You", "WRBGOY", 20);
 }
 
 Dagaz.View.configure = function(view) {
 
-    // W 0x707070
-    // R 0x880000
-    // B 0x0000FF
-    // Y 0xF2E825
-    // O 0xFDA831
-    // G 0x37B476
+    const W = 0xF0F0F0; // 1
+    const R = 0xFF0000; // 2
+    const B = 0x0000FF; // 3
+    const G = 0x37B476; // 4
+    const O = 0xFDA831; // 5
+    const Y = 0xF2E825; // 6
 
-    view.defPieceCube(0,  1, [0x707070, 0x880000, 0x0000FF, 0xF2E825, 0xFDA831, 0x37B476]);
-    view.defPieceCube(1,  1, [0x707070, 0x0000FF, 0xFDA831, 0xF2E825, 0x37B476, 0x880000]);
-    view.defPieceCube(2,  1, [0x707070, 0x37B476, 0x880000, 0xF2E825, 0x0000FF, 0xFDA831]);
-    view.defPieceCube(3,  1, [0x707070, 0xFDA831, 0x37B476, 0xF2E825, 0x880000, 0x0000FF]);
-    view.defPieceCube(4,  1, [0x880000, 0x707070, 0x37B476, 0xFDA831, 0xF2E825, 0x0000FF]);
-    view.defPieceCube(5,  1, [0x880000, 0x0000FF, 0x707070, 0xFDA831, 0x37B476, 0xF2E825]);
-    view.defPieceCube(6,  1, [0x880000, 0x37B476, 0xF2E825, 0xFDA831, 0x0000FF, 0x707070]);
-    view.defPieceCube(7,  1, [0x880000, 0xF2E825, 0x0000FF, 0xFDA831, 0x707070, 0x37B476]);
-    view.defPieceCube(8,  1, [0x0000FF, 0x707070, 0x880000, 0x37B476, 0xF2E825, 0xFDA831]);
-    view.defPieceCube(9,  1, [0x0000FF, 0x880000, 0xF2E825, 0x37B476, 0xFDA831, 0x707070]);
-    view.defPieceCube(10, 1, [0x0000FF, 0xFDA831, 0x707070, 0x37B476, 0x880000, 0xF2E825]);
-    view.defPieceCube(11, 1, [0x0000FF, 0xF2E825, 0xFDA831, 0x37B476, 0x707070, 0x880000]);
-    view.defPieceCube(12, 1, [0x37B476, 0x707070, 0xFDA831, 0x0000FF, 0xF2E825, 0x880000]);
-    view.defPieceCube(13, 1, [0x37B476, 0x880000, 0x707070, 0x0000FF, 0xFDA831, 0xF2E825]);
-    view.defPieceCube(14, 1, [0x37B476, 0xFDA831, 0xF2E825, 0x0000FF, 0x880000, 0x707070]);
-    view.defPieceCube(15, 1, [0x37B476, 0xF2E825, 0x880000, 0x0000FF, 0x707070, 0xFDA831]);
-    view.defPieceCube(16, 1, [0xFDA831, 0x707070, 0x0000FF, 0x880000, 0xF2E825, 0x37B476]);
-    view.defPieceCube(17, 1, [0xFDA831, 0x0000FF, 0xF2E825, 0x880000, 0x37B476, 0x707070]);
-    view.defPieceCube(18, 1, [0xFDA831, 0x37B476, 0x707070, 0x880000, 0x0000FF, 0xF2E825]);
-    view.defPieceCube(19, 1, [0xFDA831, 0xF2E825, 0x37B476, 0x880000, 0x707070, 0x0000FF]);
-    view.defPieceCube(20, 1, [0xF2E825, 0x880000, 0x37B476, 0x707070, 0xFDA831, 0x0000FF]);
-    view.defPieceCube(21, 1, [0xF2E825, 0x0000FF, 0x880000, 0x707070, 0x37B476, 0xFDA831]);
-    view.defPieceCube(22, 1, [0xF2E825, 0x37B476, 0xFDA831, 0x707070, 0x0000FF, 0x880000]);
-    view.defPieceCube(23, 1, [0xF2E825, 0xFDA831, 0x0000FF, 0x707070, 0x880000, 0x37B476]);
+    view.defPieceCube(0,  1, [W, R, B, G, O, Y]); // WRBGOY
+    view.defPieceCube(1,  1, [W, B, O, R, G, Y]); // WBORGY
+    view.defPieceCube(2,  1, [W, G, R, O, B, Y]); // WGROBY
+    view.defPieceCube(3,  1, [W, O, G, B, R, Y]); // WOGBRY
+    view.defPieceCube(4,  1, [R, W, G, B, Y, O]); // RWGBYO
+    view.defPieceCube(5,  1, [R, B, W, Y, G, O]); // RBWYGO
+    view.defPieceCube(6,  1, [R, G, Y, W, B, O]); // RGYWBO
+    view.defPieceCube(7,  1, [R, Y, B, G, W, O]); // RYBGWO
+    view.defPieceCube(8,  1, [B, W, R, O, Y, G]); // BWROYG
+    view.defPieceCube(9,  1, [B, R, Y, W, O, G]); // BRYWOG
+    view.defPieceCube(10, 1, [B, O, W, Y, R, G]); // BOWYRG
+    view.defPieceCube(11, 1, [B, Y, O, R, W, G]); // BYORWG
+    view.defPieceCube(12, 1, [G, W, O, R, Y, B]); // GWORYB
+    view.defPieceCube(13, 1, [G, R, W, Y, O, B]); // GRWYOB
+    view.defPieceCube(14, 1, [G, O, Y, W, R, B]); // GOYWRB
+    view.defPieceCube(15, 1, [G, Y, R, O, W, B]); // GYROWB
+    view.defPieceCube(16, 1, [O, W, B, G, Y, R]); // OWBGYR
+    view.defPieceCube(17, 1, [O, B, Y, W, G, R]); // OBYWGR
+    view.defPieceCube(18, 1, [O, G, W, Y, B, R]); // OGWYBR
+    view.defPieceCube(19, 1, [O, Y, G, B, W, R]); // OYGBWR
+    view.defPieceCube(20, 1, [Y, R, G, B, O, W]); // YRGBOW
+    view.defPieceCube(21, 1, [Y, B, R, O, G, W]); // YBROGW
+    view.defPieceCube(22, 1, [Y, G, O, R, B, W]); // YGORBW
+    view.defPieceCube(23, 1, [Y, O, B, G, R, W]); // YOBGRW
 
     view.setCamera(0, 0, 0, 91, 228, 148);
  

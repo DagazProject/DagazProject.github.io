@@ -50,12 +50,12 @@
      )
   )
 
-  (p WRBYOG) (p WBOYGR) (p WGRYBO) (p WOGYRB)
-  (p RWGOYB) (p RBWOGY) (p RGYOBW) (p RYBOWG)
-  (p BWRGYO) (p BRYGOW) (p BOWGRY) (p BYOGWR)
-  (p GWOBYR) (p GRWBOY) (p GOYBRW) (p GYRBWO)
-  (p OWBRYG) (p OBYRGW) (p OGWRBY) (p OYGRWB)
-  (p YRGWOB) (p YBRWGO) (p YGOWBR) (p YOBWRG)
+  (p WRBGOY) (p WBORGY) (p WGROBY) (p WOGBRY)
+  (p RWGBYO) (p RBWYGO) (p RGYWBO) (p RYBGWO)
+  (p BWROYG) (p BRYWOG) (p BOWYRG) (p BYORWG)
+  (p GWORYB) (p GRWYOB) (p GOYWRB) (p GYROWB)
+  (p OWBGYR) (p OBYWGR) (p OGWYBR) (p OYGBWR)
+  (p YRGBOW) (p YBROGW) (p YGORBW) (p YOBGRW)
 
   (board-setup
      (You (WRBYOG a1 a2 a3 b1 b2 b3 c1 c2 c3 d1 d2 d3 e1 e2 e3 f1 f2 f3 g1 g2 g3 h1 h2 h3 i1 i2 i3))
