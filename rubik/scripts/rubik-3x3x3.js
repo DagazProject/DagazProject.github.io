@@ -97,7 +97,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("You", "WRBGOY", 12);
     design.setup("You", "WRBGOY", 9);
     design.setup("You", "WRBGOY", 16);
-    design.setup("You", "WRBGOY", 13);
     design.setup("You", "WRBGOY", 10);
     design.setup("You", "WRBGOY", 17);
     design.setup("You", "WRBGOY", 14);

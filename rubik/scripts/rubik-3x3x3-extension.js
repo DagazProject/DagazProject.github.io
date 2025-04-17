@@ -42,16 +42,21 @@ function rotate(piece, dir) {
   return piece.promote(ROTATE[dir][piece.type]);
 }
 
-function gen(board, a1, a2, a3, a4, b1, b2, b3, b4, dir) {
+function gen(board, dir, a1, a2, a3, a4, b1, b2, b3, b4, c1) {
   const m = Dagaz.Model.createMove(dir);
   m.movePiece(a1, a2, rotate(board.getPiece(a1), dir));
   m.movePiece(a2, a3, rotate(board.getPiece(a2), dir));
   m.movePiece(a3, a4, rotate(board.getPiece(a3), dir));
   m.movePiece(a4, a1, rotate(board.getPiece(a4), dir));
-  m.movePiece(b1, b2, rotate(board.getPiece(b1), dir));
-  m.movePiece(b2, b3, rotate(board.getPiece(b2), dir));
-  m.movePiece(b3, b4, rotate(board.getPiece(b3), dir));
-  m.movePiece(b4, b1, rotate(board.getPiece(b4), dir));
+  if (!_.isUndefined(b1) && !_.isUndefined(b2) && !_.isUndefined(b3) && !_.isUndefined(b4)) {
+      m.movePiece(b1, b2, rotate(board.getPiece(b1), dir));
+      m.movePiece(b2, b3, rotate(board.getPiece(b2), dir));
+      m.movePiece(b3, b4, rotate(board.getPiece(b3), dir));
+      m.movePiece(b4, b1, rotate(board.getPiece(b4), dir));
+  }
+  if (!_.isUndefined(c1)) {
+      m.movePiece(c1, c1, rotate(board.getPiece(c1), dir));
+  }
   board.moves.push(m);
 }
 
@@ -64,26 +69,26 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
 
-  gen(board, p('c1'), p('i1'), p('i3'), p('c3'), p('f1'), p('i2'), p('f3'), p('c2'), 0);
-  gen(board, p('c3'), p('i3'), p('i1'), p('c1'), p('c2'), p('f3'), p('i2'), p('f1'), 1);
-  gen(board, p('b1'), p('h1'), p('h3'), p('b3'), p('e1'), p('h2'), p('e3'), p('b2'), 0);
-  gen(board, p('b3'), p('h3'), p('h1'), p('b1'), p('b2'), p('e3'), p('h2'), p('e1'), 1);
-  gen(board, p('a1'), p('g1'), p('g3'), p('a3'), p('d1'), p('g2'), p('d3'), p('a2'), 0);
-  gen(board, p('a3'), p('g3'), p('g1'), p('a1'), p('a2'), p('d3'), p('g2'), p('d1'), 1);
+  gen(board, 0, p('c1'), p('i1'), p('i3'), p('c3'), p('f1'), p('i2'), p('f3'), p('c2'), p('f2'));
+  gen(board, 1, p('c3'), p('i3'), p('i1'), p('c1'), p('c2'), p('f3'), p('i2'), p('f1'), p('f2'));
+  gen(board, 0, p('b1'), p('h1'), p('h3'), p('b3'), p('e1'), p('h2'), p('e3'), p('b2'));
+  gen(board, 1, p('b3'), p('h3'), p('h1'), p('b1'), p('b2'), p('e3'), p('h2'), p('e1'));
+  gen(board, 0, p('a1'), p('g1'), p('g3'), p('a3'), p('d1'), p('g2'), p('d3'), p('a2'), p('d2'));
+  gen(board, 1, p('a3'), p('g3'), p('g1'), p('a1'), p('a2'), p('d3'), p('g2'), p('d1'), p('d2'));
 
-  gen(board, p('i1'), p('c1'), p('a1'), p('g1'), p('f1'), p('b1'), p('d1'), p('h1'), 2);
-  gen(board, p('g1'), p('a1'), p('c1'), p('i1'), p('h1'), p('d1'), p('b1'), p('f1'), 3);
-  gen(board, p('i2'), p('c2'), p('a2'), p('g2'), p('f2'), p('b2'), p('d2'), p('h2'), 2);
-  gen(board, p('g2'), p('a2'), p('c2'), p('i2'), p('h2'), p('d2'), p('b2'), p('f2'), 3);
-  gen(board, p('i3'), p('c3'), p('a3'), p('g3'), p('f3'), p('b3'), p('d3'), p('h3'), 2);
-  gen(board, p('g3'), p('a3'), p('c3'), p('i3'), p('h3'), p('d3'), p('b3'), p('f3'), 3);
+  gen(board, 2, p('i1'), p('c1'), p('a1'), p('g1'), p('f1'), p('b1'), p('d1'), p('h1'), p('e1'));
+  gen(board, 3, p('g1'), p('a1'), p('c1'), p('i1'), p('h1'), p('d1'), p('b1'), p('f1'), p('e1'));
+  gen(board, 2, p('i2'), p('c2'), p('a2'), p('g2'), p('f2'), p('b2'), p('d2'), p('h2'));
+  gen(board, 3, p('g2'), p('a2'), p('c2'), p('i2'), p('h2'), p('d2'), p('b2'), p('f2'));
+  gen(board, 2, p('i3'), p('c3'), p('a3'), p('g3'), p('f3'), p('b3'), p('d3'), p('h3'), p('e3'));
+  gen(board, 3, p('g3'), p('a3'), p('c3'), p('i3'), p('h3'), p('d3'), p('b3'), p('f3'), p('e3'));
 
-  gen(board, p('i1'), p('g1'), p('g3'), p('i3'), p('h1'), p('g2'), p('h3'), p('i2'), 4);
-  gen(board, p('i3'), p('g3'), p('g1'), p('i1'), p('i2'), p('h3'), p('g2'), p('h1'), 5);
-  gen(board, p('f1'), p('d1'), p('d3'), p('f3'), p('e1'), p('d2'), p('e3'), p('f2'), 4);
-  gen(board, p('f3'), p('d3'), p('d1'), p('f1'), p('f2'), p('e3'), p('d2'), p('e1'), 5);
-  gen(board, p('c1'), p('a1'), p('a3'), p('c3'), p('b1'), p('a2'), p('b3'), p('c2'), 4);
-  gen(board, p('c3'), p('a3'), p('a1'), p('c1'), p('c2'), p('b3'), p('a2'), p('b1'), 5);
+  gen(board, 4, p('i1'), p('g1'), p('g3'), p('i3'), p('h1'), p('g2'), p('h3'), p('i2'), p('h2'));
+  gen(board, 5, p('i3'), p('g3'), p('g1'), p('i1'), p('i2'), p('h3'), p('g2'), p('h1'), p('h2'));
+  gen(board, 4, p('f1'), p('d1'), p('d3'), p('f3'), p('e1'), p('d2'), p('e3'), p('f2'));
+  gen(board, 5, p('f3'), p('d3'), p('d1'), p('f1'), p('f2'), p('e3'), p('d2'), p('e1'));
+  gen(board, 4, p('c1'), p('a1'), p('a3'), p('c3'), p('b1'), p('a2'), p('b3'), p('c2'), p('b2'));
+  gen(board, 5, p('c3'), p('a3'), p('a1'), p('c1'), p('c2'), p('b3'), p('a2'), p('b1'), p('b2'));
 
   CheckInvariants(board);
 }
