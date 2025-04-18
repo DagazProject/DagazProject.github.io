@@ -2,8 +2,14 @@
 
 (function() {
 
-Dagaz.View.NO_PIECE = true;
-Dagaz.View.STEP_CNT = 3;
+const PIECE_TYPE = {
+   NONE:              0,
+   CUBE:              1
+};
+
+Dagaz.View.NO_PIECE   = true;
+Dagaz.View.PIECE_TYPE = PIECE_TYPE.NONE;
+Dagaz.View.STEP_CNT   = 3;
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -14,10 +20,6 @@ const ANIMATE_STATE = {
   INIT:               0,
   READY:              1,
   DONE:               2
-};
-
-const PIECE_TYPE = {
-   CUBE:              1
 };
 
 let boardPresent   = false;
@@ -46,6 +48,7 @@ const PLAYER_2_COLOR = 0x505050;
 let allPositions     = [];
 let playerColors     = [];
 let pieceTypes       = [];
+let pieces           = [];
 
 function getPlayerMaterial(player, transparent) {
     if (playerColors.length == 0) {
@@ -270,6 +273,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       ];
       const group = new THREE.Group();
       const piece = new THREE.Mesh(pieceGeometry, materials);
+      piece.pos = pos;
       group.add(piece);
       const edgeColor = 0x000000;
       const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
@@ -281,6 +285,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       group.add(edges);
       group.position.set(p.x / 10, p.z / 10, p.y / 10);
       scene.add(group);   
+      pieces.push(piece);
   }
 }
 
@@ -339,6 +344,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
 
 View3D.prototype.defPieceCube = function(type, player, colors) {
   Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.CUBE;
   pieceTypes[type*10 + player] = {
      type: PIECE_TYPE.CUBE,
      colors: colors
@@ -731,6 +737,11 @@ function processMenu({x, y, click}) {
     }
 }
 
+function getWorldFaceNormal(intersection) {
+    const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersection.object.matrixWorld);
+    return intersection.face.normal.clone().applyMatrix3(normalMatrix).normalize();
+}
+
 function mouseMove({x, y}, clean = false) {
   mouse.x = (x / window.innerWidth) * 2 - 1;
   mouse.y = -(y / window.innerHeight) * 2 + 1;
@@ -757,10 +768,29 @@ function mouseMove({x, y}, clean = false) {
   if(clean) {
       if ((Math.abs(lastX - x) <= 10) && (Math.abs(lastY - y) <= 10)) {
           let pos = currPos;
+          if ((pieces.length > 0) && (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE)) {
+              const intersects = raycaster.intersectObjects(pieces);
+              if (intersects.length > 0) {
+                  const intersection = intersects[0];
+                  const faceNormal = getWorldFaceNormal(intersection);
+
+                  console.log(intersection.object.pos);
+                  console.log(faceNormal);
+
+                  const direction = new THREE.Vector3();
+                  camera.getWorldDirection(direction);
+                  console.log(direction);
+
+                  return;
+              }
+          }
           if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
               const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
-              if ((intersects.length > 0) && intersects[0].object.isPosition) {
-                  pos = intersects[0].object;
+              if (intersects.length > 0) {
+                  const intersection = intersects[0];
+                  if (intersection.object.isPosition) {
+                      pos = intersection.object;
+                  }
               }
           }
           if (pos !== null) {
@@ -781,6 +811,7 @@ window.addEventListener('mousedown', (event) => {
 });
 window.addEventListener('mousemove', (event) => {
   mouseMove({x: event.clientX, y: event.clientY});
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (Dagaz.Controller.app && !_.isUndefined(Dagaz.View.view.hots)) {
       const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
       if ((intersects.length > 0) && intersects[0].object.isPosition) {
