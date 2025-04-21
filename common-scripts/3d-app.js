@@ -158,6 +158,7 @@ App.prototype.boardApply = function(move) {
   this.board = this.board.apply(move);
   if (!_.isUndefined(this.view.sync)) {
       this.view.sync(this.board);
+      this.board.generate(Dagaz.Model.design);
   }
   if (!_.isUndefined(Dagaz.Controller.addState)) {
       Dagaz.Controller.addState(move, this.board);

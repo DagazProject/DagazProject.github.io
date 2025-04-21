@@ -49,6 +49,7 @@ let allPositions     = [];
 let playerColors     = [];
 let pieceTypes       = [];
 let pieces           = [];
+let cubes            = [];
 
 function getPlayerMaterial(player, transparent) {
     if (playerColors.length == 0) {
@@ -199,6 +200,7 @@ View3D.prototype.clearTargets = function() {
 }
 
 View3D.prototype.markPositions = function(type, positions) {
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (type == Dagaz.View.markType.TARGET) {
       this.clearTargets();
       this.targets = positions;
@@ -285,12 +287,21 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       group.add(edges);
       group.position.set(p.x / 10, p.z / 10, p.y / 10);
       scene.add(group);   
+      cubes.push(group);
       pieces.push(piece);
   }
 }
 
 View3D.prototype.sync = function(board) {
   this.board = board;
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) {
+      _.each(cubes, function(p) {
+          scene.remove(p);
+      });
+      cubes = [];
+      board.setup(this, false);
+      this.invalidate();
+  }
 }
 
 View3D.prototype.defBoard = function(res) {
@@ -476,7 +487,6 @@ function drawTooltip(text, x, y) {
 }
 
 View3D.prototype.invalidate = function() {
-  renderer.render(scene, camera);
   let o = 5 + 3; let h = null;
   ctx.clearRect(o, 5 + 3, 300 * mobileCoeff, 70 * mobileCoeff);
   for (let i = 0; i < this.ctrls.length; i++) {
@@ -508,6 +518,7 @@ View3D.prototype.invalidate = function() {
   if (h !== null) {
       drawTooltip(h.t, h.x, h.y);
   }
+  renderer.render(scene, camera);
 }
 
 View3D.prototype.menuClick = function(x) {
@@ -742,6 +753,10 @@ function getWorldFaceNormal(intersection) {
     return intersection.face.normal.clone().applyMatrix3(normalMatrix).normalize();
 }
 
+Dagaz.View.getMove = function(camera, x, y, z, pos, board) {
+  return null;
+}
+
 function mouseMove({x, y}, clean = false) {
   mouse.x = (x / window.innerWidth) * 2 - 1;
   mouse.y = -(y / window.innerHeight) * 2 + 1;
@@ -773,15 +788,10 @@ function mouseMove({x, y}, clean = false) {
               if (intersects.length > 0) {
                   const intersection = intersects[0];
                   const faceNormal = getWorldFaceNormal(intersection);
-
-                  console.log(intersection.object.pos);
-                  console.log(faceNormal);
-
-                  const direction = new THREE.Vector3();
-                  camera.getWorldDirection(direction);
-                  console.log(direction);
-
-                  return;
+                  const move = Dagaz.View.getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.pos, Dagaz.Controller.app.board);
+                  if (move !== null) {
+                      Dagaz.Controller.app.boardApply(move);
+                  }
               }
           }
           if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
