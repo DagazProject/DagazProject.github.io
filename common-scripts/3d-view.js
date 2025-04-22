@@ -263,7 +263,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
   if (Dagaz.View.NO_PIECE) {
       p.material = getPlayerMaterial(model.player, false);
   } else {
-      const pieceType = pieceTypes[model.type*10 + model.player];
+      const pieceType = pieceTypes[model.type*10 + (+model.player)];
       const pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
       const materials = [
             new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
