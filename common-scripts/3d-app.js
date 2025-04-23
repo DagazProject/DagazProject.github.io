@@ -163,6 +163,13 @@ App.prototype.boardApply = function(move) {
   if (!_.isUndefined(Dagaz.Controller.addState)) {
       Dagaz.Controller.addState(move, this.board);
   }
+  if (Dagaz.Model.showMoves) {
+      console.log(move.toString());
+  }
+  if (!_.isUndefined(Dagaz.Model.getSetup)) {
+      console.log("Setup: " + Dagaz.Model.getSetup(this.design, this.board));
+  }
+  this.state = STATE.IDLE;
 }
 
 App.prototype.mouseLocate = function(view, pos) {

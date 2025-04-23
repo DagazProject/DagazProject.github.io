@@ -793,13 +793,14 @@ function mouseMove({x, y}, clean = false) {
                       Dagaz.Controller.app.boardApply(move);
                   }
               }
-          }
-          if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
-              const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
-              if (intersects.length > 0) {
-                  const intersection = intersects[0];
-                  if (intersection.object.isPosition) {
-                      pos = intersection.object;
+          } else {
+              if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
+                  const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
+                  if (intersects.length > 0) {
+                      const intersection = intersects[0];
+                      if (intersection.object.isPosition) {
+                          pos = intersection.object;
+                      }
                   }
               }
           }
