@@ -7,6 +7,12 @@ const PIECE_TYPE = {
    CUBE:              1
 };
 
+const MOVE_TYPE = {
+   MOVE:              0,
+   ROTATE:            1,
+   REFRESH:           2
+};
+
 Dagaz.View.NO_PIECE   = true;
 Dagaz.View.PIECE_TYPE = PIECE_TYPE.NONE;
 Dagaz.View.STEP_CNT   = 3;
@@ -257,6 +263,31 @@ View3D.prototype.clear = function() {
   this.invalidate();
 }
 
+function getCube(pos) {
+  for (let i = 0; i < cubes.length; i++) {
+      if (cubes[i].pos == pos) return cubes[i];
+  }
+  return null;
+}
+
+View3D.prototype.groupCubes = function(move) {
+  const group = new THREE.Group();
+  let isChanged = false;
+  _.each(move.actions, function(a) {
+      if (a[0] === null) return;
+      const piece = getCube(a[0][0]);
+      if (piece === null) return;
+      group.add(piece);
+      scene.remove(piece);
+      cubes = _.without(cubes, piece);
+      isChanged = true;
+  });
+  scene.add(group);
+  cubes.push(group);
+  if (isChanged) this.invalidate();
+  return group;
+}
+
 View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
   const p = this.pos[pos];
@@ -274,6 +305,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
             new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
       ];
       const group = new THREE.Group();
+      group.pos = pos;
       const piece = new THREE.Mesh(pieceGeometry, materials);
       piece.pos = pos;
       group.add(piece);
@@ -575,6 +607,27 @@ View3D.prototype.animate = function() {
   if (!ready) return;
   let changed = false;
   _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.REFRESH) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      Dagaz.Controller.app.boardApply(q.move);
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.ROTATE) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      if (q.steps > 0) {
+          q.steps--;
+          q.piece.rotateOnAxis(q.axis, 0.225);
+      } else {
+          q.state = ANIMATE_STATE.DONE;
+      }
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.MOVE) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
       if (q.steps > 0) {
@@ -622,6 +675,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
   const stop = this.pos[to];
   if (!start || !stop) return;
   this.queue.push({
+      type:  MOVE_TYPE.MOVE,
       state: ANIMATE_STATE.INIT,
       piece: start.p,
       final: stop.p,
@@ -785,12 +839,37 @@ function mouseMove({x, y}, clean = false) {
           let pos = currPos;
           if ((pieces.length > 0) && (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE)) {
               const intersects = raycaster.intersectObjects(pieces);
-              if (intersects.length > 0) {
+              const view = Dagaz.View.view;
+              if ((intersects.length > 0) && (view.queue.length == 0)) {
                   const intersection = intersects[0];
                   const faceNormal = getWorldFaceNormal(intersection);
                   const move = Dagaz.View.getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.pos, Dagaz.Controller.app.board);
                   if (move !== null) {
                       Dagaz.Controller.app.boardApply(move);
+/*                    const axis = Dagaz.View.getAxis(move);
+                      const group = view.groupCubes(move);
+                      view.queue.push({
+                         type:  MOVE_TYPE.ROTATE,
+                         state: ANIMATE_STATE.INIT,
+                         piece: group,
+                         axis:  axis,
+                         phase: 1,
+                         steps: 7
+                      });
+                      view.queue.push({
+                         type:  MOVE_TYPE.REFRESH,
+                         state: ANIMATE_STATE.INIT,
+                         phase: 2,
+                         move:  move
+                      });
+                      if (!_.isUndefined(Dagaz.Controller.play)) {
+                         let sound = Dagaz.Sounds.move;
+                         if (!_.isUndefined(move.sound)) {
+                             sound = this.move.sound;
+                         }
+                         Dagaz.Controller.play(sound);
+                      }
+                      view.commit(move);*/
                   }
               }
           } else {

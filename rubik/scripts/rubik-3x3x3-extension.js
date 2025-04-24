@@ -8,6 +8,10 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+if (!_.isUndefined(Dagaz.Controller.addSound)) {
+    Dagaz.Controller.addSound(0, "../sounds/slide.ogg", true);
+}
+
 // WRBGOY( 0) -> RYBGWO( 7) -> YOBGRW(23) -> OWBGYR(16)
 // WBORGY( 1) -> BYORWG(11) -> YGORBW(22) -> GWORYB(12)
 // WGROBY( 2) -> GYROWB(15) -> YBROGW(21) -> BWROYG( 8)
@@ -55,6 +59,16 @@ const MODES = [
   [[], [1, -1, -1, 19, -1, -1, -1, -1, -1, -1, -1, -1, 2, 11, 20, 0, 9, 18], [], [6, 7, 8, 0, 1, 2, 3, -1, -1, 5], [], [-1, -1, -1, -1, -1, -1, 18, 21, 24, 0, 3, 6, 9, -1, -1, 15]],
   [[24, 25, 26, 6, 7, 8, -1, -1, -1, -1, -1, -1, 15, -1, -1, 17], [], [], [7, -1, -1, 1, -1, -1, 0, 3, 6, 2, 5, 8], [], [-1, -1, -1, -1, -1, -1, 21, -1, -1, 3, -1, -1, 0, 9, 18, 6, 15, 24]]
 ];
+
+Dagaz.View.getAxis = function(move) {
+  if (move.mode == 0) return new THREE.Vector3(-1, 0,  0).normalize();
+  if (move.mode == 1) return new THREE.Vector3(1,  0,  0).normalize();
+  if (move.mode == 2) return new THREE.Vector3(0,  0, -1).normalize();
+  if (move.mode == 3) return new THREE.Vector3(0,  0,  1).normalize();
+  if (move.mode == 4) return new THREE.Vector3(0, -1,  0).normalize();
+  if (move.mode == 5) return new THREE.Vector3(0,  1,  0).normalize();
+  return null;
+}
 
 function getDir(x, y, z) {
   if (z >  0.9) return 0;
