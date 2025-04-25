@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Controller.viewOff = false;
+
 const STATE = {
     INIT: 0,
     IDLE: 1,
@@ -93,6 +95,11 @@ Dagaz.Controller.newGame = function() {
 Dagaz.Controller.switchSound = function() {
   Dagaz.Controller.soundOff = Dagaz.Controller.soundOff ? false : true;
   console.log('Dagaz.Controller.soundOff = ' + Dagaz.Controller.soundOff);
+}
+
+Dagaz.Controller.switchView = function() {
+  Dagaz.Controller.viewOff = Dagaz.Controller.viewOff ? false : true;
+  console.log('Dagaz.Controller.viewOff = ' + Dagaz.Controller.viewOff);
 }
 
 App.prototype.getStarts = function() {

@@ -280,6 +280,7 @@ View3D.prototype.groupCubes = function(move) {
       group.add(piece);
       scene.remove(piece);
       cubes = _.without(cubes, piece);
+      pieces = _.without(pieces, piece);
       isChanged = true;
   });
   scene.add(group);
@@ -331,6 +332,7 @@ View3D.prototype.sync = function(board) {
           scene.remove(p);
       });
       cubes = [];
+      pieces = [];
       board.setup(this, false);
       this.invalidate();
   }
@@ -845,17 +847,18 @@ function mouseMove({x, y}, clean = false) {
                   const faceNormal = getWorldFaceNormal(intersection);
                   const move = Dagaz.View.getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.pos, Dagaz.Controller.app.board);
                   if (move !== null) {
-                      Dagaz.Controller.app.boardApply(move);
-/*                    const axis = Dagaz.View.getAxis(move);
+                      const axis = Dagaz.View.getAxis(move);
                       const group = view.groupCubes(move);
-                      view.queue.push({
-                         type:  MOVE_TYPE.ROTATE,
-                         state: ANIMATE_STATE.INIT,
-                         piece: group,
-                         axis:  axis,
-                         phase: 1,
-                         steps: 7
-                      });
+                      if (!Dagaz.Controller.viewOff) {
+                          view.queue.push({
+                             type:  MOVE_TYPE.ROTATE,
+                             state: ANIMATE_STATE.INIT,
+                             piece: group,
+                             axis:  axis,
+                             phase: 1,
+                             steps: 7
+                          });
+                      }
                       view.queue.push({
                          type:  MOVE_TYPE.REFRESH,
                          state: ANIMATE_STATE.INIT,
@@ -869,7 +872,7 @@ function mouseMove({x, y}, clean = false) {
                          }
                          Dagaz.Controller.play(sound);
                       }
-                      view.commit(move);*/
+                      view.commit(move);
                   }
               }
           } else {

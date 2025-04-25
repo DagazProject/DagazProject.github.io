@@ -148,8 +148,10 @@ Dagaz.View.configure = function(view) {
 
     view.setCamera(0, 0, 0, 91, 228, 148);
  
+    view.defControl("InfoControl", "1974 Rubik Erne", true, Dagaz.Controller.open, 'https://en.wikipedia.org/wiki/Rubik%27s_Cube');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl(Dagaz.Controller.viewOff ? ["ViewOffControl", "ViewOnControl"] : ["ViewOnControl", "ViewOffControl"], "Animate", true, Dagaz.Controller.switchView);
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 

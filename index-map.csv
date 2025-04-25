@@ -5,7 +5,6 @@ Stalemate games;Amazons;stalemate/amazons.htm;https://www.iggamecenter.com/en/ru
 Checkmate games;Andalusia;checkmate/andalusia.htm;;andalusia;2009 Chris Huntoon
 Elimination games;Apocalypse;elimination/apocalypse.htm;https://en.wikipedia.org/wiki/Apocalypse_(chess_variant);apocalypse;1976 C. S. Elliott
 Breakthrough games;Archimedes;breakthrough/archimedes.htm;http://www.di.fc.ul.pt/~jpn/gv/archimedes.htm;archimedes;1988 Scott Marley and Philip Cohen
-Go family;Atari Go;index-map-atari.html;https://senseis.xmp.net/?AtariGo;go-9x9;
 Races;Backgammon;index-map-backgammon.html;;backgammon;
 Elimination games;BanQi;index-map-banqi.html;https://en.wikipedia.org/wiki/Banqi;banqi;
 Other puzzles;Bulls and Cows;arrange/mastermind.htm;;mastermind;
@@ -31,7 +30,7 @@ Other puzzles;Fox Hunting;elimination/fox-hunting.htm;;fox-hunting;
 Races;Gala;control/gala.htm;https://www.chessvariants.com/historic.dir/gala.html;gala;
 Breakthrough games;Gate;breakthrough/gate.htm;https://www.iggamecenter.com/en/rules/gate;gate;2010 Gregory Keith Van Patten
 Breakthrough games;Gauntlet;breakthrough/gauntlet-8x8.htm;https://www.di.fc.ul.pt/~jpn/gv/gauntlet.htm;gauntlet;1980 Phillip L. Leduc
-Go family;Go;go/go-19x19-advisor.htm;https://en.wikipedia.org/wiki/Rules_of_Go;go-19x19;
+Go family;Go;index-map-go.html;https://en.wikipedia.org/wiki/Rules_of_Go;go-19x19;
 Arrange games;Hex;arrange/hex.htm;https://www.iggamecenter.com/en/rules/hex;hex;1942 Piet Hein and John Nash
 Breakthrough games;Horn Chess;index-map-horn.html;;horn;
 Races;Jasir;races/jasir.htm;https://en.wikipedia.org/wiki/Jarmo_(game);jasir;
@@ -60,6 +59,7 @@ Elimination games;Pasang;index-map-pasang.html;https://en.wikipedia.org/wiki/Pas
 Chess family;Platform Chess;index-map-platform.html;;platform-chess-1;2001 Robert Price
 Arrange games;Renju;index-map-renju.html;https://en.wikipedia.org/wiki/Renju;renju;
 Custodian games;Reversi;index-map-reversi.html;https://en.wikipedia.org/wiki/Reversi;reversi-1;1883 Lewis Waterman, John W. Mollett
+Other puzzles;Rubik's Cube;rubik/rubik-3x3x3.htm;https://en.wikipedia.org/wiki/Rubik%27s_Cube;rubik-3x3x3;1974 Rubik Erne
 Custodian games;Seega;index-map-seega.html;http://www.cyningstan.com/game/120/seega;seega;
 Arrange games;Shisima;index-map-shisima.html;https://en.wikipedia.org/wiki/Shisima;shisima;
 Sliding puzzles;Sliding puzzles;index-map-sliding.html;;donkey_1;
