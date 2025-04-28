@@ -150,10 +150,29 @@ Dagaz.View.configure = function(view) {
  
     view.defControl("InfoControl", "1974 Rubik Erne", true, Dagaz.Controller.open, 'https://en.wikipedia.org/wiki/Rubik%27s_Cube');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
-    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("NewControl", "New Game", true, Dagaz.View.switchMenu, 1);
     view.defControl(Dagaz.Controller.viewOff ? ["ViewOffControl", "ViewOnControl"] : ["ViewOnControl", "ViewOffControl"], "Animate", true, Dagaz.Controller.switchView);
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+
+    view.defSubControl(1, "R00", "", true, Dagaz.Controller.newGame);
+    view.defSubControl(1, "R99", "", true, Dagaz.Controller.shuffleGame);
+    view.defSubControl(1, "R01", "", true, Dagaz.Controller.loadGame, "?setup=0:1+3;9:1;0:1+4;16:1;0:1;15:1;;15:1;0:1;16:1;0:1+4;9:1;0:1+3;&turn=0");
+    view.defSubControl(1, "R02", "", true, Dagaz.Controller.loadGame, "?setup=0:1;23:1;0:1;20:1;3:1;20:1;0:1;23:1;0:1;3:1;20:1;3:1;23:1;;23:1;3:1;20:1;3:1;0:1;23:1;0:1;20:1;3:1;20:1;0:1;23:1;0:1;&turn=0");
+    view.defSubControl(1, "R03", "", true, Dagaz.Controller.loadGame, "?setup=0:1;3:1+2;0:1;3:1+2;0:1;3:1;13:1;3:1;7:1;;16:1;3:1;9:1;3:1+2;0:1;3:1;0:1;3:1;0:1;3:1+1;&turn=0");
+    view.defSubControl(1, "R04", "", true, Dagaz.Controller.loadGame, "?setup=3:1;0:1+2;3:1;0:1+2;3:1+1;13:1;3:1;7:1;;16:1;3:1;9:1;3:1;0:1+1;3:1;0:1;3:1;0:1;3:1;0:1+1;&turn=0");
+    view.defSubControl(1, "R05", "", true, Dagaz.Controller.loadGame, "?setup=3:1;0:1;3:1;0:1+2;3:1;0:1;3:1;0:1;20:1;0:1;23:1;;23:1;0:1;20:1;0:1;3:1;0:1;3:1;0:1+2;3:1;0:1;3:1;&turn=0");
+    view.defSubControl(1, "R06", "", true, Dagaz.Controller.loadGame, "?setup=19:1;0:1;19:1;0:1;3:1;0:1;19:1;0:1;19:1;0:1+3;;0:1+3;19:1;0:1;19:1;0:1;3:1;0:1;19:1;0:1;19:1;&turn=0");
+    view.defSubControl(1, "R07", "", true, Dagaz.Controller.loadGame, "?setup=3:1+2;20:1;3:1;20:1;3:1+2;0:1;3:1;0:1;20:1;;20:1;0:1;3:1;0:1;3:1+2;20:1;3:1;20:1;3:1+2;&turn=0");
+    view.defSubControl(1, "R08", "", true, Dagaz.Controller.loadGame, "?setup=20:1;23:1;20:1;14:1+2;20:1;23:1;20:1+1;23:1;20:1;14:1;;14:1;20:1;23:1;20:1+1;23:1;20:1;14:1+2;20:1;23:1;20:1;&turn=0");
+    view.defSubControl(1, "R09", "", true, Dagaz.Controller.loadGame, "?setup=21:1;0:1+6;21:1+1;0:1+2;;0:1+2;21:1+1;0:1+6;21:1;&turn=0");
+    view.defSubControl(1, "R10", "", true, Dagaz.Controller.loadGame, "?setup=0:1;3:1+1;23:1;3:1;23:1+1;3:1;20:1+3;23:1;;23:1;20:1+3;3:1;23:1+1;3:1;23:1;3:1+1;0:1;&turn=0");
+    view.defSubControl(1, "R11", "", true, Dagaz.Controller.loadGame, "?setup=5:1;0:1+11;;0:1+11;5:1;&turn=0");
+    view.defSubControl(1, "R12", "", true, Dagaz.Controller.loadGame, "?setup=0:1+1;5:1;0:1+1;5:1+3;0:1+1;5:1;0:1;;0:1;5:1;0:1+1;5:1+3;0:1+1;5:1;0:1+1;&turn=0");
+    view.defSubControl(1, "R13", "", true, Dagaz.Controller.loadGame, "?setup=8:1;0:1;5:1;0:1+1;5:1+3;0:1+1;5:1;0:1;;16:1;5:1;9:1;0:1;5:1+3;0:1+1;5:1;0:1;8:1;&turn=0");
+    view.defSubControl(1, "R14", "", true, Dagaz.Controller.loadGame, "?setup=0:1;9:1;8:1;2:1;0:1;8:1+3;16:1;13:1;8:1;16:1;;7:1;8:1;0:1;16:1;8:1+3;2:1+1;8:1;9:1;0:1;&turn=0");
+    view.defSubControl(1, "R15", "", true, Dagaz.Controller.loadGame, "?setup=22:1;0:1;22:1+1;0:1;22:1+1;0:1;22:1;0:1+1;22:1;0:1;;23:1;22:1;20:1;0:1;22:1+2;0:1+2;22:1+2;&turn=0");
+    view.defSubControl(1, "R16", "", true, Dagaz.Controller.loadGame, "?setup=5:1+3;0:1+1;5:1;0:1;5:1+1;9:1;0:1;7:1;;0:1+2;5:1+1;0:1;5:1;0:1+1;5:1+3;&turn=0");
 
     view.defPosition("a3", -84, -84, 84, 84, -84);
     view.defPosition("b3", 0, -84, 84, 84, -84);

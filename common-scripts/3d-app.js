@@ -92,6 +92,44 @@ Dagaz.Controller.newGame = function() {
   window.location = str;
 }
 
+Dagaz.Controller.shuffleGame = function(cnt) {
+  var app = Dagaz.Controller.app;
+  if (!confirm("Restart Game?")) return;
+  if (!_.isUndefined(Dagaz.Controller.clearGame)) {
+      Dagaz.Controller.clearGame();
+  }
+  var str = window.location.toString();
+  var result = str.match(/^([^?]+(\?t=\d+&r=[^&]+)?)/);
+  if (result) {
+      str = result[1];
+  }
+  localStorage.removeItem('dagaz.camera');
+  if (_.isUndefined(cnt)) cnt = 30;
+  var board = app.board;
+  for (let i = 0; i < cnt; i++) {
+      board.generate(app.design);
+      if (board.moves.length == 0) break;
+      const ix = _.random(0, board.moves.length - 1);
+      const move = board.moves[ix];
+      board = board.apply(move);
+  }
+  var s = Dagaz.Model.getSetup(app.design, board);
+  window.location = str + s;
+}
+
+Dagaz.Controller.loadGame = function(setup) {
+  if (!confirm("Restart Game?")) return;
+  if (!_.isUndefined(Dagaz.Controller.clearGame)) {
+      Dagaz.Controller.clearGame();
+  }
+  var str = window.location.toString();
+  var result = str.match(/^([^?]+(\?t=\d+&r=[^&]+)?)/);
+  if (result) {
+      str = result[1];
+  }
+  window.location = str + setup;
+}
+
 Dagaz.Controller.switchSound = function() {
   Dagaz.Controller.soundOff = Dagaz.Controller.soundOff ? false : true;
   console.log('Dagaz.Controller.soundOff = ' + Dagaz.Controller.soundOff);

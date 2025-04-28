@@ -28,6 +28,17 @@ const ANIMATE_STATE = {
   DONE:               2
 };
 
+const menus = [{
+  v:  true,
+  x:  5 + 3,
+  y:  5 + 3,
+  sx: 3,
+  sy: 0,
+  dx: 800,
+  dy: 200,
+  items: []
+}];
+
 let boardPresent   = false;
 let isConfigured   = false;
 let isInitialized  = false;
@@ -85,9 +96,10 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 const mobileCoeff = isTouchDevice ? 3 : 1;
 
 const clock = new THREE.Clock();
-let   prevTime = 0;
-let   tooltipIx = null;
-let   leastTouch = null;
+let   prevTime    = 0;
+let   tooltipIx   = null;
+let   tooltipHide = -1;
+let   leastTouch  = null;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
@@ -162,7 +174,6 @@ function View3D() {
   this.hots    = [];
   this.filled  = [];
   this.setup   = [];
-  this.ctrls   = [];
   this.ko      = [];
   this.targets = [];
   this.queue   = [];
@@ -239,7 +250,7 @@ View3D.prototype.markPositions = function(type, positions) {
 
 View3D.prototype.init = function(canvas, controller) {
   if (!isInitialized) {
-     scene.background = new THREE.Color('#eee');
+     scene.background = new THREE.Color(0xE5E5E5);
      camera.position.set(settings.x, settings.z, settings.y);
      camera.lookAt(0, 0, 0);
      const ambientLight = new THREE.AmbientLight('white', 2);
@@ -356,8 +367,8 @@ View3D.prototype.defBoard = function(res) {
 }
 
 View3D.prototype.clearControls = function() {
-  for (let i = 0; i < this.ctrls.length; i++) {
-       if ((this.ctrls[i].y == 1) || (this.ctrls[i].y == 2)) this.ctrls[i].v = false;
+  for (let i = 0; i < menus[0].items.length; i++) {
+       if ((menus[0].items[i].y == 1) || (menus[0].items[i].y == 2)) menus[0].items[i].v = false;
   }
   this.invalidate();
 }
@@ -366,9 +377,9 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
   if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var type = 0;
   if (!_.isArray(imgs)) {
-     if (imgs == "UndoControl")   type = 1;
-     if (imgs == "RedoControl")   type = 2;
-     if (imgs == "CameraControl") type = 3;
+     if (imgs == "UndoControl") type = 1;
+     if (imgs == "RedoControl") type = 2;
+     if (imgs == "HomeControl") type = 3;
      imgs = [imgs];
   }
   imgs = _.map(imgs, function(res) {
@@ -376,7 +387,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      this.res.push({h:img});
      return img;
   }, this);
-  this.ctrls.push({
+  menus[0].items.push({
      h: imgs,
      x: 0,
      t: hint,
@@ -384,6 +395,38 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      p: proc,
      a: args,
      y: type
+  });
+}
+
+View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args) {
+  if (_.isUndefined(menus[ix])) {
+      menus[ix] = {
+         v: false,
+         x: 3  + 5,
+         y: 50 + 5,
+         sx: 3,
+         sy: 0,
+         dx: 300,
+         dy: 70,
+         items: []
+      };
+  }
+  if (_.isUndefined(isVisible)) isVisible = true;
+  if (!_.isArray(imgs)) {
+     imgs = [imgs];
+  }
+  imgs = _.map(imgs, function(res) {
+     const img = document.getElementById(res);
+     this.res.push({h:img});
+     return img;
+  }, this);
+  menus[ix].items.push({
+     h: imgs,
+     x: 0,
+     t: hint,
+     v: isVisible,
+     p: proc,
+     a: args
   });
 }
 
@@ -481,8 +524,8 @@ View3D.prototype.setHots = function(positions) {
 }
 
 View3D.prototype.showControl = function(type, isVisible) {
-  for (let i = 0; i < this.ctrls.length; i++) {
-     const t = this.ctrls[i];
+  for (let i = 0; i < menus[0].items.length; i++) {
+     const t = menus[0].items[i];
      if (t.y == type) {
          t.v = isVisible;
          this.invalidate();
@@ -520,29 +563,16 @@ function drawTooltip(text, x, y) {
   });
 }
 
+Dagaz.View.switchMenu = function(ix) {
+  menus[ix].v = !menus[ix].v;
+  Dagaz.View.view.invalidate();
+}
+
 View3D.prototype.invalidate = function() {
-  let o = 5 + 3; let h = null;
-  ctx.clearRect(o, 5 + 3, 300 * mobileCoeff, 70 * mobileCoeff);
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
-      if (!t.v) continue;
-      ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
-                            , o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      if ((tooltipIx !== null) && (tooltipIx == i) && t.t) {
-         h = {
-            t: t.t,
-            x: o,
-            y: 60
-         };
-      }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
-  }
-  for (let i = 0; i < this.ctrls.length; i++) {
-      if (this.ctrls[i].y == 3) {
-          this.ctrls[i].t = Math.round(camera.position.x) + "," + Math.round(camera.position.y) + "," + Math.round(camera.position.z);
-          break;
-      }
+  let h = null;
+  for (let i = 0; i < menus.length; i++) {
+       const x = this.menuDraw(menus[i]);
+       if (h === null) h = x;
   }
   const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
   if ((cameraSettings === null) || (cameraSettings != s)) {
@@ -555,10 +585,33 @@ View3D.prototype.invalidate = function() {
   renderer.render(scene, camera);
 }
 
-View3D.prototype.menuClick = function(x) {
-  let o = 3;
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
+View3D.prototype.menuDraw = function(m) {
+  if (!m.v) return null;
+  let o = m.x; let h = null;
+  ctx.clearRect(o, m.y, m.dx * mobileCoeff, m.dy * mobileCoeff);
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
+      if (!t.v) continue;
+      ctx.clearRect(o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
+                            , o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      if ((tooltipIx !== null) && (tooltipIx == i) && (tooltipIx != tooltipHide) && t.t) {
+         h = {
+            t: t.t,
+            x: o,
+            y: t.h[t.x].naturalHeight * 2
+         };
+      }
+      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+  }
+  return h;
+}
+
+View3D.prototype.menuClick = function(x, m) {
+  if (_.isUndefined(m)) m = menus[0];
+  let o = m.sx;
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
       if (!t.v) continue;
       if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
          if (t.h.length > 1) {
@@ -570,21 +623,23 @@ View3D.prototype.menuClick = function(x) {
          if (!_.isUndefined(t.p)) {
              t.p(t.a);
          }
+         tooltipHide = tooltipIx;
          this.invalidate();
       }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+      o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
   }
 }
 
-View3D.prototype.menuHint = function(x) {
-  let o = 3;
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
+View3D.prototype.menuHint = function(x, m) {
+  if (_.isUndefined(m)) m = menus[0];
+  let o = m.sx;
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
       if (!t.v) continue;
       if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
           return i;
       }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+      o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
   }
 }
 
@@ -792,14 +847,20 @@ function processMenu({x, y, click}) {
     mouse.x = x - 5;
     mouse.y = y - 5;
     let ix = null;
-    if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
+    if ((mouse.y > 0) && (mouse.y < 100 * mobileCoeff)) {
         ix = Dagaz.View.view.menuHint(mouse.x);
         if (click) {
-            Dagaz.View.view.menuClick(mouse.x);
+            for (let i = 0; i < menus.length; i++) {
+                if (!menus[i].v) continue;
+                if (y < menus[i].y) continue;
+                if (y > menus[i].y + 32) continue;
+                Dagaz.View.view.menuClick(mouse.x, menus[i]);
+            }
         }
     }
     if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
-        tooltipIx = ix;
+        tooltipIx   = ix;
+        tooltipHide = -1;
         Dagaz.View.view.invalidate();
     }
 }
