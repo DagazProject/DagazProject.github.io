@@ -1,0 +1,48 @@
+(define p
+  (piece
+     (name $1)
+  )
+)
+
+(game
+  (title "Rubik (2x2x2)")
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (dimensions ; -84
+           ("a/b" (84 0)) ; files
+           ("2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; 0
+           ("c/d" (84 0)) ; files
+           ("2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links u
+         (a1 c1) (b1 d1)
+         (a2 c2) (b2 d2)
+     )
+     (links d 
+         (c1 a1) (d1 b1)
+         (c2 a2) (d2 b2)
+     )
+  )
+
+  (p WRBGOY) (p WBORGY) (p WGROBY) (p WOGBRY)
+  (p RWGBYO) (p RBWYGO) (p RGYWBO) (p RYBGWO)
+  (p BWROYG) (p BRYWOG) (p BOWYRG) (p BYORWG)
+  (p GWORYB) (p GRWYOB) (p GOYWRB) (p GYROWB)
+  (p OWBGYR) (p OBYWGR) (p OGWYBR) (p OYGBWR)
+  (p YRGBOW) (p YBROGW) (p YGORBW) (p YOBGRW)
+
+  (board-setup
+     (You (WRBYOG a1 a2 b1 b2 c1 c2 d1 d2))
+  )
+)
