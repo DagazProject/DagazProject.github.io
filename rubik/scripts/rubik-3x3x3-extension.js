@@ -3,7 +3,7 @@
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "rubik-3x3-extension") {
+  if (name != "rubik-3x3x3-extension") {
      checkVersion(design, name, value);
   }
 }
