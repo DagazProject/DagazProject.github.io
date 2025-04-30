@@ -16,6 +16,7 @@ const MOVE_TYPE = {
 Dagaz.View.NO_PIECE   = true;
 Dagaz.View.PIECE_TYPE = PIECE_TYPE.NONE;
 Dagaz.View.STEP_CNT   = 3;
+Dagaz.View.SPEED      = 0.225;
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -677,7 +678,7 @@ View3D.prototype.animate = function() {
       if (q.phase != phase) return;
       if (q.steps > 0) {
           q.steps--;
-          q.piece.rotateOnAxis(q.axis, 0.225);
+          q.piece.rotateOnAxis(q.axis, Dagaz.View.SPEED);
       } else {
           q.state = ANIMATE_STATE.DONE;
       }
@@ -848,7 +849,9 @@ function processMenu({x, y, click}) {
     mouse.y = y - 5;
     let ix = null;
     if ((mouse.y > 0) && (mouse.y < 100 * mobileCoeff)) {
-        ix = Dagaz.View.view.menuHint(mouse.x);
+        if (mouse.y < 50 * mobileCoeff) {
+            ix = Dagaz.View.view.menuHint(mouse.x);
+        }
         if (click) {
             for (let i = 0; i < menus.length; i++) {
                 if (!menus[i].v) continue;
