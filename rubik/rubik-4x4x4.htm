@@ -1,0 +1,45 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Rubik (4x4x4)</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "ViewOnControl" style="display:none" src="../images/viewon.png"/>
+<img id = "ViewOffControl" style="display:none" src="../images/viewoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<img id = "R00" style="display:none" src="images/4x4x4/0000.png"/>
+<img id = "R99" style="display:none" src="images/4x4x4/0099.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="scripts/rubik-4x4x4-extension.js"></script>
+<script src="scripts/rubik-4x4x4.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>
