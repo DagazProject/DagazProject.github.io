@@ -143,6 +143,8 @@ View2D.prototype.defPosition = function(name, x, y, dx, dy, selector) {
   });
 }
 
+View2D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res) {}
+
 View2D.prototype.defBoard = function(img, x, y, selector, turns) {
   if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var board = {

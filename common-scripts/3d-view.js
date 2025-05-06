@@ -16,7 +16,7 @@ const MOVE_TYPE = {
 Dagaz.View.NO_PIECE   = true;
 Dagaz.View.PIECE_TYPE = PIECE_TYPE.NONE;
 Dagaz.View.STEP_CNT   = 3;
-Dagaz.View.SPEED      = 0.225;
+Dagaz.View.SPEED      = 0.523;
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -40,7 +40,6 @@ const menus = [{
   items: []
 }];
 
-let boardPresent   = false;
 let isConfigured   = false;
 let isInitialized  = false;
 let isFirstDraw    = true;
@@ -178,6 +177,7 @@ function View3D() {
   this.ko      = [];
   this.targets = [];
   this.queue   = [];
+  this.boards  = [];
   this.ready   = false;
 }
 
@@ -350,21 +350,29 @@ View3D.prototype.sync = function(board) {
   }
 }
 
-View3D.prototype.defBoard = function(res) {
-  const img = document.getElementById(res);
-  const texture = textureLoader.load(
-    img.currentSrc,
-    () => {this.invalidate();},
-    undefined,
-    undefined,
-    { crossOrigin: 'anonymous' }
-  );
-  var board = {
-     h: img,
-     t: texture
-  };
-  this.res.push(board);
-  boardPresent = true;
+View3D.prototype.defBoard = function(res) {}
+
+View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res) {
+  let board = null;
+  if (!_.isUndefined(res)) {
+      const img = document.getElementById(res);
+      const texture = textureLoader.load(
+        img.currentSrc,
+        () => {this.invalidate();},
+        undefined,
+        undefined,
+        { crossOrigin: 'anonymous' }
+      );
+      board = {
+         h: img,
+         t: texture
+      };
+      this.res.push(board);
+  }
+  this.boards.push({
+     dx: dx, dy: dy, dz: dz, z: z,
+     colors: colors, img: board
+  });
 }
 
 View3D.prototype.clearControls = function() {
@@ -644,6 +652,16 @@ View3D.prototype.menuHint = function(x, m) {
   }
 }
 
+function rotateAroundWorldAxis(obj, axis, point, angle) {
+  const localAxis = new THREE.Vector3().copy(axis).normalize();
+  const quaternion = new THREE.Quaternion();
+  quaternion.setFromAxisAngle(localAxis, angle);
+  obj.position.sub(point);
+  obj.position.applyQuaternion(quaternion);
+  obj.position.add(point);
+  obj.rotateOnWorldAxis(axis, angle);
+}
+
 View3D.prototype.animate = function() {
   if (this.queue.length == 0) return;
   let phase = null; let ready = true;
@@ -678,7 +696,11 @@ View3D.prototype.animate = function() {
       if (q.phase != phase) return;
       if (q.steps > 0) {
           q.steps--;
-          q.piece.rotateOnAxis(q.axis, Dagaz.View.SPEED);
+          if (q.offset !== null) {
+              rotateAroundWorldAxis(q.piece, q.axis, q.offset, Dagaz.View.SPEED);
+          } else {
+              q.piece.rotateOnAxis(q.axis, Dagaz.View.SPEED);
+          }
       } else {
           q.state = ANIMATE_STATE.DONE;
       }
@@ -756,8 +778,6 @@ View3D.prototype.capturePiece = function(move, pos, phase) {
   this.filled = _.without(this.filled, +pos);
   const p = this.pos[pos].p;
   p.material = posMaterial;
-  // TODO:
-
 }
 
 View3D.prototype.commit = function(move) {
@@ -807,15 +827,16 @@ View3D.prototype.draw = function(canvas) {
       const deltaTime = elapsedTime - prevTime;
       prevTime = elapsedTime;
       if (isFirstDraw) {
-         if (boardPresent) {
-            const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
+         for (let i = 0; i < this.boards.length; i++) {
+            const b = this.boards[i];
+            const boardGeometry = new THREE.BoxGeometry(b.dx / 10, 1, b.dy / 10);
             const materials = [
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ map: this.res[0].t }),
-               new THREE.MeshBasicMaterial({ color: '#FFEDCB', transparent: true, opacity: 0.3 }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' })
+               new THREE.MeshBasicMaterial({ color: b.colors[2] }),
+               new THREE.MeshBasicMaterial({ color: b.colors[3] }),
+               new THREE.MeshBasicMaterial((b.img !== null) ? { map: this.res[0].t } : { color: b.colors[0] } ),
+               new THREE.MeshBasicMaterial({ color: b.colors[5], transparent: true, opacity: 0.8 }),
+               new THREE.MeshBasicMaterial({ color: b.colors[1] }),
+               new THREE.MeshBasicMaterial({ color: b.colors[4] })
             ];
             const boardBlock = new THREE.Mesh(boardGeometry, materials);
             scene.add(boardBlock);
@@ -911,16 +932,25 @@ function mouseMove({x, y}, clean = false) {
                   const faceNormal = getWorldFaceNormal(intersection);
                   const move = Dagaz.View.getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.pos, Dagaz.Controller.app.board);
                   if (move !== null) {
-                      const axis = Dagaz.View.getAxis(move);
+                      let axis = null; let offset = null;
+                      if (!_.isUndefined(Dagaz.View.getAxis)) {
+                          axis = Dagaz.View.getAxis(move);
+                      }
+                      if (!_.isUndefined(Dagaz.View.getRotate)) {
+                          const r = Dagaz.View.getRotate(move);
+                          axis = r.axis;
+                          offset = r.offset;
+                      }
                       const group = view.groupCubes(move);
-                      if (!Dagaz.Controller.viewOff) {
+                      if (!Dagaz.Controller.viewOff && (axis !== null)) {
                           view.queue.push({
-                             type:  MOVE_TYPE.ROTATE,
-                             state: ANIMATE_STATE.INIT,
-                             piece: group,
-                             axis:  axis,
-                             phase: 1,
-                             steps: 7
+                             type:   MOVE_TYPE.ROTATE,
+                             state:  ANIMATE_STATE.INIT,
+                             piece:  group,
+                             axis:   axis,
+                             offset: offset,
+                             phase:  1,
+                             steps:  Dagaz.View.STEP_CNT
                           });
                       }
                       view.queue.push({

@@ -1,6 +1,6 @@
 (function() {
 
-Dagaz.View.SPEED      = 0.450;
+Dagaz.View.SPEED = 1.048;
 
 var checkVersion = Dagaz.Model.checkVersion;
 
@@ -11,7 +11,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 }
 
 if (!_.isUndefined(Dagaz.Controller.addSound)) {
-    Dagaz.Controller.addSound(0, "../../sounds/slide.ogg", true);
+    Dagaz.Controller.addSound(0, "../sounds/slide.ogg", true);
 }
 
 const ROTATE = [                                     

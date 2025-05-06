@@ -346,7 +346,7 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard("Board");
+    view.defBoard3D(600, 600, 10, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
     view.defPiece(0, 1, 0x505050); // White
     view.defPiece(0, 2, 0x101010); // Black
 
