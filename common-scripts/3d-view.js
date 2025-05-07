@@ -10,7 +10,8 @@ const PIECE_TYPE = {
 const MOVE_TYPE = {
    MOVE:              0,
    ROTATE:            1,
-   REFRESH:           2
+   REFRESH:           2,
+   SOUND:             3
 };
 
 Dagaz.View.NO_PIECE   = true;
@@ -683,6 +684,14 @@ View3D.prototype.animate = function() {
   if (!ready) return;
   let changed = false;
   _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.SOUND) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      Dagaz.Controller.play(q.sound);
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
       if (q.type  != MOVE_TYPE.REFRESH) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
@@ -953,19 +962,28 @@ function mouseMove({x, y}, clean = false) {
                              steps:  Dagaz.View.STEP_CNT
                           });
                       }
-                      view.queue.push({
-                         type:  MOVE_TYPE.REFRESH,
-                         state: ANIMATE_STATE.INIT,
-                         phase: 2,
-                         move:  move
-                      });
                       if (!_.isUndefined(Dagaz.Controller.play)) {
                          let sound = Dagaz.Sounds.move;
                          if (!_.isUndefined(move.sound)) {
                              sound = this.move.sound;
                          }
-                         Dagaz.Controller.play(sound);
+                         if (Dagaz.Controller.customSound) {
+                             view.queue.push({
+                                type:   MOVE_TYPE.SOUND,
+                                state:  ANIMATE_STATE.INIT,
+                                sound:  sound,
+                                phase:  2
+                             });
+                         } else {
+                             Dagaz.Controller.play(sound);
+                         }
                       }
+                      view.queue.push({
+                         type:  MOVE_TYPE.REFRESH,
+                         state: ANIMATE_STATE.INIT,
+                         phase: 3,
+                         move:  move
+                      });
                       view.commit(move);
                   }
               }

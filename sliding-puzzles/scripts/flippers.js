@@ -19,6 +19,8 @@ ZRF = {
     VERIFY:        20
 };
 
+Dagaz.Controller.customSound = true;
+
 Dagaz.View.SPEED      = 0.45;
 Dagaz.View.STEPS      = 3;
 

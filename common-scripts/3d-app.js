@@ -424,7 +424,7 @@ App.prototype.exec = function() {
           }
       }
       if (!this.move.isPass()) {
-          if (!_.isUndefined(Dagaz.Controller.play)) {
+          if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
               var sound = Dagaz.Sounds.move;
               if (!_.isUndefined(this.move.sound)) {
                   sound = this.move.sound;

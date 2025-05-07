@@ -10,7 +10,8 @@ Dagaz.Sounds.start = 6;
 Dagaz.Sounds.hint  = 7;
 Dagaz.Sounds.popup = 8;
 
-Dagaz.Controller.soundOff = false;
+Dagaz.Controller.soundOff    = false;
+Dagaz.Controller.customSound = false;
 
 (function() {
 
