@@ -1,0 +1,72 @@
+(game
+  (title "Raumschach")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+     (grid
+         (start-rectangle -170 -170 -102 -102)
+         (dimensions
+           ("a/b/c/d/e" (68 0))
+           ("5/4/3/2/1" (0 68))
+           ("E/D/C/B/A" (0 0))
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (links u
+         (a1A a1B) (a2A a2B) (a3A a3B) (a4A a4B) (a5A a5B)
+         (b1A b1B) (b2A b2B) (b3A b3B) (b4A b4B) (b5A b5B)
+         (c1A c1B) (c2A c2B) (c3A c3B) (c4A c4B) (c5A c5B)
+         (d1A d1B) (d2A d2B) (d3A d3B) (d4A d4B) (d5A d5B)
+         (e1A e1B) (e2A e2B) (e3A e3B) (e4A e4B) (e5A e5B)
+
+         (a1B a1C) (a2B a2C) (a3B a3C) (a4B a4C) (a5B a5C)
+         (b1B b1C) (b2B b2C) (b3B b3C) (b4B b4C) (b5B b5C)
+         (c1B c1C) (c2B c2C) (c3B c3C) (c4B c4C) (c5B c5C)
+         (d1B d1C) (d2B d2C) (d3B d3C) (d4B d4C) (d5B d5C)
+         (e1B e1C) (e2B e2C) (e3B e3C) (e4B e4C) (e5B e5C)
+
+         (a1C a1D) (a2C a2D) (a3C a3D) (a4C a4D) (a5C a5D)
+         (b1C b1D) (b2C b2D) (b3C b3D) (b4C b4D) (b5C b5D)
+         (c1C c1D) (c2C c2D) (c3C c3D) (c4C c4D) (c5C c5D)
+         (d1C d1D) (d2C d2D) (d3C d3D) (d4C d4D) (d5C d5D)
+         (e1C e1D) (e2C e2D) (e3C e3D) (e4C e4D) (e5C e5D)
+
+         (a1D a1E) (a2D a2E) (a3D a3E) (a4D a4E) (a5D a5E)
+         (b1D b1E) (b2D b2E) (b3D b3E) (b4D b4E) (b5D b5E)
+         (c1D c1E) (c2D c2E) (c3D c3E) (c4D c4E) (c5D c5E)
+         (d1D d1E) (d2D d2E) (d3D d3E) (d4D d4E) (d5D d5E)
+         (e1D e1E) (e2D e2E) (e3D e3E) (e4D e4E) (e5D e5E)
+     )
+     (links d
+         (a1B a1A) (a2B a2A) (a3B a3A) (a4B a4A) (a5B a5A)
+         (b1B b1A) (b2B b2A) (b3B b3A) (b4B b4A) (b5B b5A)
+         (c1B c1A) (c2B c2A) (c3B c3A) (c4B c4A) (c5B c5A)
+         (d1B d1A) (d2B d2A) (d3B d3A) (d4B d4A) (d5B d5A)
+         (e1B e1A) (e2B e2A) (e3B e3A) (e4B e4A) (e5B e5A)
+
+         (a1C a1B) (a2C a2B) (a3C a3B) (a4C a4B) (a5C a5B)
+         (b1C b1B) (b2C b2B) (b3C b3B) (b4C b4B) (b5C b5B)
+         (c1C c1B) (c2C c2B) (c3C c3B) (c4C c4B) (c5C c5B)
+         (d1C d1B) (d2C d2B) (d3C d3B) (d4C d4B) (d5C d5B)
+         (e1C e1B) (e2C e2B) (e3C e3B) (e4C e4B) (e5C e5B)
+
+         (a1D a1C) (a2D a2C) (a3D a3C) (a4D a4C) (a5D a5C)
+         (b1D b1C) (b2D b2C) (b3D b3C) (b4D b4C) (b5D b5C)
+         (c1D c1C) (c2D c2C) (c3D c3C) (c4D c4C) (c5D c5C)
+         (d1D d1C) (d2D d2C) (d3D d3C) (d4D d4C) (d5D d5C)
+         (e1D e1C) (e2D e2C) (e3D e3C) (e4D e4C) (e5D e5C)
+
+         (a1E a1D) (a2E a2D) (a3E a3D) (a4E a4D) (a5E a5D)
+         (b1E b1D) (b2E b2D) (b3E b3D) (b4E b4D) (b5E b5D)
+         (c1E c1D) (c2E c2D) (c3E c3D) (c4E c4D) (c5E c5D)
+         (d1E d1D) (d2E d2D) (d3E d3D) (d4E d4D) (d5E d5D)
+         (e1E e1D) (e2E e2D) (e3E e3D) (e4E e4D) (e5E e5D)
+     )
+  )
+
+)
