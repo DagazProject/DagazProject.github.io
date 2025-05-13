@@ -15,10 +15,11 @@ const MOVE_TYPE = {
    SOUND:             3
 };
 
-Dagaz.View.NO_PIECE   = true;
-Dagaz.View.PIECE_TYPE = PIECE_TYPE.NONE;
-Dagaz.View.STEP_CNT   = 3;
-Dagaz.View.SPEED      = 0.523;
+Dagaz.View.NO_PIECE     = true;
+Dagaz.View.PIECE_TYPE   = PIECE_TYPE.NONE;
+Dagaz.View.STEP_CNT     = 3;
+Dagaz.View.SPEED        = 0.523;
+Dagaz.View.RENDER_ORDER = false;
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -244,6 +245,9 @@ View3D.prototype.markPositions = function(type, positions) {
           const p = this.pos[this.ko[0]];
           if (p) {
               ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
+              if (Dagaz.View.RENDER_ORDER) {
+                  ko.renderOrder = 2;
+              }
           }
       } else {
           if (ko !== null) {
@@ -317,6 +321,9 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       }
       piece.pos = pos;
       piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          piece.renderOrder = 2;
+      }
       piece.scale.set(2.5, 2.5, 2.5);
       scene.add(piece);   
       pieces.push(piece);
@@ -345,11 +352,14 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
       group.add(edges);
       group.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          gtoup.renderOrder = 2;
+      }
       scene.add(group);   
       cubes.push(group);
       pieces.push(piece);
   } else if (Dagaz.View.NO_PIECE) {
-      p.material = getPlayerMaterial(model.player, false);
+      p.p.material = getPlayerMaterial(model.player, false);
   }
 }
 
@@ -505,13 +515,19 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   }
   var ix = Dagaz.Model.stringToPos(name);
   const p = new THREE.Mesh(posGeometry, posMaterial);
-  p.position.set((x / 10) + settings.dx, (z / 10) + settings.dz, (y / 10) + settings.dy);
+  p.position.set((x / 10), (z / 10), (y / 10));
+  if (Dagaz.View.RENDER_ORDER) {
+      p.renderOrder = 2;
+  }
   p.name = name;
   p.ix = ix;
   p.isPosition = true;
   allPositions.push(p);
   const t = new THREE.Mesh(targetGeometry, posMaterial);
-  t.position.set((x / 10) + settings.dx, (z / 10) + settings.dz, (y / 10) + settings.dy);
+  t.position.set((x / 10), (z / 10), (y / 10));
+  if (Dagaz.View.RENDER_ORDER) {
+      t.renderOrder = 2;
+  }
   this.pos[ix] = {
       x: x, dx: dx,
       y: y, dy: dy,
@@ -534,12 +550,6 @@ View3D.prototype.allResLoaded = function() {
   if (onceResolve && (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL)) {
       onceResolve = false;
       const loadingManager = new THREE.LoadingManager();
-      loadingManager.onStart = () => {
-         console.log('Starting load...');
-      };
-      loadingManager.onProgress = (url, loaded, total) => {
-         console.log(`Loading: ${loaded}/${total} - ${url}`);
-      };
       const textureLoader = new THREE.TextureLoader(loadingManager);
       const jsonLoader = new THREE.JSONLoader(loadingManager);
       let res = [];
@@ -960,7 +970,10 @@ View3D.prototype.draw = function(canvas) {
                new THREE.MeshBasicMaterial({ color: b.colors[4] })
             ];
             const boardBlock = new THREE.Mesh(boardGeometry, materials);
-            boardBlock.position.set(0, b.z / 10, 0)
+            boardBlock.position.set(0, b.z / 10, 0);
+            if (Dagaz.View.RENDER_ORDER) {
+                boardBlock.renderOrder = 1;
+            }
             scene.add(boardBlock);
          }
          if (!_.isUndefined(Dagaz.View.augBoard)) {
