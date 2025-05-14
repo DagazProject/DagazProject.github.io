@@ -1,3 +1,59 @@
+(define pawn-shift (
+  $1 (verify empty?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-step (
+  $1 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define pawn-leap (
+  $1 $2 (verify enemy?)
+  (if (in-zone? last-rank)
+      (add Queen)
+   else
+      add
+  )
+))
+
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(define leap (
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define jump (
+  $1 $2 $3 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
+))
+
+(define glide (
+  $1 $2
+  (while empty? add $1 $2)
+  (verify not-friend?)
+  add
+))
+
 (game
   (title "Raumschach")
 
@@ -16,6 +72,12 @@
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
               (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
          )
+     )
+     (zone (name last-rank) (players White)
+           (positions a5E b5E c5E d5E e5E)
+     )
+     (zone (name last-rank) (players Black)
+           (positions a1A b1A c1A d1A e1A)
      )
      (links u
          (a1A a1B) (a2A a2B) (a3A a3B) (a4A a4B) (a5A a5B)
@@ -69,4 +131,66 @@
      )
   )
 
+  (piece
+     (name  Pawn)
+     (moves
+         (pawn-shift n) (pawn-jump u) 
+         (pawn-step nw) (pawn-step ne)
+         (pawn-leap u w) (pawn-leap u e) (pawn-leap u n)
+     )
+  )
+  (piece
+     (name  Knight)
+     (moves
+         (leap n nw) (leap n ne) (leap s sw) (leap s se)
+         (leap w nw) (leap w sw) (leap e ne) (leap e se)
+         (jump u n n) (jump u e e) (jump u w w) (jump u s s)
+         (jump d n n) (jump d e e) (jump d w w) (jump d s s)
+         (jump u u n) (jump u u e) (jump u u w) (jump u u s)
+         (jump d d n) (jump d d e) (jump d d w) (jump d d s)
+     )
+  )
+  (piece
+     (name  Unicorn)
+     (moves
+        (glide u nw) (glide u ne) (glide u sw) (glide u se)
+        (glide d nw) (glide d ne) (glide d sw) (glide d se)
+     )
+  )
+  (piece
+     (name  Bishop)
+     (moves
+        (slide nw) (slide ne) (slide sw) (slide se)
+        (glide u n) (glide u e) (glide u w) (glide u s)
+        (glide d n) (glide d e) (glide d w) (glide d s)
+     )
+  )
+  (piece
+     (name  Rook)
+     (moves
+        (slide n) (slide e) (slide w) (slide s) (slide u) (slide d)
+     )
+  )
+  (piece
+     (name  Queen)
+     (moves
+        (slide n) (slide e) (slide w) (slide s) (slide u) (slide d)
+        (slide nw) (slide ne) (slide sw) (slide se)
+        (glide u n) (glide u e) (glide u w) (glide u s)
+        (glide d n) (glide d e) (glide d w) (glide d s)
+        (glide u nw) (glide u ne) (glide u sw) (glide u se)
+        (glide d nw) (glide d ne) (glide d sw) (glide d se)
+     )
+  )
+  (piece
+     (name  King)
+     (moves
+        (step n) (step e) (step w) (step s) (step u) (step d)
+        (step nw) (step ne) (step sw) (step se)
+        (leap u n) (leap u e) (leap u w) (leap u s)
+        (leap d n) (leap d e) (leap d w) (leap d s)
+        (leap u nw) (leap u ne) (leap u sw) (leap u se)
+        (leap d nw) (leap d ne) (leap d sw) (leap d se)
+     )
+  )
 )

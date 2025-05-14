@@ -282,6 +282,7 @@ View3D.prototype.clear = function() {
   this.setup  = [];
   this.filled = [];
   this.invalidate();
+  pieces = [];
 }
 
 function getCube(pos) {
@@ -874,20 +875,32 @@ View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   currPos = null;
 }
 
+View3D.prototype.findPiece = function(pos) {
+  for (let i = 0; i < pieces.length; i++) {
+       if (pieces[i].pos == pos) return i;
+  }
+  return -1;
+}
+
 View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
   if (from == to) return;
   if (!phase) { phase = 1; }
   if (!steps) { steps = Dagaz.View.STEP_CNT; }
-  let start = null;
-  if (Dagaz.View.NO_PIECE) {
-      start = this.pos[from];
+  const start = this.pos[from];
+  const stop  = this.pos[to];
+  let   mesh = start.p;
+  if (!Dagaz.View.NO_PIECE) {
+      const ix = this.findPiece(from);
+      if (ix >= 0) {
+          mesh = pieces[ix];
+          pieces[ix].pos = to;
+      } else return;
   }
-  const stop = this.pos[to];
   if (!start || !stop) return;
   this.queue.push({
       type:  MOVE_TYPE.MOVE,
       state: ANIMATE_STATE.INIT,
-      piece: start.p,
+      piece: mesh,
       final: stop.p,
       phase: phase,
       steps: steps,
@@ -907,7 +920,20 @@ View3D.prototype.capturePiece = function(move, pos, phase) {
   if (!phase) { phase = 1; }
   this.filled = _.without(this.filled, +pos);
   const p = this.pos[pos].p;
-  p.material = posMaterial;
+  if (Dagaz.View.NO_PIECE) {
+      p.material = posMaterial;
+  } else {
+      const ix = this.findPiece(pos);
+      if (ix >= 0) {
+          scene.remove(pieces[ix]);
+          const l = [];
+          for (let i = 0; i < pieces.length; i++) {
+               if (i == ix) continue;
+               l.push(pieces[i]);
+          }
+          pieces = l;
+      }
+  }
 }
 
 View3D.prototype.commit = function(move) {

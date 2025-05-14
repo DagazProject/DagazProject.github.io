@@ -310,6 +310,26 @@ App.prototype.getAI = function() {
   return this.ai;
 }
 
+App.prototype.checkCaptures = function(move) {
+  let f = false;
+  const a = [];
+  for (let i = 0; i < move.actions.length; i++) {
+       const m = move.actions[i];
+       if ((m[0] !== null) && (m[1] !== null) && (m[0][0] != m[1][0])) {
+           const piece = this.board.getPiece(m[1][0]);
+           if (piece !== null) {
+               f = true;
+               a.push([ [m[1][0]], null, null, m[3]]);
+               m[3] = m[3] + 1;
+           }
+       }
+       a.push(m);
+  }
+  if (f) {
+      move.actions = a;
+  }
+}
+
 App.prototype.animate = function(f) {
   isAnimating = f;
 }
@@ -389,12 +409,6 @@ App.prototype.exec = function() {
               }
               return;
           }
-          if (result.done || (Date.now() - this.timestamp >= this.params.AI_WAIT)) {
-              this.boardApply(result.move);
-              Dagaz.Model.Done(this.design, this.board);
-              this.move = result.move;
-              this.state = STATE.EXEC;
-          }
       }
   }
   if (this.state == STATE.EXEC) {
@@ -405,9 +419,7 @@ App.prototype.exec = function() {
           if ((moves.length == 1) && (moves[0].isDropMove())) this.move = moves[0];
       }
       if (!this.move.isPass()) {
-          if (Dagaz.Model.showMoves) {
-              console.log(this.move.toString());
-          }
+          this.checkCaptures(this.move);
           this.move.applyAll(this.view);
           this.state = STATE.IDLE;
       }
@@ -420,16 +432,15 @@ App.prototype.exec = function() {
               this.boardApply(m);
               Dagaz.Model.Done(this.design, this.board);
               console.log("Debug: " + m.toString());
-              this.state = STATE.IDLE;
-          }
-      }
-      if (!this.move.isPass()) {
-          if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
-              var sound = Dagaz.Sounds.move;
-              if (!_.isUndefined(this.move.sound)) {
-                  sound = this.move.sound;
+              if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
+                  var sound = Dagaz.Sounds.move;
+                  if (!_.isUndefined(this.move.sound)) {
+                      sound = this.move.sound;
+                  }
+                  Dagaz.Controller.play(sound, this.board.player);
               }
-              Dagaz.Controller.play(sound, this.board.player);
+              delete this.move;
+              this.state = STATE.IDLE;
           }
       }
       if (this.board.parent !== null) {
