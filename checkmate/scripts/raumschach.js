@@ -1,3 +1,5 @@
+Dagaz.View.TARGET_FLAT = true;
+
 ZRF = {
     JUMP:          0,
     IF:            1,

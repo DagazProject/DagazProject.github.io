@@ -141,7 +141,10 @@ const redMaterial    = new THREE.LineBasicMaterial({ color: 0xFF0000 });
 const posGeometry    = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry    = new THREE.SphereGeometry(0.5, 15, 15);
 const koGeometry     = new THREE.SphereGeometry(1, 15, 15);
-const targetGeometry = new THREE.SphereGeometry(2, 32, 32);
+const targetSphere   = new THREE.SphereGeometry(2, 32, 32);
+const targetCylinder = new THREE.CylinderGeometry(2, 2, 1, 32);
+
+let targetGeometry   = targetSphere;
 
 const koMaterial = new THREE.MeshStandardMaterial({
     color: 0xFF0000,
@@ -524,6 +527,9 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   p.ix = ix;
   p.isPosition = true;
   allPositions.push(p);
+  if (Dagaz.View.TARGET_FLAT) {
+      targetGeometry = targetCylinder; 
+  }
   const t = new THREE.Mesh(targetGeometry, posMaterial);
   t.position.set((x / 10), (z / 10), (y / 10));
   if (Dagaz.View.RENDER_ORDER) {
