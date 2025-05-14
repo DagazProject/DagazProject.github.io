@@ -74,7 +74,7 @@ function Ai(parent) {
 var findBot = Dagaz.AI.findBot;
 
 Dagaz.AI.findBot = function(type, params, parent) {
-  if ((type == "external") || (type == "smart") || (type == "1") || (type == "2")) {
+  if ((type == "external") || (type == "smart") /*|| (type == "1")*/ || (type == "2")) {
       return new Ai(parent);
   } else {
       return findBot(type, params, parent);

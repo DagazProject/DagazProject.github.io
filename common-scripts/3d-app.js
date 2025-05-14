@@ -409,6 +409,12 @@ App.prototype.exec = function() {
               }
               return;
           }
+          if (result.done || (Date.now() - this.timestamp >= this.params.AI_WAIT)) {
+              this.boardApply(result.move);
+              Dagaz.Model.Done(this.design, this.board);
+              this.move = result.move;
+              this.state = STATE.EXEC;
+          }
       }
   }
   if (this.state == STATE.EXEC) {
@@ -419,6 +425,9 @@ App.prototype.exec = function() {
           if ((moves.length == 1) && (moves[0].isDropMove())) this.move = moves[0];
       }
       if (!this.move.isPass()) {
+/*        if (Dagaz.Model.showMoves) {
+              console.log(this.move.toString());
+          }*/
           this.checkCaptures(this.move);
           this.move.applyAll(this.view);
           this.state = STATE.IDLE;
