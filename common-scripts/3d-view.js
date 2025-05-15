@@ -142,7 +142,7 @@ const posGeometry    = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry    = new THREE.SphereGeometry(0.5, 15, 15);
 const koGeometry     = new THREE.SphereGeometry(1, 15, 15);
 const targetSphere   = new THREE.SphereGeometry(2, 32, 32);
-const targetCylinder = new THREE.CylinderGeometry(2, 2, 1, 32);
+const targetCylinder = new THREE.CylinderGeometry(2.5, 2.5, 1, 32);
 
 let targetGeometry   = targetSphere;
 

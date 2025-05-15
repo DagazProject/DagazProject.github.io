@@ -134,7 +134,7 @@
   (piece
      (name  Pawn)
      (moves
-         (pawn-shift n) (pawn-jump u) 
+         (pawn-shift n) (pawn-shift u) 
          (pawn-step nw) (pawn-step ne)
          (pawn-leap u w) (pawn-leap u e) (pawn-leap u n)
      )
