@@ -12,7 +12,8 @@ const MOVE_TYPE = {
    MOVE:              0,
    ROTATE:            1,
    REFRESH:           2,
-   SOUND:             3
+   PROMOTE:           3,
+   SOUND:             4
 };
 
 Dagaz.View.NO_PIECE     = true;
@@ -324,6 +325,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           piece.rotation.y = Math.PI;
       }
       piece.pos = pos;
+//    piece.type = pieceType;
       piece.position.set(p.x / 10, p.z / 10, p.y / 10);
       if (Dagaz.View.RENDER_ORDER) {
           piece.renderOrder = 2;
@@ -489,8 +491,9 @@ View3D.prototype.defPieceModel = function(type, player, path, model, color) {
   pieceKeys.push(key);
   pieceTypes[key] = {
      type: PIECE_TYPE.MODEL,
-     model: path + '/' + model + '/' + model + '.js',
+     type: type,
      player: player,
+     model: path + '/' + model + '/' + model + '.js',
      color: color,
      textures: {
          diffuse: path + '/' + model + '/' + model + '-diffusemap.jpg',
@@ -819,6 +822,27 @@ View3D.prototype.animate = function() {
       q.state = ANIMATE_STATE.DONE;
       changed = true;
   }, this);
+/*_.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.PROMOTE) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      const piece = new THREE.Mesh(q.pieceType.geometry, q.pieceType.material);
+      if (q.player == 1) {
+          piece.rotation.y = Math.PI;
+      }
+      piece.pos = q.piece.pos;
+      piece.type = q.pieceType;
+      const p = this.pos[piece.pos];
+      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          piece.renderOrder = 2;
+      }
+      piece.scale.set(2.5, 2.5, 2.5);
+      scene.remove(q.piece);
+      scene.add(piece);   
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);*/
   _.each(this.queue, function(q) {
       if (q.type  != MOVE_TYPE.REFRESH) return;
       if (q.state != ANIMATE_STATE.READY) return;
@@ -918,6 +942,17 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
+/*if ((piece !== null) && (piece.type != mesh.type)) {
+      const pieceType = pieceTypes[piece.type*10 + piece.player];
+      this.queue.push({
+         type:  MOVE_TYPE.PROMOTE,
+         state: ANIMATE_STATE.INIT,
+         phase: phase + 1,
+         player: piece.player,
+         piece: mesh,
+         pieceType: pieceType
+      });
+  }*/
   this.filled = _.without(this.filled, +from);
   this.filled.push(+to);
 }
