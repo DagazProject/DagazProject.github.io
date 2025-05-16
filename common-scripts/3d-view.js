@@ -325,7 +325,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           piece.rotation.y = Math.PI;
       }
       piece.pos = pos;
-//    piece.type = pieceType;
+      piece.type = pieceType;
       piece.position.set(p.x / 10, p.z / 10, p.y / 10);
       if (Dagaz.View.RENDER_ORDER) {
           piece.renderOrder = 2;
@@ -490,7 +490,7 @@ View3D.prototype.defPieceModel = function(type, player, path, model, color) {
   const key = type*10 + player;
   pieceKeys.push(key);
   pieceTypes[key] = {
-     type: PIECE_TYPE.MODEL,
+//   type: PIECE_TYPE.MODEL,
      type: type,
      player: player,
      model: path + '/' + model + '/' + model + '.js',
@@ -822,7 +822,7 @@ View3D.prototype.animate = function() {
       q.state = ANIMATE_STATE.DONE;
       changed = true;
   }, this);
-/*_.each(this.queue, function(q) {
+  _.each(this.queue, function(q) {
       if (q.type  != MOVE_TYPE.PROMOTE) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
@@ -838,11 +838,13 @@ View3D.prototype.animate = function() {
           piece.renderOrder = 2;
       }
       piece.scale.set(2.5, 2.5, 2.5);
+      this.removePiece(q.piece.pos);
       scene.remove(q.piece);
-      scene.add(piece);   
+      scene.add(piece);
+      pieces.push(piece);
       q.state = ANIMATE_STATE.DONE;
       changed = true;
-  }, this);*/
+  }, this);
   _.each(this.queue, function(q) {
       if (q.type  != MOVE_TYPE.REFRESH) return;
       if (q.state != ANIMATE_STATE.READY) return;
@@ -942,7 +944,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
-/*if ((piece !== null) && (piece.type != mesh.type)) {
+  if ((piece !== null) && (piece.type != mesh.type)) {
       const pieceType = pieceTypes[piece.type*10 + piece.player];
       this.queue.push({
          type:  MOVE_TYPE.PROMOTE,
@@ -952,9 +954,22 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
          piece: mesh,
          pieceType: pieceType
       });
-  }*/
+  }
   this.filled = _.without(this.filled, +from);
   this.filled.push(+to);
+}
+
+View3D.prototype.removePiece = function(pos) {
+  const ix = this.findPiece(pos);
+  if (ix >= 0) {
+      scene.remove(pieces[ix]);
+      const l = [];
+      for (let i = 0; i < pieces.length; i++) {
+           if (i == ix) continue;
+           l.push(pieces[i]);
+      }
+      pieces = l;
+  }
 }
 
 View3D.prototype.capturePiece = function(move, pos, phase) {
@@ -964,16 +979,7 @@ View3D.prototype.capturePiece = function(move, pos, phase) {
   if (Dagaz.View.NO_PIECE) {
       p.material = posMaterial;
   } else {
-      const ix = this.findPiece(pos);
-      if (ix >= 0) {
-          scene.remove(pieces[ix]);
-          const l = [];
-          for (let i = 0; i < pieces.length; i++) {
-               if (i == ix) continue;
-               l.push(pieces[i]);
-          }
-          pieces = l;
-      }
+      this.removePiece(pos);
   }
 }
 
