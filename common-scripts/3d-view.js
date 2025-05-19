@@ -624,8 +624,8 @@ View3D.prototype.configure = function() {
       isConfigured = true;
 
       // DEBUG:
-      overlay.width = 800;
-      overlay.height = 600;  
+      overlay.width = 1200;
+      overlay.height = 150;  
   }
 }
 
