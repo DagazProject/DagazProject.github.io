@@ -136,7 +136,7 @@ const updateRender = () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio * 2, 2));
 };
 
-const lineMaterial   = new THREE.LineBasicMaterial({ color: 0x333333 });
+const lineMaterial   = new THREE.LineBasicMaterial({ color: 0x333333, transparent: true, opacity: 0.3});
 const redMaterial    = new THREE.LineBasicMaterial({ color: 0xFF0000 });
 
 const posGeometry    = new THREE.SphereGeometry(3, 32, 32);
@@ -915,12 +915,17 @@ View3D.prototype.findPiece = function(pos) {
 }
 
 View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
-  if (from == to) return;
   if (!phase) { phase = 1; }
   if (!steps) { steps = Dagaz.View.STEP_CNT; }
   const start = this.pos[from];
   const stop  = this.pos[to];
-  let   mesh = start.p;
+  if (from == to) {
+      if (Dagaz.View.NO_PIECE) {
+          start.p.material = getPlayerMaterial(piece.player, false);
+      }
+      return;
+  }
+  let mesh = start.p;
   if (!Dagaz.View.NO_PIECE) {
       const ix = this.findPiece(from);
       if (ix >= 0) {
