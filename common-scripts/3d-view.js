@@ -949,7 +949,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
-  if ((piece !== null) && (piece.type != mesh.type)) {
+  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE) {
       const pieceType = pieceTypes[piece.type*10 + piece.player];
       this.queue.push({
          type:  MOVE_TYPE.PROMOTE,
