@@ -28,7 +28,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("animate-captures", "false");
     design.checkVersion("animate-drops", "false");
     design.checkVersion("smart-moves", "false");
-    design.checkVersion("pass-turn", "forced"); // TODO
+    design.checkVersion("pass-turn", "forced");
 
     design.addDirection("s"); // 0
     design.addDirection("e"); // 1
@@ -262,6 +262,11 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("Ae1", [0, 1, -1, -6, -36, 0]);
     design.addPosition("Af1", [0, 0, -1, -6, -36, 0]);
 
+    design.addZone("strong", 2, [p('Fa6'), p('Fa1'), p('Ff6'), p('Ff1'), p('Aa6'), p('Aa1'), p('Af6'), p('Af1')]);
+    design.addZone("strong", 1, [p('Fa6'), p('Fa1'), p('Ff6'), p('Ff1'), p('Aa6'), p('Aa1'), p('Af6'), p('Af1')]);
+    design.addZone("weak", 2, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2')]);
+    design.addZone("weak", 1, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2')]);
+
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
@@ -289,7 +294,7 @@ Dagaz.View.configure = function(view) {
 
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-//  view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'reversi-3d-board.htm' : 'reversi-3d.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'reversi-3d-board.htm' : 'reversi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  

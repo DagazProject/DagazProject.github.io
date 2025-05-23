@@ -413,6 +413,13 @@ App.prototype.exec = function() {
               this.boardApply(result.move);
               Dagaz.Model.Done(this.design, this.board);
               this.move = result.move;
+              if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
+                  var sound = Dagaz.Sounds.move;
+                  if (!_.isUndefined(this.move.sound)) {
+                     sound = this.move.sound;
+                  }
+                  Dagaz.Controller.play(sound, this.board.player);
+              }
               this.state = STATE.EXEC;
           }
       }

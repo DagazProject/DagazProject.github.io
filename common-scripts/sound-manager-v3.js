@@ -95,11 +95,11 @@ Dagaz.Controller.checkSound = function() {
 
 Dagaz.Controller.checkSound();
 
-Dagaz.Controller.addSound(Dagaz.Sounds.move,  "../sounds/clack.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.drop,  "../sounds/on.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.win,   "../sounds/tadam.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.lose,  "../sounds/loss.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.draw,  "../sounds/draw.ogg");
-Dagaz.Controller.addSound(Dagaz.Sounds.page,  "../sounds/page.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.hint,  "../sounds/bird.wav");
-Dagaz.Controller.addSound(Dagaz.Sounds.popup, "../sounds/popup.wav");
+Dagaz.Controller.addSound(Dagaz.Sounds.move,  "../sounds/clack.wav", true);
+Dagaz.Controller.addSound(Dagaz.Sounds.drop,  "../sounds/on.wav",    true);
+Dagaz.Controller.addSound(Dagaz.Sounds.win,   "../sounds/tadam.wav", true);
+Dagaz.Controller.addSound(Dagaz.Sounds.lose,  "../sounds/loss.wav",  true);
+Dagaz.Controller.addSound(Dagaz.Sounds.draw,  "../sounds/draw.ogg",  true);
+Dagaz.Controller.addSound(Dagaz.Sounds.page,  "../sounds/page.wav",  true);
+Dagaz.Controller.addSound(Dagaz.Sounds.hint,  "../sounds/bird.wav",  true);
+Dagaz.Controller.addSound(Dagaz.Sounds.popup, "../sounds/popup.wav", true);
