@@ -264,8 +264,8 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addZone("strong", 2, [p('Fa6'), p('Fa1'), p('Ff6'), p('Ff1'), p('Aa6'), p('Aa1'), p('Af6'), p('Af1')]);
     design.addZone("strong", 1, [p('Fa6'), p('Fa1'), p('Ff6'), p('Ff1'), p('Aa6'), p('Aa1'), p('Af6'), p('Af1')]);
-    design.addZone("weak", 2, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2')]);
-    design.addZone("weak", 1, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2')]);
+    design.addZone("weak", 2, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2'), p('Aa2'), p('Ab1'), p('Ba1'), p('Ba2'), p('Bb1'), p('Ab2'), p('Aa5'), p('Ab6'), p('Ba6'), p('Ab5'), p('Ba5'), p('Bb6'), p('Bf1'), p('Ae1'), p('Af2'), p('Be1'), p('Ae2'), p('Bf2'), p('Af5'), p('Ae6'), p('Bf6'), p('Ae5'), p('Bf5'), p('Be6'), p('Ea1'), p('Fe1'), p('Ff2'), p('Fe2'), p('Ee1'), p('Ef2'), p('Ef1'), p('Fa2'), p('Ea2'), p('Ea1'), p('Eb1'), p('Fb1'), p('Fb2'), p('Fe6'), p('Ef6'), p('Ff5'), p('Ef5'), p('Fe5'), p('Ee6'), p('Fb6'), p('Fa5'), p('Ea5'), p('Eb6'), p('Fb5'), p('Ea6')]);
+    design.addZone("weak", 1, [p('Eb5'), p('Eb2'), p('Ee5'), p('Ee2'), p('Bb5'), p('Bb2'), p('Be5'), p('Be2'), p('Aa2'), p('Ab1'), p('Ba1'), p('Ba2'), p('Bb1'), p('Ab2'), p('Aa5'), p('Ab6'), p('Ba6'), p('Ab5'), p('Ba5'), p('Bb6'), p('Bf1'), p('Ae1'), p('Af2'), p('Be1'), p('Ae2'), p('Bf2'), p('Af5'), p('Ae6'), p('Bf6'), p('Ae5'), p('Bf5'), p('Be6'), p('Ea1'), p('Fe1'), p('Ff2'), p('Fe2'), p('Ee1'), p('Ef2'), p('Ef1'), p('Fa2'), p('Ea2'), p('Ea1'), p('Eb1'), p('Fb1'), p('Fb2'), p('Fe6'), p('Ef6'), p('Ff5'), p('Ef5'), p('Fe5'), p('Ee6'), p('Fb6'), p('Fa5'), p('Ea5'), p('Eb6'), p('Fb5'), p('Ea6')]);
 
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
