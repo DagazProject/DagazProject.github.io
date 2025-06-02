@@ -1,7 +1,7 @@
 "use strict";
 
 Dagaz.AI.PLANES           = 9;
-// Dagaz.AI.Q_SEARCH_LIMIT   = -2;
+Dagaz.AI.Q_SEARCH_LIMIT   = -2;
 
 (function() {
 
@@ -487,7 +487,7 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     for (var i = 0; i < 256 * 9; i++) 
         Dagaz.AI.g_board[i] = pieceNo;
 
-    var pln = 0; var row = 0; var col = 0;
+    var pln = Dagaz.Model.HEIGHT - 1; var row = 0; var col = 0;
 
     var pieces = chunks[0];
     for (var i = 0; i < pieces.length; i++) {
@@ -497,10 +497,10 @@ Dagaz.AI.InitializeFromFen = function(fen) {
              row++;
              col = 0;
              if (row >= Dagaz.Model.HEIGHT) {
-                 pln++;
+                 pln--;
                  row = 0;
              }
-             if (pln >= Dagaz.Model.HEIGHT) break;
+             if (pln < 0) break;
          } else {
             if (c >= '0' && c <= '9') {
                 for (var j = 0; j < parseInt(c); j++) {
