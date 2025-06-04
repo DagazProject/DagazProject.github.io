@@ -1,7 +1,6 @@
 "use strict";
 
 Dagaz.AI.PLANES           = 9;
-Dagaz.AI.Q_SEARCH_LIMIT   = -2;
 
 (function() {
 
@@ -681,7 +680,7 @@ Dagaz.AI.MakeMove = function(move) {
     
     var theirKingPos = Dagaz.AI.g_pieceList[(pieceKing | Dagaz.AI.g_toMove) << Dagaz.AI.COUNTER_SIZE];
     if (theirKingPos != 0) {
-        Dagaz.AI.g_inCheck = IsSquareAttackable(theirKingPos, Dagaz.AI.g_toMove);
+//      Dagaz.AI.g_inCheck = IsSquareAttackable(theirKingPos, Dagaz.AI.g_toMove);
     }
 
     Dagaz.AI.g_repMoveStack[Dagaz.AI.g_moveCount - 1] = Dagaz.AI.g_hashKeyLow;

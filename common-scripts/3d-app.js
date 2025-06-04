@@ -196,7 +196,7 @@ App.prototype.setPosition = function(pos) {
   this.move = this.list.setPosition(pos);
   this.clearPositions();
   this.state = STATE.EXEC;
-  overlay.style.cursor = "default";
+  Canvas.style.cursor = "default";
 }
 
 App.prototype.boardApply = function(move) {
@@ -211,9 +211,6 @@ App.prototype.boardApply = function(move) {
   if (Dagaz.Model.showMoves) {
       console.log(move.toString());
   }
-  if (!_.isUndefined(Dagaz.Model.getSetup)) {
-      console.log("Setup: " + Dagaz.Model.getSetup(this.design, this.board));
-  }
   this.state = STATE.IDLE;
 }
 
@@ -221,9 +218,9 @@ App.prototype.mouseLocate = function(view, pos) {
   if (isAnimating) return;
   if ((this.state == STATE.IDLE) && !_.isUndefined(this.list)) {
        if (pos !== null) {
-           overlay.style.cursor = "pointer";
+           Canvas.style.cursor = "pointer";
        } else {
-           overlay.style.cursor = "default";
+           Canvas.style.cursor = "default";
        }
   }
 }
@@ -332,6 +329,7 @@ App.prototype.checkCaptures = function(move) {
 
 App.prototype.animate = function(f) {
   isAnimating = f;
+  this.state = STATE.IDLE;
 }
 
 App.prototype.exec = function() {
@@ -349,6 +347,7 @@ App.prototype.exec = function() {
       this.state = STATE.IDLE;
       return;
   }
+  if (isAnimating) return;
   if (this.state == STATE.IDLE) {
       var ctx = this.getContext(this.getBoard().player);
       var ai  = this.getAI();
@@ -358,7 +357,7 @@ App.prototype.exec = function() {
          if (!_.isUndefined(Dagaz.Controller.AI_DELAY)) {
              Dagaz.Controller.delayTimestamp = Date.now();
          }
-         overlay.style.cursor = "wait";
+         Canvas.style.cursor = "wait";
          this.timestamp = Date.now();
          once = true;
       } else {
@@ -389,19 +388,12 @@ App.prototype.exec = function() {
       var ctx = this.getContext(this.board.player);
       var player = this.design.playerNames[this.board.player];
       var result = this.getAI().getMove(ctx);
-      if (once) {
-          console.log("Player: " + player);
-          if (!_.isUndefined(Dagaz.Model.getSetup)) {
-              console.log("Setup: " + Dagaz.Model.getSetup(this.design, this.board));
-          }
-          once = false;
-      }
       if (result) {
-          overlay.style.cursor = "default";
+          Canvas.style.cursor = "default";
           if (_.isUndefined(result.move)) {
               if (result.done) {
                   this.state = STATE.DONE;
-                  overlay.style.cursor = "default";
+                  Canvas.style.cursor = "default";
                   if (!_.isUndefined(Dagaz.Controller.play)) {
                       Dagaz.Controller.play(Dagaz.Sounds.win);
                   }
@@ -469,7 +461,7 @@ App.prototype.exec = function() {
           if (g !== null) {
               var player = this.design.playerNames[this.board.parent.player];
               this.state = STATE.DONE;
-              overlay.style.cursor = "default";
+              Canvas.style.cursor = "default";
               if (g > 0) {
                   if (!_.isUndefined(Dagaz.Controller.play)) {
                       if (this.board.parent.player == 1) {
