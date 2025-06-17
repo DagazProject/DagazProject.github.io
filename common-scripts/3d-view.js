@@ -286,6 +286,9 @@ View3D.prototype.clear = function() {
   this.setup  = [];
   this.filled = [];
   this.invalidate();
+  _.each(pieces, function(p) {
+      scene.remove(p);
+  });
   pieces = [];
 }
 
@@ -639,6 +642,7 @@ View3D.prototype.initBoard = function() {
 }
 
 View3D.prototype.reInit = function(board) {
+  this.clear();
   board.setup(this, false);
   this.invalidate();
 }

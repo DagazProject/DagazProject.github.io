@@ -278,6 +278,8 @@ App.prototype.setBoard = function(board, isForced) {
       this.view.reInit(board);
       this.setHots();
       delete this.list;
+      this.clearPositions();
+      this.view.markPositions(Dagaz.View.markType.TARGET, []);
   }
 }
 
@@ -332,6 +334,24 @@ App.prototype.animate = function(f) {
   this.state = STATE.IDLE;
 }
 
+Dagaz.AI.callback = function(result) {
+  var app = Dagaz.Controller.app;
+  console.log('Advisor: ' + result);
+  var move = null;
+  _.each(app.board.moves, function(m) {
+      var x = m.toString() + ' ';
+      if (x.startsWith(result + ' ')) {
+          move = m;
+      }
+  });
+  if (move === null) return;
+  var board = app.board.apply(move);
+  Dagaz.Controller.pushState(move, board);
+  if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.hint)) {
+      Dagaz.Controller.play(Dagaz.Sounds.hint);
+  }
+}
+
 App.prototype.exec = function() {
   this.view.configure();
   if (!_.isUndefined(Dagaz.Model.load) && (Dagaz.Controller.persistense == "session")) {
@@ -361,6 +381,28 @@ App.prototype.exec = function() {
          this.timestamp = Date.now();
          once = true;
       } else {
+         if (!_.isUndefined(Dagaz.AI.advisorStamp) && !_.isUndefined(Dagaz.Controller.pushState) && (ai !== null) && (Dagaz.Model.advisorWait !== null)) {
+             var timestamp = Date.now();
+             if (Dagaz.AI.advisorStamp === null) {
+                 Dagaz.AI.advisorStamp = timestamp + Dagaz.Model.advisorWait;
+             }
+             if (Dagaz.Controller.noRedo() && (Dagaz.AI.advisorStamp < timestamp)) {
+                 var ctx = this.getContext(this.board.player, true);
+                 if (ctx !== null) {
+                     ai.setContext(ctx, this.board);
+                     var result = ai.getMove(ctx);
+                     if (result && result.done && result.move) {
+                         console.log("Advisor: " + result.move);
+                         var board = this.board.apply(result.move);
+                         Dagaz.Controller.pushState(result.move, board);
+                         if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.hint)) {
+                             Dagaz.Controller.play(Dagaz.Sounds.hint);
+                         }
+                     }
+                     delete Dagaz.AI.advisorStamp;
+                 }
+             }
+         }
          if (_.isUndefined(this.list)) {
              Dagaz.AI.advisorStamp = null;
              var player = this.design.playerNames[this.board.player];
@@ -424,9 +466,6 @@ App.prototype.exec = function() {
           if ((moves.length == 1) && (moves[0].isDropMove())) this.move = moves[0];
       }
       if (!this.move.isPass()) {
-/*        if (Dagaz.Model.showMoves) {
-              console.log(this.move.toString());
-          }*/
           this.checkCaptures(this.move);
           this.move.applyAll(this.view);
           this.state = STATE.IDLE;

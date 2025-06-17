@@ -4,6 +4,7 @@
 
 var g_trace              = false;
 Dagaz.AI.g_maxply        = 10;
+Dagaz.AI.PLANES          = 1;
 
 Dagaz.AI.NOISE_FACTOR    = 0;
 Dagaz.AI.MIN_TURN        = 0;
@@ -27,7 +28,7 @@ Dagaz.AI.TYPE_SIZE       = 3;
 Dagaz.AI.colorBlack      = 0x10;
 Dagaz.AI.colorWhite      = 0x08;
 
-Dagaz.AI.g_board = new Array(256 * 9); // Sentinel 0x80, pieces are in low 4 bits, 0x8 for color, 0x7 bits for piece type
+Dagaz.AI.g_board = new Array(256 * Dagaz.AI.PLANES); // Sentinel 0x80, pieces are in low 4 bits, 0x8 for color, 0x7 bits for piece type
 Dagaz.AI.g_toMove = 0; // side to move, 0 or 8, 0 = black, 8 = white
 
 Dagaz.AI.g_baseEval    = 0;
@@ -58,7 +59,7 @@ var hashflagAlpha = 1;
 var hashflagBeta  = 2;
 var hashflagExact = 3;
 
-Dagaz.AI.g_pieceIndex = new Array(256 * 9);
+Dagaz.AI.g_pieceIndex = new Array(256 * Dagaz.AI.PLANES);
 Dagaz.AI.g_pieceList  = new Array(2 * 16 * 64);
 Dagaz.AI.g_pieceCount = new Array(2 * 16);
 
@@ -674,6 +675,9 @@ function AlphaBeta(ply, depth, alpha, beta, moves) {
 }
 
 Dagaz.AI.ResetGame = function() {
+//  Dagaz.AI.g_board = new Array(256 * Dagaz.AI.PLANES);
+//  Dagaz.AI.g_pieceIndex = new Array(256 * Dagaz.AI.PLANES);
+
     g_killers = new Array(128);
     for (var i = 0; i < 128; i++) {
         g_killers[i] = [0, 0];
@@ -682,16 +686,16 @@ Dagaz.AI.ResetGame = function() {
     g_hashTable = new Array(g_hashSize);
 
     for (var i = 0; i < 32; i++) {
-        Dagaz.AI.historyTable[i] = new Array(256 * 9);
-        for (var j = 0; j < 256 * 9; j++)
+        Dagaz.AI.historyTable[i] = new Array(256 * Dagaz.AI.PLANES);
+        for (var j = 0; j < 256 * Dagaz.AI.PLANES; j++)
             Dagaz.AI.historyTable[i][j] = 0;
     }
 
     var mt = new Dagaz.AI.MT(0x1badf00d);
 
-    Dagaz.AI.g_zobristLow = new Array(256 * 9);
-    Dagaz.AI.g_zobristHigh = new Array(256 * 9);
-    for (var i = 0; i < 256 * 9; i++) {
+    Dagaz.AI.g_zobristLow = new Array(256 * Dagaz.AI.PLANES);
+    Dagaz.AI.g_zobristHigh = new Array(256 * Dagaz.AI.PLANES);
+    for (var i = 0; i < 256 * Dagaz.AI.PLANES; i++) {
         Dagaz.AI.g_zobristLow[i] = new Array(32);
         Dagaz.AI.g_zobristHigh[i] = new Array(32);
         for (var j = 0; j < 32; j++) {
@@ -707,7 +711,7 @@ Dagaz.AI.SetHash = function() {
     var result = new Object();
     result.hashKeyLow = 0;
     result.hashKeyHigh = 0;
-    for (var i = 0; i < 256 * 9; i++) {
+    for (var i = 0; i < 256 * Dagaz.AI.PLANES; i++) {
         var piece = Dagaz.AI.g_board[i];
         if ((piece & Dagaz.AI.PLAYERS_MASK) && (piece & Dagaz.AI.TYPE_MASK)) {
             result.hashKeyLow ^= Dagaz.AI.g_zobristLow[i][piece & Dagaz.AI.PIECE_MASK]
@@ -729,7 +733,7 @@ Dagaz.AI.InitializePieceList = function() {
             Dagaz.AI.g_pieceList[(i << Dagaz.AI.COUNTER_SIZE) | j] = 0;
         }
     }
-    for (var i = 0; i < 256 * 9; i++) {
+    for (var i = 0; i < 256 * Dagaz.AI.PLANES; i++) {
         if (Dagaz.AI.g_board[i] & 0x80) continue;
         Dagaz.AI.g_pieceIndex[i] = 0;
         if ((Dagaz.AI.g_board[i] & Dagaz.AI.PLAYERS_MASK) && (Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK)) {
