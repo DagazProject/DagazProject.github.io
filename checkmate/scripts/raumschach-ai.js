@@ -377,14 +377,15 @@ Dagaz.AI.IsHashMoveValid = function(hashMove) {
         }
         // Valid moves are push, capture, double push, promotions
         var dir = to - from;
-        if ((Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) != (dir < 0))  {
-            // Pawns have to move in the right direction
-            return false;
+        if (Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) {
+            if (_.indexOf([-16, 256, -15, -17, 255, 257, 240], +dir) < 0) return false;
+        } else {
+            if (_.indexOf([16, -256, 15, 17, -255, -257, -240], +dir) < 0) return false;
         }
 
         var row = to & 0xFF0;
-        if (((row == 0x660 && !Dagaz.AI.g_toMove) ||
-             (row == 0x220 && Dagaz.AI.g_toMove)) != (hashMove & moveflagPromotion)) {
+        if (((row == 0x260 && !Dagaz.AI.g_toMove) ||
+             (row == 0x620 && Dagaz.AI.g_toMove)) != (hashMove & moveflagPromotion)) {
             // Handle promotions
             return false;
         }
@@ -392,7 +393,7 @@ Dagaz.AI.IsHashMoveValid = function(hashMove) {
         if (dir == -16 || dir == 16 || dir == -256 || dir == 256) {
             // White/Black push
             return Dagaz.AI.g_board[to] == 0;
-        } else if (dir == -15 || dir == -17 || dir == 15 || dir == 17 || dir == -255 || dir == 255 || dir == -257 || dir == 257 || dir == -272 || dir == 272) {
+        } else if (dir == -15 || dir == -17 || dir == 15 || dir == 17 || dir == -255 || dir == 255 || dir == -257 || dir == 257 || dir == -240 || dir == 240) {
             // White/Black capture
             return Dagaz.AI.g_board[to] != 0;
         } else {
@@ -761,9 +762,9 @@ function IsSquareAttackableFrom(target, from) {
     if (pieceType == piecePawn) {
         if (+from + ((inc * 16) - 1) == target) return true;
         if (+from + ((inc * 16) + 1) == target) return true;
-        if (+from + ((inc * 256) - 1) == target) return true;
-        if (+from + ((inc * 256) + 1) == target) return true;
-        if (+from + (inc * 272) == target) return true;
+        if (+from + ((inc * -256) - 1) == target) return true;
+        if (+from + ((inc * -256) + 1) == target) return true;
+        if (+from + (inc * -240) == target) return true;
     }
 
     if (pieceType == pieceUnicorn) {
@@ -1091,15 +1092,15 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
         if (Dagaz.AI.g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-        to = from + (inc * 256) - 1;
+        to = from + (inc * -256) - 1;
         if (Dagaz.AI.g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-        to = from + (inc * 256) + 1;
+        to = from + (inc * -256) + 1;
         if (Dagaz.AI.g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-        to = from + (inc * 272);
+        to = from + (inc * -240);
         if (Dagaz.AI.g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
@@ -1252,7 +1253,7 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
 
 function MovePawnTo(moveStack, start, square) {
     var row = square & 0xFF0;
-    if ((row == 0x660) || (row == 0x220)) {
+    if ((row == 0x620) || (row == 0x260)) {
         moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion);
     } else {
         moveStack[moveStack.length] = GenerateMove(start, square, 0);
@@ -1268,7 +1269,7 @@ function GeneratePawnMoves(moveStack, from) {
     if (Dagaz.AI.g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
     }
-    var to = from + (inc * 256);
+    var to = from + (inc * -256);
     if (Dagaz.AI.g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
     }
@@ -1300,9 +1301,9 @@ Dagaz.AI.See = function(move) {
     var inc = (fromPiece & Dagaz.AI.colorWhite) ? -1 : 1; // Note: this is capture direction from to, so reversed from normal move direction
     if (((Dagaz.AI.g_board[to + (inc * 16) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
         ((Dagaz.AI.g_board[to + (inc * 16) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
-        ((Dagaz.AI.g_board[to + (inc * 256) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
-        ((Dagaz.AI.g_board[to + (inc * 256) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
-        ((Dagaz.AI.g_board[to + (inc * 272)] & Dagaz.AI.PIECE_MASK) == (piecePawn | them))) {
+        ((Dagaz.AI.g_board[to + (inc * -256) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
+        ((Dagaz.AI.g_board[to + (inc * -256) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | them)) ||
+        ((Dagaz.AI.g_board[to + (inc * -240)] & Dagaz.AI.PIECE_MASK) == (piecePawn | them))) {
         return false;
     }
 
@@ -1341,9 +1342,9 @@ Dagaz.AI.See = function(move) {
     // a pawn, it's got to be a winning or equal capture. 
     if (((Dagaz.AI.g_board[to - (inc * 16) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
         ((Dagaz.AI.g_board[to - (inc * 16) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
-        ((Dagaz.AI.g_board[to - (inc * 256) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
-        ((Dagaz.AI.g_board[to - (inc * 256) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
-        ((Dagaz.AI.g_board[to - (inc * 272)] & Dagaz.AI.PIECE_MASK) == (piecePawn | us))) {
+        ((Dagaz.AI.g_board[to - (inc * -256) + 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
+        ((Dagaz.AI.g_board[to - (inc * -256) - 1] & Dagaz.AI.PIECE_MASK) == (piecePawn | us)) ||
+        ((Dagaz.AI.g_board[to - (inc * -240)] & Dagaz.AI.PIECE_MASK) == (piecePawn | us))) {
         Dagaz.AI.g_board[from] = fromPiece;
         return true;
     }
