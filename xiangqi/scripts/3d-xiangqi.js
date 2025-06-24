@@ -679,7 +679,7 @@ Dagaz.View.configure = function(view) {
     view.defBoard3D(356, 698, 1, -130, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
     view.defBoard3D(356, 698, 1, -260, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
  
-    const modelPath = '../../../release/res/fairy';
+    const modelPath = '../res/fairy';
     const white = '#FFFF63';
     const black = '#333333';
 
