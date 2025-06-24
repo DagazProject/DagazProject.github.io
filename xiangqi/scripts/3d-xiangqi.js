@@ -673,11 +673,11 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     const opacity = 0.7;
 
-    view.defBoard3D(356, 698, 1, 260, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
-    view.defBoard3D(356, 698, 1, 130, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
-    view.defBoard3D(356, 698, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board3", opacity);
-    view.defBoard3D(356, 698, 1, -130, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
-    view.defBoard3D(356, 698, 1, -260, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
+    view.defBoard3D(356, 698, 1, 260 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
+    view.defBoard3D(356, 698, 1, 130 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
+    view.defBoard3D(356, 698, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board3", opacity);
+    view.defBoard3D(356, 698, 1, -130 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
+    view.defBoard3D(356, 698, 1, -260 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
  
     const modelPath = '../res/fairy';
     const white = '#FFFF63';
