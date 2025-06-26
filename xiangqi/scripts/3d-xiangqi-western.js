@@ -679,29 +679,31 @@ Dagaz.View.configure = function(view) {
     view.defBoard3D(356, 698, 1, -130 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board2", opacity);
     view.defBoard3D(356, 698, 1, -260 -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board1", opacity);
 
-    const tokenPath = '../res/xiangqi';
+    const modelPath = '../res/fairy';
+    const white = '#FFFF63';
+    const black = '#333333';
 
-    view.defPieceToken(0, 1, tokenPath, 'token.js', 'rSoldier', 'Bump');
-    view.defPieceToken(0, 2, tokenPath, 'token.js', 'bSoldier', 'Bump');
-    view.defPieceToken(1, 1, tokenPath, 'token.js', 'rElephant', 'Bump');
-    view.defPieceToken(1, 2, tokenPath, 'token.js', 'bElephant', 'Bump');
-    view.defPieceToken(2, 1, tokenPath, 'token.js', 'rHorse', 'Bump');
-    view.defPieceToken(2, 2, tokenPath, 'token.js', 'bHorse', 'Bump');
-    view.defPieceToken(3, 1, tokenPath, 'token.js', 'rChariot', 'Bump');
-    view.defPieceToken(3, 2, tokenPath, 'token.js', 'bChariot', 'Bump');
-    view.defPieceToken(4, 1, tokenPath, 'token.js', 'rCannon', 'Bump');
-    view.defPieceToken(4, 2, tokenPath, 'token.js', 'bCannon', 'Bump');
-    view.defPieceToken(5, 1, tokenPath, 'token.js', 'rUnicorn', 'Bump');
-    view.defPieceToken(5, 2, tokenPath, 'token.js', 'bUnicorn', 'Bump');
-    view.defPieceToken(6, 1, tokenPath, 'token.js', 'rMandarin', 'Bump');
-    view.defPieceToken(6, 2, tokenPath, 'token.js', 'bMandarin', 'Bump');
-    view.defPieceToken(7, 1, tokenPath, 'token.js', 'rGeneral', 'Bump');
-    view.defPieceToken(7, 2, tokenPath, 'token.js', 'bGeneral', 'Bump');
- 
+    view.defPieceModel(0, 1, modelPath, 'pawn', white);
+    view.defPieceModel(0, 2, modelPath, 'pawn', black);
+    view.defPieceModel(1, 1, modelPath, 'elephant', white);
+    view.defPieceModel(1, 2, modelPath, 'elephant', black);
+    view.defPieceModel(2, 1, modelPath, 'knight', white);
+    view.defPieceModel(2, 2, modelPath, 'knight', black);
+    view.defPieceModel(3, 1, modelPath, 'rook', white);
+    view.defPieceModel(3, 2, modelPath, 'rook', black);
+    view.defPieceModel(4, 1, modelPath, 'cannon', white);
+    view.defPieceModel(4, 2, modelPath, 'cannon', black);
+    view.defPieceModel(5, 1, modelPath, 'unicorn', white);
+    view.defPieceModel(5, 2, modelPath, 'unicorn', black);
+    view.defPieceModel(6, 1, modelPath, 'queen', white);
+    view.defPieceModel(6, 2, modelPath, 'queen', black);
+    view.defPieceModel(7, 1, modelPath, 'king', white);
+    view.defPieceModel(7, 2, modelPath, 'king', black);
+
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("InfoControl", "2003 L. Lynn Smith", true, Dagaz.Controller.open, 'https://www.zillions-of-games.com/cgi-bin/zilligames/submissions.cgi?do=show;id=920');
-    view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? '3d-xiangqi-western.htm' : '3d-xiangqi-western-board.htm');
+    view.defControl("ResControl", "Traditional", true, Dagaz.Controller.go, Dagaz.AI.ON ? '3d-xiangqi.htm' : '3d-xiangqi-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? '3d-xiangqi-board.htm' : '3d-xiangqi.htm');
