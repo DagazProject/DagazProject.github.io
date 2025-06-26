@@ -146,7 +146,7 @@ const posGeometry    = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry    = new THREE.SphereGeometry(0.5, 15, 15);
 const koGeometry     = new THREE.SphereGeometry(1, 15, 15);
 const targetSphere   = new THREE.SphereGeometry(2, 32, 32);
-const targetCylinder = new THREE.CylinderGeometry(2.5, 2.5, 1, 32);
+const targetCylinder = new THREE.CylinderGeometry(3, 3, 1, 32);
 
 let targetGeometry   = targetSphere;
 
@@ -1030,7 +1030,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
-  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE) {
+  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE && (Dagaz.View.PIECE_TYPE != PIECE_TYPE.TOKEN)) {
       const pieceType = pieceTypes[piece.type*10 + piece.player];
       this.queue.push({
          type:  MOVE_TYPE.PROMOTE,

@@ -1,6 +1,6 @@
 "use strict";
 
-Dagaz.Controller.persistense = "none";
+Dagaz.Controller.persistense = "setup";
 
 Dagaz.Model.WIDTH  = 5;
 Dagaz.Model.HEIGHT = 10;
