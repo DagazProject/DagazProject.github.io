@@ -1,6 +1,6 @@
 "use strict";
 
-Dagaz.Controller.persistense = "setup";
+Dagaz.Controller.persistense = "none";
 
 Dagaz.Model.WIDTH  = 5;
 Dagaz.Model.HEIGHT = 10;
@@ -31,7 +31,7 @@ var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
   if (result) {
-      return result[1].replace("-board", "").replace("-ai", "");
+      return result[1].replace("-board", "").replace("-ai", "").replace("-western", "");
   } else {
       return str;
   }
