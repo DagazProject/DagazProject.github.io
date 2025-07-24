@@ -89,9 +89,458 @@ Dagaz.AI.pieceAdj = [
     0,    0,    0,    0,    0, 
     0,    0,    0,    0,    0, 
     0,    0,    0,    0,    0
-]];
+],
+[   
+    1,   10,   20,   10,    1, // piecePawn
+    1,   10,   20,   10,    1, 
+    1,    5,   10,    5,    1, 
+    1,    1,    5,    1,    1, 
+    1,    1,    1,    1,    1,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
 
-var pieceSquareAdj = new Array(8);
+    1,   15,   25,   15,    1,
+    1,   15,   25,   15,    1, 
+    1,   10,   15,   10,    1, 
+    1,    5,   10,    5,    1, 
+    1,    1,    5,    1,    1,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    5,   20,   30,   20,    5,
+    5,   20,   30,   10,    5, 
+    1,   15,   20,   15,    1, 
+    1,   10,   15,   10,    1, 
+    1,    5,   10,    5,    1,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    1,   15,   25,   15,    1,
+    1,   15,   25,   15,    1, 
+    1,   10,   15,   10,    1, 
+    1,    5,   10,    5,    1, 
+    1,    1,    5,    1,    1,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    1,   10,   20,   10,    1,
+    1,   10,   20,   10,    1, 
+    1,    5,   10,    5,    1, 
+    1,    1,    5,    1,    1, 
+    1,    1,    1,    1,    1,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceAdvisor
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,   10,    0,    0, 
+    0,    5,    0,    5,    0, 
+    0,    0,    5,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,   10,    0,   10,    0, 
+    0,    0,   15,    0,    0, 
+    0,   10,    0,   10,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,   10,    0,    0, 
+    0,    5,    0,    5,    0, 
+    0,    0,    5,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceBishop
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceKnight
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceUnicorn
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceCannon
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceRook
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+],
+[   
+    0,    0,    0,    0,    0, // pieceKing
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    1,    5,    1,    0, 
+    0,    5,    5,    5,    0, 
+    0,    1,    5,    1,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    5,   10,    5,    0, 
+    0,   10,   10,   10,    0, 
+    0,    5,   10,    0,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    1,    5,    1,    0, 
+    0,    5,    5,    5,    0, 
+    0,    1,    5,    1,    0,
+
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0, 
+    0,    0,    0,    0,    0
+]
+];
+
+var pieceSquareAdj = new Array(9);
 var flipTable = new Array(256 * 9);
 
 var g_seeValues    = [0, 1, 2, 2, 3, 4, 5, 6, 900, 0, 0, 0, 0, 0, 0, 0,
@@ -193,14 +642,14 @@ Dagaz.AI.ResetGame = function() {
   }
 
   pieceSquareAdj[pieceEmpty]   = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[piecePawn]    = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceAdvisor] = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceBishop]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceKnight]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceUnicorn] = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceCannon]  = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceRook]    = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
-  pieceSquareAdj[pieceKing]    = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
+  pieceSquareAdj[piecePawn]    = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
+  pieceSquareAdj[pieceAdvisor] = MakeTable(Dagaz.AI.pieceAdj[pieceAdvisor]);
+  pieceSquareAdj[pieceBishop]  = MakeTable(Dagaz.AI.pieceAdj[pieceBishop]);
+  pieceSquareAdj[pieceKnight]  = MakeTable(Dagaz.AI.pieceAdj[pieceKnight]);
+  pieceSquareAdj[pieceUnicorn] = MakeTable(Dagaz.AI.pieceAdj[pieceUnicorn]);
+  pieceSquareAdj[pieceCannon]  = MakeTable(Dagaz.AI.pieceAdj[pieceCannon]);
+  pieceSquareAdj[pieceRook]    = MakeTable(Dagaz.AI.pieceAdj[pieceRook]);
+  pieceSquareAdj[pieceKing]    = MakeTable(Dagaz.AI.pieceAdj[pieceKing]);
 
   InitializeEval();
 }
@@ -346,6 +795,242 @@ function UndoHistory(inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, capture
     this.hashKeyHigh = hashKeyHigh;
     this.move50 = move50;
     this.captured = captured;
+}
+
+Dagaz.AI.MakeMove = function(move) {
+    var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
+    var otherColor = Dagaz.AI.colorWhite - Dagaz.AI.g_toMove; 
+    
+    var flags = move & 0xFF000000;
+    var to = (move >> 12) & 0xFFF;
+    var from = move & 0xFFF;
+    var captured = Dagaz.AI.g_board[to];
+    var piece = Dagaz.AI.g_board[from];
+
+    g_moveUndoStack[Dagaz.AI.g_moveCount] = new UndoHistory(Dagaz.AI.g_inCheck, Dagaz.AI.g_baseEval, Dagaz.AI.g_hashKeyLow, Dagaz.AI.g_hashKeyHigh, Dagaz.AI.g_move50, captured);
+    Dagaz.AI.g_moveCount++;
+
+    if (captured) {
+        // Remove our piece from the piece list
+        var capturedType = captured & Dagaz.AI.PIECE_MASK;
+        Dagaz.AI.g_pieceCount[capturedType]--;
+        var lastPieceSquare = Dagaz.AI.g_pieceList[(capturedType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[capturedType]];
+        Dagaz.AI.g_pieceIndex[lastPieceSquare] = Dagaz.AI.g_pieceIndex[to];
+        Dagaz.AI.g_pieceList[(capturedType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
+        Dagaz.AI.g_pieceList[(capturedType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[capturedType]] = 0;
+
+        Dagaz.AI.g_baseEval += materialTable[captured & Dagaz.AI.TYPE_MASK];
+        Dagaz.AI.g_baseEval += pieceSquareAdj[captured & Dagaz.AI.TYPE_MASK][me ? flipTable[to] : to];
+
+        Dagaz.AI.g_hashKeyLow ^= Dagaz.AI.g_zobristLow[to][capturedType];
+        Dagaz.AI.g_hashKeyHigh ^= Dagaz.AI.g_zobristHigh[to][capturedType];
+        Dagaz.AI.g_move50 = 0;
+    }
+
+    Dagaz.AI.g_hashKeyLow ^= Dagaz.AI.g_zobristLow[from][piece & Dagaz.AI.PIECE_MASK];
+    Dagaz.AI.g_hashKeyHigh ^= Dagaz.AI.g_zobristHigh[from][piece & Dagaz.AI.PIECE_MASK];
+    Dagaz.AI.g_hashKeyLow ^= Dagaz.AI.g_zobristLow[to][piece & Dagaz.AI.PIECE_MASK];
+    Dagaz.AI.g_hashKeyHigh ^= Dagaz.AI.g_zobristHigh[to][piece & Dagaz.AI.PIECE_MASK];
+    Dagaz.AI.g_hashKeyLow ^= Dagaz.AI.g_zobristBlackLow;
+    Dagaz.AI.g_hashKeyHigh ^= Dagaz.AI.g_zobristBlackHigh;
+    
+    Dagaz.AI.g_baseEval -= pieceSquareAdj[piece & Dagaz.AI.TYPE_MASK][me == 0 ? flipTable[from] : from];
+    
+    // Move our piece in the piece list
+    Dagaz.AI.g_pieceIndex[to] = Dagaz.AI.g_pieceIndex[from];
+    Dagaz.AI.g_pieceList[((piece & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[to]] = to;
+
+    Dagaz.AI.g_board[to] = Dagaz.AI.g_board[from];
+    Dagaz.AI.g_baseEval += pieceSquareAdj[piece & Dagaz.AI.TYPE_MASK][me == 0 ? flipTable[to] : to];
+    Dagaz.AI.g_board[from] = pieceEmpty;
+
+    Dagaz.AI.g_toMove = otherColor;
+    Dagaz.AI.g_baseEval = -Dagaz.AI.g_baseEval;
+    
+    var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
+    if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
+        Dagaz.AI.UnmakeMove(move);
+        return false;
+    }
+    
+    Dagaz.AI.g_inCheck = false;
+    
+/*  var theirKingPos = Dagaz.AI.g_pieceList[(pieceKing | Dagaz.AI.g_toMove) << Dagaz.AI.COUNTER_SIZE];
+    if (theirKingPos != 0) {
+        Dagaz.AI.g_inCheck = IsSquareAttackable(theirKingPos, Dagaz.AI.g_toMove);
+    }*/
+
+    Dagaz.AI.g_repMoveStack[Dagaz.AI.g_moveCount - 1] = Dagaz.AI.g_hashKeyLow;
+    Dagaz.AI.g_move50++;
+
+    return true;
+}
+
+Dagaz.AI.UnmakeMove = function(move) {
+    Dagaz.AI.g_toMove = Dagaz.AI.colorWhite - Dagaz.AI.g_toMove;
+    Dagaz.AI.g_baseEval = -Dagaz.AI.g_baseEval;
+    
+    Dagaz.AI.g_moveCount--;
+    Dagaz.AI.g_inCheck = g_moveUndoStack[Dagaz.AI.g_moveCount].inCheck;
+    Dagaz.AI.g_baseEval = g_moveUndoStack[Dagaz.AI.g_moveCount].baseEval;
+    Dagaz.AI.g_hashKeyLow = g_moveUndoStack[Dagaz.AI.g_moveCount].hashKeyLow;
+    Dagaz.AI.g_hashKeyHigh = g_moveUndoStack[Dagaz.AI.g_moveCount].hashKeyHigh;
+    Dagaz.AI.g_move50 = g_moveUndoStack[Dagaz.AI.g_moveCount].move50;
+    
+    var otherColor = Dagaz.AI.colorWhite - Dagaz.AI.g_toMove;
+    var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
+    var them = otherColor >> Dagaz.AI.TYPE_SIZE;
+    
+    var captured = g_moveUndoStack[Dagaz.AI.g_moveCount].captured;
+    var to = (move >> 12) & 0xFFF;
+    var from = move & 0xFFF;
+    
+    var piece = Dagaz.AI.g_board[to];
+    Dagaz.AI.g_board[from] = Dagaz.AI.g_board[to];
+    Dagaz.AI.g_board[to] = captured;
+
+    // Move our piece in the piece list
+    Dagaz.AI.g_pieceIndex[from] = Dagaz.AI.g_pieceIndex[to];
+    Dagaz.AI.g_pieceList[((piece & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[from]] = from;
+
+    if (captured) {
+        // Restore our piece to the piece list
+        var captureType = captured & Dagaz.AI.PIECE_MASK;
+        Dagaz.AI.g_pieceIndex[to] = Dagaz.AI.g_pieceCount[captureType];
+        Dagaz.AI.g_pieceList[(captureType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[captureType]] = to;
+        Dagaz.AI.g_pieceCount[captureType]++;
+    }
+}
+
+function IsSquareAttackableFrom(target, from) {
+    var to, pos, piece, pieceType, adj;
+
+    piece = Dagaz.AI.g_board[from];
+    pieceType = piece & Dagaz.AI.TYPE_MASK;
+
+    if (pieceType == pieceEmpty) return false;
+    var color = (piece & Dagaz.AI.colorWhite);
+    var enemy = color ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
+    var inc = color ? -16 : 16;
+    var me = color >> Dagaz.AI.TYPE_SIZE;
+
+    if (pieceType == piecePawn) {
+        if (+from + inc == target) return true;
+        if (+from + 256 == target) return true;
+        if (+from - 256 == target) return true;
+        if (+from + 257 == target) return true;
+        if (+from + 255 == target) return true;
+        if (+from - 257 == target) return true;
+        if (+from - 255 == target) return true;
+        if (+from + 1 == target) return true;
+        if (+from - 1 == target) return true;
+    }
+
+    if (pieceType == pieceUnicorn) {
+       to = from; do { to += 239; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 239; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to += 273; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 273; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to += 241; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 241; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to += 271; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 271; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+    }
+
+    if (pieceType == pieceKnight) {
+        pos = from - 16;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 15; if (to == target) return true;
+            to = pos - 17; if (to == target) return true;
+        }
+        pos = from + 16;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos + 15; if (to == target) return true;
+            to = pos + 17; if (to == target) return true;
+        }
+        pos = from - 1;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos + 15; if (to == target) return true;
+            to = pos - 17; if (to == target) return true;
+        }
+        pos = from + 1;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 15; if (to == target) return true;
+            to = pos + 17; if (to == target) return true;
+        }
+        pos = from - 256;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 32; if (to == target) return true;
+            to = pos + 32; if (to == target) return true;
+            to = pos -  2; if (to == target) return true;
+            to = pos +  2; if (to == target) return true;
+        }
+        pos = from + 256;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 32; if (to == target) return true;
+            to = pos + 32; if (to == target) return true;
+            to = pos -  2; if (to == target) return true;
+            to = pos +  2; if (to == target) return true;
+        }
+        pos = from - 512;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 16; if (to == target) return true;
+            to = pos + 16; if (to == target) return true;
+            to = pos -  1; if (to == target) return true;
+            to = pos +  1; if (to == target) return true;
+        }
+        pos = from + 512;
+        if (Dagaz.AI.g_board[pos] == 0) {
+            to = pos - 16; if (to == target) return true;
+            to = pos + 16; if (to == target) return true;
+            to = pos -  1; if (to == target) return true;
+            to = pos +  1; if (to == target) return true;
+        }
+    }
+
+    if (pieceType == pieceRook) {
+       to = from; do { to++; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to--; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to += 16; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 16; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to += 256; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+       to = from; do { to -= 256; if (to == target) return true; } while (Dagaz.AI.g_board[to] == 0);
+    }
+
+    if (pieceType == pieceCannon) {
+       to = from + 1; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to++; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to++; while (Dagaz.AI.g_board[to] == 0) { to++; }
+           if (to == target) return true;
+       }
+       to = from - 1; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to--; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to--; while (Dagaz.AI.g_board[to] == 0) { to--; }
+           if (to == target) return true;
+       }
+       to = from + 16; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to += 16; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to += 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; }
+           if (to == target) return true;
+       }
+       to = from - 16; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to -= 16; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to -= 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; }
+           if (to == target) return true;
+       }
+       to = from + 256; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to += 256; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to += 256; while (Dagaz.AI.g_board[to] == 0) { to += 256; }
+           if (to == target) return true;
+       }
+       to = from - 256; while (Dagaz.AI.g_board[to] == 0) { if (to == target) return false; to -= 256; }
+       if (Dagaz.AI.g_board[to] & Dagaz.AI.PLAYERS_MASK) {
+           to -= 256; while (Dagaz.AI.g_board[to] == 0) { to -= 256; }
+           if (to == target) return true;
+       }
+    }
+
+    return false;
 }
 
 })();
