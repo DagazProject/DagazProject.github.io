@@ -131,7 +131,7 @@ Dagaz.Model.setup = function(board, init) {
                    board.setPiece(pos, piece);
                    pos++;
                }
-               if (pos >= Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT * Dagaz.Model.HEIGHT) break;
+               if (pos >= Dagaz.Model.WIDTH * Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT) break;
            }
       }
       var turn = getTurn(init);
@@ -161,7 +161,7 @@ var getPieceNotation = function(design, piece) {
 Dagaz.Model.getSetup = function(design, board) {
   var str = "?turn=" + board.turn + ";&setup=";
   var k = 0; var c = 0;
-  for (var pos = 0; pos < Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT * Dagaz.Model.HEIGHT; pos++) {
+  for (var pos = 0; pos < Dagaz.Model.WIDTH * Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT; pos++) {
        if (k >= Dagaz.Model.WIDTH) {
            if (c > 0) {
                str += c;
