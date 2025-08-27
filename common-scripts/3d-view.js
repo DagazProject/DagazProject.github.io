@@ -323,6 +323,76 @@ View3D.prototype.groupCubes = function(move) {
   return group;
 }
 
+function addCube(p, pos, model) {
+  const v = model.getValue(0);
+  let gg = null;
+  if (v !== null) {
+      _.each(cubes, function(group) {
+            if (group.groupId === null) return;
+            if (group.groupId != v) return;
+            gg = group;
+      });
+  }
+  const pieceType = pieceTypes[model.type*10 + (+model.player)];
+  const materials = [
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
+  ];
+  const group = new THREE.Group();
+  let pieceGeometry = null;
+  group.pos = pos;
+  if (gg !== null) {
+      gg.params.nx  = Math.min(gg.params.nx, p.x - p.dx/2);
+      gg.params.mx  = Math.max(gg.params.mx, p.x + p.dx/2);
+      gg.params.ny  = Math.min(gg.params.ny, p.y - p.dy/2);
+      gg.params.my  = Math.max(gg.params.my, p.y + p.dy/2);
+      gg.params.nz  = Math.min(gg.params.nz, p.z - p.dz/2);
+      gg.params.mz  = Math.max(gg.params.mz, p.z + p.dz/2);
+      gg.params.x   = (gg.params.mx + gg.params.nx) / 2;
+      gg.params.y   = (gg.params.my + gg.params.ny) / 2;
+      gg.params.z   = (gg.params.mz + gg.params.nz) / 2;
+      gg.params.dx  = (gg.params.mx - gg.params.nx);
+      gg.params.dy  = (gg.params.my - gg.params.ny);
+      gg.params.dz  = (gg.params.mz - gg.params.nz);
+      pieceGeometry = new THREE.BoxGeometry(gg.params.dx / 10, gg.params.dz / 10, gg.params.dy / 10);
+      group.params  = gg.params;
+      scene.remove(gg);
+      pieces = _.filter(pieces, function(p) {
+         return p.groupId != v;
+      });
+      cubes = _.filter(cubes, function(p) {
+         return p.groupId != v;
+      });
+  } else {
+      pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
+      group.params  = {
+         x: p.x, dx: p.dx, nx: p.x - p.dx/2, mx: p.x + p.dx/2,
+         y: p.y, dy: p.dy, ny: p.y - p.dy/2, my: p.y + p.dy/2,
+         z: p.z, dz: p.dz, nz: p.z - p.dz/2, mz: p.z + p.dz/2
+      };
+  }
+  const piece = new THREE.Mesh(pieceGeometry, materials);
+  piece.pos = pos;
+  piece.groupId = v;
+  group.groupId = v;
+  group.add(piece);
+  const edgeColor = 0x000000;
+  const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
+  const edgesMaterial = new THREE.LineBasicMaterial({ 
+        color: edgeColor,
+        linewidth: 3
+  });
+  const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+  group.add(edges);
+  group.position.set(group.params.x / 10, group.params.z / 10, group.params.y / 10);
+  pieces.push(piece);
+  return group;
+}
+
 View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
   const p = this.pos[pos];
@@ -354,36 +424,12 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       scene.add(piece);   
       pieces.push(piece);
   } else if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) {
-      const pieceType = pieceTypes[model.type*10 + (+model.player)];
-      const pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
-      const materials = [
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
-            new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
-      ];
-      const group = new THREE.Group();
-      group.pos = pos;
-      const piece = new THREE.Mesh(pieceGeometry, materials);
-      piece.pos = pos;
-      group.add(piece);
-      const edgeColor = 0x000000;
-      const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
-      const edgesMaterial = new THREE.LineBasicMaterial({ 
-            color: edgeColor,
-            linewidth: 3
-      });
-      const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
-      group.add(edges);
-      group.position.set(p.x / 10, p.z / 10, p.y / 10);
+      const group = addCube(p, pos, model);
       if (Dagaz.View.RENDER_ORDER) {
-          gtoup.renderOrder = 2;
+          group.renderOrder = 2;
       }
       scene.add(group);   
       cubes.push(group);
-      pieces.push(piece);
   } else if (Dagaz.View.NO_PIECE) {
       p.p.material = getPlayerMaterial(model.player, false);
   }
