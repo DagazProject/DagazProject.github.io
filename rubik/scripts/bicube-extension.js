@@ -9,7 +9,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 }
 
 if (!_.isUndefined(Dagaz.Controller.addSound)) {
-    Dagaz.Controller.addSound(0, "../../sounds/slide.ogg", true);
+    Dagaz.Controller.addSound(0, "../sounds/slide.ogg", true);
 }
 
 // WRBGOY( 0) -> RYBGWO( 7) -> YOBGRW(23) -> OWBGYR(16)
@@ -116,7 +116,14 @@ Dagaz.View.getMove = function(camera, x, y, z, pos, board) {
 }
 
 function rotate(piece, dir) {
-  return piece.promote(ROTATE[dir][piece.type]);
+  var p = piece.promote(ROTATE[dir][piece.type]);
+  if (!_.isUndefined(piece)) {
+      var v = piece.getValue(0);
+      if (v !== null) {
+          p = p.setValue(0, v);
+      }
+  }
+  return p;
 }
 
 function gen(board, dir, a1, a2, a3, a4, b1, b2, b3, b4, c1) {

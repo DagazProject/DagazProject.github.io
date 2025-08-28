@@ -346,6 +346,7 @@ function addCube(p, pos, model) {
   let pieceGeometry = null;
   group.pos = pos;
   if (gg !== null) {
+      gg.params.c++;
       gg.params.nx  = Math.min(gg.params.nx, p.x - p.dx/2);
       gg.params.mx  = Math.max(gg.params.mx, p.x + p.dx/2);
       gg.params.ny  = Math.min(gg.params.ny, p.y - p.dy/2);
@@ -372,7 +373,8 @@ function addCube(p, pos, model) {
       group.params  = {
          x: p.x, dx: p.dx, nx: p.x - p.dx/2, mx: p.x + p.dx/2,
          y: p.y, dy: p.dy, ny: p.y - p.dy/2, my: p.y + p.dy/2,
-         z: p.z, dz: p.dz, nz: p.z - p.dz/2, mz: p.z + p.dz/2
+         z: p.z, dz: p.dz, nz: p.z - p.dz/2, mz: p.z + p.dz/2,
+         c: 1, id: v
       };
   }
   const piece = new THREE.Mesh(pieceGeometry, materials);
