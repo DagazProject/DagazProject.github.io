@@ -88,42 +88,42 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("YGORBW", 22);
     design.addPiece("YOBGRW", 23);
 
-    design.setup("You", "WRBGOY", p('a1'), undefined, 12);
-    design.setup("You", "WRBGOY", p('a2'), undefined, 12);
-    design.setup("You", "WRBGOY", p('a3'), undefined, 13);
-    design.setup("You", "WRBGOY", p('b1'), undefined, 6);
-    design.setup("You", "WRBGOY", p('b2'), undefined, 6);
-    design.setup("You", "WRBGOY", p('b3'), undefined, 11);
-    design.setup("You", "WRBGOY", p('c1'), undefined, 7);
+    design.setup("You", "WRBGOY", p('a1'), undefined, 1);
+    design.setup("You", "WRBGOY", p('a2'), undefined, 10);
+    design.setup("You", "WRBGOY", p('a3'), undefined, 11);
+    design.setup("You", "WRBGOY", p('b1'), undefined, 2);
+    design.setup("You", "WRBGOY", p('b2'), undefined, 12);
+    design.setup("You", "WRBGOY", p('b3'), undefined, 12);
+    design.setup("You", "WRBGOY", p('c1'), undefined, 3);
     design.setup("You", "WRBGOY", p('c2'), undefined, 7);
-    design.setup("You", "WRBGOY", p('c3'), undefined, 11);
-    design.setup("You", "WRBGOY", p('d1'), undefined, 2);
-    design.setup("You", "WRBGOY", p('d2'), undefined, 9);
-    design.setup("You", "WRBGOY", p('d3'), undefined, 8);
-    design.setup("You", "WRBGOY", p('e1'), undefined, 5);
-    design.setup("You", "WRBGOY", p('e3'), undefined, 10);
-    design.setup("You", "WRBGOY", p('f1'), undefined, 5);
-    design.setup("You", "WRBGOY", p('f2'), undefined, 5);
-    design.setup("You", "WRBGOY", p('f3'), undefined, 10);
-    design.setup("You", "WRBGOY", p('g1'), undefined, 2);
-    design.setup("You", "WRBGOY", p('g2'), undefined, 9);
-    design.setup("You", "WRBGOY", p('g3'), undefined, 8);
-    design.setup("You", "WRBGOY", p('h1'), undefined, 1);
-    design.setup("You", "WRBGOY", p('h2'), undefined, 3);
-    design.setup("You", "WRBGOY", p('h3'), undefined, 4);
-    design.setup("You", "WRBGOY", p('i1'), undefined, 1);
-    design.setup("You", "WRBGOY", p('i2'), undefined, 3);
-    design.setup("You", "WRBGOY", p('i3'), undefined, 4);
+    design.setup("You", "WRBGOY", p('c3'), undefined, 7);
+    design.setup("You", "WRBGOY", p('d1'), undefined, 1);
+    design.setup("You", "WRBGOY", p('d2'), undefined, 10);
+    design.setup("You", "WRBGOY", p('d3'), undefined, 11);
+    design.setup("You", "WRBGOY", p('e1'), undefined, 2);
+    design.setup("You", "WRBGOY", p('e3'), undefined, 12);
+    design.setup("You", "WRBGOY", p('f1'), undefined, 3);
+    design.setup("You", "WRBGOY", p('f2'), undefined, 8);
+    design.setup("You", "WRBGOY", p('f3'), undefined, 8);
+    design.setup("You", "WRBGOY", p('g1'), undefined, 4);
+    design.setup("You", "WRBGOY", p('g2'), undefined, 5);
+    design.setup("You", "WRBGOY", p('g3'), undefined, 6);
+    design.setup("You", "WRBGOY", p('h1'), undefined, 4);
+    design.setup("You", "WRBGOY", p('h2'), undefined, 5);
+    design.setup("You", "WRBGOY", p('h3'), undefined, 6);
+    design.setup("You", "WRBGOY", p('i1'), undefined, 13);
+    design.setup("You", "WRBGOY", p('i2'), undefined, 9);
+    design.setup("You", "WRBGOY", p('i3'), undefined, 9);
 }
 
 Dagaz.View.configure = function(view) {
 
-    const W = 0xF0F0F0; // 1
-    const R = 0xFF0000; // 2
-    const B = 0x0000FF; // 3
-    const G = 0x37B476; // 4
-    const O = 0xFDA831; // 5
-    const Y = 0xF2E825; // 6
+    const W = 0xFDA831; // 1
+    const R = 0xF2E825; // 2
+    const B = 0x37B476; // 3
+    const G = 0x0000FF; // 4
+    const O = 0xF0F0F0; // 5
+    const Y = 0xFF0000; // 6
 
     view.defPieceCube(0,  1, [W, R, B, G, O, Y]); // WRBGOY
     view.defPieceCube(1,  1, [W, B, O, R, G, Y]); // WBORGY
