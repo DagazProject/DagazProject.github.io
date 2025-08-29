@@ -379,6 +379,7 @@ function addCube(p, pos, model) {
   }
   const piece = new THREE.Mesh(pieceGeometry, materials);
   piece.pos = pos;
+  piece.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
   piece.groupId = v;
   group.groupId = v;
   group.add(piece);
@@ -391,6 +392,7 @@ function addCube(p, pos, model) {
   const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
   group.add(edges);
   group.position.set(group.params.x / 10, group.params.z / 10, group.params.y / 10);
+  group.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
   pieces.push(piece);
   return group;
 }
@@ -1240,6 +1242,15 @@ Dagaz.View.getMove = function(camera, x, y, z, pos, board) {
   return null;
 }
 
+function getMove(camera, x, y, z, positions, board) {
+  let r = null;
+  for (let i = 0; i < positions.length; i++) {
+      r = Dagaz.View.getMove(camera, x, y, z, positions[i], board);
+      if (r !== null) break;
+  }
+  return r;
+}
+
 function mouseMove({x, y}, clean = false) {
   mouse.x = (x / window.innerWidth) * 2 - 1;
   mouse.y = -(y / window.innerHeight) * 2 + 1;
@@ -1272,7 +1283,7 @@ function mouseMove({x, y}, clean = false) {
               if ((intersects.length > 0) && (view.queue.length == 0)) {
                   const intersection = intersects[0];
                   const faceNormal = getWorldFaceNormal(intersection);
-                  const move = Dagaz.View.getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.pos, Dagaz.Controller.app.board);
+                  const move = getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.positions, Dagaz.Controller.app.board);
                   if (move !== null) {
                       let axis = null; let offset = null;
                       if (!_.isUndefined(Dagaz.View.getAxis)) {
