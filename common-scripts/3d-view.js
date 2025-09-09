@@ -294,7 +294,11 @@ View3D.prototype.clear = function() {
   _.each(pieces, function(p) {
       scene.remove(p);
   });
+  _.each(cubes, function(p) {
+      scene.remove(p);
+  });
   pieces = [];
+  cubes = [];
 }
 
 function getCube(pos) {
