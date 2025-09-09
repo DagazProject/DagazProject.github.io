@@ -1,3 +1,10 @@
+04.06.2025 - 1.4.3
+  Tamago
+  3D Morris
+  Rubik's Cube
+  Flippers
+  Reversi 3D
+  Raumschach
 27/03/2025 - 1.4.2
   Nine-Tile Cyvasse
   Kings Valley

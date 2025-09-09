@@ -1,0 +1,300 @@
+(define step (
+  $1 (verify not-friend?)
+  (verify (not-in-zone? $2))
+  add
+))
+
+(define step-pawn-2 (
+  $1 $2 (verify not-friend?)
+  (verify (not-in-zone? $3))
+  add
+))
+
+(define step-pawn (
+  $1 (verify not-friend?)
+  add
+))
+
+(define step-2 (
+  $1 (verify empty?)
+  $2 (verify not-friend?)
+  add
+))
+
+(define step-m (
+  $1 (verify not-friend?)
+  (verify (in-zone? $2))
+  add
+))
+
+(define step-e (
+  $1 (verify empty?)
+  $1 (verify not-friend?)
+  (verify (in-zone? $2))
+  add
+))
+
+(define step-2-m (
+  $1 $2 (verify not-friend?)
+  (verify (in-zone? $3))
+  add
+))
+
+(define step-2-e (
+  $1 $2 (verify empty?)
+  $1 $2 (verify not-friend?)
+  (verify (in-zone? $3))
+  add
+))
+
+(define jump-3 (
+  $1 (verify empty?)
+  $2 $3 (verify not-friend?)
+  add
+))
+
+(define jump-2 (
+  $1 (verify empty?)
+  $1 $2 (verify not-friend?)
+  add
+))
+
+(define slide (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-friend?)
+  add
+))
+
+(define shoot (
+  $1 
+  (while empty?
+     add
+     $1
+  )
+  (verify not-empty?) $1
+  (while empty? $1)
+  (verify not-friend?)
+  add
+))
+
+(define glide (
+  $1 $2
+  (while empty? add $1 $2)
+  (verify not-friend?)
+  add
+))
+
+(game
+  (title "3D XiangQi")
+
+  (players Red Black)
+  (turn-order Red Black)
+
+  (board
+     (grid
+         (start-rectangle -136 -306 -68 -238)
+         (dimensions
+           ("a/b/c/d/e" (68 0))
+           ("10/9/8/7/6/5/4/3/2/1" (0 68))
+           ("E/D/C/B/A" (0 0))
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (zone
+         (name fortress)
+         (players Red)
+         (positions b1B c1B d1B b2B c2B d2B b3B c3B d3B b1C c1C d1C b2C c2C d2C b3C c3C d3C b1D c1D d1D b2D c2D d2D b3D c3D d3D)
+     )
+     (zone
+         (name fortress)
+         (players Black)
+         (positions b10B c10B d10B b9B c9B d9B b8B c8B d8B b10C c10C d10C b9C c9C d9C b8C c8C d8C b10D c10D d10D b9D c9D d9D b8D c8D d8D)
+     )
+     (zone
+         (name home)
+         (players Red)
+         (positions a1A  b1A  c1A  d1A  e1A 
+                    a2A  b2A  c2A  d2A  e2A 
+                    a3A  b3A  c3A  d3A  e3A 
+                    a4A  b4A  c4A  d4A  e4A 
+                    a5A  b5A  c5A  d5A  e5A 
+
+                    a1B  b1B  c1B  d1B  e1B 
+                    a2B  b2B  c2B  d2B  e2B 
+                    a3B  b3B  c3B  d3B  e3B 
+                    a4B  b4B  c4B  d4B  e4B 
+                    a5B  b5B  c5B  d5B  e5B 
+
+                    a1C  b1C  c1C  d1C  e1C 
+                    a2C  b2C  c2C  d2C  e2C 
+                    a3C  b3C  c3C  d3C  e3C 
+                    a4C  b4C  c4C  d4C  e4C 
+                    a5C  b5C  c5C  d5C  e5C 
+
+                    a1D  b1D  c1D  d1D  e1D 
+                    a2D  b2D  c2D  d2D  e2D 
+                    a3D  b3D  c3D  d3D  e3D
+                    a4D  b4D  c4D  d4D  e4D
+                    a5D  b5D  c5D  d5D  e5D
+
+                    a1E  b1E  c1E  d1E  e1E 
+                    a2E  b2E  c2E  d2E  e2E 
+                    a3E  b3E  c3E  d3E  e3E
+                    a4E  b4E  c4E  d4E  e4E
+                    a5E  b5E  c5E  d5E  e5E
+         )
+     )
+     (zone
+         (name home)
+         (players Black)
+         (positions a10A b10A c10A d10A e10A 
+                    a9A  b9A  c9A  d9A  e9A 
+                    a8A  b8A  c8A  d8A  e8A 
+                    a7A  b7A  c7A  d7A  e7A 
+                    a6A  b6A  c6A  d6A  e6A 
+
+                    a10B b10B c10B d10B e10B 
+                    a9B  b9B  c9B  d9B  e9B 
+                    a8B  b8B  c8B  d8B  e8B 
+                    a7B  b7B  c7B  d7B  e7B 
+                    a6B  b6B  c6B  d6B  e6B 
+
+                    a10C b10C c10C d10C e10C 
+                    a9C  b9C  c9C  d9C  e9C 
+                    a8C  b8C  c8C  d8C  e8C 
+                    a7C  b7C  c7C  d7C  e7C 
+                    a6C  b6C  c6C  d6C  e6C 
+
+                    a10D b10D c10D d10D e10D 
+                    a9D  b9D  c9D  d9D  e9D 
+                    a8D  b8D  c8D  d8D  e8D
+                    a7D  b7D  c7D  d7D  e7D
+                    a6D  b6D  c6D  d6D  e6D
+
+                    a10E b10E c10E d10E e10E 
+                    a9E  b9E  c9E  d9E  e9E 
+                    a8E  b8E  c8E  d8E  e8E
+                    a7E  b7E  c7E  d7E  e7E
+                    a6E  b6E  c6E  d6E  e6E
+         )
+     )
+     (links u
+         (a1A a1B) (a2A a2B) (a3A a3B) (a4A a4B) (a5A a5B) (a6A a6B) (a7A a7B) (a8A a8B) (a9A a9B) (a10A a10B)
+         (b1A b1B) (b2A b2B) (b3A b3B) (b4A b4B) (b5A b5B) (b6A b6B) (b7A b7B) (b8A b8B) (b9A b9B) (b10A b10B)
+         (c1A c1B) (c2A c2B) (c3A c3B) (c4A c4B) (c5A c5B) (c6A c6B) (c7A c7B) (c8A c8B) (c9A c9B) (c10A c10B)
+         (d1A d1B) (d2A d2B) (d3A d3B) (d4A d4B) (d5A d5B) (d6A d6B) (d7A d7B) (d8A d8B) (d9A d9B) (d10A d10B)
+         (e1A e1B) (e2A e2B) (e3A e3B) (e4A e4B) (e5A e5B) (e6A e6B) (e7A e7B) (e8A e8B) (e9A e9B) (e10A e10B)
+
+         (a1B a1C) (a2B a2C) (a3B a3C) (a4B a4C) (a5B a5C) (a6B a6C) (a7B a7C) (a8B a8C) (a9B a9C) (a10B a10C)
+         (b1B b1C) (b2B b2C) (b3B b3C) (b4B b4C) (b5B b5C) (b6B b6C) (b7B b7C) (b8B b8C) (b9B b9C) (b10B b10C)
+         (c1B c1C) (c2B c2C) (c3B c3C) (c4B c4C) (c5B c5C) (c6B c6C) (c7B c7C) (c8B c8C) (c9B c9C) (c10B c10C)
+         (d1B d1C) (d2B d2C) (d3B d3C) (d4B d4C) (d5B d5C) (d6B d6C) (d7B d7C) (d8B d8C) (d9B d9C) (d10B d10C)
+         (e1B e1C) (e2B e2C) (e3B e3C) (e4B e4C) (e5B e5C) (e6B e6C) (e7B e7C) (e8B e8C) (e9B e9C) (e10B e10C)
+
+         (a1C a1D) (a2C a2D) (a3C a3D) (a4C a4D) (a5C a5D) (a6C a6D) (a7C a7D) (a8C a8D) (a9C a9D) (a10C a10D)
+         (b1C b1D) (b2C b2D) (b3C b3D) (b4C b4D) (b5C b5D) (b6C b6D) (b7C b7D) (b8C b8D) (b9C b9D) (b10C b10D)
+         (c1C c1D) (c2C c2D) (c3C c3D) (c4C c4D) (c5C c5D) (c6C c6D) (c7C c7D) (c8C c8D) (c9C c9D) (c10C c10D)
+         (d1C d1D) (d2C d2D) (d3C d3D) (d4C d4D) (d5C d5D) (d6C d6D) (d7C d7D) (d8C d8D) (d9C d9D) (d10C d10D)
+         (e1C e1D) (e2C e2D) (e3C e3D) (e4C e4D) (e5C e5D) (e6C e6D) (e7C e7D) (e8C e8D) (e9C e9D) (e10C e10D)
+
+         (a1D a1E) (a2D a2E) (a3D a3E) (a4D a4E) (a5D a5E) (a6D a6E) (a7D a7E) (a8D a8E) (a9D a9E) (a10D a10E)
+         (b1D b1E) (b2D b2E) (b3D b3E) (b4D b4E) (b5D b5E) (b6D b6E) (b7D b7E) (b8D b8E) (b9D b9E) (b10D b10E)
+         (c1D c1E) (c2D c2E) (c3D c3E) (c4D c4E) (c5D c5E) (c6D c6E) (c7D c7E) (c8D c8E) (c9D c9E) (c10D c10E)
+         (d1D d1E) (d2D d2E) (d3D d3E) (d4D d4E) (d5D d5E) (d6D d6E) (d7D d7E) (d8D d8E) (d9D d9E) (d10D d10E)
+         (e1D e1E) (e2D e2E) (e3D e3E) (e4D e4E) (e5D e5E) (e6D e6E) (e7D e7E) (e8D e8E) (e9D e9E) (e10D e10E)
+     )
+     (links d
+         (a1B a1A) (a2B a2A) (a3B a3A) (a4B a4A) (a5B a5A) (a6B a6A) (a7B a7A) (a8B a8A) (a9B a9A) (a10B a10A)
+         (b1B b1A) (b2B b2A) (b3B b3A) (b4B b4A) (b5B b5A) (b6B b6A) (b7B b7A) (b8B b8A) (b9B b9A) (b10B b10A)
+         (c1B c1A) (c2B c2A) (c3B c3A) (c4B c4A) (c5B c5A) (c6B c6A) (c7B c7A) (c8B c8A) (c9B c9A) (c10B c10A)
+         (d1B d1A) (d2B d2A) (d3B d3A) (d4B d4A) (d5B d5A) (d6B d6A) (d7B d7A) (d8B d8A) (d9B d9A) (d10B d10A)
+         (e1B e1A) (e2B e2A) (e3B e3A) (e4B e4A) (e5B e5A) (e6B e6A) (e7B e7A) (e8B e8A) (e9B e9A) (e10B e10A)
+
+         (a1C a1B) (a2C a2B) (a3C a3B) (a4C a4B) (a5C a5B) (a6C a6B) (a7C a7B) (a8C a8B) (a9C a9B) (a10C a10B)
+         (b1C b1B) (b2C b2B) (b3C b3B) (b4C b4B) (b5C b5B) (b6C b6B) (b7C b7B) (b8C b8B) (b9C b9B) (b10C b10B)
+         (c1C c1B) (c2C c2B) (c3C c3B) (c4C c4B) (c5C c5B) (c6C c6B) (c7C c7B) (c8C c8B) (c9C c9B) (c10C c10B)
+         (d1C d1B) (d2C d2B) (d3C d3B) (d4C d4B) (d5C d5B) (d6C d6B) (d7C d7B) (d8C d8B) (d9C d9B) (d10C d10B)
+         (e1C e1B) (e2C e2B) (e3C e3B) (e4C e4B) (e5C e5B) (e6C e6B) (e7C e7B) (e8C e8B) (e9C e9B) (e10C e10B)
+
+         (a1D a1C) (a2D a2C) (a3D a3C) (a4D a4C) (a5D a5C) (a6D a6C) (a7D a7C) (a8D a8C) (a9D a9C) (a10D a10C)
+         (b1D b1C) (b2D b2C) (b3D b3C) (b4D b4C) (b5D b5C) (b6D b6C) (b7D b7C) (b8D b8C) (b9D b9C) (b10D b10C)
+         (c1D c1C) (c2D c2C) (c3D c3C) (c4D c4C) (c5D c5C) (c6D c6C) (c7D c7C) (c8D c8C) (c9D c9C) (c10D c10C)
+         (d1D d1C) (d2D d2C) (d3D d3C) (d4D d4C) (d5D d5C) (d6D d6C) (d7D d7C) (d8D d8C) (d9D d9C) (d10D d10C)
+         (e1D e1C) (e2D e2C) (e3D e3C) (e4D e4C) (e5D e5C) (e6D e6C) (e7D e7C) (e8D e8C) (e9D e9C) (e10D e10C)
+
+         (a1E a1D) (a2E a2D) (a3E a3D) (a4E a4D) (a5E a5D) (a6E a6D) (a7E a7D) (a8E a8D) (a9E a9D) (a10E a10D)
+         (b1E b1D) (b2E b2D) (b3E b3D) (b4E b4D) (b5E b5D) (b6E b6D) (b7E b7D) (b8E b8D) (b9E b9D) (b10E b10D)
+         (c1E c1D) (c2E c2D) (c3E c3D) (c4E c4D) (c5E c5D) (c6E c6D) (c7E c7D) (c8E c8D) (c9E c9D) (c10E c10D)
+         (d1E d1D) (d2E d2D) (d3E d3D) (d4E d4D) (d5E d5D) (d6E d6D) (d7E d7D) (d8E d8D) (d9E d9D) (d10E d10D)
+         (e1E e1D) (e2E e2D) (e3E e3D) (e4E e4D) (e5E e5D) (e6E e6D) (e7E e7D) (e8E e8D) (e9E e9D) (e10E e10D)
+     )
+  )
+
+   (piece
+      (name Soldier)
+      (moves
+         (step-pawn n) (step w home) (step e home) (step u home) (step d home)
+         (step-pawn-2 u e home) (step-pawn-2 u w home)
+         (step-pawn-2 d e home) (step-pawn-2 d w home)
+      )
+   )
+   (piece
+      (name Elephant)
+      (moves
+         (step-e nw home) (step-e sw home) (step-e ne home) (step-e se home)
+         (step-2-e u n home) (step-2-e u e home) (step-2-e u w home) (step-2-e u s home)
+         (step-2-e d n home) (step-2-e d e home) (step-2-e d w home) (step-2-e d s home)
+      )
+   )
+   (piece
+      (name Horse)
+      (moves
+         (step-2 n nw) (step-2 n ne) (step-2 s sw) (step-2 s se)
+         (step-2 w nw) (step-2 e ne) (step-2 w sw) (step-2 e se)
+         (jump-2 n u) (jump-2 e u) (jump-2 w u) (jump-2 s u)
+         (jump-2 n d) (jump-2 e d) (jump-2 w d) (jump-2 s d)
+         (jump-3 u u n) (jump-3 u u e) (jump-3 u u w) (jump-3 u u s)
+         (jump-3 d d n) (jump-3 d d e) (jump-3 d d w) (jump-3 d d s)
+      )
+   )
+   (piece
+      (name Chariot)
+      (moves
+         (slide n) (slide s) (slide w) (slide e) (slide u) (slide d)
+      )
+   )
+   (piece
+      (name Cannon)
+      (moves
+         (shoot n) (shoot s) (shoot w) (shoot e) (shoot u) (shoot d)
+      )
+   )
+   (piece
+      (name Unicorn)
+      (moves
+        (glide u nw) (glide u ne) (glide u sw) (glide u se)
+        (glide d nw) (glide d ne) (glide d sw) (glide d se)
+      )
+   )
+   (piece
+      (name Mandarin)
+      (moves
+         (step-m nw fortress) (step-m sw fortress) (step-m ne fortress) (step-m se fortress)
+         (step-2-m u n fortress) (step-2-m u e fortress) (step-2-m u w fortress) (step-2-m u s fortress)
+         (step-2-m d n fortress) (step-2-m d e fortress) (step-2-m d w fortress) (step-2-m d s fortress)
+      )
+   )
+   (piece
+      (name General)
+      (moves
+         (step-m n fortress) (step-m s fortress) (step-m w fortress) (step-m e fortress) (step-m u fortress) (step-m d fortress)
+      )
+   )
+)

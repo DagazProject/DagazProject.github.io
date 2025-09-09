@@ -1,0 +1,89 @@
+(define p
+  (piece
+     (name $1)
+  )
+)
+
+(game
+  (title "Rubik (4x4x4)")
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (dimensions ; -168
+           ("a/b/c/d" (84 0)) ; files
+           ("4/3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; -84
+           ("e/f/g/h" (84 0)) ; files
+           ("4/3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; 84
+           ("i/j/k/l" (84 0)) ; files
+           ("4/3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (grid
+         (dimensions ; 168
+           ("m/n/o/p" (84 0)) ; files
+           ("4/3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links u
+         (a1 e1) (b1 f1) (c1 g1) (d1 h1)
+         (a2 e2) (b2 f2) (c2 g2) (d2 h2)
+         (a3 e3) (b3 f3) (c3 g3) (d3 h3)
+         (a4 e4) (b4 f4) (c4 g4) (d4 h4)
+
+         (e1 i1) (f1 j1) (g1 k1) (h1 l1)
+         (e2 i2) (f2 j2) (g2 k2) (h2 l2)
+         (e3 i3) (f3 j3) (g3 k3) (h3 l3)
+         (e4 i4) (f4 j4) (g4 k4) (h4 l4)
+
+         (i1 m1) (j1 n1) (k1 o1) (l1 p1)
+         (i2 m2) (j2 n2) (k2 o2) (l2 p2)
+         (i3 m3) (j3 n3) (k3 o3) (l3 p3)
+         (i4 m4) (j4 n4) (k4 o4) (l4 p4)
+     )
+     (links d 
+         (e1 a1) (f1 b1) (g1 c1) (h1 d1)
+         (e2 a2) (f2 b2) (g2 c2) (h2 d2)
+         (e3 a3) (f3 b3) (g3 c3) (h3 d3)
+         (e4 a4) (f4 b4) (g4 c4) (h4 d4)
+
+         (i1 e1) (j1 f1) (k1 g1) (l1 h1)
+         (i2 e2) (j2 f2) (k2 g2) (l2 h2)
+         (i3 e3) (j3 f3) (k3 g3) (l3 h3)
+         (i4 e4) (j4 f4) (k4 g4) (l4 h4)
+
+         (m1 i1) (n1 j1) (o1 k1) (p1 l1)
+         (m2 i2) (n2 j2) (o2 k2) (p2 l2)
+         (m3 i3) (n3 j3) (o3 k3) (p3 l3)
+         (m4 i4) (n4 j4) (o4 k4) (p4 l4)
+     )
+  )
+
+  (p WRBGOY) (p WBORGY) (p WGROBY) (p WOGBRY)
+  (p RWGBYO) (p RBWYGO) (p RGYWBO) (p RYBGWO)
+  (p BWROYG) (p BRYWOG) (p BOWYRG) (p BYORWG)
+  (p GWORYB) (p GRWYOB) (p GOYWRB) (p GYROWB)
+  (p OWBGYR) (p OBYWGR) (p OGWYBR) (p OYGBWR)
+  (p YRGBOW) (p YBROGW) (p YGORBW) (p YOBGRW)
+
+  (board-setup
+     (You (WRBGOY a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4 d1 d2 d3 d4
+                  m1 m2 m3 m4 n1 n2 n3 n4 o1 o2 o3 o4 p1 p2 p3 p4
+                  e1 e2 e3 e4 h1 h2 h3 h4 i1 i2 i3 i4 l1 l2 l3 l4
+                  f1 f4 g1 g4 j1 j4 k1 k4))
+  )
+)

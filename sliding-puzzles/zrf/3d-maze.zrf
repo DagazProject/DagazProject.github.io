@@ -1,0 +1,64 @@
+(game
+  (title "3D Maze")
+  (descriprion " вант 1/92")
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0))
+           ("9/8/7/6/5/4/3/2/1" (0 50))
+         )
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0))
+           ("18/17/16/15/14/13/12/11/10" (0 50))
+         )
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i" (50 0))
+           ("27/26/25/24/23/22/21/20/19" (0 50))
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+         )
+     )
+  )
+
+  (piece
+     (name H)
+  )
+
+  (board-setup
+     (You (H a9    c9 d9 e9 f9 g9    i9 ; right (left->right)
+             a8          e8    g8    i8
+             a7 b7 c7 d7 e7    g7 h7 i7 
+             a6    c6                i6
+             a5    c5    e5 f5 g5 h5 i5
+             a4    c4    e4          i4
+             a3    c3    e3    g3 h3 i3
+             a2                      i2
+             a1 b1 c1    e1 f1 g1 h1 i1
+
+             a9 b9 c9 d9 e9    g9 h9 i9 ; left (left->right)
+             a8          e8          i8
+             a7 b7 c7    e7    g7 h7 i7
+             a6    c6          g6
+             a5    c5 d5 e5 f5 g5    i5
+             a4                g5    i5
+             a3 b3 c3    e3 f3 g3    i3
+                   c2                i2
+             a1 b1 c1 d1 e1 f1 g1 h1 i1
+
+             a9 b9 c9    e9 f9 g9 h9 i9 ; top (right->left)
+             a8                g9
+             a7 b7 c7 d7 e7 f7 g7    i7
+             a6                      i6
+             a5    c5 d5 e5 f5 g5    i5
+             a4    c4          g4    i4
+             a3 b3 c3    e3 f3 g3 h3 i3
+                   c2    e2
+             a1 b1 c1    e1 f1 g1 h1 i1
+     ))
+  )
+)

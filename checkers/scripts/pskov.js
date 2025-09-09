@@ -148,8 +148,9 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.IN_ZONE,	0);	// promotion
     design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.IF,	4);
-    design.addCommand(0, ZRF.MODE,	1);	// King
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.PROMOTE,	1);	// King
+    design.addCommand(0, ZRF.MODE,	2);	// continue-type
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.JUMP,	3);
     design.addCommand(0, ZRF.MODE,	0);	// jump-type

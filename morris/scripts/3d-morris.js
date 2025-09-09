@@ -21,6 +21,10 @@ ZRF = {
     VERIFY:        20
 };
 
+if (!_.isUndefined(Dagaz.Controller.addSound)) {
+    Dagaz.Controller.addSound(10, "../sounds/wind.wav");
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
@@ -85,12 +89,12 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPiece("Stone", 0);
     design.addDrop(0, 0, [], 1);
-    design.addMove(0, 1, [3], 0);
-    design.addMove(0, 1, [0], 0);
-    design.addMove(0, 1, [2], 0);
-    design.addMove(0, 1, [1], 0);
-    design.addMove(0, 1, [4], 0);
-    design.addMove(0, 1, [5], 0);
+    design.addMove(0, 1, [3], 0, 10);
+    design.addMove(0, 1, [0], 0, 10);
+    design.addMove(0, 1, [2], 0, 10);
+    design.addMove(0, 1, [1], 0, 10);
+    design.addMove(0, 1, [4], 0, 10);
+    design.addMove(0, 1, [5], 0, 10);
 
     design.reserve("Blue", "Stone", 3);
     design.reserve("Red", "Stone", 3);

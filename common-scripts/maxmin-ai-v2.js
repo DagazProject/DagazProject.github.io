@@ -24,7 +24,7 @@ function MaxMinAi(params, parent) {
 var findBot = Dagaz.AI.findBot;
 
 Dagaz.AI.findBot = function(type, params, parent) {
-  if ((type == "maxmin") || (type == "common") || (type == "1") || (type == "2")) {
+  if ((type == "maxmin") || (type == "common") || (type == "1") /*|| (type == "2")*/) {
       return new MaxMinAi(params, parent);
   } else {
       return findBot(type, params, parent);

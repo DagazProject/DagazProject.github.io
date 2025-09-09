@@ -1,0 +1,33 @@
+(define p
+  (piece
+     (name $1)
+  )
+)
+
+(game
+  (title "Rubik (3x3)")
+
+  (players You)
+  (turn-order You)
+
+  (board
+     (grid
+         (dimensions ; -84
+           ("a/b/c" (84 0)) ; files
+           ("3/2/1" (0 84)) ; ranks
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+  )
+
+  (p WRBGOY) (p WBORGY) (p WGROBY) (p WOGBRY)
+  (p RWGBYO) (p RBWYGO) (p RGYWBO) (p RYBGWO)
+  (p BWROYG) (p BRYWOG) (p BOWYRG) (p BYORWG)
+  (p GWORYB) (p GRWYOB) (p GOYWRB) (p GYROWB)
+  (p OWBGYR) (p OBYWGR) (p OGWYBR) (p OYGBWR)
+  (p YRGBOW) (p YBROGW) (p YGORBW) (p YOBGRW)
+
+  (board-setup
+     (You (WRBGOY a1 a2 a3 b1 b2 b3 c1 c2 c3))
+  )
+)

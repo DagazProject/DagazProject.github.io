@@ -2,8 +2,28 @@
 
 (function() {
 
-Dagaz.View.NO_PIECE = true;
-Dagaz.View.STEP_CNT = 3;
+const PIECE_TYPE = {
+   NONE:              0,
+   CUBE:              1,
+   MODEL:             2,
+   TOKEN:             3
+};
+
+const MOVE_TYPE = {
+   MOVE:              0,
+   ROTATE:            1,
+   REFRESH:           2,
+   PROMOTE:           3,
+   SOUND:             4
+};
+
+const TEXTURE_CANVAS_SZ = 256;
+
+Dagaz.View.NO_PIECE     = true;
+Dagaz.View.PIECE_TYPE   = PIECE_TYPE.NONE;
+Dagaz.View.STEP_CNT     = 3;
+Dagaz.View.SPEED        = 0.523;
+Dagaz.View.RENDER_ORDER = false;
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -16,13 +36,25 @@ const ANIMATE_STATE = {
   DONE:               2
 };
 
-let boardPresent   = false;
+const menus = [{
+  v:  true,
+  x:  5 + 3,
+  y:  5 + 3,
+  sx: 3,
+  sy: 0,
+  dx: 800,
+  dy: 200,
+  items: []
+}];
+
 let isConfigured   = false;
+let isSetuped      = false;
 let isInitialized  = false;
 let isFirstDraw    = true;
 let currPos        = null;
 let ko             = null;
 let cameraSettings = null;
+let onceResolve     = true;
 
 let lastX = null;
 let lastY = null;
@@ -39,8 +71,12 @@ const settings = {
 const PLAYER_1_COLOR = 0x101010;
 const PLAYER_2_COLOR = 0x505050;
 
-let allPositions = [];
-let playerColors = [];
+let allPositions     = [];
+let playerColors     = [];
+let pieceTypes       = [];
+let pieces           = [];
+let cubes            = [];
+let pieceKeys        = [];
 
 function getPlayerMaterial(player, transparent) {
     if (playerColors.length == 0) {
@@ -70,12 +106,14 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 const mobileCoeff = isTouchDevice ? 3 : 1;
 
 const clock = new THREE.Clock();
-let   prevTime = 0;
-let   tooltipIx = null;
-let   leastTouch = null;
+let   prevTime    = 0;
+let   tooltipIx   = null;
+let   tooltipHide = -1;
+let   leastTouch  = null;
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#Canvas'),
+    antialias: true
 });
 
 const sizes = {
@@ -101,13 +139,16 @@ const updateRender = () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio * 2, 2));
 };
 
-const lineMaterial   = new THREE.LineBasicMaterial({ color: 0x333333 });
+const lineMaterial   = new THREE.LineBasicMaterial({ color: 0x333333, transparent: true, opacity: 0.3});
 const redMaterial    = new THREE.LineBasicMaterial({ color: 0xFF0000 });
 
 const posGeometry    = new THREE.SphereGeometry(3, 32, 32);
 const dotGeometry    = new THREE.SphereGeometry(0.5, 15, 15);
 const koGeometry     = new THREE.SphereGeometry(1, 15, 15);
-const targetGeometry = new THREE.SphereGeometry(2, 32, 32);
+const targetSphere   = new THREE.SphereGeometry(2, 32, 32);
+const targetCylinder = new THREE.CylinderGeometry(3, 3, 1, 32);
+
+let targetGeometry   = targetSphere;
 
 const koMaterial = new THREE.MeshStandardMaterial({
     color: 0xFF0000,
@@ -115,8 +156,10 @@ const koMaterial = new THREE.MeshStandardMaterial({
     roughness: 0.2
 });
 
+Dagaz.View.TARGET_COLOR = 0x004000;
+
 const targetMaterial = new THREE.MeshStandardMaterial({
-    color: 0x003200,
+    color: Dagaz.View.TARGET_COLOR,
     metalness: 0.2,
     roughness: 0.7
 });
@@ -146,10 +189,10 @@ function View3D() {
   this.hots    = [];
   this.filled  = [];
   this.setup   = [];
-  this.ctrls   = [];
   this.ko      = [];
   this.targets = [];
   this.queue   = [];
+  this.boards  = [];
   this.ready   = false;
 }
 
@@ -190,6 +233,7 @@ View3D.prototype.clearTargets = function() {
 }
 
 View3D.prototype.markPositions = function(type, positions) {
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (type == Dagaz.View.markType.TARGET) {
       this.clearTargets();
       this.targets = positions;
@@ -210,6 +254,9 @@ View3D.prototype.markPositions = function(type, positions) {
           const p = this.pos[this.ko[0]];
           if (p) {
               ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
+              if (Dagaz.View.RENDER_ORDER) {
+                  ko.renderOrder = 2;
+              }
           }
       } else {
           if (ko !== null) {
@@ -222,7 +269,7 @@ View3D.prototype.markPositions = function(type, positions) {
 
 View3D.prototype.init = function(canvas, controller) {
   if (!isInitialized) {
-     scene.background = new THREE.Color('#eee');
+     scene.background = new THREE.Color(0xE5E5E5);
      camera.position.set(settings.x, settings.z, settings.y);
      camera.lookAt(0, 0, 0);
      const ambientLight = new THREE.AmbientLight('white', 2);
@@ -244,38 +291,212 @@ View3D.prototype.clear = function() {
   this.setup  = [];
   this.filled = [];
   this.invalidate();
+  _.each(pieces, function(p) {
+      scene.remove(p);
+  });
+  _.each(cubes, function(p) {
+      scene.remove(p);
+  });
+  pieces = [];
+  cubes = [];
+}
+
+function getCube(pos) {
+  for (let i = 0; i < cubes.length; i++) {
+      if (cubes[i].pos == pos) return cubes[i];
+  }
+  return null;
+}
+
+View3D.prototype.groupCubes = function(move) {
+  const group = new THREE.Group();
+  let isChanged = false;
+  _.each(move.actions, function(a) {
+      if (a[0] === null) return;
+      const piece = getCube(a[0][0]);
+      if (piece === null) return;
+      group.add(piece);
+      scene.remove(piece);
+      cubes = _.without(cubes, piece);
+      pieces = _.without(pieces, piece);
+      isChanged = true;
+  });
+  scene.add(group);
+  cubes.push(group);
+  if (isChanged) this.invalidate();
+  return group;
+}
+
+function addCube(p, pos, model) {
+  const v = model.getValue(0);
+  let gg = null;
+  if (v !== null) {
+      _.each(cubes, function(group) {
+            if (group.groupId === null) return;
+            if (group.groupId != v) return;
+            gg = group;
+      });
+  }
+  const pieceType = pieceTypes[model.type*10 + (+model.player)];
+  const materials = [
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
+  ];
+  const group = new THREE.Group();
+  let pieceGeometry = null;
+  group.pos = pos;
+  if (gg !== null) {
+      gg.params.c++;
+      gg.params.nx  = Math.min(gg.params.nx, p.x - p.dx/2);
+      gg.params.mx  = Math.max(gg.params.mx, p.x + p.dx/2);
+      gg.params.ny  = Math.min(gg.params.ny, p.y - p.dy/2);
+      gg.params.my  = Math.max(gg.params.my, p.y + p.dy/2);
+      gg.params.nz  = Math.min(gg.params.nz, p.z - p.dz/2);
+      gg.params.mz  = Math.max(gg.params.mz, p.z + p.dz/2);
+      gg.params.x   = (gg.params.mx + gg.params.nx) / 2;
+      gg.params.y   = (gg.params.my + gg.params.ny) / 2;
+      gg.params.z   = (gg.params.mz + gg.params.nz) / 2;
+      gg.params.dx  = (gg.params.mx - gg.params.nx);
+      gg.params.dy  = (gg.params.my - gg.params.ny);
+      gg.params.dz  = (gg.params.mz - gg.params.nz);
+      pieceGeometry = new THREE.BoxGeometry(gg.params.dx / 10, gg.params.dz / 10, gg.params.dy / 10);
+      group.params  = gg.params;
+      scene.remove(gg);
+      pieces = _.filter(pieces, function(p) {
+         return p.groupId != v;
+      });
+      cubes = _.filter(cubes, function(p) {
+         return p.groupId != v;
+      });
+  } else {
+      pieceGeometry = new THREE.BoxGeometry(p.dx / 10, p.dz / 10, p.dy / 10);
+      group.params  = {
+         x: p.x, dx: p.dx, nx: p.x - p.dx/2, mx: p.x + p.dx/2,
+         y: p.y, dy: p.dy, ny: p.y - p.dy/2, my: p.y + p.dy/2,
+         z: p.z, dz: p.dz, nz: p.z - p.dz/2, mz: p.z + p.dz/2,
+         c: 1, id: v
+      };
+  }
+  const piece = new THREE.Mesh(pieceGeometry, materials);
+  piece.pos = pos;
+  piece.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
+  piece.groupId = v;
+  group.groupId = v;
+  group.add(piece);
+  const edgeColor = 0x000000;
+  const edgesGeometry = new THREE.EdgesGeometry(pieceGeometry);
+  const edgesMaterial = new THREE.LineBasicMaterial({ 
+        color: edgeColor,
+        linewidth: 3
+  });
+  const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+  group.add(edges);
+  group.position.set(group.params.x / 10, group.params.z / 10, group.params.y / 10);
+  group.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
+  pieces.push(piece);
+  return group;
 }
 
 View3D.prototype.addPiece = function(piece, pos, model) {
   this.filled.push(+pos);
-  const p = this.pos[pos].p;
-  p.material = getPlayerMaterial(model.player, false);
+  const p = this.pos[pos];
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
+      const pieceType = pieceTypes[model.type*10 + model.player];
+      const piece = new THREE.Mesh(pieceType.geometry, [pieceType.matborder, pieceType.mattop]);
+      piece.pos = pos;
+      piece.type = pieceType;
+      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          piece.renderOrder = 2;
+      }
+      piece.scale.set(2.5, 2.5, 2.5);
+      scene.add(piece);   
+      pieces.push(piece);
+  } else if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
+      const pieceType = pieceTypes[model.type*10 + model.player];
+      const piece = new THREE.Mesh(pieceType.geometry, pieceType.material);
+      if (model.player == 1) {
+          piece.rotation.y = Math.PI;
+      }
+      piece.pos = pos;
+      piece.type = pieceType;
+      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          piece.renderOrder = 2;
+      }
+      piece.scale.set(2.5, 2.5, 2.5);
+      scene.add(piece);   
+      pieces.push(piece);
+  } else if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) {
+      const group = addCube(p, pos, model);
+      if (Dagaz.View.RENDER_ORDER) {
+          group.renderOrder = 2;
+      }
+      scene.add(group);   
+      cubes.push(group);
+  } else if (Dagaz.View.NO_PIECE) {
+      p.p.material = getPlayerMaterial(model.player, false);
+  }
 }
 
 View3D.prototype.sync = function(board) {
   this.board = board;
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) {
+      _.each(cubes, function(p) {
+          scene.remove(p);
+      });
+      cubes = [];
+      pieces = [];
+      board.setup(this, false);
+      this.invalidate();
+  }
 }
 
-View3D.prototype.defBoard = function(res) {
-  const img = document.getElementById(res);
-  const texture = textureLoader.load(
-    img.currentSrc,
-    () => {this.invalidate();},
-    undefined,
-    undefined,
-    { crossOrigin: 'anonymous' }
-  );
-  var board = {
-     h: img,
-     t: texture
-  };
-  this.res.push(board);
-  boardPresent = true;
+View3D.prototype.findRes = function(res) {
+  for (let i = 0; i < this.res.length; i++) {
+       if (this.res[i].r == res) return this.res[i];
+  }
+  return null;
+}
+
+View3D.prototype.defBoard = function(res) {}
+
+View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res, opacity) {
+  if (_.isUndefined(opacity)) opacity = 1;
+  let board = null;
+  if (!_.isUndefined(res)) {
+      board = this.findRes(res);
+      if (board === null) {
+          const img = document.getElementById(res);
+          const texture = textureLoader.load(
+            img.currentSrc,
+            () => {this.invalidate();},
+            undefined,
+            undefined,
+            { crossOrigin: 'anonymous' }
+          );
+          board = {
+             r: res,
+             h: img,
+             t: texture
+          };
+          this.res.push(board);
+      }
+  }
+  this.boards.push({
+     dx: dx, dy: dy, dz: dz, z: z,
+     colors: colors, img: board,
+     opacity: opacity
+  });
 }
 
 View3D.prototype.clearControls = function() {
-  for (let i = 0; i < this.ctrls.length; i++) {
-       if ((this.ctrls[i].y == 1) || (this.ctrls[i].y == 2)) this.ctrls[i].v = false;
+  for (let i = 0; i < menus[0].items.length; i++) {
+       if ((menus[0].items[i].y == 1) || (menus[0].items[i].y == 2)) menus[0].items[i].v = false;
   }
   this.invalidate();
 }
@@ -284,9 +505,9 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
   if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var type = 0;
   if (!_.isArray(imgs)) {
-     if (imgs == "UndoControl")   type = 1;
-     if (imgs == "RedoControl")   type = 2;
-     if (imgs == "CameraControl") type = 3;
+     if (imgs == "UndoControl") type = 1;
+     if (imgs == "RedoControl") type = 2;
+     if (imgs == "HomeControl") type = 3;
      imgs = [imgs];
   }
   imgs = _.map(imgs, function(res) {
@@ -294,7 +515,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      this.res.push({h:img});
      return img;
   }, this);
-  this.ctrls.push({
+  menus[0].items.push({
      h: imgs,
      x: 0,
      t: hint,
@@ -303,6 +524,84 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      a: args,
      y: type
   });
+}
+
+View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args) {
+  if (_.isUndefined(menus[ix])) {
+      menus[ix] = {
+         v: false,
+         x: 3  + 5,
+         y: 50 + 5,
+         sx: 3,
+         sy: 0,
+         dx: 300,
+         dy: 70,
+         items: []
+      };
+  }
+  if (_.isUndefined(isVisible)) isVisible = true;
+  if (!_.isArray(imgs)) {
+     imgs = [imgs];
+  }
+  imgs = _.map(imgs, function(res) {
+     const img = document.getElementById(res);
+     this.res.push({h:img});
+     return img;
+  }, this);
+  menus[ix].items.push({
+     h: imgs,
+     x: 0,
+     t: hint,
+     v: isVisible,
+     p: proc,
+     a: args
+  });
+}
+
+View3D.prototype.defPieceToken = function(type, player, path, model, image, bump) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
+  const key = type*10 + player;
+  const img = document.getElementById(image);
+  this.res.push({h: img});
+  const bmp = document.getElementById(bump);
+  this.res.push({h: bmp});
+  pieceKeys.push(key);
+  pieceTypes[key] = {
+//   type: PIECE_TYPE.TOKEN,
+     type:   type,
+     player: player,
+     model:  path + '/' + model,
+     image:  img,
+     bump:   bmp
+  };
+}
+
+View3D.prototype.defPieceModel = function(type, player, path, model, color) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
+  const key = type*10 + player;
+  pieceKeys.push(key);
+  pieceTypes[key] = {
+//   type: PIECE_TYPE.MODEL,
+     type: type,
+     player: player,
+     model: path + '/' + model + '/' + model + '.js',
+     color: color,
+     textures: {
+         diffuse: path + '/' + model + '/' + model + '-diffusemap.jpg',
+         normal: path + '/' + model + '/' + model + '-normalmap.jpg'
+     }
+  };
+}
+
+View3D.prototype.defPieceCube = function(type, player, colors) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.CUBE;
+  pieceTypes[type*10 + player] = {
+     type: PIECE_TYPE.CUBE,
+     colors: colors
+  };
 }
 
 View3D.prototype.defPiece = function(type, player, color) {
@@ -316,13 +615,22 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   }
   var ix = Dagaz.Model.stringToPos(name);
   const p = new THREE.Mesh(posGeometry, posMaterial);
-  p.position.set((x / 10) + settings.dx, (z / 10) + settings.dz, (y / 10) + settings.dy);
+  p.position.set((x / 10), (z / 10), (y / 10));
+  if (Dagaz.View.RENDER_ORDER) {
+      p.renderOrder = 2;
+  }
   p.name = name;
   p.ix = ix;
   p.isPosition = true;
   allPositions.push(p);
+  if (Dagaz.View.TARGET_FLAT) {
+      targetGeometry = targetCylinder; 
+  }
   const t = new THREE.Mesh(targetGeometry, posMaterial);
-  t.position.set((x / 10) + settings.dx, (z / 10) + settings.dz, (y / 10) + settings.dy);
+  t.position.set((x / 10), (z / 10), (y / 10));
+  if (Dagaz.View.RENDER_ORDER) {
+      t.renderOrder = 2;
+  }
   this.pos[ix] = {
       x: x, dx: dx,
       y: y, dy: dy,
@@ -342,6 +650,101 @@ View3D.prototype.allResLoaded = function() {
        this.res[i].dx = image.naturalWidth;
        this.res[i].dy = image.naturalHeight;
   }
+  if (onceResolve && ((Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) || (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN))) {
+      onceResolve = false;
+      const loadingManager = new THREE.LoadingManager();
+      const textureLoader = new THREE.TextureLoader(loadingManager);
+      const jsonLoader = new THREE.JSONLoader(loadingManager);
+      let res = [];
+      for (let i = 0; i < pieceKeys.length; i++) {
+           const key = pieceKeys[i];
+           if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
+               const d = new Promise((resolve) => {
+                 textureLoader.load(pieceTypes[key].textures.diffuse, resolve);
+               });
+               res.push(d);
+               const t = new Promise((resolve) => {
+                 textureLoader.load(pieceTypes[key].textures.normal, resolve);
+               });
+               res.push(t);
+           }
+           const m = new Promise((resolve, reject) => {
+                 jsonLoader.load(pieceTypes[key].model, (geometry, materials) => {
+                     resolve({ geometry, materials });
+                 }, undefined, reject);
+           });
+           res.push(m);
+      }
+      if (res.length > 0) {
+          Promise.all(res).then((results) => {
+                for (let i = 0; i < pieceKeys.length; i++) {
+                     const key = pieceKeys[i];
+                     let modelData;
+                     if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
+                         modelData = results[i * 3 + 2];
+                         const diffuseMap = results[i * 3];
+                         const normalMap = results[i * 3 + 1];
+                         const color = pieceTypes[key].color;
+                         pieceTypes[key].material = new THREE.MeshStandardMaterial({
+                             map: diffuseMap,
+                             normalMap: normalMap,
+                             metalness: 0.3,
+                             roughness: 0.7,
+                             color: color,
+                             emissive: 0x111111,
+                             emissiveIntensity: 1.4,
+                             side: THREE.DoubleSide
+                         });
+                     }
+                     if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
+                         modelData = results[i];
+                         const specular="#050505", shininess=30, color=0x3F3F3F;
+
+                         var canvasDiffuse = document.createElement('canvas');
+                         canvasDiffuse.width = canvasDiffuse.height=TEXTURE_CANVAS_SZ;
+                         var textureDiff = new THREE.Texture(canvasDiffuse);
+                         var ctxDiff = canvasDiffuse.getContext("2d");
+                         ctxDiff.drawImage(pieceTypes[key].image, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                         textureDiff.needsUpdate = true;
+
+                         var canvasBump = document.createElement('canvas');
+                         canvasBump.width = canvasBump.height=TEXTURE_CANVAS_SZ;
+                         var textureBump = new THREE.Texture(canvasBump);
+                         var ctxBump = canvasBump.getContext("2d");
+                         ctxBump.drawImage(pieceTypes[key].bump, 0, 0, TEXTURE_CANVAS_SZ,TEXTURE_CANVAS_SZ);
+                         textureBump.needsUpdate = true;
+
+                         pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
+                               name: "piecetop",
+                               color : color,
+                               specular: specular,
+                               shininess: shininess,
+                               map: textureDiff,
+                               bumpMap: textureBump,
+                               bumpScale: 0.2
+                         });
+
+                         pieceTypes[key].matborder=new THREE.MeshPhongMaterial({
+                               name: "pieceborders",
+                               color : color,
+                               specular: specular,
+                               shininess: shininess
+                         });
+                     }
+                     pieceTypes[key].geometry = modelData.geometry;
+                }
+          }).catch((error) => {
+                console.error('Error loading assets:', error);
+          });
+          return false;
+      }
+  } else {
+      for (let i = 0; i < pieceKeys.length; i++) {
+          const key = pieceKeys[i];
+          if (_.isUndefined(pieceTypes[key].material) && (_.isUndefined(pieceTypes[key].mattop || pieceTypes[key].matborder))) return false;
+          if (_.isUndefined(pieceTypes[key].geometry)) return false;
+      }
+  }
   this.ready = true;
   return true;
 }
@@ -352,18 +755,25 @@ const ctx = overlay.getContext('2d');
 View3D.prototype.configure = function() {
   if (!isConfigured && this.controller) {
       Dagaz.View.configure(this);
-      var board = this.controller.getBoard();
-      board.setup(this, true);
-      this.controller.done();
       isConfigured = true;
 
       // DEBUG:
-      overlay.width = 800;
-      overlay.height = 600;  
+      overlay.width = 1200;
+      overlay.height = 150;  
+  }
+}
+
+View3D.prototype.initBoard = function() {
+  if (!isSetuped && this.controller) {
+      isSetuped = true;
+      var board = this.controller.getBoard();
+      board.setup(this, true);
+      this.controller.done();
   }
 }
 
 View3D.prototype.reInit = function(board) {
+  this.clear();
   board.setup(this, false);
   this.invalidate();
 }
@@ -390,8 +800,8 @@ View3D.prototype.setHots = function(positions) {
 }
 
 View3D.prototype.showControl = function(type, isVisible) {
-  for (let i = 0; i < this.ctrls.length; i++) {
-     const t = this.ctrls[i];
+  for (let i = 0; i < menus[0].items.length; i++) {
+     const t = menus[0].items[i];
      if (t.y == type) {
          t.v = isVisible;
          this.invalidate();
@@ -429,30 +839,16 @@ function drawTooltip(text, x, y) {
   });
 }
 
+Dagaz.View.switchMenu = function(ix) {
+  menus[ix].v = !menus[ix].v;
+  Dagaz.View.view.invalidate();
+}
+
 View3D.prototype.invalidate = function() {
-  renderer.render(scene, camera);
-  let o = 5 + 3; let h = null;
-  ctx.clearRect(o, 5 + 3, 300 * mobileCoeff, 70 * mobileCoeff);
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
-      if (!t.v) continue;
-      ctx.clearRect(o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
-                            , o, 5 + 3, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      if ((tooltipIx !== null) && (tooltipIx == i) && t.t) {
-         h = {
-            t: t.t,
-            x: o,
-            y: 60
-         };
-      }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
-  }
-  for (let i = 0; i < this.ctrls.length; i++) {
-      if (this.ctrls[i].y == 3) {
-          this.ctrls[i].t = Math.round(camera.position.x) + "," + Math.round(camera.position.y) + "," + Math.round(camera.position.z);
-          break;
-      }
+  let h = null;
+  for (let i = 0; i < menus.length; i++) {
+       const x = this.menuDraw(menus[i]);
+       if (h === null) h = x;
   }
   const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
   if ((cameraSettings === null) || (cameraSettings != s)) {
@@ -462,12 +858,36 @@ View3D.prototype.invalidate = function() {
   if (h !== null) {
       drawTooltip(h.t, h.x, h.y);
   }
+  renderer.render(scene, camera);
 }
 
-View3D.prototype.menuClick = function(x) {
-  let o = 3;
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
+View3D.prototype.menuDraw = function(m) {
+  if (!m.v) return null;
+  let o = m.x; let h = null;
+  ctx.clearRect(o, m.y, m.dx * mobileCoeff, m.dy * mobileCoeff);
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
+      if (!t.v) continue;
+      ctx.clearRect(o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
+                            , o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+      if ((tooltipIx !== null) && (tooltipIx == i) && (tooltipIx != tooltipHide) && t.t) {
+         h = {
+            t: t.t,
+            x: o,
+            y: t.h[t.x].naturalHeight * 2
+         };
+      }
+      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+  }
+  return h;
+}
+
+View3D.prototype.menuClick = function(x, m) {
+  if (_.isUndefined(m)) m = menus[0];
+  let o = m.sx;
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
       if (!t.v) continue;
       if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
          if (t.h.length > 1) {
@@ -479,22 +899,34 @@ View3D.prototype.menuClick = function(x) {
          if (!_.isUndefined(t.p)) {
              t.p(t.a);
          }
+         tooltipHide = tooltipIx;
          this.invalidate();
       }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+      o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
   }
 }
 
-View3D.prototype.menuHint = function(x) {
-  let o = 3;
-  for (let i = 0; i < this.ctrls.length; i++) {
-      const t = this.ctrls[i];
+View3D.prototype.menuHint = function(x, m) {
+  if (_.isUndefined(m)) m = menus[0];
+  let o = m.sx;
+  for (let i = 0; i < m.items.length; i++) {
+      const t = m.items[i];
       if (!t.v) continue;
       if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
           return i;
       }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
+      o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
   }
+}
+
+function rotateAroundWorldAxis(obj, axis, point, angle) {
+  const localAxis = new THREE.Vector3().copy(axis).normalize();
+  const quaternion = new THREE.Quaternion();
+  quaternion.setFromAxisAngle(localAxis, angle);
+  obj.position.sub(point);
+  obj.position.applyQuaternion(quaternion);
+  obj.position.add(point);
+  obj.rotateOnWorldAxis(axis, angle);
 }
 
 View3D.prototype.animate = function() {
@@ -518,6 +950,62 @@ View3D.prototype.animate = function() {
   if (!ready) return;
   let changed = false;
   _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.SOUND) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      Dagaz.Controller.play(q.sound);
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.PROMOTE) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      const piece = new THREE.Mesh(q.pieceType.geometry, q.pieceType.material);
+      if (q.player == 1) {
+          piece.rotation.y = Math.PI;
+      }
+      piece.pos = q.piece.pos;
+      piece.type = q.pieceType;
+      const p = this.pos[piece.pos];
+      piece.position.set(p.x / 10, p.z / 10, p.y / 10);
+      if (Dagaz.View.RENDER_ORDER) {
+          piece.renderOrder = 2;
+      }
+      piece.scale.set(2.5, 2.5, 2.5);
+      this.removePiece(q.piece.pos);
+      scene.remove(q.piece);
+      scene.add(piece);
+      pieces.push(piece);
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.REFRESH) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      Dagaz.Controller.app.boardApply(q.move);
+      q.state = ANIMATE_STATE.DONE;
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.ROTATE) return;
+      if (q.state != ANIMATE_STATE.READY) return;
+      if (q.phase != phase) return;
+      if (q.steps > 0) {
+          q.steps--;
+          if (q.offset !== null) {
+              rotateAroundWorldAxis(q.piece, q.axis, q.offset, Dagaz.View.SPEED);
+          } else {
+              q.piece.rotateOnAxis(q.axis, Dagaz.View.SPEED);
+          }
+      } else {
+          q.state = ANIMATE_STATE.DONE;
+      }
+      changed = true;
+  }, this);
+  _.each(this.queue, function(q) {
+      if (q.type  != MOVE_TYPE.MOVE) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
       if (q.steps > 0) {
@@ -554,19 +1042,37 @@ View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   currPos = null;
 }
 
+View3D.prototype.findPiece = function(pos) {
+  for (let i = 0; i < pieces.length; i++) {
+       if (pieces[i].pos == pos) return i;
+  }
+  return -1;
+}
+
 View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
-  if (from == to) return;
   if (!phase) { phase = 1; }
   if (!steps) { steps = Dagaz.View.STEP_CNT; }
-  let start = null;
-  if (Dagaz.View.NO_PIECE) {
-      start = this.pos[from];
+  const start = this.pos[from];
+  const stop  = this.pos[to];
+  if (from == to) {
+      if (Dagaz.View.NO_PIECE) {
+          start.p.material = getPlayerMaterial(piece.player, false);
+      }
+      return;
   }
-  const stop = this.pos[to];
+  let mesh = start.p;
+  if (!Dagaz.View.NO_PIECE) {
+      const ix = this.findPiece(from);
+      if (ix >= 0) {
+          mesh = pieces[ix];
+          pieces[ix].pos = to;
+      } else return;
+  }
   if (!start || !stop) return;
   this.queue.push({
+      type:  MOVE_TYPE.MOVE,
       state: ANIMATE_STATE.INIT,
-      piece: start.p,
+      piece: mesh,
       final: stop.p,
       phase: phase,
       steps: steps,
@@ -578,17 +1084,43 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
+  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE && (Dagaz.View.PIECE_TYPE != PIECE_TYPE.TOKEN)) {
+      const pieceType = pieceTypes[piece.type*10 + piece.player];
+      this.queue.push({
+         type:  MOVE_TYPE.PROMOTE,
+         state: ANIMATE_STATE.INIT,
+         phase: phase + 1,
+         player: piece.player,
+         piece: mesh,
+         pieceType: pieceType
+      });
+  }
   this.filled = _.without(this.filled, +from);
   this.filled.push(+to);
+}
+
+View3D.prototype.removePiece = function(pos) {
+  const ix = this.findPiece(pos);
+  if (ix >= 0) {
+      scene.remove(pieces[ix]);
+      const l = [];
+      for (let i = 0; i < pieces.length; i++) {
+           if (i == ix) continue;
+           l.push(pieces[i]);
+      }
+      pieces = l;
+  }
 }
 
 View3D.prototype.capturePiece = function(move, pos, phase) {
   if (!phase) { phase = 1; }
   this.filled = _.without(this.filled, +pos);
   const p = this.pos[pos].p;
-  p.material = posMaterial;
-  // TODO:
-
+  if (Dagaz.View.NO_PIECE) {
+      p.material = posMaterial;
+  } else {
+      this.removePiece(pos);
+  }
 }
 
 View3D.prototype.commit = function(move) {
@@ -633,22 +1165,28 @@ View3D.prototype.addDir = function(p, q, f) {
 View3D.prototype.draw = function(canvas) {
   this.configure();
   if (this.allResLoaded()) {
+      this.initBoard();
       this.animate();
       const elapsedTime = clock.getElapsedTime();
       const deltaTime = elapsedTime - prevTime;
       prevTime = elapsedTime;
       if (isFirstDraw) {
-         if (boardPresent) {
-            const boardGeometry = new THREE.BoxGeometry(this.res[0].dx / 10, 1, this.res[0].dy / 10);
+         for (let i = 0; i < this.boards.length; i++) {
+            const b = this.boards[i];
+            const boardGeometry = new THREE.BoxGeometry(b.dx / 10, 1, b.dy / 10);
             const materials = [
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ map: this.res[0].t }),
-               new THREE.MeshBasicMaterial({ color: '#FFEDCB', transparent: true, opacity: 0.3 }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' }),
-               new THREE.MeshBasicMaterial({ color: '#AC5146' })
+               new THREE.MeshBasicMaterial({ color: b.colors[2] }),
+               new THREE.MeshBasicMaterial({ color: b.colors[3] }),
+               new THREE.MeshBasicMaterial((b.img !== null) ? { map: b.img.t, transparent: true, opacity: b.opacity } : { color: b.colors[i] } ),
+               new THREE.MeshBasicMaterial({ color: b.colors[5], transparent: true, opacity: 0.3 }),
+               new THREE.MeshBasicMaterial({ color: b.colors[1] }),
+               new THREE.MeshBasicMaterial({ color: b.colors[4] })
             ];
             const boardBlock = new THREE.Mesh(boardGeometry, materials);
+            boardBlock.position.set(0, b.z / 10, 0);
+            if (Dagaz.View.RENDER_ORDER) {
+                boardBlock.renderOrder = 1;
+            }
             scene.add(boardBlock);
          }
          if (!_.isUndefined(Dagaz.View.augBoard)) {
@@ -679,16 +1217,42 @@ function processMenu({x, y, click}) {
     mouse.x = x - 5;
     mouse.y = y - 5;
     let ix = null;
-    if ((mouse.y > 0) && (mouse.y < 38 * mobileCoeff)) {
-        ix = Dagaz.View.view.menuHint(mouse.x);
+    if ((mouse.y > 0) && (mouse.y < 100 * mobileCoeff)) {
+        if (mouse.y < 50 * mobileCoeff) {
+            ix = Dagaz.View.view.menuHint(mouse.x);
+        }
         if (click) {
-            Dagaz.View.view.menuClick(mouse.x);
+            for (let i = 0; i < menus.length; i++) {
+                if (!menus[i].v) continue;
+                if (y < menus[i].y) continue;
+                if (y > menus[i].y + 32) continue;
+                Dagaz.View.view.menuClick(mouse.x, menus[i]);
+            }
         }
     }
     if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
-        tooltipIx = ix;
+        tooltipIx   = ix;
+        tooltipHide = -1;
         Dagaz.View.view.invalidate();
     }
+}
+
+function getWorldFaceNormal(intersection) {
+    const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersection.object.matrixWorld);
+    return intersection.face.normal.clone().applyMatrix3(normalMatrix).normalize();
+}
+
+Dagaz.View.getMove = function(camera, x, y, z, pos, board) {
+  return null;
+}
+
+function getMove(camera, x, y, z, positions, board) {
+  let r = null;
+  for (let i = 0; i < positions.length; i++) {
+      r = Dagaz.View.getMove(camera, x, y, z, positions[i], board);
+      if (r !== null) break;
+  }
+  return r;
 }
 
 function mouseMove({x, y}, clean = false) {
@@ -717,10 +1281,69 @@ function mouseMove({x, y}, clean = false) {
   if(clean) {
       if ((Math.abs(lastX - x) <= 10) && (Math.abs(lastY - y) <= 10)) {
           let pos = currPos;
-          if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
-              const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
-              if ((intersects.length > 0) && intersects[0].object.isPosition) {
-                  pos = intersects[0].object;
+          if ((pieces.length > 0) && (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE)) {
+              const intersects = raycaster.intersectObjects(pieces);
+              const view = Dagaz.View.view;
+              if ((intersects.length > 0) && (view.queue.length == 0)) {
+                  const intersection = intersects[0];
+                  const faceNormal = getWorldFaceNormal(intersection);
+                  const move = getMove(camera, faceNormal.x, faceNormal.y, faceNormal.z, intersection.object.positions, Dagaz.Controller.app.board);
+                  if (move !== null) {
+                      let axis = null; let offset = null;
+                      if (!_.isUndefined(Dagaz.View.getAxis)) {
+                          axis = Dagaz.View.getAxis(move);
+                      }
+                      if (!_.isUndefined(Dagaz.View.getRotate)) {
+                          const r = Dagaz.View.getRotate(move);
+                          axis = r.axis;
+                          offset = r.offset;
+                      }
+                      const group = view.groupCubes(move);
+                      if (!Dagaz.Controller.viewOff && (axis !== null)) {
+                          view.queue.push({
+                             type:   MOVE_TYPE.ROTATE,
+                             state:  ANIMATE_STATE.INIT,
+                             piece:  group,
+                             axis:   axis,
+                             offset: offset,
+                             phase:  1,
+                             steps:  Dagaz.View.STEP_CNT
+                          });
+                      }
+                      if (!_.isUndefined(Dagaz.Controller.play)) {
+                         let sound = Dagaz.Sounds.move;
+                         if (!_.isUndefined(move.sound)) {
+                             sound = this.move.sound;
+                         }
+                         if (Dagaz.Controller.customSound) {
+                             view.queue.push({
+                                type:   MOVE_TYPE.SOUND,
+                                state:  ANIMATE_STATE.INIT,
+                                sound:  sound,
+                                phase:  2
+                             });
+                         } else {
+                             Dagaz.Controller.play(sound);
+                         }
+                      }
+                      view.queue.push({
+                         type:  MOVE_TYPE.REFRESH,
+                         state: ANIMATE_STATE.INIT,
+                         phase: 3,
+                         move:  move
+                      });
+                      view.commit(move);
+                  }
+              }
+          } else {
+              if ((pos === null) && !_.isUndefined(Dagaz.View.view.hots)) {
+                  const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
+                  if (intersects.length > 0) {
+                      const intersection = intersects[0];
+                      if (intersection.object.isPosition) {
+                          pos = intersection.object;
+                      }
+                  }
               }
           }
           if (pos !== null) {
@@ -741,6 +1364,7 @@ window.addEventListener('mousedown', (event) => {
 });
 window.addEventListener('mousemove', (event) => {
   mouseMove({x: event.clientX, y: event.clientY});
+  if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (Dagaz.Controller.app && !_.isUndefined(Dagaz.View.view.hots)) {
       const intersects = raycaster.intersectObjects(Dagaz.View.view.hots);
       if ((intersects.length > 0) && intersects[0].object.isPosition) {

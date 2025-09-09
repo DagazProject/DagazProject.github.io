@@ -1,0 +1,36 @@
+(define drop (
+  (verify empty?)
+  add
+))
+
+(game
+  (title "Reversi 3D")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (grid
+         (dimensions
+           ("a/b/c/d/e/f" (84 0)) ; files
+           ("6/5/4/3/2/1" (0 84)) ; ranks
+           ("F/E" (0 0))
+         )
+         (directions (n 0 -1) (s 0 1) (e 1 0) (w -1 0))
+     )
+     (links u
+         (a1E a1F)
+     )
+     (links d 
+         (a1F a1E)
+     )
+  )
+
+  (piece
+     (name Stone)
+     (drops
+        (drop)
+     )
+  )
+
+)
