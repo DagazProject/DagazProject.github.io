@@ -686,7 +686,7 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   if (Dagaz.View.TARGET_FLAT) {
       targetGeometry = new THREE.CylinderGeometry(Dagaz.View.TARGET_RADIUS, Dagaz.View.TARGET_RADIUS, 1, 32);
   } else {
-      targetGeometry = THREE.SphereGeometry(Dagaz.View.TARGET_RADIUS, 32, 32); 
+      targetGeometry = new THREE.SphereGeometry(Dagaz.View.TARGET_RADIUS, 32, 32); 
   }
   const t = new THREE.Mesh(targetGeometry, posMaterial);
   t.position.set((x / 10), (z / 10), (y / 10));
