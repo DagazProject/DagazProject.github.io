@@ -1,0 +1,156 @@
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if enemy?
+      (add $2)
+   else
+      add
+  )
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  (if enemy?
+      (add $2)
+   else
+      add
+  )
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  (add $2)
+))
+
+(game
+  (title "Hidari Shogi")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+      (image "images/hidari/board.bmp")
+      (grid
+           (start-rectangle 77 30 179 132)
+           (dimensions ("a/b/c/d/e" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+           )
+           (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                       (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+           )
+      )
+      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (zone (name board-zone) (players South North)
+            (positions a1 b1 c1 d1 e1
+                       a2 b2 c2 d2 e2
+                       a3 b3 c3 d3 e3
+                       a4 b4 c4 d4 e4
+                       a5 b5 c5 d5 e5
+                       a6 b6 c6 d6 e6
+            )
+      )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/hidari/sking.bmp" 
+              North "images/hidari/nking.bmp")
+       (moves
+           (step n King) (step nw King)
+           (step s King) (step se King)
+           (step w King) (step sw King)
+           (step e King) (step ne King)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/hidari/sgold.bmp" 
+              North "images/hidari/ngold.bmp")
+       (moves
+           (step n Knight) (step nw Knight)
+           (step s Knight) (step ne Knight)
+           (step w Knight) (step e  Knight) 
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/hidari/ssilver.bmp" 
+              North "images/hidari/nsilver.bmp")
+       (moves
+           (step nw Lance) (step sw Lance)
+           (step se Lance) (step ne Lance)
+           (step n  Lance)
+       )
+  )
+  (piece 
+       (name Copper)
+       (image South "images/hidari/scopper.bmp" 
+              North "images/hidari/ncopper.bmp")
+       (moves
+           (step n Bishop) (step nw Bishop)
+           (step s Bishop) (step ne Bishop)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/hidari/sknight.bmp" 
+              North "images/hidari/nknight.bmp")
+       (moves
+           (jump n nw Gold)
+           (jump n ne Gold)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/hidari/slance.bmp" 
+              North "images/hidari/nlance.bmp")
+       (moves
+           (slide n Silver)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/hidari/sbishop.bmp" 
+              North "images/hidari/nbishop.bmp")
+       (moves
+           (slide nw Copper)
+           (slide se Copper)
+           (slide sw Copper)
+           (slide ne Copper)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/hidari/srook.bmp" 
+              North "images/hidari/nrook.bmp")
+       (moves
+           (slide n Pawn)
+           (slide e Pawn)
+           (slide w Pawn)
+           (slide s Pawn)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/hidari/spawn.bmp" 
+              North "images/hidari/npawn.bmp")
+       (moves
+           (step n Rook)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   c1)
+        )
+        ( North
+            (King   c6)
+        )
+  )
+)

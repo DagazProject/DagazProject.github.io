@@ -599,6 +599,8 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
 }
 
 View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, colors, res, opacity) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
   if (_.isUndefined(opacity)) opacity = 1;
   Dagaz.View.NO_PIECE = false;
   const key = type*10 + player;

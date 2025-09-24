@@ -1,0 +1,155 @@
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (if enemy?
+      (add $2)
+   else
+      add
+  )
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  (if enemy?
+      (add $2)
+   else
+      add
+  )
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     add
+     $1
+  )
+  (verify enemy?)
+  (add $2)
+))
+
+(game
+  (title "Migi Shogi")
+
+  (players South North)
+  (turn-order South North)
+
+  (board
+      (image "images/migi/board.bmp")
+      (grid
+           (start-rectangle 77 30 179 132)
+           (dimensions ("a/b/c/d/e" (132 0))
+                       ("5/4/3/2/1" (0 132))
+           )
+           (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                       (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+           )
+      )
+      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (zone (name board-zone) (players South North)
+            (positions a1 b1 c1 d1 e1
+                       a2 b2 c2 d2 e2
+                       a3 b3 c3 d3 e3
+                       a4 b4 c4 d4 e4
+                       a5 b5 c5 d5 e5
+            )
+      )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/migi/sking.bmp" 
+              North "images/migi/nking.bmp")
+       (moves
+           (step n King) (step nw King)
+           (step s King) (step se King)
+           (step w King) (step sw King)
+           (step e King) (step ne King)
+       )
+  )
+  (piece 
+       (name Prince)
+       (image South "images/migi/sprince.bmp" 
+              North "images/migi/nprince.bmp")
+       (moves
+           (step n Rook) (step nw Rook)
+           (step s Rook) (step se Rook)
+           (step w Rook) (step sw Rook)
+           (step e Rook) (step ne Rook)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/migi/sgold.bmp" 
+              North "images/migi/ngold.bmp")
+       (moves
+           (step n Lance) (step nw Lance)
+           (step s Lance) (step ne Lance)
+           (step w Lance) (step e  Lance) 
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/migi/ssilver.bmp" 
+              North "images/migi/nsilver.bmp")
+       (moves
+           (step nw Knight) (step sw Knight)
+           (step se Knight) (step ne Knight)
+           (step n  Knight)
+       )
+  )
+  (piece 
+       (name Copper)
+       (image South "images/migi/scopper.bmp" 
+              North "images/migi/ncopper.bmp")
+       (moves
+           (step n Pawn) (step nw Pawn)
+           (step s Pawn) (step ne Pawn)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/migi/sknight.bmp" 
+              North "images/migi/nknight.bmp")
+       (moves
+           (jump n nw Silver)
+           (jump n ne Silver)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/migi/slance.bmp" 
+              North "images/migi/nlance.bmp")
+       (moves
+           (slide n Gold)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/migi/srook.bmp" 
+              North "images/migi/nrook.bmp")
+       (moves
+           (slide n Prince)
+           (slide e Prince)
+           (slide w Prince)
+           (slide s Prince)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/migi/spawn.bmp" 
+              North "images/migi/npawn.bmp")
+       (moves
+           (step n Copper)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   c1)
+        )
+        ( North
+            (King   c5)
+        )
+  )
+)

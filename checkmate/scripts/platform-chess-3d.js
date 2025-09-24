@@ -526,6 +526,8 @@ Dagaz.View.configure = function(view) {
 
     view.defPieceModel(1, 1, modelPath, 'pawn', white);
     view.defPieceModel(1, 2, modelPath, 'pawn', black);
+    view.defPieceModel(2, 1, modelPath, 'rhino', white);
+    view.defPieceModel(2, 2, modelPath, 'rhino', black);
     view.defPieceModel(3, 1, modelPath, 'rook', white);
     view.defPieceModel(3, 2, modelPath, 'rook', black);
     view.defPieceModel(4, 1, modelPath, 'knight', white);
