@@ -37,7 +37,7 @@
   (board
       (image "images/migi/board.bmp")
       (grid
-           (start-rectangle 77 30 179 132)
+           (start-rectangle 672 30 774 132)
            (dimensions ("a/b/c/d/e" (132 0))
                        ("5/4/3/2/1" (0 132))
            )
