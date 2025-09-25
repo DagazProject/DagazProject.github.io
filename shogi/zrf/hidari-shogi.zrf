@@ -37,15 +37,46 @@
   (board
       (image "images/hidari/board.bmp")
       (grid
-           (start-rectangle 672 30 774 132)
+        (start-rectangle 672 30 774 132)
            (dimensions ("a/b/c/d/e" (132 0))
                        ("6/5/4/3/2/1" (0 132))
            )
            (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
                        (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
-           )
+        )
       )
-      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (grid
+        (start-rectangle 29 30 131 132)
+           (dimensions ("A/B" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 317 30 419 132)
+           (dimensions ("C/D" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1375 30 1477 132)
+           (dimensions ("E/F" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1663 30 1765 132)
+           (dimensions ("G/H" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (links nx
+        (a6 a5) (a5 a4) (a4 a3) (a3 a2) (a2 a1) (a1 b6)
+        (b6 b5) (b5 b4) (b4 b3) (b3 b2) (b2 b1) (b1 c6)
+        (c6 c5) (c5 c2) (c2 c1) (c1 d6)
+        (d6 d5) (d5 d4) (d4 d3) (d3 d2) (d2 d1) (d1 e6)
+        (e6 e5) (e5 e4) (e4 e3) (e3 e2) (e2 e1)
+      )
+      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
       (zone (name board-zone) (players South North)
             (positions a1 b1 c1 d1 e1
                        a2 b2 c2 d2 e2
@@ -147,10 +178,26 @@
 
   (board-setup
         ( South 
-            (King   c1)
+            (King   E6)
+            (Rook   E5)
+            (Pawn   F5)
+            (Bishop E4)
+            (Copper F4)
+            (Gold   E3)
+            (Knight F3)
+            (Silver E2)
+            (Lance  F2)
         )
         ( North
-            (King   c6)
+            (King   D1)
+            (Rook   D2)
+            (Pawn   C2)
+            (Bishop D3)
+            (Copper C3)
+            (Gold   D4)
+            (Knight C4)
+            (Silver D5)
+            (Lance  C5)
         )
   )
 )

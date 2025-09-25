@@ -45,7 +45,38 @@
                        (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
            )
       )
-      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne))
+      (grid
+        (start-rectangle 29 30 131 132)
+           (dimensions ("A/B" (132 0))
+                       ("5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 317 30 419 132)
+           (dimensions ("C/D" (132 0))
+                       ("5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1375 30 1477 132)
+           (dimensions ("E/F" (132 0))
+                       ("5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1663 30 1765 132)
+           (dimensions ("G/H" (132 0))
+                       ("5/4/3/2/1" (0 132))
+        )
+      )
+      (links nx
+        (a5 a4) (a4 a3) (a3 a2) (a2 a1) (a1 b5)
+        (b5 b4) (b4 b3) (b3 b2) (b2 b1) (b1 c5)
+        (c5 c4) (c4 c3) (c3 c2) (c2 c1) (c1 d5)
+        (d5 d4) (d4 d3) (d3 d2) (d2 d1) (d1 e5)
+        (e5 e4) (e4 e3) (e3 e2) (e2 e1)
+      )
+      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
       (zone (name board-zone) (players South North)
             (positions a1 b1 c1 d1 e1
                        a2 b2 c2 d2 e2
@@ -146,10 +177,18 @@
 
   (board-setup
         ( South 
-            (King   c1)
+            (King   a1)
+            (Rook   b1)
+            (Gold   c1)
+            (Silver d1)
+            (Pawn   e1)
         )
         ( North
-            (King   c5)
+            (King   e5)
+            (Rook   d5)
+            (Gold   c5)
+            (Silver b5)
+            (Pawn   a5)
         )
   )
 )
