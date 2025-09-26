@@ -10,7 +10,7 @@ function Ai(params, parent) {
 const findBot = Dagaz.AI.findBot;
 
 Dagaz.AI.findBot = function(type, params, parent) {
-  if ((type == "external") || (type == "smart") /*|| (type == "1")*/ || (type == "2")) {
+  if ((type == "external") || (type == "smart") || (type == "1") || (type == "2")) {
       return new Ai(params, parent);
   } else {
       return findBot(type, params, parent);
@@ -33,13 +33,16 @@ Dagaz.Model.moveToString = function(move) {
       if (a[1] !== null) {
           r = r + Dagaz.Model.posToString(a[1][0]);
       }
+      if ((a[2] !== null) && ((a[0] != null) || (a[1] !== null))) {
+          r = r + " " + a[2][0].getType();
+      }
   });
   return r;
 }
 
 const BOARD_SIZE = 8;
-const turn = 'black';
-const flipped = true;
+let   turn = 'black';
+let   flipped = true;
 const whiteKingMoved = true;
 const blackKingMoved = true;
 const whiteLeftRookMoved = true;
@@ -1439,7 +1442,7 @@ function decodeRow(ix) {
 }
 
 function decodeMove(move) {
-  return decodeCol(move.from.row) + decodeRow(move.from.col) + '-' + decodeCol(move.to.row) + decodeRow(move.to.col);
+  return decodeCol(move.from.col) + decodeRow(move.from.row) + '-' + decodeCol(move.to.col) + decodeRow(move.to.row);
 }
 
 Ai.prototype.getMove = function(ctx) {
@@ -1459,6 +1462,15 @@ Ai.prototype.getMove = function(ctx) {
   console.log('FEN: ' + setup);
   const boardState = getBoardState(setup);
   const pieces = boardState.map(row => row.join('')).join('').replaceAll(' ', '');
+  if (ctx.board.player == 1) {
+      turn = 'white';
+      flipped = true;
+  } else {
+      turn = 'black';
+      flipped = false;
+  }
+//console.log(turn);
+//console.log(flipped);
   const {bestMove, evaluation} = findBestMoveWithMinimax(
                                 boardState,
                                 turn,
@@ -1474,6 +1486,7 @@ Ai.prototype.getMove = function(ctx) {
   console.log(bestMove);
 //console.log('Eval: ' + evaluation);
   const resultMove = decodeMove(bestMove);
+//console.log(resultMove);
   let m = null;
       _.each(moves, function(move) {
           var x = move.toString() + ' ';
@@ -1481,10 +1494,11 @@ Ai.prototype.getMove = function(ctx) {
               m = move;
           }
   });
+//console.log(m.toString());
   if (m !== null) {
       return {
         done: true,
-        move: move,
+        move: m,
         time: Date.now() - ctx.timestamp,
         ai:  "stupid"
       };
