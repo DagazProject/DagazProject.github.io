@@ -1,9 +1,10 @@
 Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  2.5;
+Dagaz.View.TARGET_SZ         =  0.5;
 Dagaz.Controller.persistense = "none";
 
-Dagaz.Model.WIDTH         = 5;
-Dagaz.Model.HEIGHT        = 5;
+Dagaz.Model.WIDTH            = 5;
+Dagaz.Model.HEIGHT           = 5;
 
 ZRF = {
     JUMP:          0,

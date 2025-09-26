@@ -21,7 +21,7 @@ const MOVE_TYPE = {
 Dagaz.View.TARGET_COLOR  = 0x004000;
 Dagaz.View.TARGET_RADIUS = 3;
 Dagaz.View.TARGET_FLAT   = false;
-Dagaz.View.TARGET_SZ     = 0.5;
+Dagaz.View.TARGET_SZ     = 0;
 
 const TEXTURE_CANVAS_SZ  = 256;
 
