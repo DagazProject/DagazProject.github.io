@@ -21,6 +21,7 @@ const MOVE_TYPE = {
 Dagaz.View.TARGET_COLOR  = 0x004000;
 Dagaz.View.TARGET_RADIUS = 3;
 Dagaz.View.TARGET_FLAT   = false;
+Dagaz.View.TARGET_SZ     = 0.5;
 
 const TEXTURE_CANVAS_SZ  = 256;
 
@@ -691,7 +692,7 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
       targetGeometry = new THREE.SphereGeometry(Dagaz.View.TARGET_RADIUS, 32, 32); 
   }
   const t = new THREE.Mesh(targetGeometry, posMaterial);
-  t.position.set((x / 10), (z / 10), (y / 10));
+  t.position.set((x / 10), (z / 10) + Dagaz.View.TARGET_SZ, (y / 10));
   if (Dagaz.View.RENDER_ORDER) {
       t.renderOrder = 2;
   }

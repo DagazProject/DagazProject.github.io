@@ -1,3 +1,12 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a5
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
 (define step (
   (verify (in-zone? board-zone))
   $1 (verify not-friend?)
@@ -12,7 +21,7 @@
   (verify (in-zone? board-zone))
   $1 $2 (verify not-friend?)
   (if enemy?
-      (add $2)
+      (add $3)
    else
       add
   )
@@ -92,10 +101,13 @@
        (image South "images/migi/sking.bmp" 
               North "images/migi/nking.bmp")
        (moves
+           (move-type normal-type)
            (step n King) (step nw King)
            (step s King) (step se King)
            (step w King) (step sw King)
            (step e King) (step ne King)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -103,10 +115,13 @@
        (image South "images/migi/sprince.bmp" 
               North "images/migi/nprince.bmp")
        (moves
+           (move-type normal-type)
            (step n Rook) (step nw Rook)
            (step s Rook) (step se Rook)
            (step w Rook) (step sw Rook)
            (step e Rook) (step ne Rook)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -114,9 +129,12 @@
        (image South "images/migi/sgold.bmp" 
               North "images/migi/ngold.bmp")
        (moves
+           (move-type normal-type)
            (step n Lance) (step nw Lance)
            (step s Lance) (step ne Lance)
            (step w Lance) (step e  Lance) 
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -124,9 +142,12 @@
        (image South "images/migi/ssilver.bmp" 
               North "images/migi/nsilver.bmp")
        (moves
+           (move-type normal-type)
            (step nw Knight) (step sw Knight)
            (step se Knight) (step ne Knight)
            (step n  Knight)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -134,8 +155,11 @@
        (image South "images/migi/scopper.bmp" 
               North "images/migi/ncopper.bmp")
        (moves
+           (move-type normal-type)
            (step n Pawn) (step nw Pawn)
            (step s Pawn) (step ne Pawn)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -143,8 +167,11 @@
        (image South "images/migi/sknight.bmp" 
               North "images/migi/nknight.bmp")
        (moves
+           (move-type normal-type)
            (jump n nw Silver)
            (jump n ne Silver)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -152,7 +179,10 @@
        (image South "images/migi/slance.bmp" 
               North "images/migi/nlance.bmp")
        (moves
+           (move-type normal-type)
            (slide n Gold)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -160,10 +190,13 @@
        (image South "images/migi/srook.bmp" 
               North "images/migi/nrook.bmp")
        (moves
+           (move-type normal-type)
            (slide n Prince)
            (slide e Prince)
            (slide w Prince)
            (slide s Prince)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -171,7 +204,10 @@
        (image South "images/migi/spawn.bmp" 
               North "images/migi/npawn.bmp")
        (moves
+           (move-type normal-type)
            (step n Copper)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
 

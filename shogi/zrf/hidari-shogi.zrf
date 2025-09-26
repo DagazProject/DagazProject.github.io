@@ -1,3 +1,12 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a6
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
 (define step (
   (verify (in-zone? board-zone))
   $1 (verify not-friend?)
@@ -12,7 +21,7 @@
   (verify (in-zone? board-zone))
   $1 $2 (verify not-friend?)
   (if enemy?
-      (add $2)
+      (add $3)
    else
       add
   )
@@ -93,10 +102,13 @@
        (image South "images/hidari/sking.bmp" 
               North "images/hidari/nking.bmp")
        (moves
+           (move-type normal-type)
            (step n King) (step nw King)
            (step s King) (step se King)
            (step w King) (step sw King)
            (step e King) (step ne King)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -104,9 +116,12 @@
        (image South "images/hidari/sgold.bmp" 
               North "images/hidari/ngold.bmp")
        (moves
+           (move-type normal-type)
            (step n Knight) (step nw Knight)
            (step s Knight) (step ne Knight)
            (step w Knight) (step e  Knight) 
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -114,9 +129,12 @@
        (image South "images/hidari/ssilver.bmp" 
               North "images/hidari/nsilver.bmp")
        (moves
+           (move-type normal-type)
            (step nw Lance) (step sw Lance)
            (step se Lance) (step ne Lance)
            (step n  Lance)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -124,8 +142,11 @@
        (image South "images/hidari/scopper.bmp" 
               North "images/hidari/ncopper.bmp")
        (moves
+           (move-type normal-type)
            (step n Bishop) (step nw Bishop)
            (step s Bishop) (step ne Bishop)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -133,8 +154,11 @@
        (image South "images/hidari/sknight.bmp" 
               North "images/hidari/nknight.bmp")
        (moves
+           (move-type normal-type)
            (jump n nw Gold)
            (jump n ne Gold)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -142,7 +166,10 @@
        (image South "images/hidari/slance.bmp" 
               North "images/hidari/nlance.bmp")
        (moves
+           (move-type normal-type)
            (slide n Silver)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -150,10 +177,13 @@
        (image South "images/hidari/sbishop.bmp" 
               North "images/hidari/nbishop.bmp")
        (moves
+           (move-type normal-type)
            (slide nw Copper)
            (slide se Copper)
            (slide sw Copper)
            (slide ne Copper)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -161,10 +191,13 @@
        (image South "images/hidari/srook.bmp" 
               North "images/hidari/nrook.bmp")
        (moves
+           (move-type normal-type)
            (slide n Pawn)
            (slide e Pawn)
            (slide w Pawn)
            (slide s Pawn)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
   (piece 
@@ -172,7 +205,10 @@
        (image South "images/hidari/spawn.bmp" 
               North "images/hidari/npawn.bmp")
        (moves
+           (move-type normal-type)
            (step n Rook)
+           (move-type drop-type)
+           (drop-piece nx)
        )
   )
 
