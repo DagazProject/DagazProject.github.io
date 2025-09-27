@@ -85,7 +85,7 @@
         (d5 d4) (d4 d3) (d3 d2) (d2 d1) (d1 e5)
         (e5 e4) (e4 e3) (e3 e2) (e2 e1)
       )
-      (symmetry North (n s) (s n) (w e) (e w) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
+      (symmetry North (n s) (s n) (w w) (e e) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
       (zone (name board-zone) (players South North)
             (positions a1 b1 c1 d1 e1
                        a2 b2 c2 d2 e2
