@@ -1107,9 +1107,14 @@ View3D.prototype.animate = function() {
 
 View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   if (!phase) { phase = 1; }
-  this.filled.push(+pos);
-  const p = this.pos[pos].p;
-  p.material = getPlayerMaterial(piece.player, false);
+  const pieceType = pieceTypes[piece.type*10 + piece.player];
+  if (pieceType && (pieceType.kind == PIECE_TYPE.PLATFORM || pieceType.kind == PIECE_TYPE.MODEL || pieceType.kind == PIECE_TYPE.TOKEN)) {
+      this.addPiece(piece.toString(), pos, piece);
+  } else {
+      this.filled.push(+pos);
+      const p = this.pos[pos].p;
+      p.material = getPlayerMaterial(piece.player, false);
+  }
   currPos = null;
 }
 
