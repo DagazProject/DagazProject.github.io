@@ -1,0 +1,55 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Doubutsu Shogi</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/doubutsu-shogi/board-3d.png">
+<img id="GreenKing" style="display:none" src="images/doubutsu-shogi/king-green-3d.png">
+<img id="RedKing" style="display:none" src="images/doubutsu-shogi/king-red-3d.png">
+<img id="GreenZa" style="display:none" src="images/doubutsu-shogi/za-green-3d.png">
+<img id="RedZa" style="display:none" src="images/doubutsu-shogi/za-red-3d.png">
+<img id="GreenSang" style="display:none" src="images/doubutsu-shogi/sang-green-3d.png">
+<img id="RedSang" style="display:none" src="images/doubutsu-shogi/sang-red-3d.png">
+<img id="GreenJang" style="display:none" src="images/doubutsu-shogi/jang-green-3d.png">
+<img id="RedJang" style="display:none" src="images/doubutsu-shogi/jang-red-3d.png">
+<img id="GreenHu" style="display:none" src="images/doubutsu-shogi/hu-green-3d.png">
+<img id="RedHu" style="display:none" src="images/doubutsu-shogi/hu-red-3d.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="scripts/doubutsu-fen.js"></script>
+<script src="scripts/doubutsu-shogi-extension.js"></script>
+<script src="scripts/doubutsu-shogi-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>
