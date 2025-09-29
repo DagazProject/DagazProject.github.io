@@ -42,7 +42,7 @@ Dagaz.Model.moveToString = function(move) {
 
 const BOARD_SIZE = 8;
 let   turn = 'black';
-let   flipped = true;
+const flipped = false;
 const whiteKingMoved = true;
 const blackKingMoved = true;
 const whiteLeftRookMoved = true;
@@ -977,7 +977,7 @@ function isValidMove(boardState, piece, from, to, whiteKingMoved, whiteLeftRookM
     const rowDiff = to.row - from.row;
     const colDiff = to.col - from.col;
 
-    switch (piece.toLowerCase()) {
+    switch (piece/*.toLowerCase()*/) {
         case 'P': // White Pawn
             return isValidPawnMove(boardState, piece, from, to, rowDiff, colDiff, targetSquare, 2 * flipped - 1);
         case 'p': // Black Pawn
@@ -1464,10 +1464,8 @@ Ai.prototype.getMove = function(ctx) {
   const pieces = boardState.map(row => row.join('')).join('').replaceAll(' ', '');
   if (ctx.board.player == 1) {
       turn = 'white';
-      flipped = true;
   } else {
       turn = 'black';
-      flipped = false;
   }
 //console.log(turn);
 //console.log(flipped);
