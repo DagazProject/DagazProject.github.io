@@ -1,6 +1,7 @@
 Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  2.5;
 Dagaz.View.TARGET_SZ         =  0.5;
+Dagaz.Controller.SHORT_LIST  =  false;
 Dagaz.Controller.persistense = "setup";
 
 ZRF = {
@@ -32,7 +33,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
-    design.checkVersion("doubutsu-shogi-extension", "true");
     design.checkVersion("advisor-wait", "25");
 
     design.addDirection("nx"); // 0

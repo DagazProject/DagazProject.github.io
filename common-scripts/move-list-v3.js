@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Controller.SHORT_LIST = true;
+
 function MoveList(board) {
   this.board    = board;
   this.moves    = board.moves;
@@ -39,10 +41,11 @@ MoveList.prototype.getMoves = function() {
 }
 
 MoveList.prototype.isDone = function() {
-  var result = _.filter(this.moves, function(move) {
+/*var result = _.filter(this.moves, function(move) {
      return getMaxPart(move) >= this.level + 1;
   }, this).length == 0;
-  return result;
+  return result;*/
+  return this.level > 0;
 }
 
 MoveList.prototype.canPass = function() {
@@ -80,7 +83,9 @@ MoveList.prototype.getMoveActions = function(move) {
           if (actions[i][0] !== null) {
               result.push(actions[i]);
           }
-          break;
+          if (Dagaz.Controller.SHORT_LIST) {
+              break;
+          }
       }
   }
   return result;
