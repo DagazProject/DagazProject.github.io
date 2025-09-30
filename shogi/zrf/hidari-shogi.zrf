@@ -25,6 +25,7 @@
      (add $2)
      $1
   )
+  (verify enemy?)
   (add $2)
 ))
 
@@ -98,7 +99,7 @@
            (step s King) (step se King)
            (step w King) (step sw King)
            (step e King) (step ne King)
-           (move-type drop-type)
+           (move-type king-type)
            (drop-piece nx)
        )
   )

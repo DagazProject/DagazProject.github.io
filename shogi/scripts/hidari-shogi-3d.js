@@ -231,6 +231,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(6, ZRF.PARAM,	1);	// $2
     design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(6, ZRF.JUMP,	-9);
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
     design.addCommand(6, ZRF.PROMOTE,	2);	// Silver
     design.addCommand(6, ZRF.FUNCTION,	25);	// to
     design.addCommand(6, ZRF.FUNCTION,	28);	// end
@@ -250,6 +252,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(7, ZRF.PARAM,	1);	// $2
     design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(7, ZRF.JUMP,	-9);
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
     design.addCommand(7, ZRF.PROMOTE,	3);	// Copper
     design.addCommand(7, ZRF.FUNCTION,	25);	// to
     design.addCommand(7, ZRF.FUNCTION,	28);	// end
@@ -269,6 +273,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(8, ZRF.PARAM,	1);	// $2
     design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
     design.addCommand(8, ZRF.JUMP,	-9);
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
     design.addCommand(8, ZRF.PROMOTE,	8);	// Pawn
     design.addCommand(8, ZRF.FUNCTION,	25);	// to
     design.addCommand(8, ZRF.FUNCTION,	28);	// end
@@ -294,7 +300,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 0, [2], 0);
     design.addMove(0, 0, [3], 0);
     design.addMove(0, 0, [5], 0);
-    design.addMove(0, 1, [0, 8], 1);
+    design.addMove(0, 1, [0, 8], 2);
 
     design.addPiece("Gold", 1);
     design.addMove(1, 2, [7], 0);
