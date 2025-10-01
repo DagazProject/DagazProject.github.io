@@ -32,8 +32,8 @@
 (game
   (title "Hidari Shogi")
 
-  (players South North)
-  (turn-order South North)
+  (players South North NS NN)
+  (turn-order South North NS NN)
 
   (board
       (image "images/hidari/board.bmp")
@@ -84,6 +84,22 @@
                        a3 b3 c3 d3 e3
                        a4 b4 c4 d4 e4
                        a5 b5 c5 d5 e5
+                       a6 b6 c6 d6 e6
+            )
+      )
+      (zone (name last-rank) (players North)
+            (positions a1 b1 c1 d1 e1)
+      )
+      (zone (name last-rank) (players South)
+            (positions a6 b6 c6 d6 e6)
+      )
+      (zone (name last-ranks) (players North)
+            (positions a1 b1 c1 d1 e1
+                       a2 b2 c2 d2 e2
+            )
+      )
+      (zone (name last-ranks) (players South)
+            (positions a5 b5 c5 d5 e5
                        a6 b6 c6 d6 e6
             )
       )
@@ -144,7 +160,9 @@
   (piece 
        (name Knight)
        (image South "images/hidari/sknight.bmp" 
-              North "images/hidari/nknight.bmp")
+              North "images/hidari/nknight.bmp"
+              NS "images/hidari/sknight.bmp" 
+              NN "images/hidari/nknight.bmp")
        (moves
            (move-type normal-type)
            (jump n nw Gold)
@@ -156,7 +174,9 @@
   (piece 
        (name Lance)
        (image South "images/hidari/slance.bmp" 
-              North "images/hidari/nlance.bmp")
+              North "images/hidari/nlance.bmp"
+              NS "images/hidari/slance.bmp" 
+              NN "images/hidari/nlance.bmp")
        (moves
            (move-type normal-type)
            (slide n Silver)
@@ -195,7 +215,9 @@
   (piece 
        (name Pawn)
        (image South "images/hidari/spawn.bmp" 
-              North "images/hidari/npawn.bmp")
+              North "images/hidari/npawn.bmp"
+              NS "images/hidari/spawn.bmp" 
+              NN "images/hidari/npawn.bmp")
        (moves
            (move-type normal-type)
            (step n Rook)
