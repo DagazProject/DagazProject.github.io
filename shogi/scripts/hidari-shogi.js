@@ -43,6 +43,11 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPlayer("South", [6, 7, 5, 4, 3, 2, 0, 1, 8]);
     design.addPlayer("North", [6, 7, 5, 3, 4, 2, 0, 1, 8]);
+    design.addPlayer("NS", []);
+    design.addPlayer("NN", []);
+
+    design.addTurn(1);
+    design.addTurn(2);
 
     design.addPosition("a6", [6, 5, 0, 1, 0, 0, 0, 0, 5]);
     design.addPosition("b6", [6, 5, 4, 1, -1, 0, 0, 0, 5]);
@@ -125,6 +130,10 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addZone("board-zone", 1, [25, 26, 27, 28, 29, 20, 21, 22, 23, 24, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
     design.addZone("board-zone", 2, [25, 26, 27, 28, 29, 20, 21, 22, 23, 24, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
+    design.addZone("last-rank", 1, [0, 1, 2, 3, 4]);
+    design.addZone("last-rank", 2, [25, 26, 27, 28, 29]);
+    design.addZone("last-ranks", 1, [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
+    design.addZone("last-ranks", 2, [25, 26, 27, 28, 29, 20, 21, 22, 23, 24]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.IN_ZONE,	0);	// board-zone
@@ -380,14 +389,20 @@ Dagaz.View.configure = function(view) {
     view.defPiece("NorthCopper", "North Copper");
     view.defPiece("SouthKnight", "South Knight");
     view.defPiece("NorthKnight", "North Knight");
+    view.defPiece("NSKnight", "NS Knight");
+    view.defPiece("NNKnight", "NN Knight");
     view.defPiece("SouthLance", "South Lance");
     view.defPiece("NorthLance", "North Lance");
+    view.defPiece("NSLance", "NS Lance");
+    view.defPiece("NNLance", "NN Lance");
     view.defPiece("SouthBishop", "South Bishop");
     view.defPiece("NorthBishop", "North Bishop");
     view.defPiece("SouthRook", "South Rook");
     view.defPiece("NorthRook", "North Rook");
     view.defPiece("SouthPawn", "South Pawn");
     view.defPiece("NorthPawn", "North Pawn");
+    view.defPiece("NSPawn", "NS Pawn");
+    view.defPiece("NNPawn", "NN Pawn");
  
     view.defPosition("a6", 672, 30, 102, 102);
     view.defPosition("b6", 804, 30, 102, 102);

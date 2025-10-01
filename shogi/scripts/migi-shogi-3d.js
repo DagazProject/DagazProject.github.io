@@ -48,6 +48,11 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPlayer("South", [6, 7, 5, 4, 3, 2, 0, 1, 8]);
     design.addPlayer("North", [6, 7, 5, 3, 4, 2, 0, 1, 8]);
+    design.addPlayer("NS", []);
+    design.addPlayer("NN", []);
+
+    design.addTurn(1);
+    design.addTurn(2);
 
     design.addPosition("a5", [6, 5, 0, 1, 0, 0, 0, 0, 5]);
     design.addPosition("b5", [6, 5, 4, 1, -1, 0, 0, 0, 5]);
@@ -117,6 +122,10 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addZone("board-zone", 1, [20, 21, 22, 23, 24, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
     design.addZone("board-zone", 2, [20, 21, 22, 23, 24, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
+    design.addZone("last-rank", 1, [0, 1, 2, 3, 4]);
+    design.addZone("last-rank", 2, [20, 21, 22, 23, 24]);
+    design.addZone("last-ranks", 1, [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]);
+    design.addZone("last-ranks", 2, [20, 21, 22, 23, 24, 15, 16, 17, 18, 19]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.IN_ZONE,	0);	// board-zone
@@ -395,12 +404,18 @@ Dagaz.View.configure = function(view) {
     view.defPiecePlatform(4, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthCopper");
     view.defPiecePlatform(5, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthKnight");
     view.defPiecePlatform(5, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthKnight");
+    view.defPiecePlatform(5, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSKnight");
+    view.defPiecePlatform(5, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNKnight");
     view.defPiecePlatform(6, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthLance");
     view.defPiecePlatform(6, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthLance");
+    view.defPiecePlatform(6, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSLance");
+    view.defPiecePlatform(6, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNLance");
     view.defPiecePlatform(7, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthRook");
     view.defPiecePlatform(7, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthRook");
     view.defPiecePlatform(8, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawn");
     view.defPiecePlatform(8, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthPawn");
+    view.defPiecePlatform(8, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSPawn");
+    view.defPiecePlatform(8, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNPawn");
 
     view.setCamera(0, 0, 0, -109, 215, 155);
  
