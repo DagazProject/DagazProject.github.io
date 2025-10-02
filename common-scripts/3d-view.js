@@ -31,6 +31,9 @@ Dagaz.View.STEP_CNT      = 3;
 Dagaz.View.SPEED         = 0.523;
 Dagaz.View.RENDER_ORDER  = false;
 
+let resTask = [];
+let resList = [];
+
 Dagaz.View.markType = {
    TARGET:            0,
    KO:                4
@@ -499,18 +502,21 @@ View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res, opacity) {
       board = this.findRes(res);
       if (board === null) {
           const img = document.getElementById(res);
-          const texture = textureLoader.load(
-            img.currentSrc,
-            () => {this.invalidate();},
-            undefined,
-            undefined,
-            { crossOrigin: 'anonymous' }
-          );
+          const t = new Promise((resolve) => {
+                textureLoader.load(
+                    img.currentSrc,
+                    resolve,
+                    undefined,
+                    undefined,
+                  { crossOrigin: 'anonymous' }
+                );
+          });
+          resTask.push(t); 
           board = {
              r: res,
-             h: img,
-             t: texture
+             h: img
           };
+          resList.push(board);
           this.res.push(board);
       }
   }
@@ -616,18 +622,21 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
       p = this.findRes(res);
       if (p === null) {
           const img = document.getElementById(res);
-          const texture = textureLoader.load(
-            img.currentSrc,
-            () => {this.invalidate();},
-            undefined,
-            undefined,
-            { crossOrigin: 'anonymous' }
-          );
+          const t = new Promise((resolve) => {
+                textureLoader.load(
+                    img.currentSrc,
+                    resolve,
+                    undefined,
+                    undefined,
+                  { crossOrigin: 'anonymous' }
+                );
+          });
+          resTask.push(t); 
           p = {
              r: res,
-             h: img,
-             t: texture
+             h: img
           };
+          resList.push(p);
           this.res.push(p);
       }
   }
@@ -719,6 +728,20 @@ View3D.prototype.allResLoaded = function() {
        if (!image.complete || (image.naturalWidth == 0)) return false;
        this.res[i].dx = image.naturalWidth;
        this.res[i].dy = image.naturalHeight;
+  }
+  if (resTask.length > 0) {
+      Promise.all(resTask).then((results) => {
+          for (let i = 0; i < results.length; i++) {
+               if (i >= resList.length) break;
+               resList[i].t = results[i];
+          }
+          resTask = [];
+          resList = [];
+          this.invalidate();
+      }).catch((error) => {
+          console.error('Error loading assets:', error);
+      });
+      return false;
   }
   if (onceResolve && ((Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) || (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN))) {
       onceResolve = false;
