@@ -1,6 +1,7 @@
 (function() {
 
 var promote = [];
+var isAllForced = false;
 
 var checkVersion = Dagaz.Model.checkVersion;
 
@@ -8,6 +9,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   if (name == "gorogoro-shogi-promotion") {
       promote[ 1] = 2; // Chick
       promote[ 3] = 4; // Cat
+      if (value == "forced") isAllForced = true;
   } else {
       checkVersion(design, name, value);
   }
