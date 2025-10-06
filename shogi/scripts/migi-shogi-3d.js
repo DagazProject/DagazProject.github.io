@@ -377,16 +377,16 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(8, 9, [7], 0);
     design.addMove(8, 1, [0, 8], 1);
 
-    design.setup("South", "King", 20);
-    design.setup("South", "Rook", 21);
+    design.setup("South", "King", 24);
+    design.setup("South", "Rook", 23);
     design.setup("South", "Gold", 22);
-    design.setup("South", "Silver", 23);
-    design.setup("South", "Pawn", 24);
-    design.setup("North", "King", 4);
-    design.setup("North", "Rook", 3);
+    design.setup("South", "Silver", 21);
+    design.setup("South", "Pawn", 20);
+    design.setup("North", "King", 0);
+    design.setup("North", "Rook", 1);
     design.setup("North", "Gold", 2);
-    design.setup("North", "Silver", 1);
-    design.setup("North", "Pawn", 0);
+    design.setup("North", "Silver", 3);
+    design.setup("North", "Pawn", 4);
 }
 
 Dagaz.View.configure = function(view) {
