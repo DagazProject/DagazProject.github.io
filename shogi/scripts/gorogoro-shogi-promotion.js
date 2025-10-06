@@ -22,7 +22,7 @@ Dagaz.Model.CheckInvariants = function(board) {
   _.each(board.moves, function(move) {
       for (var i = 0; i < move.actions.length; i++) {
            if ((move.actions[i][0] !== null) && (move.actions[i][1] !== null)) {
-               var isForced = false;
+               var isForced = isAllForced;
                var from     = move.actions[i][0][0];
                var to       = move.actions[i][1][0];
                var piece    = board.getPiece(from);
