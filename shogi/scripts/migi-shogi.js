@@ -22,6 +22,18 @@ ZRF = {
     VERIFY:        20
 };
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  for (var i = 0; i < move.actions.length; i++) {
+      var a = move.actions[i];
+      if (a[0] === null) continue;
+      if (a[1] === null) continue;
+      r = Dagaz.Model.posToString(a[0][0]) + Dagaz.Model.posToString(a[1][0]);
+      break;
+  }
+  return r;
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");

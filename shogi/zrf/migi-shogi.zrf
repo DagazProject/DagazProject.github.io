@@ -235,18 +235,18 @@
 
   (board-setup
         ( South 
-            (King   a1)
-            (Rook   b1)
+            (King   e1)
+            (Rook   d1)
             (Gold   c1)
-            (Silver d1)
-            (Pawn   e1)
+            (Silver b1)
+            (Pawn   a1)
         )
         ( North
-            (King   e5)
-            (Rook   d5)
+            (King   a5)
+            (Rook   b5)
             (Gold   c5)
-            (Silver b5)
-            (Pawn   a5)
+            (Silver d5)
+            (Pawn   e5)
         )
   )
 )
