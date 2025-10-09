@@ -394,20 +394,20 @@ Dagaz.View.configure = function(view) {
     view.defPiecePlatform(3, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthCopper");
     view.defPiecePlatform(4, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthKnight");
     view.defPiecePlatform(4, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthKnight");
-    view.defPiecePlatform(4, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSKnight");
-    view.defPiecePlatform(4, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNKnight");
+    view.defPiecePlatform(4, 3, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSKnight");
+    view.defPiecePlatform(4, 4, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNKnight");
     view.defPiecePlatform(5, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthLance");
     view.defPiecePlatform(5, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthLance");
-    view.defPiecePlatform(5, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSLance");
-    view.defPiecePlatform(5, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNLance");
+    view.defPiecePlatform(5, 3, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSLance");
+    view.defPiecePlatform(5, 4, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNLance");
     view.defPiecePlatform(6, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthBishop");
     view.defPiecePlatform(6, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthBishop");
     view.defPiecePlatform(7, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthRook");
     view.defPiecePlatform(7, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthRook");
     view.defPiecePlatform(8, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawn");
     view.defPiecePlatform(8, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NorthPawn");
-    view.defPiecePlatform(8, 1, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSPawn");
-    view.defPiecePlatform(8, 2, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNPawn");
+    view.defPiecePlatform(8, 3, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NSPawn");
+    view.defPiecePlatform(8, 4, 100, 100, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "NNPawn");
 
     view.setCamera(0, 0, 0, -109, 215, 155);
  
