@@ -30,9 +30,9 @@ Dagaz.Model.CheckInvariants = function(board) {
       var piece = board.getPiece(pos);
       if (piece === null) return;
       if (piece.type == 0) return;
-      pos = Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT + Dagaz.Model.HEIGHT * 4;
+      pos = Dagaz.Model.WIDTH * Dagaz.Model.HEIGHT + 4;
       if (board.player == 2) {
-          pos = pos - 1;
+          pos = pos + 39;
       }
       while (pos !== null) {
           if (board.getPiece(pos) === null) {

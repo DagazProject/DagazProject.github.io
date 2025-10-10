@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "none";
+Dagaz.Controller.persistense = "setup";
 
 Dagaz.AI.RESERVE_SIZE = 8;
 
