@@ -30,6 +30,18 @@ function p(name) {
   return Dagaz.Model.stringToPos(name);
 }
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  for (var i = 0; i < move.actions.length; i++) {
+      var a = move.actions[i];
+      if (a[0] === null) continue;
+      if (a[1] === null) continue;
+      r = Dagaz.Model.posToString(a[0][0]) + Dagaz.Model.posToString(a[1][0]);
+      break;
+  }
+  return r;
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
@@ -420,6 +432,7 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "2D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'hidari-shogi.htm' : 'hidari-shogi-board.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'hidari-shogi-3d-board.htm' : 'hidari-shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
