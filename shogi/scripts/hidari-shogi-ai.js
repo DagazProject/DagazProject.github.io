@@ -157,6 +157,9 @@ Dagaz.AI.FormatMove = function(move) {
 }
 
 function Mobility(color) {
+    var pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
+    if (Dagaz.AI.g_pieceList[pieceIdx] == 0) return 0;
+
     var result = 0;
     var from, to, mob, pieceIdx;
     var enemy = color ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
@@ -844,7 +847,7 @@ Dagaz.AI.MakeMove = function(move) {
     Dagaz.AI.g_toMove = otherColor;
     Dagaz.AI.g_baseEval = -Dagaz.AI.g_baseEval;
 
-    var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
+/*  var kingPos = Dagaz.AI.g_pieceList[(pieceKing | (Dagaz.AI.colorWhite - Dagaz.AI.g_toMove)) << Dagaz.AI.COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
         Dagaz.AI.UnmakeMove(move);
         return false;
@@ -854,7 +857,7 @@ Dagaz.AI.MakeMove = function(move) {
     kingPos = Dagaz.AI.g_pieceList[(pieceKing | Dagaz.AI.g_toMove) << Dagaz.AI.COUNTER_SIZE];
     if (kingPos != 0) {
         Dagaz.AI.g_inCheck = IsSquareAttackable(kingPos, Dagaz.AI.colorWhite - Dagaz.AI.g_toMove);
-    }
+    }*/
 
     Dagaz.AI.g_repMoveStack[Dagaz.AI.g_moveCount - 1] = Dagaz.AI.g_hashKeyLow;
     Dagaz.AI.g_move50++;
@@ -1014,7 +1017,7 @@ function GenerateValidMoves() {
 
 Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
-    if (Dagaz.AI.g_pieceList[pieceIdx++] == 0) return;
+    if (Dagaz.AI.g_pieceList[pieceIdx] == 0) return;
 
     var from, to, piece;
     var inc = Dagaz.AI.g_toMove ? -16 : 16;
@@ -1156,7 +1159,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 
 Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
     var pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
-    if (Dagaz.AI.g_pieceList[pieceIdx++] == 0) return;
+    if (Dagaz.AI.g_pieceList[pieceIdx] == 0) return;
 
     var from, to, piece;
     var enemy = Dagaz.AI.g_toMove ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
