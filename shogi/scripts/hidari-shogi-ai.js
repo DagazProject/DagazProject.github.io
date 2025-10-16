@@ -2,7 +2,7 @@
 
 (function() {
 
-Dagaz.AI.NOISE_FACTOR     = 0;
+Dagaz.AI.NOISE_FACTOR     = 3;
 Dagaz.AI.STALMATED        = true;
 Dagaz.AI.g_timeout        = 2000;
 
@@ -28,7 +28,7 @@ var pieceRook             = 0x08;
 var pieceKing             = 0x09;
 var pieceNo               = 0x80;
 
-const moveflagPromotion   = 0x10000000;
+const moveflagPromotion   = 0x1000000;
 
 var g_moveUndoStack = new Array();
 
@@ -53,8 +53,8 @@ Dagaz.AI.pieceAdj = [
      0,     0,     0,     0,     0
 ],
 [-9999, -9999, -9999, -9999, -9999, // piecePawn
-    20,    40,    40,    40,    20,
-    10,    20,    20,    20,    10,
+     0,     0,     0,     0,     0,
+     5,    10,    10,    10,     5,
     10,    20,    20,    20,    10,
      5,    10,    10,    10,     5,
      0,     0,     0,     0,     0
@@ -67,21 +67,21 @@ Dagaz.AI.pieceAdj = [
    -10,     5,    10,     5,   -10
 ],
 [    0,     0,     0,     0,     0, // pieceCopper
-    10,    50,    60,    50,    10,
+     5,    10,    10,    10,     5,
     10,    40,    50,    40,    10,
     10,    40,    50,    40,    10,
      5,    20,    20,    20,     5,
      1,     5,     5,     5,     1
 ],
 [    0,     0,     0,     0,     0, // pieceSilver
-    10,    50,    60,    50,    10,
+     5,    10,    10,    10,     5,
     10,    40,    50,    40,    10,
     10,    40,    50,    40,    10,
      5,    20,    20,    20,     5,
      1,     5,     5,     5,     1
 ],
 [    0,     0,     0,     0,     0, // pieceGold
-    10,    50,    60,    50,    10,
+     5,    10,    10,    10,     5,
     10,    40,    50,    40,    10,
     10,    40,    50,    40,    10,
      5,    20,    20,    20,     5,
@@ -108,8 +108,8 @@ Dagaz.AI.pieceAdj = [
     10,    30,    40,    30,    10,
      5,    10,    20,    10,     5
 ],
-[   50,   100,   150,   100,    50, // pieceKing
-    10,    50,   100,    50,    10,
+[    0,     0,     0,     0,     0, // pieceKing
+     0,     0,     0,     0,     0,
      0,     0,    50,     0,     0,
      0,     0,    50,     0,     0,
     10,    50,   100,    50,    10,
@@ -649,11 +649,11 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     if (!Dagaz.AI.g_toMove) Dagaz.AI.g_baseEval = -Dagaz.AI.g_baseEval;
 
     Dagaz.AI.g_move50 = 0;
-    var kingPos = Dagaz.AI.g_pieceList[(Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE];
+/*  var kingPos = Dagaz.AI.g_pieceList[(Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE];
     Dagaz.AI.g_inCheck = false;
     if (kingPos != 0) {
         Dagaz.AI.g_inCheck = IsSquareAttackable(kingPos, them);
-    }
+    }*/
 
     // Check for king capture (invalid FEN)
 /*  kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
@@ -807,9 +807,9 @@ Dagaz.AI.MakeMove = function(move) {
         if ((piece & Dagaz.AI.TYPE_MASK) == pieceGold) newPiece |= pieceKnight;
            else if ((piece & Dagaz.AI.TYPE_MASK) == pieceKnight) newPiece |= pieceGold;
            else if ((piece & Dagaz.AI.TYPE_MASK) == pieceSilver) newPiece |= pieceLance;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance)  newPiece |= pieceBishop;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceBishop) newPiece |= pieceSilver;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance)  newPiece |= pieceCopper;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance)  newPiece |= pieceSilver;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceBishop) newPiece |= pieceCopper;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceCopper) newPiece |= pieceBishop;
            else if ((piece & Dagaz.AI.TYPE_MASK) == pieceRook)   newPiece |= piecePawn;
            else newPiece |= pieceRook;
 
@@ -968,6 +968,9 @@ function IsSquareOnPieceLine(target, from) {
 function IsSquareAttackableFrom(target, from) {
     var index = from - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
     var piece = Dagaz.AI.g_board[from];
+    var color = Dagaz.AI.colorWhite & piece;
+    var pieceIdx = (color | pieceKing) << Dagaz.AI.COUNTER_SIZE;
+    if (Dagaz.AI.g_pieceList[pieceIdx] == 0) return false;
     if (g_vectorDelta[index].pieceMask[(piece >> Dagaz.AI.TYPE_SIZE) & 1] & (1 << (piece & Dagaz.AI.TYPE_MASK))) {
         // Yes, this square is pseudo-attackable.  Now, check for real attack
         var inc = g_vectorDelta[index].delta;
@@ -1335,6 +1338,9 @@ Dagaz.AI.GenerateDropMoves = function(moveStack, force) {
 }
 
 Dagaz.AI.See = function(move) {
+    var pieceIdx = (Dagaz.AI.g_toMove | pieceKing) << Dagaz.AI.COUNTER_SIZE;
+    if (Dagaz.AI.g_pieceList[pieceIdx] == 0) return false;
+
     var from = move & 0xFF;
     var to = (move >> 8) & 0xFF;
 

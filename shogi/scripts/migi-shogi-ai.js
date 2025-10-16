@@ -28,7 +28,7 @@ var piecePrince           = 0x08;
 var pieceKing             = 0x09;
 var pieceNo               = 0x80;
 
-const moveflagPromotion   = 0x10000000;
+const moveflagPromotion   = 0x1000000;
 
 var g_moveUndoStack = new Array();
 
@@ -781,12 +781,12 @@ Dagaz.AI.MakeMove = function(move) {
     if (flags & moveflagPromotion) {
         var newPiece = piece & (~Dagaz.AI.TYPE_MASK);
         if ((piece & Dagaz.AI.TYPE_MASK) == piecePrince) newPiece |= pieceRook;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceGold)   newPiece |= pieceLance;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceSilver) newPiece |= pieceKnight;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceCopper) newPiece |= piecePawn;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceKnight) newPiece |= pieceSilver;
-           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance)  newPiece |= pieceGold;
            else if ((piece & Dagaz.AI.TYPE_MASK) == pieceRook)   newPiece |= piecePrince;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceGold)   newPiece |= pieceLance;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance)  newPiece |= pieceGold;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceSilver) newPiece |= pieceKnight;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceKnight) newPiece |= pieceSilver;
+           else if ((piece & Dagaz.AI.TYPE_MASK) == pieceCopper) newPiece |= piecePawn;
            else newPiece |= pieceCopper;
 
         Dagaz.AI.g_hashKeyLow ^= Dagaz.AI.g_zobristLow[to][piece & Dagaz.AI.PIECE_MASK];
@@ -867,12 +867,12 @@ Dagaz.AI.UnmakeMove = function(move) {
     if (flags & moveflagPromotion) {
         piece = Dagaz.AI.g_board[to] & (~Dagaz.AI.TYPE_MASK);
         if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == piecePrince) piece |= pieceRook;
-           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceGold)   piece |= pieceLance;
-           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceSilver) piece |= pieceKnight;
-           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceCopper) piece |= piecePawn;
-           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceKnight) piece |= pieceSilver;
-           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceLance)  piece |= pieceGold;
            else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceRook)   piece |= piecePrince;
+           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceGold)   piece |= pieceLance;
+           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceLance)  piece |= pieceGold;
+           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceSilver) piece |= pieceKnight;
+           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceKnight) piece |= pieceSilver;
+           else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceCopper) piece |= piecePawn;
            else piece |= pieceCopper;
 
         Dagaz.AI.g_board[from] = piece;
@@ -903,12 +903,12 @@ Dagaz.AI.UnmakeMove = function(move) {
             s ^= 1;
             var p = Dagaz.AI.g_board[to] & (~Dagaz.AI.TYPE_MASK);
             if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == piecePrince) p |= pieceRook;
-               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceGold)   p |= pieceLance;
-               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceSilver) p |= pieceKnight;
-               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceCopper) p |= piecePawn;
-               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceKnight) p |= pieceSilver;
-               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceLance)  p |= pieceGold;
                else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceRook)   p |= piecePrince;
+               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceGold)   p |= pieceLance;
+               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceLance)  p |= pieceGold;
+               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceSilver) p |= pieceKnight;
+               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceKnight) p |= pieceSilver;
+               else if ((Dagaz.AI.g_board[to] & Dagaz.AI.TYPE_MASK) == pieceCopper) p |= piecePawn;
                else p |= pieceCopper;
             g_reserve[s] = p;
         } else {
