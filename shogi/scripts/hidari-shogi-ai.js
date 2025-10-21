@@ -388,10 +388,10 @@ function DropMobility(piece, from) {
     }
 
     if ((piece & Dagaz.AI.TYPE_MASK) == pieceRook) {
-        to = from - 1;  while (Dagaz.AI.g_board[to] == 0) { to--; mob++;}  if (Dagaz.AI.g_board[to] & enemy) mob++;
-        to = from + 1;  while (Dagaz.AI.g_board[to] == 0) { to++; mob++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
-        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; mob++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
-        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; mob++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 1;  while (Dagaz.AI.g_board[to] == 0) { to--; }  if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1;  while (Dagaz.AI.g_board[to] == 0) { to++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
     }
 
     return mob;

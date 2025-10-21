@@ -470,6 +470,83 @@ Dagaz.AI.Evaluate = function() {
     return curEval;
 }
 
+function DropMobility(piece, from) {
+    var color = piece & Dagaz.AI.colorWhite;
+    var enemy = color ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
+    var mobUnit = color ? g_mobUnit[0] : g_mobUnit[1];
+
+    var mob = 0;
+    var to;
+    
+    if ((piece & Dagaz.AI.TYPE_MASK) == piecePawn) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceKnight) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 31]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 33]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 31]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 33]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceSilver) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceGold) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceLance) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceBishop) {
+        to = from - 17; while (Dagaz.AI.g_board[to] == 0) { to -= 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 17; while (Dagaz.AI.g_board[to] == 0) { to += 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 15; while (Dagaz.AI.g_board[to] == 0) { to += 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 15; while (Dagaz.AI.g_board[to] == 0) { to -= 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceRook) {
+        to = from - 1;  while (Dagaz.AI.g_board[to] == 0) { to--; }  if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1;  while (Dagaz.AI.g_board[to] == 0) { to++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    return mob;
+}
+
 Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
@@ -480,6 +557,8 @@ Dagaz.AI.ScoreMove = function(move) {
     } else {
         var slot = (move >> 16) & 0xFF;
         piece = g_reserve[slot];
+        score = DropMobility(piece, moveTo);
+        return score;
     }
     var score;
     if (captured != pieceEmpty) {
