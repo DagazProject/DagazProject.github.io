@@ -1,0 +1,76 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Migi Shogi</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/migi/board.png">
+<img id="SouthKing" style="display:none" src="images/migi/sking3d.png">
+<img id="NorthKing" style="display:none" src="images/migi/nking3d.png">
+<img id="SouthPrince" style="display:none" src="images/migi/sprince3d.png">
+<img id="NorthPrince" style="display:none" src="images/migi/nprince3d.png">
+<img id="SouthGold" style="display:none" src="images/migi/sgold3d.png">
+<img id="NorthGold" style="display:none" src="images/migi/ngold3d.png">
+<img id="SouthSilver" style="display:none" src="images/migi/ssilver3d.png">
+<img id="NorthSilver" style="display:none" src="images/migi/nsilver3d.png">
+<img id="SouthCopper" style="display:none" src="images/migi/scopper3d.png">
+<img id="NorthCopper" style="display:none" src="images/migi/ncopper3d.png">
+<img id="SouthKnight" style="display:none" src="images/migi/sknight3d.png">
+<img id="NorthKnight" style="display:none" src="images/migi/nknight3d.png">
+<img id="NSKnight" style="display:none" src="images/migi/sknight3d.png">
+<img id="NNKnight" style="display:none" src="images/migi/nknight3d.png">
+<img id="SouthLance" style="display:none" src="images/migi/slance3d.png">
+<img id="NorthLance" style="display:none" src="images/migi/nlance3d.png">
+<img id="NSLance" style="display:none" src="images/migi/slance3d.png">
+<img id="NNLance" style="display:none" src="images/migi/nlance3d.png">
+<img id="SouthRook" style="display:none" src="images/migi/srook3d.png">
+<img id="NorthRook" style="display:none" src="images/migi/nrook3d.png">
+<img id="SouthPawn" style="display:none" src="images/migi/spawn3d.png">
+<img id="NorthPawn" style="display:none" src="images/migi/npawn3d.png">
+<img id="NSPawn" style="display:none" src="images/migi/spawn3d.png">
+<img id="NNPawn" style="display:none" src="images/migi/npawn3d.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="scripts/migi-shogi-ai.js"></script>
+<script src="scripts/migi-shogi-goals.js"></script>
+<script src="scripts/migi-shogi-fen.js"></script>
+<script src="scripts/migi-shogi-captures.js"></script>
+<script src="scripts/hidari-shogi-drops.js"></script>
+<script src="scripts/migi-shogi-promotion.js"></script>
+<script src="scripts/migi-shogi-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Goro Goro Doubutsu Shogi</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/gorogoro/board-3d.png">
+<img id="GreenLion" style="display:none" src="images/gorogoro/king-green-3d.png">
+<img id="RedLion" style="display:none" src="images/gorogoro/king-red-3d.png">
+<img id="GreenChick" style="display:none" src="images/gorogoro/pawn-green-3d.png">
+<img id="RedChick" style="display:none" src="images/gorogoro/pawn-red-3d.png">
+<img id="GreenChickP" style="display:none" src="images/gorogoro/gold-green-3d.png">
+<img id="RedChickP" style="display:none" src="images/gorogoro/gold-red-3d.png">
+<img id="GreenCat" style="display:none" src="images/gorogoro/silver-green-3d.png">
+<img id="RedCat" style="display:none" src="images/gorogoro/silver-red-3d.png">
+<img id="GreenCatP" style="display:none" src="images/gorogoro/gold-cat-green-3d.png">
+<img id="RedCatP" style="display:none" src="images/gorogoro/gold-cat-red-3d.png">
+<img id="GreenDog" style="display:none" src="images/gorogoro/gold-dog-green-3d.png">
+<img id="RedDog" style="display:none" src="images/gorogoro/gold-dog-red-3d.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="scripts/gorogoro-shogi-ai.js"></script>
+<script src="scripts/gorogoro-shogi-fen.js"></script>
+<script src="scripts/gorogoro-shogi-extension.js"></script>
+<script src="scripts/gorogoro-shogi-promotion.js"></script>
+<script src="scripts/gorogoro-shogi-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>

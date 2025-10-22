@@ -1,6 +1,7 @@
 (function() {
 
 var promote = [];
+var isAllForced = false;
 
 var checkVersion = Dagaz.Model.checkVersion;
 
@@ -8,6 +9,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   if (name == "gorogoro-shogi-promotion") {
       promote[ 1] = 2; // Chick
       promote[ 3] = 4; // Cat
+      if (value == "forced") isAllForced = true;
   } else {
       checkVersion(design, name, value);
   }
@@ -20,7 +22,7 @@ Dagaz.Model.CheckInvariants = function(board) {
   _.each(board.moves, function(move) {
       for (var i = 0; i < move.actions.length; i++) {
            if ((move.actions[i][0] !== null) && (move.actions[i][1] !== null)) {
-               var isForced = false;
+               var isForced = isAllForced;
                var from     = move.actions[i][0][0];
                var to       = move.actions[i][1][0];
                var piece    = board.getPiece(from);

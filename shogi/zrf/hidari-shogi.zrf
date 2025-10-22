@@ -1,0 +1,253 @@
+(define drop-piece (
+  (verify (not-in-zone? board-zone)) a6
+  (while (on-board? $1)
+     (if empty? add) $1
+  )
+  (verify empty?)
+  add
+))
+
+(define step (
+  (verify (in-zone? board-zone))
+  $1 (verify not-friend?)
+  (add $2)
+))
+
+(define jump (
+  (verify (in-zone? board-zone))
+  $1 $2 (verify not-friend?)
+  (add $3)
+))
+
+(define slide (
+  (verify (in-zone? board-zone)) $1
+  (while empty?
+     (add $2)
+     $1
+  )
+  (verify enemy?)
+  (add $2)
+))
+
+(game
+  (title "Hidari Shogi")
+
+  (players South North NS NN)
+  (turn-order South North NS NN)
+
+  (board
+      (image "images/hidari/board.bmp")
+      (grid
+        (start-rectangle 672 30 774 132)
+           (dimensions ("a/b/c/d/e" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+           )
+           (directions (n 0 -1) (e 1 0) (s 0 1) (w -1 0)
+                       (ne 1 -1) (nw -1 -1) (se 1 1) (sw -1 1)
+        )
+      )
+      (grid
+        (start-rectangle 29 30 131 132)
+           (dimensions ("A/B" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 317 30 419 132)
+           (dimensions ("C/D" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1375 30 1477 132)
+           (dimensions ("E/F" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (grid
+        (start-rectangle 1663 30 1765 132)
+           (dimensions ("G/H" (132 0))
+                       ("6/5/4/3/2/1" (0 132))
+        )
+      )
+      (links nx
+        (a6 a5) (a5 a4) (a4 a3) (a3 a2) (a2 a1) (a1 b6)
+        (b6 b5) (b5 b4) (b4 b3) (b3 b2) (b2 b1) (b1 c6)
+        (c6 c5) (c5 c2) (c2 c1) (c1 d6)
+        (d6 d5) (d5 d4) (d4 d3) (d3 d2) (d2 d1) (d1 e6)
+        (e6 e5) (e5 e4) (e4 e3) (e3 e2) (e2 e1)
+      )
+      (symmetry North (n s) (s n) (w w) (e e) (nw se) (se nw) (ne sw) (sw ne) (nx nx))
+      (zone (name board-zone) (players South North)
+            (positions a1 b1 c1 d1 e1
+                       a2 b2 c2 d2 e2
+                       a3 b3 c3 d3 e3
+                       a4 b4 c4 d4 e4
+                       a5 b5 c5 d5 e5
+                       a6 b6 c6 d6 e6
+            )
+      )
+      (zone (name last-rank) (players North)
+            (positions a1 b1 c1 d1 e1)
+      )
+      (zone (name last-rank) (players South)
+            (positions a6 b6 c6 d6 e6)
+      )
+      (zone (name last-ranks) (players North)
+            (positions a1 b1 c1 d1 e1
+                       a2 b2 c2 d2 e2
+            )
+      )
+      (zone (name last-ranks) (players South)
+            (positions a5 b5 c5 d5 e5
+                       a6 b6 c6 d6 e6
+            )
+      )
+  )
+
+  (piece 
+       (name King)
+       (image South "images/hidari/sking.bmp" 
+              North "images/hidari/nking.bmp")
+       (moves
+           (move-type normal-type)
+           (step n King) (step nw King)
+           (step s King) (step se King)
+           (step w King) (step sw King)
+           (step e King) (step ne King)
+           (move-type king-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Gold)
+       (image South "images/hidari/sgold.bmp" 
+              North "images/hidari/ngold.bmp")
+       (moves
+           (move-type normal-type)
+           (step n Knight) (step nw Knight)
+           (step s Knight) (step ne Knight)
+           (step w Knight) (step e  Knight) 
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Silver)
+       (image South "images/hidari/ssilver.bmp" 
+              North "images/hidari/nsilver.bmp")
+       (moves
+           (move-type normal-type)
+           (step nw Lance) (step sw Lance)
+           (step se Lance) (step ne Lance)
+           (step n  Lance)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Copper)
+       (image South "images/hidari/scopper.bmp" 
+              North "images/hidari/ncopper.bmp")
+       (moves
+           (move-type normal-type)
+           (step n Bishop) (step nw Bishop)
+           (step s Bishop) (step ne Bishop)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Knight)
+       (image South "images/hidari/sknight.bmp" 
+              North "images/hidari/nknight.bmp"
+              NS "images/hidari/sknight.bmp" 
+              NN "images/hidari/nknight.bmp")
+       (moves
+           (move-type normal-type)
+           (jump n nw Gold)
+           (jump n ne Gold)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Lance)
+       (image South "images/hidari/slance.bmp" 
+              North "images/hidari/nlance.bmp"
+              NS "images/hidari/slance.bmp" 
+              NN "images/hidari/nlance.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n Silver)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Bishop)
+       (image South "images/hidari/sbishop.bmp" 
+              North "images/hidari/nbishop.bmp")
+       (moves
+           (move-type normal-type)
+           (slide nw Copper)
+           (slide se Copper)
+           (slide sw Copper)
+           (slide ne Copper)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Rook)
+       (image South "images/hidari/srook.bmp" 
+              North "images/hidari/nrook.bmp")
+       (moves
+           (move-type normal-type)
+           (slide n Pawn)
+           (slide e Pawn)
+           (slide w Pawn)
+           (slide s Pawn)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+  (piece 
+       (name Pawn)
+       (image South "images/hidari/spawn.bmp" 
+              North "images/hidari/npawn.bmp"
+              NS "images/hidari/spawn.bmp" 
+              NN "images/hidari/npawn.bmp")
+       (moves
+           (move-type normal-type)
+           (step n Rook)
+           (move-type drop-type)
+           (drop-piece nx)
+       )
+  )
+
+  (board-setup
+        ( South 
+            (King   E6)
+            (Rook   E5)
+            (Pawn   F5)
+            (Bishop E4)
+            (Copper F4)
+            (Gold   E3)
+            (Knight F3)
+            (Silver E2)
+            (Lance  F2)
+        )
+        ( North
+            (King   D1)
+            (Rook   D2)
+            (Pawn   C2)
+            (Bishop D3)
+            (Copper C3)
+            (Gold   D4)
+            (Knight C4)
+            (Silver D5)
+            (Lance  C5)
+        )
+  )
+)

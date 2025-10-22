@@ -690,6 +690,295 @@ Dagaz.AI.Evaluate = function() {
     return curEval;
 }
 
+function DropMobility(piece, from) {
+    var color = piece & Dagaz.AI.colorWhite;
+    var enemy = color ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
+    var mobUnit = color ? g_mobUnit[0] : g_mobUnit[1];
+
+    var mob = 0;
+    var to;
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceSparrowPawn) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceSwoopingOwl) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceStruttingCrow) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceClimbingMonkey) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceFlyingGoose) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceFlyingCock) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceBlindDog) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceViolentStag) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceViolentWolf) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceGoldenBird) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+            mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceRoamingBoar) {
+        if (color == Dagaz.AI.colorWhite) {
+            mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        } else {
+            mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        }
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceHeavenlyHorse) {
+        mob += mobUnit[Dagaz.AI.g_board[from - 31]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 33]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 31]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 33]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceBearsEyes) {
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == piecePloddingOx) {
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 1]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 1]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceTreacherousFox) {
+        mob += mobUnit[Dagaz.AI.g_board[from - 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 16]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 17]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 15]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 32]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 32]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 34]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 34]];
+        mob += mobUnit[Dagaz.AI.g_board[from - 30]];
+        mob += mobUnit[Dagaz.AI.g_board[from + 30]];
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceOxcart) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceLiberatedHorse) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from + 16; if (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from - 16; if (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceRunningRabbit) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from + 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from - 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+        to = from - 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceSwallowsWings) {
+        to = from - 1; while (Dagaz.AI.g_board[to] == 0) { to--; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1; while (Dagaz.AI.g_board[to] == 0) { to++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceRaidingFalcon) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from - 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+            to = from + 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceCloudEagle) {
+        to = from - 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 17; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 15; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceFlyingFalcon) {
+        if (color == Dagaz.AI.colorWhite) {
+            to = from - 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        } else {
+            to = from + 16; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        }
+        to = from - 17; while (Dagaz.AI.g_board[to] == 0) { to -= 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 17; while (Dagaz.AI.g_board[to] == 0) { to += 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 15; while (Dagaz.AI.g_board[to] == 0) { to -= 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 15; while (Dagaz.AI.g_board[to] == 0) { to += 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceGlidingSwallow) {
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 1; while (Dagaz.AI.g_board[to] == 0) { to --; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1; while (Dagaz.AI.g_board[to] == 0) { to ++; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    if ((piece & Dagaz.AI.TYPE_MASK) == pieceTenaciousFalcon) {
+        to = from - 16; while (Dagaz.AI.g_board[to] == 0) { to -= 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 16; while (Dagaz.AI.g_board[to] == 0) { to += 16; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 17; while (Dagaz.AI.g_board[to] == 0) { to -= 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 17; while (Dagaz.AI.g_board[to] == 0) { to += 17; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 15; while (Dagaz.AI.g_board[to] == 0) { to -= 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 15; while (Dagaz.AI.g_board[to] == 0) { to += 15; } if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from - 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+        to = from + 1; if (Dagaz.AI.g_board[to] & enemy) mob++;
+    }
+
+    return mob;
+}
+
 Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
@@ -700,6 +989,8 @@ Dagaz.AI.ScoreMove = function(move) {
     } else {
         var slot = (move >> 16) & 0xFF;
         piece = g_reserve[slot];
+        score = DropMobility(piece, moveTo);
+        return score;
     }
     var score;
     if (captured != pieceEmpty) {
