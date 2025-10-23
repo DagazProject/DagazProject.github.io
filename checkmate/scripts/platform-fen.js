@@ -256,16 +256,25 @@ Dagaz.Model.getSetup = function(design, board) {
        k++;
        var piece = board.getPiece(+pos + 16);
        if (piece === null) {
-           if (c > 8) {
-               str += c;
-               c = 0;
+           var p = design.navigate(1, +pos + 16, 9);
+           if (p !== null && board.getPiece(p) === null) {
+               if (c > 0) {
+                   str += c;
+                   c = 0;
+               }
+               str += '.';
+           } else {
+               if (c > 8) {
+                   str += c;
+                   c = 0;
+               }
+               c++;
            }
-           c++;
        } else {
            if (c > 0) {
                str += c;
+               c = 0;
            }
-           c = 0;
            str += getPieceNotation(design, piece);
        }
   }
