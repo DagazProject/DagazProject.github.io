@@ -138,19 +138,19 @@ var g_down = [
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 0, 0,
-0, 0, 0, 0, 4, 4, 5, 5, 6, 6, 7, 7, 0, 0, 0, 0,
-0, 0, 0, 0, 4, 4, 5, 5, 6, 6, 7, 7, 0, 0, 0, 0,
-0, 0, 0, 0, 8, 8, 9, 9,10,10,11,11, 0, 0, 0, 0,
-0, 0, 0, 0, 8, 8, 9, 9,10,10,11,11, 0, 0, 0, 0,
-0, 0, 0, 0,12,12,13,13,14,14,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,12,12,13,13,14,14,15,15, 0, 0, 0, 0,
+0, 0, 0, 0, 5, 5, 6, 6, 7, 7, 8, 8, 0, 0, 0, 0,
+0, 0, 0, 0, 5, 5, 6, 6, 7, 7, 8, 8, 0, 0, 0, 0,
+0, 0, 0, 0,10,10,11,11,12,12,13,13, 0, 0, 0, 0,
+0, 0, 0, 0,10,10,11,11,12,12,13,13, 0, 0, 0, 0,
+0, 0, 0, 0,15,15,16,16,17,17,18,18, 0, 0, 0, 0,
+0, 0, 0, 0,15,15,16,16,17,17,18,18, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var g_up = [
-  [ 0x24, 0x25, 0x34, 0x35], [ 0x26, 0x27, 0x36, 0x37], [ 0x28, 0x29, 0x38, 0x39], [ 0x2A, 0x2B, 0x3A, 0x3B],
-  [ 0x44, 0x45, 0x54, 0x55], [ 0x46, 0x47, 0x56, 0x57], [ 0x48, 0x49, 0x58, 0x59], [ 0x4A, 0x4B, 0x5A, 0x5B],
-  [ 0x64, 0x65, 0x74, 0x75], [ 0x66, 0x67, 0x76, 0x77], [ 0x68, 0x69, 0x78, 0x79], [ 0x6A, 0x6B, 0x7A, 0x7B],
+  [ 0x24, 0x25, 0x34, 0x35], [ 0x26, 0x27, 0x36, 0x37], [ 0x28, 0x29, 0x38, 0x39], [ 0x2A, 0x2B, 0x3A, 0x3B], [],
+  [ 0x44, 0x45, 0x54, 0x55], [ 0x46, 0x47, 0x56, 0x57], [ 0x48, 0x49, 0x58, 0x59], [ 0x4A, 0x4B, 0x5A, 0x5B], [],
+  [ 0x64, 0x65, 0x74, 0x75], [ 0x66, 0x67, 0x76, 0x77], [ 0x68, 0x69, 0x78, 0x79], [ 0x6A, 0x6B, 0x7A, 0x7B], [],
   [ 0x84, 0x85, 0x94, 0x95], [ 0x86, 0x87, 0x96, 0x97], [ 0x88, 0x89, 0x98, 0x99], [ 0x8A, 0x8B, 0x9A, 0x9B]
 ];
 
@@ -159,16 +159,16 @@ function MakeSquare(row, column) {
 }
 
 function MakePlatform(row, column) {
-    return ((row << 2) | column) + (12 << 4);
+    return ((row * 5) | column) + (12 << 4);
 }
 
 function FormatSquare(square) {
     var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    if (square < 0xA0) {
+    if (square < (12 << 4)) {
         return letters[(square & 0xF) - 4] + (((Dagaz.Model.HEIGHT + 1) - (square >> 4)) + 1);
     } else {
         square -= (12 << 4);
-        return letters[(square & 0x3)] + letters[3 - ((square >> 2) & 0x3)];
+        return letters[(square % 5)] + letters[3 - (((square / 5) | 0) % 5)];
     }
 }
 
@@ -335,7 +335,7 @@ Dagaz.AI.Evaluate = function() {
 
 Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
-    if (moveTo >= 0xA0) return 0;
+    if (moveTo >= (12 << 4)) return 0;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
     var piece = Dagaz.AI.g_board[move & 0xFF];
     var score;
@@ -351,7 +351,7 @@ Dagaz.AI.ScoreMove = function(move) {
 Dagaz.AI.IsHashMoveValid = function(hashMove) {
     var from = hashMove & 0xFF;
     var to = (hashMove >> 8) & 0xFF;
-    if (to >= 0xA0) return false;
+    if (to >= (12 << 4)) return false;
     var ourPiece = Dagaz.AI.g_board[from];
     var pieceType = ourPiece & Dagaz.AI.TYPE_MASK;
     if (pieceType < piecePawn || pieceType > pieceKing) return false;
@@ -1099,6 +1099,17 @@ function GenerateValidMoves() {
 
 Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var from, to, piece, pieceIdx;
+
+    // Platform quiet moves
+    pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
+    from = Dagaz.AI.g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 5; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 5; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	from = Dagaz.AI.g_pieceList[pieceIdx++];
+    }
 
     // Pawn quiet moves
     pieceIdx = (Dagaz.AI.g_toMove | piecePawn) << Dagaz.AI.COUNTER_SIZE;
