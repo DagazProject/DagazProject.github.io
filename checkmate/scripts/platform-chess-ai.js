@@ -978,58 +978,76 @@ Dagaz.AI.UnmakeMove = function(move) {
     var captured = g_moveUndoStack[Dagaz.AI.g_moveCount].captured;
     var to = (move >> 8) & 0xFF;
     var from = move & 0xFF;
-    
     var piece = Dagaz.AI.g_board[to];
-    
-    if (flags) {
-        if (flags & moveflagCastleKing) {
-            var rook = Dagaz.AI.g_board[to - 1];
-            Dagaz.AI.g_board[to + 1] = rook;
-            Dagaz.AI.g_board[to - 1] = pieceEmpty;
+
+    if (from < 192) {
+        if (flags) {
+            if (flags & moveflagCastleKing) {
+                var rook = Dagaz.AI.g_board[to - 1];
+                Dagaz.AI.g_board[to + 1] = rook;
+                Dagaz.AI.g_board[to - 1] = pieceEmpty;
 			
-            var rookIndex = Dagaz.AI.g_pieceIndex[to - 1];
-            Dagaz.AI.g_pieceIndex[to + 1] = rookIndex;
-            Dagaz.AI.g_pieceList[((rook & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | rookIndex] = to + 1;
-        }
-        else if (flags & moveflagCastleQueen) {
-            var rook = Dagaz.AI.g_board[to + 1];
-            Dagaz.AI.g_board[to - 2] = rook;
-            Dagaz.AI.g_board[to + 1] = pieceEmpty;
+                var rookIndex = Dagaz.AI.g_pieceIndex[to - 1];
+                Dagaz.AI.g_pieceIndex[to + 1] = rookIndex;
+                Dagaz.AI.g_pieceList[((rook & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | rookIndex] = to + 1;
+            } else if (flags & moveflagCastleQueen) {
+                var rook = Dagaz.AI.g_board[to + 1];
+                Dagaz.AI.g_board[to - 2] = rook;
+                Dagaz.AI.g_board[to + 1] = pieceEmpty;
 			
-            var rookIndex = Dagaz.AI.g_pieceIndex[to + 1];
-            Dagaz.AI.g_pieceIndex[to - 2] = rookIndex;
-            Dagaz.AI.g_pieceList[((rook & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | rookIndex] = to - 2;
+                var rookIndex = Dagaz.AI.g_pieceIndex[to + 1];
+                Dagaz.AI.g_pieceIndex[to - 2] = rookIndex;
+                Dagaz.AI.g_pieceList[((rook & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | rookIndex] = to - 2;
+            }
         }
-    }
-    
-    if (flags & moveflagPromotion) {
-        piece = (Dagaz.AI.g_board[to] & (~Dagaz.AI.TYPE_MASK)) | piecePawn;
-        Dagaz.AI.g_board[from] = piece;
 
-        var pawnType = Dagaz.AI.g_board[from] & Dagaz.AI.PIECE_MASK;
-        var promoteType = Dagaz.AI.g_board[to] & Dagaz.AI.PIECE_MASK;
+        if (flags & moveflagPromotion) {
+            piece = (Dagaz.AI.g_board[to] & (~Dagaz.AI.TYPE_MASK)) | piecePawn;
+            Dagaz.AI.g_board[from] = piece;
 
-        Dagaz.AI.g_pieceCount[promoteType]--;
+            var pawnType = Dagaz.AI.g_board[from] & Dagaz.AI.PIECE_MASK;
+            var promoteType = Dagaz.AI.g_board[to] & Dagaz.AI.PIECE_MASK;
 
-        var lastPromoteSquare = Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[promoteType]];
-        Dagaz.AI.g_pieceIndex[lastPromoteSquare] = Dagaz.AI.g_pieceIndex[to];
-        Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
-        Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[promoteType]] = 0;
-        Dagaz.AI.g_pieceIndex[to] = Dagaz.AI.g_pieceCount[pawnType];
-        Dagaz.AI.g_pieceList[(pawnType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[to]] = to;
-        Dagaz.AI.g_pieceCount[pawnType]++;
-    }
-    else {
+            Dagaz.AI.g_pieceCount[promoteType]--;
+
+            var lastPromoteSquare = Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[promoteType]];
+            Dagaz.AI.g_pieceIndex[lastPromoteSquare] = Dagaz.AI.g_pieceIndex[to];
+            Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
+            Dagaz.AI.g_pieceList[(promoteType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[promoteType]] = 0;
+            Dagaz.AI.g_pieceIndex[to] = Dagaz.AI.g_pieceCount[pawnType];
+            Dagaz.AI.g_pieceList[(pawnType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[to]] = to;
+            Dagaz.AI.g_pieceCount[pawnType]++;
+        } else {
+            Dagaz.AI.g_board[from] = Dagaz.AI.g_board[to];
+        }
+    } else {
         Dagaz.AI.g_board[from] = Dagaz.AI.g_board[to];
+
+        var fromPos = g_up[from - 192];
+        var toPos   = g_up[to - 192];
+
+        for (var i = 0; i < 4; i++) {
+             var f = fromPos[i]; var t = toPos[i];
+             var p = Dagaz.AI.g_board[t];
+
+             // Move our piece in the piece list
+             Dagaz.AI.g_pieceIndex[f] = Dagaz.AI.g_pieceIndex[t];
+             Dagaz.AI.g_pieceList[((p & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[f]] = f;
+
+             Dagaz.AI.g_board[t] = pieceNo;
+             Dagaz.AI.g_board[f] = p;
+        }
     }
 
-    var epcEnd = to;
-    if (flags & moveflagEPC) {
-        if (Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) 
-            epcEnd = to + 0x10;
-        else 
-            epcEnd = to - 0x10;
-        Dagaz.AI.g_board[to] = pieceEmpty;
+    if (from < 192) {
+        var epcEnd = to;
+        if (flags & moveflagEPC) {
+            if (Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) 
+                epcEnd = to + 0x10;
+            else 
+                epcEnd = to - 0x10;
+            Dagaz.AI.g_board[to] = pieceEmpty;
+        }
     }
     
     Dagaz.AI.g_board[epcEnd] = captured;
@@ -1038,12 +1056,14 @@ Dagaz.AI.UnmakeMove = function(move) {
     Dagaz.AI.g_pieceIndex[from] = Dagaz.AI.g_pieceIndex[to];
     Dagaz.AI.g_pieceList[((piece & Dagaz.AI.PIECE_MASK) << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceIndex[from]] = from;
 
-    if (captured) {
-        // Restore our piece to the piece list
-        var captureType = captured & Dagaz.AI.PIECE_MASK;
-        Dagaz.AI.g_pieceIndex[epcEnd] = Dagaz.AI.g_pieceCount[captureType];
-        Dagaz.AI.g_pieceList[(captureType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[captureType]] = epcEnd;
-        Dagaz.AI.g_pieceCount[captureType]++;
+    if (from < 192) {
+        if (captured) {
+            // Restore our piece to the piece list
+            var captureType = captured & Dagaz.AI.PIECE_MASK;
+            Dagaz.AI.g_pieceIndex[epcEnd] = Dagaz.AI.g_pieceCount[captureType];
+            Dagaz.AI.g_pieceList[(captureType << Dagaz.AI.COUNTER_SIZE) | Dagaz.AI.g_pieceCount[captureType]] = epcEnd;
+            Dagaz.AI.g_pieceCount[captureType]++;
+        }
     }
 }
 
