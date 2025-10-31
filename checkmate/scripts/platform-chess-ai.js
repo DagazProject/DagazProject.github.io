@@ -2,11 +2,13 @@
 
 (function() {
 
+Dagaz.AI.NOISE_FACTOR     = 0;
 Dagaz.AI.PIECE_MASK       = 0xF;
 Dagaz.AI.TYPE_MASK        = 0x7;
 Dagaz.AI.PLAYERS_MASK     = 0x18;
 Dagaz.AI.COUNTER_SIZE     = 6;
 Dagaz.AI.TYPE_SIZE        = 3;
+Dagaz.AI.VECTORDELTA_SIZE = 512;
 
 Dagaz.AI.colorBlack       = 0x10;
 Dagaz.AI.colorWhite       = 0x08;
@@ -109,7 +111,7 @@ Dagaz.AI.pieceAdj = [
 var pieceSquareAdj = new Array(8);
 var flipTable = new Array(256);
 
-var g_vectorDelta  = new Array(256);
+var g_vectorDelta  = new Array(Dagaz.AI.VECTORDELTA_SIZE);
 
 var g_bishopDeltas = [-15, -17, 15, 17];
 var g_knightDeltas = [31, 33, 14, -14, -31, -33, 18, -18];
@@ -450,7 +452,7 @@ Dagaz.AI.ResetGame = function() {
 
   var pieceDeltas = [[], [], g_knightDeltas, g_bishopDeltas, g_rookDeltas, g_queenDeltas, g_queenDeltas];
 
-  for (var i = 0; i < 256; i++) {
+  for (var i = 0; i < Dagaz.AI.VECTORDELTA_SIZE; i++) {
       g_vectorDelta[i] = new Object();
       g_vectorDelta[i].delta = 0;
       g_vectorDelta[i].pieceMask = new Array(2);
@@ -464,21 +466,21 @@ Dagaz.AI.ResetGame = function() {
            var square = row | col;
             
            // Pawn moves
-           var index = square - (square - 17) + 128;
+           var index = square - (square - 17) + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[Dagaz.AI.colorWhite >> Dagaz.AI.TYPE_SIZE] |= (1 << piecePawn);
-           index = square - (square - 15) + 128;
+           index = square - (square - 15) + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[Dagaz.AI.colorWhite >> Dagaz.AI.TYPE_SIZE] |= (1 << piecePawn);
             
-           index = square - (square + 17) + 128;
+           index = square - (square + 17) + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
-           index = square - (square + 15) + 128;
+           index = square - (square + 15) + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
 
            for (var i = pieceKnight; i <= pieceKing; i++) {
                 for (var dir = 0; dir < pieceDeltas[i].length; dir++) {
                      var target = square + pieceDeltas[i][dir];
                      while (!(target & 0x88)) {
-                         index = square - target + 128;
+                         index = square - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
 
                          g_vectorDelta[index].pieceMask[Dagaz.AI.colorWhite >> Dagaz.AI.TYPE_SIZE] |= (1 << i);
                          g_vectorDelta[index].pieceMask[0] |= (1 << i);
@@ -624,11 +626,11 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                  }
                  
-                 Dagaz.AI.g_board[MakePlatform(row, col)] = piece;
+//               Dagaz.AI.g_board[MakePlatform(row, col)] = piece; // <-- TODO
                  col++;
              }
          }
-    }    
+    }
     Dagaz.AI.InitializePieceList();
     
     Dagaz.AI.g_toMove = chunks[2].charAt(0) == 'w' ? Dagaz.AI.colorWhite : 0;
@@ -742,10 +744,10 @@ Dagaz.AI.MakeMove = function(move) {
     Dagaz.AI.g_moveCount++;
 
     if (from >= 192) {
-        if (to < 192) return false;
+//      if (to < 192) return false;
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
-        for (var i = 0; i < 4; i++) {
+/*      for (var i = 0; i < 4; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[f];
 
@@ -760,7 +762,7 @@ Dagaz.AI.MakeMove = function(move) {
 
              Dagaz.AI.g_board[t] = p;
              Dagaz.AI.g_board[f] = pieceNo;
-        }
+        }*/
     } else {
         g_enPassentSquare = -1;
 
@@ -1026,7 +1028,7 @@ Dagaz.AI.UnmakeMove = function(move) {
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
 
-        for (var i = 0; i < 4; i++) {
+/*      for (var i = 0; i < 4; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[t];
 
@@ -1036,7 +1038,7 @@ Dagaz.AI.UnmakeMove = function(move) {
 
              Dagaz.AI.g_board[t] = pieceNo;
              Dagaz.AI.g_board[f] = p;
-        }
+        }*/
     }
 
     if (from < 192) {
@@ -1068,7 +1070,9 @@ Dagaz.AI.UnmakeMove = function(move) {
 }
 
 function ExposesCheck(from, kingPos) {
-    var index = kingPos - from + 128;
+    if (from >= 192) return false;
+    if (kingPos >= 192) return false;
+    var index = kingPos - from + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
     // If a queen can't reach it, nobody can!
     if ((g_vectorDelta[index].pieceMask[0] & (1 << (pieceQueen))) != 0) {
         var delta = g_vectorDelta[index].delta;
@@ -1080,20 +1084,22 @@ function ExposesCheck(from, kingPos) {
             return false;
 
         // Now see if the piece can actually attack the king
-        var backwardIndex = pos - kingPos + 128;
+        var backwardIndex = pos - kingPos + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
         return (g_vectorDelta[backwardIndex].pieceMask[(piece >> Dagaz.AI.TYPE_SIZE) & 1] & (1 << (piece & Dagaz.AI.TYPE_MASK))) != 0;
     }
     return false;
 }
 
 function IsSquareOnPieceLine(target, from) {
-    var index = from - target + 128;
+    var index = from - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
     var piece = Dagaz.AI.g_board[from];
     return (g_vectorDelta[index].pieceMask[(piece >> Dagaz.AI.TYPE_SIZE) & 1] & (1 << (piece & Dagaz.AI.TYPE_MASK))) ? true : false;
 }
 
 function IsSquareAttackableFrom(target, from) {
-    var index = from - target + 128;
+    if (from >= 192) return false;
+    if (target >= 192) return false;
+    var index = from - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
     var piece = Dagaz.AI.g_board[from];
     if (g_vectorDelta[index].pieceMask[(piece >> Dagaz.AI.TYPE_SIZE) & 1] & (1 << (piece & Dagaz.AI.TYPE_MASK))) {
         // Yes, this square is pseudo-attackable.  Now, check for real attack
@@ -1150,7 +1156,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var from, to, piece, pieceIdx;
 
     // Platform quiet moves
-    pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
+/*  pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
 	to = from - 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
@@ -1158,7 +1164,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 	to = from - 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	to = from + 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
-    }
+    }*/
 
     // Pawn quiet moves
     pieceIdx = (Dagaz.AI.g_toMove | piecePawn) << Dagaz.AI.COUNTER_SIZE;
@@ -1539,7 +1545,7 @@ Dagaz.AI.See = function(move) {
 }
 
 function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
-    var index = square - target + 128;
+    var index = square - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
     var delta = -g_vectorDelta[index].delta;
     if (delta == 0) return;
     square += delta;
