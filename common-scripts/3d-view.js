@@ -413,7 +413,7 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
         new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }),
         new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }),
         new THREE.MeshBasicMaterial((pieceType.img !== null) ? { map: pieceType.img.t, transparent: true, opacity: pieceType.opacity } : { color: pieceType.colors[i] } ),
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }),
+        new THREE.MeshBasicMaterial({ color: pieceType.colors[5], transparent: true, opacity: 0.3 }),
         new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }),
         new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })
   ];
