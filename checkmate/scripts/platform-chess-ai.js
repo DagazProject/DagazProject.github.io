@@ -625,8 +625,8 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         piece |= piecePlatform;
                         break;
                  }
-                 
-//               Dagaz.AI.g_board[MakePlatform(row, col)] = piece; // <-- TODO
+
+                 Dagaz.AI.g_board[MakePlatform(row, col)] = piece; // <-- TODO
                  col++;
              }
          }
@@ -679,6 +679,7 @@ Dagaz.AI.InitializeFromFen = function(fen) {
 
     Dagaz.AI.g_baseEval = 0;
     for (var i = 0; i < 256; i++) {
+        if ((Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK) > pieceKing) continue;
         if (Dagaz.AI.g_board[i] & Dagaz.AI.colorWhite) {
             Dagaz.AI.g_baseEval += pieceSquareAdj[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK][i];
             Dagaz.AI.g_baseEval += materialTable[Dagaz.AI.g_board[i] & Dagaz.AI.TYPE_MASK];
@@ -744,10 +745,10 @@ Dagaz.AI.MakeMove = function(move) {
     Dagaz.AI.g_moveCount++;
 
     if (from >= 192) {
-//      if (to < 192) return false;
+        if (to < 192) return false;
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
-/*      for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[f];
 
@@ -762,7 +763,7 @@ Dagaz.AI.MakeMove = function(move) {
 
              Dagaz.AI.g_board[t] = p;
              Dagaz.AI.g_board[f] = pieceNo;
-        }*/
+        }
     } else {
         g_enPassentSquare = -1;
 
@@ -1028,7 +1029,7 @@ Dagaz.AI.UnmakeMove = function(move) {
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
 
-/*      for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[t];
 
@@ -1038,7 +1039,7 @@ Dagaz.AI.UnmakeMove = function(move) {
 
              Dagaz.AI.g_board[t] = pieceNo;
              Dagaz.AI.g_board[f] = p;
-        }*/
+        }
     }
 
     if (from < 192) {
@@ -1156,7 +1157,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var from, to, piece, pieceIdx;
 
     // Platform quiet moves
-/*  pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
+    pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
 	to = from - 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
@@ -1164,7 +1165,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 	to = from - 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	to = from + 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = Dagaz.AI.g_pieceList[pieceIdx++];
-    }*/
+    }
 
     // Pawn quiet moves
     pieceIdx = (Dagaz.AI.g_toMove | piecePawn) << Dagaz.AI.COUNTER_SIZE;
