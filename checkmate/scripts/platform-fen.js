@@ -282,6 +282,7 @@ Dagaz.Model.getSetup = function(design, board) {
       str += c;
   }
   str += "+";
+  k = 0; c = 0;
   for (var pos = 0; pos < Dagaz.Model.MINI_WIDTH * Dagaz.Model.MINI_HEIGHT; pos++) {
        if (k >= Dagaz.Model.MINI_WIDTH) {
            if (c > 0) {
