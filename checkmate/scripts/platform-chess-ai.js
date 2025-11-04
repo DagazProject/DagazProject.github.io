@@ -337,7 +337,7 @@ Dagaz.AI.Evaluate = function() {
 
 Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
-    if (moveTo >= 192) return 0;
+    if (moveTo >= 192) return 100;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
     var piece = Dagaz.AI.g_board[move & 0xFF];
     var score;
@@ -626,7 +626,7 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                  }
 
-                 Dagaz.AI.g_board[MakePlatform(row, col)] = piece; // <-- TODO
+                 Dagaz.AI.g_board[MakePlatform(row, col)] = piece;
                  col++;
              }
          }
@@ -725,11 +725,11 @@ function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHig
 Dagaz.AI.MakeMove = function(move) {
     var me = Dagaz.AI.g_toMove >> Dagaz.AI.TYPE_SIZE;
     var otherColor = Dagaz.AI.colorWhite - Dagaz.AI.g_toMove; 
+
     var flags = move & 0xFF0000;
     var to = (move >> 8) & 0xFF;
     var from = move & 0xFF;
     var piece = Dagaz.AI.g_board[from];
-
     var captured = Dagaz.AI.g_board[to];
     var epcEnd = to;
 
@@ -739,16 +739,19 @@ Dagaz.AI.MakeMove = function(move) {
             captured = Dagaz.AI.g_board[epcEnd];
             Dagaz.AI.g_board[epcEnd] = pieceEmpty;
         }
+    } else {
+        if (to < 192) return false;
     }
 
     g_moveUndoStack[Dagaz.AI.g_moveCount] = new UndoHistory(g_enPassentSquare, g_castleRights, Dagaz.AI.g_inCheck, Dagaz.AI.g_baseEval, Dagaz.AI.g_hashKeyLow, Dagaz.AI.g_hashKeyHigh, Dagaz.AI.g_move50, captured);
     Dagaz.AI.g_moveCount++;
 
+    g_enPassentSquare = -1;
+
     if (from >= 192) {
-        if (to < 192) return false;
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < fromPos.length; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[f];
 
@@ -765,8 +768,6 @@ Dagaz.AI.MakeMove = function(move) {
              Dagaz.AI.g_board[f] = pieceNo;
         }
     } else {
-        g_enPassentSquare = -1;
-
         if (flags) {
             if (flags & moveflagCastleKing) {
                 if (IsSquareAttackable(from + 1, otherColor) ||
@@ -1029,7 +1030,7 @@ Dagaz.AI.UnmakeMove = function(move) {
         var fromPos = g_up[from - 192];
         var toPos   = g_up[to - 192];
 
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < fromPos.length; i++) {
              var f = fromPos[i]; var t = toPos[i];
              var p = Dagaz.AI.g_board[t];
 
@@ -1129,10 +1130,6 @@ function IsSquareAttackable(target, color) {
         }
     }
     return false;
-}
-
-function GenerateMove(from, to) {
-    return from | (to << 8);
 }
 
 function GenerateMove(from, to, flags) {
