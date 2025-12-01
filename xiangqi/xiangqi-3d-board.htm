@@ -1,0 +1,62 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>XiangQi</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/10x9.png">
+
+<img id="Bump" style="display:none" src="../res/xiangqi/piecebump.jpg">
+<img id="rSoldier" style="display:none" src="../res/xiangqi/rsoldier.png">
+<img id="bSoldier" style="display:none" src="../res/xiangqi/bsoldier.png">
+<img id="rElephant" style="display:none" src="../res/xiangqi/relephant.png">
+<img id="bElephant" style="display:none" src="../res/xiangqi/belephant.png">
+<img id="rHorse" style="display:none" src="../res/xiangqi/rhorse.png">
+<img id="bHorse" style="display:none" src="../res/xiangqi/bhorse.png">
+<img id="rChariot" style="display:none" src="../res/xiangqi/rchariot.png">
+<img id="bChariot" style="display:none" src="../res/xiangqi/bchariot.png">
+<img id="rCannon" style="display:none" src="../res/xiangqi/rcannon.png">
+<img id="bCannon" style="display:none" src="../res/xiangqi/bcannon.png">
+<img id="rMandarin" style="display:none" src="../res/xiangqi/rmandarin.png">
+<img id="bMandarin" style="display:none" src="../res/xiangqi/bmandarin.png">
+<img id="rGeneral" style="display:none" src="../res/xiangqi/rgeneral.png">
+<img id="bGeneral" style="display:none" src="../res/xiangqi/bgeneral.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="scripts/xiangqi-setup.js"></script>
+<script src="scripts/xiangqi-extension.js"></script>
+<script src="scripts/xiangqi-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>
