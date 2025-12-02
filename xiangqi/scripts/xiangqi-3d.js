@@ -1,5 +1,5 @@
 Dagaz.View.TARGET_FLAT  = true;
-
+Dagaz.View.TARGET_LARGE = true;
 Dagaz.AI.Q_SEARCH_LIMIT = -4;
 Dagaz.AI.ALL_CUT_LIMIT  = 5;
 Dagaz.AI.INC_CHECK_PLY  = false;
@@ -332,7 +332,7 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard3D(538, 600, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+    view.defBoard3D(548, 610, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
     const tokenPath = '../res/xiangqi';
 
@@ -354,7 +354,7 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 255);
 
     view.defControl("InfoControl", "Trafitional Chinese", true, Dagaz.Controller.open, 'https://en.wikipedia.org/wiki/Xiangqi');
-    view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi.htm' : 'xiangqi-board.htm');
+    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi.htm' : 'xiangqi-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi-3d-board.htm' : 'xiangqi-3d.htm');

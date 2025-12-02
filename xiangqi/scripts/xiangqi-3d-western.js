@@ -1,5 +1,5 @@
 Dagaz.View.TARGET_FLAT  = true;
-
+Dagaz.View.TARGET_LARGE = true;
 Dagaz.AI.Q_SEARCH_LIMIT = -4;
 Dagaz.AI.ALL_CUT_LIMIT  = 5;
 Dagaz.AI.INC_CHECK_PLY  = false;
@@ -332,7 +332,7 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard3D(538, 600, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+    view.defBoard3D(548, 610, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
     const modelPath = '../res/fairy';
     const white = '#FFFF63';
