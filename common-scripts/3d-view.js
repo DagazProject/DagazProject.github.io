@@ -236,8 +236,11 @@ View3D.prototype.setCamera = function(dx, dy, dz, x, y, z) {
 View3D.prototype.clearTargets = function() {
   _.each(this.targets, function(pos) {
       const t = this.pos[pos].t;
+      const l = this.pos[pos].l;
       t.material = posMaterial;
-      l.material = posMaterial;
+      if (l !== null) {
+          l.material = posMaterial;
+      }
   }, this);
 }
 
