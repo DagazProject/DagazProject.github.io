@@ -1128,9 +1128,10 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("InfoControl", "1985 Gary Gygax", true, Dagaz.Controller.open, 'https://en.wikipedia.org/wiki/Dragonchess');
-    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'dragonchess.htm' : 'dragonchess-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'dragonchess.htm' : 'dragonchess-board.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'dragonchess-3d-board.htm' : 'dragonchess-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  
