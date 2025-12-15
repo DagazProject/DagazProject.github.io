@@ -1,3 +1,22 @@
+15.12.2025 - 1.4.4
+  3D XiangQi
+  Bicube
+  Bondage Cube
+  Burr Cube
+  Aggressor Cube
+  Fortress Cube
+  Snake Cube
+  Spyral Cube
+  Dia Cube
+  Bricks Cube
+  Window Cube
+  Chimera Cube
+  Fence Cube
+  Doubutsu Shogi 3D
+  Migi Shogi
+  Hidari Shogi
+  Animal Checkers
+  platform-chess-ai
 04.06.2025 - 1.4.3
   Tamago
   3D Morris
