@@ -1449,7 +1449,7 @@ View3D.prototype.draw = function(canvas) {
                    }),
                    // Материал для остальных граней
                    new THREE.MeshBasicMaterial({ 
-                       color: b.colors[1],
+                       color: b.colors[1], transparent: true, opacity: 0.3,
                        side: THREE.DoubleSide
                    }),
                 ];
@@ -1463,6 +1463,7 @@ View3D.prototype.draw = function(canvas) {
                 boardGeometry.addGroup(6, 18, 1); // боковые грани
 
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
+                boardBlock.rotation.y = Math.PI;
                 boardBlock.position.set(0, b.z / 10, 0);
                 if (Dagaz.View.RENDER_ORDER) {
                     boardBlock.renderOrder = 1;
