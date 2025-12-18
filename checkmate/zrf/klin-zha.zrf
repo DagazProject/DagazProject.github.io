@@ -289,7 +289,24 @@
     (I78  652 625 696 658)  (I78V 662 659 686 676)
     (I88  697 667 741 700)  (I88V 707 649 731 666)
     (I89  742 625 786 658)  (I89V 752 659 776 676)
-    (I99  787 667 831 700)  (I99V 797 649 821 666))
+    (I99  787 667 831 700)  (I99V 797 649 821 666)
+
+    ; These are the piece repository positions
+    (GLA0 110 388 154 421) 
+    (GFL0  10 544  54 577) (GFL1  60 544 104 577) 
+    (GSW0  10 388  54 421)
+    (GGL0  10 622  54 655)
+    (GVG0  10 466  54 499) (GVG1  60 466 104 499) (GVG2 110 466 155 499) 
+    (GFE0  60 388 104 421)
+    (GBL0 160 388 204 421)
+
+    (YLA0 746 388 790 421) 
+    (YFL0 796 544 840 577) (YFL1 845 544 890 577) 
+    (YSW0 846 388 890 421)
+    (YGL0 846 622 890 655)
+    (YVG0 746 466 790 499) (YVG1 795 466 840 499) (YVG2 845 466 890 499) 
+    (YFE0 796 388 840 421)
+    (YBL0 696 388 740 421))
 
     (zone
     (name board-zone)
@@ -399,6 +416,25 @@
           H12                    H89
       I11 I12 I22            I88 I89 I99
     ))
+
+
+  (zone
+    ; The home zone is where the warriors are placed initially.  These
+    ; are moved to the board proper in the setup phase.
+    (name home)
+    (players Gold)
+    (positions
+      YLA0  YFL0  YFL1  YSW0  YVG0  YVG1  YVG2  YFE0  YBL0  YGL0 
+    )
+  )
+  
+  (zone
+    (name home)
+    (players Green)
+    (positions
+      GLA0  GFL0  GFL1  GSW0  GVG0  GVG1  GVG2  GFE0  GBL0  GGL0 
+    )
+  )
 
     ; kagga link goes from A19 to Kagga's Crown, not used in regular variants
     (links kagga (A19 Kagga-Crown))
