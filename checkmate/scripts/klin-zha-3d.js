@@ -47,7 +47,6 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPlayer("Gold", [0, 1, 3, 2, 5, 4, 9, 8, 7, 6, 10, 11]);
     design.addPlayer("Green", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
-    design.addTurn(1, 2);
 /*  design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
@@ -55,9 +54,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
-    design.addTurn(1, 2);*/
+    design.addTurn(1, 2);
+    design.addTurn(1, 2);
     design.addTurn(2, 2);
-/*  design.addTurn(2, 2);
+    design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
@@ -66,8 +66,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(1, 0);
-    design.addTurn(2, 0);*/
-    design.repeatMark();
+    design.addTurn(2, 0);
+    design.repeatMark();*/
     design.addTurn(1, 1);
     design.addTurn(2, 1);
 
@@ -262,6 +262,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addZone("dishonor", 2, [1, 3, 5, 7, 99, 127, 129, 131, 133, 157, 159, 161]);
     design.addZone("home", 1, [173, 174, 175, 176, 178, 179, 180, 181, 182, 177]);
     design.addZone("home", 2, [163, 164, 165, 166, 168, 169, 170, 171, 172, 167]);
+    design.addZone("s0", 1, [1, 5, 3, 7, 11, 15, 9, 13, 17, 21, 25, 29, 19, 23, 27, 31, 35, 39, 43, 47, 37, 41, 45, 61]);
+    design.addZone("s0", 2, [1, 5, 3, 7, 11, 15, 9, 13, 17, 21, 25, 29, 19, 23, 27, 31, 35, 39, 43, 47, 37, 41, 45, 61]);
+    design.addZone("s1", 1, [161, 159, 127, 157, 125, 155, 97, 123, 153, 95, 121, 151, 71, 93, 119, 149, 69, 91, 117, 147, 67, 89, 115, 87]);
+    design.addZone("s1", 2, [161, 159, 127, 157, 125, 155, 97, 123, 153, 95, 121, 151, 71, 93, 119, 149, 69, 91, 117, 147, 67, 89, 115, 87]);
+    design.addZone("s2", 1, [129, 131, 133, 99, 135, 101, 137, 103, 73, 139, 105, 75, 141, 107, 77, 51, 143, 109, 79, 53, 111, 81, 55, 83]);
+    design.addZone("s2", 2, [129, 131, 133, 99, 135, 101, 137, 103, 73, 139, 105, 75, 141, 107, 77, 51, 143, 109, 79, 53, 111, 81, 55, 83]);
 
     design.addCommand(0, ZRF.IN_ZONE,	0);	// board-zone
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
@@ -1155,36 +1161,37 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     view.defBoardTriangular(821, 708, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
+    const color = 0x353535;
     const tokenPath = '../res/xiangqi';
 
-    view.defPieceToken(0, 1, tokenPath, 'token.js', 'rGoal', 'Bump');
-    view.defPieceToken(0, 2, tokenPath, 'token.js', 'bGoal', 'Bump');
-    view.defPieceToken(1, 1, tokenPath, 'token.js', 'rVanguard', 'Bump');
-    view.defPieceToken(1, 2, tokenPath, 'token.js', 'bVanguard', 'Bump');
-    view.defPieceToken(2, 1, tokenPath, 'token.js', 'rVanguardCarrier', 'Bump');
-    view.defPieceToken(2, 2, tokenPath, 'token.js', 'bVanguardCarrier', 'Bump');
-    view.defPieceToken(3, 1, tokenPath, 'token.js', 'rVanguardPower', 'Bump');
-    view.defPieceToken(3, 2, tokenPath, 'token.js', 'bVanguardPower', 'Bump');
-    view.defPieceToken(4, 1, tokenPath, 'token.js', 'rVanguardCarrierPower', 'Bump');
-    view.defPieceToken(4, 2, tokenPath, 'token.js', 'bVanguardCarrierPower', 'Bump');
-    view.defPieceToken(5, 1, tokenPath, 'token.js', 'rLancer', 'Bump');
-    view.defPieceToken(5, 2, tokenPath, 'token.js', 'bLancer', 'Bump');
-    view.defPieceToken(6, 1, tokenPath, 'token.js', 'rLancerCarrier', 'Bump');
-    view.defPieceToken(6, 2, tokenPath, 'token.js', 'bLancerCarrier', 'Bump');
-    view.defPieceToken(7, 1, tokenPath, 'token.js', 'rFencer', 'Bump');
-    view.defPieceToken(7, 2, tokenPath, 'token.js', 'bFencer', 'Bump');
-    view.defPieceToken(8, 1, tokenPath, 'token.js', 'rFencerCarrier', 'Bump');
-    view.defPieceToken(8, 2, tokenPath, 'token.js', 'bFencerCarrier', 'Bump');
-    view.defPieceToken(9, 1, tokenPath, 'token.js', 'rSwift', 'Bump');
-    view.defPieceToken(9, 2, tokenPath, 'token.js', 'bSwift', 'Bump');
-    view.defPieceToken(10, 1, tokenPath, 'token.js', 'rSwiftCarrier', 'Bump');
-    view.defPieceToken(10, 2, tokenPath, 'token.js', 'bSwiftCarrier', 'Bump');
-    view.defPieceToken(11, 1, tokenPath, 'token.js', 'rFlier', 'Bump');
-    view.defPieceToken(11, 2, tokenPath, 'token.js', 'bFlier', 'Bump');
-    view.defPieceToken(12, 1, tokenPath, 'token.js', 'rFlierCarrier', 'Bump');
-    view.defPieceToken(12, 2, tokenPath, 'token.js', 'bFlierCarrier', 'Bump');
-    view.defPieceToken(13, 1, tokenPath, 'token.js', 'rBlockader', 'Bump');
-    view.defPieceToken(13, 2, tokenPath, 'token.js', 'bBlockader', 'Bump');
+    view.defPieceToken(0, 1, tokenPath, 'token.js', 'rGoal', 'Bump', color);
+    view.defPieceToken(0, 2, tokenPath, 'token.js', 'bGoal', 'Bump', color);
+    view.defPieceToken(1, 1, tokenPath, 'token.js', 'rVanguard', 'Bump', color);
+    view.defPieceToken(1, 2, tokenPath, 'token.js', 'bVanguard', 'Bump', color);
+    view.defPieceToken(2, 1, tokenPath, 'token.js', 'rVanguardCarrier', 'Bump', color);
+    view.defPieceToken(2, 2, tokenPath, 'token.js', 'bVanguardCarrier', 'Bump', color);
+    view.defPieceToken(3, 1, tokenPath, 'token.js', 'rVanguardPower', 'Bump', color);
+    view.defPieceToken(3, 2, tokenPath, 'token.js', 'bVanguardPower', 'Bump', color);
+    view.defPieceToken(4, 1, tokenPath, 'token.js', 'rVanguardCarrierPower', 'Bump', color);
+    view.defPieceToken(4, 2, tokenPath, 'token.js', 'bVanguardCarrierPower', 'Bump', color);
+    view.defPieceToken(5, 1, tokenPath, 'token.js', 'rLancer', 'Bump', color);
+    view.defPieceToken(5, 2, tokenPath, 'token.js', 'bLancer', 'Bump', color);
+    view.defPieceToken(6, 1, tokenPath, 'token.js', 'rLancerCarrier', 'Bump', color);
+    view.defPieceToken(6, 2, tokenPath, 'token.js', 'bLancerCarrier', 'Bump', color);
+    view.defPieceToken(7, 1, tokenPath, 'token.js', 'rFencer', 'Bump', color);
+    view.defPieceToken(7, 2, tokenPath, 'token.js', 'bFencer', 'Bump', color);
+    view.defPieceToken(8, 1, tokenPath, 'token.js', 'rFencerCarrier', 'Bump', color);
+    view.defPieceToken(8, 2, tokenPath, 'token.js', 'bFencerCarrier', 'Bump', color);
+    view.defPieceToken(9, 1, tokenPath, 'token.js', 'rSwift', 'Bump', color);
+    view.defPieceToken(9, 2, tokenPath, 'token.js', 'bSwift', 'Bump', color);
+    view.defPieceToken(10, 1, tokenPath, 'token.js', 'rSwiftCarrier', 'Bump', color);
+    view.defPieceToken(10, 2, tokenPath, 'token.js', 'bSwiftCarrier', 'Bump', color);
+    view.defPieceToken(11, 1, tokenPath, 'token.js', 'rFlier', 'Bump', color);
+    view.defPieceToken(11, 2, tokenPath, 'token.js', 'bFlier', 'Bump', color);
+    view.defPieceToken(12, 1, tokenPath, 'token.js', 'rFlierCarrier', 'Bump', color);
+    view.defPieceToken(12, 2, tokenPath, 'token.js', 'bFlierCarrier', 'Bump', color);
+    view.defPieceToken(13, 1, tokenPath, 'token.js', 'rBlockader', 'Bump', color);
+    view.defPieceToken(13, 2, tokenPath, 'token.js', 'bBlockader', 'Bump', color);
 
     view.setCamera(0, 0, 0, -109, 215, 155);
  
@@ -1357,25 +1364,25 @@ Dagaz.View.configure = function(view) {
     view.defPosition("I99", 363, 325, 44, 33, 0);
     view.defPosition("I99V", 370, 302, 24, 17, 0);
 
-    view.defPosition("GLA0", -315, 8, 44, 33, 0);
-    view.defPosition("GFL0", -415, 164, 44, 33, 0);
-    view.defPosition("GFL1", -365, 164, 44, 33, 0);
-    view.defPosition("GSW0", -415, 8, 44, 33, 0);
-    view.defPosition("GGL0", -415, 242, 44, 33, 0);
-    view.defPosition("GVG0", -415, 86, 44, 33, 0);
-    view.defPosition("GVG1", -365, 86, 44, 33, 0);
-    view.defPosition("GVG2", -315, 86, 44, 33, 0);
-    view.defPosition("GFE0", -365, 8, 44, 33, 0);
-    view.defPosition("GBL0", -265, 8, 44, 33, 0);
+    view.defPosition("GLA0", -328, 8, 44, 33, 0);
+    view.defPosition("GFL0", -448, 164, 44, 33, 0);
+    view.defPosition("GFL1", -388, 164, 44, 33, 0);
+    view.defPosition("GSW0", -448, 8, 44, 33, 0);
+    view.defPosition("GGL0", -448, 242, 44, 33, 0);
+    view.defPosition("GVG0", -448, 86, 44, 33, 0);
+    view.defPosition("GVG1", -388, 86, 44, 33, 0);
+    view.defPosition("GVG2", -328, 86, 44, 33, 0);
+    view.defPosition("GFE0", -388, 8, 44, 33, 0);
+    view.defPosition("GBL0", -268, 8, 44, 33, 0);
 
-    view.defPosition("YLA0", 321, 8, 44, 33, 0);
-    view.defPosition("YFL0", 371, 164, 44, 33, 0);
-    view.defPosition("YFL1", 420, 164, 44, 33, 0);
-    view.defPosition("YSW0", 421, 8, 44, 33, 0);
-    view.defPosition("YGL0", 421, 242, 44, 33, 0);
-    view.defPosition("YVG0", 321, 86, 44, 33, 0);
-    view.defPosition("YVG1", 370, 86, 44, 33, 0);
-    view.defPosition("YVG2", 420, 86, 44, 33, 0);
-    view.defPosition("YFE0", 371, 8, 44, 33, 0);
-    view.defPosition("YBL0", 271, 8, 44, 33, 0);
+    view.defPosition("YLA0", 328, 8, 44, 33, 0);
+    view.defPosition("YFL0", 388, 164, 44, 33, 0);
+    view.defPosition("YFL1", 448, 164, 44, 33, 0);
+    view.defPosition("YSW0", 448, 8, 44, 33, 0);
+    view.defPosition("YGL0", 448, 242, 44, 33, 0);
+    view.defPosition("YVG0", 328, 86, 44, 33, 0);
+    view.defPosition("YVG1", 388, 86, 44, 33, 0);
+    view.defPosition("YVG2", 448, 86, 44, 33, 0);
+    view.defPosition("YFE0", 388, 8, 44, 33, 0);
+    view.defPosition("YBL0", 268, 8, 44, 33, 0);
 }

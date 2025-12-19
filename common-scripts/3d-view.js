@@ -657,7 +657,8 @@ View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args)
   });
 }
 
-View3D.prototype.defPieceToken = function(type, player, path, model, image, bump) {
+View3D.prototype.defPieceToken = function(type, player, path, model, image, bump, color) {
+  if (_.isUndefined(color)) color = 0x3F3F3F;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
   const key = type*10 + player;
@@ -672,7 +673,8 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
      player: player,
      model:  path + '/' + model,
      image:  img,
-     bump:   bmp
+     bump:   bmp,
+     color:  color
   };
 }
 
@@ -874,7 +876,7 @@ View3D.prototype.allResLoaded = function() {
                      if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
                          const ix = pieceTypes[key].ix;
                          modelData = results[ix];
-                         const specular="#050505", shininess=30, color=0x3F3F3F;
+                         const specular="#050505", shininess=30, color=pieceTypes[key].color;
 
                          var canvasDiffuse = document.createElement('canvas');
                          canvasDiffuse.width = canvasDiffuse.height=TEXTURE_CANVAS_SZ;
