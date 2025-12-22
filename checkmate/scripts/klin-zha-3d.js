@@ -47,30 +47,33 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPlayer("Gold", [0, 1, 3, 2, 5, 4, 9, 8, 7, 6, 10, 11]);
     design.addPlayer("Green", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+    design.addTurn(1, 2);
+    design.addTurn(1, 2);
 /*  design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
     design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
+    design.addTurn(1, 2);*/
+
+    design.addTurn(2, 2);
+    design.addTurn(2, 2);
+/*  design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
     design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(1, 0);
-    design.addTurn(2, 0);
-    design.repeatMark();*/
+    design.addTurn(2, 2);*/
+
+/*  design.addTurn(1, 0);
+    design.addTurn(2, 0);*/
+    design.repeatMark();
     design.addTurn(1, 1);
     design.addTurn(2, 1);
 
+    design.addPosition("Kagga-Crown", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     design.addPosition("A19", [-1, 4, 0, 0, 0, 0, 6, 2, 0, 0, 1, 12]);
     design.addPosition("A19V", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0]);
     design.addPosition("B18", [0, 8, 0, 2, 4, 0, 10, 6, -2, 0, 1, 10]);
@@ -1156,6 +1159,89 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("Green", "Fencer",   p('GFE0'));
     design.setup("Green", "Blockader",p('GBL0'));
     design.setup("Green", "Goal",     p('GGL0'));
+
+//  design.setup("Gold", "Vanguard", p('A19'));
+//  design.setup("Gold", "Vanguard-carrier", p('B18'));
+//  design.setup("Gold", "Power-Vanguard", p('B29'));
+//  design.setup("Gold", "Power-Vanguard-carrier", p('C17'));
+//  design.setup("Gold", "Lancer", p('C28'));
+//  design.setup("Gold", "Lancer-carrier", p('C39'));
+//  design.setup("Gold", "Fencer", p('D16'));
+//  design.setup("Gold", "Fencer-carrier", p('D27'));
+//  design.setup("Gold", "Swift", p('D38'));
+//  design.setup("Gold", "Swift-carrier", p('D49'));
+//  design.setup("Gold", "Flier", p('E15'));
+//  design.setup("Gold", "Flier-carrier", p('E26'));
+//  design.setup("Gold", "Blockader", p('E37'));
+//  design.setup("Gold", "Vanguard", p('E48'));
+//  design.setup("Gold", "Vanguard-carrier", p('E59'));
+//  design.setup("Gold", "Power-Vanguard", p('F14'));
+//  design.setup("Gold", "Power-Vanguard-carrier", p('F25'));
+//  design.setup("Gold", "Lancer", p('F36'));
+//  design.setup("Gold", "Lancer-carrier", p('F47'));
+//  design.setup("Gold", "Fencer", p('F58'));
+//  design.setup("Gold", "Fencer-carrier", p('F69'));
+//  design.setup("Gold", "Swift", p('G13'));
+//  design.setup("Gold", "Swift-carrier", p('G24'));
+//  design.setup("Gold", "Flier", p('G35'));
+//  design.setup("Gold", "Flier-carrier", p('G46'));
+//  design.setup("Gold", "Blockader", p('G57'));
+//  design.setup("Gold", "Vanguard", p('G68'));
+//  design.setup("Gold", "Vanguard-carrier", p('G79'));
+//  design.setup("Gold", "Power-Vanguard", p('H12'));
+//  design.setup("Gold", "Power-Vanguard-carrier", p('H23'));
+//  design.setup("Gold", "Lancer", p('H34'));
+//  design.setup("Gold", "Lancer-carrier", p('H45'));
+//  design.setup("Gold", "Fencer", p('H56'));
+//  design.setup("Gold", "Fencer-carrier", p('H67'));
+//  design.setup("Gold", "Swift", p('H78'));
+//  design.setup("Gold", "Swift-carrier", p('H89'));
+//  design.setup("Gold", "Flier", p('I11'));
+//  design.setup("Gold", "Flier-carrier", p('I22'));
+//  design.setup("Gold", "Blockader", p('I33'));
+//  design.setup("Gold", "Vanguard", p('I44'));
+//  design.setup("Gold", "Vanguard-carrier", p('I55'));
+//  design.setup("Gold", "Power-Vanguard", p('I66'));
+//  design.setup("Gold", "Power-Vanguard-carrier", p('I77'));
+//  design.setup("Gold", "Lancer", p('I88'));
+//  design.setup("Gold", "Lancer-carrier", p('I99'));
+
+//  design.setup("Green", "Vanguard", p('B19'));
+//  design.setup("Green", "Vanguard-carrier", p('C18'));
+//  design.setup("Green", "Power-Vanguard", p('C29'));
+//  design.setup("Green", "Power-Vanguard-carrier", p('D17'));
+//  design.setup("Green", "Lancer", p('D28'));
+//  design.setup("Green", "Lancer-carrier", p('D39'));
+//  design.setup("Green", "Fencer", p('E16'));
+//  design.setup("Green", "Fencer-carrier", p('E27'));
+//  design.setup("Green", "Swift", p('E38'));
+//  design.setup("Green", "Swift-carrier", p('E49'));
+//  design.setup("Green", "Flier", p('F15'));
+//  design.setup("Green", "Flier-carrier", p('F26'));
+//  design.setup("Gold",  "Goal", p('F37'));
+//  design.setup("Green", "Vanguard", p('F48'));
+//  design.setup("Green", "Vanguard-carrier", p('F59'));
+//  design.setup("Green", "Power-Vanguard", p('G14'));
+//  design.setup("Green", "Power-Vanguard-carrier", p('G25'));
+//  design.setup("Green", "Lancer", p('G36'));
+//  design.setup("Green", "Lancer-carrier", p('G47'));
+//  design.setup("Green", "Fencer", p('G58'));
+//  design.setup("Green", "Fencer-carrier", p('G69'));
+//  design.setup("Green", "Swift", p('H13'));
+//  design.setup("Green", "Swift-carrier", p('H24'));
+//  design.setup("Green", "Flier", p('H35'));
+//  design.setup("Green", "Flier-carrier", p('H46'));
+//  design.setup("Green", "Blockader", p('H57'));
+//  design.setup("Green", "Vanguard", p('H68'));
+//  design.setup("Green", "Vanguard-carrier", p('H79'));
+//  design.setup("Green", "Power-Vanguard", p('I12'));
+//  design.setup("Green", "Power-Vanguard-carrier", p('I23'));
+//  design.setup("Green", "Lancer", p('I34'));
+//  design.setup("Green", "Lancer-carrier", p('I45'));
+//  design.setup("Green", "Fencer", p('I56'));
+//  design.setup("Green", "Fencer-carrier", p('I67'));
+//  design.setup("Green", "Swift", p('I78'));
+//  design.setup("Green", "Swift-carrier", p('I89'));
 }
 
 Dagaz.View.configure = function(view) {
@@ -1201,6 +1287,7 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
+    view.defPosition("Kagga-Crown", 403, 0, 91, 24);
     view.defPosition("A19", 0, -304, 44, 33, 0);
     view.defPosition("A19V", 10, -322, 24, 17, 0);
     view.defPosition("B18", -45, -226, 44, 33, 0);
