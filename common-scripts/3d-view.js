@@ -465,7 +465,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
       scene.add(group);   
       cubes.push(group);
   } else if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN || Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
-      const pieceType = pieceTypes[model.type*10 + model.player];
+      const pieceType = pieceTypes[model.type*10 + (+model.player)];
       if (pieceType && pieceType.kind == PIECE_TYPE.TOKEN) {
           const piece = new THREE.Mesh(pieceType.geometry, [pieceType.matborder, pieceType.mattop]);
           piece.pos = pos;
