@@ -47,31 +47,31 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPlayer("Gold", [0, 1, 3, 2, 5, 4, 9, 8, 7, 6, 10, 11]);
     design.addPlayer("Green", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-/*  design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);
-    design.addTurn(1, 2);*/
+    design.addTurn(1, 2); // 0
+    design.addTurn(1, 2); // 1
+    design.addTurn(1, 2); // 2
+    design.addTurn(1, 2); // 3
+    design.addTurn(1, 2); // 4
+    design.addTurn(1, 2); // 5
+    design.addTurn(1, 2); // 6
+    design.addTurn(1, 2); // 7
+    design.addTurn(1, 2); // 8
 
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-/*  design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);
-    design.addTurn(2, 2);*/
+    design.addTurn(2, 2); // 9
+    design.addTurn(2, 2); // 10
+    design.addTurn(2, 2); // 11
+    design.addTurn(2, 2); // 12
+    design.addTurn(2, 2); // 13
+    design.addTurn(2, 2); // 14
+    design.addTurn(2, 2); // 15
+    design.addTurn(2, 2); // 16
+    design.addTurn(2, 2); // 17
 
-/*  design.addTurn(1, 0);
-    design.addTurn(2, 0);*/
+    design.addTurn(1, 0); // 18
+    design.addTurn(2, 0); // 19
     design.repeatMark();
-    design.addTurn(1, 1);
-    design.addTurn(2, 1);
+    design.addTurn(1, 1); // 20
+    design.addTurn(2, 1); // 21
 
     design.addPosition("Kagga-Crown", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     design.addPosition("A19", [-1, 4, 0, 0, 0, 0, 6, 2, 0, 0, 1, 12]);
@@ -852,28 +852,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(37, ZRF.FUNCTION,	28);	// end
 
     design.addPiece("Goal", 0);
-    design.addDrop(0, 0, [], 0);
-    design.addMove(0, 1, [1, 10, 10, 1, 10], 1);
-    design.addMove(0, 1, [3, 10, 10, 3, 10], 1);
-    design.addMove(0, 1, [2, 10, 10, 2, 10], 1);
-    design.addMove(0, 2, [1, 3, 10, 10, 1, 3, 10], 1);
-    design.addMove(0, 2, [3, 3, 10, 10, 3, 3, 10], 1);
-    design.addMove(0, 2, [3, 1, 10, 10, 3, 1, 10], 1);
-    design.addMove(0, 2, [1, 2, 10, 10, 1, 2, 10], 1);
-    design.addMove(0, 2, [2, 2, 10, 10, 2, 2, 10], 1);
-    design.addMove(0, 2, [2, 1, 10, 10, 2, 1, 10], 1);
-    design.addMove(0, 3, [1, 3, 1, 10, 10, 1, 3, 1, 10], 1);
-    design.addMove(0, 3, [3, 3, 3, 10, 10, 3, 3, 3, 10], 1);
-    design.addMove(0, 3, [3, 1, 3, 10, 10, 3, 1, 3, 10], 1);
-    design.addMove(0, 3, [1, 2, 1, 10, 10, 1, 2, 1, 10], 1);
-    design.addMove(0, 3, [2, 2, 2, 10, 10, 2, 2, 2, 10], 1);
-    design.addMove(0, 3, [2, 1, 2, 10, 10, 2, 1, 2, 10], 1);
-    design.addMove(0, 3, [1, 3, 3, 10, 10, 1, 3, 3, 10], 1);
-    design.addMove(0, 3, [3, 3, 1, 10, 10, 3, 3, 1, 10], 1);
-    design.addMove(0, 3, [3, 1, 2, 10, 10, 3, 1, 2, 10], 1);
-    design.addMove(0, 3, [1, 2, 2, 10, 10, 1, 2, 2, 10], 1);
-    design.addMove(0, 3, [2, 2, 1, 10, 10, 2, 2, 1, 10], 1);
-    design.addMove(0, 3, [2, 1, 3, 10, 10, 2, 1, 3, 10], 1);
 
     design.addPiece("Vanguard", 1);
     design.addMove(1, 4, [1, 10], 1);
