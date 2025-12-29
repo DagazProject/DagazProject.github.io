@@ -48,7 +48,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (target !== null) {
               if (piece.type != 0) return;
               if (target.player != board.player) return;
-              if (target.type == 13) return;
+              if (target.type >= 9) return;
               if (mode == 2) return;
               var m = Dagaz.Model.createMove(0);
               m.movePiece(src, dst, piece.promote(+target.type + 1));
