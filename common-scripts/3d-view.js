@@ -661,19 +661,23 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
   if (_.isUndefined(color)) color = 0x3F3F3F;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
-  const key = type*10 + player;
-  const img = document.getElementById(image);
-  this.res.push({h: img});
-  const bmp = document.getElementById(bump);
-  this.res.push({h: bmp});
+  const key = type * 10 + player;
+  if (!_.isUndefined(image)) {
+      const img = document.getElementById(image);
+      this.res.push({h: img});
+  }
+  if (!_.isUndefined(bump)) {
+      const bmp = document.getElementById(bump);
+      this.res.push({h: bmp});
+  }
   pieceKeys.push(key);
   pieceTypes[key] = {
      kind:   PIECE_TYPE.TOKEN,
      type:   type,
      player: player,
      model:  path + '/' + model,
-     image:  img,
-     bump:   bmp,
+     image:  !_.isUndefined(image) ? document.getElementById(image) : null,
+     bump:   !_.isUndefined(bump)  ? document.getElementById(bump)  : null,
      color:  color
   };
 }
@@ -881,33 +885,42 @@ View3D.prototype.allResLoaded = function() {
                          var canvasDiffuse = document.createElement('canvas');
                          canvasDiffuse.width = canvasDiffuse.height=TEXTURE_CANVAS_SZ;
                          var textureDiff = new THREE.Texture(canvasDiffuse);
-                         var ctxDiff = canvasDiffuse.getContext("2d");
-                         ctxDiff.drawImage(pieceTypes[key].image, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                         if (pieceTypes[key].image !== null) {
+                             var ctxDiff = canvasDiffuse.getContext("2d");
+                             ctxDiff.drawImage(pieceTypes[key].image, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                         }
                          textureDiff.needsUpdate = true;
 
                          var canvasBump = document.createElement('canvas');
                          canvasBump.width = canvasBump.height=TEXTURE_CANVAS_SZ;
                          var textureBump = new THREE.Texture(canvasBump);
-                         var ctxBump = canvasBump.getContext("2d");
-                         ctxBump.drawImage(pieceTypes[key].bump, 0, 0, TEXTURE_CANVAS_SZ,TEXTURE_CANVAS_SZ);
+                         if (pieceTypes[key].bump !== null) {
+                             var ctxBump = canvasBump.getContext("2d");
+                             ctxBump.drawImage(pieceTypes[key].bump, 0, 0, TEXTURE_CANVAS_SZ,TEXTURE_CANVAS_SZ);
+                         }
                          textureBump.needsUpdate = true;
 
-                         pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
-                               name: "piecetop",
-                               color : color,
-                               specular: specular,
-                               shininess: shininess,
-                               map: textureDiff,
-                               bumpMap: textureBump,
-                               bumpScale: 0.2
-                         });
-
-                         pieceTypes[key].matborder=new THREE.MeshPhongMaterial({
+                         pieceTypes[key].matborder = new THREE.MeshPhongMaterial({
                                name: "pieceborders",
                                color : color,
                                specular: specular,
                                shininess: shininess
                          });
+
+                         if (pieceTypes[key].image !== null) {
+                             pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
+                                   name: "piecetop",
+                                   color : color,
+                                   specular: specular,
+                                   shininess: shininess,
+                                   map: textureDiff,
+                                   bumpMap: textureBump,
+                                   bumpScale: 0.2
+                             });
+                         } else {
+                             pieceTypes[key].mattop = pieceTypes[key].matborder;
+                         }
+
                      }
                      pieceTypes[key].geometry = modelData.geometry;
                 }
