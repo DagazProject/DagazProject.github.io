@@ -367,7 +367,7 @@ App.prototype.exec = function() {
       this.state = STATE.IDLE;
       return;
   }
-  if (isAnimating) return;
+  if (isAnimating || !onceGameOver) return;
   if (this.state == STATE.IDLE) {
       var ctx = this.getContext(this.getBoard().player);
       var ai  = this.getAI();

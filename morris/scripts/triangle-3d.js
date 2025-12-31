@@ -1,3 +1,5 @@
+Dagaz.Controller.persistense = "none";
+
 Dagaz.View.TARGET_FLAT  = true;
 
 ZRF = {
