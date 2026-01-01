@@ -1,5 +1,7 @@
 Dagaz.Controller.persistense = "none";
 
+Dagaz.View.TARGET_FLAT  = true;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -54,6 +56,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("P07", [-1, 0, 1, 0, -5, 0, 0, 0]);
     design.addPosition("P08", [-5, 0, 1, -1, -2, 0, 0, 0]);
     design.addPosition("P09", [-5, 0, 0, -1, 0, 0, -4, 0]);
+    design.addPosition("R01", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("R02", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("R03", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("B01", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("B02", [0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("B03", [0, 0, 0, 0, 0, 0, 0, 0]);
 
     design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
@@ -85,11 +93,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(2, ZRF.FUNCTION,	25);	// to
     design.addCommand(2, ZRF.FUNCTION,	28);	// end
 
-    design.addPriority(1);			// drop-type
-    design.addPriority(0);			// normal-type
-
     design.addPiece("Stone", 0);
-    design.addDrop(0, 0, [], 1);
     design.addMove(0, 1, [0], 0);
     design.addMove(0, 1, [1], 0);
     design.addMove(0, 1, [3], 0);
@@ -107,22 +111,47 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 2, [7, 7], 0);
     design.addMove(0, 2, [4, 4], 0);
 
-    design.reserve("Blue", "Stone", 3);
-    design.reserve("Red", "Stone", 3);
+    design.setup("Red", "Stone", 9);
+    design.setup("Red", "Stone", 10);
+    design.setup("Red", "Stone", 11);
+    design.setup("Blue", "Stone", 12);
+    design.setup("Blue", "Stone", 13);
+    design.setup("Blue", "Stone", 14);
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard("Board");
-    view.defPiece("BlueStone", "Blue Stone");
-    view.defPiece("RedStone", "Red Stone");
+    view.defBoardTriangular(563, 503, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+
+    const red  = 0xFF1111;
+    const blue = 0x1111FF;
+    const tokenPath = '../res/xiangqi';
+
+    view.defPieceToken(0, 1, tokenPath, 'token.js', undefined, 'Bump', blue);
+    view.defPieceToken(0, 2, tokenPath, 'token.js', undefined, 'Bump', red);
+
+    view.setCamera(0, 0, 0, -109, 215, 155);
  
-    view.defPosition("P01", 268, 14, 33, 33);
-    view.defPosition("P02", 170, 185, 33, 33);
-    view.defPosition("P03", 229, 290, 33, 33);
-    view.defPosition("P04", 306, 291, 33, 33);
-    view.defPosition("P05", 426, 291, 33, 33);
-    view.defPosition("P06", 266, 358, 33, 33);
-    view.defPosition("P07", 7, 462, 33, 33);
-    view.defPosition("P08", 204, 463, 33, 33);
-    view.defPosition("P09", 526, 464, 33, 33);
+    view.defControl("InfoControl", "Inspired by Thomas H. O'Beirne and Greg Schmidt", true);
+    view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle.htm' : 'triangle-board.htm');
+    view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
+    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-3d-board.htm' : 'triangle-3d.htm');
+    view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
+    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+ 
+    view.defPosition("P01", 0, -207, 33, 33, 0);
+    view.defPosition("P02", -90, -42, 33, 33, 0);
+    view.defPosition("P03", -35, 59, 33, 33, 0);
+    view.defPosition("P04", 36, 60, 33, 33, 0);
+    view.defPosition("P05", 148, 60, 33, 33, 0);
+    view.defPosition("P06", 0, 124, 33, 33, 0);
+    view.defPosition("P07", -239, 225, 33, 33, 0);
+    view.defPosition("P08", -57, 225, 33, 33, 0);
+    view.defPosition("P09", 240, 226, 33, 33, 0);
+    view.defPosition("R01", -179, -60, 33, 33, 0);
+    view.defPosition("R02", -211, 0, 33, 33, 0);
+    view.defPosition("R03", -243, 60, 33, 33, 0);
+    view.defPosition("B01", 179, -60, 33, 33, 0);
+    view.defPosition("B02", 211, 0, 33, 33, 0);
+    view.defPosition("B03", 243, 60, 33, 33, 0);
 }
