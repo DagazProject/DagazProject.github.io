@@ -38,6 +38,7 @@ Dagaz.View.PIECE_TYPE    = PIECE_TYPE.NONE;
 Dagaz.View.STEP_CNT      = 3;
 Dagaz.View.SPEED         = 0.523;
 Dagaz.View.RENDER_ORDER  = false;
+Dagaz.View.RECT_OPACITY  = false;
 
 let resTask = [];
 let resList = [];
@@ -434,8 +435,8 @@ function addCube(p, pos, model) {
 
 View3D.prototype.addPiecePlatform = function(pieceType, pos) {
   const p = this.pos[pos];
-  const geometry = new THREE.BoxGeometry(pieceType.dx / 10, 1, pieceType.dy / 10);
-  const materials = [
+  let geometry = new THREE.BoxGeometry(pieceType.dx / 10, 1, pieceType.dy / 10);
+  let materials = [
         new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }),
         new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }),
         new THREE.MeshBasicMaterial((pieceType.img !== null) ? { map: pieceType.img.t, transparent: true, opacity: pieceType.opacity } : { color: pieceType.colors[i] } ),
@@ -443,6 +444,30 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
         new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }),
         new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })
   ];
+  if (Dagaz.View.RECT_OPACITY) {
+      geometry = createRectangularPrismWithGroups(
+                    pieceType.dx / 10,  // width
+                    1,                  // height (толщина доски)
+                    pieceType.dy / 10   // depth
+      );
+      materials = [
+                    // Материал 0: Верхняя грань (с текстурой)
+                    new THREE.MeshBasicMaterial({ 
+                        map: pieceType.img !== null ? pieceType.img.t : null,
+                        color: pieceType.img === null ? pieceType.colors[2] : 0xFFFFFF,
+                        transparent: true,
+                        opacity: pieceType.opacity,
+                        side: THREE.DoubleSide
+                    }),
+                    // Материал 1: Остальные грани (цветные)
+                    new THREE.MeshBasicMaterial({ 
+                        color: pieceType.colors[1] || 0x8B4513, // или используйте цвет из настроек
+                        transparent: true,
+                        opacity: 0.3,
+                        side: THREE.DoubleSide
+                    })
+      ];
+  }
   const piece = new THREE.Mesh(geometry, materials);
   piece.pos = pos;
   piece.type = pieceType;
@@ -1426,6 +1451,108 @@ function createTriangularPrism(width, height, depth) {
   return geometry;
 }
 
+function createRectangularPrismWithGroups(width, height, depth) {
+  const geometry = new THREE.BufferGeometry();
+  
+  const halfWidth = width / 2;
+  const halfHeight = height / 2;
+  const halfDepth = depth / 2;
+  
+  // Вершины для 6 граней (по 4 вершины на грань, всего 24 вершины)
+  // Каждая грань определяется отдельно для правильных UV и нормалей
+  const vertices = new Float32Array([
+    // Правая грань (X+)
+    halfWidth, halfHeight, -halfDepth,   // 0
+    halfWidth, -halfHeight, -halfDepth,  // 1
+    halfWidth, -halfHeight, halfDepth,   // 2
+    halfWidth, halfHeight, halfDepth,    // 3
+    
+    // Левая грань (X-)
+    -halfWidth, halfHeight, halfDepth,   // 4
+    -halfWidth, -halfHeight, halfDepth,  // 5
+    -halfWidth, -halfHeight, -halfDepth, // 6
+    -halfWidth, halfHeight, -halfDepth,  // 7
+    
+    // Верхняя грань (Y+) - будем использовать для текстуры
+    -halfWidth, halfHeight, -halfDepth,  // 8
+    halfWidth, halfHeight, -halfDepth,   // 9
+    halfWidth, halfHeight, halfDepth,    // 10
+    -halfWidth, halfHeight, halfDepth,   // 11
+    
+    // Нижняя грань (Y-)
+    -halfWidth, -halfHeight, halfDepth,  // 12
+    halfWidth, -halfHeight, halfDepth,   // 13
+    halfWidth, -halfHeight, -halfDepth,  // 14
+    -halfWidth, -halfHeight, -halfDepth, // 15
+    
+    // Передняя грань (Z+)
+    -halfWidth, halfHeight, halfDepth,   // 16
+    halfWidth, halfHeight, halfDepth,    // 17
+    halfWidth, -halfHeight, halfDepth,   // 18
+    -halfWidth, -halfHeight, halfDepth,  // 19
+    
+    // Задняя грань (Z-)
+    halfWidth, halfHeight, -halfDepth,   // 20
+    -halfWidth, halfHeight, -halfDepth,  // 21
+    -halfWidth, -halfHeight, -halfDepth, // 22
+    halfWidth, -halfHeight, -halfDepth,  // 23
+  ]);
+  
+  // Индексы для треугольников (6 граней × 2 треугольника × 3 вершины = 36 индексов)
+  const indices = [
+    // Правая грань
+    0, 1, 2, 0, 2, 3,
+    // Левая грань
+    4, 5, 6, 4, 6, 7,
+    // Верхняя грань - группа 0
+    8, 9, 10, 8, 10, 11,
+    // Нижняя грань
+    12, 13, 14, 12, 14, 15,
+    // Передняя грань
+    16, 17, 18, 16, 18, 19,
+    // Задняя грань
+    20, 21, 22, 20, 22, 23,
+  ];
+  
+  // UV координаты для текстур
+  const uvs = new Float32Array([
+    // Правая грань
+    0, 1, 0, 0, 1, 0, 1, 1,
+    // Левая грань
+    0, 1, 0, 0, 1, 0, 1, 1,
+    // Верхняя грань
+    0, 1, 1, 1, 1, 0, 0, 0,
+    // Нижняя грань
+    0, 0, 1, 0, 1, 1, 0, 1,
+    // Передняя грань
+    0, 1, 1, 1, 1, 0, 0, 0,
+    // Задняя грань
+    1, 1, 0, 1, 0, 0, 1, 0,
+  ]);
+  
+  // Устанавливаем атрибуты
+  geometry.setIndex(indices);
+  geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+  
+  // Вычисляем нормали
+  geometry.computeVertexNormals();
+  
+  // Создаем группы для материалов
+  geometry.clearGroups();
+  
+  // Группа 0: Верхняя грань (индексы 12-17) - материал с текстурой
+  geometry.addGroup(12, 6, 0);
+  
+  // Группа 1: Остальные грани (индексы 0-11 и 18-35) - цветной материал
+  geometry.addGroup(0, 12, 1);    // Правая и левая грани
+  geometry.addGroup(18, 6, 1);    // Нижняя грань
+  geometry.addGroup(24, 6, 1);    // Передняя грань
+  geometry.addGroup(30, 6, 1);    // Задняя грань
+  
+  return geometry;
+}
+
 View3D.prototype.draw = function(canvas) {
   this.configure();
   if (this.allResLoaded()) {
@@ -1438,15 +1565,40 @@ View3D.prototype.draw = function(canvas) {
          for (let i = 0; i < this.boards.length; i++) {
             const b = this.boards[i];
             if (b.type == BOARD_TYPE.RECT) {
-                const boardGeometry = new THREE.BoxGeometry(b.dx / 10, 1, b.dy / 10);
-                const materials = [
+                let boardGeometry = new THREE.BoxGeometry(b.dx / 10, 1, b.dy / 10);
+                let materials = [
                    new THREE.MeshBasicMaterial({ color: b.colors[2] }),
                    new THREE.MeshBasicMaterial({ color: b.colors[3] }),
-                   new THREE.MeshBasicMaterial((b.img !== null) ? { map: b.img.t, transparent: true, opacity: b.opacity } : { color: b.colors[i] } ),
-                   new THREE.MeshBasicMaterial({ color: b.colors[5], transparent: true, opacity: 0.3 }),
+                   new THREE.MeshBasicMaterial((b.img !== null) ? { map: b.img.t, transparent: true, opacity: b.opacity, side: THREE.DoubleSide } : { color: b.colors[i] } ),
+                   new THREE.MeshBasicMaterial({ color: b.colors[5], transparent: true, opacity: 0.3, side: THREE.DoubleSide }),
                    new THREE.MeshBasicMaterial({ color: b.colors[1] }),
                    new THREE.MeshBasicMaterial({ color: b.colors[4] })
                 ];
+                if (Dagaz.View.RECT_OPACITY) {
+                    boardGeometry = createRectangularPrismWithGroups(
+                        b.dx / 10,  // width
+                        1,          // height (толщина доски)
+                        b.dy / 10   // depth
+                    );
+
+                    materials = [
+                        // Материал 0: Верхняя грань (с текстурой)
+                        new THREE.MeshBasicMaterial({ 
+                            map: b.img !== null ? b.img.t : null,
+                            color: b.img === null ? b.colors[2] : 0xFFFFFF,
+                            transparent: true,
+                            opacity: b.opacity,
+                            side: THREE.DoubleSide
+                        }),
+                        // Материал 1: Остальные грани (цветные)
+                            new THREE.MeshBasicMaterial({ 
+                            color: b.colors[1] || 0x8B4513, // или используйте цвет из настроек
+                            transparent: true,
+                            opacity: 0.3,
+                            side: THREE.DoubleSide
+                        })
+                    ];
+                }
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
                 boardBlock.position.set(0, b.z / 10, 0);
                 if (Dagaz.View.RENDER_ORDER) {
