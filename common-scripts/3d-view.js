@@ -12,7 +12,8 @@ const PIECE_TYPE = {
    CUBE:              1,
    MODEL:             2,
    TOKEN:             3,
-   PLATFORM:          4
+   PLATFORM:          4,
+   TRIANGLE:          5
 };
 
 const MOVE_TYPE = {
@@ -433,6 +434,56 @@ function addCube(p, pos, model) {
   return group;
 }
 
+View3D.prototype.addPieceTriangle = function(pieceType, pos) {
+  const p = this.pos[pos];
+  const geometry = createTriangularPrism(pieceType.dx / 10, 1, pieceType.dy / 10);
+  const materials = [
+     // Материал для верхнего основания (с текстурой)
+     new THREE.MeshBasicMaterial({ 
+           color: pieceType.colors[0], 
+           transparent: true, 
+           opacity: pieceType.opacity,
+           side: THREE.DoubleSide
+     }),
+     // Материал для остальных граней
+     new THREE.MeshBasicMaterial({ 
+           color: pieceType.colors[1], 
+           transparent: true, 
+           opacity: pieceType.opacity,
+           side: THREE.DoubleSide
+     }),
+  ];
+  // Назначаем материал группе граней
+  geometry.clearGroups();
+  // Верхнее основание (индексы 3-5)
+  geometry.addGroup(3, 3, 0); // 0 - материал с текстурой
+  // Все остальные грани
+  geometry.addGroup(0, 3, 1); // нижнее основание
+  geometry.addGroup(6, 18, 1); // боковые грани
+  const edgeColor = 0x555555;
+  const edgesGeometry = new THREE.EdgesGeometry(geometry);
+  const edgesMaterial = new THREE.LineBasicMaterial({ 
+        color: edgeColor,
+        linewidth: 3
+  });
+  const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+  const piece = new THREE.Mesh(geometry, materials);
+  const group = new THREE.Group();
+  group.add(piece);
+  group.add(edges);
+  if (pieceType.angle) {
+      group.rotation.y = pieceType.angle;
+  }
+  group.pos = pos;
+  group.type = pieceType;
+  group.position.set(p.x / 10, p.z / 10, p.y / 10);
+  if (Dagaz.View.RENDER_ORDER) {
+      group.renderOrder = 2;
+  }
+  scene.add(group);   
+  pieces.push(group);  
+}
+
 View3D.prototype.addPiecePlatform = function(pieceType, pos) {
   const p = this.pos[pos];
   let geometry = new THREE.BoxGeometry(pieceType.dx / 10, 1, pieceType.dy / 10);
@@ -526,6 +577,8 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           pieces.push(piece);
       } else if (pieceType && pieceType.kind == PIECE_TYPE.PLATFORM) {
           this.addPiecePlatform(pieceType, pos);
+      } else if (pieceType && pieceType.kind == PIECE_TYPE.TRIANGLE) {
+          this.addPieceTriangle(pieceType, pos);
       }
   } else if (Dagaz.View.NO_PIECE) {
       p.p.material = getPlayerMaterial(model.player, false);
@@ -707,6 +760,27 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
   };
 }
 
+View3D.prototype.defPieceTriangle = function(type, player, dx, dy, dz, sz, colors, angle, res, opacity) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
+  if (_.isUndefined(opacity)) opacity = 1;
+  Dagaz.View.NO_PIECE = false;
+  const key = type*10 + player;
+  pieceKeys.push(key);
+  pieceTypes[key] = {
+     kind:    PIECE_TYPE.TRIANGLE,
+     type:    type,
+     player:  player,
+     dx:      dx,
+     dy:      dy,
+     dz:      dz, 
+     sz:      sz,
+     colors:  colors,
+     opacity: opacity,
+     angle:   angle
+  };
+}
+
 View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, colors, res, opacity) {
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
@@ -860,7 +934,7 @@ View3D.prototype.allResLoaded = function() {
       let res = []; let ix = 0;
       for (let i = 0; i < pieceKeys.length; i++) {
            const key = pieceKeys[i];
-           if (pieceTypes[key].kind == PIECE_TYPE.PLATFORM) continue;
+           if (pieceTypes[key].kind >= PIECE_TYPE.PLATFORM) continue;
            pieceTypes[key].ix = ix++;
            if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
                const d = new Promise((resolve) => {
@@ -883,7 +957,7 @@ View3D.prototype.allResLoaded = function() {
           Promise.all(res).then((results) => {
                 for (let i = 0; i < pieceKeys.length; i++) {
                      const key = pieceKeys[i];
-                     if (pieceTypes[key].kind == PIECE_TYPE.PLATFORM) continue;
+                     if (pieceTypes[key].kind >= PIECE_TYPE.PLATFORM) continue;
                      let modelData;
                      if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
                          const ix = pieceTypes[key].ix;
@@ -957,7 +1031,7 @@ View3D.prototype.allResLoaded = function() {
   } else {
       for (let i = 0; i < pieceKeys.length; i++) {
           const key = pieceKeys[i];
-          if (pieceTypes[key].kind == PIECE_TYPE.PLATFORM) continue;
+          if (pieceTypes[key].kind >= PIECE_TYPE.PLATFORM) continue;
           if (_.isUndefined(pieceTypes[key].material) && (_.isUndefined(pieceTypes[key].mattop || pieceTypes[key].matborder))) return false;
           if (_.isUndefined(pieceTypes[key].geometry)) return false;
       }
@@ -1202,6 +1276,8 @@ View3D.prototype.animate = function() {
       scene.remove(q.piece);
       if (q.pieceType.kind == PIECE_TYPE.PLATFORM) {
           this.addPiecePlatform(q.pieceType, q.piece.pos);
+      } else if (q.pieceType.kind == PIECE_TYPE.TRIANGLE) {
+          this.addPieceTriangle(q.pieceType, q.piece.pos);
       } else {
           scene.add(piece);
           pieces.push(piece);
@@ -1266,7 +1342,7 @@ View3D.prototype.animate = function() {
 View3D.prototype.dropPiece = function(move, pos, piece, phase) {
   if (!phase) { phase = 1; }
   const pieceType = pieceTypes[piece.type*10 + piece.player];
-  if (pieceType && (pieceType.kind == PIECE_TYPE.PLATFORM || pieceType.kind == PIECE_TYPE.MODEL || pieceType.kind == PIECE_TYPE.TOKEN)) {
+  if (pieceType && (pieceType.kind >= PIECE_TYPE.PLATFORM || pieceType.kind == PIECE_TYPE.MODEL || pieceType.kind == PIECE_TYPE.TOKEN)) {
       this.addPiece(piece.toString(), pos, piece);
   } else {
       this.filled.push(+pos);
