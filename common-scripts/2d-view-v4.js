@@ -8,6 +8,8 @@ Dagaz.View.SHIFT_Y      = 0;
 Dagaz.View.STRIKE_ALPHA = 0.5;
 Dagaz.View.DROPS_ALPHA  = 0.5;
 
+Dagaz.View.TARGET_COLOR = "#00AA00";
+
 Dagaz.View.markType = {
   TARGET:    0,
   ATTACKING: 1,
@@ -488,7 +490,7 @@ var drawMarks = function(ctx, view, list, color) {
 }
 
 Dagaz.View.showMarks = function(view, ctx) {
-  drawMarks(ctx, view, view.target, "#00AA00");
+  drawMarks(ctx, view, view.target, Dagaz.View.TARGET_COLOR);
   drawMarks(ctx, view, view.goal,   "#FFFF00");
 }
 
