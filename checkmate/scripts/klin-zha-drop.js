@@ -52,6 +52,7 @@ Dagaz.Model.CheckInvariants = function(board) {
               if (mode == 2) return;
               var m = Dagaz.Model.createMove(0);
               m.movePiece(src, dst, piece.promote(+target.type + 1));
+              m.movePiece(dst, src, target);
               board.moves.push(m);
               mode = 0;
           }
