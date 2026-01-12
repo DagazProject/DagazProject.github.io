@@ -311,6 +311,7 @@ App.prototype.getAI = function() {
 
 App.prototype.checkCaptures = function(move) {
   let f = false;
+  if (!move.isSimpleMove()) return;
   const a = [];
   for (let i = 0; i < move.actions.length; i++) {
        const m = move.actions[i];
