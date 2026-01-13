@@ -8,12 +8,151 @@
   )
 )
 
-(define step-1 (
-	$1 
-	(verify not-friend?) (verify (not-piece? Blockader))
+(define no-goal
+  (if (on-board? $1)
+      mark $1
+      (verify not-enemy?)
+;     (verify (not-piece? Blockader))
+      (verify (not-piece? Goal))
+      (verify (not-piece? Vanguard-carrier))
+      (verify (not-piece? Power-Vanguard-carrier))
+      (verify (not-piece? Lancer-carrier))
+      (verify (not-piece? Fencer-carrier))
+      (verify (not-piece? Swift-carrier))
+      (verify (not-piece? Flier-carrier))
+      back
+  )
+)
+
+(define block-1 (
+	$1
+        (verify empty?)
+        (no-goal e)  (no-goal ne)
+        (no-goal w)  (no-goal nw)
+        (no-goal se) (no-goal sw)
+	add
+))
+
+(define block-2 (
+	$1 (verify empty?)
+	$1 (verify empty?)
+        (no-goal e)  (no-goal ne)
+        (no-goal w)  (no-goal nw)
+        (no-goal se) (no-goal sw)
+	add
+))
+
+(define jump-3 (
+	$1 $1 $1
+        (verify (not-piece? Blockader))
         (no-blockader e)  (no-blockader ne)
         (no-blockader w)  (no-blockader nw)
         (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define jump-4 (
+	$1 $1 $1 $1
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define jump-5 (
+	$1 $1 $1 $1 $1
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define jump-6 (
+	$1 $1 $1 $1 $1 $1
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define step-1 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define step-2 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or empty? (piece? Goal))) 
+	$2
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define step-3 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or empty? (piece? Goal))) 
+	$2
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	$3
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define step-4 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or empty? (piece? Goal))) 
+	$2 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or empty? (piece? Goal))) 
+	$3
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	$4
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+	(verify (or not-friend? (piece? Goal))) 
 	add
 ))
 
@@ -168,64 +307,64 @@
     		(YBL0 696 388 740 421)
         )
 	(links w
-		(B18 B19)(B19 B29)
-		(C17 C18)(C18 C28)(C28 C29)(C29 C39)
-		(D16 D17)(D17 D27)(D27 D28)(D28 D38)(D38 D39)(D39 D49)
-		(E15 E16)(E16 E26)(E26 E27)(E27 E37)(E37 E38)(E38 E48)(E48 E49)(E49 E59)
-		(F14 F15)(F15 F25)(F25 F26)(F26 F36)(F36 F37)(F37 F47)(F47 F48)(F48 F58)(F58 F59)(F59 F69)
-		(G13 G14)(G14 G24)(G24 G25)(G25 G35)(G35 G36)(G36 G46)(G46 G47)(G47 G57)(G57 G58)(G58 G68)(G68 G69)(G69 G79)
-		(H12 H13)(H13 H23)(H23 H24)(H24 H34)(H34 H35)(H35 H45)(H45 H46)(H46 H56)(H56 H57)(H57 H67)(H67 H68)(H68 H78)(H78 H79)(H79 H89)
-		(I11 I12)(I12 I22)(I22 I23)(I23 I33)(I33 I34)(I34 I44)(I44 I45)(I45 I55)(I55 I56)(I56 I66)(I66 I67)(I67 I77)(I77 I78)(I78 I88)(I88 I89)(I89 I99)
+		(B18 B19) (B19 B29)
+		(C17 C18) (C18 C28) (C28 C29) (C29 C39)
+		(D16 D17) (D17 D27) (D27 D28) (D28 D38) (D38 D39) (D39 D49)
+		(E15 E16) (E16 E26) (E26 E27) (E27 E37) (E37 E38) (E38 E48) (E48 E49) (E49 E59)
+		(F14 F15) (F15 F25) (F25 F26) (F26 F36) (F36 F37) (F37 F47) (F47 F48) (F48 F58) (F58 F59) (F59 F69)
+		(G13 G14) (G14 G24) (G24 G25) (G25 G35) (G35 G36) (G36 G46) (G46 G47) (G47 G57) (G57 G58) (G58 G68) (G68 G69) (G69 G79)
+		(H12 H13) (H13 H23) (H23 H24) (H24 H34) (H34 H35) (H35 H45) (H45 H46) (H46 H56) (H56 H57) (H57 H67) (H67 H68) (H68 H78) (H78 H79) (H79 H89)
+		(I11 I12) (I12 I22) (I22 I23) (I23 I33) (I33 I34) (I34 I44) (I44 I45) (I45 I55) (I55 I56) (I56 I66) (I66 I67) (I67 I77) (I77 I78) (I78 I88) (I88 I89) (I89 I99)
 	)
 	(links e
-		(B29 B19)(B19 B18)
-		(C39 C29)(C29 C28)(C28 C18)(C18 C17)
-		(D49 D39)(D39 D38)(D38 D28)(D28 D27)(D27 D17)(D17 D16)
-		(E59 E49)(E49 E48)(E48 E38)(E38 E37)(E37 E27)(E27 E26)(E26 E16)(E16 E15)
-		(F69 F59)(F59 F58)(F58 F48)(F48 F47)(F47 F37)(F37 F36)(F36 F26)(F26 F25)(F25 F15)(F15 F14)
-		(G79 G69)(G69 G68)(G68 G58)(G58 G57)(G57 G47)(G47 G46)(G46 G36)(G36 G35)(G35 G25)(G25 G24)(G24 G14)(G14 G13)
-		(H89 H79)(H79 H78)(H78 H68)(H68 H67)(H67 H57)(H57 H56)(H56 H46)(H46 H45)(H45 H35)(H35 H34)(H34 H24)(H24 H23)(H23 H13)(H13 H12)
-		(I99 I89)(I89 I88)(I88 I78)(I78 I77)(I77 I67)(I67 I66)(I66 I56)(I56 I55)(I55 I45)(I45 I44)(I44 I34)(I34 I33)(I33 I23)(I23 I22)(I22 I12)(I12 I11)
+		(B29 B19) (B19 B18)
+		(C39 C29) (C29 C28) (C28 C18) (C18 C17)
+		(D49 D39) (D39 D38) (D38 D28) (D28 D27) (D27 D17) (D17 D16)
+		(E59 E49) (E49 E48) (E48 E38) (E38 E37) (E37 E27) (E27 E26) (E26 E16) (E16 E15)
+		(F69 F59) (F59 F58) (F58 F48) (F48 F47) (F47 F37) (F37 F36) (F36 F26) (F26 F25) (F25 F15) (F15 F14)
+		(G79 G69) (G69 G68) (G68 G58) (G58 G57) (G57 G47) (G47 G46) (G46 G36) (G36 G35) (G35 G25) (G25 G24) (G24 G14) (G14 G13)
+		(H89 H79) (H79 H78) (H78 H68) (H68 H67) (H67 H57) (H57 H56) (H56 H46) (H46 H45) (H45 H35) (H35 H34) (H34 H24) (H24 H23) (H23 H13) (H13 H12)
+		(I99 I89) (I89 I88) (I88 I78) (I78 I77) (I77 I67) (I67 I66) (I66 I56) (I56 I55) (I55 I45) (I45 I44) (I44 I34) (I34 I33) (I33 I23) (I23 I22) (I22 I12) (I12 I11)
 	)
 	(links ne
-		(I11 I12)(I12 H12)(H12 H13)(H13 G13)(G13 G14)(G14 F14)(F14 F15)(F15 E15)(E15 E16)(E16 D16)(D16 D17)(D17 C17)(C17 C18)(C18 B18)(B18 B19)(B19 A19)
-		(I22 I23)(I23 H23)(H23 H24)(H24 G24)(G24 G25)(G25 F25)(F25 F26)(F26 E26)(E26 E27)(E27 D27)(D27 D28)(D28 C28)(C28 C29)(C29 B29)
-		(I33 I34)(I34 H34)(H34 H35)(H35 G35)(G35 G36)(G36 F36)(F36 F37)(F37 E37)(E37 E38)(E38 D38)(D38 D39)(D39 C39)
-		(I44 I45)(I45 H45)(H45 H46)(H46 G46)(G46 G47)(G47 F47)(F47 F48)(F48 E48)(E48 E49)(E49 D49)
-		(I55 I56)(I56 H56)(H56 H57)(H57 G57)(G57 G58)(G58 F58)(F58 F59)(F59 E59)
-		(I66 I67)(I67 H67)(H67 H68)(H68 G68)(G68 G69)(G69 F69)
-		(I77 I78)(I78 H78)(H78 H79)(H79 G79)
-		(I88 I89)(I89 H89)
+		(I11 I12) (I12 H12) (H12 H13) (H13 G13) (G13 G14) (G14 F14) (F14 F15) (F15 E15) (E15 E16) (E16 D16) (D16 D17) (D17 C17) (C17 C18) (C18 B18) (B18 B19) (B19 A19)
+		(I22 I23) (I23 H23) (H23 H24) (H24 G24) (G24 G25) (G25 F25) (F25 F26) (F26 E26) (E26 E27) (E27 D27) (D27 D28) (D28 C28) (C28 C29) (C29 B29)
+		(I33 I34) (I34 H34) (H34 H35) (H35 G35) (G35 G36) (G36 F36) (F36 F37) (F37 E37) (E37 E38) (E38 D38) (D38 D39) (D39 C39)
+		(I44 I45) (I45 H45) (H45 H46) (H46 G46) (G46 G47) (G47 F47) (F47 F48) (F48 E48) (E48 E49) (E49 D49)
+		(I55 I56) (I56 H56) (H56 H57) (H57 G57) (G57 G58) (G58 F58) (F58 F59) (F59 E59)
+		(I66 I67) (I67 H67) (H67 H68) (H68 G68) (G68 G69) (G69 F69)
+		(I77 I78) (I78 H78) (H78 H79) (H79 G79)
+		(I88 I89) (I89 H89)
 	)
 	(links sw
-		(A19 B19)(B19 B18)(B18 C18)(C18 C17)(C17 D17)(D17 D16)(D16 E16)(E16 E15)(E15 F15)(F15 F14)(F14 G14)(G14 G13)(G13 H13)(H13 H12)(H12 I12)(I12 I11)
-		(B29 C29)(C29 C28)(C28 D28)(D28 D27)(D27 E27)(E27 E26)(E26 F26)(F26 F25)(F25 G25)(G25 G24)(G24 H24)(H24 H23)(H23 I23)(I23 I22)
-		(C39 D39)(D39 D38)(D38 E38)(E38 E37)(E37 F37)(F37 F36)(F36 G36)(G36 G35)(G35 H35)(H35 H34)(H34 I34)(I34 I33)
-		(D49 E49)(E49 E48)(E48 F48)(F48 F47)(F47 G47)(G47 G46)(G46 H46)(H46 H45)(H45 I45)(I45 I44)
-		(E59 F59)(F59 F58)(F58 G58)(G58 G57)(G57 H57)(H57 H56)(H56 I56)(I56 I55)
-		(F69 G69)(G69 G68)(G68 H68)(H68 H67)(H67 I67)(I67 I66)
-		(G79 H79)(H79 H78)(H78 I78)(I78 I77)
-		(H89 I89)(I89 I88)
+		(A19 B19) (B19 B18) (B18 C18) (C18 C17) (C17 D17) (D17 D16) (D16 E16) (E16 E15) (E15 F15) (F15 F14) (F14 G14) (G14 G13) (G13 H13) (H13 H12) (H12 I12) (I12 I11)
+		(B29 C29) (C29 C28) (C28 D28) (D28 D27) (D27 E27) (E27 E26) (E26 F26) (F26 F25) (F25 G25) (G25 G24) (G24 H24) (H24 H23) (H23 I23) (I23 I22)
+		(C39 D39) (D39 D38) (D38 E38) (E38 E37) (E37 F37) (F37 F36) (F36 G36) (G36 G35) (G35 H35) (H35 H34) (H34 I34) (I34 I33)
+		(D49 E49) (E49 E48) (E48 F48) (F48 F47) (F47 G47) (G47 G46) (G46 H46) (H46 H45) (H45 I45) (I45 I44)
+		(E59 F59) (F59 F58) (F58 G58) (G58 G57) (G57 H57) (H57 H56) (H56 I56) (I56 I55)
+		(F69 G69) (G69 G68) (G68 H68) (H68 H67) (H67 I67) (I67 I66)
+		(G79 H79) (H79 H78) (H78 I78) (I78 I77)
+		(H89 I89) (I89 I88)
 	)
 	(links nw
-		(I22 I12)(I12 H12)
-		(I33 I23)(I23 H23)(H23 H13)(H13 G13)
-		(I44 I34)(I34 H34)(H34 H24)(H24 G24)(G24 G14)(G14 F14)
-		(I55 I45)(I45 H45)(H45 H35)(H35 G35)(G35 G25)(G25 F25)(F25 F15)(F15 E15)
-		(I66 I56)(I56 H56)(H56 H46)(H46 G46)(G46 G36)(G36 F36)(F36 F26)(F26 E26)(E26 E16)(E16 D16)
-		(I77 I67)(I67 H67)(H67 H57)(H57 G57)(G57 G47)(G47 F47)(F47 F37)(F37 E37)(E37 E27)(E27 D27)(D27 D17)(D17 C17)
-		(I88 I78)(I78 H78)(H78 H68)(H68 G68)(G68 G58)(G58 F58)(F58 F48)(F48 E48)(E48 E38)(E38 D38)(D38 D28)(D28 C28)(C28 C18)(C18 B18)
-		(I99 I89)(I89 H89)(H89 H79)(H79 G79)(G79 G69)(G69 F69)(F69 F59)(F59 E59)(E59 E49)(E49 D49)(D49 D39)(D39 C39)(C39 C29)(C29 B29)(B29 B19)(B19 A19)
+		(I22 I12) (I12 H12)
+		(I33 I23) (I23 H23) (H23 H13) (H13 G13)
+		(I44 I34) (I34 H34) (H34 H24) (H24 G24) (G24 G14) (G14 F14)
+		(I55 I45) (I45 H45) (H45 H35) (H35 G35) (G35 G25) (G25 F25) (F25 F15) (F15 E15)
+		(I66 I56) (I56 H56) (H56 H46) (H46 G46) (G46 G36) (G36 F36) (F36 F26) (F26 E26) (E26 E16) (E16 D16)
+		(I77 I67) (I67 H67) (H67 H57) (H57 G57) (G57 G47) (G47 F47) (F47 F37) (F37 E37) (E37 E27) (E27 D27) (D27 D17) (D17 C17)
+		(I88 I78) (I78 H78) (H78 H68) (H68 G68) (G68 G58) (G58 F58) (F58 F48) (F48 E48) (E48 E38) (E38 D38) (D38 D28) (D28 C28) (C28 C18) (C18 B18)
+		(I99 I89) (I89 H89) (H89 H79) (H79 G79) (G79 G69) (G69 F69) (F69 F59) (F59 E59) (E59 E49) (E49 D49) (D49 D39) (D39 C39) (C39 C29) (C29 B29) (B29 B19) (B19 A19)
 	)
 	(links se
-		(A19 B19)(B19 B29)(B29 C29)(C29 C39)(C39 D39)(D39 D49)(D49 E49)(E49 E59)(E59 F59)(F59 F69)(F69 G69)(G69 G79)(G79 H79)(H79 H89)(H89 I89)(I89 I99)
-		(B18 C18)(C18 C28)(C28 D28)(D28 D38)(D38 E38)(E38 E48)(E48 F48)(F48 F58)(F58 G58)(G58 G68)(G68 H68)(H68 H78)(H78 I78)(I78 I88)
-		(C17 D17)(D17 D27)(D27 E27)(E27 E37)(E37 F37)(F37 F47)(F47 G47)(G47 G57)(G57 H57)(H57 H67)(H67 I67)(I67 I77)
-		(D16 E16)(E16 E26)(E26 F26)(F26 F36)(F36 G36)(G36 G46)(G46 H46)(H46 H56)(H56 I56)(I56 I66)
-		(E15 F15)(F15 F25)(F25 G25)(G25 G35)(G35 H35)(H35 H45)(H45 I45)(I45 I55)
-		(F14 G14)(G14 G24)(G24 H24)(H24 H34)(H34 I34)(I34 I44)
-		(G13 H13)(H13 H23)(H23 I23)(I23 I33)
-		(H12 I12)(I12 I22)
+		(A19 B19) (B19 B29) (B29 C29) (C29 C39) (C39 D39) (D39 D49) (D49 E49) (E49 E59) (E59 F59) (F59 F69) (F69 G69) (G69 G79) (G79 H79) (H79 H89) (H89 I89) (I89 I99)
+		(B18 C18) (C18 C28) (C28 D28) (D28 D38) (D38 E38) (E38 E48) (E48 F48) (F48 F58) (F58 G58) (G58 G68) (G68 H68) (H68 H78) (H78 I78) (I78 I88)
+		(C17 D17) (D17 D27) (D27 E27) (E27 E37) (E37 F37) (F37 F47) (F47 G47) (G47 G57) (G57 H57) (H57 H67) (H67 I67) (I67 I77)
+		(D16 E16) (E16 E26) (E26 F26) (F26 F36) (F36 G36) (G36 G46) (G46 H46) (H46 H56) (H56 I56) (I56 I66)
+		(E15 F15) (F15 F25) (F25 G25) (G25 G35) (G35 H35) (H35 H45) (H45 I45) (I45 I55)
+		(F14 G14) (G14 G24) (G24 H24) (H24 H34) (H34 I34) (I34 I44)
+		(G13 H13) (H13 H23) (H23 I23) (I23 I33)
+		(H12 I12) (I12 I22)
 	)
 
     (zone
@@ -326,8 +465,8 @@
     (moves 
 	(move-type combat)
 	(step-1 e) (step-1 w)
-	(step-1 ne)(step-1 nw)
-	(step-1 se)(step-1 sw)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
     )
   )
   (piece
@@ -338,6 +477,12 @@
        Green 
          "images\klin-zha\cg_vanguard.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+    )
   )
   (piece
     (name Power-Vanguard)
@@ -346,6 +491,16 @@
          "images\klin-zha\ay_pvanguard.bmp" 
        Green 
          "images\klin-zha\ag_pvanguard.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
     )
   )
   (piece
@@ -356,6 +511,16 @@
        Green 
          "images\klin-zha\cg_vanguard.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+    )
   )
   (piece
     (name Lancer)
@@ -364,6 +529,20 @@
          "images\klin-zha\ay_lancer.bmp" 
        Green 
          "images\klin-zha\ag_lancer.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
     )
   )
   (piece
@@ -374,6 +553,20 @@
        Green 
          "images\klin-zha\cg_lancer.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+    )
   )
   (piece
     (name Fencer)
@@ -382,6 +575,26 @@
          "images\klin-zha\ay_fencer.bmp" 
        Green 
          "images\klin-zha\ag_fencer.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 e e ne) (step-3 e e se)
+	(step-3 w w nw) (step-3 w w sw)
+	(step-3 ne ne e) (step-3 ne ne nw)
+	(step-3 nw nw w) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw w) (step-3 sw sw se)
     )
   )
   (piece
@@ -392,6 +605,26 @@
        Green 
          "images\klin-zha\cg_fencer.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-1 e) (step-1 w)
+	(step-1 ne) (step-1 nw)
+	(step-1 se) (step-1 sw)
+
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 e e ne) (step-3 e e se)
+	(step-3 w w nw) (step-3 w w sw)
+	(step-3 ne ne e) (step-3 ne ne nw)
+	(step-3 nw nw w) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw w) (step-3 sw sw se)
+    )
   )
   (piece
     (name Swift)
@@ -400,6 +633,38 @@
          "images\klin-zha\ay_swift.bmp" 
        Green 
          "images\klin-zha\ag_swift.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 e e ne)
+	(step-3 w w w) (step-3 w w nw)
+	(step-3 ne ne ne) (step-3 ne ne nw)
+	(step-3 nw nw nw) (step-3 nw nw ne)
+	(step-3 se se se) (step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw sw) (step-3 sw sw se) (step-3 sw sw w)
+
+	(step-4 e e e e) (step-4 e e e se) (step-4 e e e ne)
+	(step-4 e e ne ne) (step-4 e e ne nw)
+	(step-4 e e se se) (step-4 e e se sw)
+	(step-4 w w w w) (step-4 w w w sw) (step-4 w w w nw)
+	(step-4 w w nw nw) (step-4 w w nw ne)
+	(step-4 w w sw sw) (step-4 w w sw se)
+	(step-4 ne ne ne ne) (step-4 ne ne ne nw) (step-4 ne ne ne e)
+	(step-4 ne ne e e) (step-4 ne ne e se)
+	(step-4 ne ne nw nw) (step-4 ne ne nw w)
+	(step-4 nw nw nw nw) (step-4 nw nw nw ne) (step-4 nw nw nw w)
+	(step-4 nw nw ne ne) (step-4 nw nw ne e)
+	(step-4 nw nw w w) (step-4 nw nw w sw)
+	(step-4 se se se se) (step-4 se se se sw) (step-4 se se se e)
+	(step-4 se se sw sw) (step-4 se se sw w)
+	(step-4 se se e e) (step-4 se se e ne)
+	(step-4 sw sw sw sw) (step-4 sw sw sw se) (step-4 sw sw sw w)
+	(step-4 sw sw se se) (step-4 sw sw se e)
+	(step-4 sw sw w w) (step-4 sw sw w nw)
     )
   )
   (piece
@@ -410,6 +675,38 @@
        Green 
          "images\klin-zha\cg_swift.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+
+	(step-3 e e e) (step-3 e e ne) 
+	(step-3 w w w) (step-3 w w nw) 
+	(step-3 ne ne ne) (step-3 ne ne nw)
+	(step-3 nw nw nw) (step-3 nw nw ne)
+	(step-3 se se se) (step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw sw) (step-3 sw sw se) (step-3 sw sw w)
+
+	(step-4 e e e e) (step-4 e e e se) (step-4 e e e ne)
+	(step-4 e e ne ne) (step-4 e e ne nw)
+	(step-4 e e se se) (step-4 e e se sw)
+	(step-4 w w w w) (step-4 w w w sw) (step-4 w w w nw)
+	(step-4 w w nw nw) (step-4 w w nw ne)
+	(step-4 w w sw sw) (step-4 w w sw se)
+	(step-4 ne ne ne ne) (step-4 ne ne ne nw) (step-4 ne ne ne e)
+	(step-4 ne ne e e) (step-4 ne ne e se)
+	(step-4 ne ne nw nw) (step-4 ne ne nw w)
+	(step-4 nw nw nw nw) (step-4 nw nw nw ne) (step-4 nw nw nw w)
+	(step-4 nw nw ne ne) (step-4 nw nw ne e)
+	(step-4 nw nw w w) (step-4 nw nw w sw)
+	(step-4 se se se se) (step-4 se se se sw) (step-4 se se se e)
+	(step-4 se se sw sw) (step-4 se se sw w)
+	(step-4 se se e e) (step-4 se se e ne)
+	(step-4 sw sw sw sw) (step-4 sw sw sw se) (step-4 sw sw sw w)
+	(step-4 sw sw se se) (step-4 sw sw se e)
+	(step-4 sw sw w w) (step-4 sw sw w nw)
+    )
   )
   (piece
     (name Flier)
@@ -418,6 +715,24 @@
          "images\klin-zha\ay_flier.bmp" 
        Green 
          "images\klin-zha\ag_flier.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(jump-3 e) (jump-3 w)
+	(jump-3 ne) (jump-3 nw)
+	(jump-3 se) (jump-3 sw)
+
+	(jump-4 e) (jump-4 w)
+	(jump-4 ne) (jump-4 nw)
+	(jump-4 se) (jump-4 sw)
+
+	(jump-5 e) (jump-5 w)
+	(jump-5 ne) (jump-5 nw)
+	(jump-5 se) (jump-5 sw)
+
+	(jump-6 e) (jump-6 w)
+	(jump-6 ne) (jump-6 nw)
+	(jump-6 se) (jump-6 sw)
     )
   )
   (piece
@@ -428,6 +743,24 @@
        Green 
          "images\klin-zha\cg_flier.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(jump-3 e) (jump-3 w)
+	(jump-3 ne) (jump-3 nw)
+	(jump-3 se) (jump-3 sw)
+
+	(jump-4 e) (jump-4 w)
+	(jump-4 ne) (jump-4 nw)
+	(jump-4 se) (jump-4 sw)
+
+	(jump-5 e) (jump-5 w)
+	(jump-5 ne) (jump-5 nw)
+	(jump-5 se) (jump-5 sw)
+
+	(jump-6 e) (jump-6 w)
+	(jump-6 ne) (jump-6 nw)
+	(jump-6 se) (jump-6 sw)
+    )
   )
   (piece
     (name Blockader)
@@ -436,6 +769,16 @@
          "images\klin-zha\ay_blockader.bmp"
        Green
          "images\klin-zha\ag_blockader.bmp"
+    )
+    (moves 
+	(move-type combat)
+	(block-1 e) (block-1 w)
+	(block-1 ne) (block-1 nw)
+	(block-1 se) (block-1 sw)
+
+	(block-2 e e) (block-2 w w)
+	(block-2 ne ne) (block-2 nw nw)
+	(block-2 se se) (block-2 sw sw)
     )
   )
 

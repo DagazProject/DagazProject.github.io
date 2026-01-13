@@ -188,9 +188,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PARAM,	0);	// $1
     design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
-    design.addCommand(0, ZRF.FUNCTION,	3);	// friend?
-    design.addCommand(0, ZRF.FUNCTION,	0);	// not
-    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
     design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
     design.addCommand(0, ZRF.FUNCTION,	0);	// not
@@ -279,42 +276,2163 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(0, ZRF.FUNCTION,	0);	// not
     design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(0, ZRF.IF,	6);
+    design.addCommand(0, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.IF,	3);
+    design.addCommand(0, ZRF.LITERAL,	0);	// false
+    design.addCommand(0, ZRF.JUMP,	2);
+    design.addCommand(0, ZRF.LITERAL,	1);	// true
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.PARAM,	7);	// $8
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	8);	// $9
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	9);	// $10
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	10);	// $11
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	11);	// $12
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	12);	// $13
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	13);	// $14
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	6);
+    design.addCommand(0, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.IF,	3);
+    design.addCommand(0, ZRF.LITERAL,	0);	// false
+    design.addCommand(0, ZRF.JUMP,	2);
+    design.addCommand(0, ZRF.LITERAL,	1);	// true
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
     design.addCommand(0, ZRF.FUNCTION,	25);	// to
     design.addCommand(0, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(1, ZRF.FUNCTION,	24);	// from
+    design.addCommand(1, ZRF.PARAM,	0);	// $1
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	1);	// $2
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	2);	// $3
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	3);	// $4
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	4);	// $5
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	5);	// $6
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	6);	// $7
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(1, ZRF.IF,	6);
+    design.addCommand(1, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.IF,	3);
+    design.addCommand(1, ZRF.LITERAL,	0);	// false
+    design.addCommand(1, ZRF.JUMP,	2);
+    design.addCommand(1, ZRF.LITERAL,	1);	// true
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.PARAM,	7);	// $8
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	8);	// $9
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	9);	// $10
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	10);	// $11
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	11);	// $12
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	12);	// $13
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	13);	// $14
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.PARAM,	14);	// $15
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	15);	// $16
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	16);	// $17
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	17);	// $18
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	18);	// $19
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	19);	// $20
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	20);	// $21
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	6);
+    design.addCommand(1, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.IF,	3);
+    design.addCommand(1, ZRF.LITERAL,	0);	// false
+    design.addCommand(1, ZRF.JUMP,	2);
+    design.addCommand(1, ZRF.LITERAL,	1);	// true
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	25);	// to
+    design.addCommand(1, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(2, ZRF.FUNCTION,	24);	// from
+    design.addCommand(2, ZRF.PARAM,	0);	// $1
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	1);	// $2
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	2);	// $3
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	3);	// $4
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	4);	// $5
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	5);	// $6
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	6);	// $7
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(2, ZRF.IF,	6);
+    design.addCommand(2, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.IF,	3);
+    design.addCommand(2, ZRF.LITERAL,	0);	// false
+    design.addCommand(2, ZRF.JUMP,	2);
+    design.addCommand(2, ZRF.LITERAL,	1);	// true
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.PARAM,	7);	// $8
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	8);	// $9
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	9);	// $10
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	10);	// $11
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	11);	// $12
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	12);	// $13
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	13);	// $14
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(2, ZRF.IF,	6);
+    design.addCommand(2, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.IF,	3);
+    design.addCommand(2, ZRF.LITERAL,	0);	// false
+    design.addCommand(2, ZRF.JUMP,	2);
+    design.addCommand(2, ZRF.LITERAL,	1);	// true
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.PARAM,	14);	// $15
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	15);	// $16
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	16);	// $17
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	17);	// $18
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	18);	// $19
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	19);	// $20
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	20);	// $21
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.PARAM,	21);	// $22
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	22);	// $23
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	23);	// $24
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	24);	// $25
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	25);	// $26
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	26);	// $27
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	12);
+    design.addCommand(2, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(2, ZRF.PARAM,	27);	// $28
+    design.addCommand(2, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	5);
+    design.addCommand(2, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	7);	// back
+    design.addCommand(2, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(2, ZRF.FUNCTION,	0);	// not
+    design.addCommand(2, ZRF.IF,	6);
+    design.addCommand(2, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(2, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(2, ZRF.IF,	3);
+    design.addCommand(2, ZRF.LITERAL,	0);	// false
+    design.addCommand(2, ZRF.JUMP,	2);
+    design.addCommand(2, ZRF.LITERAL,	1);	// true
+    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(2, ZRF.FUNCTION,	25);	// to
+    design.addCommand(2, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(3, ZRF.FUNCTION,	24);	// from
+    design.addCommand(3, ZRF.PARAM,	0);	// $1
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	1);	// $2
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	2);	// $3
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	3);	// $4
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	4);	// $5
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	5);	// $6
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	12);
+    design.addCommand(3, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(3, ZRF.PARAM,	6);	// $7
+    design.addCommand(3, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(3, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.IF,	5);
+    design.addCommand(3, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(3, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(3, ZRF.FUNCTION,	0);	// not
+    design.addCommand(3, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(3, ZRF.FUNCTION,	7);	// back
+    design.addCommand(3, ZRF.FUNCTION,	25);	// to
+    design.addCommand(3, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(4, ZRF.FUNCTION,	24);	// from
+    design.addCommand(4, ZRF.PARAM,	0);	// $1
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.PARAM,	1);	// $2
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.PARAM,	2);	// $3
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	3);	// $4
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	4);	// $5
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	5);	// $6
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	6);	// $7
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	7);	// $8
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	12);
+    design.addCommand(4, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(4, ZRF.PARAM,	8);	// $9
+    design.addCommand(4, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(4, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	5);
+    design.addCommand(4, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	7);	// back
+    design.addCommand(4, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(4, ZRF.FUNCTION,	0);	// not
+    design.addCommand(4, ZRF.IF,	6);
+    design.addCommand(4, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(4, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(4, ZRF.IF,	3);
+    design.addCommand(4, ZRF.LITERAL,	0);	// false
+    design.addCommand(4, ZRF.JUMP,	2);
+    design.addCommand(4, ZRF.LITERAL,	1);	// true
+    design.addCommand(4, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(4, ZRF.FUNCTION,	25);	// to
+    design.addCommand(4, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(5, ZRF.FUNCTION,	24);	// from
+    design.addCommand(5, ZRF.PARAM,	0);	// $1
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.PARAM,	1);	// $2
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.PARAM,	2);	// $3
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.PARAM,	3);	// $4
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	4);	// $5
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	5);	// $6
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	6);	// $7
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	7);	// $8
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	8);	// $9
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	12);
+    design.addCommand(5, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(5, ZRF.PARAM,	9);	// $10
+    design.addCommand(5, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(5, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	5);
+    design.addCommand(5, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	7);	// back
+    design.addCommand(5, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(5, ZRF.FUNCTION,	0);	// not
+    design.addCommand(5, ZRF.IF,	6);
+    design.addCommand(5, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(5, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(5, ZRF.IF,	3);
+    design.addCommand(5, ZRF.LITERAL,	0);	// false
+    design.addCommand(5, ZRF.JUMP,	2);
+    design.addCommand(5, ZRF.LITERAL,	1);	// true
+    design.addCommand(5, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(5, ZRF.FUNCTION,	25);	// to
+    design.addCommand(5, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(6, ZRF.FUNCTION,	24);	// from
+    design.addCommand(6, ZRF.PARAM,	0);	// $1
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.PARAM,	1);	// $2
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.PARAM,	2);	// $3
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.PARAM,	3);	// $4
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.PARAM,	4);	// $5
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	5);	// $6
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	6);	// $7
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	7);	// $8
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	8);	// $9
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	9);	// $10
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	12);
+    design.addCommand(6, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(6, ZRF.PARAM,	10);	// $11
+    design.addCommand(6, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(6, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	5);
+    design.addCommand(6, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	7);	// back
+    design.addCommand(6, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(6, ZRF.FUNCTION,	0);	// not
+    design.addCommand(6, ZRF.IF,	6);
+    design.addCommand(6, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(6, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(6, ZRF.IF,	3);
+    design.addCommand(6, ZRF.LITERAL,	0);	// false
+    design.addCommand(6, ZRF.JUMP,	2);
+    design.addCommand(6, ZRF.LITERAL,	1);	// true
+    design.addCommand(6, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(6, ZRF.FUNCTION,	25);	// to
+    design.addCommand(6, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(7, ZRF.FUNCTION,	24);	// from
+    design.addCommand(7, ZRF.PARAM,	0);	// $1
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.PARAM,	1);	// $2
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.PARAM,	2);	// $3
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.PARAM,	3);	// $4
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.PARAM,	4);	// $5
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.PARAM,	5);	// $6
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	6);	// $7
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	7);	// $8
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	8);	// $9
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	9);	// $10
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	10);	// $11
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	12);
+    design.addCommand(7, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(7, ZRF.PARAM,	11);	// $12
+    design.addCommand(7, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(7, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	5);
+    design.addCommand(7, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	7);	// back
+    design.addCommand(7, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(7, ZRF.FUNCTION,	0);	// not
+    design.addCommand(7, ZRF.IF,	6);
+    design.addCommand(7, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(7, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(7, ZRF.IF,	3);
+    design.addCommand(7, ZRF.LITERAL,	0);	// false
+    design.addCommand(7, ZRF.JUMP,	2);
+    design.addCommand(7, ZRF.LITERAL,	1);	// true
+    design.addCommand(7, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(7, ZRF.FUNCTION,	25);	// to
+    design.addCommand(7, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(8, ZRF.FUNCTION,	24);	// from
+    design.addCommand(8, ZRF.PARAM,	0);	// $1
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	1);	// $2
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	2);	// $3
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	3);	// $4
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	4);	// $5
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	5);	// $6
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.IF,	36);
+    design.addCommand(8, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(8, ZRF.PARAM,	6);	// $7
+    design.addCommand(8, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(8, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(8, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(8, ZRF.FUNCTION,	0);	// not
+    design.addCommand(8, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(8, ZRF.FUNCTION,	7);	// back
+    design.addCommand(8, ZRF.FUNCTION,	25);	// to
+    design.addCommand(8, ZRF.FUNCTION,	28);	// end
+
+    design.addCommand(9, ZRF.FUNCTION,	24);	// from
+    design.addCommand(9, ZRF.PARAM,	0);	// $1
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.PARAM,	1);	// $2
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	2);	// $3
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	3);	// $4
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	4);	// $5
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	5);	// $6
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	6);	// $7
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.IF,	36);
+    design.addCommand(9, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(9, ZRF.PARAM,	7);	// $8
+    design.addCommand(9, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(9, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	2);	// Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	4);	// Power-Vanguard-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	6);	// Lancer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	8);	// Fencer-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	10);	// Swift-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.LITERAL,	12);	// Flier-carrier
+    design.addCommand(9, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(9, ZRF.FUNCTION,	0);	// not
+    design.addCommand(9, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(9, ZRF.FUNCTION,	7);	// back
+    design.addCommand(9, ZRF.FUNCTION,	25);	// to
+    design.addCommand(9, ZRF.FUNCTION,	28);	// end
 
     design.addPiece("Goal", 0);
 
     design.addPiece("Vanguard", 1);
-    design.addMove(1, 0, [1, 1, 2, 0, 4, 5, 3], 1);
-    design.addMove(1, 0, [0, 1, 2, 0, 4, 5, 3], 1);
-    design.addMove(1, 0, [2, 1, 2, 0, 4, 5, 3], 1);
-    design.addMove(1, 0, [4, 1, 2, 0, 4, 5, 3], 1);
-    design.addMove(1, 0, [5, 1, 2, 0, 4, 5, 3], 1);
-    design.addMove(1, 0, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(1, 3, [3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("VanguardCarrier", 2);
+    design.addMove(2, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(2, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(2, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(2, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(2, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(2, 3, [3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("PowerVanguard", 3);
+    design.addMove(3, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(3, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("PowerVanguardCarrier", 4);
+    design.addMove(4, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(4, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("Lancer", 5);
+    design.addMove(5, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(5, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("LancerCarrier", 6);
+    design.addMove(6, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(6, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("Fencer", 7);
+    design.addMove(7, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("FencerCarrier", 8);
+    design.addMove(8, 3, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 3, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 3, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 3, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 3, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 3, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("Swift", 9);
+    design.addMove(9, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(9, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("SwiftCarrier", 10);
+    design.addMove(10, 0, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 0, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 0, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 0, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 0, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 0, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [4, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 5, 1, 2, 0, 4, 5, 3, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(10, 2, [3, 1, 2, 0, 4, 5, 3, 3, 1, 2, 0, 4, 5, 3, 0, 1, 2, 0, 4, 5, 3, 4, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("Flier", 11);
+    design.addMove(11, 4, [1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 4, [0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 4, [2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 4, [4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 4, [5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 4, [3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 5, [3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [1, 1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [0, 0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [2, 2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [4, 4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [5, 5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 6, [3, 3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [1, 1, 1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [2, 2, 2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [4, 4, 4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [5, 5, 5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(11, 7, [3, 3, 3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("FlierCarrier", 12);
+    design.addMove(12, 4, [1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 4, [0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 4, [2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 4, [4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 4, [5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 4, [3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 5, [3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [1, 1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [0, 0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [2, 2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [4, 4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [5, 5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 6, [3, 3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [1, 1, 1, 1, 1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [2, 2, 2, 2, 2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [4, 4, 4, 4, 4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [5, 5, 5, 5, 5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(12, 7, [3, 3, 3, 3, 3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.addPiece("Blockader", 13);
+    design.addMove(13, 8, [1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 8, [0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 8, [2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 8, [4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 8, [5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 8, [3, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [1, 1, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [0, 0, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [2, 2, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [4, 4, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [5, 5, 1, 2, 0, 4, 5, 3], 1);
+    design.addMove(13, 9, [3, 3, 1, 2, 0, 4, 5, 3], 1);
 
     design.setup("Gold", "Vanguard",  p('YVG0'));
     design.setup("Gold", "Vanguard",  p('YVG1'));
@@ -463,7 +2581,6 @@ Dagaz.View.configure = function(view) {
     view.defPosition("B29", 45, -226, 44, 33, 0);
     view.defPosition("B19", 0, -248, 44, 33, 0);
     view.defPosition("A19", 0, -304, 44, 33, 0);
-
 
     view.defPosition("GLA0", -328, 8, 44, 33, 0);
     view.defPosition("GFL0", -448, 164, 44, 33, 0);
