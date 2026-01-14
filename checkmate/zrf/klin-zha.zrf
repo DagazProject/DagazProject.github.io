@@ -290,21 +290,21 @@
 		(A19 220  20 245  45)
 
 		; These are the piece repository positions
-    		(GLA0 110 388 154 421) 
-    		(GFL0  10 544  54 577) (GFL1  60 544 104 577) 
-    		(GSW0  10 388  54 421)
-	   	(GGL0  10 622  54 655)
-    		(GVG0  10 466  54 499) (GVG1  60 466 104 499) (GVG2 110 466 155 499) 
-    		(GFE0  60 388 104 421)
-    		(GBL0 160 388 204 421)
+    		(G1 110 388 154 421) 
+    		(G2  10 544  54 577) (G3  60 544 104 577) 
+    		(G4  10 388  54 421)
+	   	(G5  10 622  54 655)
+    		(G6  10 466  54 499) (G7  60 466 104 499) (G8 110 466 155 499) 
+    		(G9  60 388 104 421)
+    		(G10 160 388 204 421)
 
-    		(YLA0 746 388 790 421) 
-    		(YFL0 796 544 840 577) (YFL1 845 544 890 577) 
-	   	(YSW0 846 388 890 421)
-    		(YGL0 846 622 890 655)
-    		(YVG0 746 466 790 499) (YVG1 795 466 840 499) (YVG2 845 466 890 499) 
-    		(YFE0 796 388 840 421)
-    		(YBL0 696 388 740 421)
+    		(Y1 746 388 790 421) 
+    		(Y2 796 544 840 577) (Y3 845 544 890 577) 
+	   	(Y4 846 388 890 421)
+    		(Y5 846 622 890 655)
+    		(Y6 746 466 790 499) (Y7 795 466 840 499) (Y8 845 466 890 499) 
+    		(Y9 796 388 840 421)
+    		(Y10 696 388 740 421)
         )
 	(links w
 		(B18 B19) (B19 B29)
@@ -407,14 +407,14 @@
     (name home)
     (players Gold)
     (positions
-      YLA0  YFL0  YFL1  YSW0  YVG0  YVG1  YVG2  YFE0  YBL0  YGL0 
+      Y1  Y2  Y3  Y4  Y6  Y7  Y8  Y9  Y10  Y5 
     ))
   
   (zone
     (name home)
     (players Green)
     (positions
-      GLA0  GFL0  GFL1  GSW0  GVG0  GVG1  GVG2  GFE0  GBL0  GGL0 
+      G1  G2  G3  G4  G6  G7  G8  G9  G10  G5 
     ))
 
   (zone
@@ -784,28 +784,28 @@
 
   (board-setup
     (Gold
-      (Vanguard  YVG0)
-      (Vanguard  YVG1)
-      (Vanguard  YVG2)
-      (Lancer    YLA0)
-      (Flier     YFL0)
-      (Flier     YFL1)
-      (Swift     YSW0)
-      (Fencer    YFE0)
-      (Blockader YBL0)
-      (Goal      YGL0)
+      (Vanguard  Y6)
+      (Vanguard  Y7)
+      (Vanguard  Y8)
+      (Lancer    Y1)
+      (Flier     Y2)
+      (Flier     Y3)
+      (Swift     Y4)
+      (Fencer    Y9)
+      (Blockader Y10)
+      (Goal      Y5)
     )
     (Green
-      (Vanguard  GVG0)
-      (Vanguard  GVG1)
-      (Vanguard  GVG2)
-      (Lancer    GLA0)
-      (Flier     GFL0)
-      (Flier     GFL1)
-      (Swift     GSW0)
-      (Fencer    GFE0)
-      (Blockader GBL0)
-      (Goal      GGL0)
+      (Vanguard  G6)
+      (Vanguard  G7)
+      (Vanguard  G8)
+      (Lancer    G1)
+      (Flier     G2)
+      (Flier     G3)
+      (Swift     G4)
+      (Fencer    G9)
+      (Blockader G10)
+      (Goal      G5)
     )
   )
 )
