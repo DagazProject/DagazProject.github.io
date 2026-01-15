@@ -1252,16 +1252,21 @@ View3D.prototype.animate = function() {
       if (q.type  != MOVE_TYPE.PROMOTE) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
-      const piece = new THREE.Mesh(q.pieceType.geometry, q.pieceType.material);
-      if (Dagaz.View.IS_DIAGONAL) {
-          if (q.player == 1) {
-              piece.rotation.y = Math.PI * 1.25;
-          } else {
-              piece.rotation.y = Math.PI * 0.25;
-          }
+      let piece = null;
+      if (q.pieceType.kind == PIECE_TYPE.TOKEN) {
+          piece = new THREE.Mesh(q.pieceType.geometry, [q.pieceType.matborder, q.pieceType.mattop]);
       } else {
-          if (q.player == 1) {
-              piece.rotation.y = Math.PI;
+          piece = new THREE.Mesh(q.pieceType.geometry, q.pieceType.material);
+          if (Dagaz.View.IS_DIAGONAL) {
+              if (q.player == 1) {
+                  piece.rotation.y = Math.PI * 1.25;
+              } else {
+                  piece.rotation.y = Math.PI * 0.25;
+              }
+          } else {
+              if (q.player == 1) {
+                  piece.rotation.y = Math.PI;
+              }
           }
       }
       piece.pos = q.piece.pos;
@@ -1394,7 +1399,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
-  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE && (Dagaz.View.PIECE_TYPE != PIECE_TYPE.TOKEN)) {
+  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE) {
       const pieceType = pieceTypes[piece.type*10 + piece.player];
           this.queue.push({
              type:  MOVE_TYPE.PROMOTE,

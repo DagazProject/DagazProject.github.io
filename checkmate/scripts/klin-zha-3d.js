@@ -22,6 +22,23 @@ ZRF = {
     VERIFY:        20
 };
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  if (move.actions.length > 0) {
+      var a = move.actions[0];
+      if (a[0] != null) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
+          if (a[1] !== null) {
+              r = r + '-';
+          }
+      }
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+  }
+  return r;
+}
+
 function p(name) {
   return Dagaz.Model.stringToPos(name);
 }

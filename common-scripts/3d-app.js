@@ -311,11 +311,16 @@ App.prototype.getAI = function() {
 
 App.prototype.checkCaptures = function(move) {
   let f = false;
-  if (!move.isSimpleMove()) return;
+  let p = [];
+  _.each(move.actions, function(a) {
+      if (a[0] === null) return;
+      if (a[1] === null) return;
+      p.push(+a[0][0]);
+  });
   const a = [];
   for (let i = 0; i < move.actions.length; i++) {
        const m = move.actions[i];
-       if ((m[0] !== null) && (m[1] !== null) && (m[0][0] != m[1][0])) {
+       if ((m[0] !== null) && (m[1] !== null) && (m[0][0] != m[1][0]) && (_.indexOf(p, +m[1][0]) < 0)) {
            const piece = this.board.getPiece(m[1][0]);
            if (piece !== null) {
                f = true;
