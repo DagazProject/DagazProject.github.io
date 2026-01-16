@@ -739,7 +739,7 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
   if (_.isUndefined(color)) color = 0x3F3F3F;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
-  const key = type * 10 + player;
+  const key = type * 10 + (+player);
   if (!_.isUndefined(image)) {
       const img = document.getElementById(image);
       this.res.push({h: img});
@@ -765,7 +765,7 @@ View3D.prototype.defPieceTriangle = function(type, player, dx, dy, dz, sz, color
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
   if (_.isUndefined(opacity)) opacity = 1;
   Dagaz.View.NO_PIECE = false;
-  const key = type*10 + player;
+  const key = type*10 + (+player);
   pieceKeys.push(key);
   pieceTypes[key] = {
      kind:    PIECE_TYPE.TRIANGLE,
@@ -786,7 +786,7 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
   if (_.isUndefined(opacity)) opacity = 1;
   Dagaz.View.NO_PIECE = false;
-  const key = type*10 + player;
+  const key = type*10 + (+player);
   pieceKeys.push(key);
   let p = null;
   if (!_.isUndefined(res)) {
@@ -828,7 +828,7 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
 View3D.prototype.defPieceModel = function(type, player, path, model, color) {
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
-  const key = type*10 + player;
+  const key = type*10 + (+player);
   pieceKeys.push(key);
   pieceTypes[key] = {
      kind: PIECE_TYPE.MODEL,
@@ -846,7 +846,7 @@ View3D.prototype.defPieceModel = function(type, player, path, model, color) {
 View3D.prototype.defPieceCube = function(type, player, colors) {
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.CUBE;
-  pieceTypes[type*10 + player] = {
+  pieceTypes[type*10 + (+player)] = {
      type: PIECE_TYPE.CUBE,
      colors: colors
   };
@@ -1400,7 +1400,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       player: piece.player
   });
   if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE) {
-      const pieceType = pieceTypes[piece.type*10 + piece.player];
+      const pieceType = pieceTypes[piece.type*10 + (+piece.player)];
           this.queue.push({
              type:  MOVE_TYPE.PROMOTE,
              state: ANIMATE_STATE.INIT,
