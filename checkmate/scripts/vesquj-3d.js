@@ -142,7 +142,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 0, [6], 0);
     design.addMove(0, 0, [7], 0);
 
-    design.addPiece("Wing-Commander", 1, 300);
+    design.addPiece("Wing-Commander", 1, 5000);
     design.addMove(1, 1, [0, 0], 0);
     design.addMove(1, 1, [2, 2], 0);
     design.addMove(1, 1, [3, 3], 0);
@@ -150,7 +150,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 1, [5, 7], 0);
     design.addMove(1, 1, [6, 7], 0);
 
-    design.addPiece("Brigadier", 2);
+    design.addPiece("Brigadier", 2, 3000);
     design.addMove(2, 2, [7, 5], 0);
     design.addMove(2, 2, [7, 6], 0);
     design.addMove(2, 2, [1, 0], 0);
@@ -164,7 +164,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(2, 3, [1], 0);
     design.addMove(2, 3, [4], 0);
 
-    design.addPiece("Captain", 3);
+    design.addPiece("Captain", 3, 1000);
     design.addMove(3, 3, [5], 0);
     design.addMove(3, 3, [6], 0);
     design.addMove(3, 3, [0], 0);
@@ -178,7 +178,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(3, 2, [0, 0], 0);
     design.addMove(3, 2, [2, 2], 0);
 
-    design.addPiece("Marshal", 4);
+    design.addPiece("Marshal", 4, 9000);
     design.addMove(4, 1, [7, 7], 0);
     design.addMove(4, 1, [1, 1], 0);
     design.addMove(4, 1, [3, 3], 0);
@@ -192,7 +192,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(4, 2, [4, 6], 0);
     design.addMove(4, 2, [4, 2], 0);
 
-    design.addPiece("President", 5);
+    design.addPiece("President", 5, 20000);
 
     design.setup("White", "Sergeant", 25);
     design.setup("White", "Sergeant", 26);
@@ -219,18 +219,18 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     view.defBoard3D(254, 254, 1, -10, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
-    view.defPiecePlatform(0, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteSergeant");
-    view.defPiecePlatform(0, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackSergeant");
-    view.defPiecePlatform(1, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteWing-Commander");
-    view.defPiecePlatform(1, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackWing-Commander");
-    view.defPiecePlatform(2, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteBrigadier");
-    view.defPiecePlatform(2, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackBrigadier");
-    view.defPiecePlatform(3, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteCaptain");
-    view.defPiecePlatform(3, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackCaptain");
-    view.defPiecePlatform(4, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteMarshal");
-    view.defPiecePlatform(4, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackMarshal");
-    view.defPiecePlatform(5, 1, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhitePresident");
-    view.defPiecePlatform(5, 2, 42, 42, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackPresident");
+    view.defPiecePlatform(0, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteSergeant");
+    view.defPiecePlatform(0, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackSergeant");
+    view.defPiecePlatform(1, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteWing-Commander");
+    view.defPiecePlatform(1, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackWing-Commander");
+    view.defPiecePlatform(2, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteBrigadier");
+    view.defPiecePlatform(2, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackBrigadier");
+    view.defPiecePlatform(3, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteCaptain");
+    view.defPiecePlatform(3, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackCaptain");
+    view.defPiecePlatform(4, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhiteMarshal");
+    view.defPiecePlatform(4, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackMarshal");
+    view.defPiecePlatform(5, 1, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "WhitePresident");
+    view.defPiecePlatform(5, 2, 40, 40, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "BlackPresident");
  
     view.setCamera(0, 0, 0, -109, 215, 155);
 

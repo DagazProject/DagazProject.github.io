@@ -136,7 +136,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 0, [6], 0);
     design.addMove(0, 0, [7], 0);
 
-    design.addPiece("Wing-Commander", 1, 300);
+    design.addPiece("Wing-Commander", 1, 5000);
     design.addMove(1, 1, [0, 0], 0);
     design.addMove(1, 1, [2, 2], 0);
     design.addMove(1, 1, [3, 3], 0);
@@ -144,7 +144,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(1, 1, [5, 7], 0);
     design.addMove(1, 1, [6, 7], 0);
 
-    design.addPiece("Brigadier", 2);
+    design.addPiece("Brigadier", 2, 3000);
     design.addMove(2, 2, [7, 5], 0);
     design.addMove(2, 2, [7, 6], 0);
     design.addMove(2, 2, [1, 0], 0);
@@ -158,7 +158,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(2, 3, [1], 0);
     design.addMove(2, 3, [4], 0);
 
-    design.addPiece("Captain", 3);
+    design.addPiece("Captain", 3, 1000);
     design.addMove(3, 3, [5], 0);
     design.addMove(3, 3, [6], 0);
     design.addMove(3, 3, [0], 0);
@@ -172,7 +172,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(3, 2, [0, 0], 0);
     design.addMove(3, 2, [2, 2], 0);
 
-    design.addPiece("Marshal", 4);
+    design.addPiece("Marshal", 4, 9000);
     design.addMove(4, 1, [7, 7], 0);
     design.addMove(4, 1, [1, 1], 0);
     design.addMove(4, 1, [3, 3], 0);
@@ -186,7 +186,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(4, 2, [4, 6], 0);
     design.addMove(4, 2, [4, 2], 0);
 
-    design.addPiece("President", 5);
+    design.addPiece("President", 5, 20000);
 
     design.setup("White", "Sergeant", 25);
     design.setup("White", "Sergeant", 26);
