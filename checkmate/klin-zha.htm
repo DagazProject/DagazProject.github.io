@@ -1,0 +1,83 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Klin Zha</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/klin-zha/board-9.png">
+
+<img id="Bump" style="display:none" src="../res/xiangqi/piecebump.jpg">
+<img id="rGoal" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bGoal" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rVanguard" style="display:none" src="images/klin-zha/cy_vanguard.png">
+<img id="bVanguard" style="display:none" src="images/klin-zha/cg_vanguard.png">
+<img id="rVanguardCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bVanguardCarrier" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rVanguardPower" style="display:none" src="images/klin-zha/cy_vanguardp.png">
+<img id="bVanguardPower" style="display:none" src="images/klin-zha/cg_vanguardp.png">
+<img id="rVanguardCarrierPower" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bVanguardCarrierPower" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rLancer" style="display:none" src="images/klin-zha/cy_lancer.png">
+<img id="bLancer" style="display:none" src="images/klin-zha/cg_lancer.png">
+<img id="rLancerCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bLancerCarrier" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rFencer" style="display:none" src="images/klin-zha/cy_fencer.png">
+<img id="bFencer" style="display:none" src="images/klin-zha/cg_fencer.png">
+<img id="rFencerCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bFencerCarrier" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rSwift" style="display:none" src="images/klin-zha/cy_swift.png">
+<img id="bSwift" style="display:none" src="images/klin-zha/cg_swift.png">
+<img id="rSwiftCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bSwiftCarrier" style="display:none" src="images/klin-zha/cg_goal.png">
+<img id="rFlier" style="display:none" src="images/klin-zha/cy_flier.png">
+<img id="bFlier" style="display:none" src="images/klin-zha/cg_flier.png">
+<img id="rFlierCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="bFlierCarrier" style="display:none" src="images/klin-zha/cy_goal.png">
+<img id="rBlockader" style="display:none" src="images/klin-zha/cy_blockader.png">
+<img id="bBlockader" style="display:none" src="images/klin-zha/cg_blockader.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/maxmin-ai-v2.js"></script>
+<script src="scripts/klin-zha-setup-ai.js"></script>
+<script src="scripts/klin-zha-goal.js"></script>
+<script src="scripts/klin-zha-fen.js"></script>
+<script src="scripts/klin-zha-drop.js"></script>
+<script src="scripts/klin-zha-split.js"></script>
+<script src="scripts/klin-zha-join.js"></script>
+<script src="scripts/klin-zha-invariant.js"></script>
+<script src="scripts/klin-zha-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>

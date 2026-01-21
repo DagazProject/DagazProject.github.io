@@ -48,7 +48,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("animate-captures", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
-    design.checkVersion("advisor-wait", "25");
+//  design.checkVersion("advisor-wait", "25");
 
     design.addDirection("w");  // 0
     design.addDirection("e");  // 1
@@ -2522,7 +2522,7 @@ Dagaz.View.configure = function(view) {
     view.defControl("InfoControl", "1989 Leonard B. Loyd, Jr", true);
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-//  view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'klin-zha-board.htm' : 'klin-zha.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'klin-zha-board.htm' : 'klin-zha.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 

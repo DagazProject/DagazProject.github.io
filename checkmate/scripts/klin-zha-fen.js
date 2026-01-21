@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "none";
+Dagaz.Controller.persistense = "setup";
 
 Dagaz.Model.WIDTH   = 9;
 Dagaz.Model.SIZE    = 81;
