@@ -1,0 +1,579 @@
+(game
+  (title "3D Klin Zha")
+
+  (players Gold Green)
+  (turn-order Gold Green)
+
+  (board 
+    (image "images\klin-zha\board-7.bmp")
+    (positions
+		(GG13  64 320  89 345)
+		(GG24 116 320 141 345)
+		(GG35 168 320 193 345)
+		(GG46 220 320 245 345)
+		(GG57 272 320 297 345)
+		(GG68 324 320 349 345)
+		(GG79 376 320 401 345)
+
+		(GG14  90 304 115 329)
+		(GG25 142 304 167 329)
+		(GG36 194 304 219 329)
+		(GG47 246 304 271 329)
+		(GG58 298 304 323 329)
+		(GG69 350 304 375 329)
+
+		(GF14  90 270 115 295)
+		(GF25 142 270 167 295)
+		(GF36 194 270 219 295)
+		(GF47 246 270 271 295)
+		(GF58 298 270 323 295)
+		(GF69 350 270 375 295)
+
+		(GF15 116 254 141 279)
+		(GF26 168 254 193 279)
+		(GF37 220 254 245 279)
+		(GF48 272 254 297 279)
+		(GF59 324 254 349 279)
+
+		(GE15 116 220 141 245)
+		(GE26 168 220 193 245)
+		(GE37 220 220 245 245)
+		(GE48 272 220 297 245)
+		(GE59 324 220 349 245)
+
+		(GE16 142 204 167 229)
+		(GE27 194 204 219 229)
+		(GE38 246 204 271 229)
+		(GE49 298 204 323 229)
+
+		(GD16 142 170 167 195)
+		(GD27 194 170 219 195)
+		(GD38 246 170 271 195)
+		(GD49 298 170 323 195)
+
+		(GD17 168 154 193 179)
+		(GD28 220 154 245 179)
+		(GD39 272 154 297 179)
+
+		(GC17 168 120 193 145)
+		(GC28 220 120 245 145)
+		(GC39 272 120 297 145)
+
+		(GC18 194 104 219 129)
+		(GC29 246 104 271 129)
+
+		(GB18 194  70 219  95)
+		(GB29 246  70 271  95)
+
+		(GB19 220  50 245  79)
+
+		(GA19 220  20 245  45)
+
+		(FF14  90 270 115 295)
+		(FF25 142 270 167 295)
+		(FF36 194 270 219 295)
+		(FF47 246 270 271 295)
+		(FF58 298 270 323 295)
+		(FF69 350 270 375 295)
+
+		(FF15 116 254 141 279)
+		(FF26 168 254 193 279)
+		(FF37 220 254 245 279)
+		(FF48 272 254 297 279)
+		(FF59 324 254 349 279)
+
+		(FE15 116 220 141 245)
+		(FE26 168 220 193 245)
+		(FE37 220 220 245 245)
+		(FE48 272 220 297 245)
+		(FE59 324 220 349 245)
+
+		(FE16 142 204 167 229)
+		(FE27 194 204 219 229)
+		(FE38 246 204 271 229)
+		(FE49 298 204 323 229)
+
+		(FD16 142 170 167 195)
+		(FD27 194 170 219 195)
+		(FD38 246 170 271 195)
+		(FD49 298 170 323 195)
+
+		(FD17 168 154 193 179)
+		(FD28 220 154 245 179)
+		(FD39 272 154 297 179)
+
+		(FC17 168 120 193 145)
+		(FC28 220 120 245 145)
+		(FC39 272 120 297 145)
+
+		(FC18 194 104 219 129)
+		(FC29 246 104 271 129)
+
+		(FB18 194  70 219  95)
+		(FB29 246  70 271  95)
+
+		(FB19 220  50 245  79)
+
+		(FA19 220  20 245  45)
+
+		(EE15 116 220 141 245)
+		(EE26 168 220 193 245)
+		(EE37 220 220 245 245)
+		(EE48 272 220 297 245)
+		(EE59 324 220 349 245)
+
+		(EE16 142 204 167 229)
+		(EE27 194 204 219 229)
+		(EE38 246 204 271 229)
+		(EE49 298 204 323 229)
+
+		(ED16 142 170 167 195)
+		(ED27 194 170 219 195)
+		(ED38 246 170 271 195)
+		(ED49 298 170 323 195)
+
+		(ED17 168 154 193 179)
+		(ED28 220 154 245 179)
+		(ED39 272 154 297 179)
+
+		(EC17 168 120 193 145)
+		(EC28 220 120 245 145)
+		(EC39 272 120 297 145)
+
+		(EC18 194 104 219 129)
+		(EC29 246 104 271 129)
+
+		(EB18 194  70 219  95)
+		(EB29 246  70 271  95)
+
+		(EB19 220  50 245  79)
+
+		(EA19 220  20 245  45)
+
+		(DD16 142 170 167 195)
+		(DD27 194 170 219 195)
+		(DD38 246 170 271 195)
+		(DD49 298 170 323 195)
+
+		(DD17 168 154 193 179)
+		(DD28 220 154 245 179)
+		(DD39 272 154 297 179)
+
+		(DC17 168 120 193 145)
+		(DC28 220 120 245 145)
+		(DC39 272 120 297 145)
+
+		(DC18 194 104 219 129)
+		(DC29 246 104 271 129)
+
+		(DB18 194  70 219  95)
+		(DB29 246  70 271  95)
+
+		(DB19 220  50 245  79)
+
+		(DA19 220  20 245  45)
+
+		(CC17 168 120 193 145)
+		(CC28 220 120 245 145)
+		(CC39 272 120 297 145)
+
+		(CC18 194 104 219 129)
+		(CC29 246 104 271 129)
+
+		(CB18 194  70 219  95)
+		(CB29 246  70 271  95)
+
+		(CB19 220  50 245  79)
+
+		(CA19 220  20 245  45)
+
+		(BB18 194  70 219  95)
+		(BB29 246  70 271  95)
+
+		(BB19 220  50 245  79)
+
+		(BA19 220  20 245  45)
+
+		(AA19 220  20 245  45)
+
+    		(G1 110 388 154 421) 
+    		(G2  10 544  54 577) 
+                (G3  60 544 104 577) 
+    		(G4  10 388  54 421)
+	   	(G5  10 622  54 655)
+    		(G6  10 466  54 499) 
+                (G7  60 466 104 499) 
+                (G8 110 466 155 499) 
+    		(G9  60 388 104 421)
+    		(G10 160 388 204 421)
+
+    		(Y1 746 388 790 421) 
+    		(Y2 796 544 840 577) 
+                (Y3 845 544 890 577) 
+	   	(Y4 846 388 890 421)
+    		(Y5 846 622 890 655)
+    		(Y6 746 466 790 499) 
+                (Y7 795 466 840 499) 
+                (Y8 845 466 890 499) 
+    		(Y9 796 388 840 421)
+    		(Y10 696 388 740 421)
+    )
+    (links w
+		(GB18 GB19) (GB19 GB29)
+		(GC17 GC18) (GC18 GC28) (GC28 GC29) (GC29 GC39)
+		(GD16 GD17) (GD17 GD27) (GD27 GD28) (GD28 GD38) (GD38 GD39) (GD39 GD49)
+		(GE15 GE16) (GE16 GE26) (GE26 GE27) (GE27 GE37) (GE37 GE38) (GE38 GE48) (GE48 GE49) (GE49 GE59)
+		(GF14 GF15) (GF15 GF25) (GF25 GF26) (GF26 GF36) (GF36 GF37) (GF37 GF47) (GF47 GF48) (GF48 GF58) (GF58 GF59) (GF59 GF69)
+		(GG13 GG14) (GG14 GG24) (GG24 GG25) (GG25 GG35) (GG35 GG36) (GG36 GG46) (GG46 GG47) (GG47 GG57) (GG57 GG58) (GG58 GG68) (GG68 GG69) (GG69 GG79)
+
+		(FB18 FB19) (FB19 FB29)
+		(FC17 FC18) (FC18 FC28) (FC28 FC29) (FC29 FC39)
+		(FD16 FD17) (FD17 FD27) (FD27 FD28) (FD28 FD38) (FD38 FD39) (FD39 FD49)
+		(FE15 FE16) (FE16 FE26) (FE26 FE27) (FE27 FE37) (FE37 FE38) (FE38 FE48) (FE48 FE49) (FE49 FE59)
+		(FF14 FF15) (FF15 FF25) (FF25 FF26) (FF26 FF36) (FF36 FF37) (FF37 FF47) (FF47 FF48) (FF48 FF58) (FF58 FF59) (FF59 FF69)
+
+		(EB18 EB19) (EB19 EB29)
+		(EC17 EC18) (EC18 EC28) (EC28 EC29) (EC29 EC39)
+		(ED16 ED17) (ED17 ED27) (ED27 ED28) (ED28 ED38) (ED38 ED39) (ED39 ED49)
+		(EE15 EE16) (EE16 EE26) (EE26 EE27) (EE27 EE37) (EE37 EE38) (EE38 EE48) (EE48 EE49) (EE49 EE59)
+
+		(DB18 DB19) (DB19 DB29)
+		(DC17 DC18) (DC18 DC28) (DC28 DC29) (DC29 DC39)
+		(DD16 DD17) (DD17 DD27) (DD27 DD28) (DD28 DD38) (DD38 DD39) (DD39 DD49)
+
+		(CB18 CB19) (CB19 CB29)
+		(CC17 CC18) (CC18 CC28) (CC28 CC29) (CC29 CC39)
+
+		(BB18 BB19) (BB19 BB29)
+    )
+    (links e
+		(GB29 GB19) (GB19 GB18)
+		(GC39 GC29) (GC29 GC28) (GC28 GC18) (GC18 GC17)
+		(GD49 GD39) (GD39 GD38) (GD38 GD28) (GD28 GD27) (GD27 GD17) (GD17 GD16)
+		(GE59 GE49) (GE49 GE48) (GE48 GE38) (GE38 GE37) (GE37 GE27) (GE27 GE26) (GE26 GE16) (GE16 GE15)
+		(GF69 GF59) (GF59 GF58) (GF58 GF48) (GF48 GF47) (GF47 GF37) (GF37 GF36) (GF36 GF26) (GF26 GF25) (GF25 GF15) (GF15 GF14)
+		(GG79 GG69) (GG69 GG68) (GG68 GG58) (GG58 GG57) (GG57 GG47) (GG47 GG46) (GG46 GG36) (GG36 GG35) (GG35 GG25) (GG25 GG24) (GG24 GG14) (GG14 GG13)
+
+		(FB29 FB19) (FB19 FB18)
+		(FC39 FC29) (FC29 FC28) (FC28 FC18) (FC18 FC17)
+		(FD49 FD39) (FD39 FD38) (FD38 FD28) (FD28 FD27) (FD27 FD17) (FD17 FD16)
+		(FE59 FE49) (FE49 FE48) (FE48 FE38) (FE38 FE37) (FE37 FE27) (FE27 FE26) (FE26 FE16) (FE16 FE15)
+		(FF69 FF59) (FF59 FF58) (FF58 FF48) (FF48 FF47) (FF47 FF37) (FF37 FF36) (FF36 FF26) (FF26 FF25) (FF25 FF15) (FF15 FF14)
+
+		(EB29 EB19) (EB19 EB18)
+		(EC39 EC29) (EC29 EC28) (EC28 EC18) (EC18 EC17)
+		(ED49 ED39) (ED39 ED38) (ED38 ED28) (ED28 ED27) (ED27 ED17) (ED17 ED16)
+		(EE59 EE49) (EE49 EE48) (EE48 EE38) (EE38 EE37) (EE37 EE27) (EE27 EE26) (EE26 EE16) (EE16 EE15)
+
+		(DB29 DB19) (DB19 DB18)
+		(DC39 DC29) (DC29 DC28) (DC28 DC18) (DC18 DC17)
+		(DD49 DD39) (DD39 DD38) (DD38 DD28) (DD28 DD27) (DD27 DD17) (DD17 DD16)
+
+		(CB29 CB19) (CB19 CB18)
+		(CC39 CC29) (CC29 CC28) (CC28 CC18) (CC18 CC17)
+
+		(BB29 BB19) (BB19 BB18)
+    )
+    (links ne
+                (GG13 GG14) (GG14 GF14) (GF14 GF15) (GF15 GE15) (GE15 GE16) (GE16 GD16) (GD16 GD17) (GD17 GC17) (GC17 GC18) (GC18 GB18) (GB18 GB19) (GB19 GA19)
+                (GG24 GG25) (GG25 GF25) (GF25 GF26) (GF26 GE26) (GE26 GE27) (GE27 GD27) (GD27 GD28) (GD28 GC28) (GC28 GC29) (GC29 GB29)
+                (GG35 GG36) (GG36 GF36) (GF36 GF37) (GF37 GE37) (GE37 GE38) (GE38 GD38) (GD38 GD39) (GD39 GC39)
+                (GG46 GG47) (GG47 GF47) (GF47 GF48) (GF48 GE48) (GE48 GE49) (GE49 GD49)
+                (GG57 GG58) (GG58 GF58) (GF58 GF59) (GF59 GE59)
+                (GG68 GG69) (GG69 GF69)
+
+                (FF14 FF15) (FF15 FE15) (FE15 FE16) (FE16 FD16) (FD16 FD17) (FD17 FC17) (FC17 FC18) (FC18 FB18) (FB18 FB19) (FB19 FA19)
+                (FF25 FF26) (FF26 FE26) (FE26 FE27) (FE27 FD27) (FD27 FD28) (FD28 FC28) (FC28 FC29) (FC29 FB29)
+                (FF36 FF37) (FF37 FE37) (FE37 FE38) (FE38 FD38) (FD38 FD39) (FD39 FC39)
+                (FF47 FF48) (FF48 FE48) (FE48 FE49) (FE49 FD49)
+                (FF58 FF59) (FF59 FE59)
+
+                (EE15 EE16) (EE16 ED16) (ED16 ED17) (ED17 EC17) (EC17 EC18) (EC18 EB18) (EB18 EB19) (EB19 EA19)
+                (EE26 EE27) (EE27 ED27) (ED27 ED28) (ED28 EC28) (EC28 EC29) (EC29 EB29)
+                (EE37 EE38) (EE38 ED38) (ED38 ED39) (ED39 EC39)
+                (EE48 EE49) (EE49 ED49)
+
+                (DD16 DD17) (DD17 DC17) (DC17 DC18) (DC18 DB18) (DB18 DB19) (DB19 DA19)
+                (DD27 DD28) (DD28 DC28) (DC28 DC29) (DC29 DB29)
+                (DD38 DD39) (DD39 DC39)
+
+                (CC17 CC18) (CC18 CB18) (CB18 CB19) (CB19 CA19)
+                (CC28 CC29) (CC29 CB29)
+
+                (BB18 BB19) (BB19 BA19)
+    )
+    (links sw
+		(GA19 GB19) (GB19 GB18) (GB18 GC18) (GC18 GC17) (GC17 GD17) (GD17 GD16) (GD16 GE16) (GE16 GE15) (GE15 GF15) (GF15 GF14) (GF14 GG14) (GG14 GG13)
+		(GB29 GC29) (GC29 GC28) (GC28 GD28) (GD28 GD27) (GD27 GE27) (GE27 GE26) (GE26 GF26) (GF26 GF25) (GF25 GG25) (GG25 GG24)
+		(GC39 GD39) (GD39 GD38) (GD38 GE38) (GE38 GE37) (GE37 GF37) (GF37 GF36) (GF36 GG36) (GG36 GG35)
+		(GD49 GE49) (GE49 GE48) (GE48 GF48) (GF48 GF47) (GF47 GG47) (GG47 GG46)
+		(GE59 GF59) (GF59 GF58) (GF58 GG58) (GG58 GG57)
+		(GF69 GG69) (GG69 GG68)
+
+		(FA19 FB19) (FB19 FB18) (FB18 FC18) (FC18 FC17) (FC17 FD17) (FD17 FD16) (FD16 FE16) (FE16 FE15) (FE15 FF15) (FF15 FF14)
+		(FB29 FC29) (FC29 FC28) (FC28 FD28) (FD28 FD27) (FD27 FE27) (FE27 FE26) (FE26 FF26) (FF26 FF25)
+		(FC39 FD39) (FD39 FD38) (FD38 FE38) (FE38 FE37) (FE37 FF37) (FF37 FF36)
+		(FD49 FE49) (FE49 FE48) (FE48 FF48) (FF48 FF47)
+		(FE59 FF59) (FF59 FF58)
+
+		(EA19 EB19) (EB19 EB18) (EB18 EC18) (EC18 EC17) (EC17 ED17) (ED17 ED16) (ED16 EE16) (EE16 EE15)
+		(EB29 EC29) (EC29 EC28) (EC28 ED28) (ED28 ED27) (ED27 EE27) (EE27 EE26)
+		(EC39 ED39) (ED39 ED38) (ED38 EE38) (EE38 EE37)
+		(ED49 EE49) (EE49 EE48)
+
+		(DA19 DB19) (DB19 DB18) (DB18 DC18) (DC18 DC17) (DC17 DD17) (DD17 DD16)
+		(DB29 DC29) (DC29 DC28) (DC28 DD28) (DD28 DD27)
+		(DC39 DD39) (DD39 DD38)
+
+		(CA19 CB19) (CB19 CB18) (CB18 CC18) (CC18 CC17)
+		(CB29 CC29) (CC29 CC28)
+
+		(BA19 BB19) (BB19 BB18)
+    )
+    (links nw
+		(GG24 GG14) (GG14 GF14)
+		(GG35 GG25) (GG25 GF25) (GF25 GF15) (GF15 GE15)
+		(GG46 GG36) (GG36 GF36) (GF36 GF26) (GF26 GE26) (GE26 GE16) (GE16 GD16)
+		(GG57 GG47) (GG47 GF47) (GF47 GF37) (GF37 GE37) (GE37 GE27) (GE27 GD27) (GD27 GD17) (GD17 GC17)
+		(GG68 GG58) (GG58 GF58) (GF58 GF48) (GF48 GE48) (GE48 GE38) (GE38 GD38) (GD38 GD28) (GD28 GC28) (GC28 GC18) (GC18 GB18)
+		(GG79 GG69) (GG69 GF69) (GF69 GF59) (GF59 GE59) (GE59 GE49) (GE49 GD49) (GD49 GD39) (GD39 GC39) (GC39 GC29) (GC29 GB29) (GB29 GB19) (GB19 GA19)
+
+		(FF25 FF15) (FF15 FE15)
+		(FF36 FF26) (FF26 FE26) (FE26 FE16) (FE16 FD16)
+		(FF47 FF37) (FF37 FE37) (FE37 FE27) (FE27 FD27) (FD27 FD17) (FD17 FC17)
+		(FF58 FF48) (FF48 FE48) (FE48 FE38) (FE38 FD38) (FD38 FD28) (FD28 FC28) (FC28 FC18) (FC18 FB18)
+		(FF69 FF59) (FF59 FE59) (FE59 FE49) (FE49 FD49) (FD49 FD39) (FD39 FC39) (FC39 FC29) (FC29 FB29) (FB29 FB19) (FB19 FA19)
+
+		(EE26 EE16) (EE16 ED16)
+		(EE37 EE27) (EE27 ED27) (ED27 ED17) (ED17 EC17)
+		(EE48 EE38) (EE38 ED38) (ED38 ED28) (ED28 EC28) (EC28 EC18) (EC18 EB18)
+		(EE59 EE49) (EE49 ED49) (ED49 ED39) (ED39 EC39) (EC39 EC29) (EC29 EB29) (EB29 EB19) (EB19 EA19)
+
+		(DD27 DD17) (DD17 DC17)
+		(DD38 DD28) (DD28 DC28) (DC28 DC18) (DC18 DB18)
+		(DD49 DD39) (DD39 DC39) (DC39 DC29) (DC29 DB29) (DB29 DB19) (DB19 DA19)
+
+		(CC28 CC18) (CC18 CB18)
+		(CC39 CC29) (CC29 CB29) (CB29 CB19) (CB19 CA19)
+
+		(BB29 BB19) (BB19 BA19)
+    )
+    (links se
+		(GA19 GB19) (GB19 GB29) (GB29 GC29) (GC29 GC39) (GC39 GD39) (GD39 GD49) (GD49 GE49) (GE49 GE59) (GE59 GF59) (GF59 GF69) (GF69 GG69) (GG69 GG79)
+		(GB18 GC18) (GC18 GC28) (GC28 GD28) (GD28 GD38) (GD38 GE38) (GE38 GE48) (GE48 GF48) (GF48 GF58) (GF58 GG58) (GG58 GG68)
+		(GC17 GD17) (GD17 GD27) (GD27 GE27) (GE27 GE37) (GE37 GF37) (GF37 GF47) (GF47 GG47) (GG47 GG57)
+		(GD16 GE16) (GE16 GE26) (GE26 GF26) (GF26 GF36) (GF36 GG36) (GG36 GG46)
+		(GE15 GF15) (GF15 GF25) (GF25 GG25) (GG25 GG35)
+		(GF14 GG14) (GG14 GG24)
+
+		(FA19 FB19) (FB19 FB29) (FB29 FC29) (FC29 FC39) (FC39 FD39) (FD39 FD49) (FD49 FE49) (FE49 FE59) (FE59 FF59) (FF59 FF69)
+		(FB18 FC18) (FC18 FC28) (FC28 FD28) (FD28 FD38) (FD38 FE38) (FE38 FE48) (FE48 FF48) (FF48 FF58)
+		(FC17 FD17) (FD17 FD27) (FD27 FE27) (FE27 FE37) (FE37 FF37) (FF37 FF47)
+		(FD16 FE16) (FE16 FE26) (FE26 FF26) (FF26 FF36)
+		(FE15 FF15) (FF15 FF25)
+
+		(EA19 EB19) (EB19 EB29) (EB29 EC29) (EC29 EC39) (EC39 ED39) (ED39 ED49) (ED49 EE49) (EE49 EE59)
+		(EB18 EC18) (EC18 EC28) (EC28 ED28) (ED28 ED38) (ED38 EE38) (EE38 EE48)
+		(EC17 ED17) (ED17 ED27) (ED27 EE27) (EE27 EE37)
+		(ED16 EE16) (EE16 EE26)
+
+		(DA19 DB19) (DB19 DB29) (DB29 DC29) (DC29 DC39) (DC39 DD39) (DD39 DD49)
+		(DB18 DC18) (DC18 DC28) (DC28 DD28) (DD28 DD38)
+		(DC17 DD17) (DD17 DD27)
+
+		(CA19 CB19) (CB19 CB29) (CB29 CC29) (CC29 CC39)
+		(CB18 CC18) (CC18 CC28)
+
+		(BA19 BB19) (BB19 BB29)
+    )
+    (zone
+      (name home)
+      (players Gold)
+      (positions Y1  Y2  Y3  Y4  Y6  Y7  Y8  Y9  Y10  Y5 
+    ))
+    (zone
+      (name home)
+      (players Green)
+      (positions G1  G2  G3  G4  G6  G7  G8  G9  G10  G5 
+    ))
+
+    (zone
+      (name s0)
+      (players Gold Green)
+      (positions GG13 GG14 GG24 GG25 GG35 GG36 GF14 GF15 GF25 GF26 GF36 GE15 GE16 GE26
+                 FF14 FF15 FF25 FF26 FF36 FE15 FE16 FE26 FD16 EE15
+    ))
+    (zone
+      (name s1)
+      (players Gold Green)
+      (positions GG47 GG57 GG58 GG68 GG69 GG79 GF47 GF48 GF58 GF59 GF69 GE48 GE49 GE59
+                 FF47 FF48 FF58 FF59 FF69 FE48 FE49 FE59 FD49 EE59
+    ))
+    (zone
+      (name s2)
+      (players Gold Green)
+      (positions GA19 GB19 GB29 GC29 GC39 GD39 GB18 GC18 GC28 GD28 GD38 GC17 GD17 GD27
+                 FA19 FB19 FB29 FC29 FC39 FB18 FC18 FC28 FC17 EA19
+    ))
+    (zone
+      (name s3)
+      (players Gold Green)
+      (positions DD27 DD28 DD38 DC17 DC18 DC28 DC29 DC39 DB18 DB29 CC17 CC18 CC28 CC29 
+                 CC39 CB18 CB19 CB29 CA19 BB18 BB19 BB29 BA19 AA19
+    ))
+  )
+
+  (piece
+    (name Goal)
+    (image 
+       Gold
+         "images\klin-zha\ay_goal.bmp"
+       Green
+         "images\klin-zha\ag_goal.bmp"
+    )
+  )
+  (piece
+    (name Vanguard)
+    (image 
+       Gold 
+         "images\klin-zha\ay_vanguard.bmp" 
+       Green 
+         "images\klin-zha\ag_vanguard.bmp" 
+    )
+  )
+  (piece
+    (name Vanguard-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_vanguard.bmp" 
+       Green 
+         "images\klin-zha\cg_vanguard.bmp" 
+    )
+  )
+  (piece
+    (name Power-Vanguard)
+    (image 
+       Gold 
+         "images\klin-zha\ay_pvanguard.bmp" 
+       Green 
+         "images\klin-zha\ag_pvanguard.bmp" 
+    )
+  )
+  (piece
+    (name Power-Vanguard-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_vanguard.bmp" 
+       Green 
+         "images\klin-zha\cg_vanguard.bmp" 
+    )
+  )
+  (piece
+    (name Lancer)
+    (image 
+       Gold 
+         "images\klin-zha\ay_lancer.bmp" 
+       Green 
+         "images\klin-zha\ag_lancer.bmp" 
+    )
+  )
+  (piece
+    (name Lancer-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_lancer.bmp" 
+       Green 
+         "images\klin-zha\cg_lancer.bmp" 
+    )
+  )
+  (piece
+    (name Fencer)
+    (image 
+       Gold 
+         "images\klin-zha\ay_fencer.bmp" 
+       Green 
+         "images\klin-zha\ag_fencer.bmp" 
+    )
+  )
+  (piece
+    (name Fencer-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_fencer.bmp" 
+       Green 
+         "images\klin-zha\cg_fencer.bmp" 
+    )
+  )
+  (piece
+    (name Swift)
+    (image 
+       Gold  
+         "images\klin-zha\ay_swift.bmp" 
+       Green 
+         "images\klin-zha\ag_swift.bmp" 
+    )
+  )
+  (piece
+    (name Swift-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_swift.bmp" 
+       Green 
+         "images\klin-zha\cg_swift.bmp" 
+    )
+  )
+  (piece
+    (name Flier)
+    (image 
+       Gold 
+         "images\klin-zha\ay_flier.bmp" 
+       Green 
+         "images\klin-zha\ag_flier.bmp" 
+    )
+  )
+  (piece
+    (name Flier-carrier)
+    (image 
+       Gold 
+         "images\klin-zha\cy_flier.bmp" 
+       Green 
+         "images\klin-zha\cg_flier.bmp" 
+    )
+  )
+  (piece
+    (name Blockader)
+    (image 
+       Gold 
+         "images\klin-zha\ay_blockader.bmp"
+       Green
+         "images\klin-zha\ag_blockader.bmp"
+    )
+  )
+
+  (board-setup
+    (Gold
+      (Vanguard  Y6)
+      (Vanguard  Y7)
+      (Vanguard  Y8)
+      (Lancer    Y1)
+      (Flier     Y2)
+      (Flier     Y3)
+      (Swift     Y4)
+      (Fencer    Y9)
+      (Blockader Y10)
+      (Goal      Y5)
+    )
+    (Green
+      (Vanguard  G6)
+      (Vanguard  G7)
+      (Vanguard  G8)
+      (Lancer    G1)
+      (Flier     G2)
+      (Flier     G3)
+      (Swift     G4)
+      (Fencer    G9)
+      (Blockader G10)
+      (Goal      G5)
+    )
+  )
+)

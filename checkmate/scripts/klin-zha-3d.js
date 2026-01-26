@@ -48,7 +48,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("animate-captures", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
-//  design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("w");  // 0
     design.addDirection("e");  // 1
