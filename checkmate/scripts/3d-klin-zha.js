@@ -59,6 +59,32 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("Gold", [1, 0, 3, 2, 5, 4]);
     design.addPlayer("Green", [0, 1, 2, 3, 4, 5]);
 
+    design.addTurn(1, 2); // 0
+    design.addTurn(1, 2); // 1
+    design.addTurn(1, 2); // 2
+    design.addTurn(1, 2); // 3
+    design.addTurn(1, 2); // 4
+    design.addTurn(1, 2); // 5
+    design.addTurn(1, 2); // 6
+    design.addTurn(1, 2); // 7
+    design.addTurn(1, 2); // 8
+
+    design.addTurn(2, 2); // 9
+    design.addTurn(2, 2); // 10
+    design.addTurn(2, 2); // 11
+    design.addTurn(2, 2); // 12
+    design.addTurn(2, 2); // 13
+    design.addTurn(2, 2); // 14
+    design.addTurn(2, 2); // 15
+    design.addTurn(2, 2); // 16
+    design.addTurn(2, 2); // 17
+
+    design.addTurn(1, 0); // 18
+    design.addTurn(2, 0); // 19
+    design.repeatMark();
+    design.addTurn(1, 1); // 20
+    design.addTurn(2, 1); // 21
+
     design.addPosition("GG13", [7, 0, 7, 0, 0, 0]);
     design.addPosition("GG24", [7, 6, 7, 0, 6, 0]);
     design.addPosition("GG35", [7, 6, 7, 0, 6, 0]);
@@ -284,9 +310,9 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     const opacity = 0.3;
 
-    view.defBoardTriangular(631, 547, 1, -180, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-7", opacity);
-    view.defBoardTriangular(540, 469, 1, -120, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-6", opacity);
-    view.defBoardTriangular(452, 391, 1, -60,  [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-5", opacity);
+    view.defBoardTriangular(640, 547, 1, -180, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-7", opacity);
+    view.defBoardTriangular(550, 469, 1, -120, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-6", opacity);
+    view.defBoardTriangular(455, 391, 1, -60,  [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-5", opacity);
     view.defBoardTriangular(362, 313, 1, 0,    [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-4", opacity);
     view.defBoardTriangular(272, 235, 1, 60,   [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-3", opacity);
     view.defBoardTriangular(182, 157, 1, 120,  [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board-2", opacity);
@@ -334,152 +360,152 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  
-    view.defPosition("GG13", -156, 150, 25, 25, -177);
-    view.defPosition("GG24", -104, 150, 25, 25, -177);
-    view.defPosition("GG35", -52, 150, 25, 25, -177);
-    view.defPosition("GG46", 0, 150, 25, 25, -177);
-    view.defPosition("GG57", 52, 150, 25, 25, -177);
-    view.defPosition("GG68", 104, 150, 25, 25, -177);
-    view.defPosition("GG79", 156, 150, 25, 25, -177);
-    view.defPosition("GG14", -130, 134, 25, 25, -177);
-    view.defPosition("GG25", -78, 134, 25, 25, -177);
-    view.defPosition("GG36", -26, 134, 25, 25, -177);
-    view.defPosition("GG47", 26, 134, 25, 25, -177);
-    view.defPosition("GG58", 78, 134, 25, 25, -177);
-    view.defPosition("GG69", 130, 134, 25, 25, -177);
-    view.defPosition("GF14", -130, 100, 25, 25, -177);
-    view.defPosition("GF25", -78, 100, 25, 25, -177);
-    view.defPosition("GF36", -26, 100, 25, 25, -177);
-    view.defPosition("GF47", 26, 100, 25, 25, -177);
-    view.defPosition("GF58", 78, 100, 25, 25, -177);
-    view.defPosition("GF69", 130, 100, 25, 25, -177);
-    view.defPosition("GF15", -104, 84, 25, 25, -177);
-    view.defPosition("GF26", -52, 84, 25, 25, -177);
-    view.defPosition("GF37", 0, 84, 25, 25, -177);
-    view.defPosition("GF48", 52, 84, 25, 25, -177);
-    view.defPosition("GF59", 104, 84, 25, 25, -177);
-    view.defPosition("GE15", -104, 50, 25, 25, -177);
-    view.defPosition("GE26", -52, 50, 25, 25, -177);
-    view.defPosition("GE37", 0, 50, 25, 25, -177);
-    view.defPosition("GE48", 52, 50, 25, 25, -177);
-    view.defPosition("GE59", 104, 50, 25, 25, -177);
-    view.defPosition("GE16", -78, 34, 25, 25, -177);
-    view.defPosition("GE27", -26, 34, 25, 25, -177);
-    view.defPosition("GE38", 26, 34, 25, 25, -177);
-    view.defPosition("GE49", 78, 34, 25, 25, -177);
-    view.defPosition("GD16", -78, 0, 25, 25, -177);
-    view.defPosition("GD27", -26, 0, 25, 25, -177);
-    view.defPosition("GD38", 26, 0, 25, 25, -177);
-    view.defPosition("GD49", 78, 0, 25, 25, -177);
-    view.defPosition("GD17", -52, -16, 25, 25, -177);
-    view.defPosition("GD28", 0, -16, 25, 25, -177);
-    view.defPosition("GD39", 52, -16, 25, 25, -177);
-    view.defPosition("GC17", -52, -50, 25, 25, -177);
-    view.defPosition("GC28", 0, -50, 25, 25, -177);
-    view.defPosition("GC39", 52, -50, 25, 25, -177);
-    view.defPosition("GC18", -26, -66, 25, 25, -177);
-    view.defPosition("GC29", 26, -66, 25, 25, -177);
-    view.defPosition("GB18", -26, -100, 25, 25, -177);
-    view.defPosition("GB29", 26, -100, 25, 25, -177);
-    view.defPosition("GB19", 220, 50, 25, 25, -177);
-    view.defPosition("GA19", 0, -150, 25, 25, -177);
+    view.defPosition("GG13", -274, 245, 44, 33, -177);
+    view.defPosition("GG24", -181, 245, 44, 33, -177);
+    view.defPosition("GG35", -90, 245, 44, 33, -177);
+    view.defPosition("GG46", 0, 245, 44, 33, -177);
+    view.defPosition("GG57", 90, 245, 44, 33, -177);
+    view.defPosition("GG68", 181, 245, 44, 33, -177);
+    view.defPosition("GG79", 274, 245, 44, 33, -177);
+    view.defPosition("GG14", -227, 220, 44, 33, -177);
+    view.defPosition("GG25", -135, 220, 44, 33, -177);
+    view.defPosition("GG36", -45, 220, 44, 33, -177);
+    view.defPosition("GG47", 45, 220, 44, 33, -177);
+    view.defPosition("GG58", 135, 220, 44, 33, -177);
+    view.defPosition("GG69", 227, 220, 44, 33, -177);
+    view.defPosition("GF14", -228, 166, 44, 33, -177);
+    view.defPosition("GF25", -135, 166, 44, 33, -177);
+    view.defPosition("GF36", -45, 166, 44, 33, -177);
+    view.defPosition("GF47", 45, 166, 44, 33, -177);
+    view.defPosition("GF58", 135, 166, 44, 33, -177);
+    view.defPosition("GF69", 228, 166, 44, 33, -177);
+    view.defPosition("GF15", -181, 142, 44, 33, -177);
+    view.defPosition("GF26", -90, 142, 44, 33, -177);
+    view.defPosition("GF37", 0, 142, 44, 33, -177);
+    view.defPosition("GF48", 90, 142, 44, 33, -177);
+    view.defPosition("GF59", 181, 142, 44, 33, -177);
+    view.defPosition("GE15", -181, 88, 44, 33, -177);
+    view.defPosition("GE26", -90, 88, 44, 33, -177);
+    view.defPosition("GE37", 0, 88, 44, 33, -177);
+    view.defPosition("GE48", 90, 88, 44, 33, -177);
+    view.defPosition("GE59", 181, 88, 44, 33, -177);
+    view.defPosition("GE16", -135, 64, 44, 33, -177);
+    view.defPosition("GE27", -45, 64, 44, 33, -177);
+    view.defPosition("GE38", 45, 64, 44, 33, -177);
+    view.defPosition("GE49", 135, 64, 44, 33, -177);
+    view.defPosition("GD16", -137, 10, 44, 33, -177);
+    view.defPosition("GD27", -45, 10, 44, 33, -177);
+    view.defPosition("GD38", 45, 10, 44, 33, -177);
+    view.defPosition("GD49", 137, 10, 44, 33, -177);
+    view.defPosition("GD17", -90, -13, 44, 33, -177);
+    view.defPosition("GD28", 0, -13, 44, 33, -177);
+    view.defPosition("GD39", 90, -13, 44, 33, -177);
+    view.defPosition("GC17", -91, -69, 44, 33, -177);
+    view.defPosition("GC28", 0, -69, 44, 33, -177);
+    view.defPosition("GC39", 91, -69, 44, 33, -177);
+    view.defPosition("GC18", -45, -92, 44, 33, -177);
+    view.defPosition("GC29", 45, -92, 44, 33, -177);
+    view.defPosition("GB18", -45, -148, 44, 33, -177);
+    view.defPosition("GB29", 45, -148, 44, 33, -177);
+    view.defPosition("GB19", 0, -170, 44, 33, -177);
+    view.defPosition("GA19", 0, -226, 44, 33, -177);
 
-    view.defPosition("FF14", -130, 125, 25, 25, -117);
-    view.defPosition("FF25", -78, 125, 25, 25, -117);
-    view.defPosition("FF36", -26, 125, 25, 25, -117);
-    view.defPosition("FF47", 26, 125, 25, 25, -117);
-    view.defPosition("FF58", 78, 125, 25, 25, -117);
-    view.defPosition("FF69", 130, 125, 25, 25, -117);
-    view.defPosition("FF15", -104, 109, 25, 25, -117);
-    view.defPosition("FF26", -52, 109, 25, 25, -117);
-    view.defPosition("FF37", 0, 109, 25, 25, -117);
-    view.defPosition("FF48", 52, 109, 25, 25, -117);
-    view.defPosition("FF59", 104, 109, 25, 25, -117);
-    view.defPosition("FE15", -104, 75, 25, 25, -117);
-    view.defPosition("FE26", -52, 75, 25, 25, -117);
-    view.defPosition("FE37", 0, 75, 25, 25, -117);
-    view.defPosition("FE48", 52, 75, 25, 25, -117);
-    view.defPosition("FE59", 104, 75, 25, 25, -117);
-    view.defPosition("FE16", -78, 59, 25, 25, -117);
-    view.defPosition("FE27", -26, 59, 25, 25, -117);
-    view.defPosition("FE38", 26, 59, 25, 25, -117);
-    view.defPosition("FE49", 78, 59, 25, 25, -117);
-    view.defPosition("FD16", -78, 25, 25, 25, -117);
-    view.defPosition("FD27", -26, 25, 25, 25, -117);
-    view.defPosition("FD38", 26, 25, 25, 25, -117);
-    view.defPosition("FD49", 78, 25, 25, 25, -117);
-    view.defPosition("FD17", -52, 9, 25, 25, -117);
-    view.defPosition("FD28", 0, 9, 25, 25, -117);
-    view.defPosition("FD39", 52, 9, 25, 25, -117);
-    view.defPosition("FC17", -52, -25, 25, 25, -117);
-    view.defPosition("FC28", 0, -25, 25, 25, -117);
-    view.defPosition("FC39", 52, -25, 25, 25, -117);
-    view.defPosition("FC18", -26, -41, 25, 25, -117);
-    view.defPosition("FC29", 26, -41, 25, 25, -117);
-    view.defPosition("FB18", -26, -75, 25, 25, -117);
-    view.defPosition("FB29", 26, -75, 25, 25, -117);
-    view.defPosition("FB19", 0, -95, 25, 25, -117);
-    view.defPosition("FA19", 0, -125, 25, 25, -117);
+    view.defPosition("FF14", -228, 206, 44, 33, -117);
+    view.defPosition("FF25", -135, 206, 44, 33, -117);
+    view.defPosition("FF36", -45, 206, 44, 33, -117);
+    view.defPosition("FF47", 45, 206, 44, 33, -117);
+    view.defPosition("FF58", 135, 206, 44, 33, -117);
+    view.defPosition("FF69", 228, 206, 44, 33, -117);
+    view.defPosition("FF15", -181, 182, 44, 33, -117);
+    view.defPosition("FF26", -90, 182, 44, 33, -117);
+    view.defPosition("FF37", 0, 182, 44, 33, -117);
+    view.defPosition("FF48", 90, 182, 44, 33, -117);
+    view.defPosition("FF59", 181, 182, 44, 33, -117);
+    view.defPosition("FE15", -181, 128, 44, 33, -117);
+    view.defPosition("FE26", -90, 128, 44, 33, -117);
+    view.defPosition("FE37", 0, 128, 44, 33, -117);
+    view.defPosition("FE48", 90, 128, 44, 33, -117);
+    view.defPosition("FE59", 181, 128, 44, 33, -117);
+    view.defPosition("FE16", -135, 104, 44, 33, -117);
+    view.defPosition("FE27", -45, 104, 44, 33, -117);
+    view.defPosition("FE38", 45, 104, 44, 33, -117);
+    view.defPosition("FE49", 135, 104, 44, 33, -117);
+    view.defPosition("FD16", -137, 50, 44, 33, -117);
+    view.defPosition("FD27", -45, 50, 44, 33, -117);
+    view.defPosition("FD38", 45, 50, 44, 33, -117);
+    view.defPosition("FD49", 137, 50, 44, 33, -117);
+    view.defPosition("FD17", -90, 27, 44, 33, -117);
+    view.defPosition("FD28", 0, 27, 44, 33, -117);
+    view.defPosition("FD39", 90, 27, 44, 33, -117);
+    view.defPosition("FC17", -91, -29, 44, 33, -117);
+    view.defPosition("FC28", 0, -29, 44, 33, -117);
+    view.defPosition("FC39", 91, -29, 44, 33, -117);
+    view.defPosition("FC18", -45, -52, 44, 33, -117);
+    view.defPosition("FC29", 45, -52, 44, 33, -117);
+    view.defPosition("FB18", -45, -108, 44, 33, -117);
+    view.defPosition("FB29", 45, -108, 44, 33, -117);
+    view.defPosition("FB19", 0, -130, 44, 33, -117);
+    view.defPosition("FA19", 0, -186, 44, 33, -117);
 
-    view.defPosition("EE15", -104, 100, 25, 25, 57);
-    view.defPosition("EE26", -52, 100, 25, 25, 57);
-    view.defPosition("EE37", 0, 100, 25, 25, 57);
-    view.defPosition("EE48", 52, 100, 25, 25, 57);
-    view.defPosition("EE59", 104, 100, 25, 25, 57);
-    view.defPosition("EE16", -78, 84, 25, 25, 57);
-    view.defPosition("EE27", -26, 84, 25, 25, 57);
-    view.defPosition("EE38", 26, 84, 25, 25, 57);
-    view.defPosition("EE49", 78, 84, 25, 25, 57);
-    view.defPosition("ED16", -78, 50, 25, 25, 57);
-    view.defPosition("ED27", -26, 50, 25, 25, 57);
-    view.defPosition("ED38", 26, 50, 25, 25, 57);
-    view.defPosition("ED49", 78, 50, 25, 25, 57);
-    view.defPosition("ED17", -52, 34, 25, 25, 57);
-    view.defPosition("ED28", 0, 34, 25, 25, 57);
-    view.defPosition("ED39", 52, 34, 25, 25, 57);
-    view.defPosition("EC17", -52, 0, 25, 25, 57);
-    view.defPosition("EC28", 0, 0, 25, 25, 57);
-    view.defPosition("EC39", 52, 0, 25, 25, 57);
-    view.defPosition("EC18", -26, -16, 25, 25, 57);
-    view.defPosition("EC29", 26, -16, 25, 25, 57);
-    view.defPosition("EB18", -26, -50, 25, 25, 57);
-    view.defPosition("EB29", 26, -50, 25, 25, 57);
-    view.defPosition("EB19", 0, -70, 25, 25, 3);
-    view.defPosition("EA19", 0, -100, 25, 25, 57);
+    view.defPosition("EE15", -181, 167, 44, 33, -57);
+    view.defPosition("EE26", -90, 167, 44, 33, -57);
+    view.defPosition("EE37", 0, 167, 44, 33, -57);
+    view.defPosition("EE48", 90, 167, 44, 33, -57);
+    view.defPosition("EE59", 181, 167, 44, 33, -57);
+    view.defPosition("EE16", -135, 143, 44, 33, -57);
+    view.defPosition("EE27", -45, 143, 44, 33, -57);
+    view.defPosition("EE38", 45, 143, 44, 33, -57);
+    view.defPosition("EE49", 135, 143, 44, 33, -57);
+    view.defPosition("ED16", -137, 89, 44, 33, -57);
+    view.defPosition("ED27", -45, 89, 44, 33, -57);
+    view.defPosition("ED38", 45, 89, 44, 33, -57);
+    view.defPosition("ED49", 137, 89, 44, 33, -57);
+    view.defPosition("ED17", -90, 66, 44, 33, -57);
+    view.defPosition("ED28", 0, 66, 44, 33, -57);
+    view.defPosition("ED39", 90, 66, 44, 33, -57);
+    view.defPosition("EC17", -91, 10, 44, 33, -57);
+    view.defPosition("EC28", 0, 10, 44, 33, -57);
+    view.defPosition("EC39", 91, 10, 44, 33, -57);
+    view.defPosition("EC18", -45, -13, 44, 33, -57);
+    view.defPosition("EC29", 45, -13, 44, 33, -57);
+    view.defPosition("EB18", -45, -69, 44, 33, -57);
+    view.defPosition("EB29", 45, -69, 44, 33, -57);
+    view.defPosition("EB19", 0, -91, 44, 33, -57);
+    view.defPosition("EA19", 0, -147, 44, 33, -57);
 
-    view.defPosition("DD16", -78, 75, 25, 25, 3);
-    view.defPosition("DD27", -26, 75, 25, 25, 3);
-    view.defPosition("DD38", 26, 75, 25, 25, 3);
-    view.defPosition("DD49", 78, 75, 25, 25, 3);
-    view.defPosition("DD17", -52, 59, 25, 25, 3);
-    view.defPosition("DD28", 0, 59, 25, 25, 3);
-    view.defPosition("DD39", 52, 59, 25, 25, 3);
-    view.defPosition("DC17", -52, 25, 25, 25, 3);
-    view.defPosition("DC28", 0, 25, 25, 25, 3);
-    view.defPosition("DC39", 52, 25, 25, 25, 3);
-    view.defPosition("DC18", -26, 9, 25, 25, 3);
-    view.defPosition("DC29", 26, 9, 25, 25, 3);
-    view.defPosition("DB18", -26, -25, 25, 25, 3);
-    view.defPosition("DB29", 26, -25, 25, 25, 3);
-    view.defPosition("DB19", 0, -45, 25, 25, 3);
-    view.defPosition("DA19", 0, -75, 25, 25, 3);
+    view.defPosition("DD16", -137, 128, 44, 33, 3);
+    view.defPosition("DD27", -45, 128, 44, 33, 3);
+    view.defPosition("DD38", 45, 128, 44, 33, 3);
+    view.defPosition("DD49", 137, 128, 44, 33, 3);
+    view.defPosition("DD17", -90, 105, 44, 33, 3);
+    view.defPosition("DD28", 0, 105, 44, 33, 3);
+    view.defPosition("DD39", 90, 105, 44, 33, 3);
+    view.defPosition("DC17", -91, 49, 44, 33, 3);
+    view.defPosition("DC28", 0, 49, 44, 33, 3);
+    view.defPosition("DC39", 91, 49, 44, 33, 3);
+    view.defPosition("DC18", -45, 26, 44, 33, 3);
+    view.defPosition("DC29", 45, 26, 44, 33, 3);
+    view.defPosition("DB18", -45, -30, 44, 33, 3);
+    view.defPosition("DB29", 45, -30, 44, 33, 3);
+    view.defPosition("DB19", 0, -52, 44, 33, 3);
+    view.defPosition("DA19", 0, -108, 44, 33, 3);
 
-    view.defPosition("CC17", -52, 50, 25, 25, 63);
-    view.defPosition("CC28", 0, 50, 25, 25, 63);
-    view.defPosition("CC39", 52, 50, 25, 25, 63);
-    view.defPosition("CC18", -26, 34, 25, 25, 63);
-    view.defPosition("CC29", 26, 34, 25, 25, 63);
-    view.defPosition("CB18", -26, 0, 25, 25, 63);
-    view.defPosition("CB29", 26, 0, 25, 25, 63);
-    view.defPosition("CB19", 0, -20, 25, 25, 63);
-    view.defPosition("CA19", 0, -50, 25, 25, 63);
+    view.defPosition("CC17", -91, 88, 44, 33, 63);
+    view.defPosition("CC28", 0, 88, 44, 33, 63);
+    view.defPosition("CC39", 91, 88, 44, 33, 63);
+    view.defPosition("CC18", -45, 65, 44, 33, 63);
+    view.defPosition("CC29", 45, 65, 44, 33, 63);
+    view.defPosition("CB18", -45, 9, 44, 33, 63);
+    view.defPosition("CB29", 45, 9, 44, 33, 63);
+    view.defPosition("CB19", 0, -13, 44, 33, 63);
+    view.defPosition("CA19", 0, -69, 44, 33, 63);
 
-    view.defPosition("BB18", -26, 25, 25, 25, 123);
-    view.defPosition("BB29", 26, 25, 25, 25, 123);
-    view.defPosition("BB19", 0, 5, 25, 25, 123);
-    view.defPosition("BA19", 0, -25, 25, 25, 123);
+    view.defPosition("BB18", -45, 49, 44, 33, 123);
+    view.defPosition("BB29", 45, 49, 44, 33, 123);
+    view.defPosition("BB19", 0, 27, 44, 33, 123);
+    view.defPosition("BA19", 0, -29, 44, 33, 123);
 
-    view.defPosition("AA19", 0, 0, 25, 25, 183);
+    view.defPosition("AA19", 0, 10, 44, 33, 183);
 
     view.defPosition("G1", -328, 8, 44, 33, -177);
     view.defPosition("G2", -448, 164, 44, 33, -177);
