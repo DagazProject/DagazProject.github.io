@@ -1,3 +1,65 @@
+(define no-blockader
+  (if (on-board? $1)
+      mark $1
+      (if enemy?
+          (verify (not-piece? Blockader))
+      )
+      back
+  )
+)
+
+(define step-2 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+        (no-blockader de) (no-blockader ue)
+        (no-blockader dw) (no-blockader uw)
+        (no-blockader dn) (no-blockader un)
+	(verify (or empty? (piece? Goal))) 
+	$2
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+        (no-blockader de) (no-blockader ue)
+        (no-blockader dw) (no-blockader uw)
+        (no-blockader dn) (no-blockader un)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
+(define step-3 (
+	$1 
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+        (no-blockader de) (no-blockader ue)
+        (no-blockader dw) (no-blockader uw)
+        (no-blockader dn) (no-blockader un)
+	(verify (or empty? (piece? Goal))) 
+	$2
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+        (no-blockader de) (no-blockader ue)
+        (no-blockader dw) (no-blockader uw)
+        (no-blockader dn) (no-blockader un)
+	$3
+        (verify (not-piece? Blockader))
+        (no-blockader e)  (no-blockader ne)
+        (no-blockader w)  (no-blockader nw)
+        (no-blockader se) (no-blockader sw)
+        (no-blockader de) (no-blockader ue)
+        (no-blockader dw) (no-blockader uw)
+        (no-blockader dn) (no-blockader un)
+	(verify (or not-friend? (piece? Goal))) 
+	add
+))
+
 (game
   (title "3D Klin Zha")
 
@@ -542,6 +604,15 @@
        Green 
          "images\klin-zha\ag_pvanguard.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+    )
   )
   (piece
     (name Power-Vanguard-carrier)
@@ -550,6 +621,15 @@
          "images\klin-zha\cy_vanguard.bmp" 
        Green 
          "images\klin-zha\cg_vanguard.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
     )
   )
   (piece
@@ -560,6 +640,18 @@
        Green 
          "images\klin-zha\ag_lancer.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+    )
   )
   (piece
     (name Lancer-carrier)
@@ -568,6 +660,18 @@
          "images\klin-zha\cy_lancer.bmp" 
        Green 
          "images\klin-zha\cg_lancer.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
     )
   )
   (piece
@@ -578,6 +682,29 @@
        Green 
          "images\klin-zha\ag_fencer.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 de de de) (step-3 ue ue ue)
+	(step-3 dw dw dw) (step-3 uw uw uw)
+	(step-3 dn dn dn) (step-3 un un un)
+
+	(step-3 e e ne) (step-3 e e se)
+	(step-3 w w nw) (step-3 w w sw)
+	(step-3 ne ne e) (step-3 ne ne nw)
+	(step-3 nw nw w) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw w) (step-3 sw sw se)
+    )
   )
   (piece
     (name Fencer-carrier)
@@ -586,6 +713,29 @@
          "images\klin-zha\cy_fencer.bmp" 
        Green 
          "images\klin-zha\cg_fencer.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 de de de) (step-3 ue ue ue)
+	(step-3 dw dw dw) (step-3 uw uw uw)
+	(step-3 dn dn dn) (step-3 un un un)
+
+	(step-3 e e ne) (step-3 e e se)
+	(step-3 w w nw) (step-3 w w sw)
+	(step-3 ne ne e) (step-3 ne ne nw)
+	(step-3 nw nw w) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw w) (step-3 sw sw se)
     )
   )
   (piece
@@ -596,6 +746,27 @@
        Green 
          "images\klin-zha\ag_swift.bmp" 
     )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 de de de) (step-3 ue ue ue)
+	(step-3 dw dw dw) (step-3 uw uw uw)
+	(step-3 dn dn dn) (step-3 un un un)
+
+	(step-3 e e ne) (step-3 w w nw)
+	(step-3 ne ne nw) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw se) (step-3 sw sw w)
+    )
   )
   (piece
     (name Swift-carrier)
@@ -604,6 +775,27 @@
          "images\klin-zha\cy_swift.bmp" 
        Green 
          "images\klin-zha\cg_swift.bmp" 
+    )
+    (moves 
+	(move-type combat)
+	(step-2 e e) (step-2 w w)
+	(step-2 ne ne) (step-2 nw nw)
+	(step-2 se se) (step-2 sw sw)
+	(step-2 de de) (step-2 ue ue)
+	(step-2 dw dw) (step-2 uw uw)
+	(step-2 dn dn) (step-2 un un)
+
+	(step-3 e e e) (step-3 w w w)
+	(step-3 ne ne ne) (step-3 nw nw nw)
+	(step-3 se se se) (step-3 sw sw sw)
+	(step-3 de de de) (step-3 ue ue ue)
+	(step-3 dw dw dw) (step-3 uw uw uw)
+	(step-3 dn dn dn) (step-3 un un un)
+
+	(step-3 e e ne) (step-3 w w nw)
+	(step-3 ne ne nw) (step-3 nw nw ne)
+	(step-3 se se e) (step-3 se se sw)
+	(step-3 sw sw se) (step-3 sw sw w)
     )
   )
   (piece

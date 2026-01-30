@@ -263,33 +263,1145 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addZone("s3", 1, [111, 115, 112, 117, 120, 118, 121, 119, 122, 123, 126, 129, 127, 130, 128, 131, 133, 132, 134, 135, 137, 136, 138, 139]);
     design.addZone("s3", 2, [111, 115, 112, 117, 120, 118, 121, 119, 122, 123, 126, 129, 127, 130, 128, 131, 133, 132, 134, 135, 137, 136, 138, 139]);
 
-    design.addPiece("Goal", 0);
+    design.addCommand(0, ZRF.FUNCTION,	24);	// from
+    design.addCommand(0, ZRF.PARAM,	0);	// $1
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	1);	// $2
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	2);	// $3
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	3);	// $4
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	4);	// $5
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	5);	// $6
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	6);	// $7
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	7);	// $8
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	7);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	8);	// $9
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	8);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	9);	// $10
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	9);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	10);	// $11
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	10);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	11);	// $12
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	11);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	12);	// $13
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(0, ZRF.IF,	6);
+    design.addCommand(0, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.IF,	3);
+    design.addCommand(0, ZRF.LITERAL,	0);	// false
+    design.addCommand(0, ZRF.JUMP,	2);
+    design.addCommand(0, ZRF.LITERAL,	1);	// true
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.PARAM,	13);	// $14
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	14);	// $15
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	15);	// $16
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	16);	// $17
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	17);	// $18
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	18);	// $19
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	19);	// $20
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	20);	// $21
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	7);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	21);	// $22
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	8);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	22);	// $23
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	9);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	23);	// $24
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	10);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	24);	// $25
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.ON_BOARD_DIR,	11);	// name
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	12);
+    design.addCommand(0, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(0, ZRF.PARAM,	25);	// $26
+    design.addCommand(0, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(0, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	5);
+    design.addCommand(0, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	7);	// back
+    design.addCommand(0, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(0, ZRF.FUNCTION,	0);	// not
+    design.addCommand(0, ZRF.IF,	6);
+    design.addCommand(0, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(0, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(0, ZRF.IF,	3);
+    design.addCommand(0, ZRF.LITERAL,	0);	// false
+    design.addCommand(0, ZRF.JUMP,	2);
+    design.addCommand(0, ZRF.LITERAL,	1);	// true
+    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(0, ZRF.FUNCTION,	25);	// to
+    design.addCommand(0, ZRF.FUNCTION,	28);	// end
 
-    design.addPiece("Vanguard", 1);
+    design.addCommand(1, ZRF.FUNCTION,	24);	// from
+    design.addCommand(1, ZRF.PARAM,	0);	// $1
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	1);	// $2
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	2);	// $3
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	3);	// $4
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	4);	// $5
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	5);	// $6
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	6);	// $7
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	7);	// $8
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	7);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	8);	// $9
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	8);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	9);	// $10
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	9);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	10);	// $11
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	10);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	11);	// $12
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	11);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	12);	// $13
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.FUNCTION,	1);	// empty?
+    design.addCommand(1, ZRF.IF,	6);
+    design.addCommand(1, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.IF,	3);
+    design.addCommand(1, ZRF.LITERAL,	0);	// false
+    design.addCommand(1, ZRF.JUMP,	2);
+    design.addCommand(1, ZRF.LITERAL,	1);	// true
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.PARAM,	13);	// $14
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	14);	// $15
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	15);	// $16
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	16);	// $17
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	17);	// $18
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	18);	// $19
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	19);	// $20
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	20);	// $21
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	7);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	21);	// $22
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	8);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	22);	// $23
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	9);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	23);	// $24
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	10);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	24);	// $25
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	11);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	25);	// $26
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.PARAM,	26);	// $27
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	1);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	27);	// $28
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	2);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	28);	// $29
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	0);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	29);	// $30
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	4);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	30);	// $31
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	5);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	31);	// $32
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	3);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	32);	// $33
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	6);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	33);	// $34
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	7);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	34);	// $35
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	8);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	35);	// $36
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	9);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	36);	// $37
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	10);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	37);	// $38
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.ON_BOARD_DIR,	11);	// name
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	12);
+    design.addCommand(1, ZRF.FUNCTION,	6);	// mark
+    design.addCommand(1, ZRF.PARAM,	38);	// $39
+    design.addCommand(1, ZRF.FUNCTION,	22);	// navigate
+    design.addCommand(1, ZRF.FUNCTION,	2);	// enemy?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	5);
+    design.addCommand(1, ZRF.LITERAL,	13);	// Blockader
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	7);	// back
+    design.addCommand(1, ZRF.FUNCTION,	3);	// friend?
+    design.addCommand(1, ZRF.FUNCTION,	0);	// not
+    design.addCommand(1, ZRF.IF,	6);
+    design.addCommand(1, ZRF.LITERAL,	0);	// Goal
+    design.addCommand(1, ZRF.FUNCTION,	10);	// piece?
+    design.addCommand(1, ZRF.IF,	3);
+    design.addCommand(1, ZRF.LITERAL,	0);	// false
+    design.addCommand(1, ZRF.JUMP,	2);
+    design.addCommand(1, ZRF.LITERAL,	1);	// true
+    design.addCommand(1, ZRF.FUNCTION,	20);	// verify
+    design.addCommand(1, ZRF.FUNCTION,	25);	// to
+    design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
-    design.addPiece("Vanguard-carrier", 2);
+    design.addPiece("Goal", 0, 15000);
 
-    design.addPiece("Power-Vanguard", 3);
+    design.addPiece("Vanguard", 1, 100);
 
-    design.addPiece("Power-Vanguard-carrier", 4);
+    design.addPiece("Vanguard-carrier", 2, 20100);
 
-    design.addPiece("Lancer", 5);
+    design.addPiece("Power-Vanguard", 3, 200);
+    design.addMove(3, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(3, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Lancer-carrier", 6);
+    design.addPiece("Power-Vanguard-carrier", 4, 20200);
+    design.addMove(4, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(4, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Fencer", 7);
+    design.addPiece("Lancer", 5, 500);
+    design.addMove(5, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(5, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Fencer-carrier", 8);
+    design.addPiece("Lancer-carrier", 6, 20500);
+    design.addMove(6, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(6, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Swift", 9);
+    design.addPiece("Fencer", 7, 800);
+    design.addMove(7, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(7, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Swift-carrier", 10);
+    design.addPiece("Fencer-carrier", 8, 20800);
+    design.addMove(8, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(8, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Flier", 11);
+    design.addPiece("Swift", 9, 5000);
+    design.addMove(9, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(9, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Flier-carrier", 12);
+    design.addPiece("Swift-carrier", 10, 25000);
+    design.addMove(10, 0, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 0, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 6, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 7, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 8, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 9, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 10, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 11, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 4, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 2, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 1, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 5, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
+    design.addMove(10, 1, [3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 3, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11, 0, 1, 2, 0, 4, 5, 3, 6, 7, 8, 9, 10, 11], 1);
 
-    design.addPiece("Blockader", 13);
+    design.addPiece("Flier", 11, 3000);
+
+    design.addPiece("Flier-carrier", 12, 23000);
+
+    design.addPiece("Blockader", 13, 0);
 
     design.setup("Gold", "Vanguard", 155);
     design.setup("Gold", "Vanguard", 156);
