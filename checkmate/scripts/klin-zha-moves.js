@@ -10,6 +10,10 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 
 var isBlocked = function(design, board, pos, forced) {
   var r = false;
+  var piece = board.getPiece(pos);
+  if (piece !== null) {
+      if (piece.type == 13) return true;
+  }
   _.each(design.allDirections(), function(dir) {
       var p = design.navigate(1, pos, dir);
       if (p === null) return;

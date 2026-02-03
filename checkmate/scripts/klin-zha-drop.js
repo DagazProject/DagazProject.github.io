@@ -30,6 +30,19 @@ var inZones = function(design, dst, z) {
   return false;
 }
 
+var isProtected = function(design, board, pos) {
+  var r = false;
+  _.each(design.allDirections(), function(dir) {
+      if (r) return;
+      var p = design.navigate(1, pos, dir);
+      if (p === null) return;
+      var piece = board.getPiece(p);
+      if (piece === null) return;
+      if (piece.type == 13) r = true;
+  });
+  return r;
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -59,6 +72,7 @@ Dagaz.Model.CheckInvariants = function(board) {
               if (target.player != board.player) return;
               if (target.type >= 9) return;
               if (mode == 2) return;
+              if (isProtected(design, board, dst)) return;
               var m = Dagaz.Model.createMove(0);
               m.movePiece(src, dst, piece.promote(+target.type + 1));
               m.movePiece(dst, src, target);

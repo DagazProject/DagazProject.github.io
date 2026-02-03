@@ -1,161 +1,3 @@
-(define no-blockader
-  (if (on-board? $1)
-      mark $1
-      (if enemy?
-          (verify (not-piece? Blockader))
-      )
-      back
-  )
-)
-
-(define no-goal
-  (if (on-board? $1)
-      mark $1
-      (verify not-enemy?)
-;     (verify (not-piece? Blockader))
-      (verify (not-piece? Goal))
-      (verify (not-piece? Vanguard-carrier))
-      (verify (not-piece? Power-Vanguard-carrier))
-      (verify (not-piece? Lancer-carrier))
-      (verify (not-piece? Fencer-carrier))
-      (verify (not-piece? Swift-carrier))
-      (verify (not-piece? Flier-carrier))
-      back
-  )
-)
-
-(define block-1 (
-	$1
-        (verify empty?)
-        (no-goal e)  (no-goal ne)
-        (no-goal w)  (no-goal nw)
-        (no-goal se) (no-goal sw)
-	add
-))
-
-(define block-2 (
-	$1 (verify empty?)
-	$1 (verify empty?)
-        (no-goal e)  (no-goal ne)
-        (no-goal w)  (no-goal nw)
-        (no-goal se) (no-goal sw)
-	add
-))
-
-(define jump-3 (
-	$1 $1 $1
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define jump-4 (
-	$1 $1 $1 $1
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define jump-5 (
-	$1 $1 $1 $1 $1
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define jump-6 (
-	$1 $1 $1 $1 $1 $1
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define step-1 (
-	$1 
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define step-2 (
-	$1 
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or empty? (piece? Goal))) 
-	$2
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define step-3 (
-	$1 
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or empty? (piece? Goal))) 
-	$2
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	$3
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
-(define step-4 (
-	$1 
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or empty? (piece? Goal))) 
-	$2 
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or empty? (piece? Goal))) 
-	$3
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	$4
-        (verify (not-piece? Blockader))
-        (no-blockader e)  (no-blockader ne)
-        (no-blockader w)  (no-blockader nw)
-        (no-blockader se) (no-blockader sw)
-	(verify (or not-friend? (piece? Goal))) 
-	add
-))
-
 (game
   (title "Klin Zha")
   (description "This is Klin Zha with open setup. See www.klinzha.com/laws")
@@ -462,12 +304,6 @@
        Green 
          "images\klin-zha\ag_vanguard.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-    )
   )
   (piece
     (name Vanguard-carrier)
@@ -476,12 +312,6 @@
          "images\klin-zha\cy_vanguard.bmp" 
        Green 
          "images\klin-zha\cg_vanguard.bmp" 
-    )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
     )
   )
   (piece
@@ -492,16 +322,6 @@
        Green 
          "images\klin-zha\ag_pvanguard.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-    )
   )
   (piece
     (name Power-Vanguard-carrier)
@@ -510,16 +330,6 @@
          "images\klin-zha\cy_vanguard.bmp" 
        Green 
          "images\klin-zha\cg_vanguard.bmp" 
-    )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
     )
   )
   (piece
@@ -530,20 +340,6 @@
        Green 
          "images\klin-zha\ag_lancer.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 w w w)
-	(step-3 ne ne ne) (step-3 nw nw nw)
-	(step-3 se se se) (step-3 sw sw sw)
-    )
   )
   (piece
     (name Lancer-carrier)
@@ -552,20 +348,6 @@
          "images\klin-zha\cy_lancer.bmp" 
        Green 
          "images\klin-zha\cg_lancer.bmp" 
-    )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 w w w)
-	(step-3 ne ne ne) (step-3 nw nw nw)
-	(step-3 se se se) (step-3 sw sw sw)
     )
   )
   (piece
@@ -576,26 +358,6 @@
        Green 
          "images\klin-zha\ag_fencer.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 w w w)
-	(step-3 ne ne ne) (step-3 nw nw nw)
-	(step-3 se se se) (step-3 sw sw sw)
-	(step-3 e e ne) (step-3 e e se)
-	(step-3 w w nw) (step-3 w w sw)
-	(step-3 ne ne e) (step-3 ne ne nw)
-	(step-3 nw nw w) (step-3 nw nw ne)
-	(step-3 se se e) (step-3 se se sw)
-	(step-3 sw sw w) (step-3 sw sw se)
-    )
   )
   (piece
     (name Fencer-carrier)
@@ -604,26 +366,6 @@
          "images\klin-zha\cy_fencer.bmp" 
        Green 
          "images\klin-zha\cg_fencer.bmp" 
-    )
-    (moves 
-	(move-type combat)
-	(step-1 e) (step-1 w)
-	(step-1 ne) (step-1 nw)
-	(step-1 se) (step-1 sw)
-
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 w w w)
-	(step-3 ne ne ne) (step-3 nw nw nw)
-	(step-3 se se se) (step-3 sw sw sw)
-	(step-3 e e ne) (step-3 e e se)
-	(step-3 w w nw) (step-3 w w sw)
-	(step-3 ne ne e) (step-3 ne ne nw)
-	(step-3 nw nw w) (step-3 nw nw ne)
-	(step-3 se se e) (step-3 se se sw)
-	(step-3 sw sw w) (step-3 sw sw se)
     )
   )
   (piece
@@ -634,38 +376,6 @@
        Green 
          "images\klin-zha\ag_swift.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 e e ne)
-	(step-3 w w w) (step-3 w w nw)
-	(step-3 ne ne ne) (step-3 ne ne nw)
-	(step-3 nw nw nw) (step-3 nw nw ne)
-	(step-3 se se se) (step-3 se se e) (step-3 se se sw)
-	(step-3 sw sw sw) (step-3 sw sw se) (step-3 sw sw w)
-
-	(step-4 e e e e) (step-4 e e e se) (step-4 e e e ne)
-	(step-4 e e ne ne) (step-4 e e ne nw)
-	(step-4 e e se se) (step-4 e e se sw)
-	(step-4 w w w w) (step-4 w w w sw) (step-4 w w w nw)
-	(step-4 w w nw nw) (step-4 w w nw ne)
-	(step-4 w w sw sw) (step-4 w w sw se)
-	(step-4 ne ne ne ne) (step-4 ne ne ne nw) (step-4 ne ne ne e)
-	(step-4 ne ne e e) (step-4 ne ne e se)
-	(step-4 ne ne nw nw) (step-4 ne ne nw w)
-	(step-4 nw nw nw nw) (step-4 nw nw nw ne) (step-4 nw nw nw w)
-	(step-4 nw nw ne ne) (step-4 nw nw ne e)
-	(step-4 nw nw w w) (step-4 nw nw w sw)
-	(step-4 se se se se) (step-4 se se se sw) (step-4 se se se e)
-	(step-4 se se sw sw) (step-4 se se sw w)
-	(step-4 se se e e) (step-4 se se e ne)
-	(step-4 sw sw sw sw) (step-4 sw sw sw se) (step-4 sw sw sw w)
-	(step-4 sw sw se se) (step-4 sw sw se e)
-	(step-4 sw sw w w) (step-4 sw sw w nw)
-    )
   )
   (piece
     (name Swift-carrier)
@@ -674,38 +384,6 @@
          "images\klin-zha\cy_swift.bmp" 
        Green 
          "images\klin-zha\cg_swift.bmp" 
-    )
-    (moves 
-	(move-type combat)
-	(step-2 e e) (step-2 w w)
-	(step-2 ne ne) (step-2 nw nw)
-	(step-2 se se) (step-2 sw sw)
-
-	(step-3 e e e) (step-3 e e ne) 
-	(step-3 w w w) (step-3 w w nw) 
-	(step-3 ne ne ne) (step-3 ne ne nw)
-	(step-3 nw nw nw) (step-3 nw nw ne)
-	(step-3 se se se) (step-3 se se e) (step-3 se se sw)
-	(step-3 sw sw sw) (step-3 sw sw se) (step-3 sw sw w)
-
-	(step-4 e e e e) (step-4 e e e se) (step-4 e e e ne)
-	(step-4 e e ne ne) (step-4 e e ne nw)
-	(step-4 e e se se) (step-4 e e se sw)
-	(step-4 w w w w) (step-4 w w w sw) (step-4 w w w nw)
-	(step-4 w w nw nw) (step-4 w w nw ne)
-	(step-4 w w sw sw) (step-4 w w sw se)
-	(step-4 ne ne ne ne) (step-4 ne ne ne nw) (step-4 ne ne ne e)
-	(step-4 ne ne e e) (step-4 ne ne e se)
-	(step-4 ne ne nw nw) (step-4 ne ne nw w)
-	(step-4 nw nw nw nw) (step-4 nw nw nw ne) (step-4 nw nw nw w)
-	(step-4 nw nw ne ne) (step-4 nw nw ne e)
-	(step-4 nw nw w w) (step-4 nw nw w sw)
-	(step-4 se se se se) (step-4 se se se sw) (step-4 se se se e)
-	(step-4 se se sw sw) (step-4 se se sw w)
-	(step-4 se se e e) (step-4 se se e ne)
-	(step-4 sw sw sw sw) (step-4 sw sw sw se) (step-4 sw sw sw w)
-	(step-4 sw sw se se) (step-4 sw sw se e)
-	(step-4 sw sw w w) (step-4 sw sw w nw)
     )
   )
   (piece
@@ -716,24 +394,6 @@
        Green 
          "images\klin-zha\ag_flier.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(jump-3 e) (jump-3 w)
-	(jump-3 ne) (jump-3 nw)
-	(jump-3 se) (jump-3 sw)
-
-	(jump-4 e) (jump-4 w)
-	(jump-4 ne) (jump-4 nw)
-	(jump-4 se) (jump-4 sw)
-
-	(jump-5 e) (jump-5 w)
-	(jump-5 ne) (jump-5 nw)
-	(jump-5 se) (jump-5 sw)
-
-	(jump-6 e) (jump-6 w)
-	(jump-6 ne) (jump-6 nw)
-	(jump-6 se) (jump-6 sw)
-    )
   )
   (piece
     (name Flier-carrier)
@@ -743,24 +403,6 @@
        Green 
          "images\klin-zha\cg_flier.bmp" 
     )
-    (moves 
-	(move-type combat)
-	(jump-3 e) (jump-3 w)
-	(jump-3 ne) (jump-3 nw)
-	(jump-3 se) (jump-3 sw)
-
-	(jump-4 e) (jump-4 w)
-	(jump-4 ne) (jump-4 nw)
-	(jump-4 se) (jump-4 sw)
-
-	(jump-5 e) (jump-5 w)
-	(jump-5 ne) (jump-5 nw)
-	(jump-5 se) (jump-5 sw)
-
-	(jump-6 e) (jump-6 w)
-	(jump-6 ne) (jump-6 nw)
-	(jump-6 se) (jump-6 sw)
-    )
   )
   (piece
     (name Blockader)
@@ -769,16 +411,6 @@
          "images\klin-zha\ay_blockader.bmp"
        Green
          "images\klin-zha\ag_blockader.bmp"
-    )
-    (moves 
-	(move-type combat)
-	(block-1 e) (block-1 w)
-	(block-1 ne) (block-1 nw)
-	(block-1 se) (block-1 sw)
-
-	(block-2 e e) (block-2 w w)
-	(block-2 ne ne) (block-2 nw nw)
-	(block-2 se se) (block-2 sw sw)
     )
   )
 

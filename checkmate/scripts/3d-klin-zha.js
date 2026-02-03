@@ -265,17 +265,17 @@ Dagaz.Model.BuildDesign = function(design) {
 
     design.addPiece("Goal", 0, 15000);
     design.addPiece("Vanguard", 1, 100);
-    design.addPiece("Vanguard-carrier", 2, 20100);
-    design.addPiece("Power-Vanguard", 3, 200);
-    design.addPiece("Power-Vanguard-carrier", 4, 20200);
+    design.addPiece("VanguardCarrier", 2, 20100);
+    design.addPiece("PowerVanguard", 3, 200);
+    design.addPiece("PowerVanguardCarrier", 4, 20200);
     design.addPiece("Lancer", 5, 500);
-    design.addPiece("Lancer-carrier", 6, 20500);
+    design.addPiece("LancerCarrier", 6, 20500);
     design.addPiece("Fencer", 7, 800);
-    design.addPiece("Fencer-carrier", 8, 20800);
+    design.addPiece("FencerCarrier", 8, 20800);
     design.addPiece("Swift", 9, 5000);
-    design.addPiece("Swift-carrier", 10, 25000);
+    design.addPiece("SwiftCarrier", 10, 25000);
     design.addPiece("Flier", 11, 3000);
-    design.addPiece("Flier-carrier", 12, 23000);
+    design.addPiece("FlierCarrier", 12, 23000);
     design.addPiece("Blockader", 13, 0);
 
     design.setup("Gold", "Vanguard", 155);
@@ -349,7 +349,7 @@ Dagaz.View.configure = function(view) {
     view.defControl("InfoControl", "1989 Leonard B. Loyd, Jr", true);
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'klin-zha-board.htm' : 'klin-zha.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? '3d-klin-zha-board.htm' : '3d-klin-zha.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  
