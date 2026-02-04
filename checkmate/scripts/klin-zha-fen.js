@@ -10,7 +10,7 @@ var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
   if (result) {
-      return result[1].replace("-board", "").replace("-ai", "").replace("-3d", "");
+      return result[1].replace("-board", "").replace("-ai", "").replace("-2d", "");
   } else {
       return str;
   }

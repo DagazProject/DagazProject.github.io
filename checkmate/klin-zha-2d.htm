@@ -1,0 +1,78 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Klin Zha</title>
+<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/klin-zha/board.png">
+<img id="GoldGoal" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenGoal" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldVanguard" style="display:none" src="images/klin-zha/vanguard_yellow.png">
+<img id="GreenVanguard" style="display:none" src="images/klin-zha/vanguard_green.png">
+<img id="GoldVanguardCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenVanguardCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldPowerVanguard" style="display:none" src="images/klin-zha/vanguard_yellow.png">
+<img id="GreenPowerVanguard" style="display:none" src="images/klin-zha/vanguard_green.png">
+<img id="GoldPowerVanguardCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenPowerVanguardCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldLancer" style="display:none" src="images/klin-zha/lancer_yellow.png">
+<img id="GreenLancer" style="display:none" src="images/klin-zha/lancer_green.png">
+<img id="GoldLancerCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenLancerCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldFencer" style="display:none" src="images/klin-zha/fencer_yellow.png">
+<img id="GreenFencer" style="display:none" src="images/klin-zha/fencer_green.png">
+<img id="GoldFencerCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenFencerCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldSwift" style="display:none" src="images/klin-zha/swift_yellow.png">
+<img id="GreenSwift" style="display:none" src="images/klin-zha/swift_green.png">
+<img id="GoldSwiftCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenSwiftCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldFlier" style="display:none" src="images/klin-zha/flier_yellow.png">
+<img id="GreenFlier" style="display:none" src="images/klin-zha/flier_green.png">
+<img id="GoldFlierCarrier" style="display:none" src="images/klin-zha/goal_yellow.png">
+<img id="GreenFlierCarrier" style="display:none" src="images/klin-zha/goal_green.png">
+<img id="GoldBlockader" style="display:none" src="images/klin-zha/blockader_yellow.png">
+<img id="GreenBlockader" style="display:none" src="images/klin-zha/blockader_green.png">
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
+        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
+        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="klin-zha.htm">3D</a>
+        <a href="klin-zha-2d-board.htm">no AI</a>
+        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
+        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
+        </div>
+        <div class="cc2">
+        <canvas id="Canvas" width="943" height="702" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../common-scripts/autofit.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/2d-view-v2.js"></script>
+<script src="../common-scripts/move-list-v2.js"></script>
+<script src="../common-scripts/session-manager.js"></script>
+<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/maxmin-ai-v2.js"></script>
+<script src="scripts/klin-zha-setup-ai.js"></script>
+<script src="scripts/klin-zha-goal.js"></script>
+<script src="scripts/klin-zha-fen.js"></script>
+<script src="scripts/klin-zha-drop.js"></script>
+<script src="scripts/klin-zha-split.js"></script>
+<script src="scripts/klin-zha-join.js"></script>
+<script src="scripts/klin-zha-invariant.js"></script>
+<script src="scripts/klin-zha-moves.js"></script>
+<script src="scripts/klin-zha.js"></script>
+<script src="../common-scripts/app-v2.js"></script>
+
+</body>
+</html>
