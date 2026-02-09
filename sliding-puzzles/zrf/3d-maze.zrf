@@ -7,9 +7,10 @@
 
   (board
      (grid
+         (start-rectangle 0 0 50 50)
          (dimensions
-           ("a/b/c/d/e/f/g/h/i" (50 0))
-           ("9/8/7/6/5/4/3/2/1" (0 50))
+           ("a/b/c/d/e/f/g/h/i/j/k" (50 0))
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 50))
          )
          (dimensions
            ("a/b/c/d/e/f/g/h/i" (50 0))
@@ -50,15 +51,17 @@
                    c2                i2
              a1 b1 c1 d1 e1 f1 g1 h1 i1
 
-             a9 b9 c9    e9 f9 g9 h9 i9 ; top (right->left)
-             a8                g9
-             a7 b7 c7 d7 e7 f7 g7    i7
-             a6                      i6
-             a5    c5 d5 e5 f5 g5    i5
-             a4    c4          g4    i4
-             a3 b3 c3    e3 f3 g3 h3 i3
-                   c2    e2
-             a1 b1 c1    e1 f1 g1 h1 i1
+           a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11
+           a10             e10                     k10
+            a9      c9  d9  e9  f9  g9      i9  j9  k9
+            a8                              i8      k8
+            a7      c7  d7  e7  f7  g7  h7  i7      k7
+            a6      c6                      i6      k6
+            a5      c5      e5  f5  g5      i5      k5
+            a4              e4                      k4
+            a3  b3  c3      e3      g3  h3  i3  j3  k3
+            a2              e2                      k2
+            a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1
      ))
   )
 )
