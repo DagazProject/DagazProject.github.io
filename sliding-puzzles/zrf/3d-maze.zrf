@@ -13,15 +13,15 @@
            ("11/10/9/8/7/6/5/4/3/2/1" (0 50))
          )
          (dimensions
-           ("a/b/c/d/e/f/g/h/i" (50 0))
-           ("18/17/16/15/14/13/12/11/10" (0 50))
+           ("a/b/c/d/e/f/g/h/i/j/k" (50 0))
+           ("22/21/20/19/18/17/16/15/14/13/12" (0 50))
          )
          (dimensions
-           ("a/b/c/d/e/f/g/h/i" (50 0))
-           ("27/26/25/24/23/22/21/20/19" (0 50))
+           ("a/b/c/d/e/f/g/h/i/j/k" (50 0))
+           ("33/32/31/30/29/28/27/26/25/24/23" (0 50))
          )
          (directions 
-              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+           (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
          )
      )
   )
@@ -31,26 +31,7 @@
   )
 
   (board-setup
-     (You (H a9    c9 d9 e9 f9 g9    i9 ; right (left->right)
-             a8          e8    g8    i8
-             a7 b7 c7 d7 e7    g7 h7 i7 
-             a6    c6                i6
-             a5    c5    e5 f5 g5 h5 i5
-             a4    c4    e4          i4
-             a3    c3    e3    g3 h3 i3
-             a2                      i2
-             a1 b1 c1    e1 f1 g1 h1 i1
-
-             a9 b9 c9 d9 e9    g9 h9 i9 ; left (left->right)
-             a8          e8          i8
-             a7 b7 c7    e7    g7 h7 i7
-             a6    c6          g6
-             a5    c5 d5 e5 f5 g5    i5
-             a4                g5    i5
-             a3 b3 c3    e3 f3 g3    i3
-                   c2                i2
-             a1 b1 c1 d1 e1 f1 g1 h1 i1
-
+     (You (H 
            a11 b11 c11 d11 e11 f11 g11 h11 i11 j11 k11
            a10             e10                     k10
             a9      c9  d9  e9  f9  g9      i9  j9  k9
@@ -62,6 +43,30 @@
             a3  b3  c3      e3      g3  h3  i3  j3  k3
             a2              e2                      k2
             a1  b1  c1  d1  e1  f1  g1  h1  i1  j1  k1
+
+           a22 b22 c22 d22 e22 f22 g22 h22 i22 j22 k22
+           a21                                     k21
+           a20     c20 d20 e20 f20 g20     i20 j20 k20
+           a19     c19                     i19     k19
+           a18 b18 c18 d18 e18 f18 g18     i18     k18
+           a17     c17             g17             k17
+           a16     c16 d16 e16     g16 h16 i16     k16
+           a15     c15     e15     g15             k15
+           a14     c14     e14     g14     i14 j14 k14
+           a13                                     k13
+           a12 b12 c12 d12 e12 f12 g12 h12 i12 j12 k12
+
+           a33 b33 c33 d33 e33 f33 g33 h33 i33 j33 k33
+           a32                                     k32
+           a31     c31 d31 e31 f31 g31     i31 j31 k31
+           a30     c30             g30             k30
+           a29     c29     e29 f29 g29 h29 i29     k29
+           a28     c28                     i28     k28
+           a27 b27 c27     e27 f27 g27     i27     k27
+           a26             e26     g26             k26
+           a25     c25 d25 e25     g25 h25 i25     k25
+           a24             e24                     k24 
+           a23 b23 c23 d23 e23 f23 g23 h23 i23 j23 k23
      ))
   )
 )
