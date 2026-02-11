@@ -24,10 +24,10 @@ ZRF = {
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
 
-    design.addDirection("s");
-    design.addDirection("e");
-    design.addDirection("w");
-    design.addDirection("n");
+    design.addDirection("s"); // 0
+    design.addDirection("e"); // 1
+    design.addDirection("w"); // 2
+    design.addDirection("n"); // 3
 
     design.addPlayer("You", [3, 2, 1, 0]);
 
@@ -402,6 +402,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("Y", 2);
     design.addPiece("Z", 3);
 
+    design.setup("You", "Z", 12);
+    design.setup("You", "Y", 141);
+    design.setup("You", "X", 342);
+
     design.setup("You", "H", 0);
     design.setup("You", "H", 1);
     design.setup("You", "H", 2);
@@ -474,10 +478,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("You", "H", 118);
     design.setup("You", "H", 119);
     design.setup("You", "H", 120);
-
-    design.setup("You", "Z", 12);
-    design.setup("You", "Y", 141);
-    design.setup("You", "X", 342);
 
     design.setup("You", "H", 0 + 121);
     design.setup("You", "H", 1 + 121);
@@ -631,17 +631,19 @@ Dagaz.View.configure = function(view) {
     const B = 0x0000FF;
     const Y = 0xF2E825;
     const G = 0x555555;
-    const Z = 0xEEEEEE;
+    const Z = 0xFFFFFF;
 
     view.defPieceCube(0,  1, [R, G, G, B, Y, G]);
-    view.defPieceCube(1,  1, [Z, Z, Z, Z, Z, Z], 50, 400, 50, true);
-    view.defPieceCube(2,  1, [Z, Z, Z, Z, Z, Z], 400, 50, 50, true);
-    view.defPieceCube(3,  1, [Z, Z, Z, Z, Z, Z], 50, 50, 400, true);
+    view.defPieceCube(1,  1, [Z, Z, Z, Z, Z, Z], 50, 600, 50, 0, 200, 0, true);
+    view.defPieceCube(2,  1, [Z, Z, Z, Z, Z, Z], 600, 50, 50, 200, 0, 0, true);
+    view.defPieceCube(3,  1, [Z, Z, Z, Z, Z, Z], 50, 50, 600, 0, 0, -200, true);
 
     view.setCamera(0, 0, 0, -450, -450, 450);
  
+    view.defControl("InfoControl", "Kvant N1 1992", true, Dagaz.Controller.open, 'https://www.kvant.digital/issues/1992/1/');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+//  view.defControl(Dagaz.Controller.viewOff ? ["ViewOffControl", "ViewOnControl"] : ["ViewOnControl", "ViewOffControl"], "Animate", true, Dagaz.Controller.switchView);
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  

@@ -32,6 +32,7 @@ Dagaz.View.TARGET_FLAT   = false;
 Dagaz.View.TARGET_LARGE  = false;
 Dagaz.View.TARGET_SZ     = 0;
 Dagaz.View.NO_EDGES      = false;
+Dagaz.View.NO_PIECE      = -1;
 
 const TEXTURE_CANVAS_SZ  = 256;
 
@@ -373,12 +374,12 @@ function addCube(p, pos, model) {
   }
   const pieceType = pieceTypes[model.type*10 + (+model.player)];
   const materials = [
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[2], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[3], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[0], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[5], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[1], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[4], metalness: 0.9, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[2], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[3], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[0], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[5], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[1], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
+        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[4], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
   ];
   const group = new THREE.Group();
   let pieceGeometry = null;
@@ -410,11 +411,14 @@ function addCube(p, pos, model) {
       const dx = _.isUndefined(pieceType.dx) ? p.dx : pieceType.dx;
       const dy = _.isUndefined(pieceType.dy) ? p.dy : pieceType.dy;
       const dz = _.isUndefined(pieceType.dz) ? p.dz : pieceType.dz;
+      const sx = _.isUndefined(pieceType.sx) ? 0 : pieceType.sx;
+      const sy = _.isUndefined(pieceType.sy) ? 0 : pieceType.sy;
+      const sz = _.isUndefined(pieceType.sz) ? 0 : pieceType.sz;
       pieceGeometry = new THREE.BoxGeometry(dx / 10, dz / 10, dy / 10);
       group.params  = {
-         x: p.x, dx: dx, nx: p.x - dx/2, mx: p.x + dx/2,
-         y: p.y, dy: dy, ny: p.y - dy/2, my: p.y + dy/2,
-         z: p.z, dz: dz, nz: p.z - dz/2, mz: p.z + dz/2,
+         x: p.x + sx, dx: dx, nx: p.x - dx/2, mx: p.x + dx/2,
+         y: p.y + sy, dy: dy, ny: p.y - dy/2, my: p.y + dy/2,
+         z: p.z + sz, dz: dz, nz: p.z - dz/2, mz: p.z + dz/2,
          c: 1, id: v
       };
   }
@@ -436,7 +440,9 @@ function addCube(p, pos, model) {
   }
   group.position.set(group.params.x / 10, group.params.z / 10, group.params.y / 10);
   group.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
-  pieces.push(piece);
+  if (model.type > Dagaz.View.NO_PIECE) {
+      pieces.push(piece);
+  }
   return group;
 }
 
@@ -849,7 +855,7 @@ View3D.prototype.defPieceModel = function(type, player, path, model, color) {
   };
 }
 
-View3D.prototype.defPieceCube = function(type, player, colors, dx, dy, dz, isMirror) {
+View3D.prototype.defPieceCube = function(type, player, colors, dx, dy, dz, sx, sy, sz, isMirror) {
   if (_.isUndefined(isMirror)) isMirror = false;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.CUBE;
@@ -857,6 +863,7 @@ View3D.prototype.defPieceCube = function(type, player, colors, dx, dy, dz, isMir
      type: PIECE_TYPE.CUBE,
      colors: colors,
      dx: dx, dy: dy, dz: dz,
+     sx: sx, sy: sy, sz: sz,
      im: isMirror
   };
 }
