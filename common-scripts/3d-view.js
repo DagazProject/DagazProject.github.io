@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿﻿"use strict";
 
 (function() {
 
@@ -32,7 +32,7 @@ Dagaz.View.TARGET_FLAT   = false;
 Dagaz.View.TARGET_LARGE  = false;
 Dagaz.View.TARGET_SZ     = 0;
 Dagaz.View.NO_EDGES      = false;
-Dagaz.View.NO_PIECE      = -1;
+Dagaz.View.MIN_PIECE     = -1;
 
 const TEXTURE_CANVAS_SZ  = 256;
 
@@ -310,7 +310,7 @@ View3D.prototype.init = function(canvas, controller) {
      const ambientLight = new THREE.AmbientLight('white', 2);
      scene.add(ambientLight);
      const directionalLight = new THREE.DirectionalLight('white', 2);
-     directionalLight.position.set(100, 180, 60);
+     directionalLight.position.set(-100, 180, -60);
      scene.add(directionalLight);
      updateRender();
      isInitialized = true;
@@ -440,7 +440,7 @@ function addCube(p, pos, model) {
   }
   group.position.set(group.params.x / 10, group.params.z / 10, group.params.y / 10);
   group.positions = (gg === null) ? [+pos] : _.union(gg.positions, [+pos]);
-  if (model.type > Dagaz.View.NO_PIECE) {
+  if (model.type > Dagaz.View.MIN_PIECE) {
       pieces.push(piece);
   }
   return group;
@@ -1311,6 +1311,7 @@ View3D.prototype.animate = function() {
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
       Dagaz.Controller.app.boardApply(q.move);
+      Dagaz.Controller.app.checkGoal();
       q.state = ANIMATE_STATE.DONE;
       changed = true;
   }, this);
@@ -1348,9 +1349,11 @@ View3D.prototype.animate = function() {
               q.piece.position.y = q.sy;
               q.piece.position.z = q.sz;
           } else {
-              q.piece.position.x = q.ex;
-              q.piece.position.y = q.ey;
-              q.piece.position.z = q.ez;
+              if (Dagaz.View.PIECE_TYPE != PIECE_TYPE.CUBE) {
+                  q.piece.position.x = q.ex;
+                  q.piece.position.y = q.ey;
+                  q.piece.position.z = q.ez;
+              }
           }
       }
       changed = true;
@@ -1845,16 +1848,40 @@ function mouseMove({x, y}, clean = false) {
                           offset = r.offset;
                       }
                       const group = view.groupCubes(move);
-                      if (!Dagaz.Controller.viewOff && (axis !== null)) {
-                          view.queue.push({
-                             type:   MOVE_TYPE.ROTATE,
-                             state:  ANIMATE_STATE.INIT,
-                             piece:  group,
-                             axis:   axis,
-                             offset: offset,
-                             phase:  1,
-                             steps:  Dagaz.View.STEP_CNT
-                          });
+                      if (!Dagaz.Controller.viewOff) {
+                          if (axis !== null) {
+                              view.queue.push({
+                                 type:   MOVE_TYPE.ROTATE,
+                                 state:  ANIMATE_STATE.INIT,
+                                 piece:  group,
+                                 axis:   axis,
+                                 offset: offset,
+                                 phase:  1,
+                                 steps:  Dagaz.View.STEP_CNT
+                              });
+                          } else {
+                              _.each(move.actions, function(a) {
+                                  const start = view.pos[a[0][0]];
+                                  const stop  = view.pos[a[1][0]];
+                                  const piece = a[2][0];
+                                  const steps = 5;
+                                  view.queue.push({
+                                     type:  MOVE_TYPE.MOVE,
+                                     state: ANIMATE_STATE.INIT,
+                                     piece: group,
+                                     final: stop.p,
+                                     phase: 1,
+                                     steps: steps,
+                                     dx: 0.6*(stop.p.position.x - start.p.position.x)/(steps + 1),
+                                     dy: 0.6*(stop.p.position.y - start.p.position.y)/(steps + 1),
+                                     dz: 0.6*(stop.p.position.z - start.p.position.z)/(steps + 1),
+                                     sx: start.p.position.x, ex: stop.p.position.x,
+                                     sy: start.p.position.y, ey: stop.p.position.y,
+                                     sz: start.p.position.z, ez: stop.p.position.z,
+                                     player: piece.player
+                                  });
+                              });
+                          }
                       }
                       if (!_.isUndefined(Dagaz.Controller.play)) {
                          let sound = Dagaz.Sounds.move;

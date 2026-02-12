@@ -1,6 +1,6 @@
 (function() {
 
-Dagaz.View.NO_PIECE = 0;
+Dagaz.View.MIN_PIECE = 0;
 
 var checkVersion = Dagaz.Model.checkVersion;
 
@@ -22,7 +22,7 @@ if (!_.isUndefined(Dagaz.Controller.addSound)) {
 var checkGoals = Dagaz.Model.checkGoals;
 
 Dagaz.Model.checkGoals = function(design, board, player) {
-  if ((board.getPiece(12) !== null) && (board.getPiece(141) !== null) && (board.getPiece(262) !== null)) {
+  if ((board.getPiece(108) !== null) && (board.getPiece(221) !== null) && (board.getPiece(262) !== null)) {
       return 1;
   }
   return checkGoals(design, board, player);
@@ -64,7 +64,7 @@ var getDir = function(mode, plane) {
   return null;
 }
 
-var getPosition = function(board, ix) {
+function getPosition(board, ix) {
   for (var pos = ix * 121; pos < (ix + 1) * 121; pos++) {
        var piece = board.getPiece(pos);
        if (piece !== null && piece.type > 0) return pos;

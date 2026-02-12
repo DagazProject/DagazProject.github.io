@@ -631,7 +631,7 @@ Dagaz.View.configure = function(view) {
     const B = 0x0000FF;
     const Y = 0xF2E825;
     const G = 0x555555;
-    const Z = 0xFFFFFF;
+    const Z = 0x33FF33;
 
     view.defPieceCube(0,  1, [R, G, G, B, Y, G]);
     view.defPieceCube(1,  1, [Z, Z, Z, Z, Z, Z], 50, 600, 50, 0, 200, 0, true);
@@ -643,7 +643,7 @@ Dagaz.View.configure = function(view) {
     view.defControl("InfoControl", "Kvant N1 1992", true, Dagaz.Controller.open, 'https://www.kvant.digital/issues/1992/1/');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-//  view.defControl(Dagaz.Controller.viewOff ? ["ViewOffControl", "ViewOnControl"] : ["ViewOnControl", "ViewOffControl"], "Animate", true, Dagaz.Controller.switchView);
+    view.defControl(Dagaz.Controller.viewOff ? ["ViewOffControl", "ViewOnControl"] : ["ViewOnControl", "ViewOffControl"], "Animate", true, Dagaz.Controller.switchView);
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  
