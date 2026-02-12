@@ -362,6 +362,9 @@ View3D.prototype.groupCubes = function(move) {
   return group;
 }
 
+var MaterialCache = [];
+var GeometryCache = [];
+
 function addCube(p, pos, model) {
   const v = model.getValue(0);
   let gg = null;
@@ -372,17 +375,22 @@ function addCube(p, pos, model) {
             gg = group;
       });
   }
-  const pieceType = pieceTypes[model.type*10 + (+model.player)];
-  const materials = [
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[2], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[3], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[0], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[5], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[1], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
-        pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[4], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
-  ];
+  const ix = model.type*10 + (+model.player);
+  const pieceType   = pieceTypes[ix];
+  let materials     = MaterialCache[ix];
+  let pieceGeometry = GeometryCache[ix];
+  if (_.isUndefined(materials)) {
+      materials = [
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[2], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }), // right
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[3], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }), // left
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[0], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[0] }), // top
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[5], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[5] }), // bottom
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[1], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }), // forward
+            pieceType.im ? new THREE.MeshPhysicalMaterial({ color: pieceType.colors[4], metalness: 0.8, roughness: 0.05, envMapIntensity: 0.8 }) : new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })  // backward
+      ];
+      MaterialCache[ix] = materials;
+  }
   const group = new THREE.Group();
-  let pieceGeometry = null;
   group.pos = pos;
   if (gg !== null) {
       gg.params.c++;
@@ -414,7 +422,10 @@ function addCube(p, pos, model) {
       const sx = _.isUndefined(pieceType.sx) ? 0 : pieceType.sx;
       const sy = _.isUndefined(pieceType.sy) ? 0 : pieceType.sy;
       const sz = _.isUndefined(pieceType.sz) ? 0 : pieceType.sz;
-      pieceGeometry = new THREE.BoxGeometry(dx / 10, dz / 10, dy / 10);
+      if (_.isUndefined(pieceGeometry)) {
+          pieceGeometry = new THREE.BoxGeometry(dx / 10, dz / 10, dy / 10);
+          GeometryCache[ix] = pieceGeometry;
+      }
       group.params  = {
          x: p.x + sx, dx: dx, nx: p.x - dx/2, mx: p.x + dx/2,
          y: p.y + sy, dy: dy, ny: p.y - dy/2, my: p.y + dy/2,
@@ -888,12 +899,18 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
   p.isPosition = true;
   allPositions.push(p);
   if (Dagaz.View.TARGET_FLAT) {
-      targetGeometry = new THREE.CylinderGeometry(Dagaz.View.TARGET_RADIUS, Dagaz.View.TARGET_RADIUS, 1, 32);
+      if (targetGeometry === null) {
+          targetGeometry = new THREE.CylinderGeometry(Dagaz.View.TARGET_RADIUS, Dagaz.View.TARGET_RADIUS, 1, 32);
+      }
       if (Dagaz.View.TARGET_LARGE) {
-          largeGeometry  = new THREE.CylinderGeometry(Dagaz.View.LARGE_RADIUS, Dagaz.View.LARGE_RADIUS, 1, 32);
+          if (largeGeometry === null) {
+              largeGeometry  = new THREE.CylinderGeometry(Dagaz.View.LARGE_RADIUS, Dagaz.View.LARGE_RADIUS, 1, 32);
+          }
       }
   } else {
-      targetGeometry = new THREE.SphereGeometry(Dagaz.View.TARGET_RADIUS, 32, 32); 
+      if (targetGeometry === null) {
+          targetGeometry = new THREE.SphereGeometry(Dagaz.View.TARGET_RADIUS, 32, 32); 
+      }
   }
   const t = new THREE.Mesh(targetGeometry, posMaterial);
   t.position.set((x / 10), (z / 10) + Dagaz.View.TARGET_SZ, (y / 10));
