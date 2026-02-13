@@ -58,14 +58,16 @@ Ai.prototype.getMove = function(ctx) {
       return move.toString();
   });
   if (_.isUndefined(ctx.slot)) {
-      var s = _.filter(slots, function(x) {
-          return _.intersection(m, x).length > 0;
-      });
+      var s = [];
+      for (var i = 0; i < slots.length; i++) {
+          if (_.intersection(m, slots[i]).length > 0) s.push(i);
+      }
       if (s.length > 0) {
-          ctx.slot = 0;
+          var ix = 0;
           if (s.length > 1) {
-              ctx.slot = this.params.rand(0, s.length - 1);
+              ix = this.params.rand(0, s.length - 1);
           }
+          ctx.slot = s[ix];
       }
   }
   if (!_.isUndefined(ctx.slot)) {
