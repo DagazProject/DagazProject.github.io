@@ -1,5 +1,5 @@
 (game
-  (title "Bill's Buffling Burr")
+  (title "Bill's Baffling Burr")
 
   (players You)
   (turn-order You)

@@ -1,7 +1,5 @@
 (function() {
 
-Dagaz.Controller.viewOff = false;
-
 const STATE = {
     INIT: 0,
     IDLE: 1,

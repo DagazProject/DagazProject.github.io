@@ -1,5 +1,7 @@
 ﻿﻿"use strict";
 
+Dagaz.Controller.viewOff = false;
+
 (function() {
 
 const BOARD_TYPE = {
