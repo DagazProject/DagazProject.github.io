@@ -1329,8 +1329,11 @@ View3D.prototype.animate = function() {
       if (q.type  != MOVE_TYPE.REFRESH) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
-      Dagaz.Controller.app.boardApply(q.move);
-      Dagaz.Controller.app.checkGoal();
+      var app = Dagaz.Controller.app;
+      app.boardApply(q.move);
+      app.checkGoal();
+      var s = Dagaz.Model.getSetup(app.design, app.board);
+      console.log("Setup: " + s);
       q.state = ANIMATE_STATE.DONE;
       changed = true;
   }, this);

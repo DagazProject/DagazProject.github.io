@@ -15,8 +15,8 @@ if (!_.isUndefined(Dagaz.Controller.addSound)) {
 function getDir(x, y, z) {
   if (z >  0.9) return 3;
   if (z < -0.9) return 0;
-  if (y >  0.9) return 4;
-  if (y < -0.9) return 5;
+  if (y >  0.9) return 5;
+  if (y < -0.9) return 4;
   if (x >  0.9) return 2;
   if (x < -0.9) return 1;
   return -1;
@@ -37,11 +37,8 @@ var getMovesFromPos = function(board, pos) {
 Dagaz.View.getMove = function(camera, x, y, z, pos, board) {
   var dir = getDir(x, y, z);
   var moves = getMovesFromPos(board, pos);
-  if (moves.length == 1) {
-      return moves[0];
-  }
   var r = null;
-  _.each(board.moves, function(move) {
+  _.each(moves, function(move) {
       if (move.mode != dir) return;
       r = move;
   });
