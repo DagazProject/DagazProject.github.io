@@ -1882,11 +1882,14 @@ function mouseMove({x, y}, clean = false) {
                                  steps:  Dagaz.View.STEP_CNT
                               });
                           } else {
-                              _.each(move.actions, function(a) {
+                              var uuids = [];;
+                              _.each(move.actions, function(a) {                                 
                                   const start = view.pos[a[0][0]];
                                   const stop  = view.pos[a[1][0]];
                                   const piece = a[2][0];
-                                  const steps = 5;
+                                  const steps = Dagaz.View.STEP_CNT;
+                                  if (_.indexOf(uuids, piece.uuid)>= 0) return;
+                                  uuids.push(piece.uuid);
                                   view.queue.push({
                                      type:  MOVE_TYPE.MOVE,
                                      state: ANIMATE_STATE.INIT,
@@ -1894,9 +1897,9 @@ function mouseMove({x, y}, clean = false) {
                                      final: stop.p,
                                      phase: 1,
                                      steps: steps,
-                                     dx: 0.6*(stop.p.position.x - start.p.position.x)/(steps + 1),
-                                     dy: 0.6*(stop.p.position.y - start.p.position.y)/(steps + 1),
-                                     dz: 0.6*(stop.p.position.z - start.p.position.z)/(steps + 1),
+                                     dx: 0.7*(stop.p.position.x - start.p.position.x)/steps,
+                                     dy: 0.7*(stop.p.position.y - start.p.position.y)/steps,
+                                     dz: 0.7*(stop.p.position.z - start.p.position.z)/steps,
                                      sx: start.p.position.x, ex: stop.p.position.x,
                                      sy: start.p.position.y, ey: stop.p.position.y,
                                      sz: start.p.position.z, ez: stop.p.position.z,
