@@ -90,6 +90,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-1", 45);
     design.addPiece("P-563-1", 46);
     design.addPiece("P-564-1", 47);
+
     design.addPiece("P-213-2", 48);
     design.addPiece("P-214-2", 49);
     design.addPiece("P-312-2", 50);
@@ -121,7 +122,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-2", 76);
     design.addPiece("P-546-2", 77);
     design.addPiece("P-642-2", 78);
-    design.addPiece("P-642-5", 79);
+//  design.addPiece("P-642-5", 79);
     design.addPiece("P-153-2", 80);
     design.addPiece("P-154-2", 81);
     design.addPiece("P-351-2", 82);
@@ -138,6 +139,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-2", 93);
     design.addPiece("P-563-2", 94);
     design.addPiece("P-564-2", 95);
+
     design.addPiece("P-213-3", 96);
     design.addPiece("P-214-3", 97);
     design.addPiece("P-312-3", 98);
@@ -169,7 +171,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-3", 124);
     design.addPiece("P-546-3", 125);
     design.addPiece("P-642-3", 126);
-    design.addPiece("P-642-5", 127);
+//  design.addPiece("P-642-5", 127);
     design.addPiece("P-153-3", 128);
     design.addPiece("P-154-3", 129);
     design.addPiece("P-351-3", 130);
@@ -186,6 +188,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-3", 141);
     design.addPiece("P-563-3", 142);
     design.addPiece("P-564-3", 143);
+
     design.addPiece("P-213-4", 144);
     design.addPiece("P-214-4", 145);
     design.addPiece("P-312-4", 146);
@@ -217,7 +220,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-4", 172);
     design.addPiece("P-546-4", 173);
     design.addPiece("P-642-4", 174);
-    design.addPiece("P-642-5", 175);
+//  design.addPiece("P-642-5", 175);
     design.addPiece("P-153-4", 176);
     design.addPiece("P-154-4", 177);
     design.addPiece("P-351-4", 178);
@@ -234,6 +237,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-4", 189);
     design.addPiece("P-563-4", 190);
     design.addPiece("P-564-4", 191);
+
     design.addPiece("P-213-5", 192);
     design.addPiece("P-214-5", 193);
     design.addPiece("P-312-5", 194);
@@ -265,7 +269,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-5", 220);
     design.addPiece("P-546-5", 221);
     design.addPiece("P-642-5", 222);
-    design.addPiece("P-642-5", 223);
+//  design.addPiece("P-642-5", 223);
     design.addPiece("P-153-5", 224);
     design.addPiece("P-154-5", 225);
     design.addPiece("P-351-5", 226);
@@ -282,6 +286,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-5", 307);
     design.addPiece("P-563-5", 308);
     design.addPiece("P-564-5", 309);
+
     design.addPiece("P-213-6", 310);
     design.addPiece("P-214-6", 311);
     design.addPiece("P-312-6", 312);
@@ -313,7 +318,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-6", 338);
     design.addPiece("P-546-6", 339);
     design.addPiece("P-642-6", 340);
-    design.addPiece("P-642-6", 341);
+//  design.addPiece("P-642-6", 341);
     design.addPiece("P-153-6", 342);
     design.addPiece("P-154-6", 343);
     design.addPiece("P-351-6", 344);
@@ -330,6 +335,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-6", 355);
     design.addPiece("P-563-6", 356);
     design.addPiece("P-564-6", 357);
+
     design.addPiece("P-213-7", 358);
     design.addPiece("P-214-7", 359);
     design.addPiece("P-312-7", 360);
@@ -361,7 +367,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-7", 386);
     design.addPiece("P-546-7", 387);
     design.addPiece("P-642-7", 388);
-    design.addPiece("P-642-7", 389);
+//  design.addPiece("P-642-7", 389);
     design.addPiece("P-153-7", 390);
     design.addPiece("P-154-7", 391);
     design.addPiece("P-351-7", 392);
@@ -378,6 +384,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-465-7", 403);
     design.addPiece("P-563-7", 404);
     design.addPiece("P-564-7", 405);
+
     design.addPiece("P-213-8", 406);
     design.addPiece("P-214-8", 407);
     design.addPiece("P-312-8", 408);
@@ -409,7 +416,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("P-541-8", 434);
     design.addPiece("P-546-8", 435);
     design.addPiece("P-642-8", 436);
-    design.addPiece("P-642-8", 437);
+//  design.addPiece("P-642-8", 437);
     design.addPiece("P-153-8", 438);
     design.addPiece("P-154-8", 439);
     design.addPiece("P-351-8", 440);
@@ -441,74 +448,389 @@ Dagaz.View.configure = function(view) {
 
     const G = 0xE4CB12; // 0xEEEEEE;
 
-    view.defPieceCube(0,   1, [G, G, G, G, G, G], 46, 34, 52, 19, 25, 16, true);
-    view.defPieceCube(1,   1, [G, G, G, G, G, G], 46, 34, 78, 19, 25,  3, true);
-    view.defPieceCube(2,   1, [G, G, G, G, G, G], 52, 34, 49, 16, 25, 19, true);
-    view.defPieceCube(3,   1, [G, G, G, G, G, G], 52, 34, 84, 16, 25,  0, true);
-    view.defPieceCube(4,   1, [G, G, G, G, G, G], 78, 34, 46,  3, 25, 19, true);
-    view.defPieceCube(5,   1, [G, G, G, G, G, G], 78, 34, 84,  3, 25,  0, true);
-    view.defPieceCube(6,   1, [G, G, G, G, G, G], 84, 34, 52, 0,  25, 16, true);
-    view.defPieceCube(7,   1, [G, G, G, G, G, G], 84, 34, 78, 0,  25,  3, true);
-    view.defPieceCube(8,   1, [G, G, G, G, G, G], 34, 46, 52, 25, 19, 16, true);
-    view.defPieceCube(9,   1, [G, G, G, G, G, G], 34, 46, 78, 25, 19,  3, true);
-    view.defPieceCube(10,  1, [G, G, G, G, G, G], 52, 46, 34, 16, 19, 25, true);
-    view.defPieceCube(11,  1, [G, G, G, G, G, G], 52, 46, 96, 16, 19, -6, true);
-    view.defPieceCube(12,  1, [G, G, G, G, G, G], 78, 46, 34, 3,  19, 25, true);
-    view.defPieceCube(13,  1, [G, G, G, G, G, G], 78, 46, 96, 3,  19, -6, true);
-    view.defPieceCube(14,  1, [G, G, G, G, G, G], 96, 46, 52, -6, 19, 16, true);
-    view.defPieceCube(15,  1, [G, G, G, G, G, G], 96, 46, 78, -6, 19,  3, true);
-    view.defPieceCube(16,  1, [G, G, G, G, G, G], 34, 52, 46, 25, 16, 19, true);
-    view.defPieceCube(17,  1, [G, G, G, G, G, G], 34, 52, 84, 25, 16,  0, true);
-    view.defPieceCube(18,  1, [G, G, G, G, G, G], 46, 52, 34, 19, 16, 25, true);
-    view.defPieceCube(19,  1, [G, G, G, G, G, G], 46, 52, 96, 19, 16, -6, true);
-    view.defPieceCube(20,  1, [G, G, G, G, G, G], 84, 52, 34,  0, 16, 25, true);
-    view.defPieceCube(21,  1, [G, G, G, G, G, G], 84, 52, 96, 0,  16, -6, true);
-    view.defPieceCube(22,  1, [G, G, G, G, G, G], 96, 52, 46, -6, 16, 19, true);
-    view.defPieceCube(23,  1, [G, G, G, G, G, G], 96, 52, 84, -6, 16,  0, true);
-    view.defPieceCube(24,  1, [G, G, G, G, G, G], 34, 78, 46, 25,  3, 19, true);
-    view.defPieceCube(25,  1, [G, G, G, G, G, G], 34, 78, 84, 25,  3,  0, true);
-    view.defPieceCube(26,  1, [G, G, G, G, G, G], 46, 78, 34, 19,  3, 25, true);
-    view.defPieceCube(27,  1, [G, G, G, G, G, G], 46, 78, 96, 19,  3, -6, true);
-    view.defPieceCube(28,  1, [G, G, G, G, G, G], 84, 78, 34,  0,  3, 25, true);
-    view.defPieceCube(29,  1, [G, G, G, G, G, G], 84, 78, 96,  0,  3, -6, true);
-    view.defPieceCube(30,  1, [G, G, G, G, G, G], 96, 78, 46, -6,  3, 19, true);
-    view.defPieceCube(32,  1, [G, G, G, G, G, G], 34, 84, 52, 25,  0, 16, true);
-    view.defPieceCube(33,  1, [G, G, G, G, G, G], 34, 84, 78, 25,  0,  3, true);
-    view.defPieceCube(34,  1, [G, G, G, G, G, G], 52, 84, 34, 16,  0, 25, true);
-    view.defPieceCube(35,  1, [G, G, G, G, G, G], 52, 84, 96, 16,  0, -6, true);
-    view.defPieceCube(36,  1, [G, G, G, G, G, G], 78, 84, 34, 3,   0, 25, true);
-    view.defPieceCube(37,  1, [G, G, G, G, G, G], 78, 84, 96, 3,   0, -6, true);
-    view.defPieceCube(38,  1, [G, G, G, G, G, G], 96, 84, 52, -6,  0, 16, true);
-    view.defPieceCube(39,  1, [G, G, G, G, G, G], 96, 84, 78, -6,  0,  3, true);
-    view.defPieceCube(40,  1, [G, G, G, G, G, G], 46, 96, 52, 19, -6, 16, true);  // P-263-1
-    view.defPieceCube(41,  1, [G, G, G, G, G, G], 46, 96, 78, 19, -6,  3, true);
-    view.defPieceCube(42,  1, [G, G, G, G, G, G], 52, 96, 46, 16, -6, 19, true);
-    view.defPieceCube(43,  1, [G, G, G, G, G, G], 52, 96, 84, 16, -6,  0, true);
-    view.defPieceCube(44,  1, [G, G, G, G, G, G], 78, 96, 46,  3, -6, 19, true);
-    view.defPieceCube(45,  1, [G, G, G, G, G, G], 78, 96, 84,  3, -6,  0, true);
-    view.defPieceCube(46,  1, [G, G, G, G, G, G], 84, 96, 52,  0, -6, 16, true);
-    view.defPieceCube(47,  1, [G, G, G, G, G, G], 84, 96, 78,  0, -6,  3, true);
-    view.defPieceCube(48,  1, [G, G, G, G, G, G], 46, 34, 52, 19, 25, 16, true);
-    view.defPieceCube(49,  1, [G, G, G, G, G, G], 46, 34, 78, 19, 25,  3, true);
-    view.defPieceCube(50,  1, [G, G, G, G, G, G], 52, 34, 46, 16, 25, 19, true);
-    view.defPieceCube(51,  1, [G, G, G, G, G, G], 52, 34, 84, 16, 25,  0, true);
-    view.defPieceCube(52,  1, [G, G, G, G, G, G], 78, 34, 46,  3, 25, 19, true);
-    view.defPieceCube(53,  1, [G, G, G, G, G, G], 78, 34, 84,  3, 25,  0, true);
-    view.defPieceCube(54,  1, [G, G, G, G, G, G], 84, 34, 52, 0,  25, 16, true);
-    view.defPieceCube(55,  1, [G, G, G, G, G, G], 84, 34, 78, 0,  25,  3, true);
-    view.defPieceCube(56,  1, [G, G, G, G, G, G], 34, 46, 52, 25, 19, 16, true);
-    view.defPieceCube(57,  1, [G, G, G, G, G, G], 34, 46, 78, 25, 19,  3, true);
-    view.defPieceCube(58,  1, [G, G, G, G, G, G], 52, 46, 34, 16, 19, 25, true);
-    view.defPieceCube(59,  1, [G, G, G, G, G, G], 52, 46, 96, 16, 19, -6, true);
-    view.defPieceCube(60,  1, [G, G, G, G, G, G], 78, 46, 34,  3, 19, 25, true);
+    view.defPieceCube(0,   1, [G, G, G, G, G, G], 46, 34, 52, 19, 25, 16, true); // P-213
+    view.defPieceCube(1,   1, [G, G, G, G, G, G], 46, 34, 78, 19, 25,  3, true); // P-214
+    view.defPieceCube(2,   1, [G, G, G, G, G, G], 52, 34, 46, 16, 25, 19, true); // P-312
+    view.defPieceCube(3,   1, [G, G, G, G, G, G], 52, 34, 84, 16, 25,  0, true); // P-315
+    view.defPieceCube(4,   1, [G, G, G, G, G, G], 78, 34, 46,  3, 25, 19, true); // P-412
+    view.defPieceCube(5,   1, [G, G, G, G, G, G], 78, 34, 84,  3, 25,  0, true); // P-415
+    view.defPieceCube(6,   1, [G, G, G, G, G, G], 84, 34, 52, 0,  25, 16, true); // P-513
+    view.defPieceCube(7,   1, [G, G, G, G, G, G], 84, 34, 78, 0,  25,  3, true); // P-514
+    view.defPieceCube(8,   1, [G, G, G, G, G, G], 34, 46, 52, 25, 19, 16, true); // P-123
+    view.defPieceCube(9,   1, [G, G, G, G, G, G], 34, 46, 78, 25, 19,  3, true); // P-124
+    view.defPieceCube(10,  1, [G, G, G, G, G, G], 52, 46, 34, 16, 19, 25, true); // P-321
+    view.defPieceCube(11,  1, [G, G, G, G, G, G], 52, 46, 96, 16, 19, -6, true); // P-326
+    view.defPieceCube(12,  1, [G, G, G, G, G, G], 78, 46, 34, 3,  19, 25, true); // P-421
+    view.defPieceCube(13,  1, [G, G, G, G, G, G], 78, 46, 96, 3,  19, -6, true); // P-426
+    view.defPieceCube(14,  1, [G, G, G, G, G, G], 96, 46, 52, -6, 19, 16, true); // P-623
+    view.defPieceCube(15,  1, [G, G, G, G, G, G], 96, 46, 78, -6, 19,  3, true); // P-624
+    view.defPieceCube(16,  1, [G, G, G, G, G, G], 34, 52, 46, 25, 16, 19, true); // P-132
+    view.defPieceCube(17,  1, [G, G, G, G, G, G], 34, 52, 84, 25, 16,  0, true); // P-135
+    view.defPieceCube(18,  1, [G, G, G, G, G, G], 46, 52, 34, 19, 16, 25, true); // P-231
+    view.defPieceCube(19,  1, [G, G, G, G, G, G], 46, 52, 96, 19, 16, -6, true); // P-236
+    view.defPieceCube(20,  1, [G, G, G, G, G, G], 84, 52, 34,  0, 16, 25, true); // P-531
+    view.defPieceCube(21,  1, [G, G, G, G, G, G], 84, 52, 96, 0,  16, -6, true); // P-536
+    view.defPieceCube(22,  1, [G, G, G, G, G, G], 96, 52, 46, -6, 16, 19, true); // P-632
+    view.defPieceCube(23,  1, [G, G, G, G, G, G], 96, 52, 84, -6, 16,  0, true); // P-635
+    view.defPieceCube(24,  1, [G, G, G, G, G, G], 34, 78, 46, 25,  3, 19, true); // P-142
+    view.defPieceCube(25,  1, [G, G, G, G, G, G], 34, 78, 84, 25,  3,  0, true); // P-145	
+    view.defPieceCube(26,  1, [G, G, G, G, G, G], 46, 78, 34, 19,  3, 25, true); // P-241
+    view.defPieceCube(27,  1, [G, G, G, G, G, G], 46, 78, 96, 19,  3, -6, true); // P-246
+    view.defPieceCube(28,  1, [G, G, G, G, G, G], 84, 78, 34,  0,  3, 25, true); // P-541
+    view.defPieceCube(29,  1, [G, G, G, G, G, G], 84, 78, 96,  0,  3, -6, true); // P-546
+    view.defPieceCube(30,  1, [G, G, G, G, G, G], 96, 78, 46, -6,  3, 19, true); // P-642
+    view.defPieceCube(32,  1, [G, G, G, G, G, G], 34, 84, 52, 25,  0, 16, true); // P-153
+    view.defPieceCube(33,  1, [G, G, G, G, G, G], 34, 84, 78, 25,  0,  3, true); // P-154
+    view.defPieceCube(34,  1, [G, G, G, G, G, G], 52, 84, 34, 16,  0, 25, true); // P-351
+    view.defPieceCube(35,  1, [G, G, G, G, G, G], 52, 84, 96, 16,  0, -6, true); // P-356
+    view.defPieceCube(36,  1, [G, G, G, G, G, G], 78, 84, 34, 3,   0, 25, true); // P-451
+    view.defPieceCube(37,  1, [G, G, G, G, G, G], 78, 84, 96, 3,   0, -6, true); // P-456
+    view.defPieceCube(38,  1, [G, G, G, G, G, G], 96, 84, 52, -6,  0, 16, true); // P-653
+    view.defPieceCube(39,  1, [G, G, G, G, G, G], 96, 84, 78, -6,  0,  3, true); // P-654
+    view.defPieceCube(40,  1, [G, G, G, G, G, G], 46, 96, 52, 19, -6, 16, true); // P-263-1
+    view.defPieceCube(41,  1, [G, G, G, G, G, G], 46, 96, 78, 19, -6,  3, true); // P-264
+    view.defPieceCube(42,  1, [G, G, G, G, G, G], 52, 96, 46, 16, -6, 19, true); // P-362
+    view.defPieceCube(43,  1, [G, G, G, G, G, G], 52, 96, 84, 16, -6,  0, true); // P-365
+    view.defPieceCube(44,  1, [G, G, G, G, G, G], 78, 96, 46,  3, -6, 19, true); // P-462
+    view.defPieceCube(45,  1, [G, G, G, G, G, G], 78, 96, 84,  3, -6,  0, true); // P-465
+    view.defPieceCube(46,  1, [G, G, G, G, G, G], 84, 96, 52,  0, -6, 16, true); // P-563
+    view.defPieceCube(47,  1, [G, G, G, G, G, G], 84, 96, 78,  0, -6,  3, true); // P-564
 
-    view.defPieceCube(94,  1, [G, G, G, G, G, G], 84, 96, 52, 0, -6, 16, true);   // P-563-2
-    view.defPieceCube(102, 1, [G, G, G, G, G, G], 84, 34, 52, 0, -25, 16, true);  // P-513-3
-    view.defPieceCube(144, 1, [G, G, G, G, G, G], 46, 34, 52, 19, -25, 16, true); // P-213-4
-    view.defPieceCube(303, 1, [G, G, G, G, G, G], 46, 96, 78, 19, -6, -3, true);  // P-264-5
-    view.defPieceCube(357, 1, [G, G, G, G, G, G], 84, 96, 78, 0, -6, -3, true);   // P-564-6
-    view.defPieceCube(365, 1, [G, G, G, G, G, G], 84, 34, 78, 0, -25, -3, true);  // P-514-7
-    view.defPieceCube(407, 1, [G, G, G, G, G, G], 46, 34, 78, 19, -25, -3, true); // P-214-8
+    view.defPieceCube(48,  1, [G, G, G, G, G, G], 46, 34, 52,-19, 25, 16, true); // P-213
+    view.defPieceCube(49,  1, [G, G, G, G, G, G], 46, 34, 78,-19, 25,  3, true); // P-214
+    view.defPieceCube(50,  1, [G, G, G, G, G, G], 52, 34, 46,-16, 25, 19, true); // P-312
+    view.defPieceCube(51,  1, [G, G, G, G, G, G], 52, 34, 84,-16, 25,  0, true); // P-315
+    view.defPieceCube(52,  1, [G, G, G, G, G, G], 78, 34, 46, -3, 25, 19, true); // P-412
+    view.defPieceCube(53,  1, [G, G, G, G, G, G], 78, 34, 84, -3, 25,  0, true); // P-415
+    view.defPieceCube(54,  1, [G, G, G, G, G, G], 84, 34, 52,  0, 25, 16, true); // P-513
+    view.defPieceCube(55,  1, [G, G, G, G, G, G], 84, 34, 78,  0, 25,  3, true); // P-514
+    view.defPieceCube(56,  1, [G, G, G, G, G, G], 34, 46, 52,-25, 19, 16, true); // P-123
+    view.defPieceCube(57,  1, [G, G, G, G, G, G], 34, 46, 78,-25, 19,  3, true); // P-124
+    view.defPieceCube(58,  1, [G, G, G, G, G, G], 52, 46, 34,-16, 19, 25, true); // P-321
+    view.defPieceCube(59,  1, [G, G, G, G, G, G], 52, 46, 96,-16, 19, -6, true); // P-326
+    view.defPieceCube(60,  1, [G, G, G, G, G, G], 78, 46, 34, -3, 19, 25, true); // P-421
+    view.defPieceCube(61,  1, [G, G, G, G, G, G], 78, 46, 96, -3, 19, -6, true); // P-426
+    view.defPieceCube(62,  1, [G, G, G, G, G, G], 96, 46, 52,  6, 19, 16, true); // P-623
+    view.defPieceCube(63,  1, [G, G, G, G, G, G], 96, 46, 78,  6, 19,  3, true); // P-624
+    view.defPieceCube(64,  1, [G, G, G, G, G, G], 34, 52, 46,-25, 16, 19, true); // P-132
+    view.defPieceCube(65,  1, [G, G, G, G, G, G], 34, 52, 84,-25, 16,  0, true); // P-135
+    view.defPieceCube(66,  1, [G, G, G, G, G, G], 46, 52, 34,-19, 16, 25, true); // P-231
+    view.defPieceCube(67,  1, [G, G, G, G, G, G], 46, 52, 96,-19, 16, -6, true); // P-236
+    view.defPieceCube(68,  1, [G, G, G, G, G, G], 84, 52, 34,  0, 16, 25, true); // P-531
+    view.defPieceCube(69,  1, [G, G, G, G, G, G], 84, 52, 96,  0, 16, -6, true); // P-536
+    view.defPieceCube(70,  1, [G, G, G, G, G, G], 96, 52, 46,  6, 16, 19, true); // P-632
+    view.defPieceCube(71,  1, [G, G, G, G, G, G], 96, 52, 84,  6, 16,  0, true); // P-635
+    view.defPieceCube(72,  1, [G, G, G, G, G, G], 34, 78, 46,-25,  3, 19, true); // P-142
+    view.defPieceCube(73,  1, [G, G, G, G, G, G], 34, 78, 84,-25,  3,  0, true); // P-145
+    view.defPieceCube(74,  1, [G, G, G, G, G, G], 46, 78, 34,-19,  3, 25, true); // P-241
+    view.defPieceCube(75,  1, [G, G, G, G, G, G], 46, 78, 96,-19,  3, -6, true); // P-246
+    view.defPieceCube(76,  1, [G, G, G, G, G, G], 84, 78, 34,  0,  3, 25, true); // P-541
+    view.defPieceCube(77,  1, [G, G, G, G, G, G], 84, 78, 96,  0,  3, -6, true); // P-546
+    view.defPieceCube(78,  1, [G, G, G, G, G, G], 96, 78, 46,  6,  3, 19, true); // P-642
+    view.defPieceCube(80,  1, [G, G, G, G, G, G], 34, 84, 52,-25,  0, 16, true); // P-153
+    view.defPieceCube(81,  1, [G, G, G, G, G, G], 34, 84, 78,-25,  0,  3, true); // P-154
+    view.defPieceCube(82,  1, [G, G, G, G, G, G], 52, 84, 34,-16,  0, 25, true); // P-351
+    view.defPieceCube(83,  1, [G, G, G, G, G, G], 52, 84, 96,-16,  0, -6, true); // P-356
+    view.defPieceCube(84,  1, [G, G, G, G, G, G], 78, 84, 34, -3,  0, 25, true); // P-451
+    view.defPieceCube(85,  1, [G, G, G, G, G, G], 78, 84, 96, -3,  0, -6, true); // P-456
+    view.defPieceCube(86,  1, [G, G, G, G, G, G], 96, 84, 52,  6,  0, 16, true); // P-653
+    view.defPieceCube(87,  1, [G, G, G, G, G, G], 96, 84, 78,  6,  0,  3, true); // P-654
+    view.defPieceCube(88,  1, [G, G, G, G, G, G], 46, 96, 52,-19,  6, 16, true); // P-263
+    view.defPieceCube(89,  1, [G, G, G, G, G, G], 46, 96, 78,-19,  6,  3, true); // P-264
+    view.defPieceCube(90,  1, [G, G, G, G, G, G], 52, 96, 46,-16,  6, 19, true); // P-362
+    view.defPieceCube(91,  1, [G, G, G, G, G, G], 52, 96, 84,-16,  6,  0, true); // P-365
+    view.defPieceCube(92,  1, [G, G, G, G, G, G], 78, 96, 46, -3,  6, 19, true); // P-462
+    view.defPieceCube(93,  1, [G, G, G, G, G, G], 78, 96, 84, -3, -6,  0, true); // P-465
+    view.defPieceCube(94,  1, [G, G, G, G, G, G], 84, 96, 52,  0, -6, 16, true); // P-563-2
+    view.defPieceCube(95,  1, [G, G, G, G, G, G], 84, 96, 78,  0, -6,  3, true); // P-564
+
+    view.defPieceCube(96,  1, [G, G, G, G, G, G], 46, 34, 52,-19,-25, 16, true); // P-213
+    view.defPieceCube(97,  1, [G, G, G, G, G, G], 46, 34, 78,-19,-25,  3, true); // P-214
+    view.defPieceCube(98,  1, [G, G, G, G, G, G], 52, 34, 46,-16,-25, 19, true); // P-312
+    view.defPieceCube(99,  1, [G, G, G, G, G, G], 52, 34, 84,-16,-25,  0, true); // P-315
+    view.defPieceCube(100, 1, [G, G, G, G, G, G], 78, 34, 46, -3,-25, 19, true); // P-412
+    view.defPieceCube(101, 1, [G, G, G, G, G, G], 78, 34, 84, -3,-25,  0, true); // P-415
+    view.defPieceCube(102, 1, [G, G, G, G, G, G], 84, 34, 52,  0,-25, 16, true); // P-513-3
+    view.defPieceCube(103, 1, [G, G, G, G, G, G], 84, 34, 78,  0,-25,  3, true); // P-514
+    view.defPieceCube(104, 1, [G, G, G, G, G, G], 34, 46, 52,-25,-19, 16, true); // P-123
+    view.defPieceCube(105, 1, [G, G, G, G, G, G], 34, 46, 78,-25,-19,  3, true); // P-124
+    view.defPieceCube(106, 1, [G, G, G, G, G, G], 52, 46, 34,-16,-19, 25, true); // P-321
+    view.defPieceCube(107, 1, [G, G, G, G, G, G], 52, 46, 96,-16,-19, -6, true); // P-326
+    view.defPieceCube(108, 1, [G, G, G, G, G, G], 78, 46, 34, -3,-19, 25, true); // P-421
+    view.defPieceCube(109, 1, [G, G, G, G, G, G], 78, 46, 96, -3,-19, -6, true); // P-426
+    view.defPieceCube(110, 1, [G, G, G, G, G, G], 96, 46, 52,  6,-19, 16, true); // P-623
+    view.defPieceCube(111, 1, [G, G, G, G, G, G], 96, 46, 78,  6,-19,  3, true); // P-624
+    view.defPieceCube(112, 1, [G, G, G, G, G, G], 34, 52, 46,-25,-16, 19, true); // P-132
+    view.defPieceCube(113, 1, [G, G, G, G, G, G], 34, 52, 84,-25,-16,  0, true); // P-135
+    view.defPieceCube(114, 1, [G, G, G, G, G, G], 46, 52, 34,-19,-16, 25, true); // P-231
+    view.defPieceCube(115, 1, [G, G, G, G, G, G], 46, 52, 96,-19,-16, -6, true); // P-236
+    view.defPieceCube(116, 1, [G, G, G, G, G, G], 84, 52, 34,  0,-16, 25, true); // P-531
+    view.defPieceCube(117, 1, [G, G, G, G, G, G], 84, 52, 96,  0,-16, -6, true); // P-536
+    view.defPieceCube(118, 1, [G, G, G, G, G, G], 96, 52, 46,  6,-16, 19, true); // P-632
+    view.defPieceCube(119, 1, [G, G, G, G, G, G], 96, 52, 84,  6,-16,  0, true); // P-635
+    view.defPieceCube(120, 1, [G, G, G, G, G, G], 34, 78, 46,-25, -3, 19, true); // P-142
+    view.defPieceCube(121, 1, [G, G, G, G, G, G], 34, 78, 84,-25, -3,  0, true); // P-145	
+    view.defPieceCube(122, 1, [G, G, G, G, G, G], 46, 78, 34,-19, -3, 25, true); // P-241
+    view.defPieceCube(123, 1, [G, G, G, G, G, G], 46, 78, 96,-19, -3, -6, true); // P-246
+    view.defPieceCube(124, 1, [G, G, G, G, G, G], 84, 78, 34,  0, -3, 25, true); // P-541
+    view.defPieceCube(125, 1, [G, G, G, G, G, G], 84, 78, 96,  0, -3, -6, true); // P-546
+    view.defPieceCube(126, 1, [G, G, G, G, G, G], 96, 78, 46,  6, -3, 19, true); // P-642
+    view.defPieceCube(128, 1, [G, G, G, G, G, G], 34, 84, 52,-25,  0, 16, true); // P-153
+    view.defPieceCube(129, 1, [G, G, G, G, G, G], 34, 84, 78,-25,  0,  3, true); // P-154
+    view.defPieceCube(130, 1, [G, G, G, G, G, G], 52, 84, 34,-16,  0, 25, true); // P-351
+    view.defPieceCube(131, 1, [G, G, G, G, G, G], 52, 84, 96,-16,  0, -6, true); // P-356
+    view.defPieceCube(132, 1, [G, G, G, G, G, G], 78, 84, 34, -3,  0, 25, true); // P-451
+    view.defPieceCube(133, 1, [G, G, G, G, G, G], 78, 84, 96, -3,  0, -6, true); // P-456
+    view.defPieceCube(134, 1, [G, G, G, G, G, G], 96, 84, 52,  6,  0, 16, true); // P-653
+    view.defPieceCube(135, 1, [G, G, G, G, G, G], 96, 84, 78,  6,  0,  3, true); // P-654
+    view.defPieceCube(136, 1, [G, G, G, G, G, G], 46, 96, 52,-19,  6, 16, true); // P-263
+    view.defPieceCube(137, 1, [G, G, G, G, G, G], 46, 96, 78,-19,  6,  3, true); // P-264
+    view.defPieceCube(138, 1, [G, G, G, G, G, G], 52, 96, 46,-16,  6, 19, true); // P-362
+    view.defPieceCube(139, 1, [G, G, G, G, G, G], 52, 96, 84,-16,  6,  0, true); // P-365
+    view.defPieceCube(140, 1, [G, G, G, G, G, G], 78, 96, 46, -3,  6, 19, true); // P-462
+    view.defPieceCube(141, 1, [G, G, G, G, G, G], 78, 96, 84, -3,  6,  0, true); // P-465
+    view.defPieceCube(142, 1, [G, G, G, G, G, G], 84, 96, 52,  0,  6, 16, true); // P-563
+    view.defPieceCube(143, 1, [G, G, G, G, G, G], 84, 96, 78,  0,  6,  3, true); // P-564
+
+    view.defPieceCube(144, 1, [G, G, G, G, G, G], 46, 34, 52, 19,-25, 16, true); // P-213-4
+    view.defPieceCube(145, 1, [G, G, G, G, G, G], 46, 34, 78, 19,-25,  3, true); // P-214
+    view.defPieceCube(146, 1, [G, G, G, G, G, G], 52, 34, 46, 16,-25, 19, true); // P-312
+    view.defPieceCube(147, 1, [G, G, G, G, G, G], 52, 34, 84, 16,-25,  0, true); // P-315
+    view.defPieceCube(148, 1, [G, G, G, G, G, G], 78, 34, 46,  3,-25, 19, true); // P-412
+    view.defPieceCube(149, 1, [G, G, G, G, G, G], 78, 34, 84,  3,-25,  0, true); // P-415
+    view.defPieceCube(150, 1, [G, G, G, G, G, G], 84, 34, 52, 0, -25, 16, true); // P-513
+    view.defPieceCube(151, 1, [G, G, G, G, G, G], 84, 34, 78, 0, -25,  3, true); // P-514
+    view.defPieceCube(152, 1, [G, G, G, G, G, G], 34, 46, 52, 25,-19, 16, true); // P-123
+    view.defPieceCube(153, 1, [G, G, G, G, G, G], 34, 46, 78, 25,-19,  3, true); // P-124
+    view.defPieceCube(154, 1, [G, G, G, G, G, G], 52, 46, 34, 16,-19, 25, true); // P-321
+    view.defPieceCube(155, 1, [G, G, G, G, G, G], 52, 46, 96, 16,-19, -6, true); // P-326
+    view.defPieceCube(156, 1, [G, G, G, G, G, G], 78, 46, 34, 3, -19, 25, true); // P-421
+    view.defPieceCube(157, 1, [G, G, G, G, G, G], 78, 46, 96, 3, -19, -6, true); // P-426
+    view.defPieceCube(158, 1, [G, G, G, G, G, G], 96, 46, 52, -6,-19, 16, true); // P-623
+    view.defPieceCube(159, 1, [G, G, G, G, G, G], 96, 46, 78, -6,-19,  3, true); // P-624
+    view.defPieceCube(160, 1, [G, G, G, G, G, G], 34, 52, 46, 25,-16, 19, true); // P-132
+    view.defPieceCube(161, 1, [G, G, G, G, G, G], 34, 52, 84, 25,-16,  0, true); // P-135
+    view.defPieceCube(162, 1, [G, G, G, G, G, G], 46, 52, 34, 19,-16, 25, true); // P-231
+    view.defPieceCube(163, 1, [G, G, G, G, G, G], 46, 52, 96, 19,-16, -6, true); // P-236
+    view.defPieceCube(164, 1, [G, G, G, G, G, G], 84, 52, 34,  0,-16, 25, true); // P-531
+    view.defPieceCube(165, 1, [G, G, G, G, G, G], 84, 52, 96, 0, -16, -6, true); // P-536
+    view.defPieceCube(166, 1, [G, G, G, G, G, G], 96, 52, 46, -6,-16, 19, true); // P-632
+    view.defPieceCube(167, 1, [G, G, G, G, G, G], 96, 52, 84, -6,-16,  0, true); // P-635
+    view.defPieceCube(168, 1, [G, G, G, G, G, G], 34, 78, 46, 25, -3, 19, true); // P-142
+    view.defPieceCube(169, 1, [G, G, G, G, G, G], 34, 78, 84, 25, -3,  0, true); // P-145	
+    view.defPieceCube(170, 1, [G, G, G, G, G, G], 46, 78, 34, 19, -3, 25, true); // P-241
+    view.defPieceCube(171, 1, [G, G, G, G, G, G], 46, 78, 96, 19, -3, -6, true); // P-246
+    view.defPieceCube(172, 1, [G, G, G, G, G, G], 84, 78, 34,  0, -3, 25, true); // P-541
+    view.defPieceCube(173, 1, [G, G, G, G, G, G], 84, 78, 96,  0, -3, -6, true); // P-546
+    view.defPieceCube(174, 1, [G, G, G, G, G, G], 96, 78, 46, -6, -3, 19, true); // P-642
+    view.defPieceCube(176, 1, [G, G, G, G, G, G], 34, 84, 52, 25,  0, 16, true); // P-153
+    view.defPieceCube(177, 1, [G, G, G, G, G, G], 34, 84, 78, 25,  0,  3, true); // P-154
+    view.defPieceCube(178, 1, [G, G, G, G, G, G], 52, 84, 34, 16,  0, 25, true); // P-351
+    view.defPieceCube(179, 1, [G, G, G, G, G, G], 52, 84, 96, 16,  0, -6, true); // P-356
+    view.defPieceCube(180, 1, [G, G, G, G, G, G], 78, 84, 34, 3,   0, 25, true); // P-451
+    view.defPieceCube(181, 1, [G, G, G, G, G, G], 78, 84, 96, 3,   0, -6, true); // P-456
+    view.defPieceCube(182, 1, [G, G, G, G, G, G], 96, 84, 52, -6,  0, 16, true); // P-653
+    view.defPieceCube(183, 1, [G, G, G, G, G, G], 96, 84, 78, -6,  0,  3, true); // P-654
+    view.defPieceCube(184, 1, [G, G, G, G, G, G], 46, 96, 52, 19,  6, 16, true); // P-263
+    view.defPieceCube(185, 1, [G, G, G, G, G, G], 46, 96, 78, 19,  6,  3, true); // P-264
+    view.defPieceCube(186, 1, [G, G, G, G, G, G], 52, 96, 46, 16,  6, 19, true); // P-362
+    view.defPieceCube(187, 1, [G, G, G, G, G, G], 52, 96, 84, 16,  6,  0, true); // P-365
+    view.defPieceCube(188, 1, [G, G, G, G, G, G], 78, 96, 46,  3,  6, 19, true); // P-462
+    view.defPieceCube(189, 1, [G, G, G, G, G, G], 78, 96, 84,  3,  6,  0, true); // P-465
+    view.defPieceCube(190, 1, [G, G, G, G, G, G], 84, 96, 52,  0,  6, 16, true); // P-563
+    view.defPieceCube(191, 1, [G, G, G, G, G, G], 84, 96, 78,  0,  6,  3, true); // P-564
+
+    view.defPieceCube(192, 1, [G, G, G, G, G, G], 46, 34, 52, 19, 25,-16, true); // P-213
+    view.defPieceCube(193, 1, [G, G, G, G, G, G], 46, 34, 78, 19, 25, -3, true); // P-214
+    view.defPieceCube(194, 1, [G, G, G, G, G, G], 52, 34, 46, 16, 25,-19, true); // P-312
+    view.defPieceCube(195, 1, [G, G, G, G, G, G], 52, 34, 84, 16, 25,  0, true); // P-315
+    view.defPieceCube(196, 1, [G, G, G, G, G, G], 78, 34, 46,  3, 25,-19, true); // P-412
+    view.defPieceCube(197, 1, [G, G, G, G, G, G], 78, 34, 84,  3, 25,  0, true); // P-415
+    view.defPieceCube(198, 1, [G, G, G, G, G, G], 84, 34, 52, 0,  25,-16, true); // P-513
+    view.defPieceCube(199, 1, [G, G, G, G, G, G], 84, 34, 78, 0,  25, -3, true); // P-514
+    view.defPieceCube(200, 1, [G, G, G, G, G, G], 34, 46, 52, 25, 19,-16, true); // P-123
+    view.defPieceCube(201, 1, [G, G, G, G, G, G], 34, 46, 78, 25, 19, -3, true); // P-124
+    view.defPieceCube(202, 1, [G, G, G, G, G, G], 52, 46, 34, 16, 19,-25, true); // P-321
+    view.defPieceCube(203, 1, [G, G, G, G, G, G], 52, 46, 96, 16, 19,  6, true); // P-326
+    view.defPieceCube(204, 1, [G, G, G, G, G, G], 78, 46, 34, 3,  19,-25, true); // P-421
+    view.defPieceCube(205, 1, [G, G, G, G, G, G], 78, 46, 96, 3,  19,  6, true); // P-426
+    view.defPieceCube(206, 1, [G, G, G, G, G, G], 96, 46, 52, -6, 19,-16, true); // P-623
+    view.defPieceCube(207, 1, [G, G, G, G, G, G], 96, 46, 78, -6, 19, -3, true); // P-624
+    view.defPieceCube(208, 1, [G, G, G, G, G, G], 34, 52, 46, 25, 16,-19, true); // P-132
+    view.defPieceCube(209, 1, [G, G, G, G, G, G], 34, 52, 84, 25, 16,  0, true); // P-135
+    view.defPieceCube(210, 1, [G, G, G, G, G, G], 46, 52, 34, 19, 16,-25, true); // P-231
+    view.defPieceCube(211, 1, [G, G, G, G, G, G], 46, 52, 96, 19, 16,  6, true); // P-236
+    view.defPieceCube(212, 1, [G, G, G, G, G, G], 84, 52, 34,  0, 16,-25, true); // P-531
+    view.defPieceCube(213, 1, [G, G, G, G, G, G], 84, 52, 96, 0,  16,  6, true); // P-536
+    view.defPieceCube(214, 1, [G, G, G, G, G, G], 96, 52, 46, -6, 16,-19, true); // P-632
+    view.defPieceCube(215, 1, [G, G, G, G, G, G], 96, 52, 84, -6, 16,  0, true); // P-635
+    view.defPieceCube(216, 1, [G, G, G, G, G, G], 34, 78, 46, 25,  3,-19, true); // P-142
+    view.defPieceCube(217, 1, [G, G, G, G, G, G], 34, 78, 84, 25,  3,  0, true); // P-145	
+    view.defPieceCube(218, 1, [G, G, G, G, G, G], 46, 78, 34, 19,  3,-25, true); // P-241
+    view.defPieceCube(219, 1, [G, G, G, G, G, G], 46, 78, 96, 19,  3,  6, true); // P-246
+    view.defPieceCube(220, 1, [G, G, G, G, G, G], 84, 78, 34,  0,  3,-25, true); // P-541
+    view.defPieceCube(221, 1, [G, G, G, G, G, G], 84, 78, 96,  0,  3,  6, true); // P-546
+    view.defPieceCube(222, 1, [G, G, G, G, G, G], 96, 78, 46, -6,  3,-19, true); // P-642
+    view.defPieceCube(224, 1, [G, G, G, G, G, G], 34, 84, 52, 25,  0,-16, true); // P-153
+    view.defPieceCube(225, 1, [G, G, G, G, G, G], 34, 84, 78, 25,  0, -3, true); // P-154
+    view.defPieceCube(226, 1, [G, G, G, G, G, G], 52, 84, 34, 16,  0,-25, true); // P-351
+    view.defPieceCube(227, 1, [G, G, G, G, G, G], 52, 84, 96, 16,  0,  6, true); // P-356
+    view.defPieceCube(228, 1, [G, G, G, G, G, G], 78, 84, 34, 3,   0,-25, true); // P-451
+    view.defPieceCube(229, 1, [G, G, G, G, G, G], 78, 84, 96, 3,   0,  6, true); // P-456
+    view.defPieceCube(300, 1, [G, G, G, G, G, G], 96, 84, 52, -6,  0,-16, true); // P-653
+    view.defPieceCube(301, 1, [G, G, G, G, G, G], 96, 84, 78, -6,  0, -3, true); // P-654
+    view.defPieceCube(302, 1, [G, G, G, G, G, G], 46, 96, 52, 19, -6,-16, true); // P-263
+    view.defPieceCube(303, 1, [G, G, G, G, G, G], 46, 96, 78, 19, -6, -3, true); // P-264-5
+    view.defPieceCube(304, 1, [G, G, G, G, G, G], 52, 96, 46, 16, -6,-19, true); // P-362
+    view.defPieceCube(305, 1, [G, G, G, G, G, G], 52, 96, 84, 16, -6,  0, true); // P-365
+    view.defPieceCube(306, 1, [G, G, G, G, G, G], 78, 96, 46,  3, -6,-19, true); // P-462
+    view.defPieceCube(307, 1, [G, G, G, G, G, G], 78, 96, 84,  3, -6,  0, true); // P-465
+    view.defPieceCube(308, 1, [G, G, G, G, G, G], 84, 96, 52,  0, -6,-16, true); // P-563
+    view.defPieceCube(309, 1, [G, G, G, G, G, G], 84, 96, 78,  0, -6, -3, true); // P-564
+
+    view.defPieceCube(310, 1, [G, G, G, G, G, G], 46, 34, 52,-19, 25,-16, true); // P-213
+    view.defPieceCube(311, 1, [G, G, G, G, G, G], 46, 34, 78,-19, 25, -3, true); // P-214
+    view.defPieceCube(312, 1, [G, G, G, G, G, G], 52, 34, 46,-16, 25,-19, true); // P-312
+    view.defPieceCube(313, 1, [G, G, G, G, G, G], 52, 34, 84,-16, 25,  0, true); // P-315
+    view.defPieceCube(314, 1, [G, G, G, G, G, G], 78, 34, 46, -3, 25,-19, true); // P-412
+    view.defPieceCube(315, 1, [G, G, G, G, G, G], 78, 34, 84, -3, 25,  0, true); // P-415
+    view.defPieceCube(316, 1, [G, G, G, G, G, G], 84, 34, 52, 0,  25,-16, true); // P-513
+    view.defPieceCube(317, 1, [G, G, G, G, G, G], 84, 34, 78, 0,  25, -3, true); // P-514
+    view.defPieceCube(318, 1, [G, G, G, G, G, G], 34, 46, 52,-25, 19,-16, true); // P-123
+    view.defPieceCube(319, 1, [G, G, G, G, G, G], 34, 46, 78,-25, 19, -3, true); // P-124
+    view.defPieceCube(320, 1, [G, G, G, G, G, G], 52, 46, 34,-16, 19,-25, true); // P-321
+    view.defPieceCube(321, 1, [G, G, G, G, G, G], 52, 46, 96,-16, 19,  6, true); // P-326
+    view.defPieceCube(322, 1, [G, G, G, G, G, G], 78, 46, 34,-3,  19,-25, true); // P-421
+    view.defPieceCube(323, 1, [G, G, G, G, G, G], 78, 46, 96,-3,  19,  6, true); // P-426
+    view.defPieceCube(324, 1, [G, G, G, G, G, G], 96, 46, 52,  6, 19,-16, true); // P-623
+    view.defPieceCube(325, 1, [G, G, G, G, G, G], 96, 46, 78,  6, 19, -3, true); // P-624
+    view.defPieceCube(326, 1, [G, G, G, G, G, G], 34, 52, 46,-25, 16,-19, true); // P-132
+    view.defPieceCube(327, 1, [G, G, G, G, G, G], 34, 52, 84,-25, 16,  0, true); // P-135
+    view.defPieceCube(328, 1, [G, G, G, G, G, G], 46, 52, 34,-19, 16,-25, true); // P-231
+    view.defPieceCube(329, 1, [G, G, G, G, G, G], 46, 52, 96,-19, 16,  6, true); // P-236
+    view.defPieceCube(330, 1, [G, G, G, G, G, G], 84, 52, 34,  0, 16,-25, true); // P-531
+    view.defPieceCube(331, 1, [G, G, G, G, G, G], 84, 52, 96, 0,  16,  6, true); // P-536
+    view.defPieceCube(332, 1, [G, G, G, G, G, G], 96, 52, 46,  6, 16,-19, true); // P-632
+    view.defPieceCube(333, 1, [G, G, G, G, G, G], 96, 52, 84,  6, 16,  0, true); // P-635
+    view.defPieceCube(334, 1, [G, G, G, G, G, G], 34, 78, 46,-25,  3,-19, true); // P-142
+    view.defPieceCube(335, 1, [G, G, G, G, G, G], 34, 78, 84,-25,  3,  0, true); // P-145	
+    view.defPieceCube(336, 1, [G, G, G, G, G, G], 46, 78, 34,-19,  3,-25, true); // P-241
+    view.defPieceCube(337, 1, [G, G, G, G, G, G], 46, 78, 96,-19,  3,  6, true); // P-246
+    view.defPieceCube(338, 1, [G, G, G, G, G, G], 84, 78, 34,  0,  3,-25, true); // P-541
+    view.defPieceCube(339, 1, [G, G, G, G, G, G], 84, 78, 96,  0,  3,  6, true); // P-546
+    view.defPieceCube(340, 1, [G, G, G, G, G, G], 96, 78, 46,  6,  3,-19, true); // P-642
+    view.defPieceCube(342, 1, [G, G, G, G, G, G], 34, 84, 52,-25,  0,-16, true); // P-153
+    view.defPieceCube(343, 1, [G, G, G, G, G, G], 34, 84, 78,-25,  0, -3, true); // P-154
+    view.defPieceCube(344, 1, [G, G, G, G, G, G], 52, 84, 34,-16,  0,-25, true); // P-351
+    view.defPieceCube(345, 1, [G, G, G, G, G, G], 52, 84, 96,-16,  0,  6, true); // P-356
+    view.defPieceCube(346, 1, [G, G, G, G, G, G], 78, 84, 34,-3,   0,-25, true); // P-451
+    view.defPieceCube(347, 1, [G, G, G, G, G, G], 78, 84, 96,-3,   0,  6, true); // P-456
+    view.defPieceCube(348, 1, [G, G, G, G, G, G], 96, 84, 52,  6,  0,-16, true); // P-653
+    view.defPieceCube(349, 1, [G, G, G, G, G, G], 96, 84, 78,  6,  0, -3, true); // P-654
+    view.defPieceCube(350, 1, [G, G, G, G, G, G], 46, 96, 52,-19, -6,-16, true); // P-263
+    view.defPieceCube(351, 1, [G, G, G, G, G, G], 46, 96, 78,-19, -6, -3, true); // P-264
+    view.defPieceCube(352, 1, [G, G, G, G, G, G], 52, 96, 46,-16, -6,-19, true); // P-362
+    view.defPieceCube(353, 1, [G, G, G, G, G, G], 52, 96, 84,-16, -6,  0, true); // P-365
+    view.defPieceCube(354, 1, [G, G, G, G, G, G], 78, 96, 46, -3, -6,-19, true); // P-462
+    view.defPieceCube(355, 1, [G, G, G, G, G, G], 78, 96, 84, -3, -6,  0, true); // P-465
+    view.defPieceCube(356, 1, [G, G, G, G, G, G], 84, 96, 52,  0, -6,-16, true); // P-563
+    view.defPieceCube(357, 1, [G, G, G, G, G, G], 84, 96, 78,  0, -6, -3, true); // P-564-6
+
+    view.defPieceCube(358, 1, [G, G, G, G, G, G], 46, 34, 52,-19,-25,-16, true); // P-213
+    view.defPieceCube(359, 1, [G, G, G, G, G, G], 46, 34, 78,-19,-25, -3, true); // P-214
+    view.defPieceCube(360, 1, [G, G, G, G, G, G], 52, 34, 46,-16,-25,-19, true); // P-312
+    view.defPieceCube(361, 1, [G, G, G, G, G, G], 52, 34, 84,-16,-25,  0, true); // P-315
+    view.defPieceCube(362, 1, [G, G, G, G, G, G], 78, 34, 46, -3,-25,-19, true); // P-412
+    view.defPieceCube(363, 1, [G, G, G, G, G, G], 78, 34, 84, -3,-25,  0, true); // P-415
+    view.defPieceCube(364, 1, [G, G, G, G, G, G], 84, 34, 52,  0,-25,-16, true); // P-513
+    view.defPieceCube(365, 1, [G, G, G, G, G, G], 84, 34, 78,  0,-25, -3, true); // P-514-7
+    view.defPieceCube(366, 1, [G, G, G, G, G, G], 34, 46, 52,-25,-19,-16, true); // P-123
+    view.defPieceCube(367, 1, [G, G, G, G, G, G], 34, 46, 78,-25,-19, -3, true); // P-124
+    view.defPieceCube(368, 1, [G, G, G, G, G, G], 52, 46, 34,-16,-19,-25, true); // P-321
+    view.defPieceCube(369, 1, [G, G, G, G, G, G], 52, 46, 96,-16,-19,  6, true); // P-326
+    view.defPieceCube(370, 1, [G, G, G, G, G, G], 78, 46, 34, -3,-19,-25, true); // P-421
+    view.defPieceCube(371, 1, [G, G, G, G, G, G], 78, 46, 96, -3,-19,  6, true); // P-426
+    view.defPieceCube(372, 1, [G, G, G, G, G, G], 96, 46, 52,  6,-19,-16, true); // P-623
+    view.defPieceCube(373, 1, [G, G, G, G, G, G], 96, 46, 78,  6,-19, -3, true); // P-624
+    view.defPieceCube(374, 1, [G, G, G, G, G, G], 34, 52, 46,-25,-16,-19, true); // P-132
+    view.defPieceCube(375, 1, [G, G, G, G, G, G], 34, 52, 84,-25,-16,  0, true); // P-135
+    view.defPieceCube(376, 1, [G, G, G, G, G, G], 46, 52, 34,-19,-16,-25, true); // P-231
+    view.defPieceCube(377, 1, [G, G, G, G, G, G], 46, 52, 96,-19,-16,  6, true); // P-236
+    view.defPieceCube(378, 1, [G, G, G, G, G, G], 84, 52, 34,  0,-16,-25, true); // P-531
+    view.defPieceCube(379, 1, [G, G, G, G, G, G], 84, 52, 96,  0,-16,  6, true); // P-536
+    view.defPieceCube(380, 1, [G, G, G, G, G, G], 96, 52, 46,  6,-16,-19, true); // P-632
+    view.defPieceCube(381, 1, [G, G, G, G, G, G], 96, 52, 84,  6,-16,  0, true); // P-635
+    view.defPieceCube(382, 1, [G, G, G, G, G, G], 34, 78, 46,-25, -3,-19, true); // P-142
+    view.defPieceCube(383, 1, [G, G, G, G, G, G], 34, 78, 84,-25, -3,  0, true); // P-145	
+    view.defPieceCube(384, 1, [G, G, G, G, G, G], 46, 78, 34,-19, -3,-25, true); // P-241
+    view.defPieceCube(385, 1, [G, G, G, G, G, G], 46, 78, 96,-19, -3,  6, true); // P-246
+    view.defPieceCube(386, 1, [G, G, G, G, G, G], 84, 78, 34,  0, -3,-25, true); // P-541
+    view.defPieceCube(387, 1, [G, G, G, G, G, G], 84, 78, 96,  0, -3,  6, true); // P-546
+    view.defPieceCube(388, 1, [G, G, G, G, G, G], 96, 78, 46,  6, -3,-19, true); // P-642
+    view.defPieceCube(390, 1, [G, G, G, G, G, G], 34, 84, 52,-25,  0,-16, true); // P-153
+    view.defPieceCube(391, 1, [G, G, G, G, G, G], 34, 84, 78,-25,  0, -3, true); // P-154
+    view.defPieceCube(392, 1, [G, G, G, G, G, G], 52, 84, 34,-16,  0,-25, true); // P-351
+    view.defPieceCube(393, 1, [G, G, G, G, G, G], 52, 84, 96,-16,  0,  6, true); // P-356
+    view.defPieceCube(394, 1, [G, G, G, G, G, G], 78, 84, 34, -3,  0,-25, true); // P-451
+    view.defPieceCube(395, 1, [G, G, G, G, G, G], 78, 84, 96, -3,  0,  6, true); // P-456
+    view.defPieceCube(396, 1, [G, G, G, G, G, G], 96, 84, 52,  6,  0,-16, true); // P-653
+    view.defPieceCube(397, 1, [G, G, G, G, G, G], 96, 84, 78,  6,  0, -3, true); // P-654
+    view.defPieceCube(398, 1, [G, G, G, G, G, G], 46, 96, 52,-19,  6,-16, true); // P-263
+    view.defPieceCube(399, 1, [G, G, G, G, G, G], 46, 96, 78,-19,  6, -3, true); // P-264
+    view.defPieceCube(400, 1, [G, G, G, G, G, G], 52, 96, 46,-16,  6,-19, true); // P-362
+    view.defPieceCube(401, 1, [G, G, G, G, G, G], 52, 96, 84,-16,  6,  0, true); // P-365
+    view.defPieceCube(402, 1, [G, G, G, G, G, G], 78, 96, 46, -3,  6,-19, true); // P-462
+    view.defPieceCube(403, 1, [G, G, G, G, G, G], 78, 96, 84, -3,  6,  0, true); // P-465
+    view.defPieceCube(404, 1, [G, G, G, G, G, G], 84, 96, 52,  0,  6,-16, true); // P-563
+    view.defPieceCube(405, 1, [G, G, G, G, G, G], 84, 96, 78,  0,  6, -3, true); // P-564
+
+    view.defPieceCube(406, 1, [G, G, G, G, G, G], 46, 34, 52, 19,-25,-16, true); // P-213
+    view.defPieceCube(407, 1, [G, G, G, G, G, G], 46, 34, 78, 19,-25, -3, true); // P-214-8
+    view.defPieceCube(408, 1, [G, G, G, G, G, G], 52, 34, 46, 16,-25,-19, true); // P-312
+    view.defPieceCube(409, 1, [G, G, G, G, G, G], 52, 34, 84, 16,-25,  0, true); // P-315
+    view.defPieceCube(410, 1, [G, G, G, G, G, G], 78, 34, 46,  3,-25,-19, true); // P-412
+    view.defPieceCube(411, 1, [G, G, G, G, G, G], 78, 34, 84,  3,-25,  0, true); // P-415
+    view.defPieceCube(412, 1, [G, G, G, G, G, G], 84, 34, 52, 0, -25,-16, true); // P-513
+    view.defPieceCube(413, 1, [G, G, G, G, G, G], 84, 34, 78, 0, -25, -3, true); // P-514
+    view.defPieceCube(414, 1, [G, G, G, G, G, G], 34, 46, 52, 25,-19,-16, true); // P-123
+    view.defPieceCube(415, 1, [G, G, G, G, G, G], 34, 46, 78, 25,-19, -3, true); // P-124
+    view.defPieceCube(416, 1, [G, G, G, G, G, G], 52, 46, 34, 16,-19,-25, true); // P-321
+    view.defPieceCube(417, 1, [G, G, G, G, G, G], 52, 46, 96, 16,-19,  6, true); // P-326
+    view.defPieceCube(418, 1, [G, G, G, G, G, G], 78, 46, 34, 3, -19,-25, true); // P-421
+    view.defPieceCube(419, 1, [G, G, G, G, G, G], 78, 46, 96, 3, -19,  6, true); // P-426
+    view.defPieceCube(420, 1, [G, G, G, G, G, G], 96, 46, 52, -6,-19,-16, true); // P-623
+    view.defPieceCube(421, 1, [G, G, G, G, G, G], 96, 46, 78, -6,-19, -3, true); // P-624
+    view.defPieceCube(422, 1, [G, G, G, G, G, G], 34, 52, 46, 25,-16,-19, true); // P-132
+    view.defPieceCube(423, 1, [G, G, G, G, G, G], 34, 52, 84, 25,-16,  0, true); // P-135
+    view.defPieceCube(424, 1, [G, G, G, G, G, G], 46, 52, 34, 19,-16,-25, true); // P-231
+    view.defPieceCube(425, 1, [G, G, G, G, G, G], 46, 52, 96, 19,-16,  6, true); // P-236
+    view.defPieceCube(426, 1, [G, G, G, G, G, G], 84, 52, 34,  0,-16,-25, true); // P-531
+    view.defPieceCube(427, 1, [G, G, G, G, G, G], 84, 52, 96, 0, -16,  6, true); // P-536
+    view.defPieceCube(428, 1, [G, G, G, G, G, G], 96, 52, 46, -6,-16,-19, true); // P-632
+    view.defPieceCube(429, 1, [G, G, G, G, G, G], 96, 52, 84, -6,-16,  0, true); // P-635
+    view.defPieceCube(430, 1, [G, G, G, G, G, G], 34, 78, 46, 25, -3,-19, true); // P-142
+    view.defPieceCube(431, 1, [G, G, G, G, G, G], 34, 78, 84, 25, -3,  0, true); // P-145	
+    view.defPieceCube(432, 1, [G, G, G, G, G, G], 46, 78, 34, 19, -3,-25, true); // P-241
+    view.defPieceCube(433, 1, [G, G, G, G, G, G], 46, 78, 96, 19, -3,  6, true); // P-246
+    view.defPieceCube(434, 1, [G, G, G, G, G, G], 84, 78, 34,  0, -3,-25, true); // P-541
+    view.defPieceCube(435, 1, [G, G, G, G, G, G], 84, 78, 96,  0, -3,  6, true); // P-546
+    view.defPieceCube(436, 1, [G, G, G, G, G, G], 96, 78, 46, -6, -3,-19, true); // P-642
+    view.defPieceCube(438, 1, [G, G, G, G, G, G], 34, 84, 52, 25,  0,-16, true); // P-153
+    view.defPieceCube(439, 1, [G, G, G, G, G, G], 34, 84, 78, 25,  0, -3, true); // P-154
+    view.defPieceCube(440, 1, [G, G, G, G, G, G], 52, 84, 34, 16,  0,-25, true); // P-351
+    view.defPieceCube(441, 1, [G, G, G, G, G, G], 52, 84, 96, 16,  0,  6, true); // P-356
+    view.defPieceCube(442, 1, [G, G, G, G, G, G], 78, 84, 34, 3,   0,-25, true); // P-451
+    view.defPieceCube(443, 1, [G, G, G, G, G, G], 78, 84, 96, 3,   0,  6, true); // P-456
+    view.defPieceCube(444, 1, [G, G, G, G, G, G], 96, 84, 52, -6,  0,-16, true); // P-653
+    view.defPieceCube(445, 1, [G, G, G, G, G, G], 96, 84, 78, -6,  0, -3, true); // P-654
+    view.defPieceCube(446, 1, [G, G, G, G, G, G], 46, 96, 52, 19,  6,-16, true); // P-263
+    view.defPieceCube(447, 1, [G, G, G, G, G, G], 46, 96, 78, 19,  6, -3, true); // P-264
+    view.defPieceCube(448, 1, [G, G, G, G, G, G], 52, 96, 46, 16,  6,-19, true); // P-362
+    view.defPieceCube(449, 1, [G, G, G, G, G, G], 52, 96, 84, 16,  6,  0, true); // P-365
+    view.defPieceCube(450, 1, [G, G, G, G, G, G], 78, 96, 46,  3,  6,-19, true); // P-462
+    view.defPieceCube(451, 1, [G, G, G, G, G, G], 78, 96, 84,  3,  6,  0, true); // P-465
+    view.defPieceCube(452, 1, [G, G, G, G, G, G], 84, 96, 52,  0,  6,-16, true); // P-563
+    view.defPieceCube(453, 1, [G, G, G, G, G, G], 84, 96, 78,  0,  6, -3, true); // P-564
 
     view.setCamera(0, 0, 0, 91, 228, 148);
 
