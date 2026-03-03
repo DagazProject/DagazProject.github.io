@@ -161,8 +161,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [7], 0);
     design.addMove(0, 1, [3], 0);
     design.addMove(0, 1, [8], 0);
-    design.addMove(0, 2, [], 0);
-    design.addMove(0, 3, [0, 4], 1);
+//  design.addMove(0, 2, [], 0);
+//  design.addMove(0, 3, [0, 4], 1);
 
     design.setup("Red", "Stone", 29);
     design.setup("Red", "Stone", 30);
@@ -198,10 +198,10 @@ Dagaz.View.configure = function(view) {
     const blue = 0x1111FF;
     const tokenPath = '../res/xiangqi';
 
-    view.defPieceToken(0, 1, tokenPath, 'token.js', undefined, 'Bump', blue);
-    view.defPieceToken(0, 2, tokenPath, 'token.js', undefined, 'Bump', red);
+    view.defPieceToken(0, 1, tokenPath, 'token.js', undefined, 'Bump', red);
+    view.defPieceToken(0, 2, tokenPath, 'token.js', undefined, 'Bump', blue);
 
-    view.setCamera(0, 0, 0, -109, 215, 155);
+    view.setCamera(0, 0, 0, -105, 184, 190);
 
 //  view.defControl("InfoControl", "", true);
 //  view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle.htm' : 'triangle-board.htm');
