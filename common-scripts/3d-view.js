@@ -575,7 +575,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           if (Dagaz.View.RENDER_ORDER) {
               piece.renderOrder = 2;
           }
-          piece.scale.set(2.5, 2.5, 2.5);
+          piece.scale.set(pieceType.scale, pieceType.scale, pieceType.scale);
           scene.add(piece);   
           pieces.push(piece);
       } else if (pieceType && pieceType.kind == PIECE_TYPE.MODEL) {
@@ -597,7 +597,7 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           if (Dagaz.View.RENDER_ORDER) {
               piece.renderOrder = 2;
           }
-          piece.scale.set(2.5, 2.5, 2.5);
+          piece.scale.set(pieceType.scale, pieceType.scale, pieceType.scale);
           scene.add(piece);   
           pieces.push(piece);
       } else if (pieceType && pieceType.kind == PIECE_TYPE.PLATFORM) {
@@ -760,8 +760,9 @@ View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args)
   });
 }
 
-View3D.prototype.defPieceToken = function(type, player, path, model, image, bump, color) {
+View3D.prototype.defPieceToken = function(type, player, path, model, image, bump, color, scale) {
   if (_.isUndefined(color)) color = 0x3F3F3F;
+  if (_.isUndefined(scale)) scale = 2.5;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
   const key = type * 10 + (+player);
@@ -781,7 +782,8 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
      model:  path + '/' + model,
      image:  !_.isUndefined(image) ? document.getElementById(image) : null,
      bump:   !_.isUndefined(bump)  ? document.getElementById(bump)  : null,
-     color:  color
+     color:  color,
+     scale:  scale
   };
 }
 
@@ -850,7 +852,8 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
   };
 }
 
-View3D.prototype.defPieceModel = function(type, player, path, model, color) {
+View3D.prototype.defPieceModel = function(type, player, path, model, color, scale) {
+  if (_.isUndefined(scale)) scale = 2.5;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
   const key = type*10 + (+player);
@@ -861,6 +864,7 @@ View3D.prototype.defPieceModel = function(type, player, path, model, color) {
      player: player,
      model: path + '/' + model + '/' + model + '.js',
      color: color,
+     scale: scale,
      textures: {
          diffuse: path + '/' + model + '/' + model + '-diffusemap.jpg',
          normal: path + '/' + model + '/' + model + '-normalmap.jpg'
@@ -1311,7 +1315,7 @@ View3D.prototype.animate = function() {
       if (Dagaz.View.RENDER_ORDER) {
           piece.renderOrder = 2;
       }
-      piece.scale.set(2.5, 2.5, 2.5);
+      piece.scale.set(q.pieceType.scale, q.pieceType.scale, q.pieceType.scale);
       this.removePiece(q.piece.pos);
       scene.remove(q.piece);
       if (q.pieceType.kind == PIECE_TYPE.PLATFORM) {

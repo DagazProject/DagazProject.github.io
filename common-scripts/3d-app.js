@@ -12,6 +12,7 @@ const STATE = {
 
 const WAIT_FRAME = 100;
 
+let passForced   = 0;
 let dropIndex    = 0;
 let once         = false;
 let onceDraw     = true;
@@ -423,6 +424,33 @@ App.prototype.exec = function() {
                  ko = this.board.ko;
              }
              this.view.markPositions(Dagaz.View.markType.KO, ko);
+             if (this.list.isPassForced()) {
+                  if (Dagaz.Model.passForcedDraw && (passForced >= this.design.getPlayersCount())) {
+                      this.state = STATE.DONE;
+                      Canvas.style.cursor = "default";
+                      if (!_.isUndefined(Dagaz.Controller.play)) {
+                          Dagaz.Controller.play(Dagaz.Sounds.draw);
+                      }
+                      this.gameOver("Draw", 0);
+                  } else {
+                      this.boardApply(Dagaz.Model.createMove());
+                      this.state = STATE.IDLE;
+                      delete this.list;
+                      this.view.clearDrops();
+                      passForced++;
+                  }
+                  return;
+             }
+             passForced = 0;
+             if (this.list.isEmpty()) {
+                 this.state = STATE.DONE;
+                 Canvas.style.cursor = "default";
+                 if (!_.isUndefined(Dagaz.Controller.play)) {
+                     Dagaz.Controller.play(Dagaz.Sounds.lose);
+                 }
+                 this.gameOver(player + " lose", -this.board.player);
+                 return;
+             }
          }
       }
   }
@@ -450,6 +478,24 @@ App.prototype.exec = function() {
           if (result.done || (Date.now() - this.timestamp >= this.params.AI_WAIT)) {
               this.boardApply(result.move);
               Dagaz.Model.Done(this.design, this.board);
+              if (result.move.isPass()) {
+                  if (Dagaz.Model.passForcedDraw && (passForced >= this.design.getPlayersCount())) {
+                      this.state = STATE.DONE;
+                      Canvas.style.cursor = "default";
+                      if (!_.isUndefined(Dagaz.Controller.play)) {
+                          Dagaz.Controller.play(Dagaz.Sounds.draw);
+                      }
+                      this.gameOver("Draw", 0);
+                  } else {
+                      this.state = STATE.IDLE;
+                      delete this.list;
+                      this.view.clearDrops();
+                      passForced++;
+                      return;
+                  }
+              } else {
+                  passForced = 0;
+              }
               this.move = result.move;
               if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
                   var sound = Dagaz.Sounds.move;

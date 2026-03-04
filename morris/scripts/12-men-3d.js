@@ -38,15 +38,15 @@ Dagaz.Model.BuildDesign = function(design) {
 //  design.checkVersion("morris-check", "true");
 //  design.checkVersion("morris-goal", "true");
 
-    design.addDirection("n");
-    design.addDirection("e");
-    design.addDirection("w");
-    design.addDirection("s");
-    design.addDirection("x");
-    design.addDirection("nw");
-    design.addDirection("ne");
-    design.addDirection("sw");
-    design.addDirection("se");
+    design.addDirection("n");  // 0
+    design.addDirection("e");  // 1
+    design.addDirection("w");  // 2
+    design.addDirection("s");  // 3
+    design.addDirection("x");  // 4
+    design.addDirection("nw"); // 5
+    design.addDirection("ne"); // 6
+    design.addDirection("sw"); // 7
+    design.addDirection("se"); // 8
 
     design.addPlayer("Blue", [3, 2, 1, 0, 4, 8, 7, 6, 5]);
     design.addPlayer("Red", [0, 1, 2, 3, 4, 5, 6, 7, 8]);
@@ -107,11 +107,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("B11", [0, 0, 0, 0, 0, 0, 0, 0, 0]);
     design.addPosition("B12", [0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-    design.addCommand(0, ZRF.FUNCTION,	1);	// empty?
-    design.addCommand(0, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(0, ZRF.FUNCTION,	25);	// to
-    design.addCommand(0, ZRF.FUNCTION,	28);	// end
-
     design.addCommand(1, ZRF.FUNCTION,	24);	// from
     design.addCommand(1, ZRF.FUNCTION,	3);	// friend?
     design.addCommand(1, ZRF.FUNCTION,	20);	// verify
@@ -152,7 +147,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.FUNCTION,	28);	// end
 
     design.addPiece("Stone", 0);
-//  design.addDrop(0, 0, [], 0);
     design.addMove(0, 1, [0], 0);
     design.addMove(0, 1, [5], 0);
     design.addMove(0, 1, [1], 0);
@@ -161,8 +155,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [7], 0);
     design.addMove(0, 1, [3], 0);
     design.addMove(0, 1, [8], 0);
-//  design.addMove(0, 2, [], 0);
-//  design.addMove(0, 3, [0, 4], 1);
+    design.addMove(0, 2, [], 0);
+    design.addMove(0, 3, [0, 4], 1);
 
     design.setup("Red", "Stone", 29);
     design.setup("Red", "Stone", 30);
@@ -192,21 +186,21 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard3D(431, 433, 1, -10, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+    view.defBoard3D(431, 433, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
     const red  = 0xFF1111;
     const blue = 0x1111FF;
     const tokenPath = '../res/xiangqi';
 
-    view.defPieceToken(0, 1, tokenPath, 'token.js', undefined, 'Bump', red);
-    view.defPieceToken(0, 2, tokenPath, 'token.js', undefined, 'Bump', blue);
+    view.defPieceToken(0, 1, tokenPath, 'token.js', undefined, 'Bump', blue, 2.3);
+    view.defPieceToken(0, 2, tokenPath, 'token.js', undefined, 'Bump', red, 2.3);
 
     view.setCamera(0, 0, 0, -105, 184, 190);
 
-//  view.defControl("InfoControl", "", true);
-//  view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle.htm' : 'triangle-board.htm');
+    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? '12-men.htm' : '12-men-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("AiOffControl", "No AI", true);
 //  view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-3d-board.htm' : 'triangle-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
