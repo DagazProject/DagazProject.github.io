@@ -87,6 +87,7 @@ Dagaz.Model.CheckInvariants = function(board) {
            if (piece.player == board.player) continue;
            var m = Dagaz.Model.createMove(0);
            m.capturePiece(pos);
+           m.movePiece(pos, pos, piece);
            m.setValue(0, cnt - 1);
            if (cnt > 1) {
                m.goTo(board.turn);
@@ -103,7 +104,7 @@ Dagaz.Model.CheckInvariants = function(board) {
          if (move.actions[0][0] !== null) {
              empty = move.actions[0][0][0];
          }
-         var zPart = [];
+         var zPart = []; cnt = 0;
          for (var i = 0; i < dirs.length; i++) {
               if (Dagaz.Model.isLine(design, board, board.player, pos, dirs[i], empty, zPart)) {
                   cnt++;
