@@ -1,6 +1,7 @@
 Dagaz.Controller.persistense = "none";
 
 Dagaz.View.TARGET_FLAT  = true;
+Dagaz.Model.START_POS   = 29;
 
 ZRF = {
     JUMP:          0,
@@ -117,13 +118,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	25);	// to
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
-    design.addCommand(2, ZRF.FUNCTION,	24);	// from
-    design.addCommand(2, ZRF.FUNCTION,	2);	// enemy?
-    design.addCommand(2, ZRF.FUNCTION,	20);	// verify
-    design.addCommand(2, ZRF.FUNCTION,	26);	// capture
-    design.addCommand(2, ZRF.FUNCTION,	25);	// to
-    design.addCommand(2, ZRF.FUNCTION,	28);	// end
-
     design.addCommand(3, ZRF.FUNCTION,	24);	// from
     design.addCommand(3, ZRF.FUNCTION,	3);	// friend?
     design.addCommand(3, ZRF.FUNCTION,	20);	// verify
@@ -155,8 +149,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [7], 0);
     design.addMove(0, 1, [3], 0);
     design.addMove(0, 1, [8], 0);
-    design.addMove(0, 2, [], 0);
-    design.addMove(0, 3, [0, 4], 1);
+//  design.addMove(0, 3, [0, 4], 1);
 
     design.setup("Red", "Stone", 29);
     design.setup("Red", "Stone", 30);
