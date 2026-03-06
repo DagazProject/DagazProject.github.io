@@ -31,7 +31,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("ko", "asymmetric");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("morris-extension", "true");
     design.checkVersion("three-man-goal", "true");
 
@@ -132,10 +132,10 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("InfoControl", "Inspired by Thomas H. O'Beirne and Greg Schmidt", true);
-    view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle.htm' : 'triangle-board.htm');
+    view.defControl("ResControl", "2D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-dyzym.htm' : 'triangle-dyzym-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-3d-board.htm' : 'triangle-3d.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-dyzym-3d-board.htm' : 'triangle-dyzym-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  

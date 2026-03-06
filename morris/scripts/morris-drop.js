@@ -1,5 +1,6 @@
 (function() {
 
+Dagaz.Model.SKIP_0    = false;
 Dagaz.Model.START_POS = 29;
 
 var checkVersion = Dagaz.Model.checkVersion;
@@ -23,6 +24,8 @@ Dagaz.Model.CheckInvariants = function(board) {
            if (piece === null) continue;
            if (piece.player != board.player) continue;
            for (var dst = 0; dst < Dagaz.Model.START_POS; dst++) {
+                if ((dst == 0) && Dagaz.Model.SKIP_0) continue;
+                if (design.isKilledPos(dst)) continue;
                 if (board.getPiece(dst) !== null) continue;
                 var m = Dagaz.Model.createMove(0);
                 m.movePiece(src, dst, piece);

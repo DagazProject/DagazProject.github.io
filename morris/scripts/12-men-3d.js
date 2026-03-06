@@ -32,12 +32,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("shared-pieces", "true");
-//  design.checkVersion("advisor-wait", "25");
-//  design.checkVersion("morris-restrictions", "true");
-//  design.checkVersion("morris-extension", "ko");
-//  design.checkVersion("morris-invariant", "true");
-//  design.checkVersion("morris-check", "true");
-//  design.checkVersion("morris-goal", "true");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("n");  // 0
     design.addDirection("e");  // 1
@@ -176,6 +171,9 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("Blue", "Stone", 50);
     design.setup("Blue", "Stone", 51);
     design.setup("Blue", "Stone", 52);
+
+    design.reserve("Blue", "Stone", 0);
+    design.reserve("Red", "Stone", 0);
 }
 
 Dagaz.View.configure = function(view) {
@@ -190,11 +188,10 @@ Dagaz.View.configure = function(view) {
 
     view.setCamera(0, 0, 0, -105, 184, 190);
 
-    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? '12-men.htm' : '12-men-board.htm');
+    view.defControl("ResControl", "2D", true, Dagaz.Controller.go, Dagaz.AI.ON ? '12-men.htm' : '12-men-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl("AiOffControl", "No AI", true);
-//  view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'triangle-3d-board.htm' : 'triangle-3d.htm');
+    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? '12-men-3d-board.htm' : '12-men-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
  

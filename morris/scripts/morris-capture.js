@@ -9,6 +9,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 }
 
 Dagaz.Model.isLine = function(design, board, player, pos, dir, empty, zPart) {
+  if (_.isUndefined(dir)) return false;
   var p = design.navigate(player, pos, dir);
   if (p === null) return false;
   if ((empty !== null) && (p == empty)) return false;
@@ -39,6 +40,7 @@ Dagaz.Model.isLine = function(design, board, player, pos, dir, empty, zPart) {
 }
 
 Dagaz.Model.isMiddle = function(design, board, player, pos, dir, empty, zPart) {
+  if (_.isUndefined(dir)) return false;
   var p = design.navigate(player, pos, dir);
   if (p === null) return false;
   if ((empty !== null) && (p == empty)) return false;
