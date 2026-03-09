@@ -167,7 +167,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [8], 0);
     design.addMove(0, 1, [6], 0);
     design.addMove(0, 1, [5], 0);
-//  design.addMove(0, 3, [0, 4], 1);
+    design.addMove(0, 3, [0, 4], 1);
 
     design.setup("Red", "Stone", 49);
     design.setup("Red", "Stone", 50);

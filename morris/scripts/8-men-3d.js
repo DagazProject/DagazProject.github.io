@@ -120,7 +120,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [3], 0);
     design.addMove(0, 1, [2], 0);
     design.addMove(0, 1, [1], 0);
-//  design.addMove(0, 3, [0, 4], 1);
+    design.addMove(0, 3, [0, 4], 1);
 
     design.setup("Red", "Stone", 21);
     design.setup("Red", "Stone", 22);
@@ -189,17 +189,19 @@ Dagaz.View.configure = function(view) {
     view.defPosition("R02", -260, -90, 33, 33, 0);
     view.defPosition("R03", -260, -30, 33, 33, 0);
     view.defPosition("R04", -260, 30, 33, 33, 0);
-    view.defPosition("R05", -260, 90, 33, 33, 0);
-    view.defPosition("R06", -260, 150, 33, 33, 0);
-    view.defPosition("R07", -320, -150, 33, 33, 0);
-    view.defPosition("R08", -320, -90, 33, 33, 0);
 
-    view.defPosition("B01", 260, -150, 33, 33, 0);
-    view.defPosition("B02", 260, -90, 33, 33, 0);
-    view.defPosition("B03", 260, -30, 33, 33, 0);
-    view.defPosition("B04", 260, 30, 33, 33, 0);
-    view.defPosition("B05", 260, 90, 33, 33, 0);
-    view.defPosition("B06", 260, 150, 33, 33, 0);
-    view.defPosition("B07", 320, -150, 33, 33, 0);
-    view.defPosition("B08", 320, -90, 33, 33, 0);
+    view.defPosition("R05", -320, -150, 33, 33, 0);
+    view.defPosition("R06", -320, -90, 33, 33, 0);
+    view.defPosition("R07", -320, -30, 33, 33, 0);
+    view.defPosition("R08", -320, 30, 33, 33, 0);
+
+    view.defPosition("B01", 260, -30, 33, 33, 0);
+    view.defPosition("B02", 260, 30, 33, 33, 0);
+    view.defPosition("B03", 260, 90, 33, 33, 0);
+    view.defPosition("B04", 260, 150, 33, 33, 0);
+
+    view.defPosition("B05", 320, -30, 33, 33, 0);
+    view.defPosition("B06", 320, 30, 33, 33, 0);
+    view.defPosition("B07", 320, 90, 33, 33, 0);
+    view.defPosition("B08", 320, 150, 33, 33, 0);
 }
