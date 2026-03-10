@@ -8,6 +8,22 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+Dagaz.Model.getMarked = function(board) {
+  var cnt = board.getValue(0);
+  var r = [];
+  if ((cnt !== null) && (cnt > 0)) {
+      board.generate(Dagaz.Model.design);
+      _.each(board.moves, function(move) {
+          _.each(move.actions, function(a) {
+              if (a[0] === null) return;
+              if (a[1] !== null) return;
+              r.push(+a[0][0]);
+          });
+      });
+  }
+  return r;
+}
+
 Dagaz.Model.isLine = function(design, board, player, pos, dir, empty, zPart) {
   if (_.isUndefined(dir)) return false;
   var p = design.navigate(player, pos, dir);

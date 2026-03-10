@@ -200,6 +200,9 @@ App.prototype.setPosition = function(pos) {
 
 App.prototype.boardApply = function(move) {
   this.board = this.board.apply(move);
+  if (!_.isUndefined(Dagaz.Model.getMarked)) {
+      this.view.markPositions(Dagaz.View.markType.ATTACKING, Dagaz.Model.getMarked(this.board));
+  }
   if (!_.isUndefined(this.view.sync)) {
       this.view.sync(this.board);
       this.board.generate(Dagaz.Model.design);

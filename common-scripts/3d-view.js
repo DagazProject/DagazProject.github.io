@@ -50,6 +50,7 @@ let resList = [];
 
 Dagaz.View.markType = {
    TARGET:            0,
+   ATTACKING:         1,
    KO:                4
 };
 
@@ -266,6 +267,15 @@ View3D.prototype.existsPiece = function(pos) {
 
 View3D.prototype.markPositions = function(type, positions) {
   if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
+  if (type == Dagaz.View.markType.ATTACKING) {
+      _.each(pieces, function(piece) {
+          if (_.indexOf(positions, +piece.pos) >= 0) {
+              piece.material = [piece.type.matborderi, piece.type.mattopi];
+          } else {
+              piece.material = [piece.type.matborder, piece.type.mattop];
+          }
+      });
+  }
   if (type == Dagaz.View.markType.TARGET) {
       this.clearTargets();
       this.targets = positions;
@@ -1044,6 +1054,14 @@ View3D.prototype.allResLoaded = function() {
                                specular: specular,
                                shininess: shininess
                          });
+                         pieceTypes[key].matborderi = new THREE.MeshPhongMaterial({
+                               name: "pieceborders",
+                               color : color,
+                               transparent: true,
+                               opacity: 0.5,
+                               specular: specular,
+                               shininess: shininess
+                         });
 
                          if (pieceTypes[key].image !== null) {
                              pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
@@ -1055,8 +1073,20 @@ View3D.prototype.allResLoaded = function() {
                                    bumpMap: textureBump,
                                    bumpScale: 0.2
                              });
+                             pieceTypes[key].mattopi = new THREE.MeshPhongMaterial({
+                                   name: "piecetop",
+                                   color : color,
+                                   transparent: true,
+                                   opacity: 0.5,
+                                   specular: specular,
+                                   shininess: shininess,
+                                   map: textureDiff,
+                                   bumpMap: textureBump,
+                                   bumpScale: 0.2
+                             });
                          } else {
                              pieceTypes[key].mattop = pieceTypes[key].matborder;
+                             pieceTypes[key].mattopi = pieceTypes[key].matborderi;
                          }
 
                      }
