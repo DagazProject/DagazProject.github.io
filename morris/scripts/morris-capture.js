@@ -98,11 +98,34 @@ Dagaz.Model.CheckInvariants = function(board) {
   var cnt = board.getValue(0);
   if (cnt === null) cnt = 0;
   if (cnt > 0) {
-      var moves = [];
+      var restricted = [];
+      var captured = [];
       for (var pos = 0; pos < Dagaz.Model.START_POS; pos++) {
            var piece = board.getPiece(pos);
            if (piece === null) continue;
            if (piece.player == board.player) continue;
+           var inLine = false;
+           for (var i = 0; i < 8; i++) {
+                if (Dagaz.Model.isLine(design, board, design.nextPlayer(board.player), pos, dirs[i], null)) {
+                    inLine = true;
+                }
+           }
+           for (var i = 0; i < 4; i++) {
+                if (Dagaz.Model.isMiddle(design, board, design.nextPlayer(board.player), pos, dirs[i], null)) {
+                    inLine = true;
+                }
+           }
+           if (inLine) {
+               restricted.push(pos);
+           } else {
+               captured.push(pos);
+           }
+      }
+      if (captured.length == 0) {
+          captured = restricted;
+      }
+      var moves = [];
+      _.each(captured, function(pos) {
            var m = Dagaz.Model.createMove(0);
            m.capturePiece(pos);
            m.movePiece(pos, pos, piece);
@@ -111,7 +134,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                m.goTo(board.turn);
            }
            moves.push(m);
-      }
+      });
       board.moves = moves;
   } else {
       _.each(board.moves, function(move) {
@@ -134,6 +157,17 @@ Dagaz.Model.CheckInvariants = function(board) {
               }
          }
          if (cnt > 0) {
+             move.zPartial = zPart;
+             var b = board.parent;
+             while ((b !== null) && !_.isUndefined(b.move) && !_.isUndefined(b.parent) && (b.parent !== null)) {
+                  if ((b.player != board.player) && (b.move.mode > 0)) {
+                      if (_.intersection(b.move.zPartial, move.zPartial).length == move.zPartial.length) {
+                          move.failed = true;
+                      }
+                      break;
+                  }
+                  b = b.parent;
+             }
              move.setValue(0, cnt);
              move.goTo(board.turn);
          }
