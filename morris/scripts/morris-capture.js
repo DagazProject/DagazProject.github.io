@@ -157,16 +157,18 @@ Dagaz.Model.CheckInvariants = function(board) {
               }
          }
          if (cnt > 0) {
-             move.zPartial = zPart;
-             var b = board.parent;
-             while ((b !== null) && !_.isUndefined(b.move) && !_.isUndefined(b.parent) && (b.parent !== null)) {
-                  if ((b.player != board.player) && (b.move.mode > 0)) {
-                      if (_.intersection(b.move.zPartial, move.zPartial).length == move.zPartial.length) {
+             for (var ix = 1; ix < 3; ix++) {
+                  var v = board.getValue(ix);
+                  if ((v !== null) && (v != 0) && !_.isUndefined(zPart[ix - 1])) {
+                      if ((v == zPart[0]) || (v == zPart[1])) {
                           move.failed = true;
                       }
-                      break;
                   }
-                  b = b.parent;
+                  if (!_.isUndefined(zPart[ix - 1])) {
+                      move.setValue(ix, zPart[ix - 1]);
+                  } else {
+                      move.setValue(ix, 0);
+                  }
              }
              move.setValue(0, cnt);
              move.goTo(board.turn);

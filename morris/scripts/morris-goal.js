@@ -154,7 +154,7 @@ var getTargets = function(design, board) {
 
 Dagaz.AI.heuristic = function(ai, design, board, move) {
   var targets = getTargets(design, board);
-  if (move.isDropMove()) {
+  if (move.actions[0][1] !== null) {
       var pos = move.actions[0][1][0];
       if (!_.isUndefined(targets[pos])) {
           var r = targets[pos].weight;
@@ -165,7 +165,7 @@ Dagaz.AI.heuristic = function(ai, design, board, move) {
       }
       return 1;
   }
-  if (move.isSimpleMove()) {
+  if ((move.actions[0][0] !== null) && (move.actions[0][1] !== null)) {
       var from   = move.actions[0][0][0];
       var target = move.actions[0][1][0];
       var r      = 1;
