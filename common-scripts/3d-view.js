@@ -44,6 +44,7 @@ Dagaz.View.STEP_CNT      = 3;
 Dagaz.View.SPEED         = 0.523;
 Dagaz.View.RENDER_ORDER  = false;
 Dagaz.View.RECT_OPACITY  = false;
+Dagaz.View.BG_COLOR      = 0xE5E5E5;
 
 let resTask = [];
 let resList = [];
@@ -316,7 +317,7 @@ View3D.prototype.markPositions = function(type, positions) {
 
 View3D.prototype.init = function(canvas, controller) {
   if (!isInitialized) {
-     scene.background = new THREE.Color(0xE5E5E5);
+     scene.background = new THREE.Color(Dagaz.View.BG_COLOR);
      camera.position.set(settings.x, settings.z, settings.y);
      camera.lookAt(0, 0, 0);
      const ambientLight = new THREE.AmbientLight('white', 2);
