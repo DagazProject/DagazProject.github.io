@@ -15,6 +15,11 @@ Dagaz.Controller.turnChanged = false;
 
 Dagaz.AI.selector = false;
 
+Dagaz.Controller.humanPlayer = (function() {
+  var result = window.location.search.match(/[?&]player=(\d+)/);
+  return result ? +result[1] : 1;
+})();
+
 Dagaz.Controller.Done = function(board) {}
 
 Dagaz.Controller.go = function(url) {
