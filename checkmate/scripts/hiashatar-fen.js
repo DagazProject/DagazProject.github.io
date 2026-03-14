@@ -6,7 +6,7 @@ var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
   if (result) {
-      return result[1].replace("-board", "").replace("-ai", "");
+      return result[1].replace("-board", "").replace("-ai", "").replace("-3d", "");
   } else {
       return str;
   }
@@ -80,8 +80,8 @@ var createPiece = function(design, c) {
   if (c == 'b') return Dagaz.Model.createPiece(design.getPieceType("Bishop"), 2);
   if (c == 'Q') return Dagaz.Model.createPiece(design.getPieceType("Queen"), 1);
   if (c == 'q') return Dagaz.Model.createPiece(design.getPieceType("Queen"), 2);
-  if (c == 'h') return Dagaz.Model.createPiece(design.getPieceType("Hia"), 2);
   if (c == 'H') return Dagaz.Model.createPiece(design.getPieceType("Hia"), 1);
+  if (c == 'h') return Dagaz.Model.createPiece(design.getPieceType("Hia"), 2);
   if (c == 'K') return Dagaz.Model.createPiece(design.getPieceType("King"), 1);
   if (c == 'k') return Dagaz.Model.createPiece(design.getPieceType("King"), 2);
   return null;

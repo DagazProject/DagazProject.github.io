@@ -6,7 +6,7 @@ var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
   if (result) {
-      return result[1].replace("-board", "").replace("-ai", "").replace("-kanji", "");
+      return result[1].replace("-board", "").replace("-ai", "").replace("-kanji", "").replace("-3d", "").replace("-western", "");
   } else {
       return str;
   }

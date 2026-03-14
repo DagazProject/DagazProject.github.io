@@ -1,3 +1,5 @@
+Dagaz.Controller.persistense = "none";
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -27,7 +29,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("ko", "asymmetric");
-    design.checkVersion("advisor-wait", "5");
+    design.checkVersion("advisor-wait", "25");
     design.checkVersion("morris-extension", "true");
     design.checkVersion("three-man-goal", "true");
 

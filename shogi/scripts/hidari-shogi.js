@@ -492,7 +492,6 @@ Dagaz.View.configure = function(view) {
     view.defPosition("F2", 1507, 558, 102, 102);
     view.defPosition("G2", 1663, 558, 102, 102);
     view.defPosition("H2", 1795, 558, 102, 102);
-
     view.defPosition("A1", 29, 690, 102, 102);
     view.defPosition("B1", 161, 690, 102, 102);
     view.defPosition("C1", 317, 690, 102, 102);

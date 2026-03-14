@@ -1,0 +1,70 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Animal Checkers</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/jungle/4x4-3d.png">
+
+<img id="Bump" style="display:none" src="../res/xiangqi/piecebump.jpg">
+<img id="rRat" style="display:none" src="images/jungle/redrat3d.png">
+<img id="bRat" style="display:none" src="images/jungle/blackrat3d.png">
+<img id="rCat" style="display:none" src="images/jungle/redcat3d.png">
+<img id="bCat" style="display:none" src="images/jungle/blackcat3d.png">
+<img id="rDog" style="display:none" src="images/jungle/reddog3d.png">
+<img id="bDog" style="display:none" src="images/jungle/blackdog3d.png">
+<img id="rFox" style="display:none" src="images/jungle/redfox3d.png">
+<img id="bFox" style="display:none" src="images/jungle/blackfox3d.png">
+<img id="rPanther" style="display:none" src="images/jungle/redpanther3d.png">
+<img id="bPanther" style="display:none" src="images/jungle/blackpanther3d.png">
+<img id="rTiger" style="display:none" src="images/jungle/redtiger3d.png">
+<img id="bTiger" style="display:none" src="images/jungle/blacktiger3d.png">
+<img id="rLion" style="display:none" src="images/jungle/redlion3d.png">
+<img id="bLion" style="display:none" src="images/jungle/blacklion3d.png">
+<img id="rElephant" style="display:none" src="images/jungle/redelephant3d.png">
+<img id="bElephant" style="display:none" src="images/jungle/blackelephant3d.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/ko.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/ab-ai-v5.js"></script>
+<script src="scripts/jungle-extension.js"></script>
+<script src="scripts/jungle-ai.js"></script>
+<script src="scripts/animal-checkers-restrictions.js"></script>
+<script src="scripts/animal-checkers-goal.js"></script>
+<script src="scripts/animal-checkers-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>

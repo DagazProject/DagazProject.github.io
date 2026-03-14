@@ -6,7 +6,7 @@ var getName = function() {
   var str = window.location.pathname.toString();
   var result = str.match(/\/([^.\/]+)\./);
   if (result) {
-      return result[1].replace("-board", "").replace("-ai", "").replace("-kanji", "").replace("-opened", "");
+      return result[1].replace("-board", "").replace("-ai", "").replace("-kanji", "").replace("-opened", "").replace("-3d", "");
   } else {
       return str;
   }
@@ -112,12 +112,12 @@ var getGlobal = function(setup) {
   if (setup) {
       str = setup;
   }
-  var result = str.match(/[?&]global=([;\d]+)/);
+  var result = str.match(/[?&]global=([;\d-]+)/);
   if (result) {
       return result[1];
   } else {
       str = getCookie();
-      result = str.match(/[?&]global=([;\d]+)/);
+      result = str.match(/[?&]global=([;\d-]+)/);
       if (result) {
           return result[1];
       } else {
@@ -279,14 +279,17 @@ Dagaz.Model.getGlobal = function(design, board) {
 }
 
 Dagaz.Model.setGlobal = function(design, board, str) {
-  var ix = 0; var n = null;
+  var ix = 0; var n = null; var m = false;
   for (var i = 0; i < str.length; i++) {
        if (str[i] == ';') {
            if (n !== null) {
-               board.setValue(ix, n);
+               board.setValue(ix, m ? -n : n);
            }
            n = null;
+           m = false;
            ix++;
+       } else if (str[i] == '-') {
+           m = true;
        } else {
            if (n !== null) {
                n = n * 10;

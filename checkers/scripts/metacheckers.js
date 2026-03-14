@@ -44,6 +44,12 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("White", [6, 7, 5, 4, 3, 2, 0, 1]);
     design.addPlayer("Black", [6, 7, 5, 4, 3, 2, 0, 1]);
 
+    design.addTurn(1, [2]); // 0
+    design.addTurn(2, [2]); // 1
+    design.repeatMark();
+    design.addTurn(1, [0, 1]); // 2
+    design.addTurn(2, [0, 1]); // 3
+
     design.addPosition("a8", [9, 8, 0, 1, 0, 0, 0, 0]);
     design.addPosition("b8", [9, 8, 7, 1, -1, 0, 0, 0]);
     design.addPosition("c8", [9, 8, 7, 1, -1, 0, 0, 0]);
@@ -168,8 +174,13 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(3, ZRF.JUMP,	-8);
     design.addCommand(3, ZRF.FUNCTION,	28);	// end
 
-    design.addPriority(0);			// jump-type
-    design.addPriority(1);			// normal-type
+    design.addCommand(4, ZRF.FUNCTION,	24);	// from
+    design.addCommand(4, ZRF.FUNCTION,	26);	// capture
+    design.addCommand(4, ZRF.FUNCTION,	25);	// to
+    design.addCommand(4, ZRF.FUNCTION,	28);	// end
+
+//  design.addPriority(0);			// jump-type
+//  design.addPriority(1);			// normal-type
 
     design.addPiece("Man", 0, 10);
     design.addMove(0, 0, [7, 7], 0);
@@ -179,6 +190,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(0, 1, [6], 1);
     design.addMove(0, 1, [5], 1);
     design.addMove(0, 1, [7], 1);
+    design.addMove(0, 4, [], 2);
 
     design.addPiece("King", 1, 100);
     design.addMove(1, 2, [6, 6, 6], 0, 10);
@@ -222,6 +234,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("White", "Man", 45);
     design.setup("White", "Man", 46);
     design.setup("White", "Man", 47);
+    design.setup("White", "Man", 32);
+    design.setup("White", "Man", 33);
+    design.setup("White", "Man", 34);
+    design.setup("White", "Man", 35);
+    design.setup("White", "Man", 36);
+    design.setup("White", "Man", 37);
+    design.setup("White", "Man", 38);
+    design.setup("White", "Man", 39);
     design.setup("Black", "Man", 0);
     design.setup("Black", "Man", 1);
     design.setup("Black", "Man", 2);
@@ -246,6 +266,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("Black", "Man", 21);
     design.setup("Black", "Man", 22);
     design.setup("Black", "Man", 23);
+    design.setup("Black", "Man", 24);
+    design.setup("Black", "Man", 25);
+    design.setup("Black", "Man", 26);
+    design.setup("Black", "Man", 27);
+    design.setup("Black", "Man", 28);
+    design.setup("Black", "Man", 29);
+    design.setup("Black", "Man", 30);
+    design.setup("Black", "Man", 31);
 }
 
 Dagaz.View.configure = function(view) {

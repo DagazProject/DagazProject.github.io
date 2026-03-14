@@ -19,7 +19,7 @@ Races;Chinese Checkers;index-map-chinese-checkers.html;https://en.wikipedia.org/
 Elimination games;Cinc Camins;index-map-cinc.html;https://en.wikipedia.org/wiki/Cinc_Camins;cinc-camins;
 Custodian;Co Ganh;custodian/co-ganh.htm;https://vi.wikipedia.org/wiki/C%E1%BB%9D_g%C3%A1nh;co-ganh;
 Checkers games;Column Checkers;index-map-columns.html;https://en.wikipedia.org/wiki/Bashni;column-checkers;
-Races;Dodgem;races/dodgem-7x7.htm;http://www.di.fc.ul.pt/~jpn/gv/dodgem.htm;dodgem;1972 Colin Vout
+Races;Dodgem;index-map-dodgem.html;http://www.di.fc.ul.pt/~jpn/gv/dodgem.htm;dodgem-7;1972 Colin Vout
 Checkers games;Fanorona;checkers-like/fanorona-riatra.htm;https://en.wikipedia.org/wiki/Fanorona;fanorona;
 Other puzzles;Filler;index-map-filler.html;;filler;
 Other puzzles;Flippers;sliding-puzzles/flippers.htm;;flippers;
@@ -29,14 +29,14 @@ Checkers games;Fox and Geese;index-map-fox.html;https://en.wikipedia.org/wiki/Fo
 Other puzzles;Fox Hunting;elimination/fox-hunting.htm;;fox-hunting;
 Races;Gala;control/gala.htm;https://www.chessvariants.com/historic.dir/gala.html;gala;
 Breakthrough games;Gate;breakthrough/gate.htm;https://www.iggamecenter.com/en/rules/gate;gate;2010 Gregory Keith Van Patten
-Breakthrough games;Gauntlet;breakthrough/gauntlet-8x8.htm;https://www.di.fc.ul.pt/~jpn/gv/gauntlet.htm;gauntlet;1980 Phillip L. Leduc
+Breakthrough games;Gauntlet;index-map-gauntlet.html;https://www.di.fc.ul.pt/~jpn/gv/gauntlet.htm;gauntlet-5;1980 Phillip L. Leduc
 Go family;Go;index-map-go.html;https://en.wikipedia.org/wiki/Rules_of_Go;go-19x19;
 Arrange games;Hex;arrange/hex.htm;https://www.iggamecenter.com/en/rules/hex;hex;1942 Piet Hein and John Nash
 Breakthrough games;Horn Chess;index-map-horn.html;;horn;
 Races;Jasir;races/jasir.htm;https://en.wikipedia.org/wiki/Jarmo_(game);jasir;
 Races;Jeson Mor;races/jeson-mor.htm;https://en.wikipedia.org/wiki/Jeson_Mor;jeson-mor;
 Breakthrough games;Just You Wait!;breakthrough/just-you-wait.htm;;just-you-wait;Isaak Shafran
-Breakthrough games;Jungle;breakthrough/jungle.htm;https://en.wikipedia.org/wiki/Jungle_(board_game);jungle;
+Breakthrough games;Jungle;index-map-jungle.html;https://en.wikipedia.org/wiki/Jungle_(board_game);jungle;
 Breakthrough games;Kamisado;breakthrough/kamisado.htm;http://www.boardspace.net/kamisado/english/RULES%20ENG.pdf;kamisado;2008 Peter Burley
 Races;Kings Valley;control/kings-valley.htm;http://www.logygames.com/english/kingsvalley.html;kings-valley;2006 Mitsuo Yamamoto
 Other puzzles;Klondike;index-map-klondike.html;;klondike;
@@ -62,7 +62,7 @@ Custodian games;Reversi;index-map-reversi.html;https://en.wikipedia.org/wiki/Rev
 Other puzzles;Rubik's Cube;index-map-rubik.html;https://en.wikipedia.org/wiki/Rubik%27s_Cube;rubik-3x3x3;1974 Rubik Erne
 Custodian games;Seega;index-map-seega.html;http://www.cyningstan.com/game/120/seega;seega;
 Arrange games;Shisima;index-map-shisima.html;https://en.wikipedia.org/wiki/Shisima;shisima;
-Sliding puzzles;Sliding puzzles;index-map-sliding.html;;donkey_1;
+Sliding puzzles;Sliding puzzles;index-map-sliding.html;;bride;
 Other puzzles;Sokoban;index-map-sokoban.html;https://en.wikipedia.org/wiki/Sokoban;sokoban-01;1981 Hiroyuki Imabayashi
 Solitaire;Solitaire;index-map-solitaire.html;https://en.wikipedia.org/wiki/Solitaire;solitaire;
 Elimination games;Spock;elimination/spock.htm;;spock;2017 Valentin Chelnokov

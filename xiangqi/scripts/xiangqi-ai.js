@@ -28,7 +28,7 @@ var g_moveUndoStack = new Array();
 // Evaulation variables
 var g_mobUnit;
 
-var materialTable = [0, 300, 1200, 1200, 2700, 2850, 6000, 600000];
+var materialTable = [0, 300, 1200, 1200, 1700, 3850, 6000, 600000];
 
 Dagaz.AI.pieceAdj = [
 [   0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty

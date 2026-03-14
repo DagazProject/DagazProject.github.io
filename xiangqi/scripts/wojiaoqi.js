@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "session";
+Dagaz.Controller.persistense = "setup";
 
 Dagaz.Model.WIDTH  = 11;
 Dagaz.Model.HEIGHT = 11;
