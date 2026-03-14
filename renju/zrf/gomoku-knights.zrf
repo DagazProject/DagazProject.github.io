@@ -1,8 +1,11 @@
-(define drop (
+(define drop1 ((verify (in-zone? first-move))
+  (verify empty?) add
+))
+(define drop2 ((verify (in-zone? second-move))
   (verify empty?) add
 ))
 
-(define jump (
+(define jump ((create Stone)
   $1 $2 (verify empty?) add
 ))
 
@@ -16,6 +19,7 @@
 
   (players Black White)
   (turn-order Black White)
+(move-priorities firstmove secondmove othermove)
 
   (board
       (image "images/15x15.bmp")
@@ -50,9 +54,13 @@
      (image Black "images/bknight.bmp"
             White "images/wknight.bmp")
      (drops 
-        (drop)
-     )
+ (move-type firstmove)
+        (drop1)
+        (move-type secondmove)
+        (drop2)
+        )
      (moves 
+       (move-type othermove)
         (jump n nw) (jump n ne)
         (jump s sw) (jump s se)
         (jump w nw) (jump w sw)
@@ -64,4 +72,10 @@
      (Black (Knight off 1))
      (White (Knight off 1))
   )
+(win-condition (White Black)
+	    (or (relative-config (not Stone) n Stone n Stone n Stone n Stone n Stone n (not Stone)) 
+            (relative-config (not Stone) e Stone e Stone e Stone e Stone e Stone e (not Stone)) 
+            (relative-config (not Stone) ne Stone ne Stone ne Stone ne Stone ne Stone ne (not Stone)) 
+            (relative-config (not Stone) nw Stone nw Stone nw Stone nw Stone nw Stone nw (not Stone)) 
+        ))
 )

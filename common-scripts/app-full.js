@@ -125,7 +125,7 @@ App.prototype.getAI = function() {
 }
 
 App.prototype.getContext = function(player) {
-  if (!isAuto && Dagaz.AI.isFriend(1, player)) return null;
+  if (!isAuto && Dagaz.AI.isFriend(Dagaz.Controller.humanPlayer, player)) return null;
   if (_.isUndefined(this.context)) {
       this.context = [];
   }
