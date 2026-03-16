@@ -523,13 +523,23 @@ View3D.prototype.addPieceTriangle = function(pieceType, pos) {
 View3D.prototype.addPiecePlatform = function(pieceType, pos) {
   const p = this.pos[pos];
   let geometry = new THREE.BoxGeometry(pieceType.dx / 10, 1, pieceType.dy / 10);
+  let top = null; let bottom = null; let side = null;
+  if ((pieceType.img !== null) && (pieceType.img.length > 0)) {
+      top = pieceType.img[0];
+      if (pieceType.img.length > 1) {
+          bottom = pieceType.img[1];
+      }
+      if (pieceType.img.length > 2) {
+          side = pieceType.img[2];
+      }
+  }
   let materials = [
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[2] }),
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[3] }),
-        new THREE.MeshBasicMaterial((pieceType.img !== null) ? { map: pieceType.img.t, transparent: true, opacity: pieceType.opacity } : { color: pieceType.colors[i] } ),
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[5], transparent: true, opacity: 0.3 }),
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[1] }),
-        new THREE.MeshBasicMaterial({ color: pieceType.colors[4] })
+        new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[2] }),
+        new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[3] }),
+        new THREE.MeshBasicMaterial((top !== null) ? { map: top.t, transparent: true, opacity: pieceType.opacity } : { color: pieceType.colors[i] } ),
+        new THREE.MeshBasicMaterial((bottom != null) ? { map: bottom.t } : { color: pieceType.colors[5], transparent: true, opacity: 0.3 }),
+        new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[1] }),
+        new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[4] })
   ];
   if (Dagaz.View.RECT_OPACITY) {
       geometry = createRectangularPrismWithGroups(
@@ -540,8 +550,8 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
       materials = [
                     // Материал 0: Верхняя грань (с текстурой)
                     new THREE.MeshBasicMaterial({ 
-                        map: pieceType.img !== null ? pieceType.img.t : null,
-                        color: pieceType.img === null ? pieceType.colors[2] : 0xFFFFFF,
+                        map: top !== null ? top.t : null,
+                        color: top === null ? pieceType.colors[2] : 0xFFFFFF,
                         transparent: true,
                         opacity: pieceType.opacity,
                         side: THREE.DoubleSide
@@ -826,11 +836,17 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
   Dagaz.View.NO_PIECE = false;
   const key = type*10 + (+player);
   pieceKeys.push(key);
-  let p = null;
+  const imgs = [];
   if (!_.isUndefined(res)) {
-      p = this.findRes(res);
-      if (p === null) {
-          const img = document.getElementById(res);
+      if (!_.isArray(res)) {
+          res = [res];
+      }
+      _.each(res, function(r) {
+          let p = this.findRes(r);
+          if (p === null) {
+
+          }
+          const img = document.getElementById(r);
           const t = new Promise((resolve) => {
                 textureLoader.load(
                     img.currentSrc,
@@ -842,12 +858,13 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
           });
           resTask.push(t); 
           p = {
-             r: res,
+             r: r,
              h: img
           };
           resList.push(p);
           this.res.push(p);
-      }
+          imgs.push(p);
+      }, this);
   }
   pieceTypes[key] = {
      kind:    PIECE_TYPE.PLATFORM,
@@ -859,7 +876,7 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
      sz:      sz,
      colors:  colors,
      opacity: opacity,
-     img:     p
+     img:     imgs.length > 0 ? imgs : null
   };
 }
 

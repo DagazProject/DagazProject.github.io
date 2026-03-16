@@ -555,46 +555,46 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     var gray = 0xAC5146;
 
-    view.defPiecePlatform(0,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB1");
-    view.defPiecePlatform(1,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB2");
-    view.defPiecePlatform(2,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB3");
-    view.defPiecePlatform(3,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB4");
-    view.defPiecePlatform(4,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB5");
-    view.defPiecePlatform(5,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB6");
-    view.defPiecePlatform(6,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB7");
-    view.defPiecePlatform(7,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB8");
-    view.defPiecePlatform(8,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouB9");
+    view.defPiecePlatform(0,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB1", "Back", "Side"]);
+    view.defPiecePlatform(1,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB2", "Back", "Side"]);
+    view.defPiecePlatform(2,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB3", "Back", "Side"]);
+    view.defPiecePlatform(3,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB4", "Back", "Side"]);
+    view.defPiecePlatform(4,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB5", "Back", "Side"]);
+    view.defPiecePlatform(5,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB6", "Back", "Side"]);
+    view.defPiecePlatform(6,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB7", "Back", "Side"]);
+    view.defPiecePlatform(7,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB8", "Back", "Side"]);
+    view.defPiecePlatform(8,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouB9", "Back", "Side"]);
 
-    view.defPiecePlatform(9,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC1");
-    view.defPiecePlatform(10, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC2");
-    view.defPiecePlatform(11, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC3");
-    view.defPiecePlatform(12, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC4");
-    view.defPiecePlatform(13, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC5");
-    view.defPiecePlatform(14, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC6");
-    view.defPiecePlatform(15, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC7");
-    view.defPiecePlatform(16, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC8");
-    view.defPiecePlatform(17, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouC9");
+    view.defPiecePlatform(9,  1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC1", "Back", "Side"]);
+    view.defPiecePlatform(10, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC2", "Back", "Side"]);
+    view.defPiecePlatform(11, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC3", "Back", "Side"]);
+    view.defPiecePlatform(12, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC4", "Back", "Side"]);
+    view.defPiecePlatform(13, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC5", "Back", "Side"]);
+    view.defPiecePlatform(14, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC6", "Back", "Side"]);
+    view.defPiecePlatform(15, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC7", "Back", "Side"]);
+    view.defPiecePlatform(16, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC8", "Back", "Side"]);
+    view.defPiecePlatform(17, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouC9", "Back", "Side"]);
 
-    view.defPiecePlatform(18, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP1");
-    view.defPiecePlatform(19, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP2");
-    view.defPiecePlatform(20, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP3");
-    view.defPiecePlatform(21, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP4");
-    view.defPiecePlatform(22, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP5");
-    view.defPiecePlatform(23, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP6");
-    view.defPiecePlatform(24, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP7");
-    view.defPiecePlatform(25, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP8");
-    view.defPiecePlatform(26, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP9");
-    view.defPiecePlatform(27, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP10");
-    view.defPiecePlatform(28, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP11");
-    view.defPiecePlatform(29, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP12");
-    view.defPiecePlatform(30, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP13");
-    view.defPiecePlatform(31, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP14");
-    view.defPiecePlatform(32, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouP15");
+    view.defPiecePlatform(18, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP1", "Back", "Side"]);
+    view.defPiecePlatform(19, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP2", "Back", "Side"]);
+    view.defPiecePlatform(20, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP3", "Back", "Side"]);
+    view.defPiecePlatform(21, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP4", "Back", "Side"]);
+    view.defPiecePlatform(22, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP5", "Back", "Side"]);
+    view.defPiecePlatform(23, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP6", "Back", "Side"]);
+    view.defPiecePlatform(24, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP7", "Back", "Side"]);
+    view.defPiecePlatform(25, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP8", "Back", "Side"]);
+    view.defPiecePlatform(26, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP9", "Back", "Side"]);
+    view.defPiecePlatform(27, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP10", "Back", "Side"]);
+    view.defPiecePlatform(28, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP11", "Back", "Side"]);
+    view.defPiecePlatform(29, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP12", "Back", "Side"]);
+    view.defPiecePlatform(30, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP13", "Back", "Side"]);
+    view.defPiecePlatform(31, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP14", "Back", "Side"]);
+    view.defPiecePlatform(32, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouP15", "Back", "Side"]);
 
-    view.defPiecePlatform(33, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouF1");
-    view.defPiecePlatform(34, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouF2");
-    view.defPiecePlatform(35, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouF3");
-    view.defPiecePlatform(36, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], "YouF4");
+    view.defPiecePlatform(33, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouF1", "Back", "Side"]);
+    view.defPiecePlatform(34, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouF2", "Back", "Side"]);
+    view.defPiecePlatform(35, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouF3", "Back", "Side"]);
+    view.defPiecePlatform(36, 1, 56, 81, 1, 0, [gray, gray, gray, gray, gray, gray], ["YouF4", "Back", "Side"]);
 
     view.setCamera(0, 0, 0, -109, 215, 155);
 
