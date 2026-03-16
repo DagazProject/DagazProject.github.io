@@ -12,7 +12,7 @@
    capture 
    $1 (verify empty?)
    (if (in-zone? promotion)
-       (add-partial King continue-type)
+       (add-partial King cont-type)
     else
        (add-partial jump-type)
    )
@@ -114,3 +114,4 @@
   (loss-condition (White Black) (pieces-remaining 0) )
   (loss-condition (White Black) stalemated )
 )
+

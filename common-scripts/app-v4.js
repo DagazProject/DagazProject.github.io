@@ -345,7 +345,7 @@ App.prototype.getBoard = function() {
 }
 
 App.prototype.getContext = function(player, forced) {
-  if (_.isUndefined(forced) && Dagaz.AI.isFriend(1, player) && !this.design.isPuzzle()) return null;
+  if (_.isUndefined(forced) && Dagaz.AI.isFriend(Dagaz.Controller.humanPlayer, player) && !this.design.isPuzzle()) return null;
   if (_.isUndefined(this.context)) {
       this.context = [];
   }
