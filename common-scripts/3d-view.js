@@ -270,10 +270,18 @@ View3D.prototype.markPositions = function(type, positions) {
   if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (type == Dagaz.View.markType.ATTACKING) {
       _.each(pieces, function(piece) {
-          if (_.indexOf(positions, +piece.pos) >= 0) {
-              piece.material = [piece.type.matborderi, piece.type.mattopi];
+          if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
+              if (_.indexOf(positions, +piece.pos) >= 0) {
+                  piece.material = [piece.type.matborderi, piece.type.mattopi];
+              } else {
+                  piece.material = [piece.type.matborder, piece.type.mattop];
+              }
           } else {
-              piece.material = [piece.type.matborder, piece.type.mattop];
+              if (_.indexOf(positions, +piece.pos) >= 0) {
+                  piece.material = piece.materialsi;
+              } else {
+                  piece.material = piece.materialsn;
+              }
           }
       });
   }
@@ -541,6 +549,14 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
         new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[1] }),
         new THREE.MeshBasicMaterial((side !== null) ? { map: side.t } : { color: pieceType.colors[4] })
   ];
+  let materialsi = [
+        new THREE.MeshBasicMaterial((side !== null)  ? { map: side.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[2] }),
+        new THREE.MeshBasicMaterial((side !== null)  ? { map: side.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[3] }),
+        new THREE.MeshBasicMaterial((top !== null)   ? { map: top.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[i] } ),
+        new THREE.MeshBasicMaterial((bottom != null) ? { map: bottom.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[5], transparent: true, opacity: 0.3 }),
+        new THREE.MeshBasicMaterial((side !== null)  ? { map: side.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[1] }),
+        new THREE.MeshBasicMaterial((side !== null)  ? { map: side.t, transparent: true, opacity: 0.5 } : { color: pieceType.colors[4] })
+  ];
   if (Dagaz.View.RECT_OPACITY) {
       geometry = createRectangularPrismWithGroups(
                     pieceType.dx / 10,  // width
@@ -566,6 +582,8 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
       ];
   }
   const piece = new THREE.Mesh(geometry, materials);
+  piece.materialsn = materials;
+  piece.materialsi = materialsi;
   piece.pos = pos;
   piece.type = pieceType;
   piece.position.set(p.x / 10, p.z / 10, p.y / 10);

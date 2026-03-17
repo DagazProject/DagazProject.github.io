@@ -50,6 +50,19 @@ Dagaz.Controller.skip = function(board) {
   return r;
 }
 
+Dagaz.Model.getMarked = function(board) {
+  var design = Dagaz.Model.design;
+  var r = [];
+  _.each(design.allPositions(), function(pos) {
+      var piece = board.getPiece(pos);
+      if (piece === null) return;
+      var v = piece.getValue(0);
+      if (v === null) return;
+      if (v > 0) r.push(pos);
+  });
+  return r;
+}
+
 Dagaz.View.showPiece = function(view, ctx, frame, pos, piece, model, x, y) {
   var val = null;
   if (model) {
