@@ -598,9 +598,10 @@ Dagaz.View.configure = function(view) {
 
     view.setCamera(0, 0, 0, -109, 215, 155);
 
+    view.defControl("InfoControl", "Mahjong tileset designed by Code Inferno.", true, Dagaz.Controller.open, 'http://www.codeinferno.com');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-//  view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'doubutsu-shogi.htm' : 'doubutsu-shogi-board.htm');
+    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, 'mahjong-solitaire.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
