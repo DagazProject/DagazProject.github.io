@@ -1745,6 +1745,77 @@ function createRectangularPrismWithGroups(width, height, depth) {
   return geometry;
 }
 
+function createHexagonalPrism(radius, height) {
+  // Вершины: центр низа (0), 6 нижних (1-6), центр верха (7), 6 верхних (8-13)
+  const positions = [];
+            
+  // Центр нижнего основания (индекс 0)
+  positions.push(0, -height/2, 0);
+            
+  // Вершины нижнего шестиугольника (индексы 1-6)
+  for (let i = 0; i < 6; i++) {
+       const angle = (i / 6) * Math.PI * 2; // начинаем с угла 0
+       const x = radius * Math.cos(angle);
+       const z = radius * Math.sin(angle);
+       positions.push(x, -height/2, z);
+  }
+            
+  // Центр верхнего основания (индекс 7)
+  positions.push(0, height/2, 0);
+            
+  // Вершины верхнего шестиугольника (индексы 8-13)
+  for (let i = 0; i < 6; i++) {
+       const angle = (i / 6) * Math.PI * 2;
+       const x = radius * Math.cos(angle);
+       const z = radius * Math.sin(angle);
+       positions.push(x, height/2, z);
+  }
+            
+  // Индексы треугольников
+  const indices = [];
+            
+  // Нижнее основание (6 треугольников от центра)
+  for (let i = 0; i < 6; i++) {
+       const next = (i + 1) % 6;
+       indices.push(0, 1 + i, 1 + next);
+  }
+            
+  // Верхнее основание (6 треугольников от центра)
+  for (let i = 0; i < 6; i++) {
+       const next = (i + 1) % 6;
+       indices.push(7, 8 + i, 8 + next);
+  }
+            
+  // Боковые грани (12 треугольников)
+  for (let i = 0; i < 6; i++) {
+       const next = (i + 1) % 6;
+       const b1 = 1 + i;      // нижняя вершина i
+       const b2 = 1 + next;   // нижняя вершина i+1
+       const t1 = 8 + i;      // верхняя вершина i
+       const t2 = 8 + next;   // верхняя вершина i+1
+                
+       // первый треугольник (b1, t1, t2)
+       indices.push(b1, t1, t2);
+       // второй треугольник (b1, t2, b2)
+       indices.push(b1, t2, b2);
+  }
+            
+  // Создаём геометрию
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setIndex(indices);
+            
+  // Группируем грани для разных материалов:
+  // Группа 0: верхнее основание (индексы 18-35) — 6 треугольников * 3 = 18 индексов
+  // Группа 1: нижнее основание (0-17) + боковые грани (36-71) — всего 54 индекса
+  geometry.clearGroups();
+  geometry.addGroup(18, 18, 0); // верх
+  geometry.addGroup(0, 18, 1);   // низ
+  geometry.addGroup(36, 36, 1);  // бока
+            
+  return geometry;
+}
+
 View3D.prototype.draw = function(canvas) {
   this.configure();
   if (this.allResLoaded()) {
