@@ -10,7 +10,7 @@
   <body>
     <div class="divGameIconWrap">
       <div class="divGameIcon">
-        <a href="index-map-hexchess-glinski.html">
+        <a href="index-map-hexchess-glinski.html" class="no-player-modal">
           <img src="upload/glinski.png">
         </a>
         <p>
@@ -20,7 +20,7 @@
         </p>
       </div>
       <div class="divGameIcon">
-        <a href="index-map-hexchess-mccooey.html">
+        <a href="index-map-hexchess-mccooey.html" class="no-player-modal">
           <img src="upload/mccooey.png">
         </a>
         <p>
@@ -30,7 +30,7 @@
         </p>
       </div>
       <div class="divGameIcon">
-        <a href="index-map-hexchess-hexofen.html">
+        <a href="index-map-hexchess-hexofen.html" class="no-player-modal">
           <img src="upload/hexofen.png">
         </a>
         <p>
@@ -40,7 +40,7 @@
         </p>
       </div>
       <div class="divGameIcon">
-        <a href="index-map-hexchess-shafran.html">
+        <a href="index-map-hexchess-shafran.html" class="no-player-modal">
           <img src="upload/shafran-chess.png">
         </a>
         <p>
@@ -50,7 +50,7 @@
         </p>
       </div>
       <div class="divGameIcon">
-        <a href="index-map-hexes.html">
+        <a href="index-map-hexes.html" class="no-player-modal">
           <img src="upload/hexes.png">
         </a>
         <p>
@@ -60,5 +60,52 @@
         </p>
       </div>
     </div>
+
+<div id="dagaz-player-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;">
+  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+    <h3 style="margin:0 0 12px;">Choose your side</h3>
+    <p style="margin:0 0 20px;font-size:14px;color:#555;">Do you want to play as the first or second player?</p>
+    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 1 (move first)</button>
+    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 2 (move second)</button>
+    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;">Cancel</button>
+  </div>
+</div>
+<script>
+(function() {
+  var modal = document.getElementById('dagaz-player-modal');
+  var targetUrl = null;
+  document.querySelectorAll('a[href]').forEach(function(link) {
+    if (link.classList.contains('no-player-modal')) return;
+    if (/\.html?(\?|$)/.test(link.getAttribute('href'))) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        targetUrl = link.href;
+        modal.style.display = 'flex';
+      });
+    }
+  });
+  function go(playerNum) {
+    modal.style.display = 'none';
+    if (targetUrl) {
+      var url = new URL(targetUrl);
+      url.searchParams.set('player', playerNum);
+      window.location = url.toString();
+    }
+    targetUrl = null;
+  }
+  document.getElementById('dagaz-play-1').addEventListener('click', function() { go(1); });
+  document.getElementById('dagaz-play-2').addEventListener('click', function() { go(2); });
+  document.getElementById('dagaz-cancel').addEventListener('click', function() {
+    modal.style.display = 'none';
+    targetUrl = null;
+  });
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      targetUrl = null;
+    }
+  });
+})();
+</script>
   </body>
 </html>

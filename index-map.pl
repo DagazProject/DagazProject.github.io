@@ -1,23 +1,30 @@
-print "<!DOCTYPE html>\n";
-print "<html>\n";
-print "  <head>\n";
-print "    <META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n";
-print "    <META name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n";
-print "    <link rel=\"stylesheet\" href=\"css/map.css\"/>\n";
-print "    <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"/>\n";
-print "    <title>Dagaz Release 1.4.5</title>\n";
-print "  </head>\n";
-print "  <body>\n";
-print "    <div class=\"divGameIconWrap\">\n";
+print <<EOF;
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <META name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/map.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>Dagaz Release 1.4.4</title>
+  </head>
+  <body>
+    <div class="divGameIconWrap">
+EOF
 
 while (<>) {
-  if (/^[^;]+;([^;]*);([^;]+);([^;]*);([^;]+)/) {
-      my $name = $1;
-      my $href = $2;
-      my $rule = $3;
-      my $view = $4;
+  if (/^([\*]?)[^;]+;([^;]*);([^;]+);([^;]*);([^;]+)/) {
+      my $flag = $1;
+      my $name = $2;
+      my $href = $3;
+      my $rule = $4;
+      my $view = $5;
       print "      <div class=\"divGameIcon\">\n";
-      print "        <a href=\"$href\">\n";
+      print "        <a href=\"$href\"";
+      if ($flag || ($href =~ /index-map|board/)) {
+          print " class=\"no-player-modal\"";
+      }
+      print ">\n";
       print "          <img src=\"upload/$view.png\">\n";
       print "        </a>\n";
       if ($name) {
@@ -39,6 +46,55 @@ while (<>) {
   }
 }
 
-print "    </div>\n";
-print "  </body>\n";
-print "</html>\n";
+print <<EOF;
+    </div>
+
+<div id="dagaz-player-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;">
+  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+    <h3 style="margin:0 0 12px;">Choose your side</h3>
+    <p style="margin:0 0 20px;font-size:14px;color:#555;">Do you want to play as the first or second player?</p>
+    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 1 (move first)</button>
+    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 2 (move second)</button>
+    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;">Cancel</button>
+  </div>
+</div>
+<script>
+(function() {
+  var modal = document.getElementById('dagaz-player-modal');
+  var targetUrl = null;
+  document.querySelectorAll('a[href]').forEach(function(link) {
+    if (link.classList.contains('no-player-modal')) return;
+    if (/\\.html?(\\?|\$)/.test(link.getAttribute('href'))) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        targetUrl = link.href;
+        modal.style.display = 'flex';
+      });
+    }
+  });
+  function go(playerNum) {
+    modal.style.display = 'none';
+    if (targetUrl) {
+      var url = new URL(targetUrl);
+      url.searchParams.set('player', playerNum);
+      window.location = url.toString();
+    }
+    targetUrl = null;
+  }
+  document.getElementById('dagaz-play-1').addEventListener('click', function() { go(1); });
+  document.getElementById('dagaz-play-2').addEventListener('click', function() { go(2); });
+  document.getElementById('dagaz-cancel').addEventListener('click', function() {
+    modal.style.display = 'none';
+    targetUrl = null;
+  });
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      targetUrl = null;
+    }
+  });
+})();
+</script>
+  </body>
+</html>
+EOF
