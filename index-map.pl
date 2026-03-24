@@ -21,7 +21,7 @@ while (<>) {
       my $view = $5;
       print "      <div class=\"divGameIcon\">\n";
       print "        <a href=\"$href\"";
-      if ($flag || ($href =~ /index-map|board/)) {
+      if ($flag || ($href =~ /index-map|board|dark/)) {
           print " class=\"no-player-modal\"";
       }
       print ">\n";
