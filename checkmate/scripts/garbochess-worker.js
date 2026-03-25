@@ -138,12 +138,14 @@ function FormatSquare(square) {
 }
 
 function FormatMove(move) {
-    var result = FormatSquare(move & 0xFF) + FormatSquare((move >> 8) & 0xFF);
+    if (move & moveflagCastleKing) return "O-O";
+    if (move & moveflagCastleQueen) return "O-O-O";
+    var result = FormatSquare(move & 0xFF) + '-' + FormatSquare((move >> 8) & 0xFF);
     if (move & moveflagPromotion) {
-        if (move & moveflagPromoteBishop) result += "b";
-        else if (move & moveflagPromoteKnight) result += "n";
-        else if (move & moveflagPromoteQueen) result += "q";
-        else result += "r";
+        if (move & moveflagPromoteBishop) result += " Bishop";
+        else if (move & moveflagPromoteKnight) result += " Knight";
+        else if (move & moveflagPromoteQueen) result += " Queen";
+        else result += " Rook";
     }
     return result;
 }
@@ -2480,13 +2482,13 @@ function BuildPVMessage(bestMove, value, timeTaken, ply) {
 // Test Harness
 //////////////////////////////////////////////////
 function FinishPlyCallback(bestMove, value, timeTaken, ply) {
-    self.postMessage("pv " + BuildPVMessage(bestMove, value, timeTaken, ply));
+    postMessage("pv " + BuildPVMessage(bestMove, value, timeTaken, ply));
 }
 
 function FinishMoveLocalTesting(bestMove, value, timeTaken, ply) {
     if (bestMove != null) {
         MakeMove(bestMove);
-        self.postMessage(FormatMove(bestMove));
+        postMessage(FormatMove(bestMove));
     }
 }
 

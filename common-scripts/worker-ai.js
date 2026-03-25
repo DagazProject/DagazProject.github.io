@@ -36,8 +36,9 @@ function start(fen) {
     g_backgroundEngine.error = function (e) {
        console.log("Error from background worker:" + e.message)
     }
-    g_backgroundEngine.postMessage("position " + fen.replace('+', ' '));
-    g_backgroundEngine.postMessage("go");
+    fen = fen.replaceAll('+', ' ');
+    g_backgroundEngine.postMessage("position " + fen);
+    g_backgroundEngine.postMessage("search 1000");
 }
 
 function onMessage(msg) {
@@ -47,7 +48,7 @@ function onMessage(msg) {
         stop();
         console.log(msg.data.substr(8, msg.data.length - 8));
     } else {
-        const move = e.data;
+        const move = msg.data;
         console.log(move);
         if (Dagaz.AI.callback) {
            Dagaz.AI.callback(move);
@@ -85,7 +86,7 @@ Ai.prototype.getMove = function(ctx) {
   }
   const setup = Dagaz.Model.getSetup(ctx.design, ctx.board);
   const result = setup.match(/[?&]setup=(.*)/);
-  if (result && (ctx.board.turn >= Dagaz.AI.MIN_TURN)) {
+  if (result) {      
       inProgress = true;
       const fen = result[1];
       start(fen);
