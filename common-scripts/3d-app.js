@@ -353,10 +353,18 @@ Dagaz.AI.callback = function(result) {
       }
   });
   if (move === null) return;
-  var board = app.board.apply(move);
-  Dagaz.Controller.pushState(move, board);
-  if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.hint)) {
-      Dagaz.Controller.play(Dagaz.Sounds.hint);
+  if (app.state == STATE.BUZY) {
+      app.boardApply(move);
+      Dagaz.Model.Done(app.design, app.board);
+      app.move = move;
+      delete app.list;
+      app.state = STATE.EXEC;
+  } else {
+      var board = app.board.apply(move);
+      Dagaz.Controller.pushState(move, board);
+      if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.hint)) {
+          Dagaz.Controller.play(Dagaz.Sounds.hint);
+      }
   }
 }
 

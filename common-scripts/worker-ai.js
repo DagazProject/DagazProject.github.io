@@ -3,6 +3,7 @@
 (function() {
 
 Dagaz.AI.WORKER_NAME = 'scripts/garbochess-worker.js';
+Dagaz.AI.WORKER_TIME = 1000;
 
 let g_backgroundEngine = null;
 let inProgress = false;
@@ -38,7 +39,7 @@ function start(fen) {
     }
     fen = fen.replaceAll('+', ' ');
     g_backgroundEngine.postMessage("position " + fen);
-    g_backgroundEngine.postMessage("search 1000");
+    g_backgroundEngine.postMessage("search " + Dagaz.AI.WORKER_TIME);
 }
 
 function onMessage(msg) {
@@ -48,6 +49,7 @@ function onMessage(msg) {
         stop();
         console.log(msg.data.substr(8, msg.data.length - 8));
     } else {
+        stop();
         const move = msg.data;
         console.log(move);
         if (Dagaz.AI.callback) {

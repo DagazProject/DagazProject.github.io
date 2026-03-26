@@ -1,5 +1,8 @@
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME = 'scripts/garbochess-worker.js';
+Dagaz.AI.WORKER_TIME = 3000;
+
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;
 
