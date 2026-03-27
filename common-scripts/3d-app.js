@@ -360,6 +360,7 @@ Dagaz.AI.callback = function(result) {
       delete app.list;
       app.state = STATE.EXEC;
   } else {
+      Dagaz.AI.ADVISOR_MOVE = ': ' + result;
       var board = app.board.apply(move);
       Dagaz.Controller.pushState(move, board);
       if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.hint)) {

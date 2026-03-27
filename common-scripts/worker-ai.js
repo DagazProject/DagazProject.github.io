@@ -26,6 +26,7 @@ function stop() {
     if (g_backgroundEngine !== null) {
         g_backgroundEngine.terminate();
         g_backgroundEngine = null;
+        Dagaz.View.switchControl(4, 0);
     }
     inProgress = false;
 }
@@ -40,6 +41,7 @@ function start(fen) {
     fen = fen.replaceAll('+', ' ');
     g_backgroundEngine.postMessage("position " + fen);
     g_backgroundEngine.postMessage("search " + Dagaz.AI.WORKER_TIME);
+    Dagaz.View.switchControl(4, 1);
 }
 
 function onMessage(msg) {
@@ -53,7 +55,7 @@ function onMessage(msg) {
         const move = msg.data;
         console.log(move);
         if (Dagaz.AI.callback) {
-           Dagaz.AI.callback(move);
+            Dagaz.AI.callback(move);
         }
     }
 }

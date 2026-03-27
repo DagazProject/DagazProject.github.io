@@ -1,6 +1,7 @@
 ﻿﻿"use strict";
 
 Dagaz.Controller.viewOff = false;
+Dagaz.AI.ADVISOR_MOVE = '';
 
 (function() {
 
@@ -750,6 +751,10 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      if (imgs == "RedoControl") type = 2;
      if (imgs == "HomeControl") type = 3;
      imgs = [imgs];
+  } else {
+     if (_.indexOf(imgs, "AiLightControl") >= 0) {
+         type = 4;
+     }
   }
   imgs = _.map(imgs, function(res) {
      const img = document.getElementById(res);
@@ -1206,6 +1211,19 @@ View3D.prototype.showControl = function(type, isVisible) {
   }
 }
 
+Dagaz.View.switchControl = function(type, ix) {
+  const view = Dagaz.Controller.app.view;
+  for (let i = 0; i < menus[0].items.length; i++) {
+     const t = menus[0].items[i];
+     if (t.y == type) {
+         if (ix >= t.h.length) break;
+         t.x = ix;
+         view.invalidate();
+         break;
+     }
+  }
+}
+
 function drawTooltip(text, x, y) {
   ctx.font = '14px Arial';
   const padding = 8;
@@ -1252,7 +1270,8 @@ View3D.prototype.invalidate = function() {
       cameraSettings = s;
   }
   if (h !== null) {
-      drawTooltip(h.t, h.x, h.y);
+      let t = h.t.replace('{move}', Dagaz.AI.ADVISOR_MOVE);
+      drawTooltip(t, h.x, h.y);
   }
   renderer.render(scene, camera);
 }
