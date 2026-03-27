@@ -31,7 +31,7 @@ function stop() {
     inProgress = false;
 }
 
-function start(fen) {
+function start(fen, isAdvisor) {
     if (g_backgroundEngine !== null) return;
     g_backgroundEngine = new Worker(Dagaz.AI.WORKER_NAME);
     g_backgroundEngine.onmessage = onMessage;
@@ -40,7 +40,11 @@ function start(fen) {
     }
     fen = fen.replaceAll('+', ' ');
     g_backgroundEngine.postMessage("position " + fen);
-    g_backgroundEngine.postMessage("search " + Dagaz.AI.WORKER_TIME);
+    if (isAdvisor && !_.isUndefined(Dagaz.AI.ADVISOR_TIME)) {
+        g_backgroundEngine.postMessage("search " + Dagaz.AI.ADVISOR_TIME);
+    } else {
+        g_backgroundEngine.postMessage("search " + Dagaz.AI.WORKER_TIME);
+    }
     Dagaz.View.switchControl(4, 1);
 }
 
@@ -68,7 +72,12 @@ Ai.prototype.setContext = function(ctx, board) {
   ctx.board = board;
 }
 
-Ai.prototype.getMove = function(ctx) {
+Ai.prototype.stop = function() {
+  stop();
+}
+
+Ai.prototype.getMove = function(ctx, isAdvisor) {
+  if (_.isUndefined(isAdvisor)) isAdvisor = false;
   const moves = Dagaz.AI.generate(ctx, ctx.board);
   if (moves.length == 0) {
       return { done: true, ai: "nothing" };
@@ -93,7 +102,7 @@ Ai.prototype.getMove = function(ctx) {
   if (result) {      
       inProgress = true;
       const fen = result[1];
-      start(fen);
+      start(fen, isAdvisor);
       return {
            done: false,
            time: Date.now() - ctx.timestamp,
