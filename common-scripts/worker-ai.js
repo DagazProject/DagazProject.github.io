@@ -6,7 +6,9 @@ Dagaz.AI.WORKER_NAME = 'scripts/garbochess-worker.js';
 Dagaz.AI.WORKER_TIME = 1000;
 
 let g_backgroundEngine = null;
+
 let inProgress = false;
+let isAdvisor  = false;
 
 function Ai(parent) {
   this.parent = parent;
@@ -72,12 +74,12 @@ Ai.prototype.setContext = function(ctx, board) {
   ctx.board = board;
 }
 
-Ai.prototype.stop = function() {
-  stop();
-}
-
-Ai.prototype.getMove = function(ctx, isAdvisor) {
+Ai.prototype.getMove = function(ctx, flag) {
   if (_.isUndefined(isAdvisor)) isAdvisor = false;
+  if (!flag && isAdvisor) {
+      stop();
+  }
+  isAdvisor = flag;
   const moves = Dagaz.AI.generate(ctx, ctx.board);
   if (moves.length == 0) {
       return { done: true, ai: "nothing" };

@@ -265,7 +265,7 @@ App.prototype.exec = function() {
                  var ctx = this.getContext(this.board.player, true);
                  if (ctx !== null) {
                      ai.setContext(ctx, this.board);
-                     var result = ai.getMove(ctx);
+                     var result = ai.getMove(ctx, true);
                      if (result && result.done) {
                          delete Dagaz.AI.advisorStamp;
                          var board = this.board.apply(result.move);

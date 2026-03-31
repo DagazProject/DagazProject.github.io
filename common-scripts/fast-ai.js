@@ -22,7 +22,7 @@ Ai.prototype.setContext = function(ctx, board) {
   ctx.board = board;
 }
 
-Ai.prototype.getMove = function(ctx) {
+Ai.prototype.getMove = function(ctx, isAdvisor) {
   var moves = Dagaz.AI.generate(ctx, ctx.board);
   if (moves.length == 0) {
       return { done: true, ai: "nothing" };
@@ -53,7 +53,7 @@ Ai.prototype.getMove = function(ctx) {
       };
   }
   if (this.parent) {
-      return this.parent.getMove(ctx);
+      return this.parent.getMove(ctx, isAdvisor);
   }
 }
 

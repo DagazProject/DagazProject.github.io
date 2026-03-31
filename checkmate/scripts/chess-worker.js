@@ -1,6 +1,6 @@
 "use strict";
 
-importScripts('garbo-woker.js');
+importScripts('../../common-scripts/zobrist-worker.js', 'garbo-woker.js');
 
 function GetFen(){
     var result = "";

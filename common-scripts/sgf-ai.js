@@ -81,7 +81,7 @@ SgfAi.prototype.setContext = function(ctx, board) {
   }
 }
 
-SgfAi.prototype.getMove = function(ctx) {
+SgfAi.prototype.getMove = function(ctx, isAdvisor) {
   if (ctx.sgf && (ctx.position < ctx.sgf.length)) {
       var notes = [];
       if (_.isArray(ctx.sgf[ctx.position])) {
@@ -113,7 +113,7 @@ SgfAi.prototype.getMove = function(ctx) {
       }
   }
   if (this.parent) {
-      return this.parent.getMove(ctx);
+      return this.parent.getMove(ctx, isAdvisor);
   }
 }
 

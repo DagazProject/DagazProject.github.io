@@ -474,9 +474,6 @@ App.prototype.exec = function() {
       var ctx = this.getContext(this.board.player);
       var player = this.design.playerNames[this.board.player];
       var ai = this.getAI();
-      if (!_.isUndefined(ai.stop)) {
-          ai.stop();
-      }
       var result = ai.getMove(ctx);
       if (result) {
           Canvas.style.cursor = "default";
