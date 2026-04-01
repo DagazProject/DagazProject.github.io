@@ -721,7 +721,6 @@ var g_board = new Array(256); // Sentinel 0x80, pieces are in low 4 bits, 0x8 fo
 var g_toMove; // side to move, 0 or 8, 0 = black, 8 = white
 
 var g_baseEval;
-var g_hashKeyLow, g_hashKeyHigh;
 var g_inCheck;
 
 // Utility variables
@@ -735,14 +734,8 @@ var g_hashSize = 1 << 22;
 var g_hashMask = g_hashSize - 1;
 var g_hashTable;
 
-
 var g_killers;
 var historyTable = new Array(32);
-
-var g_zobristLow;
-var g_zobristHigh;
-var g_zobristBlackLow;
-var g_zobristBlackHigh;
 
 // Evaulation variables
 var g_mobUnit;
@@ -761,27 +754,6 @@ function MakeTable(table) {
             result[MakeSquare(row, col)] = table[row * 8 + col];
         }
     }
-    return result;
-}
-
-function SetHash() {
-    var result = new Object();
-    result.hashKeyLow = 0;
-    result.hashKeyHigh = 0;
-
-    for (var i = 0; i < 256; i++) {
-        var piece = g_board[i];
-        if (piece & 0x18) {
-            result.hashKeyLow ^= g_zobristLow[i][piece & 0xF]
-            result.hashKeyHigh ^= g_zobristHigh[i][piece & 0xF]
-        }
-    }
-
-    if (!g_toMove) {
-        result.hashKeyLow ^= g_zobristBlackLow;
-        result.hashKeyHigh ^= g_zobristBlackHigh;
-    }
-
     return result;
 }
 
@@ -909,7 +881,7 @@ function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHig
 }
 
 var g_seeValues = [0, 1, 3, 3, 5, 9, 900, 0,
-                    0, 1, 3, 3, 5, 9, 900, 0];
+                   0, 1, 3, 3, 5, 9, 900, 0];
 
 function See(move) {
     var from = move & 0xFF;

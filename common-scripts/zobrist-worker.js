@@ -1,3 +1,10 @@
+var g_hashKeyLow, g_hashKeyHigh;
+
+var g_zobristLow;
+var g_zobristHigh;
+var g_zobristBlackLow;
+var g_zobristBlackHigh;
+
 function MT() {
  	var N = 624;
 	var M = 397;
@@ -98,4 +105,25 @@ function MT() {
 		y ^= y >>> 18;
 		return (y >>> (32 - bits)) & 0xFFFFFFFF;
 	}
+}
+
+function SetHash() {
+    var result = new Object();
+    result.hashKeyLow = 0;
+    result.hashKeyHigh = 0;
+
+    for (var i = 0; i < 256; i++) {
+        var piece = g_board[i];
+        if (piece & 0x18) {
+            result.hashKeyLow ^= g_zobristLow[i][piece & 0xF]
+            result.hashKeyHigh ^= g_zobristHigh[i][piece & 0xF]
+        }
+    }
+
+    if (!g_toMove) {
+        result.hashKeyLow ^= g_zobristBlackLow;
+        result.hashKeyHigh ^= g_zobristBlackHigh;
+    }
+
+    return result;
 }

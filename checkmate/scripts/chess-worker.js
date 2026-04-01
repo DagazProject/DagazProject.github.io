@@ -2,6 +2,12 @@
 
 importScripts('../../common-scripts/zobrist-worker.js', 'garbo-woker.js');
 
+const PIECE_MASK       = 0xF;
+const TYPE_MASK        = 0x7;
+const PLAYERS_MASK     = 0x18;
+const COUNTER_SIZE     = 4;
+const TYPE_SIZE        = 3;
+
 function GetFen(){
     var result = "";
     for (var row = 0; row < 8; row++) {
@@ -328,12 +334,22 @@ function Evaluate() {
     var curEval = g_baseEval;
 
     var evalAdjust = 0;
+
     // Black queen gone, then cancel white's penalty for king movement
-    if (g_pieceList[pieceQueen << 4] == 0)
-        evalAdjust -= pieceSquareAdj[pieceKing][g_pieceList[(colorWhite | pieceKing) << 4]];
+    if (g_pieceList[pieceQueen << COUNTER_SIZE] == 0) {
+        var kingPos = g_pieceList[(colorWhite | pieceKing) << COUNTER_SIZE];
+        if (kingPos != 0) {
+            evalAdjust -= pieceSquareAdj[pieceKing][kingPos];
+        }
+    }
+
     // White queen gone, then cancel black's penalty for king movement
-    if (g_pieceList[(colorWhite | pieceQueen) << 4] == 0) 
-        evalAdjust += pieceSquareAdj[pieceKing][flipTable[g_pieceList[pieceKing << 4]]];
+    if (g_pieceList[(colorWhite | pieceQueen) << COUNTER_SIZE] == 0) {
+        var kingPos = flipTable[g_pieceList[pieceKing << COUNTER_SIZE]];
+        if (kingPos != 0) {
+            evalAdjust += pieceSquareAdj[pieceKing][kingPos];
+        }
+    }
 
     // Black bishop pair
     if (g_pieceCount[pieceBishop] >= 2)
@@ -473,6 +489,8 @@ var moveflagPromoteBishop = 0x80 << 16;
 
 var g_castleRights; // bitmask representing castling rights, 1 = wk, 2 = wq, 4 = bk, 8 = bq
 var g_enPassentSquare;
+
+const g_flags = moveflagPromotion | moveflagPromoteKnight | moveflagPromoteQueen | moveflagPromoteBishop | moveflagCastleKing | moveflagCastleQueen | moveflagEPC;
 
 function ResetGame() {
     g_killers = new Array(128);
@@ -724,10 +742,15 @@ function InitializeFromFen(fen) {
     if (!g_toMove) g_baseEval = -g_baseEval;
 
     g_move50 = 0;
-    g_inCheck = IsSquareAttackable(g_pieceList[(g_toMove | pieceKing) << 4], them);
+    var kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
+    g_inCheck = false;
+    if (kingPos != 0) {
+        g_inCheck = IsSquareAttackable(kingPos, them);
+    }
 
     // Check for king capture (invalid FEN)
-    if (IsSquareAttackable(g_pieceList[(them | pieceKing) << 4], g_toMove)) {
+    kingPos = g_pieceList[(them | pieceKing) << COUNTER_SIZE];
+    if ((kingPos != 0) && IsSquareAttackable(kingPos, g_toMove)) {
         return 'Invalid FEN: Can capture king';
     }
 
@@ -893,23 +916,25 @@ function MakeMove(move){
     g_toMove = otherColor;
     g_baseEval = -g_baseEval;
     
-    if ((piece & 0x7) == pieceKing || g_inCheck) {
-        if (IsSquareAttackable(g_pieceList[(pieceKing | (8 - g_toMove)) << 4], otherColor)) {
+    if ((piece & TYPE_MASK) == pieceKing || g_inCheck) {
+        var kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+        if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
             UnmakeMove(move);
             return false;
         }
     } else {
-        var kingPos = g_pieceList[(pieceKing | (8 - g_toMove)) << 4];
-        
-        if (ExposesCheck(from, kingPos)) {
-            UnmakeMove(move);
-            return false;
-        }
-        
-        if (epcEnd != to) {
-            if (ExposesCheck(epcEnd, kingPos)) {
+        var kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+        if (kingPos != 0) {
+            if (ExposesCheck(from, kingPos)) {
                 UnmakeMove(move);
                 return false;
+            }
+            
+            if (epcEnd != to) {
+                if (ExposesCheck(epcEnd, kingPos)) {
+                    UnmakeMove(move);
+                    return false;
+                }
             }
         }
     }
@@ -917,26 +942,29 @@ function MakeMove(move){
     g_inCheck = false;
     
     if (flags <= moveflagEPC) {
-        var theirKingPos = g_pieceList[(pieceKing | g_toMove) << 4];
-        
-        // First check if the piece we moved can attack the enemy king
-        g_inCheck = IsSquareAttackableFrom(theirKingPos, to);
-        
-        if (!g_inCheck) {
-            // Now check if the square we moved from exposes check on the enemy king
-            g_inCheck = ExposesCheck(from, theirKingPos);
-            
+        var theirKingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+        if (theirKingPos != 0) {
+            // First check if the piece we moved can attack the enemy king
+            g_inCheck = IsSquareAttackableFrom(theirKingPos, to);
             if (!g_inCheck) {
-                // Finally, ep. capture can cause another square to be exposed
-                if (epcEnd != to) {
-                    g_inCheck = ExposesCheck(epcEnd, theirKingPos);
+                // Now check if the square we moved from exposes check on the enemy king
+                g_inCheck = ExposesCheck(from, theirKingPos);
+                if (!g_inCheck) {
+                    // Finally, ep. capture can cause another square to be exposed
+                    if (epcEnd != to) {
+                        g_inCheck = ExposesCheck(epcEnd, theirKingPos);
+                    }
                 }
             }
         }
     }
     else {
         // Castle or promotion, slow check
-        g_inCheck = IsSquareAttackable(g_pieceList[(pieceKing | g_toMove) << 4], 8 - g_toMove);
+        g_inCheck = false;
+        var kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+        if (kingPos != 0) {
+            g_inCheck = IsSquareAttackable(kingPos, colorWhite - g_toMove);
+        }
     }
 
     g_repMoveStack[g_moveCount - 1] = g_hashKeyLow;
@@ -1038,8 +1066,8 @@ function UnmakeMove(move){
 function GenerateAllMoves(moveStack) {
     var from, to, piece, pieceIdx;
 
-	// Pawn quiet moves
-    pieceIdx = (g_toMove | 1) << 4;
+    // Pawn quiet moves
+    pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         GeneratePawnMoves(moveStack, from);
@@ -1047,192 +1075,187 @@ function GenerateAllMoves(moveStack) {
     }
 
     // Knight quiet moves
-	pieceIdx = (g_toMove | 2) << 4;
+    pieceIdx = (g_toMove | pieceKnight) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from + 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from + 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 
-	// Bishop quiet moves
-	pieceIdx = (g_toMove | 3) << 4;
+    // Bishop quiet moves
+    pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 15; }
+	to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 17; }
+	to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 15; }
+	to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 17; }
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 15; }
-		to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 17; }
-		to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 15; }
-		to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 17; }
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 
-	// Rook quiet moves
-	pieceIdx = (g_toMove | 4) << 4;
+    // Rook quiet moves
+    pieceIdx = (g_toMove | pieceRook) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to--; }
+	to = from + 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to++; }
+	to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 16; }
+	to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 16; }
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from - 1; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to--; }
-		to = from + 1; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to++; }
-		to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 16; }
-		to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 16; }
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// Queen quiet moves
-	pieceIdx = (g_toMove | 5) << 4;
+    // Queen quiet moves
+    pieceIdx = (g_toMove | pieceQueen) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 15; }
+	to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 17; }
+	to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 15; }
+	to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 17; }
+	to = from - 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to--; }
+	to = from + 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to++; }
+	to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 16; }
+	to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 16; }
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 15; }
-		to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 17; }
-		to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 15; }
-		to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 17; }
-		to = from - 1; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to--; }
-		to = from + 1; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to++; }
-		to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to += 16; }
-		to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to); to -= 16; }
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// King quiet moves
-	{
-		pieceIdx = (g_toMove | 6) << 4;
-		from = g_pieceList[pieceIdx];
-		to = from - 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 1; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 1; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+    // King quiet moves
+    {
+ 	pieceIdx = (g_toMove | pieceKing) << COUNTER_SIZE;
+	from = g_pieceList[pieceIdx];
+	to = from - 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 		
         if (!g_inCheck) {
             var castleRights = g_castleRights;
-            if (!g_toMove) 
-                castleRights >>= 2;
-            if (castleRights & 1) {
+            if (!g_toMove) castleRights >>= 2;
+            if ((castleRights & 1) && (g_flags & moveflagCastleKing)) {
                 // Kingside castle
                 if (g_board[from + 1] == pieceEmpty && g_board[from + 2] == pieceEmpty) {
                     moveStack[moveStack.length] = GenerateMove(from, from + 0x02, moveflagCastleKing);
                 }
             }
-            if (castleRights & 2) {
+            if ((castleRights & 2) && (g_flags & moveflagCastleQueen)) {
                 // Queenside castle
                 if (g_board[from - 1] == pieceEmpty && g_board[from - 2] == pieceEmpty && g_board[from - 3] == pieceEmpty) {
                     moveStack[moveStack.length] = GenerateMove(from, from - 0x02, moveflagCastleQueen);
                 }
             }
         }
-	}
+    }
 }
 
 function GenerateCaptureMoves(moveStack, moveScores) {
     var from, to, piece, pieceIdx;
-    var inc = (g_toMove == 8) ? -16 : 16;
-    var enemy = g_toMove == 8 ? 0x10 : 0x8;
+    var inc = (g_toMove == colorWhite) ? -16 : 16;
+    var enemy = g_toMove == colorWhite ? colorBlack : colorWhite;
 
     // Pawn captures
-    pieceIdx = (g_toMove | 1) << 4;
+    pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from + inc - 1;
         if (g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-
         to = from + inc + 1;
         if (g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-
         from = g_pieceList[pieceIdx++];
     }
 
     if (g_enPassentSquare != -1) {
         var inc = (g_toMove == colorWhite) ? -16 : 16;
         var pawn = g_toMove | piecePawn;
-
         var from = g_enPassentSquare - (inc + 1);
-        if ((g_board[from] & 0xF) == pawn) {
+        if ((g_board[from] & PIECE_MASK) == pawn) {
             moveStack[moveStack.length] = GenerateMove(from, g_enPassentSquare, moveflagEPC);
         }
-
         from = g_enPassentSquare - (inc - 1);
-        if ((g_board[from] & 0xF) == pawn) {
+        if ((g_board[from] & PIECE_MASK) == pawn) {
             moveStack[moveStack.length] = GenerateMove(from, g_enPassentSquare, moveflagEPC);
         }
     }
 
     // Knight captures
-	pieceIdx = (g_toMove | 2) << 4;
+    pieceIdx = (g_toMove | pieceKnight) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from + 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from + 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// Bishop captures
-	pieceIdx = (g_toMove | 3) << 4;
+    // Bishop captures
+    pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// Rook captures
-	pieceIdx = (g_toMove | 4) << 4;
+    // Rook captures
+    pieceIdx = (g_toMove | pieceRook) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// Queen captures
-	pieceIdx = (g_toMove | 5) << 4;
+    // Queen captures
+    pieceIdx = (g_toMove | pieceQueen) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
 	from = g_pieceList[pieceIdx++];
-	while (from != 0) {
-		to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		from = g_pieceList[pieceIdx++];
-	}
+    }
 	
-	// King captures
-	{
-		pieceIdx = (g_toMove | 6) << 4;
-		from = g_pieceList[pieceIdx];
-		to = from - 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 1; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 1; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from - 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-		to = from + 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
-	}
+    // King captures
+    {
+	pieceIdx = (g_toMove | pieceKing) << COUNTER_SIZE;
+	from = g_pieceList[pieceIdx];
+	to = from - 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 1;  if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 1;  if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to);
+    }
 }
 
 function MovePawnTo(moveStack, start, square) {
