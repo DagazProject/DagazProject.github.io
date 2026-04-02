@@ -24,8 +24,91 @@ function Configure(data) {
 }
 
 function MakeMove(move) {
-   // TODO:
+   let   dame  = [];
+   const group = [move];
+   const enemy = [];
+   for (let dir = 0; dir < 4; dir++) {
+       const pos = Navigate(move, dir, WORK_OFFSET);
+       if (pos === null) continue;
+       if (g_board[pos] == 0) {
+           dame.push[pos];
+           continue;
+       }
+       if (g_board[pos] * g_player > 0) {
+           group.push(pos);
+           continue;
+       }
+       if (g_board[pos] * g_player == -1) {
+           dame.push[pos];
+           Capture(pos);
+           continue;
+       }
+       enemy.push(pos);
+   }
+   if (group.length == 1) {
+       g_board[move] = dame.length * g_player;
+       return true;
+   }
+   dame = [];
+   for (let ix = 0; ix < group.length; ix++) {
+       const p = group[ix];
+       for (let d = 0; d < 4; d++) {
+           const q = Navigate(p, d, WORK_OFFSET);
+           if (q === null) continue;
+           if (_.indexOf(group, q) >= 0) continue;
+           if (g_board[q] == 0) {
+               if (_.indexOf(dame, q) < 0) {
+                   dame.push(q);
+               }
+               continue;
+           }
+           if (g_board[q] * g_player < 0) continue;
+           group.push(q);
+       }
+   }
+   if (dame.length == 0) return false;
+   for (let ix = 0; ix < group.length; ix++) {
+       g_board[group[ix]] = dame.length * g_player;
+   }
+   for (let ix = 0; ix < enemy.length; ix++) {
+       const info = GetGroupInfo(enemy[ix]);
+       for (let i = 0; i < info.g.length; i++) {
+           g_board[info.g[i]] = info.d;
+       }
+   }
+   return true;
+}
 
+function GetGroupInfo(pos) {
+   const group = [pos];
+   const player = g_board[pos];
+   const dame = [];
+   if (player == 0) return [];
+   for (let ix = 0; ix < group.length; ix++) {
+       const p = group[ix];
+       for (let d = 0; d < 4; d++) {
+           const q = Navigate(p, d, WORK_OFFSET);
+           if (q === null) continue;
+           if (_.indexOf(group, q) >= 0) continue;
+           if (g_board[q] == 0) {
+               if (_.indexOf(dame, q) < 0) dame.push(q);
+               continue;
+           }
+           if (g_board[q] * player < 0) continue;
+           group.push(q);
+       }
+   }
+   return {
+     g: group,
+     d: dame.length * player
+   };
+}
+
+function Capture(pos) {
+   const info = GetGroupInfo(pos);
+   for (let ix = 0; ix < info.g.length; ix++) {
+       g_board[info.g[ix]] = 0;
+   }
 }
 
 function Init() {
