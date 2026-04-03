@@ -4,15 +4,15 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-832 1322,-832 1322,5 -4,5"></polygon>
 <!-- Chess -->
 <g id="node1" class="node"><title>Chess</title>
-<a xlink:href="checkmate/chess.htm">
-<ellipse fill="darkgreen" stroke="black" cx="500" cy="-810" rx="34.1548" ry="18"></ellipse>
+<a xlink:href="checkmate/chess-3d.htm">
+<ellipse fill="gold" stroke="black" cx="500" cy="-810" rx="34.1548" ry="18"></ellipse>
 <text text-anchor="middle" x="500" y="-805.8" font-family="Times,serif" font-size="14.00">Chess</text>
 </a>
 </g>
 <!-- Mini Chess -->
 <g id="node2" class="node"><title>Mini Chess</title>
-<a xlink:href="checkmate/mini-chess.htm">
-<ellipse fill="darkgreen" stroke="black" cx="431" cy="-738" rx="54.9471" ry="18"></ellipse>
+<a xlink:href="checkmate/mini-chess-3d.htm">
+<ellipse fill="gold" stroke="black" cx="431" cy="-738" rx="54.9471" ry="18"></ellipse>
 <text text-anchor="middle" x="431" y="-733.8" font-family="Times,serif" font-size="14.00">Mini Chess</text>
 </a>
 </g>

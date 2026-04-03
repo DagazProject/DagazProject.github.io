@@ -52,7 +52,7 @@ var isAttack = function(design, board, move) {
           .size().value() > 0;
 }
 
-Ai.prototype.getMove = function(ctx) {
+Ai.prototype.getMove = function(ctx, isAdvisor) {
   var timestamp = Date.now();
   var design = Dagaz.Model.getDesign();
   var result = null;
@@ -154,7 +154,7 @@ Ai.prototype.getMove = function(ctx) {
       };
   }
   if (this.parent) {
-      return this.parent.getMove(ctx);
+      return this.parent.getMove(ctx, isAdvisor);
   }
 }
 

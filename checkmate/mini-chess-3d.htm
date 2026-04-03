@@ -1,14 +1,15 @@
 <html>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Chess</title>
+<title>Mini Chess</title>
 <link rel="stylesheet" href="../css/3d-view.css"/>
 </head>
 <body>
 
-<img id="Board" style="display:none" src="images/8x8.png">
+<img id="Board" style="display:none" src="images/5x6.png">
 
 <img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
 <img id = "NewControl" style="display:none" src="../images/new.png"/>
 <img id = "ResControl" style="display:none" src="../images/resa.png"/>
 <img id = "AiLightControl" style="display:none" src="../images/ailight.png"/>
@@ -37,14 +38,14 @@
 <script src="../common-scripts/fen-setup.js"></script>
 <script src="../common-scripts/3d-view.js"></script>
 <script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
 <script src="../common-scripts/sound-manager-v3.js"></script>
 <script src="../common-scripts/random-ai.js"></script>
-<script src="../common-scripts/stupid-ai.js"></script>
-<script src="scripts/garbochess-ai.js"></script>
+<script src="../common-scripts/worker-ai.js"></script>
 <script src="scripts/chess-goal.js"></script>
 <script src="scripts/chess-invariant.js"></script>
-<script src="scripts/chess-3d.js"></script>
-<script src="../common-scripts/3d-app-auto.js"></script>
+<script src="scripts/mini-chess-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
 
 </body>
 </html>

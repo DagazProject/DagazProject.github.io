@@ -1,10 +1,14 @@
+Dagaz.View.TARGET_FLAT       =  true;
+Dagaz.View.TARGET_RADIUS     =  2.5;
 Dagaz.Controller.persistense = "setup";
 
 Dagaz.AI.WORKER_NAME  = 'scripts/chess-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 17000;
 
 Dagaz.Model.WIDTH  = 5;
 Dagaz.Model.HEIGHT = 6;
-Dagaz.AI.FLAGS     = 0xE0;
+Dagaz.AI.FLAGS     = 0x40;
 
 ZRF = {
     JUMP:          0,
@@ -31,13 +35,33 @@ if (Dagaz.AI.SetParams) {
     Dagaz.AI.SetParams(Dagaz.Model.WIDTH, Dagaz.Model.HEIGHT, Dagaz.AI.FLAGS);
 }
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  _.each(move.actions, function(a) {
+      if (a[1] === null) return;
+      if (r != "") {
+          r = r + " ";
+      }
+      if (a[0] != null) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
+          if (a[1] !== null) {
+              r = r + '-';
+          }
+      }
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+  });
+  return r;
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
     design.checkVersion("chess-invariant", "true");
 
     design.addDirection("w");
@@ -82,10 +106,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("c1", [-1, 1, 0, -4, -5, 0, 0, -6]);
     design.addPosition("d1", [-1, 1, 0, -4, -5, 0, 0, -6]);
     design.addPosition("e1", [-1, 0, 0, 0, -5, 0, 0, -6]);
-    design.addPosition("X1", [0, 0, 0, 0, 0, 0, 0, 0]);
-    design.addPosition("X2", [0, 0, 0, 0, 0, 0, 0, 0]);
-    design.addPosition("X3", [0, 0, 0, 0, 0, 0, 0, 0]);
-    design.addPosition("X4", [0, 0, 0, 0, 0, 0, 0, 0]);
 
     design.addZone("last-rank", 1, [0, 1, 2, 3, 4]);
     design.addZone("last-rank", 2, [25, 26, 27, 28, 29]);
@@ -226,54 +246,63 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard("Board");
-    view.defPiece("WhitePawn", "White Pawn");
-    view.defPiece("BlackPawn", "Black Pawn");
-    view.defPiece("WhiteRook", "White Rook");
-    view.defPiece("BlackRook", "Black Rook");
-    view.defPiece("WhiteKnight", "White Knight");
-    view.defPiece("BlackKnight", "Black Knight");
-    view.defPiece("WhiteBishop", "White Bishop");
-    view.defPiece("BlackBishop", "Black Bishop");
-    view.defPiece("WhiteQueen", "White Queen");
-    view.defPiece("BlackQueen", "Black Queen");
-    view.defPiece("WhiteKing", "White King");
-    view.defPiece("BlackKing", "Black King");
- 
-    view.defPosition("a6", 2, 2, 68, 68);
-    view.defPosition("b6", 70, 2, 68, 68);
-    view.defPosition("c6", 138, 2, 68, 68);
-    view.defPosition("d6", 206, 2, 68, 68);
-    view.defPosition("e6", 274, 2, 68, 68);
-    view.defPosition("a5", 2, 70, 68, 68);
-    view.defPosition("b5", 70, 70, 68, 68);
-    view.defPosition("c5", 138, 70, 68, 68);
-    view.defPosition("d5", 206, 70, 68, 68);
-    view.defPosition("e5", 274, 70, 68, 68);
-    view.defPosition("a4", 2, 138, 68, 68);
-    view.defPosition("b4", 70, 138, 68, 68);
-    view.defPosition("c4", 138, 138, 68, 68);
-    view.defPosition("d4", 206, 138, 68, 68);
-    view.defPosition("e4", 274, 138, 68, 68);
-    view.defPosition("a3", 2, 206, 68, 68);
-    view.defPosition("b3", 70, 206, 68, 68);
-    view.defPosition("c3", 138, 206, 68, 68);
-    view.defPosition("d3", 206, 206, 68, 68);
-    view.defPosition("e3", 274, 206, 68, 68);
-    view.defPosition("a2", 2, 274, 68, 68);
-    view.defPosition("b2", 70, 274, 68, 68);
-    view.defPosition("c2", 138, 274, 68, 68);
-    view.defPosition("d2", 206, 274, 68, 68);
-    view.defPosition("e2", 274, 274, 68, 68);
-    view.defPosition("a1", 2, 342, 68, 68);
-    view.defPosition("b1", 70, 342, 68, 68);
-    view.defPosition("c1", 138, 342, 68, 68);
-    view.defPosition("d1", 206, 342, 68, 68);
-    view.defPosition("e1", 274, 342, 68, 68);
+    const opacity = 0.9;
+    view.defBoard3D(344, 412, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board", opacity);
 
-    view.defPopup("Promote", 24, 50);
-    view.defPopupPosition("X1", 10, 7, 68, 68);
-    view.defPopupPosition("X2", 80, 7, 68, 68);
-    view.defPopupPosition("X3", 150, 7, 68, 68);
-    view.defPopupPosition("X4", 220, 7, 68, 68);
+    const modelPath = '../res/fairy';
+    const white = '#FFFF63';
+    const black = '#333333';
+
+    view.defPieceModel(0, 1, modelPath, 'pawn', white);
+    view.defPieceModel(0, 2, modelPath, 'pawn', black);
+    view.defPieceModel(1, 1, modelPath, 'rook', white);
+    view.defPieceModel(1, 2, modelPath, 'rook', black);
+    view.defPieceModel(2, 1, modelPath, 'knight', white);
+    view.defPieceModel(2, 2, modelPath, 'knight', black);
+    view.defPieceModel(3, 1, modelPath, 'bishop', white);
+    view.defPieceModel(3, 2, modelPath, 'bishop', black);
+    view.defPieceModel(4, 1, modelPath, 'queen', white);
+    view.defPieceModel(4, 2, modelPath, 'queen', black);
+    view.defPieceModel(5, 1, modelPath, 'king', white);
+    view.defPieceModel(5, 2, modelPath, 'king', black);
+
+    view.setCamera(0, 0, 0, -109, 215, 155);
+ 
+    view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
+    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-chess.htm' : 'mini-chess-board.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-chess-3d-board.htm' : 'mini-chess-3d.htm');
+    view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
+ 
+    view.defPosition("a6", -136, -170, 68, 68, 0);
+    view.defPosition("b6", -68, -170, 68, 68, 0);
+    view.defPosition("c6", 0, -170, 68, 68, 0);
+    view.defPosition("d6", 68, -170, 68, 68, 0);
+    view.defPosition("e6", 136, -170, 68, 68, 0);
+    view.defPosition("a5", -136, -102, 68, 68, 0);
+    view.defPosition("b5", -68, -102, 68, 68, 0);
+    view.defPosition("c5", 0, -102, 68, 68, 0);
+    view.defPosition("d5", 68, -102, 68, 68, 0);
+    view.defPosition("e5", 136, -102, 68, 68, 0);
+    view.defPosition("a4", -136, -34, 68, 68, 0);
+    view.defPosition("b4", -68, -34, 68, 68, 0);
+    view.defPosition("c4", 0, -34, 68, 68, 0);
+    view.defPosition("d4", 68, -34, 68, 68, 0);
+    view.defPosition("e4", 136, -34, 68, 68, 0);
+    view.defPosition("a3", -136, 34, 68, 68, 0);
+    view.defPosition("b3", -68, 34, 68, 68, 0);
+    view.defPosition("c3", 0, 34, 68, 68, 0);
+    view.defPosition("d3", 68, 34, 68, 68, 0);
+    view.defPosition("e3", 136, 34, 68, 68, 0);
+    view.defPosition("a2", -136, 102, 68, 68, 0);
+    view.defPosition("b2", -68, 102, 68, 68, 0);
+    view.defPosition("c2", 0, 102, 68, 68, 0);
+    view.defPosition("d2", 68, 102, 68, 68, 0);
+    view.defPosition("e2", 136, 102, 68, 68, 0);
+    view.defPosition("a1", -136, 170, 68, 68, 0);
+    view.defPosition("b1", -68, 170, 68, 68, 0);
+    view.defPosition("c1", 0, 170, 68, 68, 0);
+    view.defPosition("d1", 68, 170, 68, 68, 0);
+    view.defPosition("e1", 136, 170, 68, 68, 0);
 }

@@ -2,29 +2,31 @@
 
 importScripts('../../common-scripts/zobrist-worker.js', 'garbo-woker.js');
 
-const PIECE_MASK       = 0xF;
-const TYPE_MASK        = 0x7;
-const PLAYERS_MASK     = 0x18;
-const COUNTER_SIZE     = 4;
-const TYPE_SIZE        = 3;
+let NOISE_FACTOR     = 5;
 
-function GetFen(){
+let PIECE_MASK       = 0xF;
+let TYPE_MASK        = 0x7;
+let PLAYERS_MASK     = 0x18;
+let COUNTER_SIZE     = 6;
+let TYPE_SIZE        = 3;
+
+let g_width          = 8;
+let g_height         = 8;
+
+function GetFen() {
     var result = "";
-    for (var row = 0; row < 8; row++) {
-        if (row != 0) 
-            result += '/';
+    for (var row = 0; row < g_height; row++) {
+        if (row != 0) result += '/';
         var empty = 0;
-        for (var col = 0; col < 8; col++) {
-            var piece = g_board[((row + 2) << 4) + col + 4];
+        for (var col = 0; col < g_width; col++) {
+            var piece = g_board[MakeSquare(row, col)];
             if (piece == 0) {
                 empty++;
-            }
-            else {
+            } else {
                 if (empty != 0) 
                     result += empty;
                 empty = 0;
-                
-                var pieceChar = [" ", "p", "n", "b", "r", "q", "k", " "][(piece & 0x7)];
+                var pieceChar = [" ", "p", "n", "b", "r", "q", "k", " "][(piece & TYPE_MASK)];
                 result += ((piece & colorWhite) != 0) ? pieceChar.toUpperCase() : pieceChar;
             }
         }
@@ -32,7 +34,6 @@ function GetFen(){
             result += empty;
         }
     }
-    
     result += g_toMove == colorWhite ? " w" : " b";
     result += " ";
     if (g_castleRights == 0) {
@@ -48,16 +49,12 @@ function GetFen(){
         if ((g_castleRights & 8) != 0) 
             result += "q";
     }
-    
     result += " ";
-    
     if (g_enPassentSquare == -1) {
         result += '-';
-    }
-    else {
+    } else {
         result += FormatSquare(g_enPassentSquare);
     }
-    
     return result;
 }
 
@@ -127,7 +124,7 @@ function GetMoveSAN(move, validMoves) {
 
 function FormatSquare(square) {
     var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    return letters[(square & 0xF) - 4] + ((9 - (square >> 4)) + 1);
+    return letters[(square & 0xF) - 4] + (((g_height + 1) - (square >> 4)) + 1);
 }
 
 function FormatMove(move) {
@@ -222,7 +219,7 @@ var pieceSquareAdj = new Array(8);
 var flipTable = new Array(256);
 
 function PawnEval(color) {
-    var pieceIdx = (color | 1) << 4;
+    var pieceIdx = (color | 1) << COUNTER_SIZE;
     var from = g_pieceList[pieceIdx++];
     while (from != 0) {
         from = g_pieceList[pieceIdx++];
@@ -237,7 +234,7 @@ function Mobility(color) {
 
     // Knight mobility
     mob = -3;
-    pieceIdx = (color | 2) << 4;
+    pieceIdx = (color | 2) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         mob += mobUnit[g_board[from + 31]];
@@ -254,7 +251,7 @@ function Mobility(color) {
 
     // Bishop mobility
     mob = -4;
-    pieceIdx = (color | 3) << 4;
+    pieceIdx = (color | 3) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from - 15; while (g_board[to] == 0) { to -= 15; mob++; }
@@ -299,7 +296,7 @@ function Mobility(color) {
 
     // Rook mobility
     mob = -4;
-    pieceIdx = (color | 4) << 4;
+    pieceIdx = (color | 4) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from - 1; while (g_board[to] == 0) { to--; mob++;}  if (g_board[to] & enemy) mob++;
@@ -312,7 +309,7 @@ function Mobility(color) {
 
     // Queen mobility
     mob = -2;
-    pieceIdx = (color | 5) << 4;
+    pieceIdx = (color | 5) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from - 15; while (g_board[to] == 0) { to -= 15; mob++; } if (g_board[to] & enemy) mob++;
@@ -490,7 +487,7 @@ var moveflagPromoteBishop = 0x80 << 16;
 var g_castleRights; // bitmask representing castling rights, 1 = wk, 2 = wq, 4 = bk, 8 = bq
 var g_enPassentSquare;
 
-const g_flags = moveflagPromotion | moveflagPromoteKnight | moveflagPromoteQueen | moveflagPromoteBishop | moveflagCastleKing | moveflagCastleQueen | moveflagEPC;
+let g_flags = moveflagPromotion | moveflagPromoteKnight | moveflagPromoteQueen | moveflagPromoteBishop | moveflagCastleKing | moveflagCastleQueen | moveflagEPC;
 
 function ResetGame() {
     g_killers = new Array(128);
@@ -521,19 +518,19 @@ function ResetGame() {
     g_zobristBlackLow = mt.next(32);
     g_zobristBlackHigh = mt.next(32);
 
-    for (var row = 0; row < 8; row++) {
-        for (var col = 0; col < 8; col++) {
+    for (var row = 0; row < g_height; row++) {
+        for (var col = 0; col < g_width; col++) {
             var square = MakeSquare(row, col);
-            flipTable[square] = MakeSquare(7 - row, col);
+            flipTable[square] = MakeSquare((g_height - 1) - row, col);
         }
     }
 
-    pieceSquareAdj[piecePawn] = MakeTable(pawnAdj);
+    pieceSquareAdj[piecePawn]   = MakeTable(pawnAdj);
     pieceSquareAdj[pieceKnight] = MakeTable(knightAdj);
     pieceSquareAdj[pieceBishop] = MakeTable(bishopAdj);
-    pieceSquareAdj[pieceRook] = MakeTable(rookAdj);
-    pieceSquareAdj[pieceQueen] = MakeTable(emptyAdj);
-    pieceSquareAdj[pieceKing] = MakeTable(kingAdj);
+    pieceSquareAdj[pieceRook]   = MakeTable(rookAdj);
+    pieceSquareAdj[pieceQueen]  = MakeTable(emptyAdj);
+    pieceSquareAdj[pieceKing]   = MakeTable(kingAdj);
 
     var pieceDeltas = [[], [], g_knightDeltas, g_bishopDeltas, g_rookDeltas, g_queenDeltas, g_queenDeltas];
 
@@ -601,7 +598,7 @@ function ResetGame() {
         }
 
     InitializeEval();
-    InitializeFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+//  InitializeFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 }
 
 function InitializeEval() {
@@ -677,7 +674,9 @@ function InitializeFromFen(fen) {
                         break;
                 }
                 
-                g_board[MakeSquare(row, col)] = piece;
+                if (piece & TYPE_MASK) {
+                    g_board[MakeSquare(row, col)] = piece;
+                }
                 col++;
             }
         }
@@ -807,7 +806,7 @@ function MakeMove(move){
 
             var rookIndex = g_pieceIndex[to + 1];
             g_pieceIndex[to - 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << 4) | rookIndex] = to - 1;
+            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to - 1;
         } else if (flags & moveflagCastleQueen) {
             if (IsSquareAttackable(from - 1, otherColor) ||
             	IsSquareAttackable(from - 2, otherColor)) {
@@ -830,7 +829,7 @@ function MakeMove(move){
 
             var rookIndex = g_pieceIndex[to - 2];
             g_pieceIndex[to + 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << 4) | rookIndex] = to + 1;
+            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to + 1;
         }
     }
 
@@ -838,10 +837,10 @@ function MakeMove(move){
         // Remove our piece from the piece list
         var capturedType = captured & 0xF;
         g_pieceCount[capturedType]--;
-        var lastPieceSquare = g_pieceList[(capturedType << 4) | g_pieceCount[capturedType]];
+        var lastPieceSquare = g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]];
         g_pieceIndex[lastPieceSquare] = g_pieceIndex[epcEnd];
-        g_pieceList[(capturedType << 4) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
-        g_pieceList[(capturedType << 4) | g_pieceCount[capturedType]] = 0;
+        g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
+        g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]] = 0;
 
         g_baseEval += materialTable[captured & 0x7];
         g_baseEval += pieceSquareAdj[captured & 0x7][me ? flipTable[epcEnd] : epcEnd];
@@ -871,7 +870,7 @@ function MakeMove(move){
     
     // Move our piece in the piece list
     g_pieceIndex[to] = g_pieceIndex[from];
-    g_pieceList[((piece & 0xF) << 4) | g_pieceIndex[to]] = to;
+    g_pieceList[((piece & 0xF) << COUNTER_SIZE) | g_pieceIndex[to]] = to;
 
     if (flags & moveflagPromotion) {
         var newPiece = piece & (~0x7);
@@ -899,12 +898,12 @@ function MakeMove(move){
 
         g_pieceCount[pawnType]--;
 
-        var lastPawnSquare = g_pieceList[(pawnType << 4) | g_pieceCount[pawnType]];
+        var lastPawnSquare = g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]];
         g_pieceIndex[lastPawnSquare] = g_pieceIndex[to];
-        g_pieceList[(pawnType << 4) | g_pieceIndex[lastPawnSquare]] = lastPawnSquare;
-        g_pieceList[(pawnType << 4) | g_pieceCount[pawnType]] = 0;
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceIndex[lastPawnSquare]] = lastPawnSquare;
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]] = 0;
         g_pieceIndex[to] = g_pieceCount[promoteType];
-        g_pieceList[(promoteType << 4) | g_pieceIndex[to]] = to;
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceIndex[to]] = to;
         g_pieceCount[promoteType]++;
     } else {
         g_board[to] = g_board[from];
@@ -1005,7 +1004,7 @@ function UnmakeMove(move){
 			
             var rookIndex = g_pieceIndex[to - 1];
             g_pieceIndex[to + 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << 4) | rookIndex] = to + 1;
+            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to + 1;
         }
         else if (flags & moveflagCastleQueen) {
             var rook = g_board[to + 1];
@@ -1014,7 +1013,7 @@ function UnmakeMove(move){
 			
             var rookIndex = g_pieceIndex[to + 1];
             g_pieceIndex[to - 2] = rookIndex;
-            g_pieceList[((rook & 0xF) << 4) | rookIndex] = to - 2;
+            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to - 2;
         }
     }
     
@@ -1027,12 +1026,12 @@ function UnmakeMove(move){
 
         g_pieceCount[promoteType]--;
 
-        var lastPromoteSquare = g_pieceList[(promoteType << 4) | g_pieceCount[promoteType]];
+        var lastPromoteSquare = g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]];
         g_pieceIndex[lastPromoteSquare] = g_pieceIndex[to];
-        g_pieceList[(promoteType << 4) | g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
-        g_pieceList[(promoteType << 4) | g_pieceCount[promoteType]] = 0;
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]] = 0;
         g_pieceIndex[to] = g_pieceCount[pawnType];
-        g_pieceList[(pawnType << 4) | g_pieceIndex[to]] = to;
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceIndex[to]] = to;
         g_pieceCount[pawnType]++;
     }
     else {
@@ -1052,13 +1051,13 @@ function UnmakeMove(move){
 
 	// Move our piece in the piece list
     g_pieceIndex[from] = g_pieceIndex[to];
-    g_pieceList[((piece & 0xF) << 4) | g_pieceIndex[from]] = from;
+    g_pieceList[((piece & 0xF) << COUNTER_SIZE) | g_pieceIndex[from]] = from;
 
     if (captured) {
 		// Restore our piece to the piece list
         var captureType = captured & 0xF;
         g_pieceIndex[epcEnd] = g_pieceCount[captureType];
-        g_pieceList[(captureType << 4) | g_pieceCount[captureType]] = epcEnd;
+        g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = epcEnd;
         g_pieceCount[captureType]++;
     }
 }
@@ -1141,7 +1140,8 @@ function GenerateAllMoves(moveStack) {
 		
         if (!g_inCheck) {
             var castleRights = g_castleRights;
-            if (!g_toMove) castleRights >>= 2;
+            if (!g_toMove) 
+                castleRights >>= 2;
             if ((castleRights & 1) && (g_flags & moveflagCastleKing)) {
                 // Kingside castle
                 if (g_board[from + 1] == pieceEmpty && g_board[from + 2] == pieceEmpty) {
@@ -1259,11 +1259,18 @@ function GenerateCaptureMoves(moveStack, moveScores) {
 }
 
 function MovePawnTo(moveStack, start, square) {
-	var row = square & 0xF0;
-    if ((row == 0x90) || (row == 0x20)) {
-        moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteQueen);
-        moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteKnight);
-        moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteBishop);
+    var row = square & 0xF0;
+    var delta = (8 - g_height) << 4;
+    if ((row == (0x90 - delta) || (row == 0x20))) {
+        if (g_flags & moveflagPromoteQueen) {
+            moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteQueen);
+        }
+        if (g_flags & moveflagPromoteKnight) {
+            moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteKnight);
+        }
+        if (g_flags & moveflagPromoteBishop) {
+            moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion | moveflagPromoteBishop);
+        }
         moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion);
     }
     else {
@@ -1285,11 +1292,27 @@ function GeneratePawnMoves(moveStack, from) {
 		if ((((from & 0xF0) == 0x30) && color != colorWhite) ||
 		    (((from & 0xF0) == 0x80) && color == colorWhite)) {
 			to += inc;
-			if (g_board[to] == 0) {
+			if ((g_board[to] == 0) && (g_flags & moveflagEPC)) {
 				moveStack[moveStack.length] = GenerateMove(from, to);
 			}				
 		}
 	}
+}
+
+function configure(name, value) {
+    if (name == 'WIDTH') {
+        g_width = +value;
+        return true;
+    }
+    if (name == 'HEIGHT') {
+        g_height = +value;
+        return true;
+    }
+    if (name == 'FLAGS') {
+        g_flags = +value;
+        return true;
+    }
+    return false;
 }
 
 self.onmessage = function (e) {
@@ -1298,7 +1321,15 @@ self.onmessage = function (e) {
         needsReset = false;
         if (e.data == "go") return;
     }
-    if (e.data.match("^position") == "position") {
+    if (e.data.match("^config") == "config") {
+        const s = e.data.substr(7, e.data.length - 7);
+        const r = s.match(/\s*([^\s=]+)\s*=\s*(\S+)/);
+        if (r) {
+            if (configure(r[1], r[2])) {
+                self.postMessage("pv " + r[1] + '=' + r[2]);
+            }
+        }
+    } else if (e.data.match("^position") == "position") {
         ResetGame();
         var result = InitializeFromFen(e.data.substr(9, e.data.length - 9));
         if (result.length != 0) {

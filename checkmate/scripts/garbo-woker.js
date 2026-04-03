@@ -61,7 +61,7 @@ function Search(finishMoveCallback, maxPly, finishPlyCallback) {
     var alpha = minEval;
     var beta = maxEval;
     
-	g_globalPly++;
+    g_globalPly++;
     g_nodeCount = 0;
     g_qNodeCount = 0;
     g_searchValid = true;
@@ -749,9 +749,9 @@ function MakeTable(table) {
     for (var i = 0; i < 256; i++) {
         result[i] = 0;
     }
-    for (var row = 0; row < 8; row++) {
-        for (var col = 0; col < 8; col++) {
-            result[MakeSquare(row, col)] = table[row * 8 + col];
+    for (var row = 0; row < g_height; row++) {
+        for (var col = 0; col < g_width; col++) {
+            result[MakeSquare(row, col)] = table[row * g_width + col];
         }
     }
     return result;
@@ -766,7 +766,7 @@ function InitializePieceList() {
         g_pieceCount[i] = 0;
         for (var j = 0; j < 16; j++) {
             // 0 is used as the terminator for piece lists
-            g_pieceList[(i << 4) | j] = 0;
+            g_pieceList[(i << COUNTER_SIZE) | j] = 0;
         }
     }
 
@@ -775,7 +775,7 @@ function InitializePieceList() {
         if (g_board[i] & (colorWhite | colorBlack)) {
 			var piece = g_board[i] & 0xF;
 
-			g_pieceList[(piece << 4) | g_pieceCount[piece]] = i;
+			g_pieceList[(piece << COUNTER_SIZE) | g_pieceCount[piece]] = i;
 			g_pieceIndex[i] = g_pieceCount[piece];
 			g_pieceCount[piece]++;
         }
@@ -834,7 +834,7 @@ function IsSquareAttackable(target, color) {
 	
 	// Attackable by pieces?
 	for (var i = 2; i <= 6; i++) {
-        var index = (color | i) << 4;
+        var index = (color | i) << COUNTER_SIZE;
         var square = g_pieceList[index];
 		while (square != 0) {
 			if (IsSquareAttackableFrom(target, square))
@@ -1050,7 +1050,7 @@ function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
 
 // target = attacking square, us = color of knights to look for, attacks = array to add squares to
 function SeeAddKnightAttacks(target, us, attacks) {
-    var pieceIdx = (us | pieceKnight) << 4;
+    var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
     var attackerSq = g_pieceList[pieceIdx++];
 
     while (attackerSq != 0) {
@@ -1062,7 +1062,7 @@ function SeeAddKnightAttacks(target, us, attacks) {
 }
 
 function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    var pieceIdx = (us | pieceType) << 4;
+    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
     var attackerSq = g_pieceList[pieceIdx++];
     var hit = false;
 

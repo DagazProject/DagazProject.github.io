@@ -28,7 +28,9 @@ function stop() {
     if (g_backgroundEngine !== null) {
         g_backgroundEngine.terminate();
         g_backgroundEngine = null;
-        Dagaz.View.switchControl(4, 0);
+        if (!_.isUndefined(Dagaz.View.switchControl)) {
+            Dagaz.View.switchControl(4, 0);
+        }
     }
     inProgress = false;
 }
@@ -41,18 +43,32 @@ function start(fen, isAdvisor) {
        console.log("Error from background worker:" + e.message)
     }
     fen = fen.replaceAll('+', ' ');
+    g_backgroundEngine.postMessage("config WIDTH=" + Dagaz.Model.WIDTH);
+    g_backgroundEngine.postMessage("config HEIGHT=" + Dagaz.Model.HEIGHT);
+    if (!_.isUndefined(Dagaz.AI.FLAGS)) {
+        g_backgroundEngine.postMessage("config FLAGS=" + Dagaz.AI.FLAGS);
+    }
     g_backgroundEngine.postMessage("position " + fen);
     if (isAdvisor && !_.isUndefined(Dagaz.AI.ADVISOR_TIME)) {
         g_backgroundEngine.postMessage("search " + Dagaz.AI.ADVISOR_TIME);
     } else {
         g_backgroundEngine.postMessage("search " + Dagaz.AI.WORKER_TIME);
     }
-    Dagaz.View.switchControl(4, 1);
+    if (!_.isUndefined(Dagaz.View.switchControl)) {
+        Dagaz.View.switchControl(4, 1);
+    }
 }
 
 function onMessage(msg) {
     if (msg.data.match("^pv") == "pv") {
-        console.log(msg.data.substr(3, msg.data.length - 3));
+        const s = msg.data.substr(3, msg.data.length - 3);
+        console.log(s);
+        const r = s.match(/Score:-(\d+)/);
+        if (r && (r[1] > 1000)) {
+            if (!_.isUndefined(Dagaz.View.switchControl)) {
+                Dagaz.View.switchControl(4, 2);
+            }
+        }
     } else if (msg.data.match("^message") == "message") {
         stop();
         console.log(msg.data.substr(8, msg.data.length - 8));
