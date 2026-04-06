@@ -704,8 +704,10 @@ View3D.prototype.defBoardTriangular = function(dx, dy, dz, z, colors, res, opaci
   });
 }
 
-View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res, opacity) {
+View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res, opacity, x, y) {
   if (_.isUndefined(opacity)) opacity = 1;
+  if (_.isUndefined(x)) x = 0;
+  if (_.isUndefined(y)) y = 0;
   let board = null;
   if (!_.isUndefined(res)) {
       board = this.findRes(res);
@@ -730,7 +732,7 @@ View3D.prototype.defBoard3D = function(dx, dy, dz, z, colors, res, opacity) {
       }
   }
   this.boards.push({
-     dx: dx, dy: dy, dz: dz, z: z,
+     dx: dx, dy: dy, dz: dz, x, x, y, y, z: z,
      colors: colors, img: board,
      opacity: opacity, type: BOARD_TYPE.RECT
   });
@@ -1852,7 +1854,7 @@ View3D.prototype.draw = function(canvas) {
                    new THREE.MeshBasicMaterial({ color: b.colors[2] }),
                    new THREE.MeshBasicMaterial({ color: b.colors[3] }),
                    new THREE.MeshBasicMaterial((b.img !== null) ? { map: b.img.t, transparent: true, opacity: b.opacity, side: THREE.DoubleSide } : { color: b.colors[i] } ),
-                   new THREE.MeshBasicMaterial({ color: b.colors[5], transparent: true, opacity: 0.3, side: THREE.DoubleSide }),
+                   new THREE.MeshBasicMaterial((b.opacity >= 1) ? { color: b.colors[5], side: THREE.DoubleSide } : { color: b.colors[5], transparent: true, opacity: 0.3, side: THREE.DoubleSide }),
                    new THREE.MeshBasicMaterial({ color: b.colors[1] }),
                    new THREE.MeshBasicMaterial({ color: b.colors[4] })
                 ];
@@ -1882,7 +1884,7 @@ View3D.prototype.draw = function(canvas) {
                     ];
                 }
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
-                boardBlock.position.set(0, b.z / 10, 0);
+                boardBlock.position.set(b.x / 10, b.z / 10, b.y / 10);
                 if (Dagaz.View.RENDER_ORDER) {
                     boardBlock.renderOrder = 1;
                 }
