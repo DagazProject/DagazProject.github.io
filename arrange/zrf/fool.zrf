@@ -1,0 +1,41 @@
+(game
+  (title "Fool")
+
+  (players You Left Right N)
+  (turn-order You Left Right)
+
+  (board
+     (image "images/blokus/20x20.bmp")
+     (positions
+            (X0 258 19 315 96)
+     )
+     (grid
+          (start-rectangle 10 345 67 422)
+          (dimensions
+            ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t" (26 0)) ; files
+            ("1/2" (0 20)) ; ranks
+          )
+     )
+     (grid
+          (start-rectangle 11 10 88 67)
+          (dimensions
+            ("X/Y" (474 0)) ; files
+            ("1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20" (0 10)) ; ranks
+          )
+     )
+     (grid
+          (start-rectangle 107 143 164 220)
+          (dimensions
+            ("A/B/C/D" (93 0)) ; files
+            ("2/1" (0 85)) ; ranks
+          )
+     )
+     (grid
+          (start-rectangle 248 10 325 67)
+          (dimensions
+            ("A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R" (0 0)) ; files
+            ("0" (2 -2)) ; ranks
+          )
+     )
+  )
+)
