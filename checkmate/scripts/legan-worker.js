@@ -35,35 +35,12 @@ function GetFen() {
         }
     }
     result += g_toMove == colorWhite ? " w" : " b";
-    result += " ";
-    if (g_castleRights == 0) {
-        result += "-";
-    }
-    else {
-        if ((g_castleRights & 1) != 0) 
-            result += "K";
-        if ((g_castleRights & 2) != 0) 
-            result += "Q";
-        if ((g_castleRights & 4) != 0) 
-            result += "k";
-        if ((g_castleRights & 8) != 0) 
-            result += "q";
-    }
-    result += " ";
-    if (g_enPassentSquare == -1) {
-        result += '-';
-    } else {
-        result += FormatSquare(g_enPassentSquare);
-    }
     return result;
 }
 
 function GetMoveSAN(move, validMoves) {
 	var from = move & 0xFF;
 	var to = (move >> 8) & 0xFF;
-	
-	if (move & moveflagCastleKing) return "O-O";
-	if (move & moveflagCastleQueen) return "O-O-O";
 	
 	var pieceType = g_board[from] & 0x7;
 	var result = ["", "", "N", "B", "R", "Q", "K", ""][pieceType];
@@ -128,8 +105,6 @@ function FormatSquare(square) {
 }
 
 function FormatMove(move) {
-//  if (move & moveflagCastleKing) return "O-O";
-//  if (move & moveflagCastleQueen) return "O-O-O";
     var result = FormatSquare(move & 0xFF) + '-' + FormatSquare((move >> 8) & 0xFF);
     if (move & moveflagPromotion) {
         if (move & moveflagPromoteBishop) result += " Bishop";
@@ -147,71 +122,70 @@ function MakeSquare(row, column) {
 var materialTable = [0, 800, 3350, 3450, 5000, 9750, 600000];
 
 var pawnAdj =
-[
-  0, 0, 0, 0, 0, 0, 0, 0,
-  -25, 105, 135, 270, 270, 135, 105, -25,
-  -80, 0, 30, 176, 176, 30, 0, -80,
-  -85, -5, 25, 175, 175, 25, -5, -85,
-  -90, -10, 20, 125, 125, 20, -10, -90,
-  -95, -15, 15, 75, 75, 15, -15, -95, 
-  -100, -20, 10, 70, 70, 10, -20, -100, 
-  0, 0, 0, 0, 0, 0, 0, 0
+[   0,    0,   0,   0,-100,-100, -100, -100, // piecePawn
+    0,  270, 100,  50,  25, -50, -100, -100,
+    0,  100, 175,  50,  20,  15,  -50, -100,
+    0,   50,  50, 125,  20,  10,   10, -100,
+ -100,   25,  20,  20,  75,  15,  -20,    0,
+ -100,  -50,  15,  10,  15,  70,   10,    0,
+ -100, -100, -50,  10, -20,  10,    0,    0,
+ -100, -100,-100, 100,   0,   0,    0,    0
 ];
 
 var knightAdj =
-    [-200, -100, -50, -50, -50, -50, -100, -200,
-      -100, 0, 0, 0, 0, 0, 0, -100,
-      -50, 0, 60, 60, 60, 60, 0, -50,
-      -50, 0, 30, 60, 60, 30, 0, -50,
-      -50, 0, 30, 60, 60, 30, 0, -50,
-      -50, 0, 30, 30, 30, 30, 0, -50,
-      -100, 0, 0, 0, 0, 0, 0, -100,
-      -200, -50, -25, -25, -25, -25, -50, -200
-     ];
+[-200, -100, -50, -50, -50, -50, -100, -200, // pieceKnight
+ -100,    0,   0,   0,   0,   0,    0, -100,
+  -50,    0,  60,  60,  60,  60,    0,  -50,
+  -50,    0,  30,  60,  60,  30,    0,  -50,
+  -50,    0,  30,  60,  60,  30,    0,  -50,
+  -50,    0,  30,  30,  30,  30,    0,  -50,
+ -100,    0,   0,   0,   0,   0,    0,  -100,
+ -200,  -50, -25, -25, -25, -25,  -50,  -200
+];
 
 var bishopAdj =
-    [ -50,-50,-25,-10,-10,-25,-50,-50,
-      -50,-25,-10,  0,  0,-10,-25,-50,
-      -25,-10,  0, 25, 25,  0,-10,-25,
-      -10,  0, 25, 40, 40, 25,  0,-10,
-      -10,  0, 25, 40, 40, 25,  0,-10,
-      -25,-10,  0, 25, 25,  0,-10,-25,
-      -50,-25,-10,  0,  0,-10,-25,-50,
-      -50,-50,-25,-10,-10,-25,-50,-50
-     ];
+[ -50,  -50,  -25,-10, -10, -25,  -50,   -50, // pieceBishop
+  -50,  -25,  -10,  0,   0, -10,  -25,   -50,
+  -25,  -10,    0, 25,  25,   0,  -10,   -25,
+  -10,    0,   25, 40,  40,  25,    0,   -10,
+  -10,    0,   25, 40,  40,  25,    0,   -10,
+  -25,  -10,    0, 25,  25,   0,  -10,   -25,
+  -50,  -25,  -10,  0,   0, -10,  -25,   -50,
+  -50,  -50,  -25,-10, -10, -25,  -50,   -50
+];
 
 var rookAdj =
-    [ -60, -30, -10, 20, 20, -10, -30, -60,
-       40,  70,  90,120,120,  90,  70,  40,
-      -60, -30, -10, 20, 20, -10, -30, -60,
-      -60, -30, -10, 20, 20, -10, -30, -60,
-      -60, -30, -10, 20, 20, -10, -30, -60,
-      -60, -30, -10, 20, 20, -10, -30, -60,
-      -60, -30, -10, 20, 20, -10, -30, -60,
-      -60, -30, -10, 20, 20, -10, -30, -60
-     ];
+[ -60,  -30,  -10, 20,  20, -10,  -30,   -60, // pieceRook
+   40,   70,   90,120, 120,  90,   70,    40,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60,
+  -60,  -30,  -10, 20,  20, -10,  -30,   -60
+];
 
 var kingAdj =
-    [  50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-       50, 150, -25, -125, -125, -25, 150, 50,
-      150, 250, 75, -25, -25, 75, 250, 150
-     ];
+[  50,  150, -25, -125, -125, -25, 150,  50, // pieceKing
+   50,  150, -25, -125, -125, -25, 150,  50,
+   50,  150, -25, -125, -125, -25, 150,  50,
+   50,  150, -25, -125, -125, -25, 150,  50,
+   50,  150, -25, -125, -125, -25, 150,  50,
+   50,  150, -25, -125, -125, -25, 150,  50,
+   50,  150, -25, -125, -125, -25, 150,  50,
+  150,  150,  75,  -25,  -25,  75, 150, 150
+];
 
 var emptyAdj =
-    [0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 
-     ];
+[   0,    0,   0,   0,   0,   0,    0,    0, // pieceQueen
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+    0,    0,   0,   0,   0,   0,    0,    0, 
+];
 
 var pieceSquareAdj = new Array(8);
 
@@ -384,53 +358,35 @@ function ScoreMove(move){
     return score;
 }
 
+const PROMOTION = [0x24, 0x25, 0x26, 0x27, 0x34, 0x44, 0x54, 0x6B, 0x7B, 0x8B, 0x9B, 0x9A, 0x99, 0x98];
+
 function IsHashMoveValid(hashMove) {
     var from = hashMove & 0xFF;
     var to = (hashMove >> 8) & 0xFF;
     var ourPiece = g_board[from];
-    var pieceType = ourPiece & 0x7;
+    var pieceType = ourPiece & TYPE_MASK;
     if (pieceType < piecePawn || pieceType > pieceKing) return false;
     // Can't move a piece we don't control
-    if (g_toMove != (ourPiece & 0x8))
-        return false;
+    if (g_toMove != (ourPiece & colorWhite)) return false;
     // Can't move to a square that has something of the same color
-    if (g_board[to] != 0 && (g_toMove == (g_board[to] & 0x8)))
-        return false;
+    if (g_board[to] != 0 && (g_toMove == (g_board[to] & colorWhite))) return false;
     if (pieceType == piecePawn) {
-        if (hashMove & moveflagEPC) {
-            return false;
-        }
-
         // Valid moves are push, capture, double push, promotions
         var dir = to - from;
         if ((g_toMove == colorWhite) != (dir < 0))  {
             // Pawns have to move in the right direction
             return false;
         }
-
-        var row = to & 0xF0;
-        if (((row == 0x90 && !g_toMove) ||
-             (row == 0x20 && g_toMove)) != (hashMove & moveflagPromotion)) {
+        if ((_.indexOf(PROMOTION, to) >= 0) != (hashMove & moveflagPromotion)) {
             // Handle promotions
             return false;
         }
-
-        if (dir == -16 || dir == 16) {
+        if (dir == -17 || dir == 17) {
             // White/Black push
             return g_board[to] == 0;
-        } else if (dir == -15 || dir == -17 || dir == 15 || dir == 17) {
+        } else if (dir == -1 || dir == -16 || dir == 1 || dir == 16) {
             // White/Black capture
             return g_board[to] != 0;
-        } else if (dir == -32) {
-            // Double white push
-            if (row != 0x60) return false;
-            if (g_board[to] != 0) return false;
-            if (g_board[from - 16] != 0) return false;
-        } else if (dir == 32) {
-            // Double black push
-            if (row != 0x50) return false;
-            if (g_board[to] != 0) return false;
-            if (g_board[from + 16] != 0) return false;
         } else {
             return false;
         }
@@ -462,32 +418,13 @@ var g_knightDeltas = [31, 33, 14, -14, -31, -33, 18, -18];
 var g_rookDeltas = [-1, +1, -16, +16];
 var g_queenDeltas = [-1, +1, -15, +15, -17, +17, -16, +16];
 
-var g_castleRightsMask = [
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-0, 0, 0, 0, 7,15,15,15, 3,15,15,11, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,15,15,15,15,15,15,15,15, 0, 0, 0, 0,
-0, 0, 0, 0,13,15,15,15,12,15,15,14, 0, 0, 0, 0,
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 var moveflagEPC = 0x2 << 16;
-var moveflagCastleKing = 0x4 << 16;
-var moveflagCastleQueen = 0x8 << 16;
 var moveflagPromotion = 0x10 << 16;
 var moveflagPromoteKnight = 0x20 << 16;
 var moveflagPromoteQueen = 0x40 << 16;
 var moveflagPromoteBishop = 0x80 << 16;
 
-var g_castleRights; // bitmask representing castling rights, 1 = wk, 2 = wq, 4 = bk, 8 = bq
-var g_enPassentSquare;
-
-let g_flags = moveflagPromotion | moveflagPromoteKnight | moveflagPromoteQueen | moveflagPromoteBishop | moveflagCastleKing | moveflagCastleQueen | moveflagEPC;
+let g_flags = moveflagPromotion | moveflagPromoteKnight | moveflagPromoteQueen | moveflagPromoteBishop;
 
 function ResetGame() {
     CommonResetGame();
@@ -514,16 +451,16 @@ function ResetGame() {
         for (var col = 0; col < 0x8; col++) {
             var square = row | col;
             
-            // Pawn moves
-            var index = square - (square - 17) + 128;
-            g_vectorDelta[index].pieceMask[colorWhite >> 3] |= (1 << piecePawn);
-            index = square - (square - 15) + 128;
-            g_vectorDelta[index].pieceMask[colorWhite >> 3] |= (1 << piecePawn);
+           // Pawn moves
+           var index = square - (square - 16) + 128;
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << piecePawn);
+           index = square - (square - 1) + 128;
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << piecePawn);
             
-            index = square - (square + 17) + 128;
-            g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
-            index = square - (square + 15) + 128;
-            g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
+           index = square - (square + 16) + 128;
+           g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
+           index = square - (square + 1) + 128;
+           g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
             
             for (var i = pieceKnight; i <= pieceKing; i++) {
                 for (var dir = 0; dir < pieceDeltas[i].length; dir++) {
@@ -654,43 +591,6 @@ function InitializeFromFen(fen) {
     g_toMove = chunks[1].charAt(0) == 'w' ? colorWhite : 0;
     var them = 8 - g_toMove;
     
-    g_castleRights = 0;
-    if (chunks[2].indexOf('K') != -1) { 
-        if (g_board[MakeSquare(7, 4)] != (pieceKing | colorWhite) ||
-            g_board[MakeSquare(7, 7)] != (pieceRook | colorWhite)) {
-            return 'Invalid FEN: White kingside castling not allowed';
-        }
-        g_castleRights |= 1;
-    }
-    if (chunks[2].indexOf('Q') != -1) {
-        if (g_board[MakeSquare(7, 4)] != (pieceKing | colorWhite) ||
-            g_board[MakeSquare(7, 0)] != (pieceRook | colorWhite)) {
-            return 'Invalid FEN: White queenside castling not allowed';
-        }
-        g_castleRights |= 2;
-    }
-    if (chunks[2].indexOf('k') != -1) {
-        if (g_board[MakeSquare(0, 4)] != (pieceKing | colorBlack) ||
-            g_board[MakeSquare(0, 7)] != (pieceRook | colorBlack)) {
-            return 'Invalid FEN: Black kingside castling not allowed';
-        }
-        g_castleRights |= 4;
-    }
-    if (chunks[2].indexOf('q') != -1) {
-        if (g_board[MakeSquare(0, 4)] != (pieceKing | colorBlack) ||
-            g_board[MakeSquare(0, 0)] != (pieceRook | colorBlack)) {
-            return 'Invalid FEN: Black queenside castling not allowed';
-        }
-        g_castleRights |= 8;
-    }
-    
-    g_enPassentSquare = -1;
-    if (chunks[3].indexOf('-') == -1) {
-	var col = chunks[3].charAt(0).charCodeAt() - 'a'.charCodeAt();
-	var row = 8 - (chunks[3].charAt(1).charCodeAt() - '0'.charCodeAt());
-	g_enPassentSquare = MakeSquare(row, col);
-    }
-
     var hashResult = SetHash();
     g_hashKeyLow = hashResult.hashKeyLow;
     g_hashKeyHigh = hashResult.hashKeyHigh;
@@ -730,97 +630,31 @@ function InitializeFromFen(fen) {
 
 function MakeMove(move){
     var me = g_toMove >> 3;
-	var otherColor = 8 - g_toMove; 
+    var otherColor = 8 - g_toMove; 
     
     var flags = move & 0xFF0000;
     var to = (move >> 8) & 0xFF;
     var from = move & 0xFF;
     var captured = g_board[to];
     var piece = g_board[from];
-    var epcEnd = to;
 
-    if (flags & moveflagEPC) {
-        epcEnd = me ? (to + 0x10) : (to - 0x10);
-        captured = g_board[epcEnd];
-        g_board[epcEnd] = pieceEmpty;
-    }
-
-    g_moveUndoStack[g_moveCount] = new UndoHistory(g_enPassentSquare, g_castleRights, g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
+    g_moveUndoStack[g_moveCount] = new UndoHistory(0, 0, g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
     g_moveCount++;
-
-    g_enPassentSquare = -1;
-
-    if (flags) {
-        if (flags & moveflagCastleKing) {
-            if (IsSquareAttackable(from + 1, otherColor) ||
-            	IsSquareAttackable(from + 2, otherColor)) {
-                g_moveCount--;
-                return false;
-            }
-            
-            var rook = g_board[to + 1];
-            
-            g_hashKeyLow ^= g_zobristLow[to + 1][rook & 0xF];
-            g_hashKeyHigh ^= g_zobristHigh[to + 1][rook & 0xF];
-            g_hashKeyLow ^= g_zobristLow[to - 1][rook & 0xF];
-            g_hashKeyHigh ^= g_zobristHigh[to - 1][rook & 0xF];
-            
-            g_board[to - 1] = rook;
-            g_board[to + 1] = pieceEmpty;
-            
-            g_baseEval -= pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to + 1] : (to + 1)];
-            g_baseEval += pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to - 1] : (to - 1)];
-
-            var rookIndex = g_pieceIndex[to + 1];
-            g_pieceIndex[to - 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to - 1;
-        } else if (flags & moveflagCastleQueen) {
-            if (IsSquareAttackable(from - 1, otherColor) ||
-            	IsSquareAttackable(from - 2, otherColor)) {
-                g_moveCount--;
-                return false;
-            }
-            
-            var rook = g_board[to - 2];
-
-            g_hashKeyLow ^= g_zobristLow[to -2][rook & 0xF];
-            g_hashKeyHigh ^= g_zobristHigh[to - 2][rook & 0xF];
-            g_hashKeyLow ^= g_zobristLow[to + 1][rook & 0xF];
-            g_hashKeyHigh ^= g_zobristHigh[to + 1][rook & 0xF];
-            
-            g_board[to + 1] = rook;
-            g_board[to - 2] = pieceEmpty;
-            
-            g_baseEval -= pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to - 2] : (to - 2)];
-            g_baseEval += pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to + 1] : (to + 1)];
-
-            var rookIndex = g_pieceIndex[to - 2];
-            g_pieceIndex[to + 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to + 1;
-        }
-    }
 
     if (captured) {
         // Remove our piece from the piece list
         var capturedType = captured & 0xF;
         g_pieceCount[capturedType]--;
         var lastPieceSquare = g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]];
-        g_pieceIndex[lastPieceSquare] = g_pieceIndex[epcEnd];
+        g_pieceIndex[lastPieceSquare] = g_pieceIndex[to];
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]] = 0;
 
         g_baseEval += materialTable[captured & 0x7];
-        g_baseEval += pieceSquareAdj[captured & 0x7][me ? flipTable[epcEnd] : epcEnd];
+        g_baseEval += pieceSquareAdj[captured & 0x7][me ? flipTable[to] : to];
 
-        g_hashKeyLow ^= g_zobristLow[epcEnd][capturedType];
-        g_hashKeyHigh ^= g_zobristHigh[epcEnd][capturedType];
-        g_move50 = 0;
-    } else if ((piece & 0x7) == piecePawn) {
-        var diff = to - from;
-        if (diff < 0) diff = -diff;
-        if (diff > 16) {
-            g_enPassentSquare = me ? (to + 0x10) : (to - 0x10);
-        }
+        g_hashKeyLow ^= g_zobristLow[to][capturedType];
+        g_hashKeyHigh ^= g_zobristHigh[to][capturedType];
         g_move50 = 0;
     }
 
@@ -831,8 +665,6 @@ function MakeMove(move){
     g_hashKeyLow ^= g_zobristBlackLow;
     g_hashKeyHigh ^= g_zobristBlackHigh;
     
-    g_castleRights &= g_castleRightsMask[from] & g_castleRightsMask[to];
-
     g_baseEval -= pieceSquareAdj[piece & 0x7][me == 0 ? flipTable[from] : from];
     
     // Move our piece in the piece list
@@ -895,13 +727,6 @@ function MakeMove(move){
                 UnmakeMove(move);
                 return false;
             }
-            
-            if (epcEnd != to) {
-                if (ExposesCheck(epcEnd, kingPos)) {
-                    UnmakeMove(move);
-                    return false;
-                }
-            }
         }
     }
     
@@ -917,14 +742,13 @@ function MakeMove(move){
                 g_inCheck = ExposesCheck(from, theirKingPos);
                 if (!g_inCheck) {
                     // Finally, ep. capture can cause another square to be exposed
-                    if (epcEnd != to) {
-                        g_inCheck = ExposesCheck(epcEnd, theirKingPos);
+                    if (to != to) {
+                        g_inCheck = ExposesCheck(to, theirKingPos);
                     }
                 }
             }
         }
-    }
-    else {
+    } else {
         // Castle or promotion, slow check
         g_inCheck = false;
         var kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
@@ -944,8 +768,6 @@ function UnmakeMove(move){
     g_baseEval = -g_baseEval;
     
     g_moveCount--;
-    g_enPassentSquare = g_moveUndoStack[g_moveCount].ep;
-    g_castleRights = g_moveUndoStack[g_moveCount].castleRights;
     g_inCheck = g_moveUndoStack[g_moveCount].inCheck;
     g_baseEval = g_moveUndoStack[g_moveCount].baseEval;
     g_hashKeyLow = g_moveUndoStack[g_moveCount].hashKeyLow;
@@ -962,27 +784,6 @@ function UnmakeMove(move){
     var from = move & 0xFF;
     
     var piece = g_board[to];
-    
-    if (flags) {
-        if (flags & moveflagCastleKing) {
-            var rook = g_board[to - 1];
-            g_board[to + 1] = rook;
-            g_board[to - 1] = pieceEmpty;
-			
-            var rookIndex = g_pieceIndex[to - 1];
-            g_pieceIndex[to + 1] = rookIndex;
-            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to + 1;
-        }
-        else if (flags & moveflagCastleQueen) {
-            var rook = g_board[to + 1];
-            g_board[to - 2] = rook;
-            g_board[to + 1] = pieceEmpty;
-			
-            var rookIndex = g_pieceIndex[to + 1];
-            g_pieceIndex[to - 2] = rookIndex;
-            g_pieceList[((rook & 0xF) << COUNTER_SIZE) | rookIndex] = to - 2;
-        }
-    }
     
     if (flags & moveflagPromotion) {
         piece = (g_board[to] & (~0x7)) | piecePawn;
@@ -1004,17 +805,7 @@ function UnmakeMove(move){
     else {
         g_board[from] = g_board[to];
     }
-
-    var epcEnd = to;
-    if (flags & moveflagEPC) {
-        if (g_toMove == colorWhite) 
-            epcEnd = to + 0x10;
-        else 
-            epcEnd = to - 0x10;
-        g_board[to] = pieceEmpty;
-    }
-    
-    g_board[epcEnd] = captured;
+    g_board[to] = captured;
 
 	// Move our piece in the piece list
     g_pieceIndex[from] = g_pieceIndex[to];
@@ -1023,20 +814,25 @@ function UnmakeMove(move){
     if (captured) {
 		// Restore our piece to the piece list
         var captureType = captured & 0xF;
-        g_pieceIndex[epcEnd] = g_pieceCount[captureType];
-        g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = epcEnd;
+        g_pieceIndex[to] = g_pieceCount[captureType];
+        g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = to;
         g_pieceCount[captureType]++;
     }
 }
 
 function GenerateAllMoves(moveStack) {
     var from, to, piece, pieceIdx;
+    var color = g_toMove & colorWhite;
+    var inc = (color == colorWhite) ? -17 : 17;
 
     // Pawn quiet moves
     pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        GeneratePawnMoves(moveStack, from);
+        var to = from + inc;
+        if (g_board[to] == 0) {
+            MovePawnTo(moveStack, from, to);
+        }
         from = g_pieceList[pieceIdx++];
     }
 
@@ -1104,58 +900,27 @@ function GenerateAllMoves(moveStack) {
 	to = from + 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	to = from - 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
 	to = from + 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
-		
-        if (!g_inCheck) {
-            var castleRights = g_castleRights;
-            if (!g_toMove) 
-                castleRights >>= 2;
-            if ((castleRights & 1) && (g_flags & moveflagCastleKing)) {
-                // Kingside castle
-                if (g_board[from + 1] == pieceEmpty && g_board[from + 2] == pieceEmpty) {
-                    moveStack[moveStack.length] = GenerateMove(from, from + 0x02, moveflagCastleKing);
-                }
-            }
-            if ((castleRights & 2) && (g_flags & moveflagCastleQueen)) {
-                // Queenside castle
-                if (g_board[from - 1] == pieceEmpty && g_board[from - 2] == pieceEmpty && g_board[from - 3] == pieceEmpty) {
-                    moveStack[moveStack.length] = GenerateMove(from, from - 0x02, moveflagCastleQueen);
-                }
-            }
-        }
     }
 }
 
 function GenerateCaptureMoves(moveStack, moveScores) {
     var from, to, piece, pieceIdx;
-    var inc = (g_toMove == colorWhite) ? -16 : 16;
+    var inc = (g_toMove == colorWhite) ? -1 : 1;
     var enemy = g_toMove == colorWhite ? colorBlack : colorWhite;
 
     // Pawn captures
     pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        to = from + inc - 1;
+        to = from + inc;
         if (g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
-        to = from + inc + 1;
+        to = from + (inc * 16);
         if (g_board[to] & enemy) {
             MovePawnTo(moveStack, from, to);
         }
         from = g_pieceList[pieceIdx++];
-    }
-
-    if (g_enPassentSquare != -1) {
-        var inc = (g_toMove == colorWhite) ? -16 : 16;
-        var pawn = g_toMove | piecePawn;
-        var from = g_enPassentSquare - (inc + 1);
-        if ((g_board[from] & PIECE_MASK) == pawn) {
-            moveStack[moveStack.length] = GenerateMove(from, g_enPassentSquare, moveflagEPC);
-        }
-        from = g_enPassentSquare - (inc - 1);
-        if ((g_board[from] & PIECE_MASK) == pawn) {
-            moveStack[moveStack.length] = GenerateMove(from, g_enPassentSquare, moveflagEPC);
-        }
     }
 
     // Knight captures
@@ -1275,8 +1040,8 @@ function See(move) {
 
     var fromPiece = g_board[from];
 
-    var fromValue = g_seeValues[fromPiece & 0xF];
-    var toValue = g_seeValues[g_board[to] & 0xF];
+    var fromValue = g_seeValues[fromPiece & PIECE_MASK];
+    var toValue = g_seeValues[g_board[to] & PIECE_MASK];
 
     if (fromValue <= toValue) {
         return true;
@@ -1288,13 +1053,13 @@ function See(move) {
     }
 
     var us = (fromPiece & colorWhite) ? colorWhite : 0;
-    var them = 8 - us;
+    var them = colorWhite - us;
 
     // Pawn attacks 
     // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
-    var inc = (fromPiece & colorWhite) ? -16 : 16; // Note: this is capture direction from to, so reversed from normal move direction
-    if (((g_board[to + inc + 1] & 0xF) == (piecePawn | them)) ||
-        ((g_board[to + inc - 1] & 0xF) == (piecePawn | them))) {
+    var inc = (fromPiece & colorWhite) ? -1 : 1; // Note: this is capture direction from to, so reversed from normal move direction
+    if (((g_board[to + inc] & PIECE_MASK) == (piecePawn | them)) ||
+        ((g_board[to + (inc * 16)] & PIECE_MASK) == (piecePawn | them))) {
         return false;
     }
 
@@ -1324,8 +1089,8 @@ function See(move) {
     // At this point, we are sure we are making a "losing" capture.  The opponent can not capture back with a 
     // pawn.  They cannot capture back with a minor/major and stand pat either.  So, if we can capture with 
     // a pawn, it's got to be a winning or equal capture. 
-    if (((g_board[to - inc + 1] & 0xF) == (piecePawn | us)) ||
-        ((g_board[to - inc - 1] & 0xF) == (piecePawn | us))) {
+    if (((g_board[to - inc] & PIECE_MASK) == (piecePawn | us)) ||
+        ((g_board[to - (inc * 16)] & PIECE_MASK) == (piecePawn | us))) {
         g_board[from] = fromPiece;
         return true;
     }
@@ -1354,7 +1119,7 @@ function See(move) {
         // Find the least valuable piece of the opponent that can attack the square
         for (var i = 0; i < themAttacks.length; i++) {
             if (themAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[themAttacks[i]] & 0x7];
+                var pieceValue = g_seeValues[g_board[themAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;
@@ -1387,7 +1152,7 @@ function See(move) {
         // Find our least valuable piece that can attack the square
         for (var i = 0; i < usAttacks.length; i++) {
             if (usAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[usAttacks[i]] & 0x7];
+                var pieceValue = g_seeValues[g_board[usAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;

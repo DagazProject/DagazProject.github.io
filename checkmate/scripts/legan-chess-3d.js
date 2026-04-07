@@ -4,8 +4,14 @@ Dagaz.View.IS_DIAGONAL       = true;
 
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/legan-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 17000;
+
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;
+
+Dagaz.AI.FLAGS     = 0x40;
 
 ZRF = {
     JUMP:          0,
@@ -54,7 +60,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("se"); // 0
     design.addDirection("s");  // 1
@@ -310,9 +316,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'legan-chess.htm' : 'legan-chess-board.htm');
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'legan-chess-3d-board.htm' : 'legan-chess-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'legan-chess-3d-board.htm' : 'legan-chess-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
  
     view.defPosition("a8", -238, -238, 68, 68, 0);
     view.defPosition("b8", -170, -238, 68, 68, 0);

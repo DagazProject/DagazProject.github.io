@@ -56,6 +56,43 @@ var g_qNodeCount;
 var g_searchValid;
 var g_globalPly = 0;
 
+function CommonResetGame() {
+    g_killers = new Array(128);
+    for (var i = 0; i < 128; i++) {
+        g_killers[i] = [0, 0];
+    }
+
+    g_hashTable = new Array(g_hashSize);
+
+    for (var i = 0; i < 32; i++) {
+        historyTable[i] = new Array(256);
+        for (var j = 0; j < 256; j++)
+            historyTable[i][j] = 0;
+    }
+
+    var mt = new MT(0x1badf00d);
+
+    g_zobristLow = new Array(256);
+    g_zobristHigh = new Array(256);
+    for (var i = 0; i < 256; i++) {
+        g_zobristLow[i] = new Array(16);
+        g_zobristHigh[i] = new Array(16);
+        for (var j = 0; j < 16; j++) {
+            g_zobristLow[i][j] = mt.next(32);
+            g_zobristHigh[i][j] = mt.next(32);
+        }
+    }
+    g_zobristBlackLow = mt.next(32);
+    g_zobristBlackHigh = mt.next(32);
+
+    for (var row = 0; row < g_height; row++) {
+        for (var col = 0; col < g_width; col++) {
+            var square = MakeSquare(row, col);
+            flipTable[square] = MakeSquare((g_height - 1) - row, col);
+        }
+    }
+}
+
 function Search(finishMoveCallback, maxPly, finishPlyCallback) {
     var lastEval;
     var alpha = minEval;
@@ -634,14 +671,19 @@ function AlphaBeta(ply, depth, alpha, beta) {
             plyToSearch++;
         }
 
+        var w = 0;
+        if (NOISE_FACTOR && (depth == 0)) {
+            w = _.random(0, NOISE_FACTOR);
+        }
+
         var value;
         if (moveMade) {
-            value = -AllCutNode(plyToSearch, depth + 1, -alpha, true);
+            value = w - AllCutNode(plyToSearch, depth + 1, -alpha, true);
             if (value > alpha) {
-                value = -AlphaBeta(plyToSearch, depth + 1, -beta, -alpha);
+                value = w - AlphaBeta(plyToSearch, depth + 1, -beta, -alpha);
             }
         } else {
-            value = -AlphaBeta(plyToSearch, depth + 1, -beta, -alpha);
+            value = w - AlphaBeta(plyToSearch, depth + 1, -beta, -alpha);
         }
 
         moveMade = true;
@@ -878,155 +920,6 @@ function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHig
     this.hashKeyHigh = hashKeyHigh;
     this.move50 = move50;
     this.captured = captured;
-}
-
-var g_seeValues = [0, 1, 3, 3, 5, 9, 900, 0,
-                   0, 1, 3, 3, 5, 9, 900, 0];
-
-function See(move) {
-    var from = move & 0xFF;
-    var to = (move >> 8) & 0xFF;
-
-    var fromPiece = g_board[from];
-
-    var fromValue = g_seeValues[fromPiece & 0xF];
-    var toValue = g_seeValues[g_board[to] & 0xF];
-
-    if (fromValue <= toValue) {
-        return true;
-    }
-
-    if (move >> 16) {
-        // Castles, promotion, ep are always good
-        return true;
-    }
-
-    var us = (fromPiece & colorWhite) ? colorWhite : 0;
-    var them = 8 - us;
-
-    // Pawn attacks 
-    // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
-    var inc = (fromPiece & colorWhite) ? -16 : 16; // Note: this is capture direction from to, so reversed from normal move direction
-    if (((g_board[to + inc + 1] & 0xF) == (piecePawn | them)) ||
-        ((g_board[to + inc - 1] & 0xF) == (piecePawn | them))) {
-        return false;
-    }
-
-    var themAttacks = new Array();
-
-    // Knight attacks 
-    // If any opponent knights can capture back, and the deficit we have to make up is greater than the knights value, 
-    // it's not worth it.  We can capture on this square again, and the opponent doesn't have to capture back. 
-    var captureDeficit = fromValue - toValue;
-    SeeAddKnightAttacks(to, them, themAttacks);
-    if (themAttacks.length != 0 && captureDeficit > g_seeValues[pieceKnight]) {
-        return false;
-    }
-
-    // Slider attacks
-    g_board[from] = 0;
-    for (var pieceType = pieceBishop; pieceType <= pieceQueen; pieceType++) {
-        if (SeeAddSliderAttacks(to, them, themAttacks, pieceType)) {
-            if (captureDeficit > g_seeValues[pieceType]) {
-                g_board[from] = fromPiece;
-                return false;
-            }
-        }
-    }
-
-    // Pawn defenses 
-    // At this point, we are sure we are making a "losing" capture.  The opponent can not capture back with a 
-    // pawn.  They cannot capture back with a minor/major and stand pat either.  So, if we can capture with 
-    // a pawn, it's got to be a winning or equal capture. 
-    if (((g_board[to - inc + 1] & 0xF) == (piecePawn | us)) ||
-        ((g_board[to - inc - 1] & 0xF) == (piecePawn | us))) {
-        g_board[from] = fromPiece;
-        return true;
-    }
-
-    // King attacks
-    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
-
-    // Our attacks
-    var usAttacks = new Array();
-    SeeAddKnightAttacks(to, us, usAttacks);
-    for (var pieceType = pieceBishop; pieceType <= pieceKing; pieceType++) {
-        SeeAddSliderAttacks(to, us, usAttacks, pieceType);
-    }
-
-    g_board[from] = fromPiece;
-
-    // We are currently winning the amount of material of the captured piece, time to see if the opponent 
-    // can get it back somehow.  We assume the opponent can capture our current piece in this score, which 
-    // simplifies the later code considerably. 
-    var seeValue = toValue - fromValue;
-
-    for (; ; ) {
-        var capturingPieceValue = 1000;
-        var capturingPieceIndex = -1;
-
-        // Find the least valuable piece of the opponent that can attack the square
-        for (var i = 0; i < themAttacks.length; i++) {
-            if (themAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[themAttacks[i]] & 0x7];
-                if (pieceValue < capturingPieceValue) {
-                    capturingPieceValue = pieceValue;
-                    capturingPieceIndex = i;
-                }
-            }
-        }
-
-        if (capturingPieceIndex == -1) {
-            // Opponent can't capture back, we win
-            return true;
-        }
-
-        // Now, if seeValue < 0, the opponent is winning.  If even after we take their piece, 
-        // we can't bring it back to 0, then we have lost this battle. 
-        seeValue += capturingPieceValue;
-        if (seeValue < 0) {
-            return false;
-        }
-
-        var capturingPieceSquare = themAttacks[capturingPieceIndex];
-        themAttacks[capturingPieceIndex] = 0;
-
-        // Add any x-ray attackers
-        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
-
-        // Our turn to capture
-        capturingPieceValue = 1000;
-        capturingPieceIndex = -1;
-
-        // Find our least valuable piece that can attack the square
-        for (var i = 0; i < usAttacks.length; i++) {
-            if (usAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[usAttacks[i]] & 0x7];
-                if (pieceValue < capturingPieceValue) {
-                    capturingPieceValue = pieceValue;
-                    capturingPieceIndex = i;
-                }
-            }
-        }
-
-        if (capturingPieceIndex == -1) {
-            // We can't capture back, we lose :( 
-            return false;
-        }
-
-        // Assume our opponent can capture us back, and if we are still winning, we can stand-pat 
-        // here, and assume we've won. 
-        seeValue -= capturingPieceValue;
-        if (seeValue >= 0) {
-            return true;
-        }
-
-        capturingPieceSquare = usAttacks[capturingPieceIndex];
-        usAttacks[capturingPieceIndex] = 0;
-
-        // Add any x-ray attackers
-        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
-    }
 }
 
 function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
