@@ -6,7 +6,7 @@ Dagaz.Controller.persistense = "setup";
 
 Dagaz.AI.WORKER_NAME  = 'scripts/legan-worker.js';
 Dagaz.AI.WORKER_TIME  = 3000;
-Dagaz.AI.ADVISOR_TIME = 17000;
+Dagaz.AI.ADVISOR_TIME = 10000;
 
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;

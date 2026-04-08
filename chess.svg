@@ -24,7 +24,7 @@
 <!-- Shatranj -->
 <g id="node3" class="node"><title>Shatranj</title>
 <a xlink:href="checkmate/shatranj.htm">
-<ellipse fill="darkgreen" stroke="black" cx="569" cy="-738" rx="43.3265" ry="18"></ellipse>
+<ellipse fill="gold" stroke="black" cx="569" cy="-738" rx="43.3265" ry="18"></ellipse>
 <text text-anchor="middle" x="569" y="-733.8" font-family="Times,serif" font-size="14.00">Shatranj</text>
 </a>
 </g>
