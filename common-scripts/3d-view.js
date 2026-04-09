@@ -16,7 +16,8 @@ const PIECE_TYPE = {
    MODEL:             2,
    TOKEN:             3,
    PLATFORM:          4,
-   TRIANGLE:          5
+   TRIANGLE:          5,
+   HEXAGONAL:         6
 };
 
 const MOVE_TYPE = {
@@ -479,6 +480,54 @@ function addCube(p, pos, model) {
   return group;
 }
 
+View3D.prototype.addPieceHexagonal = function(pieceType, pos) {
+  const p = this.pos[pos];
+  const geometry = createHexagonalPrism(pieceType.dx / 10, 1);
+  let top = null;
+  if ((pieceType.img !== null) && (pieceType.img.length > 0)) {
+      top = pieceType.img[0];
+  }
+  const materials = [
+     // Материал для верхнего основания (с текстурой)
+     new THREE.MeshBasicMaterial({
+           map: top.t, 
+           color: pieceType.colors[0], 
+           transparent: true, 
+           opacity: pieceType.opacity,
+           side: THREE.DoubleSide
+     }),
+     // Материал для остальных граней
+     new THREE.MeshBasicMaterial({ 
+           color: pieceType.colors[1], 
+           transparent: true, 
+           opacity: pieceType.opacity,
+           side: THREE.DoubleSide
+     }),
+  ];
+  const edgeColor = 0x555555;
+  const edgesGeometry = new THREE.EdgesGeometry(geometry);
+  const edgesMaterial = new THREE.LineBasicMaterial({ 
+        color: edgeColor,
+        linewidth: 3
+  });
+  const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+  const piece = new THREE.Mesh(geometry, materials);
+  const group = new THREE.Group();
+  group.add(piece);
+  group.add(edges);
+  if (pieceType.angle) {
+      group.rotation.y = pieceType.angle;
+  }
+  group.pos = pos;
+  group.type = pieceType;
+  group.position.set(p.x / 10, p.z / 10, p.y / 10);
+  if (Dagaz.View.RENDER_ORDER) {
+      group.renderOrder = 2;
+  }
+  scene.add(group);   
+  pieces.push(group);  
+}
+
 View3D.prototype.addPieceTriangle = function(pieceType, pos) {
   const p = this.pos[pos];
   const geometry = createTriangularPrism(pieceType.dx / 10, 1, pieceType.dy / 10);
@@ -644,6 +693,8 @@ View3D.prototype.addPiece = function(piece, pos, model) {
           this.addPiecePlatform(pieceType, pos);
       } else if (pieceType && pieceType.kind == PIECE_TYPE.TRIANGLE) {
           this.addPieceTriangle(pieceType, pos);
+      } else if (pieceType && pieceType.kind == PIECE_TYPE.HEXAGONAL) {
+          this.addPieceHexagonal(pieceType, pos);
       }
   } else if (Dagaz.View.NO_PIECE) {
       p.p.material = getPlayerMaterial(model.player, false);
@@ -833,6 +884,58 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
   };
 }
 
+View3D.prototype.defPieceHexagonal = function(type, player, dx, dy, dz, sz, colors, angle, res, opacity) {
+  Dagaz.View.NO_PIECE = false;
+  Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
+  if (_.isUndefined(opacity)) opacity = 1;
+  Dagaz.View.NO_PIECE = false;
+  const key = type*10 + (+player);
+  pieceKeys.push(key);
+  const imgs = [];
+  if (!_.isUndefined(res)) {
+      if (!_.isArray(res)) {
+          res = [res];
+      }
+      _.each(res, function(r) {
+          let p = this.findRes(r);
+/*        if (p === null) {
+
+          }*/
+          const img = document.getElementById(r);
+          const t = new Promise((resolve) => {
+                textureLoader.load(
+                    img.currentSrc,
+                    resolve,
+                    undefined,
+                    undefined,
+                  { crossOrigin: 'anonymous' }
+                );
+          });
+          resTask.push(t); 
+          p = {
+             r: r,
+             h: img
+          };
+          resList.push(p);
+          this.res.push(p);
+          imgs.push(p);
+      }, this);
+  }
+  pieceTypes[key] = {
+     kind:    PIECE_TYPE.HEXAGONAL,
+     type:    type,
+     player:  player,
+     dx:      dx,
+     dy:      dy,
+     dz:      dz, 
+     sz:      sz,
+     colors:  colors,
+     opacity: opacity,
+     angle:   angle,
+     img:     imgs.length > 0 ? imgs : null
+  };
+}
+
 View3D.prototype.defPieceTriangle = function(type, player, dx, dy, dz, sz, colors, angle, res, opacity) {
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
@@ -868,9 +971,9 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
       }
       _.each(res, function(r) {
           let p = this.findRes(r);
-          if (p === null) {
+/*        if (p === null) {
 
-          }
+          }*/
           const img = document.getElementById(r);
           const t = new Promise((resolve) => {
                 textureLoader.load(
@@ -1409,6 +1512,8 @@ View3D.prototype.animate = function() {
           this.addPiecePlatform(q.pieceType, q.piece.pos);
       } else if (q.pieceType.kind == PIECE_TYPE.TRIANGLE) {
           this.addPieceTriangle(q.pieceType, q.piece.pos);
+      } else if (q.pieceType.kind == PIECE_TYPE.HEXAGONAL) {
+          this.addPieceHexagonal(q.pieceType, q.piece.pos);
       } else {
           scene.add(piece);
           pieces.push(piece);
@@ -1823,7 +1928,7 @@ function createHexagonalPrism(radius, height) {
             
   // Создаём геометрию
   const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.addAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geometry.setIndex(indices);
             
   // Группируем грани для разных материалов:

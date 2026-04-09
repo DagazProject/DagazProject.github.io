@@ -195,8 +195,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("C1", 33);
     design.addPiece("H1", 34);
     design.addPiece("S1", 35);
-
-    design.setup("You", "S1", 20);
 }
 
 Dagaz.View.configure = function(view) {
@@ -435,22 +433,22 @@ Dagaz.View.configure = function(view) {
     view.defPosition("C1", 293, 228, 57, 77);
     view.defPosition("D1", 386, 228, 57, 77);
     view.defPosition("X0", 258, 19, 57, 77);
-    view.defPosition("A0", 248, 10, 77, 57);
-    view.defPosition("B0", 248, 10, 77, 57);
-    view.defPosition("C0", 248, 10, 77, 57);
-    view.defPosition("D0", 248, 10, 77, 57);
-    view.defPosition("E0", 248, 10, 77, 57);
-    view.defPosition("F0", 248, 10, 77, 57);
-    view.defPosition("G0", 248, 10, 77, 57);
-    view.defPosition("H0", 248, 10, 77, 57);
-    view.defPosition("I0", 248, 10, 77, 57);
-    view.defPosition("J0", 248, 10, 77, 57);
-    view.defPosition("K0", 248, 10, 77, 57);
-    view.defPosition("L0", 248, 10, 77, 57);
-    view.defPosition("M0", 248, 10, 77, 57);
-    view.defPosition("N0", 248, 10, 77, 57);
-    view.defPosition("O0", 248, 10, 77, 57);
-    view.defPosition("P0", 248, 10, 77, 57);
-    view.defPosition("Q0", 248, 10, 77, 57);
-    view.defPosition("R0", 248, 10, 77, 57);
+    view.defPosition("A0", 248, 15, 77, 57);
+    view.defPosition("B0", 249, 15, 77, 57);
+    view.defPosition("C0", 250, 14, 77, 57);
+    view.defPosition("D0", 250, 14, 77, 57);
+    view.defPosition("E0", 251, 13, 77, 57);
+    view.defPosition("F0", 251, 13, 77, 57);
+    view.defPosition("G0", 252, 12, 77, 57);
+    view.defPosition("H0", 252, 12, 77, 57);
+    view.defPosition("I0", 253, 11, 77, 57);
+    view.defPosition("J0", 253, 11, 77, 57);
+    view.defPosition("K0", 254, 10, 77, 57);
+    view.defPosition("L0", 254, 10, 77, 57);
+    view.defPosition("M0", 255,  9, 77, 57);
+    view.defPosition("N0", 255,  9, 77, 57);
+    view.defPosition("O0", 256,  8, 77, 57);
+    view.defPosition("P0", 256,  8, 77, 57);
+    view.defPosition("Q0", 257,  7, 77, 57);
+    view.defPosition("R0", 257,  7, 77, 57);
 }
