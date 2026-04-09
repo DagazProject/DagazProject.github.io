@@ -884,7 +884,7 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
   };
 }
 
-View3D.prototype.defPieceHexagonal = function(type, player, dx, dy, dz, sz, colors, angle, res, opacity) {
+View3D.prototype.defPieceHexagonal = function(type, player, dx, dy, dz, sz, colors, res, opacity, angle) {
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.MODEL;
   if (_.isUndefined(opacity)) opacity = 1;
@@ -898,9 +898,6 @@ View3D.prototype.defPieceHexagonal = function(type, player, dx, dy, dz, sz, colo
       }
       _.each(res, function(r) {
           let p = this.findRes(r);
-/*        if (p === null) {
-
-          }*/
           const img = document.getElementById(r);
           const t = new Promise((resolve) => {
                 textureLoader.load(
@@ -971,9 +968,6 @@ View3D.prototype.defPiecePlatform = function(type, player, dx, dy, dz, sz, color
       }
       _.each(res, function(r) {
           let p = this.findRes(r);
-/*        if (p === null) {
-
-          }*/
           const img = document.getElementById(r);
           const t = new Promise((resolve) => {
                 textureLoader.load(
@@ -1872,73 +1866,75 @@ function createRectangularPrismWithGroups(width, height, depth) {
 }
 
 function createHexagonalPrism(radius, height) {
-  // Вершины: центр низа (0), 6 нижних (1-6), центр верха (7), 6 верхних (8-13)
   const positions = [];
-            
+  const uvs = [];
+
   // Центр нижнего основания (индекс 0)
   positions.push(0, -height/2, 0);
-            
-  // Вершины нижнего шестиугольника (индексы 1-6)
+  uvs.push(0.5, 0.5); // центр нижней грани
+
+  // Вершины нижнего шестиугольника (индексы 1–6)
   for (let i = 0; i < 6; i++) {
-       const angle = (i / 6) * Math.PI * 2; // начинаем с угла 0
-       const x = radius * Math.cos(angle);
-       const z = radius * Math.sin(angle);
-       positions.push(x, -height/2, z);
+    const angle = (i / 6) * Math.PI * 2;
+    const x = radius * Math.cos(angle);
+    const z = radius * Math.sin(angle);
+    positions.push(x, -height/2, z);
+    // UV для нижней грани (не критично, но пусть будет)
+    const u = (x / radius) * 0.5 + 0.5;
+    const v = (z / radius) * 0.5 + 0.5;
+    uvs.push(u, v);
   }
-            
+
   // Центр верхнего основания (индекс 7)
   positions.push(0, height/2, 0);
-            
-  // Вершины верхнего шестиугольника (индексы 8-13)
+  uvs.push(0.5, 0.5); // центр верхней грани
+
+  // Вершины верхнего шестиугольника (индексы 8–13)
   for (let i = 0; i < 6; i++) {
-       const angle = (i / 6) * Math.PI * 2;
-       const x = radius * Math.cos(angle);
-       const z = radius * Math.sin(angle);
-       positions.push(x, height/2, z);
+    const angle = (i / 6) * Math.PI * 2;
+    const x = radius * Math.cos(angle);
+    const z = radius * Math.sin(angle);
+    positions.push(x, height/2, z);
+    // UV для верхней грани: отображаем круглую текстуру на шестиугольник
+    const u = (x / radius) * 0.5 + 0.5;
+    const v = (z / radius) * 0.5 + 0.5;
+    uvs.push(u, v);
   }
-            
-  // Индексы треугольников
+
+  // Индексы треугольников (как и раньше)
   const indices = [];
-            
-  // Нижнее основание (6 треугольников от центра)
+  // Нижнее основание
   for (let i = 0; i < 6; i++) {
-       const next = (i + 1) % 6;
-       indices.push(0, 1 + i, 1 + next);
+    const next = (i + 1) % 6;
+    indices.push(0, 1 + i, 1 + next);
   }
-            
-  // Верхнее основание (6 треугольников от центра)
+  // Верхнее основание
   for (let i = 0; i < 6; i++) {
-       const next = (i + 1) % 6;
-       indices.push(7, 8 + i, 8 + next);
+    const next = (i + 1) % 6;
+    indices.push(7, 8 + i, 8 + next);
   }
-            
-  // Боковые грани (12 треугольников)
+  // Боковые грани
   for (let i = 0; i < 6; i++) {
-       const next = (i + 1) % 6;
-       const b1 = 1 + i;      // нижняя вершина i
-       const b2 = 1 + next;   // нижняя вершина i+1
-       const t1 = 8 + i;      // верхняя вершина i
-       const t2 = 8 + next;   // верхняя вершина i+1
-                
-       // первый треугольник (b1, t1, t2)
-       indices.push(b1, t1, t2);
-       // второй треугольник (b1, t2, b2)
-       indices.push(b1, t2, b2);
+    const next = (i + 1) % 6;
+    const b1 = 1 + i;
+    const b2 = 1 + next;
+    const t1 = 8 + i;
+    const t2 = 8 + next;
+    indices.push(b1, t1, t2);
+    indices.push(b1, t2, b2);
   }
-            
-  // Создаём геометрию
+
   const geometry = new THREE.BufferGeometry();
   geometry.addAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.addAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
-            
-  // Группируем грани для разных материалов:
-  // Группа 0: верхнее основание (индексы 18-35) — 6 треугольников * 3 = 18 индексов
-  // Группа 1: нижнее основание (0-17) + боковые грани (36-71) — всего 54 индекса
+  
+  // Группы материалов (как и было)
   geometry.clearGroups();
-  geometry.addGroup(18, 18, 0); // верх
-  geometry.addGroup(0, 18, 1);   // низ
-  geometry.addGroup(36, 36, 1);  // бока
-            
+  geometry.addGroup(18, 18, 0); // верхнее основание
+  geometry.addGroup(0, 18, 1);   // нижнее основание
+  geometry.addGroup(36, 36, 1);  // боковые грани
+
   return geometry;
 }
 
