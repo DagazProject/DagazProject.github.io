@@ -1,4 +1,4 @@
-﻿﻿"use strict";
+﻿"use strict";
 
 Dagaz.Controller.viewOff = false;
 Dagaz.AI.ADVISOR_MOVE = '';
@@ -81,7 +81,7 @@ let isFirstDraw    = true;
 let currPos        = null;
 let ko             = null;
 let cameraSettings = null;
-let onceResolve     = true;
+let onceResolve    = true;
 
 let lastX = null;
 let lastY = null;
@@ -217,6 +217,7 @@ function View3D() {
   this.targets = [];
   this.queue   = [];
   this.boards  = [];
+  this.popups  = [];
   this.ready   = false;
 }
 
@@ -794,6 +795,81 @@ View3D.prototype.clearControls = function() {
        if ((menus[0].items[i].y == 1) || (menus[0].items[i].y == 2)) menus[0].items[i].v = false;
   }
   this.invalidate();
+}
+
+View3D.prototype.defPopup = function(img, x, y, selector) {
+  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
+  var res = {
+     h: document.getElementById(img),
+     g: [],
+     x: x ? x : 0,
+     y: y ? y : 0
+  };
+  this.popups.push(res);
+  this.res.push(res);
+}
+
+View3D.prototype.defPopupPosition = function(name, x, y, dx, dy) {
+  if (this.popups.length > 0) {
+      var popup = this.popups[this.popups.length - 1];
+      popup.g.push({
+          name: name,
+          x:    x,
+          y:    y,
+          dx:   dx,
+          dy:   dy
+      });
+  }
+}
+
+View3D.prototype.findPopup = function(n) {
+  for (var i = 0; i < this.popups.length; i++) {
+       if (this.popups[i].g.length == n) {
+           return i;
+       }
+  }
+  return 0;
+}
+
+View3D.prototype.openPopup = function(ix, pieces, x, y) {
+  if (ix < this.popups.length) {
+      this.stack.push({
+          popup: ix,
+          list:  pieces,
+          x: x ? x : this.popups[ix].x,
+          y: y ? y : this.popups[ix].y
+      });
+  }
+}
+
+View3D.prototype.closePopup = function() {
+  if (this.stack.length > 0) {
+      this.stack.pop();
+  }
+}
+
+View3D.prototype.getPopupPositions = function(ix) {
+  var r = [];
+  if (ix < this.popups.length) {
+      _.each(this.popups[ix].g, function(f) {
+           r.push(Dagaz.Model.stringToPos(f.name));
+      });
+  }
+  return r;
+}
+
+View3D.prototype.getSelected = function(pos) {
+  var r = null;
+  if (this.stack.length > 0) {
+      var frame = this.stack[ this.stack.length - 1 ];
+      var popup = frame.popup;
+      var positions = this.getPopupPositions(popup);
+      var ix = _.indexOf(positions, pos);
+      if ((ix >= 0) && (ix < frame.list.length)) {
+          r = frame.list[ix];
+      }
+  }
+  return r;
 }
 
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, selector) {
@@ -1936,6 +2012,108 @@ function createHexagonalPrism(radius, height) {
   geometry.addGroup(36, 36, 1);  // боковые грани
 
   return geometry;
+}
+
+// baseWidth = 40, topWidth = 25, trapHeight = 35, triangleHeight = 5, thickness = 10
+function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeight, thickness) {
+            // Координаты пятиугольника в плоскости XZ
+            const zBottom = -(trapHeight + triangleHeight) / 2;   // -20
+            const zTrapTop = zBottom + trapHeight;                // 15
+            const zTop = zTrapTop + triangleHeight;               // 20
+
+            const xBottomLeft  = -baseWidth / 2;   // -20
+            const xBottomRight =  baseWidth / 2;   //  20
+            const xTrapLeft    = -topWidth / 2;    // -12.5
+            const xTrapRight   =  topWidth / 2;    //  12.5
+            const xTop = 0;
+
+            const vertices = [
+                { x: xBottomLeft,  z: zBottom },   // 0
+                { x: xBottomRight, z: zBottom },   // 1
+                { x: xTrapRight,   z: zTrapTop },  // 2
+                { x: xTop,         z: zTop },      // 3
+                { x: xTrapLeft,    z: zTrapTop }   // 4
+            ];
+            const numVertices = vertices.length; // 5
+
+            const positions = [];
+            const uvs = [];
+            const indices = [];
+
+            // UV-отображение (линейное по bounding box)
+            const getUV = (x, z) => {
+                const u = (x + baseWidth/2) / baseWidth;
+                const v = (z + (trapHeight+triangleHeight)/2) / (trapHeight+triangleHeight);
+                return [u, v];
+            };
+
+            const yBottom = -thickness / 2;   // -5
+            // Центр нижнего основания
+            positions.push(0, yBottom, 0);
+            uvs.push(0.5, 0.5);
+            // Вершины нижнего пятиугольника
+            for (let i = 0; i < numVertices; i++) {
+                const v = vertices[i];
+                positions.push(v.x, yBottom, v.z);
+                const [u, vCoord] = getUV(v.x, v.z);
+                uvs.push(u, vCoord);
+            }
+
+            const yTop = thickness / 2;        // 5
+            // Центр верхнего основания
+            positions.push(0, yTop, 0);
+            uvs.push(0.5, 0.5);
+            // Вершины верхнего пятиугольника
+            for (let i = 0; i < numVertices; i++) {
+                const v = vertices[i];
+                positions.push(v.x, yTop, v.z);
+                const [u, vCoord] = getUV(v.x, v.z);
+                uvs.push(u, vCoord);
+            }
+
+            // Индексы: всего вершин = 1 + 5 + 1 + 5 = 12 (индексы 0..11)
+            // Нижнее основание (веер от центра)
+            const bottomCenterIdx = 0;
+            const bottomFirstVertexIdx = 1;
+            for (let i = 0; i < numVertices; i++) {
+                const next = (i + 1) % numVertices;
+                indices.push(bottomCenterIdx, bottomFirstVertexIdx + i, bottomFirstVertexIdx + next);
+            }
+
+            // Верхнее основание (исправлено: центр верха имеет индекс 6, вершины 7..11)
+            const topCenterIdx = 1 + numVertices;        // =6
+            const topFirstVertexIdx = topCenterIdx + 1;  // =7
+            for (let i = 0; i < numVertices; i++) {
+                const next = (i + 1) % numVertices;
+                indices.push(topCenterIdx, topFirstVertexIdx + i, topFirstVertexIdx + next);
+            }
+
+            // Боковые грани (5 четырёхугольников → 10 треугольников)
+            for (let i = 0; i < numVertices; i++) {
+                const next = (i + 1) % numVertices;
+                const b1 = bottomFirstVertexIdx + i;
+                const b2 = bottomFirstVertexIdx + next;
+                const t1 = topFirstVertexIdx + i;
+                const t2 = topFirstVertexIdx + next;
+                indices.push(b1, t1, t2);
+                indices.push(b1, t2, b2);
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+            geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvs), 2));
+            geometry.setIndex(indices);
+
+            // Группы материалов (0 – верх, 1 – низ и бока)
+            geometry.clearGroups();
+            const bottomIndicesCount = numVertices * 3;      // 15
+            const topIndicesCount    = numVertices * 3;      // 15
+            const sideIndicesCount   = numVertices * 2 * 3;  // 30
+            geometry.addGroup(0, bottomIndicesCount, 1);           // нижнее основание (материал 1)
+            geometry.addGroup(bottomIndicesCount, topIndicesCount, 0); // верхнее основание (материал 0)
+            geometry.addGroup(bottomIndicesCount + topIndicesCount, sideIndicesCount, 1); // бока (материал 1)
+
+            return geometry;
 }
 
 View3D.prototype.draw = function(canvas) {
