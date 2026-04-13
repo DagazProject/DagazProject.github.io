@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.FONT_IS_FORCED = false;
+
 var promote = [];
 
 var checkVersion = Dagaz.Model.checkVersion;
@@ -44,7 +46,7 @@ Dagaz.Model.CheckInvariants = function(board) {
            if ((piece !== null) && !_.isUndefined(promote[piece.type]) && design.inZone(0, board.player, from)) {
                if (design.inZone(1, board.player, from) ||
                    design.inZone(1, board.player, to)) {
-                   if (piece.type > 2) {
+                   if ((piece.type > 2) || Dagaz.Model.FONT_IS_FORCED) {
                        isForced    = true;
                    }
                    var promoted    = piece.promote(promote[piece.type]);
