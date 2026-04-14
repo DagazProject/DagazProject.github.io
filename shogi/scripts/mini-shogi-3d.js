@@ -5,7 +5,7 @@ Dagaz.Controller.persistense = "setup";
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 5;
 
-Dagaz.Model.FONT_IS_FORCED = true;
+Dagaz.Model.PROM_IS_FORCED = true;
 
 ZRF = {
     JUMP:          0,
@@ -304,7 +304,7 @@ Dagaz.View.configure = function(view) {
     view.defPieceShogi(9, 1, 39, 39, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawnP", 1, Math.PI);
     view.defPieceShogi(9, 2, 39, 39, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawnP", 1);
 
-    view.setCamera(0, 0, 0, -109, 215, 155);
+    view.setCamera(0, 0, 0, -96, 170, 210);
 
     view.defControl("InfoControl", "1982 Oyama Yasuharu", true, Dagaz.Controller.open, 'https://en.wikipedia.org/wiki/Minishogi');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);

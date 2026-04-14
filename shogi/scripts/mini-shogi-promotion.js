@@ -1,6 +1,6 @@
 (function() {
 
-Dagaz.Model.FONT_IS_FORCED = false;
+Dagaz.Model.PROM_IS_FORCED = false;
 
 var promote = [];
 
@@ -46,7 +46,7 @@ Dagaz.Model.CheckInvariants = function(board) {
            if ((piece !== null) && !_.isUndefined(promote[piece.type]) && design.inZone(0, board.player, from)) {
                if (design.inZone(1, board.player, from) ||
                    design.inZone(1, board.player, to)) {
-                   if ((piece.type > 2) || Dagaz.Model.FONT_IS_FORCED) {
+                   if ((piece.type > 2) || Dagaz.Model.PROM_IS_FORCED) {
                        isForced    = true;
                    }
                    var promoted    = piece.promote(promote[piece.type]);
