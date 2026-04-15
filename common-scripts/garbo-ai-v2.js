@@ -770,6 +770,9 @@ var garbo = function(bestMove, value, timeTaken, ply, color) {
   resultMove = Dagaz.AI.FormatMove(bestMove, color);  
   inProgress = false;
   console.log('Garbo: ' + resultMove + ', value = ' + value + ', time = ' + timeTaken + ', ply = ' + ply);
+  if (!_.isUndefined(Dagaz.View.switchControl)) {
+      Dagaz.View.switchControl(4, 0);
+  }
   if (Dagaz.AI.callback) {
       Dagaz.AI.callback(resultMove);
   }
@@ -789,6 +792,9 @@ Ai.prototype.getMove = function(ctx) {
       };
   }
   if (resultMove !== null) {
+      if (!_.isUndefined(Dagaz.View.switchControl)) {
+          Dagaz.View.switchControl(4, 0);
+      }
       var bestMove = null;
       _.each(moves, function(move) {
           var x = move.toString() + ' ';
@@ -819,6 +825,9 @@ Ai.prototype.getMove = function(ctx) {
   var result = setup.match(/[?&]setup=(.*)/);
   if (result && (ctx.board.turn >= Dagaz.AI.MIN_TURN)) {
       inProgress = true;
+      if (!_.isUndefined(Dagaz.View.switchControl)) {
+          Dagaz.View.switchControl(4, 1);
+      }
       var fen = result[1];
       setTimeout(function () {
             var s = Dagaz.AI.InitializeFromFen(fen);

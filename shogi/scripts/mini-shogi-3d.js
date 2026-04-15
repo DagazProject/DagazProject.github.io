@@ -37,9 +37,6 @@ Dagaz.Model.moveToString = function(move) {
       }
       if (a[0] != null) {
           r = r + Dagaz.Model.posToString(a[0][0]);
-          if (a[1] !== null) {
-              r = r + '-';
-          }
       }
       if (a[1] !== null) {
           r = r + Dagaz.Model.posToString(a[1][0]);
@@ -310,9 +307,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-shogi.htm' : 'mini-shogi-board.htm');
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-shogi-3d-board.htm' : 'mini-shogi-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-shogi-3d-board.htm' : 'mini-shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
  
     view.defPosition("X5", -205, -92, 41, 46, 0);
     view.defPosition("Y5", -164, -92, 41, 46, 0);
