@@ -490,12 +490,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
 
         // Null move
         if (ply > 1 &&
-            g_baseEval >= beta - (ply >= 4 ? 2500 : 0) &&
-            // Disable null move if potential zugzwang (no big pieces)
-            (g_pieceCount[pieceBishop | g_toMove] != 0 ||
-             g_pieceCount[pieceKnight | g_toMove] != 0 ||
-             g_pieceCount[pieceRook | g_toMove] != 0 ||
-             g_pieceCount[pieceQueen | g_toMove] != 0)) {
+            g_baseEval >= beta - (ply >= 4 ? 2500 : 0) && isNoZugzwang()) {
             var r = 3 + (ply >= 5 ? 1 : ply / 4);
             if (g_baseEval - beta > 1500) r++;
 

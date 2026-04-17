@@ -1,6 +1,6 @@
 "use strict";
 
-importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', 'garbo-woker.js');
+importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
 
 let NOISE_FACTOR     = 5;
 
@@ -359,6 +359,13 @@ function ScoreMove(move){
 }
 
 const PROMOTION = [0x24, 0x25, 0x26, 0x27, 0x34, 0x44, 0x54, 0x6B, 0x7B, 0x8B, 0x9B, 0x9A, 0x99, 0x98];
+
+function isNoZugzwang() {
+    return g_pieceCount[pieceBishop | g_toMove] != 0 ||
+           g_pieceCount[pieceKnight | g_toMove] != 0 ||
+           g_pieceCount[pieceRook   | g_toMove] != 0 ||
+           g_pieceCount[pieceQueen  | g_toMove] != 0;
+}
 
 function IsHashMoveValid(hashMove) {
     var from = hashMove & 0xFF;

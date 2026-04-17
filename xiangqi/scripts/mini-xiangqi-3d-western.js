@@ -1,5 +1,14 @@
 Dagaz.View.TARGET_FLAT  = true;
 Dagaz.View.TARGET_LARGE = true;
+Dagaz.Controller.persistense = "setup";
+
+Dagaz.AI.WORKER_NAME  = 'scripts/mini-xiangqi-worker.js';
+Dagaz.AI.WORKER_TIME  = 5000;
+Dagaz.AI.ADVISOR_TIME = 27000;
+
+Dagaz.View.TARGET_FLAT  = true;
+Dagaz.View.TARGET_LARGE = true;
+
 Dagaz.AI.Q_SEARCH_LIMIT = -5;
 Dagaz.AI.ALL_CUT_LIMIT  = 10;
 Dagaz.AI.INC_CHECK_PLY  = false;
@@ -92,7 +101,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("animate-captures", "false");
-    design.checkVersion("advisor-wait", "15");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("w");  // 0
     design.addDirection("e");  // 1
@@ -353,9 +362,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("ResControl", "Western", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-xiangqi.htm' : 'mini-xiangqi-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-xiangqi-3d-western-board.htm' : 'mini-xiangqi-3d-western.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'mini-xiangqi-3d-western-board.htm' : 'mini-xiangqi-3d-western.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
 
     view.defPosition("a6", -180, -150, 42, 42, 0);
     view.defPosition("b6", -120, -150, 42, 42, 0);
