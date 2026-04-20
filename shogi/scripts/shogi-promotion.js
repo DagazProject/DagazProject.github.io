@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.PROM_IS_FORCED = false;
+
 var promote = [];
 
 Dagaz.Model.moveToString = function(move) {
@@ -45,6 +47,9 @@ Dagaz.Model.CheckInvariants = function(board) {
           if ((design.inZone(1, board.player, pos) || design.inZone(1, board.player, target)) && design.inZone(0, board.player, pos)) {
               var isForced = false;
               var piece = board.getPiece(pos);
+              if (Dagaz.Model.PROM_IS_FORCED) {
+                  isForced = true;
+              }
               if ((piece !== null) && !_.isUndefined(promote[piece.type])) {
                    var promoted = piece.promote(promote[piece.type]);
                    if ((piece.type == design.getPieceType("Pawn")) || (piece.type == design.getPieceType("Lance"))) {

@@ -71,7 +71,7 @@
 </g>
 <!-- Mini XiangQi -->
 <g id="node14" class="node"><title>Mini XiangQi</title>
-<a xlink:href="xiangqi/mini-xiangqi.htm">
+<a xlink:href="xiangqi/mini-xiangqi-3d-western.htm">
 <ellipse fill="gold" stroke="black" cx="384" cy="-594" rx="65.2265" ry="18"></ellipse>
 <text text-anchor="middle" x="384" y="-589.8" font-family="Times,serif" font-size="14.00">Mini XiangQi</text>
 </a>
@@ -201,7 +201,7 @@
 </g>
 <!-- Shogi -->
 <g id="node10" class="node"><title>Shogi</title>
-<a xlink:href="shogi/shogi.htm">
+<a xlink:href="shogi/shogi.htm?selector=1">
 <ellipse fill="darkgreen" stroke="black" cx="637" cy="-90" rx="33.3604" ry="18"></ellipse>
 <text text-anchor="middle" x="637" y="-85.8" font-family="Times,serif" font-size="14.00">Shogi</text>
 </a>

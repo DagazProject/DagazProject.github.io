@@ -55,7 +55,7 @@
 </g>
 <!-- Shogi -->
 <g class="node" id="node15"><title>Shogi</title>
-<a xlink:href="shogi.htm">
+<a xlink:href="shogi.htm?selector=1">
 <ellipse fill="red" stroke="black" cx="738" cy="-234" rx="33.3604" ry="18" />
 <text font-family="Times,serif" font-size="14" text-anchor="middle" x="738" y="-229.8">Shogi</text>
 </a>
