@@ -954,6 +954,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
 }
 
 View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args) {
+  if (mobileCoeff > 1) return;
   if (_.isUndefined(menus[ix])) {
       menus[ix] = {
          v: false,
