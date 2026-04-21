@@ -866,11 +866,23 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
-    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("NewControl", "New Game", true, Dagaz.View.switchMenu, 1);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'shogi.htm' : 'shogi-board.htm');
     view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'shogi-3d-board.htm' : 'shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+
+    view.defSubControl(1, "R01", "Without Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R02", "Left-Kyo Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/1NSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R03", "Kaku Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/7R1/LNSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R04", "Hisha Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B7/LNSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R05", "Hisha and Left-Kyo Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B7/1NSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R06", "Two-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/LNSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R07", "Three-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/1NSGKGSNL-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R08", "Four-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/1NSGKGSN1-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R09", "Five-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/2SGKGSN1-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R10", "Six-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/2SGKGS2-6/6/6/6/6/6/6/6/6-w");
+    view.defSubControl(1, "R11", "Eight-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/3GKG3-6/6/6/6/6/6/6/6/6-w");
  
     view.defPosition("X9", -328, -184, 41, 46, 0);
     view.defPosition("Y9", -287, -184, 41, 46, 0);

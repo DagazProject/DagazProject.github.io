@@ -75,14 +75,15 @@ const menus = [{
   items: []
 }];
 
-let isConfigured   = false;
-let isSetuped      = false;
-let isInitialized  = false;
-let isFirstDraw    = true;
-let currPos        = null;
-let ko             = null;
-let cameraSettings = null;
-let onceResolve    = true;
+let isConfigured      = false;
+let isSetuped         = false;
+let isInitialized     = false;
+let isFirstDraw       = true;
+let currPos           = null;
+let ko                = null;
+let cameraSettings    = null;
+let onceResolve       = true;
+let activeTooltipMenu = null;
 
 let lastX = null;
 let lastY = null;
@@ -1499,33 +1500,39 @@ Dagaz.View.switchControl = function(type, ix) {
   }
 }
 
-function drawTooltip(text, x, y) {
-  ctx.font = '14px Arial';
-  const padding = 8;
-  const lines = text.split('\n');
-  const lineHeight = 20;
-  
-  const maxWidth = Math.max(...lines.map(line => 
-    ctx.measureText(line).width
-  ));
-  const height = lineHeight * lines.length;
-  
-  let tipX = x + 15;
-  let tipY = y - 15;
-  if (tipX + maxWidth > overlay.width) tipX = x - maxWidth - 15;
-  if (tipY + height > overlay.height) tipY = overlay.height - height;
+function drawTooltip(text, x, y, menuIndex) {
+    ctx.font = '14px Arial';
+    const padding = 8;
+    const lines = text.split('\n');
+    const lineHeight = 20;
 
-  ctx.fillStyle = 'rgba(255, 255, 220, 0.95)';
-  ctx.strokeStyle = '#333';
-  ctx.beginPath();
-  ctx.roundRect(tipX, tipY, maxWidth + padding * 2, height + padding, 5);
-  ctx.fill();
-  ctx.stroke();
+    const maxWidth = Math.max(...lines.map(line => 
+        ctx.measureText(line).width
+    ));
+    const height = lineHeight * lines.length;
 
-  ctx.fillStyle = '#000';
-  lines.forEach((line, i) => {
-    ctx.fillText(line, tipX + padding, tipY + padding + lineHeight * (i + 0.5));
-  });
+    let tipX = x + 15;
+    let tipY = y - 15;
+
+    if (tipX + maxWidth > overlay.width) tipX = x - maxWidth - 15;
+    if (tipY + height > overlay.height) tipY = overlay.height - height;
+
+    // Для подменю (индекс > 0) поднимаем тултип выше
+    if (menuIndex > 0) {
+        tipY = tipY - 25;
+    }
+
+    ctx.fillStyle = 'rgba(255, 255, 220, 0.95)';
+    ctx.strokeStyle = '#333';
+    ctx.beginPath();
+    ctx.roundRect(tipX, tipY, maxWidth + padding * 2, height + padding, 5);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#000';
+    lines.forEach((line, i) => {
+        ctx.fillText(line, tipX + padding, tipY + padding + lineHeight * (i + 0.5));
+    });
 }
 
 Dagaz.View.switchMenu = function(ix) {
@@ -1534,43 +1541,50 @@ Dagaz.View.switchMenu = function(ix) {
 }
 
 View3D.prototype.invalidate = function() {
-  let h = null;
-  for (let i = 0; i < menus.length; i++) {
-       const x = this.menuDraw(menus[i]);
-       if (h === null) h = x;
-  }
-  const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
-  if ((cameraSettings === null) || (cameraSettings != s)) {
-      localStorage.setItem('dagaz.camera', s);
-      cameraSettings = s;
-  }
-  if (h !== null) {
-      let t = h.t.replace('{move}', Dagaz.AI.ADVISOR_MOVE);
-      drawTooltip(t, h.x, h.y);
-  }
-  renderer.render(scene, camera);
+    let h = null;
+    let activeMenuIdx = -1;
+    for (let i = 0; i < menus.length; i++) {
+        const x = this.menuDraw(menus[i]);
+        if (h === null && x !== null) {
+            h = x;
+            activeMenuIdx = i;
+        }
+    }
+    const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
+    if ((cameraSettings === null) || (cameraSettings != s)) {
+        localStorage.setItem('dagaz.camera', s);
+        cameraSettings = s;
+    }
+    if (h !== null) {
+        let t = h.t.replace('{move}', Dagaz.AI.ADVISOR_MOVE);
+        drawTooltip(t, h.x, h.y, activeMenuIdx);
+    }
+    renderer.render(scene, camera);
 }
 
 View3D.prototype.menuDraw = function(m) {
-  if (!m.v) return null;
-  let o = m.x; let h = null;
-  ctx.clearRect(o, m.y, m.dx * mobileCoeff, m.dy * mobileCoeff);
-  for (let i = 0; i < m.items.length; i++) {
-      const t = m.items[i];
-      if (!t.v) continue;
-      ctx.clearRect(o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight
-                            , o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
-      if ((tooltipIx !== null) && (tooltipIx == i) && (tooltipIx != tooltipHide) && t.t) {
-         h = {
-            t: t.t,
-            x: o,
-            y: t.h[t.x].naturalHeight * 2
-         };
-      }
-      o += (t.h[t.x].naturalWidth + 6) * mobileCoeff;
-  }
-  return h;
+    if (!m.v) {
+        ctx.clearRect(m.x, m.y, m.dx * mobileCoeff, m.dy * mobileCoeff);
+        return null;
+    }
+    let o = m.x; let h = null;
+    ctx.clearRect(o, m.y, 1500 /*m.dx * mobileCoeff*/, m.dy * mobileCoeff);
+    for (let i = 0; i < m.items.length; i++) {
+        const t = m.items[i];
+        if (!t.v) continue;
+        ctx.clearRect(o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+        ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight,
+                      o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+        if ((tooltipIx !== null) && (activeTooltipMenu === m) && (tooltipIx == i) && (tooltipIx != tooltipHide) && t.t) {
+            h = {
+                t: t.t,
+                x: o,
+                y: t.h[t.x].naturalHeight * 2
+            };
+        }
+        o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
+    }
+    return h;
 }
 
 View3D.prototype.menuClick = function(x, m) {
@@ -2327,26 +2341,88 @@ function changeDimensions() {
     renderer.render(scene, camera);
 }
 
+function getCanvasCoords(clientX, clientY) {
+    const rect = overlay.getBoundingClientRect();
+    const scaleX = overlay.width / rect.width;
+    const scaleY = overlay.height / rect.height;
+    const canvasX = (clientX - rect.left) * scaleX;
+    const canvasY = (clientY - rect.top) * scaleY;
+    return { x: canvasX, y: canvasY };
+}
+
 function processMenu({x, y, click}) {
-    mouse.x = x - 5;
-    mouse.y = y - 5;
+    const canvasPos = getCanvasCoords(x, y);
+    const mx = canvasPos.x;
+    const my = canvasPos.y;
+    
     let ix = null;
-    if ((mouse.y > 0) && (mouse.y < 100 * mobileCoeff)) {
-        if (mouse.y < 50 * mobileCoeff) {
-            ix = Dagaz.View.view.menuHint(mouse.x);
+    let activeMenu = null;
+
+    // Проверяем все меню от последнего к первому
+    for (let i = menus.length - 1; i >= 0; i--) {
+        const m = menus[i];
+        if (!m.v) continue;
+
+        // Вычисляем ширину меню
+        let totalWidth = m.sx;
+        for (let j = 0; j < m.items.length; j++) {
+            const item = m.items[j];
+            if (!item.v) continue;
+            totalWidth += item.h[item.x].naturalWidth * mobileCoeff + m.sx * 2;
         }
-        if (click) {
-            for (let i = 0; i < menus.length; i++) {
-                if (!menus[i].v) continue;
-                if (y < menus[i].y) continue;
-                if (y > menus[i].y + 32) continue;
-                Dagaz.View.view.menuClick(mouse.x, menus[i]);
+
+        const menuRect = {
+            left: m.x,
+            right: m.x + totalWidth,
+            top: m.y,
+            bottom: m.y + m.dy * mobileCoeff
+        };
+
+        if (mx >= menuRect.left && mx <= menuRect.right &&
+            my >= menuRect.top && my <= menuRect.bottom) {
+            activeMenu = m;
+            ix = Dagaz.View.view.menuHint(mx, m);
+            break;
+        }
+    }
+
+    if (activeMenu === null) {
+        ix = null;
+    }
+
+    // Обработка клика
+    if (click) {
+        for (let i = menus.length - 1; i >= 0; i--) {
+            const m = menus[i];
+            if (!m.v) continue;
+
+            let totalWidth = m.sx;
+            for (let j = 0; j < m.items.length; j++) {
+                const item = m.items[j];
+                if (!item.v) continue;
+                totalWidth += item.h[item.x].naturalWidth * mobileCoeff + m.sx * 2;
+            }
+
+            const menuRect = {
+                left: m.x,
+                right: m.x + totalWidth,
+                top: m.y,
+                bottom: m.y + m.dy * mobileCoeff
+            };
+
+            if (canvasPos.x >= menuRect.left && canvasPos.x <= menuRect.right &&
+                canvasPos.y >= menuRect.top && canvasPos.y <= menuRect.bottom) {
+                Dagaz.View.view.menuClick(mx, m);
+                break;
             }
         }
     }
-    if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix)) {
-        tooltipIx   = ix;
+
+    // Обновление тултипа: учитываем и индекс элемента, и меню
+    if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix) || (activeTooltipMenu !== activeMenu)) {
+        tooltipIx = ix;
         tooltipHide = -1;
+        activeTooltipMenu = activeMenu;
         Dagaz.View.view.invalidate();
     }
 }
