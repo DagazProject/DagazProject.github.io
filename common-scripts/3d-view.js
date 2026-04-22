@@ -3,6 +3,8 @@
 Dagaz.Controller.viewOff = false;
 Dagaz.AI.ADVISOR_MOVE = '';
 
+Dagaz.View.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
 (function() {
 
 const BOARD_TYPE = {
@@ -131,8 +133,7 @@ function getPlayerMaterial(player, transparent) {
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-const mobileCoeff = isTouchDevice ? 3 : 1;
+const mobileCoeff = Dagaz.View.isTouchDevice ? 3 : 1;
 
 const clock = new THREE.Clock();
 let   prevTime    = 0;
@@ -954,7 +955,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
 }
 
 View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args) {
-  if (mobileCoeff > 1) return;
+  if (Dagaz.View.isTouchDevice) return;
   if (_.isUndefined(menus[ix])) {
       menus[ix] = {
          v: false,

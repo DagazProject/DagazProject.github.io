@@ -117,6 +117,13 @@ Dagaz.Controller.shuffleGame = function(cnt) {
 }
 
 Dagaz.Controller.loadGame = function(setup) {
+  if (_.isArray(setup)) {
+      var ix = 0;
+      if (setup.length > 1) {
+          ix = _.random(0, setup.length - 1);
+      }
+      setup = setup[ix];
+  }
   if (!confirm("Restart Game?")) return;
   if (!_.isUndefined(Dagaz.Controller.clearGame)) {
       Dagaz.Controller.clearGame();
