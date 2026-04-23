@@ -31,25 +31,26 @@ const MOVE_TYPE = {
    SOUND:             4
 };
 
-Dagaz.View.IS_DIAGONAL   = false;
-Dagaz.View.TARGET_COLOR  = 0x004000;
-Dagaz.View.TARGET_RADIUS = 2;
-Dagaz.View.LARGE_RADIUS  = 3;
-Dagaz.View.TARGET_FLAT   = false;
-Dagaz.View.TARGET_LARGE  = false;
-Dagaz.View.TARGET_SZ     = 0;
-Dagaz.View.NO_EDGES      = false;
-Dagaz.View.MIN_PIECE     = -1;
+Dagaz.View.IS_DIAGONAL    = false;
+Dagaz.View.TARGET_COLOR   = 0x004000;
+Dagaz.View.TARGET_RADIUS  = 2;
+Dagaz.View.LARGE_RADIUS   = 3;
+Dagaz.View.TARGET_FLAT    = false;
+Dagaz.View.TARGET_LARGE   = false;
+Dagaz.View.TARGET_SZ      = 0;
+Dagaz.View.NO_EDGES       = false;
+Dagaz.View.MIN_PIECE      = -1;
+Dagaz.View.TEXTURE_BORDER = false;
 
-const TEXTURE_CANVAS_SZ  = 256;
+const TEXTURE_CANVAS_SZ   = 256;
 
-Dagaz.View.NO_PIECE      = true;
-Dagaz.View.PIECE_TYPE    = PIECE_TYPE.NONE;
-Dagaz.View.STEP_CNT      = 3;
-Dagaz.View.SPEED         = 0.523;
-Dagaz.View.RENDER_ORDER  = false;
-Dagaz.View.RECT_OPACITY  = false;
-Dagaz.View.BG_COLOR      = 0xE5E5E5;
+Dagaz.View.NO_PIECE       = true;
+Dagaz.View.PIECE_TYPE     = PIECE_TYPE.NONE;
+Dagaz.View.STEP_CNT       = 3;
+Dagaz.View.SPEED          = 0.523;
+Dagaz.View.RENDER_ORDER   = false;
+Dagaz.View.RECT_OPACITY   = false;
+Dagaz.View.BG_COLOR       = 0xE5E5E5;
 
 let resTask = [];
 let resList = [];
@@ -1358,6 +1359,17 @@ View3D.prototype.allResLoaded = function() {
                          }
                          textureDiff.needsUpdate = true;
 
+                         var textureBorder = null;
+                         if (Dagaz.View.TEXTURE_BORDER) {
+                             var canvasBorder = document.createElement('canvas');
+                             canvasBorder.width = canvasBorder.height=TEXTURE_CANVAS_SZ;
+                             textureBorder = new THREE.Texture(canvasBorder);
+                             var ctxBorder = canvasBorder.getContext("2d");
+                             ctxBorder.fillStyle = color;
+                             ctxBorder.fillRect(0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                             textureBorder.needsUpdate = true;
+                         }
+
                          var canvasBump = document.createElement('canvas');
                          canvasBump.width = canvasBump.height=TEXTURE_CANVAS_SZ;
                          var textureBump = new THREE.Texture(canvasBump);
@@ -1369,15 +1381,17 @@ View3D.prototype.allResLoaded = function() {
 
                          pieceTypes[key].matborder = new THREE.MeshPhongMaterial({
                                name: "pieceborders",
-                               color : color,
+                               color : (textureBorder === null) ? color : undefined,
+                               map: textureBorder,
                                specular: specular,
                                shininess: shininess
                          });
                          pieceTypes[key].matborderi = new THREE.MeshPhongMaterial({
                                name: "pieceborders",
-                               color : color,
+                               color : (textureBorder === null) ? color : undefined,
                                transparent: true,
                                opacity: 0.5,
+                               map: textureBorder,
                                specular: specular,
                                shininess: shininess
                          });
@@ -1385,7 +1399,7 @@ View3D.prototype.allResLoaded = function() {
                          if (pieceTypes[key].image !== null) {
                              pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
                                    name: "piecetop",
-                                   color : color,
+                                   color : (textureBorder === null) ? color : undefined,
                                    specular: specular,
                                    shininess: shininess,
                                    map: textureDiff,
@@ -1394,7 +1408,7 @@ View3D.prototype.allResLoaded = function() {
                              });
                              pieceTypes[key].mattopi = new THREE.MeshPhongMaterial({
                                    name: "piecetop",
-                                   color : color,
+                                   color : (textureBorder === null) ? color : undefined,
                                    transparent: true,
                                    opacity: 0.5,
                                    specular: specular,
