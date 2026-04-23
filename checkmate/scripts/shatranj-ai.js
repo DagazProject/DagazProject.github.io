@@ -41,7 +41,7 @@ function FormatSquare(square) {
 }
 
 function FormatMove(move) {
-    var result = FormatSquare(move & 0xFF) + FormatSquare((move >> 8) & 0xFF);
+    var result = FormatSquare(move & 0xFF) + '-' + FormatSquare((move >> 8) & 0xFF);
     return result;
 }
 
