@@ -735,6 +735,17 @@ function InitializeFromFen(fen) {
     return '';
 }
 
+function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, captured) {
+    this.ep = ep;
+    this.castleRights = castleRights;
+    this.inCheck = inCheck;
+    this.baseEval = baseEval;
+    this.hashKeyLow = hashKeyLow;
+    this.hashKeyHigh = hashKeyHigh;
+    this.move50 = move50;
+    this.captured = captured;
+}
+
 function MakeMove(move){
     var me = g_toMove >> 3;
 	var otherColor = 8 - g_toMove; 

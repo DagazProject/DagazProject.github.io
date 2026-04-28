@@ -635,6 +635,15 @@ function InitializeFromFen(fen) {
     return '';
 }
 
+function UndoHistory(inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, captured) {
+    this.inCheck = inCheck;
+    this.baseEval = baseEval;
+    this.hashKeyLow = hashKeyLow;
+    this.hashKeyHigh = hashKeyHigh;
+    this.move50 = move50;
+    this.captured = captured;
+}
+
 function MakeMove(move){
     var me = g_toMove >> 3;
     var otherColor = 8 - g_toMove; 
@@ -645,7 +654,7 @@ function MakeMove(move){
     var captured = g_board[to];
     var piece = g_board[from];
 
-    g_moveUndoStack[g_moveCount] = new UndoHistory(0, 0, g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
+    g_moveUndoStack[g_moveCount] = new UndoHistory(g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
     g_moveCount++;
 
     if (captured) {

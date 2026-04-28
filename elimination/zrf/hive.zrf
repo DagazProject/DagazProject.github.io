@@ -1,0 +1,65 @@
+(define step (
+  $1 (verify empty?)
+  add
+))
+
+(game
+  (title "Hive")
+
+  (players White Black)
+  (turn-order White Black)
+
+  (board
+    (grid
+       (start-rectangle -261 13 -234 40)
+       (dimensions
+          ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/va/vb/vc/vd/ve/vf/vg" (30 0)) ; files
+          ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (15 26)) ; ranks
+       )
+       (directions
+          (z0 0 -1) (z2 1 -1) (z4 1 0) (z6 0 1) (z8 -1 1) (zx -1 0)
+       )
+    )
+    (kill-positions 
+          a19 b19 c19 d19 e19 f19 g19 h19 i19 h17 g15 f13 e11 d9 c7 b5 a3 i18 h16 g14 f12 e10 d8 c6 b4 a2 v1  vb1 vc1 vd1 ve1 vf1 vg1 w2 v2 va2 vb2 vc2 vd2 ve2 vf2 vg2 w3 va3 vb3 vc3 vd3 ve3 vf3 vg3
+          w4 va5 vb5 vc5 vd5 ve5 vf5 vg5 va6 vb6 vc6 vd6 ve6 vf6 vg6 vb7 vc7 vd7 ve7 vf7 vg7
+          vb8 vc8 vd8 ve8 vf8 vg8 vc9 vd9 ve9 vf9 vg9 vc10 vd10 ve10 vf10 vg10 vd11 ve11 vf11 vg11 vd12 ve12 vf12 vg12
+          ve13 vf13 vg13 ve14 vf14 vg14 vf15 vg15 vf16 vg16 vg17 vg18 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17
+          a18 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 c8 c9 c10 c11 c12 c13 c14 c15 c16 c17 c18 
+          d10 d11 d12 d13 d14 d15 d16 d17 d18  e12 e13 e14 e15 e16 e17 e18 f14 f15 f16 f17 f18 g16 g17 g18 h18
+          w1 va1 va4 vb4 vc4 vd4 ve4 vf4 vg4)
+    (zone
+         (name center)
+         (players White Black)
+         (positions
+                m11 n11 o11 p11 q11 r11 s11 m10 n10 o10 p10 q10 r10 n12 
+                o12 p12 q12 r12 s12 m9 n9 o9 p9 q9 l8 m8 n8 o8 p8 r9 q8 l9)
+    )
+  )
+
+  (piece
+     (name Ant)
+     (image White "images/hive/want.bmp"
+            Black "images/hive/bant.bmp")
+  )
+  (piece
+     (name Bee)
+     (image White "images/hive/wbee.bmp"
+            Black "images/hive/bbee.bmp")
+  )
+  (piece
+     (name Beetle)
+     (image White "images/hive/wbeetle.bmp"
+            Black "images/hive/bbeetle.bmp")
+  )
+  (piece
+     (name Grasshopper)
+     (image White "images/hive/wgrasshopper.bmp"
+            Black "images/hive/bgrasshopper.bmp")
+  )
+  (piece
+     (name Spider)
+     (image White "images/hive/wspider.bmp"
+            Black "images/hive/bspider.bmp")
+  )
+)

@@ -13,6 +13,8 @@
 var g_debug = true;
 var g_timeout = 40;
 
+let STALMATED = false;
+
 function GetMoveFromString(moveString) {
     var moves = GenerateValidMoves();
     for (var i = 0; i < moves.length; i++) {
@@ -605,7 +607,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
 
     if (!moveMade) {
         // If we have no valid moves it's either stalemate or checkmate
-        if (g_inCheck)
+        if (g_inCheck || STALMATED)
             // Checkmate.
             return minEval + depth;
         else 
@@ -721,7 +723,7 @@ function AlphaBeta(ply, depth, alpha, beta) {
 
     if (!moveMade) {
         // If we have no valid moves it's either stalemate or checkmate
-        if (inCheck) 
+        if (inCheck || STALMATED) 
             // Checkmate.
             return minEval + depth;
         else 
@@ -904,17 +906,6 @@ function GenerateValidMoves() {
     }
     
     return moveList;
-}
-
-function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, captured) {
-    this.ep = ep;
-    this.castleRights = castleRights;
-    this.inCheck = inCheck;
-    this.baseEval = baseEval;
-    this.hashKeyLow = hashKeyLow;
-    this.hashKeyHigh = hashKeyHigh;
-    this.move50 = move50;
-    this.captured = captured;
 }
 
 function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {

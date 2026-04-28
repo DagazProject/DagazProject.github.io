@@ -2,6 +2,10 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  1.8;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/mini-shogi-worker.js';
+Dagaz.AI.WORKER_TIME  = 5000;
+Dagaz.AI.ADVISOR_TIME = 27000;
+
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 5;
 
@@ -51,7 +55,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
     design.checkVersion("mini-shogi-promotion", "true");
     design.checkVersion("mini-shogi-extension", "true");
     design.checkVersion("mini-shogi-invariant", "true");
