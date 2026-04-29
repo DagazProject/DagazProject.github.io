@@ -5,7 +5,6 @@ let TYPE_MASK        = 0x7;
 let PLAYERS_MASK     = 0x18;
 let COUNTER_SIZE     = 6;
 let TYPE_SIZE        = 3;
-let STALMATED        = true;
 
 var pieceEmpty       = 0x00;
 var piecePawn        = 0x01;
