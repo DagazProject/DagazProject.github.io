@@ -1,15 +1,3 @@
-// Perf TODO:
-// Merge material updating with psq values
-// Put move scoring inline in generator
-// Remove need for fliptable in psq tables.  Access them by color
-// Optimize pawn move generation
-
-// Non-perf todo:
-// Checks in first q?
-// Pawn eval.
-// Better king evaluation
-// Better move sorting in PV nodes (especially root)
-
 var g_debug = true;
 var g_timeout = 40;
 
@@ -801,9 +789,9 @@ var g_pieceList = new Array(2 * 8 * 16);
 var g_pieceCount = new Array(2 * 8);
 
 function InitializePieceList() {
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < 64; i++) {
         g_pieceCount[i] = 0;
-        for (var j = 0; j < 16; j++) {
+        for (var j = 0; j < 64; j++) {
             // 0 is used as the terminator for piece lists
             g_pieceList[(i << COUNTER_SIZE) | j] = 0;
         }

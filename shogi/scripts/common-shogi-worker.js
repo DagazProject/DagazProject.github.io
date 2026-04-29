@@ -7,8 +7,8 @@ const COUNTER_SIZE      = 4;
 const TYPE_SIZE         = 4;
 const VECTORDELTA_SIZE  = 512;
 
-const colorBlack        = 0x20;
-const colorWhite        = 0x10;
+colorBlack              = 0x20;
+colorWhite              = 0x10;
 
 const pieceEmpty        = 0x00;
 const piecePawn         = 0x01;
@@ -31,7 +31,26 @@ const moveflagPromotion = 0x10000000;
 
 STALMATED               = true;
 
+let RESERVE_SIZE = 20;
+const g_reserve  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+const materialTable = [0,  87, 254, 371, 530, 500, 489, 482, 447, 235,  571,  647,  832,  955, 600000];
+const inHandTable   = [0, 174, 508, 742, 617, 754, 960, 717, 894, 470, 1142, 1294, 1403, 1602, 600000];
+
+const g_seeValues = [0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0,
+                     0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0];
+
+const g_pawnDeltas   = [-16];
+const g_knightDeltas = [-31, -33];
+const g_silverDeltas = [-16, -15, -17, 15, 17];
+const g_goldDeltas   = [-15, -17, -1, +1, -16, +16];
+const g_bishopDeltas = [-15, -17, 15, 17];
+const g_rookDeltas   = [-1, +1, -16, +16];
+const g_kingDeltas   = [-1, +1, -16, +16, -15, +15, -17, +17];
+
 const g_vectorDelta = new Array(VECTORDELTA_SIZE);
+const flipTable = new Array(256);
+const pieceSquareAdj = new Array(8);
 
 function GetFen() {
     let result = "";
@@ -136,23 +155,6 @@ function FormatMove(move) {
     }
     return result;
 }
-
-const RESERVE_SIZE = 20;
-const g_reserve = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-const materialTable = [0,  87, 254, 371, 530, 500, 489, 482, 447, 235,  571,  647,  832,  955, 600000];
-const inHandTable   = [0, 174, 508, 742, 617, 754, 960, 717, 894, 470, 1142, 1294, 1403, 1602, 600000];
-
-const g_seeValues = [0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0,
-                   0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0];
-
-const g_pawnDeltas   = [-16];
-const g_knightDeltas = [-31, -33];
-const g_silverDeltas = [-16, -15, -17, 15, 17];
-const g_goldDeltas   = [-15, -17, -1, +1, -16, +16];
-const g_bishopDeltas = [-15, -17, 15, 17];
-const g_rookDeltas   = [-1, +1, -16, +16];
-const g_kingDeltas   = [-1, +1, -16, +16, -15, +15, -17, +17];
 
 function Mobility(color) {
     let result = 0;
@@ -534,9 +536,9 @@ function ResetGame() {
            const square = row | col;
            for (let i = piecePawn; i <= pieceKing; i++) {
                 for (let dir = 0; dir < pieceDeltas[i].length; dir++) {
-                     const delta = pieceDeltas[i][dir];
+                     let delta  = pieceDeltas[i][dir];
                      let target = square + delta;
-                     while (onBoard(target)) {
+                     while (!(target & 0x88)) {
                          const index = square - target + (VECTORDELTA_SIZE >> 1);
                          g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << i);
                          let flip = -1;
@@ -569,8 +571,8 @@ function ResetGame() {
                          target += delta;
                      }
                      delta = -delta;
-                     let target = square + delta;
-                     while (onBoard(target)) {
+                     target = square + delta;
+                     while (!(target & 0x88)) {
                          const index = square - target + (VECTORDELTA_SIZE >> 1);
                          g_vectorDelta[index].pieceMask[0] |= (1 << i);
                          let flip = -1;
@@ -661,7 +663,7 @@ function ShogiSetHash() {
 }
 
 function InitializeFromFen(fen) {
-    const chunks = fen.split('-');
+    const chunks = fen.split(' ');
     
     for (let i = 0; i < 256; i++) 
         g_board[i] = pieceNo;
@@ -672,9 +674,9 @@ function InitializeFromFen(fen) {
     let row = 0;
     let col = 0;
 
-    const pieces = chunks[0];
+    let pieces = chunks[0];
     for (let i = 0; i < pieces.length; i++) {
-        const c = pieces.charAt(i);
+        let c = pieces.charAt(i);
         if (c == '/') {
             row++;
             col = 0;
@@ -686,7 +688,7 @@ function InitializeFromFen(fen) {
                 }
             } else {
                 const isBlack = c >= 'a' && c <= 'z';
-                const piece = isBlack ? colorBlack : colorWhite;
+                let piece = isBlack ? colorBlack : colorWhite;
                 if (!isBlack) 
                     c = pieces.toLowerCase().charAt(i);
                 switch (c) {
@@ -744,7 +746,7 @@ function InitializeFromFen(fen) {
     let ix = 0;
     pieces = chunks[1];
     for (let i = 0; i < pieces.length; i++) {
-        const c = pieces.charAt(i);
+        let c = pieces.charAt(i);
         if (c == '/') continue;
             if (c >= '0' && c <= '9') {
                 for (let j = 0; j < parseInt(c); j++) {
@@ -836,7 +838,7 @@ function InitializeFromFen(fen) {
     if (!g_toMove) g_baseEval = -g_baseEval;
 
     g_move50 = 0;
-    const kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
+    let kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
     g_inCheck = false;
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, them);
@@ -1011,7 +1013,7 @@ function MakeMove(move) {
     g_toMove = otherColor;
     g_baseEval = -g_baseEval;
 
-    const kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+    let kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
         UnmakeMove(move);
         return false;
@@ -2042,4 +2044,54 @@ function SeeAddSliderAttacks(target, us, attacks, pieceType) {
         attackerSq = g_pieceList[pieceIdx++];
     }
     return hit;
+}
+
+function configure(name, value) {
+    if (name == 'WIDTH') {
+        g_width = +value;
+        return true;
+    }
+    if (name == 'HEIGHT') {
+        g_height = +value;
+        return true;
+    }
+    if (name == 'FLAGS') {
+        g_flags = +value;
+        return true;
+    }
+    return false;
+}
+
+self.onmessage = function (e) {
+//  console.log(e.data);
+    if (e.data == "go" || needsReset) {
+        ResetGame();
+        needsReset = false;
+        if (e.data == "go") return;
+    }
+    if (e.data.match("^config") == "config") {
+        const s = e.data.substr(7, e.data.length - 7);
+        const r = s.match(/\s*([^\s=]+)\s*=\s*(\S+)/);
+        if (r) {
+            if (configure(r[1], r[2])) {
+                self.postMessage("pv " + r[1] + '=' + r[2]);
+            }
+        }
+    } else if (e.data.match("^position") == "position") {
+        let s = e.data.substr(9, e.data.length - 9);
+        s = s.replaceAll('-', ' ');
+        ResetGame();
+        var result = InitializeFromFen(s);
+        if (result.length != 0) {
+            self.postMessage("message " + result);
+        }
+    } else if (e.data.match("^search") == "search") {
+        g_timeout = parseInt(e.data.substr(7, e.data.length - 7), 10);
+        Search(FinishMoveLocalTesting, 99, FinishPlyCallback);
+    } else if (e.data == "analyze") {
+        g_timeout = 99999999999;
+        Search(null, 99, FinishPlyCallback);
+    } else {
+        MakeMove(GetMoveFromString(e.data));
+    }
 }
