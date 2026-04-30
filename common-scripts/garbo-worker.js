@@ -150,6 +150,7 @@ function QSearch(alpha, beta, ply) {
         // TODO: Fast check escape generator and fast checking moves generator
         GenerateCaptureMoves(moves, null);
         GenerateAllMoves(moves);
+        GenerateDropMoves(moves, false);
 
         for (var i = 0; i < moves.length; i++) {
             moveScores[i] = ScoreMove(moves[i]);
@@ -351,6 +352,7 @@ function MovePicker(hashMove, depth, killer1, killer2) {
 
             if (this.stage == 5) {
                 GenerateAllMoves(this.moves);
+                GenerateDropMoves(this.moves, true);
                 this.moveCount = this.moves.length;
                 // Move ordering
                 for (var i = this.atMove; i < this.moveCount; i++) this.moveScores[i] = ScoreMove(this.moves[i]);
@@ -885,7 +887,7 @@ function GenerateValidMoves() {
     var allMoves = new Array();
     GenerateCaptureMoves(allMoves, null);
     GenerateAllMoves(allMoves);
-    
+    GenerateDropMoves(allMoves, true);
     for (var i = allMoves.length - 1; i >= 0; i--) {
         if (MakeMove(allMoves[i])) {
             moveList[moveList.length] = allMoves[i];

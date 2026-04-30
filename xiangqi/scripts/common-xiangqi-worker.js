@@ -972,6 +972,8 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     }
 }
 
+function GenerateDropMoves(moveStack, force) {}
+
 var g_seeValues    = [0, 1, 2, 2, 3, 4, 5, 900,
                       0, 1, 2, 2, 3, 4, 5, 900];
 

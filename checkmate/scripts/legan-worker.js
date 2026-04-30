@@ -1006,6 +1006,8 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     }
 }
 
+function GenerateDropMoves(moveStack, force) {}
+
 function MovePawnTo(moveStack, start, square) {
     var row = square & 0xF0;
     var delta = (8 - g_height) << 4;

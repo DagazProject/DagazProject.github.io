@@ -1,11 +1,13 @@
-let NOISE_FACTOR        = 5;
+STALMATED               = true;
+
+const NOISE_FACTOR      = 5;
 
 const PIECE_MASK        = 0x1F;
 const TYPE_MASK         = 0xF;
 const PLAYERS_MASK      = 0x30;
 const COUNTER_SIZE      = 4;
 const TYPE_SIZE         = 4;
-const VECTORDELTA_SIZE  = 512;
+const VECTORDELTA_SIZE  = 256;
 
 colorBlack              = 0x20;
 colorWhite              = 0x10;
@@ -29,16 +31,21 @@ const pieceNo           = 0x80;
 
 const moveflagPromotion = 0x10000000;
 
-STALMATED               = true;
 
-let RESERVE_SIZE = 20;
-const g_reserve  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let RESERVE_WIDTH   = 2;
+let RESERVE_SIZE    = 20;
+const g_reserve     = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 const materialTable = [0,  87, 254, 371, 530, 500, 489, 482, 447, 235,  571,  647,  832,  955, 600000];
 const inHandTable   = [0, 174, 508, 742, 617, 754, 960, 717, 894, 470, 1142, 1294, 1403, 1602, 600000];
 
-const g_seeValues = [0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0,
-                     0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0];
+const g_seeValues   = [0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0,
+                       0, 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 7, 7, 900, 0];
+
+const pieceSquareAdj = new Array(10);
+const flipTable      = new Array(256);
+
+const g_vectorDelta  = new Array(VECTORDELTA_SIZE);
 
 const g_pawnDeltas   = [-16];
 const g_knightDeltas = [-31, -33];
@@ -47,10 +54,6 @@ const g_goldDeltas   = [-15, -17, -1, +1, -16, +16];
 const g_bishopDeltas = [-15, -17, 15, 17];
 const g_rookDeltas   = [-1, +1, -16, +16];
 const g_kingDeltas   = [-1, +1, -16, +16, -15, +15, -17, +17];
-
-const g_vectorDelta = new Array(VECTORDELTA_SIZE);
-const flipTable = new Array(256);
-const pieceSquareAdj = new Array(8);
 
 function GetFen() {
     let result = "";
@@ -82,11 +85,11 @@ function GetMoveSAN(move, validMoves) {
 	const to = (move >> 8) & 0xFF;
 	
 	const pieceType = g_board[from] & 0x7;
-	const result = ["", "", "T", "S", "E", "G", "B", "H", "R", "D", "K"][pieceType];
+	let result = ["", "", "T", "S", "E", "G", "B", "H", "R", "D", "K"][pieceType];
 	
 	let dupe = false, rowDiff = true, colDiff = true;
 	if (validMoves == null) {
-            validMoves = ShogiGenerateValidMoves();
+            validMoves = GenerateValidMoves();
 	}
 	for (let i = 0; i < validMoves.length; i++) {
 		const moveFrom = validMoves[i] & 0xFF;
@@ -120,7 +123,7 @@ function GetMoveSAN(move, validMoves) {
 	
 	MakeMove(move);
 	if (g_inCheck) {
-	    result += ShogiGenerateValidMoves().length == 0 ? "#" : "+";
+	    result += GenerateValidMoves().length == 0 ? "#" : "+";
 	}
 	UnmakeMove(move);
 
@@ -137,8 +140,8 @@ function FormatSquare(square) {
 }
 
 function FormatReserve(square) {
-    const letters = (RESERVE_SIZE == 2) ? ['X', 'Y', 'Z', 'T'] : ['X', 'Y', 'Z', 'U', 'V', 'W'];
-    return letters[square % (2 * RESERVE_SIZE)] + (g_height - ((square / (2 * RESERVE_SIZE)) | 0));
+    const letters = (RESERVE_SIZE == 20) ? ['X', 'Y', 'Z', 'T'] : ['X', 'Y', 'Z', 'U', 'V', 'W'];
+    return letters[square % (2 * RESERVE_WIDTH)] + (g_height - ((square / (2 * RESERVE_WIDTH)) | 0));
 }
 
 function FormatMove(move) {
@@ -480,7 +483,7 @@ function ScoreMove(move) {
     } else {
         const slot = (move >> 16) & 0xFF;
         piece = g_reserve[slot];
-        score = DropMobility(piece, moveTo);
+        const score = DropMobility(piece, moveTo);
         return score;
     }
     let score;
@@ -851,7 +854,7 @@ function InitializeFromFen(fen) {
     }
 
     // Checkmate/stalemate
-    if (ShogiGenerateValidMoves().length == 0) {
+    if (GenerateValidMoves().length == 0) {
         return g_inCheck ? 'Checkmate' : 'Stalemate';
     } 
 
@@ -876,7 +879,7 @@ function UndoHistory(inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, capture
 }
 
 function MakeMove(move) {
-    const slot = GetSlot();
+    let slot = GetSlot();
     const me = g_toMove >> TYPE_SIZE;
     const otherColor = colorWhite - g_toMove; 
     
@@ -884,7 +887,7 @@ function MakeMove(move) {
     const to = (move >> 8) & 0xFF;
     const from = move & 0xFF;
     const captured = g_board[to];
-    const piece = g_board[from];
+    let piece = g_board[from];
 
     if (captured && (slot === null)) {
         return false;
@@ -894,7 +897,7 @@ function MakeMove(move) {
     g_moveCount++;
 
     if (captured) {
-        const newPiece = captured & (~PLAYERS_MASK);
+        let newPiece = captured & (~PLAYERS_MASK);
         newPiece |= g_toMove ? colorWhite : colorBlack;
         if ((captured & TYPE_MASK) == piecePawnP) {
              newPiece &= ~TYPE_MASK;
@@ -971,7 +974,7 @@ function MakeMove(move) {
     g_hashKeyHigh ^= g_zobristBlackHigh;
 
     if (flags & moveflagPromotion) {
-        const newPiece = piece & (~TYPE_MASK);
+        let newPiece = piece & (~TYPE_MASK);
         if ((piece & TYPE_MASK) == pieceSilver) newPiece |= pieceSilverP;
            else if ((piece & TYPE_MASK) == pieceKnight) newPiece |= pieceKnightP;
            else if ((piece & TYPE_MASK) == pieceLance) newPiece |= pieceLanceP;
@@ -1024,7 +1027,7 @@ function MakeMove(move) {
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, colorWhite - g_toMove);
         if (g_inCheck && (from == 0) && ((piece & TYPE_MASK) == piecePawn)) {
-            if (ShogiGenerateValidMoves().length == 0) {
+            if (GenerateValidMoves().length == 0) {
                 UnmakeMove(move);
                 return false;
             }
@@ -1058,7 +1061,7 @@ function UnmakeMove(move) {
     const to = (move >> 8) & 0xFF;
     const from = move & 0xFF;
 
-    const piece = g_board[to];
+    let piece = g_board[to];
 
     if (flags & moveflagPromotion) {
         piece = g_board[to] & (~TYPE_MASK);
@@ -1142,8 +1145,8 @@ function IsSquareAttackable(target, color) {
     if (g_board[target - inc] == pawn) return true;
     // Attackable by pieces?
     for (let i = pieceKnight; i <= pieceKing; i++) {
-        const index = (color | i) << COUNTER_SIZE;
-        const square = g_pieceList[index];
+        let index = (color | i) << COUNTER_SIZE;
+        let square = g_pieceList[index];
         while (square != 0) {
             if (IsSquareAttackableFrom(target, square)) return true;
             square = g_pieceList[++index];
@@ -1154,21 +1157,6 @@ function IsSquareAttackable(target, color) {
 
 function GenerateDrop(to, slot) {
     return (to << 8) | (slot << 16);
-}
-
-function ShogiGenerateValidMoves() {
-    const moveList = new Array();
-    const allMoves = new Array();
-    GenerateCaptureMoves(allMoves, null);
-    GenerateAllMoves(allMoves);
-    GenerateDropMoves(allMoves, true);
-    for (let i = allMoves.length - 1; i >= 0; i--) {     
-        if (MakeMove(allMoves[i])) {
-            moveList[moveList.length] = allMoves[i];
-            UnmakeMove(allMoves[i]);
-        }
-    }
-    return moveList;
 }
 
 function GenerateAllMoves(moveStack) {
@@ -1493,7 +1481,7 @@ function GenerateAllMoves(moveStack) {
 	from = g_pieceList[pieceIdx];
 	to = from - 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
 	to = from - 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
-	to = from + 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+		to = from + 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
 	to = from + 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
 	to = from - 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
 	to = from + 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
@@ -1858,12 +1846,12 @@ function GenerateDropMoves(moveStack, force) {
            }
            if (((piece & TYPE_MASK) == piecePawn) || ((piece & TYPE_MASK) == pieceLance)) {
                const row = to & 0xF0;
-               if (row == ((Dagaz.Model.HEIGHT + 1) << 4) && !g_toMove) continue;
+               if (row == ((g_height + 1) << 4) && !g_toMove) continue;
                if (row == 0x20 && g_toMove) continue;
                if ((piece & TYPE_MASK) == piecePawn) {
                    let isFound = false;
-                   const ix = (g_toMove | piecePawn) << COUNTER_SIZE;
-                   const pawnPos = g_pieceList[ix++];
+                   let ix = (g_toMove | piecePawn) << COUNTER_SIZE;
+                   let pawnPos = g_pieceList[ix++];
                    while (pawnPos != 0) {
                        if ((pawnPos & 0xF) == (to & 0xF)) isFound = true;
                        pawnPos = g_pieceList[ix++];
@@ -1945,7 +1933,7 @@ function See(move) {
     // We are currently winning the amount of material of the captured piece, time to see if the opponent 
     // can get it back somehow.  We assume the opponent can capture our current piece in this score, which 
     // simplifies the later code considerably. 
-    const seeValue = toValue - fromValue;
+    let seeValue = toValue - fromValue;
 
     for (; ; ) {
         let capturingPieceValue = 1000;
@@ -1974,7 +1962,7 @@ function See(move) {
             return false;
         }
 
-        const capturingPieceSquare = themAttacks[capturingPieceIndex];
+        let capturingPieceSquare = themAttacks[capturingPieceIndex];
         themAttacks[capturingPieceIndex] = 0;
 
         // Add any x-ray attackers
@@ -2033,8 +2021,8 @@ function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
 }
 
 function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    const pieceIdx = (us | pieceType) << COUNTER_SIZE;
-    const attackerSq = g_pieceList[pieceIdx++];
+    let pieceIdx = (us | pieceType) << COUNTER_SIZE;
+    let attackerSq = g_pieceList[pieceIdx++];
     let hit = false;
     while (attackerSq != 0) {
         if (IsSquareAttackableFrom(target, attackerSq)) {
