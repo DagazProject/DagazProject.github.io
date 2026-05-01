@@ -1,5 +1,4 @@
 let NOISE_FACTOR     = 5;
-
 let PIECE_MASK       = 0xF;
 let TYPE_MASK        = 0x7;
 let PLAYERS_MASK     = 0x18;
@@ -405,8 +404,6 @@ function IsSquareAttackableX(target, color) {
     }
     return false;
 }
-
-//var g_vectorDelta = new Array(256);
 
 function ResetGame() {
     CommonResetGame();

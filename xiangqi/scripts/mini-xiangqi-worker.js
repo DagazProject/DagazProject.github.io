@@ -1,9 +1,14 @@
 "use strict";
 
-importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js', 'common-xiangqi-worker.js');
-
 let g_width          = 7;
 let g_height         = 6;
+
+var VECTORDELTA_SIZE = 256;
+
+var colorBlack       = 0x10;
+var colorWhite       = 0x08;
+
+importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js', 'common-xiangqi-worker.js');
 
 var pawnAdj =
 [  10,   20,  100,  100,  100,   20,   10, // piecePawn

@@ -740,11 +740,6 @@ var maxEval = +2000000;
 var minMateBuffer = minEval + 2000;
 var maxMateBuffer = maxEval - 2000;
 
-// This somewhat funky scheme means that a piece is indexed by it's lower 4 bits when accessing in arrays.  The fifth bit (black bit)
-// is used to allow quick edge testing on the board.
-var colorBlack = 0x10;
-var colorWhite = 0x08;
-
 // Position variables
 var g_board = new Array(256); // Sentinel 0x80, pieces are in low 4 bits, 0x8 for color, 0x7 bits for piece type
 var g_toMove; // side to move, 0 or 8, 0 = black, 8 = white
@@ -786,7 +781,7 @@ function MakeTable(table) {
     return result;
 }
 
-var g_pieceIndex = new Array(256);
+var g_pieceIndex = new Array(VECTORDELTA_SIZE);
 var g_pieceList = new Array(2 * 8 * 16);
 var g_pieceCount = new Array(2 * 8);
 
@@ -799,7 +794,7 @@ function InitializePieceList() {
         }
     }
 
-    for (var i = 0; i < 256; i++) {
+    for (var i = 0; i < VECTORDELTA_SIZE; i++) {
         g_pieceIndex[i] = 0;
         if (g_board[i] & (colorWhite | colorBlack)) {
 			var piece = g_board[i] & 0xF;
@@ -812,7 +807,7 @@ function InitializePieceList() {
 }
 
 function ExposesCheck(from, kingPos){
-    var index = kingPos - from + 128;
+    var index = kingPos - from + (VECTORDELTA_SIZE >> 1);
     // If a queen can't reach it, nobody can!
     if ((g_vectorDelta[index].pieceMask[0] & (1 << (pieceQueen))) != 0) {
         var delta = g_vectorDelta[index].delta;
@@ -824,20 +819,20 @@ function ExposesCheck(from, kingPos){
             return false;
 
         // Now see if the piece can actually attack the king
-        var backwardIndex = pos - kingPos + 128;
+        var backwardIndex = pos - kingPos + (VECTORDELTA_SIZE >> 1);
         return (g_vectorDelta[backwardIndex].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) != 0;
     }
     return false;
 }
 
 function IsSquareOnPieceLine(target, from) {
-    var index = from - target + 128;
+    var index = from - target + (VECTORDELTA_SIZE >> 1);
     var piece = g_board[from];
     return (g_vectorDelta[index].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) ? true : false;
 }
 
 function IsSquareAttackableFrom(target, from){
-    var index = from - target + 128;
+    var index = from - target + (VECTORDELTA_SIZE >> 1);
     var piece = g_board[from];
     if (g_vectorDelta[index].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) {
         // Yes, this square is pseudo-attackable.  Now, check for real attack
@@ -875,10 +870,12 @@ function IsSquareAttackable(target, color) {
 }
 
 function GenerateMove(from, to) {
+//    self.postMessage("message *** " + FormatMove(from | (to << 8)));
     return from | (to << 8);
 }
 
 function GenerateMove(from, to, flags){
+//    self.postMessage("message *** " + FormatMove(from | (to << 8)));
     return from | (to << 8) | flags;
 }
 
@@ -899,7 +896,7 @@ function GenerateValidMoves() {
 }
 
 function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
-    var index = square - target + 128;
+    var index = square - target + (VECTORDELTA_SIZE >> 1);
     var delta = -g_vectorDelta[index].delta;
     if (delta == 0)
         return;

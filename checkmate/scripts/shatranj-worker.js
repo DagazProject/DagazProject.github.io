@@ -1,17 +1,20 @@
 "use strict";
 
+let g_width             = 8;
+let g_height            = 8;
+
+let NOISE_FACTOR        = 5;
+let PIECE_MASK          = 0xF;
+let TYPE_MASK           = 0x7;
+let PLAYERS_MASK        = 0x18;
+let COUNTER_SIZE        = 4;
+let TYPE_SIZE           = 3;
+var VECTORDELTA_SIZE    = 256;
+
+var colorBlack          = 0x10;
+var colorWhite          = 0x08;
+
 importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
-
-let NOISE_FACTOR     = 5;
-
-let PIECE_MASK       = 0xF;
-let TYPE_MASK        = 0x7;
-let PLAYERS_MASK     = 0x18;
-let COUNTER_SIZE     = 4;
-let TYPE_SIZE        = 3;
-
-let g_width          = 8;
-let g_height         = 8;
 
 function GetFen() {
     var result = "";
@@ -348,7 +351,7 @@ var pieceRook = 0x04;
 var pieceQueen = 0x05;
 var pieceKing = 0x06;
 
-var g_vectorDelta = new Array(256);
+var g_vectorDelta = new Array(VECTORDELTA_SIZE);
 
 var g_bishopDeltas = [-15, -17, 15, 17];
 var g_knightDeltas = [31, 33, 14, -14, -31, -33, 18, -18];
@@ -377,7 +380,7 @@ function ResetGame() {
 
     var pieceDeltas = [[], [], g_knightDeltas, g_bishopDeltas, g_rookDeltas, g_queenDeltas, g_queenDeltas];
 
-    for (var i = 0; i < 256; i++) {
+    for (var i = 0; i < VECTORDELTA_SIZE; i++) {
         g_vectorDelta[i] = new Object();
         g_vectorDelta[i].delta = 0;
         g_vectorDelta[i].pieceMask = new Array(2);
@@ -391,21 +394,21 @@ function ResetGame() {
             var square = row | col;
             
             // Pawn moves
-            var index = square - (square - 17) + 128;
+            var index = square - (square - 17) + (VECTORDELTA_SIZE >> 1);
             g_vectorDelta[index].pieceMask[colorWhite >> 3] |= (1 << piecePawn);
-            index = square - (square - 15) + 128;
+            index = square - (square - 15) + (VECTORDELTA_SIZE >> 1);
             g_vectorDelta[index].pieceMask[colorWhite >> 3] |= (1 << piecePawn);
             
-            index = square - (square + 17) + 128;
+            index = square - (square + 17) + (VECTORDELTA_SIZE >> 1);
             g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
-            index = square - (square + 15) + 128;
+            index = square - (square + 15) + (VECTORDELTA_SIZE >> 1);
             g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn);
             
             for (var i = pieceKnight; i <= pieceKing; i++) {
                 for (var dir = 0; dir < pieceDeltas[i].length; dir++) {
                     var target = square + pieceDeltas[i][dir];
                     while (!(target & 0x88)) {
-                        index = square - target + 128;
+                        index = square - target + (VECTORDELTA_SIZE >> 1);
                         
                         g_vectorDelta[index].pieceMask[colorWhite >> 3] |= (1 << i);
                         g_vectorDelta[index].pieceMask[0] |= (1 << i);

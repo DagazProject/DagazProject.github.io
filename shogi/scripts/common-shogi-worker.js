@@ -5,9 +5,8 @@ const NOISE_FACTOR      = 5;
 const PIECE_MASK        = 0x1F;
 const TYPE_MASK         = 0xF;
 const PLAYERS_MASK      = 0x30;
-const COUNTER_SIZE      = 4;
+const COUNTER_SIZE      = 3;
 const TYPE_SIZE         = 4;
-const VECTORDELTA_SIZE  = 256;
 
 colorBlack              = 0x20;
 colorWhite              = 0x10;
@@ -31,6 +30,8 @@ const pieceNo           = 0x80;
 
 const moveflagPromotion = 0x10000000;
 
+let WHITE_PROM      = 0x20;
+let BLACK_PROM      = 0x60;
 
 let RESERVE_WIDTH   = 2;
 let RESERVE_SIZE    = 20;
@@ -68,7 +69,7 @@ function GetFen() {
                 if (empty != 0) 
                     result += empty;
                 empty = 0;
-                const pieceChar = [" ", "p", "t", "s", "e", "g", "b", "h", "r", "d", "k"][(piece & TYPE_MASK)];
+                const pieceChar = [" ", "p", "n", "s", "t", "w", "e", "i", "g", "l", "b", "r", "h", "d", "k"][(piece & TYPE_MASK)];
                 result += ((piece & colorWhite) != 0) ? pieceChar.toUpperCase() : pieceChar;
             }
         }
@@ -85,7 +86,7 @@ function GetMoveSAN(move, validMoves) {
 	const to = (move >> 8) & 0xFF;
 	
 	const pieceType = g_board[from] & 0x7;
-	let result = ["", "", "T", "S", "E", "G", "B", "H", "R", "D", "K"][pieceType];
+	let result = ["", "", "N", "S", "T", "W", "E", "I", "G", "L", "B", "R", "H", "D", "K"][pieceType];
 	
 	let dupe = false, rowDiff = true, colDiff = true;
 	if (validMoves == null) {
@@ -121,11 +122,11 @@ function GetMoveSAN(move, validMoves) {
 	
 	result += FormatSquare(to);
 	
-	MakeMove(move);
+/*	MakeMove(move);
 	if (g_inCheck) {
 	    result += GenerateValidMoves().length == 0 ? "#" : "+";
 	}
-	UnmakeMove(move);
+	UnmakeMove(move);*/
 
 	return result;
 }
@@ -134,14 +135,14 @@ function MakeSquare(row, column) {
     return ((row + 2) << 4) | (column + 4);
 }
 
+function FormatReserve(square) {
+    const letters = (RESERVE_WIDTH == 2) ? ['X', 'Y', 'Z', 'T'] : ['X', 'Y', 'Z', 'U', 'V', 'W'];
+    return letters[square % (2 * RESERVE_WIDTH)] + (g_height - ((square / (2 * RESERVE_WIDTH)) | 0));
+}
+
 function FormatSquare(square) {
     const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
     return letters[(square & 0xF) - 4] + (((g_height + 1) - (square >> 4)) + 1);
-}
-
-function FormatReserve(square) {
-    const letters = (RESERVE_SIZE == 20) ? ['X', 'Y', 'Z', 'T'] : ['X', 'Y', 'Z', 'U', 'V', 'W'];
-    return letters[square % (2 * RESERVE_WIDTH)] + (g_height - ((square / (2 * RESERVE_WIDTH)) | 0));
 }
 
 function FormatMove(move) {
@@ -1016,14 +1017,14 @@ function MakeMove(move) {
     g_toMove = otherColor;
     g_baseEval = -g_baseEval;
 
-    let kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+/*  let kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
         UnmakeMove(move);
         return false;
-    }
+    }*/
 
     g_inCheck = false;
-    kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+/*  kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, colorWhite - g_toMove);
         if (g_inCheck && (from == 0) && ((piece & TYPE_MASK) == piecePawn)) {
@@ -1032,7 +1033,7 @@ function MakeMove(move) {
                 return false;
             }
         }
-    }
+    }*/
 
     g_repMoveStack[g_moveCount - 1] = g_hashKeyLow;
     g_move50++;

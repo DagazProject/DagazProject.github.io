@@ -1,14 +1,11 @@
 "use strict";
 
+var VECTORDELTA_SIZE  = 256;
+
 importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js', 'common-shogi-worker.js');
 
 let g_width          = 5;
 let g_height         = 5;
-
-RESERVE_SIZE         = 2;
-
-const WHITE_PROM     = 0x20;
-const BLACK_PROM     = 0x60;
 
 const emptyAdj = [
      0,     0,     0,     0,     0, // pieceEmpty
