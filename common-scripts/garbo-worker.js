@@ -65,9 +65,9 @@ function CommonResetGame() {
     g_zobristLow = new Array(256);
     g_zobristHigh = new Array(256);
     for (var i = 0; i < 256; i++) {
-        g_zobristLow[i] = new Array(16);
-        g_zobristHigh[i] = new Array(16);
-        for (var j = 0; j < 16; j++) {
+        g_zobristLow[i] = new Array(32);
+        g_zobristHigh[i] = new Array(32);
+        for (var j = 0; j < 32; j++) {
             g_zobristLow[i][j] = mt.next(32);
             g_zobristHigh[i][j] = mt.next(32);
         }
@@ -83,7 +83,7 @@ function CommonResetGame() {
     }
 }
 
-function Search(finishMoveCallback, maxPly, finishPlyCallback) {
+function Search(finishMoveCallback, maxPly, finishPlyCallback/*, moves*/) {
     var lastEval;
     var alpha = minEval;
     var beta = maxEval;
@@ -100,7 +100,7 @@ function Search(finishMoveCallback, maxPly, finishPlyCallback) {
 
     var i;
     for (i = 1; i <= maxPly && g_searchValid; i++) {
-        var tmp = AlphaBeta(i, 0, alpha, beta);
+        var tmp = AlphaBeta(i, 0, alpha, beta/*, moves*/);
         if (!g_searchValid) break;
 
         value = tmp;
@@ -134,7 +134,7 @@ function Search(finishMoveCallback, maxPly, finishPlyCallback) {
 function QSearch(alpha, beta, ply) {
     g_qNodeCount++;
 
-    var realEval = g_inCheck ? (minEval + 1) : Evaluate();
+    var realEval = g_inCheck ? (minEval + 10) : Evaluate();
     
     if (realEval >= beta) 
         return realEval;
@@ -147,7 +147,6 @@ function QSearch(alpha, beta, ply) {
     var wasInCheck = g_inCheck;
 
     if (wasInCheck) {
-        // TODO: Fast check escape generator and fast checking moves generator
         GenerateCaptureMoves(moves, null);
         GenerateAllMoves(moves);
         GenerateDropMoves(moves, false);
@@ -159,8 +158,8 @@ function QSearch(alpha, beta, ply) {
         GenerateCaptureMoves(moves, null);
 
         for (var i = 0; i < moves.length; i++) {
-            var captured = g_board[(moves[i] >> 8) & 0xFF] & 0x7;
-            var pieceType = g_board[moves[i] & 0xFF] & 0x7;
+            var captured = g_board[(moves[i] >> 8) & 0xFF] & TYPE_MASK;
+            var pieceType = g_board[moves[i] & 0xFF] & TYPE_MASK;
 
             moveScores[i] = (captured << 5) - pieceType;
         }
@@ -206,66 +205,6 @@ function QSearch(alpha, beta, ply) {
         }
     }
 
-    /* Disable checks...  Too slow currently
-
-    if (ply == 0 && !wasInCheck) {
-        moves = new Array();
-        GenerateAllMoves(moves);
-
-        for (var i = 0; i < moves.length; i++) {
-            moveScores[i] = ScoreMove(moves[i]);
-        }
-
-        for (var i = 0; i < moves.length; i++) {
-            var bestMove = i;
-            for (var j = moves.length - 1; j > i; j--) {
-                if (moveScores[j] > moveScores[bestMove]) {
-                    bestMove = j;
-                }
-            }
-            {
-                var tmpMove = moves[i];
-                moves[i] = moves[bestMove];
-                moves[bestMove] = tmpMove;
-
-                var tmpScore = moveScores[i];
-                moveScores[i] = moveScores[bestMove];
-                moveScores[bestMove] = tmpScore;
-            }
-
-            if (!MakeMove(moves[i])) {
-                continue;
-            }
-            var checking = g_inCheck;
-            UnmakeMove(moves[i]);
-
-            if (!checking) {
-                continue;
-            }
-
-            if (!See(moves[i])) {
-                continue;
-            }
-            
-            MakeMove(moves[i]);
-
-            var value = -QSearch(-beta, -alpha, ply - 1);
-
-            UnmakeMove(moves[i]);
-
-            if (value > realEval) {
-                if (value >= beta)
-                    return value;
-
-                if (value > alpha)
-                    alpha = value;
-
-                realEval = value;
-            }
-        }
-    }
-    */
-
     return realEval;
 }
 
@@ -287,7 +226,7 @@ function IsRepDraw() {
     return false;
 }
 
-function MovePicker(hashMove, depth, killer1, killer2) {
+function MovePicker(hashMove, depth, killer1, killer2/*, moves*/) {
     this.hashMove = hashMove;
     this.depth = depth;
     this.killer1 = killer1;
@@ -320,8 +259,8 @@ function MovePicker(hashMove, depth, killer1, killer2) {
                 this.moveScores = new Array(this.moveCount);
                 // Move ordering
                 for (var i = this.atMove; i < this.moveCount; i++) {
-                    var captured = g_board[(this.moves[i] >> 8) & 0xFF] & 0x7;
-                    var pieceType = g_board[this.moves[i] & 0xFF] & 0x7;
+                    var captured = g_board[(this.moves[i] >> 8) & 0xFF] & TYPE_MASK;
+                    var pieceType = g_board[this.moves[i] & 0xFF] & TYPE_MASK;
                     this.moveScores[i] = (captured << 5) - pieceType;
                 }
                 // No moves, onto next stage
@@ -351,7 +290,7 @@ function MovePicker(hashMove, depth, killer1, killer2) {
             }
 
             if (this.stage == 5) {
-                GenerateAllMoves(this.moves);
+                GenerateAllMoves(this.moves/*, moves*/);
                 GenerateDropMoves(this.moves, true);
                 this.moveCount = this.moves.length;
                 // Move ordering
@@ -432,7 +371,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
         return 0;
 
     // Mate distance pruning
-    if (minEval + depth >= beta)
+    if (minEval + depth * 10 >= beta)
        return beta;
 
     if (maxEval - (depth + 1) < beta)
@@ -460,8 +399,6 @@ function AllCutNode(ply, depth, beta, allowNull) {
         }
     }
 
-    // TODO - positional gain?
-
     if (!g_inCheck &&
         allowNull &&
         beta > minMateBuffer && 
@@ -478,15 +415,13 @@ function AllCutNode(ply, depth, beta, allowNull) {
             }
         }
         
-        // TODO - static null move
-
         // Null move
         if (ply > 1 &&
             g_baseEval >= beta - (ply >= 4 ? 2500 : 0) && isNoZugzwang()) {
             var r = 3 + (ply >= 5 ? 1 : ply / 4);
             if (g_baseEval - beta > 1500) r++;
 
-	        g_toMove = 8 - g_toMove;
+	        g_toMove = colorWhite - g_toMove;
 	        g_baseEval = -g_baseEval;
 	        g_hashKeyLow ^= g_zobristBlackLow;
 	        g_hashKeyHigh ^= g_zobristBlackHigh;
@@ -495,7 +430,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
 
 	        g_hashKeyLow ^= g_zobristBlackLow;
 	        g_hashKeyHigh ^= g_zobristBlackHigh;
-	        g_toMove = 8 - g_toMove;
+	        g_toMove = colorWhite - g_toMove;
 	        g_baseEval = -g_baseEval;
 
             if (value >= beta)
@@ -504,7 +439,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
     }
 
     var moveMade = false;
-    var realEval = minEval - 1;
+    var realEval = minEval - 10;
     var inCheck = g_inCheck;
 
     var movePicker = new MovePicker(hashMove, depth, g_killers[depth][0], g_killers[depth][1]);
@@ -530,27 +465,6 @@ function AllCutNode(ply, depth, beta, allowNull) {
         } else {
             var reduced = plyToSearch - (movePicker.atMove > 14 ? 2 : 1);
 
-            // Futility pruning
-/*            if (movePicker.stage == 5 && !inCheck) {
-                if (movePicker.atMove >= (15 + (1 << (5 * ply) >> 2)) &&
-                    realEval > minMateBuffer) {
-                    UnmakeMove(currentMove);
-                    continue;
-                }
-
-                if (ply < 7) {
-                    var reducedPly = reduced <= 0 ? 0 : reduced;
-                    var futilityValue = -g_baseEval + (900 * (reducedPly + 2)) - (movePicker.atMove * 10);
-                    if (futilityValue < beta) {
-                        if (futilityValue > realEval) {
-                            realEval = futilityValue;
-                        }
-                        UnmakeMove(currentMove);
-                        continue;
-                    }
-                }
-            }*/
-
             // Late move reductions
             if (movePicker.stage == 5 && movePicker.atMove > 5 && ply >= 3) {
                 value = -AllCutNode(reduced, depth + 1, -(beta - 1), true);
@@ -574,7 +488,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
             if (value >= beta) {
 				var histTo = (currentMove >> 8) & 0xFF;
 				if (g_board[histTo] == 0) {
-				    var histPiece = g_board[currentMove & 0xFF] & 0xF;
+				    var histPiece = g_board[currentMove & 0xFF] & PIECE_MASK;
 				    historyTable[histPiece][histTo] += ply * ply;
 				    if (historyTable[histPiece][histTo] > 32767) {
 				        historyTable[histPiece][histTo] >>= 1;
@@ -599,7 +513,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
         // If we have no valid moves it's either stalemate or checkmate
         if (g_inCheck || STALMATED)
             // Checkmate.
-            return minEval + depth;
+            return minEval + depth * 10;
         else 
             // Stalemate
             return 0;
@@ -610,7 +524,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
     return realEval;
 }
 
-function AlphaBeta(ply, depth, alpha, beta) {
+function AlphaBeta(ply, depth, alpha, beta/*, moves*/) {
     if (ply <= 0) {
         return QSearch(alpha, beta, 0);
     }
@@ -622,8 +536,8 @@ function AlphaBeta(ply, depth, alpha, beta) {
 
     // Mate distance pruning
     var oldAlpha = alpha;
-    alpha = alpha < minEval + depth ? alpha : minEval + depth;
-    beta = beta > maxEval - (depth + 1) ? beta : maxEval - (depth + 1);
+    alpha = alpha < minEval + depth * 10 ? alpha : minEval + depth * 10;
+    beta = beta > maxEval - (depth + 1) * 10 ? beta : maxEval - (depth + 1) * 10;
     if (alpha >= beta)
        return alpha;
 
@@ -639,7 +553,7 @@ function AlphaBeta(ply, depth, alpha, beta) {
     var moveMade = false;
     var realEval = minEval;
 
-    var movePicker = new MovePicker(hashMove, depth, g_killers[depth][0], g_killers[depth][1]);
+    var movePicker = new MovePicker(hashMove, depth, g_killers[depth][0], g_killers[depth][1]/*, moves*/);
 
     for (;;) {
         var currentMove = movePicker.nextMove();
@@ -685,7 +599,7 @@ function AlphaBeta(ply, depth, alpha, beta) {
             if (value >= beta) {
                 var histTo = (currentMove >> 8) & 0xFF;
                 if (g_board[histTo] == 0) {
-                    var histPiece = g_board[currentMove & 0xFF] & 0xF;
+                    var histPiece = g_board[currentMove & 0xFF] & PIECE_MASK;
                     historyTable[histPiece][histTo] += ply * ply;
                     if (historyTable[histPiece][histTo] > 32767) {
                         historyTable[histPiece][histTo] >>= 1;
@@ -715,7 +629,7 @@ function AlphaBeta(ply, depth, alpha, beta) {
         // If we have no valid moves it's either stalemate or checkmate
         if (inCheck || STALMATED) 
             // Checkmate.
-            return minEval + depth;
+            return minEval + depth * 10;
         else 
             // Stalemate
             return 0;
@@ -797,7 +711,7 @@ function InitializePieceList() {
     for (var i = 0; i < VECTORDELTA_SIZE; i++) {
         g_pieceIndex[i] = 0;
         if (g_board[i] & (colorWhite | colorBlack)) {
-			var piece = g_board[i] & 0xF;
+			var piece = g_board[i] & PIECE_MASK;
 
 			g_pieceList[(piece << COUNTER_SIZE) | g_pieceCount[piece]] = i;
 			g_pieceIndex[i] = g_pieceCount[piece];
@@ -815,56 +729,50 @@ function ExposesCheck(from, kingPos){
         while (g_board[pos] == 0) pos += delta;
         
         var piece = g_board[pos];
-        if (((piece & (g_board[kingPos] ^ 0x18)) & 0x18) == 0)
+        if (((piece & (g_board[kingPos] ^ PLAYERS_MASK)) & PLAYERS_MASK) == 0)
             return false;
 
         // Now see if the piece can actually attack the king
         var backwardIndex = pos - kingPos + (VECTORDELTA_SIZE >> 1);
-        return (g_vectorDelta[backwardIndex].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) != 0;
+        return (g_vectorDelta[backwardIndex].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) != 0;
     }
     return false;
 }
 
 function IsSquareOnPieceLine(target, from) {
-    var index = from - target + (VECTORDELTA_SIZE >> 1);
-    var piece = g_board[from];
-    return (g_vectorDelta[index].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) ? true : false;
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    return (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) ? true : false;
 }
 
-function IsSquareAttackableFrom(target, from){
-    var index = from - target + (VECTORDELTA_SIZE >> 1);
-    var piece = g_board[from];
-    if (g_vectorDelta[index].pieceMask[(piece >> 3) & 1] & (1 << (piece & 0x7))) {
+function IsSquareAttackableFrom(target, from) {
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
         // Yes, this square is pseudo-attackable.  Now, check for real attack
-		var inc = g_vectorDelta[index].delta;
+        const inc = g_vectorDelta[index].delta;
         do {
-			from += inc;
-			if (from == target)
-				return true;
-		} while (g_board[from] == 0);
+            from += inc;
+            if (from == target) return true;
+        } while (g_board[from] == 0);
     }
-    
     return false;
 }
 
 function IsSquareAttackable(target, color) {
 	// Attackable by pawns?
 	var inc = color ? -16 : 16;
-	var pawn = (color ? colorWhite : colorBlack) | 1;
-	if (g_board[target - (inc - 1)] == pawn)
-		return true;
-	if (g_board[target - (inc + 1)] == pawn)
-		return true;
-	
+	var pawn = (color ? colorWhite : colorBlack) | piecePawn;
+	if (g_board[target - (inc - 1)] == pawn) return true;
+	if (g_board[target - (inc + 1)] == pawn) return true;
 	// Attackable by pieces?
-	for (var i = 2; i <= 6; i++) {
+	for (var i = piecePawn + 1; i <= pieceKing; i++) {
         var index = (color | i) << COUNTER_SIZE;
         var square = g_pieceList[index];
-		while (square != 0) {
-			if (IsSquareAttackableFrom(target, square))
-				return true;
-			square = g_pieceList[++index];
-		}
+        while (square != 0) {
+	       if (IsSquareAttackableFrom(target, square)) return true;
+               square = g_pieceList[++index];
+        }
     }
     return false;
 }
@@ -905,8 +813,8 @@ function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
         square += delta;
     }
 
-    if ((g_board[square] & 0x18) && IsSquareOnPieceLine(target, square)) {
-        if ((g_board[square] & 8) == us) {
+    if ((g_board[square] & PLAYERS_MASK) && IsSquareOnPieceLine(target, square)) {
+        if ((g_board[square] & colorWhite) == us) {
             usAttacks[usAttacks.length] = square;
         } else {
             themAttacks[themAttacks.length] = square;

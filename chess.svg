@@ -177,8 +177,8 @@
 </g>
 <!-- Mini Shogi -->
 <g id="node9" class="node"><title>Mini Shogi</title>
-<a xlink:href="shogi/mini-shogi.htm">
-<ellipse fill="darkgreen" stroke="black" cx="637" cy="-162" rx="54.1546" ry="18"></ellipse>
+<a xlink:href="shogi/mini-shogi-3d.htm">
+<ellipse fill="gold" stroke="black" cx="637" cy="-162" rx="54.1546" ry="18"></ellipse>
 <text text-anchor="middle" x="637" y="-157.8" font-family="Times,serif" font-size="14.00">Mini Shogi</text>
 </a>
 </g>

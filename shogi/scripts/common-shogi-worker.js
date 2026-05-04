@@ -82,53 +82,7 @@ function GetFen() {
 }
 
 function GetMoveSAN(move, validMoves) {
-	const from = move & 0xFF;
-	const to = (move >> 8) & 0xFF;
-	
-	const pieceType = g_board[from] & 0x7;
-	let result = ["", "", "N", "S", "T", "W", "E", "I", "G", "L", "B", "R", "H", "D", "K"][pieceType];
-	
-	let dupe = false, rowDiff = true, colDiff = true;
-	if (validMoves == null) {
-            validMoves = GenerateValidMoves();
-	}
-	for (let i = 0; i < validMoves.length; i++) {
-		const moveFrom = validMoves[i] & 0xFF;
-		const moveTo = (validMoves[i] >> 8) & 0xFF; 
-		if (moveFrom != from &&
-			moveTo == to &&
-			(g_board[moveFrom] & 0x7) == pieceType) {
-			dupe = true;
-			if ((moveFrom & 0xF0) == (from & 0xF0)) {
-				rowDiff = false;
-			}
-			if ((moveFrom & 0x0F) == (from & 0x0F)) {
-				colDiff = false;
-			}
-		}
-	}
-	
-	if (dupe) {
-		if (colDiff) {
-			result += FormatSquare(from).charAt(0);
-		} else if (rowDiff) {
-			result += FormatSquare(from).charAt(1);
-		} else {
-			result += FormatSquare(from);
-		}
-	} else if (pieceType == piecePawn && (g_board[to] != 0)) {
-		result += FormatSquare(from).charAt(0);
-	}
-	
-	result += FormatSquare(to);
-	
-/*	MakeMove(move);
-	if (g_inCheck) {
-	    result += GenerateValidMoves().length == 0 ? "#" : "+";
-	}
-	UnmakeMove(move);*/
-
-	return result;
+    return FormatMove(move);
 }
 
 function MakeSquare(row, column) {
@@ -147,7 +101,7 @@ function FormatSquare(square) {
 
 function FormatMove(move) {
     let result;
-    const from = move & 0xFF;
+    let from = move & 0xFF;
     if (from != 0) {
         result = FormatSquare(from) + FormatSquare((move >> 8) & 0xFF);
     } else {
@@ -759,7 +713,7 @@ function InitializeFromFen(fen) {
                 }
             } else {
                 const isBlack = c >= 'a' && c <= 'z';
-                const piece = isBlack ? colorBlack : colorWhite;
+                let piece = isBlack ? colorBlack : colorWhite;
                 if (!isBlack) 
                     c = pieces.toLowerCase().charAt(i);
                 switch (c) {
@@ -1017,14 +971,14 @@ function MakeMove(move) {
     g_toMove = otherColor;
     g_baseEval = -g_baseEval;
 
-/*  let kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+    let kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
         UnmakeMove(move);
         return false;
-    }*/
+    }
 
     g_inCheck = false;
-/*  kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+    kingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, colorWhite - g_toMove);
         if (g_inCheck && (from == 0) && ((piece & TYPE_MASK) == piecePawn)) {
@@ -1033,7 +987,7 @@ function MakeMove(move) {
                 return false;
             }
         }
-    }*/
+    }
 
     g_repMoveStack[g_moveCount - 1] = g_hashKeyLow;
     g_move50++;
@@ -1117,43 +1071,6 @@ function UnmakeMove(move) {
         g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = to;
         g_pieceCount[captureType]++;
     }
-}
-
-function IsSquareOnPieceLine(target, from) {
-    const index = from - target + (VECTORDELTA_SIZE >> 1);
-    const piece = g_board[from];
-    return (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) ? true : false;
-}
-
-function IsSquareAttackableFrom(target, from) {
-    const index = from - target + (VECTORDELTA_SIZE >> 1);
-    const piece = g_board[from];
-    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
-        // Yes, this square is pseudo-attackable.  Now, check for real attack
-        const inc = g_vectorDelta[index].delta;
-        do {
-            from += inc;
-            if (from == target) return true;
-        } while (g_board[from] == 0);
-    }
-    return false;
-}
-
-function IsSquareAttackable(target, color) {
-    // Attackable by pawns?
-    const inc = color ? -16 : 16;
-    const pawn = (color ? colorWhite : colorBlack) | piecePawn;
-    if (g_board[target - inc] == pawn) return true;
-    // Attackable by pieces?
-    for (let i = pieceKnight; i <= pieceKing; i++) {
-        let index = (color | i) << COUNTER_SIZE;
-        let square = g_pieceList[index];
-        while (square != 0) {
-            if (IsSquareAttackableFrom(target, square)) return true;
-            square = g_pieceList[++index];
-        }
-    }
-    return false;
 }
 
 function GenerateDrop(to, slot) {
@@ -2002,37 +1919,6 @@ function See(move) {
         // Add any x-ray attackers
         SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
     }
-}
-
-function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
-    const index = square - target + (VECTORDELTA_SIZE >> 1);
-    const delta = -g_vectorDelta[index].delta;
-    if (delta == 0) return;
-    square += delta;
-    while (g_board[square] == 0) {
-        square += delta;
-    }
-    if ((g_board[square] & PLAYERS_MASK) && IsSquareOnPieceLine(target, square)) {
-        if ((g_board[square] & colorWhite) == us) {
-            usAttacks[usAttacks.length] = square;
-        } else {
-            themAttacks[themAttacks.length] = square;
-        }
-    }
-}
-
-function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    let pieceIdx = (us | pieceType) << COUNTER_SIZE;
-    let attackerSq = g_pieceList[pieceIdx++];
-    let hit = false;
-    while (attackerSq != 0) {
-        if (IsSquareAttackableFrom(target, attackerSq)) {
-            attacks[attacks.length] = attackerSq;
-            hit = true;
-        }
-        attackerSq = g_pieceList[pieceIdx++];
-    }
-    return hit;
 }
 
 function configure(name, value) {
