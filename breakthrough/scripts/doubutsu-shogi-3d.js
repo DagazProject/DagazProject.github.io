@@ -4,6 +4,10 @@ Dagaz.View.TARGET_SZ         =  0.5;
 Dagaz.Controller.SHORT_LIST  =  false;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/doubutsu-shogi-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 17000;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -33,7 +37,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("nx"); // 0
     design.addDirection("n");  // 1
@@ -293,9 +297,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'doubutsu-shogi.htm' : 'doubutsu-shogi-board.htm');
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'doubutsu-shogi-3d-board.htm' : 'doubutsu-shogi-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'doubutsu-shogi-3d-board.htm' : 'doubutsu-shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
 
     view.defPosition("r4", -186, -141, 103, 93, 1);
     view.defPosition("a4", -93, -141, 103, 93, 1);

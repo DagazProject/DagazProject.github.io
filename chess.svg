@@ -59,8 +59,8 @@
 </g>
 <!-- Doubutsu Shogi -->
 <g id="node8" class="node"><title>Doubutsu Shogi</title>
-<a xlink:href="breakthrough/doubutsu-shogi.htm">
-<ellipse fill="darkgreen" stroke="black" cx="563" cy="-234" rx="73.3115" ry="18"></ellipse>
+<a xlink:href="breakthrough/doubutsu-shogi-3d.htm">
+<ellipse fill="gold" stroke="black" cx="563" cy="-234" rx="73.3115" ry="18"></ellipse>
 <text text-anchor="middle" x="563" y="-229.8" font-family="Times,serif" font-size="14.00">Doubutsu Shogi</text>
 </a>
 </g>

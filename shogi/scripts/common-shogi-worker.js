@@ -1956,7 +1956,7 @@ self.onmessage = function (e) {
         let s = e.data.substr(9, e.data.length - 9);
         s = s.replaceAll('-', ' ');
         ResetGame();
-        var result = InitializeFromFen(s);
+        const result = InitializeFromFen(s);
         if (result.length != 0) {
             self.postMessage("message " + result);
         }
