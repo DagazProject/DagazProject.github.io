@@ -1930,8 +1930,12 @@ function configure(name, value) {
         g_height = +value;
         return true;
     }
-    if (name == 'FLAGS') {
-        g_flags = +value;
+    if (name == 'WHITE_PROM') {
+        WHITE_PROM = +value;
+        return true;
+    }
+    if (name == 'BLACK_PROM') {
+        BLACK_PROM = +value;
         return true;
     }
     return false;
