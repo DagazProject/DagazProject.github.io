@@ -49,7 +49,7 @@ function start(fen, isAdvisor) {
         g_backgroundEngine.postMessage("config WHITE_PROM=" + Dagaz.AI.WHITE_PROM);
     }
     if (!_.isUndefined(Dagaz.AI.BLACK_PROM)) {
-        g_backgroundEngine.postMessage("config WHITE_PROM=" + Dagaz.AI.BLACK_PROM);
+        g_backgroundEngine.postMessage("config BLACK_PROM=" + Dagaz.AI.BLACK_PROM);
     }
     if (!_.isUndefined(Dagaz.AI.FLAGS)) {
         g_backgroundEngine.postMessage("config FLAGS=" + Dagaz.AI.FLAGS);
