@@ -1,6 +1,8 @@
 Dagaz.View.TARGET_FLAT  = true;
 Dagaz.View.TARGET_LARGE = true;
 
+Dagaz.View.TEXTURE_BORDER = true;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -244,8 +246,8 @@ Dagaz.Model.BuildDesign = function(design) {
 Dagaz.View.configure = function(view) {
     view.defBoardTriangular(821, 708, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
-    const red = 0x353535;
-    const blue = 0x353535;
+    const red = '#202CFF';
+    const blue = '#FF2080';
     const tokenPath = '../res/xiangqi';
 
     view.defPieceToken(0, 1, tokenPath, 'token.js', 'rGoal', 'Bump', red);
