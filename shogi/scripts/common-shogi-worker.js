@@ -108,9 +108,9 @@ function FormatMove(move) {
         from = (move >> 16) & 0xFF;
         result = FormatReserve(from) + FormatSquare((move >> 8) & 0xFF);
     }
-    if (move & moveflagPromotion) {
+/*  if (move & moveflagPromotion) {
         result = result + '+';
-    }
+    }*/
     return result;
 }
 
@@ -803,10 +803,10 @@ function InitializeFromFen(fen) {
     }
 
     // Check for king capture (invalid FEN)
-    kingPos = g_pieceList[(them | pieceKing) << COUNTER_SIZE];
+/*  kingPos = g_pieceList[(them | pieceKing) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, g_toMove)) {
         return 'Invalid FEN: Can capture king';
-    }
+    }*/
 
     // Checkmate/stalemate
     if (GenerateValidMoves().length == 0) {

@@ -122,9 +122,9 @@ Dagaz.AI.FormatMove = function(move) {
         from = (move >> 16) & 0xFF;
         result = FormatReserve(from) + FormatSquare((move >> 8) & 0xFF);
     }
-    if (move & moveflagPromotion) {
+/*  if (move & moveflagPromotion) {
         result = result + '+';
-    }
+    }*/
     return result;
 }
 
@@ -602,10 +602,10 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     }
 
     // Check for king capture (invalid FEN)
-    kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
+/*  kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, Dagaz.AI.g_toMove)) {
         return 'Invalid FEN: Can capture king';
-    }
+    }*/
 
     // Checkmate/stalemate
     if (GenerateValidMoves().length == 0) {
