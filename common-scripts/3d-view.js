@@ -9,7 +9,8 @@ Dagaz.View.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints 
 
 const BOARD_TYPE = {
    RECT:              0,
-   TRIANGLE:          1
+   TRIANGLE:          1,
+   HEXAGONAL:         2
 };
 
 const PIECE_TYPE = {
@@ -777,6 +778,38 @@ View3D.prototype.findRes = function(res) {
 }
 
 View3D.prototype.defBoard = function(res) {}
+
+View3D.prototype.defBoardHexagonal = function(dx, dy, dz, z, colors, res, opacity) {
+  if (_.isUndefined(opacity)) opacity = 1;
+  let board = null;
+  if (!_.isUndefined(res)) {
+      board = this.findRes(res);
+      if (board === null) {
+          const img = document.getElementById(res);
+          const t = new Promise((resolve) => {
+                textureLoader.load(
+                    img.currentSrc,
+                    resolve,
+                    undefined,
+                    undefined,
+                  { crossOrigin: 'anonymous' }
+                );
+          });
+          resTask.push(t); 
+          board = {
+             r: res,
+             h: img
+          };
+          resList.push(board);
+          this.res.push(board);
+      }
+  }
+  this.boards.push({
+     dx: dx, dy: dy, dz: dz, z: z,
+     colors: colors, img: board,
+     opacity: opacity, type: BOARD_TYPE.HEXAGONAL
+  });
+}
 
 View3D.prototype.defBoardTriangular = function(dx, dy, dz, z, colors, res, opacity) {
   if (_.isUndefined(opacity)) opacity = 1;
@@ -2296,6 +2329,27 @@ View3D.prototype.draw = function(canvas) {
                 }
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
                 boardBlock.position.set(b.x / 10, b.z / 10, b.y / 10);
+                if (Dagaz.View.RENDER_ORDER) {
+                    boardBlock.renderOrder = 1;
+                }
+                scene.add(boardBlock);
+            }
+            if (b.type == BOARD_TYPE.HEXAGONAL) {
+                const boardGeometry = createHexagonalPrism(b.dx / 10, 1);
+                const materials = [
+                   // Материал для верхнего основания (с текстурой)
+                   new THREE.MeshBasicMaterial({ 
+                       map: b.img.t, transparent: true, opacity: b.opacity,
+                       side: THREE.DoubleSide
+                   }),
+                   // Материал для остальных граней
+                   new THREE.MeshBasicMaterial({ 
+                       color: b.colors[1], transparent: true, opacity: 0.3,
+                       side: THREE.DoubleSide
+                   }),
+                ];
+                const boardBlock = new THREE.Mesh(boardGeometry, materials);
+                boardBlock.position.set(0, b.z / 10, 0);
                 if (Dagaz.View.RENDER_ORDER) {
                     boardBlock.renderOrder = 1;
                 }

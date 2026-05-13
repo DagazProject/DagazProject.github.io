@@ -1,7 +1,8 @@
 Dagaz.Controller.persistense = "none";
 
-Dagaz.View.TARGET_FLAT  = true;
-Dagaz.Model.START_POS   = 18;
+Dagaz.View.TARGET_FLAT   = true;
+Dagaz.View.TARGET_RADIUS = 2.5;
+Dagaz.Model.START_POS    = 18;
 
 ZRF = {
     JUMP:          0,
@@ -142,7 +143,7 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard3D(364, 308, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+    view.defBoardHexagonal(180, 180, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
     const red  = 0xFF1111;
     const blue = 0x1111FF;
