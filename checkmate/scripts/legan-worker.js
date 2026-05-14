@@ -1052,6 +1052,44 @@ function GeneratePawnMoves(moveStack, from) {
 	}
 }
 
+function IsSquareOnPieceLine(target, from) {
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    return (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) ? true : false;
+}
+
+function IsSquareAttackableFrom(target, from) {
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
+        // Yes, this square is pseudo-attackable.  Now, check for real attack
+        const inc = g_vectorDelta[index].delta;
+        do {
+            from += inc;
+            if (from == target) return true;
+        } while (g_board[from] == 0);
+    }
+    return false;
+}
+
+function IsSquareAttackable(target, color) {
+	// Attackable by pawns?
+	var inc = color ? -16 : 16;
+	var pawn = (color ? colorWhite : colorBlack) | piecePawn;
+	if (g_board[target - (inc - 1)] == pawn) return true;
+	if (g_board[target - (inc + 1)] == pawn) return true;
+	// Attackable by pieces?
+	for (var i = piecePawn + 1; i <= pieceKing; i++) {
+        var index = (color | i) << COUNTER_SIZE;
+        var square = g_pieceList[index];
+        while (square != 0) {
+	       if (IsSquareAttackableFrom(target, square)) return true;
+               square = g_pieceList[++index];
+        }
+    }
+    return false;
+}
+
 var g_seeValues = [0, 1, 3, 3, 5, 9, 900, 0,
                    0, 1, 3, 3, 5, 9, 900, 0];
 

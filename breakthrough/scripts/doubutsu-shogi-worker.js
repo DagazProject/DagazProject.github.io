@@ -51,7 +51,7 @@ let g_height            = 4;
 
 STALMATED               = true;
 
-const NOISE_FACTOR      = 0;
+const NOISE_FACTOR      = 1;
 
 const PIECE_MASK        = 0xF;
 const TYPE_MASK         = 0x7;
@@ -379,13 +379,30 @@ function ResetGame() {
            g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
            index = square - (square - 17) + (VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
+           index = square - (square - 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
+           index = square - (square + 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
+           index = square - (square - 1) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
+           index = square - (square + 1) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold);
 
            index = square - (square + 15) + (VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
            index = square - (square + 17) + (VECTORDELTA_SIZE >> 1);
            g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
+           index = square - (square - 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
+           index = square - (square + 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
+           index = square - (square - 1) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
+           index = square - (square + 1) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold);
 
            for (let i = pieceBishop; i <= pieceKing; i++) {
+                if (i == pieceGold) continue;
                 for (let dir = 0; dir < pieceDeltas[i].length; dir++) {
                      let target = square + pieceDeltas[i][dir];
                      while (!(target & 0x88)) {
@@ -405,7 +422,6 @@ function ResetGame() {
                          } else if ((square % 17) == (target % 17)) {
                              g_vectorDelta[index].delta = flip * 17;
                          }
-                         target += pieceDeltas[i][dir];
                          break;
                      }
                 }
@@ -810,43 +826,6 @@ function UnmakeMove(move) {
     }
 }
 
-/*function IsSquareAttackableFrom(target, from) {
-    var index = from - target + 128;
-    var piece = g_board[from];
-    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
-        // Yes, this square is pseudo-attackable.  Now, check for real attack
-        var inc = g_vectorDelta[index].delta;
-//      do {
-            from += inc;
-            if (from == target) return true;
-//      } while (g_board[from] == 0);
-    }
-    return false;
-}
-
-function IsSquareAttackable(target, color) {
-    // Attackable by pawns?
-    var inc = color ? -16 : 16;
-    var pawn = (color ? colorWhite : colorBlack) | piecePawn;
-    if (g_board[target - inc] == pawn) return true;
-
-    // Attackable by queens?
-    var queen = (color ? colorWhite : colorBlack) | pieceGold;
-    if (g_board[target - (inc - 1)] == queen) return true;
-    if (g_board[target - (inc + 1)] == queen) return true;
-
-    // Attackable by pieces?
-    for (var i = pieceBishop; i <= pieceKing; i++) {
-         var index = (color | i) << COUNTER_SIZE;
-         var square = g_pieceList[index];
-         while (square) {
-             if (IsSquareAttackableFrom(target, square)) return true;
-             square = g_pieceList[++index];
-         }
-    }
-    return false;
-}*/
-
 function GenerateDrop(to, slot) {
     return (to << 8) | (slot << 16);
 }
@@ -1035,6 +1014,47 @@ function GenerateDropMoves(moveStack, force) {
            moveStack[moveStack.length] = GenerateDrop(to, slot);
        }
    }
+}
+
+function IsSquareAttackableFrom(target, from) {
+    var index = from - target + (VECTORDELTA_SIZE >> 1);
+    var piece = g_board[from];
+    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
+        // Yes, this square is pseudo-attackable.  Now, check for real attack
+        var inc = g_vectorDelta[index].delta;
+//      do {
+            from += inc;
+            if (from == target) return true;
+//      } while (g_board[from] == 0);
+    }
+    return false;
+}
+
+function IsSquareAttackable(target, color) {
+    // Attackable by pawns?
+    var inc = color ? -16 : 16;
+    var pawn = (color ? colorWhite : colorBlack) | piecePawn;
+    if (g_board[target - inc] == pawn) return true;
+
+    // Attackable by queens?
+    var queen = (color ? colorWhite : colorBlack) | pieceGold;
+    if (g_board[target - (inc - 1)] == queen) return true;
+    if (g_board[target - (inc + 1)] == queen) return true;
+    if (g_board[target - 16] == queen) return true;
+    if (g_board[target + 16] == queen) return true;
+    if (g_board[target - 1]  == queen) return true;
+    if (g_board[target + 1]  == queen) return true;
+
+    // Attackable by pieces?
+    for (var i = pieceBishop; i <= pieceKing; i++) {
+         var index = (color | i) << COUNTER_SIZE;
+         var square = g_pieceList[index];
+         while (square) {
+             if (IsSquareAttackableFrom(target, square)) return true;
+             square = g_pieceList[++index];
+         }
+    }
+    return false;
 }
 
 function See(move) {

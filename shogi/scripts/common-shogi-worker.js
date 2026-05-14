@@ -803,10 +803,10 @@ function InitializeFromFen(fen) {
     }
 
     // Check for king capture (invalid FEN)
-/*  kingPos = g_pieceList[(them | pieceKing) << COUNTER_SIZE];
+    kingPos = g_pieceList[(them | pieceKing) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, g_toMove)) {
         return 'Invalid FEN: Can capture king';
-    }*/
+    }
 
     // Checkmate/stalemate
     if (GenerateValidMoves().length == 0) {
@@ -1780,6 +1780,53 @@ function GenerateDropMoves(moveStack, force) {
            moveStack[moveStack.length] = GenerateDrop(to, slot);
        }
    }
+}
+
+function IsSquareOnPieceLine(target, from) {
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    return (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) ? true : false;
+}
+
+function IsSquareAttackableFrom(target, from) {
+    const index = from - target + (VECTORDELTA_SIZE >> 1);
+    const piece = g_board[from];
+    if (g_vectorDelta[index].pieceMask[(piece >> TYPE_SIZE) & 1] & (1 << (piece & TYPE_MASK))) {
+        // Yes, this square is pseudo-attackable.  Now, check for real attack
+        const inc = g_vectorDelta[index].delta;
+        do {
+            from += inc;
+            if (from == target) return true;
+        } while (g_board[from] == 0);
+    }
+    return false;
+}
+
+function IsSquareAttackable(target, color) {
+    // Attackable by pawns?
+    var inc = color ? -16 : 16;
+    var pawn = (color ? colorWhite : colorBlack) | piecePawn;
+    if (g_board[target - inc] == pawn) return true;
+
+    // Attackable by queens?
+    var queen = (color ? colorWhite : colorBlack) | pieceGold;
+    if (g_board[target - (inc - 1)] == queen) return true;
+    if (g_board[target - (inc + 1)] == queen) return true;
+    if (g_board[target - 16] == queen) return true;
+    if (g_board[target + 16] == queen) return true;
+    if (g_board[target - 1]  == queen) return true;
+    if (g_board[target + 1]  == queen) return true;
+
+    // Attackable by pieces?
+    for (var i = pieceBishop; i <= pieceKing; i++) {
+         var index = (color | i) << COUNTER_SIZE;
+         var square = g_pieceList[index];
+         while (square) {
+             if (IsSquareAttackableFrom(target, square)) return true;
+             square = g_pieceList[++index];
+         }
+    }
+    return false;
 }
 
 function See(move) {
