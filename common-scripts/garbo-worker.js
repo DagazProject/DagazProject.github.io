@@ -797,22 +797,6 @@ function SeeAddKnightAttacks(target, us, attacks) {
     }
 }
 
-function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
-    var attackerSq = g_pieceList[pieceIdx++];
-    var hit = false;
-
-    while (attackerSq != 0) {
-        if (IsSquareAttackableFrom(target, attackerSq)) {
-            attacks[attacks.length] = attackerSq;
-            hit = true;
-        }
-        attackerSq = g_pieceList[pieceIdx++];
-    }
-
-    return hit;
-}
-
 function BuildPVMessage(bestMove, value, timeTaken, ply) {
     var totalNodes = g_nodeCount + g_qNodeCount;
     return "Ply:" + ply + " Score:" + value + " Nodes:" + totalNodes + " NPS:" + ((totalNodes / (timeTaken / 1000)) | 0) + " " + PVFromHash(bestMove, 15);

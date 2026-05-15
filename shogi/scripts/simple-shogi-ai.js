@@ -1321,9 +1321,6 @@ Dagaz.AI.See = function(move) {
         var capturingPieceSquare = themAttacks[capturingPieceIndex];
         themAttacks[capturingPieceIndex] = 0;
 
-        // Add any x-ray attackers
-        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
-
         // Our turn to capture
         capturingPieceValue = 1000;
         capturingPieceIndex = -1;
@@ -1353,39 +1350,35 @@ Dagaz.AI.See = function(move) {
 
         capturingPieceSquare = usAttacks[capturingPieceIndex];
         usAttacks[capturingPieceIndex] = 0;
-
-        // Add any x-ray attackers
-        SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
-    }
-}
-
-function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
-    var index = square - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
-    var delta = -g_vectorDelta[index].delta;
-    if (delta == 0) return;
-    square += delta;
-    while (Dagaz.AI.g_board[square] == 0) {
-        square += delta;
-    }
-    if ((Dagaz.AI.g_board[square] & Dagaz.AI.PLAYERS_MASK) && IsSquareOnPieceLine(target, square)) {
-        if ((Dagaz.AI.g_board[square] & Dagaz.AI.colorWhite) == us) {
-            usAttacks[usAttacks.length] = square;
-        } else {
-            themAttacks[themAttacks.length] = square;
-        }
     }
 }
 
 function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    var pieceIdx = (us | pieceType) << Dagaz.AI.COUNTER_SIZE;
-    var attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    var inc = us ? -16 : 16;
+    var attackerSq = -1;
     var hit = false;
-    while (attackerSq != 0) {
-        if (IsSquareAttackableFrom(target, attackerSq)) {
-            attacks[attacks.length] = attackerSq;
-            hit = true;
-        }
-        attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    if (pieceSilver == pieceType) {
+        if (Dagaz.AI.g_board[target - inc] == pieceType) attackerSq = target - inc;
+    }
+    if (_.indexOf([pieceGold, piecePawnP, pieceSilverP], pieceType) >= 0) {
+        if (Dagaz.AI.g_board[target - (inc + 1)] == pieceType) attackerSq = target - (inc + 1);
+        if (Dagaz.AI.g_board[target - (inc - 1)] == pieceType) attackerSq = target - (inc - 1);
+    }
+    if (_.indexOf([pieceKing, pieceGold, piecePawnP, pieceSilverP], pieceType) >= 0) {
+        if (Dagaz.AI.g_board[target - 16]  == pieceType) attackerSq = target - 16;
+        if (Dagaz.AI.g_board[target + 16]  == pieceType) attackerSq = target + 16;
+        if (Dagaz.AI.g_board[target - 1]   == pieceType) attackerSq = target - 1;
+        if (Dagaz.AI.g_board[target + 1]   == pieceType) attackerSq = target + 1;
+    }
+    if (_.indexOf([pieceKing, pieceSilver], pieceType) >= 0) {
+        if (Dagaz.AI.g_board[target - 17]  == pieceType) attackerSq = target - 17;
+        if (Dagaz.AI.g_board[target - 15]  == pieceType) attackerSq = target - 15;
+        if (Dagaz.AI.g_board[target + 17]  == pieceType) attackerSq = target + 17;
+        if (Dagaz.AI.g_board[target + 15]  == pieceType) attackerSq = target + 15;
+    }
+    if (attackerSq >= 0) {
+        attacks[attacks.length] = attackerSq;
+        hit = true;
     }
     return hit;
 }

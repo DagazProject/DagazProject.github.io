@@ -1239,6 +1239,22 @@ function See(move) {
     }
 }
 
+function SeeAddSliderAttacks(target, us, attacks, pieceType) {
+    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
+    var attackerSq = g_pieceList[pieceIdx++];
+    var hit = false;
+
+    while (attackerSq != 0) {
+        if (IsSquareAttackableFrom(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+            hit = true;
+        }
+        attackerSq = g_pieceList[pieceIdx++];
+    }
+
+    return hit;
+}
+
 function configure(name, value) {
     if (name == 'WIDTH') {
         g_width = +value;

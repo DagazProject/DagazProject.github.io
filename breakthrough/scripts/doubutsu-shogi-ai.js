@@ -1204,9 +1204,24 @@ Dagaz.AI.See = function(move) {
 }
 
 function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    var pieceIdx = (us | pieceType) << Dagaz.AI.COUNTER_SIZE;
-    var attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
+    var inc = us ? -16 : 16;
     var hit = false;
+    var pieceIdx = (us | pieceType) << Dagaz.AI.COUNTER_SIZE;
+    var attackerSq = 0;
+    if (pieceQueen == pieceType) {
+        if (Dagaz.AI.g_board[target - (inc + 1)] == pieceType) attackerSq = target - (inc + 1);
+        if (Dagaz.AI.g_board[target - (inc - 1)] == pieceType) attackerSq = target - (inc - 1);
+        if (Dagaz.AI.g_board[target - 16]  == pieceType) attackerSq = target - 16;
+        if (Dagaz.AI.g_board[target + 16]  == pieceType) attackerSq = target + 16;
+        if (Dagaz.AI.g_board[target - 1]   == pieceType) attackerSq = target - 1;
+        if (Dagaz.AI.g_board[target + 1]   == pieceType) attackerSq = target + 1;
+        if (attackerSq != 0) {
+            attacks[attacks.length] = attackerSq;
+            return true;
+        }
+        return false;
+    }
+    attackerSq = Dagaz.AI.g_pieceList[pieceIdx++];
     while (attackerSq != 0) {
         if (IsSquareAttackableFrom(target, attackerSq)) {
             attacks[attacks.length] = attackerSq;

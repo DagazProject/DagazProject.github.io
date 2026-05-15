@@ -48,10 +48,6 @@ const flipTable      = new Array(256);
 
 const g_vectorDelta  = new Array(VECTORDELTA_SIZE);
 
-const g_pawnDeltas   = [-16];
-const g_knightDeltas = [-31, -33];
-const g_silverDeltas = [-16, -15, -17, 15, 17];
-const g_goldDeltas   = [-15, -17, -1, +1, -16, +16];
 const g_bishopDeltas = [-15, -17, 15, 17];
 const g_rookDeltas   = [-1, +1, -16, +16];
 const g_kingDeltas   = [-1, +1, -16, +16, -15, +15, -17, +17];
@@ -464,21 +460,21 @@ function ResetGame() {
 
   pieceSquareAdj[pieceEmpty]   = MakeTable(emptyAdj);
   pieceSquareAdj[piecePawn]    = MakeTable(pawnAdj);
-  pieceSquareAdj[piecePawnP]   = MakeTable(goldAdj);
   pieceSquareAdj[pieceKnight]  = MakeTable(knightAdj);
-  pieceSquareAdj[pieceKnightP] = MakeTable(goldAdj);
-  pieceSquareAdj[pieceLance]   = MakeTable(lanceAdj);
-  pieceSquareAdj[pieceLanceP]  = MakeTable(goldAdj);
   pieceSquareAdj[pieceSilver]  = MakeTable(silverAdj);
+  pieceSquareAdj[piecePawnP]   = MakeTable(goldAdj);
+  pieceSquareAdj[pieceKnightP] = MakeTable(goldAdj);
   pieceSquareAdj[pieceSilverP] = MakeTable(goldAdj);
+  pieceSquareAdj[pieceLanceP]  = MakeTable(goldAdj);
   pieceSquareAdj[pieceGold]    = MakeTable(goldAdj);
+  pieceSquareAdj[pieceLance]   = MakeTable(lanceAdj);
   pieceSquareAdj[pieceBishop]  = MakeTable(bishopAdj);
   pieceSquareAdj[pieceRook]    = MakeTable(rookAdj);
   pieceSquareAdj[pieceBishopP] = MakeTable(bishopPAdj);
   pieceSquareAdj[pieceRookP]   = MakeTable(rookPAdj);
   pieceSquareAdj[pieceKing]    = MakeTable(kingAdj);
 
-  const pieceDeltas = [[], g_pawnDeltas, g_knightDeltas, g_silverDeltas, g_goldDeltas, g_goldDeltas, g_goldDeltas, g_goldDeltas, g_goldDeltas, g_pawnDeltas, g_bishopDeltas, g_rookDeltas, g_kingDeltas, g_kingDeltas, g_kingDeltas];
+  const pieceDeltas = [[], [], [], g_bishopDeltas, g_rookDeltas, g_rookDeltas, g_rookDeltas, g_rookDeltas, g_rookDeltas, [], g_bishopDeltas, g_rookDeltas, g_kingDeltas, g_kingDeltas, g_kingDeltas];
 
   for (let i = 0; i < VECTORDELTA_SIZE; i++) {
       g_vectorDelta[i] = new Object();
@@ -492,47 +488,37 @@ function ResetGame() {
   for (let row = 0; row < (g_height << 4); row += 0x10) {
       for (let col = 0; col < g_width; col++) {
            const square = row | col;
-           for (let i = piecePawn; i <= pieceKing; i++) {
+
+           // Pawn moves
+           var index = square - (square - 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << piecePawn) | (1 << pieceSilver);
+           index = square - (square + 16) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << piecePawn) | (1 << pieceSilver);
+
+           // Knight moves
+           index = square - (square - 31) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceKnight);
+           index = square - (square - 33) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceKnight);
+
+           // Gold moves
+           index = square - (square - 17) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold) | (1 << piecePawnP) | (1 << pieceSilverP) | (1 << pieceKnightP) | (1 << pieceLanceP);
+           index = square - (square - 15) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << pieceGold) | (1 << piecePawnP) | (1 << pieceSilverP) | (1 << pieceKnightP) | (1 << pieceLanceP);
+           index = square - (square + 17) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold) | (1 << piecePawnP) | (1 << pieceSilverP) | (1 << pieceKnightP) | (1 << pieceLanceP);
+           index = square - (square + 15) + (VECTORDELTA_SIZE >> 1);
+           g_vectorDelta[index].pieceMask[0] |= (1 << pieceGold) | (1 << piecePawnP) | (1 << pieceSilverP) | (1 << pieceKnightP) | (1 << pieceLanceP);
+
+           for (let i = pieceSilver; i <= pieceKing; i++) {
+                if (i == pieceLance) continue;
                 for (let dir = 0; dir < pieceDeltas[i].length; dir++) {
                      let delta  = pieceDeltas[i][dir];
                      let target = square + delta;
                      while (!(target & 0x88)) {
                          const index = square - target + (VECTORDELTA_SIZE >> 1);
                          g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << i);
-                         let flip = -1;
-                         if (square < target) flip = 1;
-                         if ((square & 0xF0) == (target & 0xF0)) {
-                             // On the same row
-                             g_vectorDelta[index].delta = flip * 1;
-                         } else if ((square & 0x0F) == (target & 0x0F)) {
-                             // On the same column
-                             g_vectorDelta[index].delta = flip * 16;
-                         } else if ((square % 15) == (target % 15)) {
-                             g_vectorDelta[index].delta = flip * 15;
-                         } else if ((square % 17) == (target % 17)) {
-                             g_vectorDelta[index].delta = flip * 17;
-                         }
-                         if (i < pieceLance) {
-                             g_vectorDelta[index].delta = delta;
-                             break;
-                         }
-                         if ((i == pieceBishopP) && (dir < 4)) {
-                             g_vectorDelta[index].delta = delta;
-                             break;
-                         }
-                         if ((i == pieceRookP) && (dir >= 4)) {
-                             g_vectorDelta[index].delta = delta;
-                             break;
-                         }
-                         if (i == pieceKing)
-                             break;
-                         target += delta;
-                     }
-                     delta = -delta;
-                     target = square + delta;
-                     while (!(target & 0x88)) {
-                         const index = square - target + (VECTORDELTA_SIZE >> 1);
-                         g_vectorDelta[index].pieceMask[0] |= (1 << i);
                          let flip = -1;
                          if (square < target) flip = 1;
                          if ((square & 0xF0) == (target & 0xF0)) {
@@ -1808,14 +1794,56 @@ function IsSquareAttackable(target, color) {
     var pawn = (color ? colorWhite : colorBlack) | piecePawn;
     if (g_board[target - inc] == pawn) return true;
 
-    // Attackable by queens?
-    var queen = (color ? colorWhite : colorBlack) | pieceGold;
-    if (g_board[target - (inc - 1)] == queen) return true;
-    if (g_board[target - (inc + 1)] == queen) return true;
-    if (g_board[target - 16] == queen) return true;
-    if (g_board[target + 16] == queen) return true;
-    if (g_board[target - 1]  == queen) return true;
-    if (g_board[target + 1]  == queen) return true;
+    var silver = (color ? colorWhite : colorBlack) | pieceSilver;
+    if (g_board[target - inc] == silver) return true;
+    if (g_board[target - 15] == silver) return true;
+    if (g_board[target - 17] == silver) return true;
+    if (g_board[target + 15] == silver) return true;
+    if (g_board[target + 17] == silver) return true;
+
+    var knight = (color ? colorWhite : colorBlack) | pieceKnight;
+    if (g_board[target - (2 * inc - 1)] == knight) return true;
+    if (g_board[target - (2 * inc + 1)] == knight) return true;
+
+    var gold = (color ? colorWhite : colorBlack) | pieceGold;
+    if (g_board[target - (inc - 1)] == gold) return true;
+    if (g_board[target - (inc + 1)] == gold) return true;
+    if (g_board[target - 16] == gold) return true;
+    if (g_board[target + 16] == gold) return true;
+    if (g_board[target - 1]  == gold) return true;
+    if (g_board[target + 1]  == gold) return true;
+
+    gold = (color ? colorWhite : colorBlack) | piecePawnP;
+    if (g_board[target - (inc - 1)] == gold) return true;
+    if (g_board[target - (inc + 1)] == gold) return true;
+    if (g_board[target - 16] == gold) return true;
+    if (g_board[target + 16] == gold) return true;
+    if (g_board[target - 1] == gold) return true;
+    if (g_board[target + 1] == gold) return true;
+
+    gold = (color ? colorWhite : colorBlack) | pieceSilverP;
+    if (g_board[target - (inc - 1)] == gold) return true;
+    if (g_board[target - (inc + 1)] == gold) return true;
+    if (g_board[target - 16] == gold) return true;
+    if (g_board[target + 16] == gold) return true;
+    if (g_board[target - 1] == gold) return true;
+    if (g_board[target + 1] == gold) return true;
+
+    gold = (color ? colorWhite : colorBlack) | pieceKnightP;
+    if (g_board[target - (inc - 1)] == gold) return true;
+    if (g_board[target - (inc + 1)] == gold) return true;
+    if (g_board[target - 16] == gold) return true;
+    if (g_board[target + 16] == gold) return true;
+    if (g_board[target - 1] == gold) return true;
+    if (g_board[target + 1] == gold) return true;
+
+    gold = (color ? colorWhite : colorBlack) | pieceLanceP;
+    if (g_board[target - (inc - 1)] == gold) return true;
+    if (g_board[target - (inc + 1)] == gold) return true;
+    if (g_board[target - 16] == gold) return true;
+    if (g_board[target + 16] == gold) return true;
+    if (g_board[target - 1] == gold) return true;
+    if (g_board[target + 1] == gold) return true;
 
     // Attackable by pieces?
     for (var i = pieceBishop; i <= pieceKing; i++) {
@@ -1966,6 +1994,49 @@ function See(move) {
         // Add any x-ray attackers
         SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
     }
+}
+
+function SeeAddSliderAttacks(target, us, attacks, pieceType) {
+    var inc = us ? -16 : 16;
+    var attackerSq = -1;
+    if (pieceSilver == pieceType) {
+        if (g_board[target - inc] == pieceType) attackerSq = target - inc;
+    }
+    if (pieceKnight == pieceType) {
+        if (g_board[target - (2 * inc - 1)] == pieceType) attackerSq = target - (2 * inc - 1);
+        if (g_board[target - (2 * inc + 1)] == pieceType) attackerSq = target - (2 * inc + 1);
+    }
+    if (_.indexOf([pieceGold, piecePawnP, pieceSilverP, pieceKnightP, pieceLanceP], pieceType) >= 0) {
+        if (g_board[target - (inc + 1)] == pieceType) attackerSq = target - (inc + 1);
+        if (g_board[target - (inc - 1)] == pieceType) attackerSq = target - (inc - 1);
+    }
+    if (_.indexOf([pieceKing, pieceGold, piecePawnP, pieceSilverP, pieceKnightP, pieceLanceP], pieceType) >= 0) {
+        if (g_board[target - 16]  == pieceType) attackerSq = target - 16;
+        if (g_board[target + 16]  == pieceType) attackerSq = target + 16;
+        if (g_board[target - 1]   == pieceType) attackerSq = target - 1;
+        if (g_board[target + 1]   == pieceType) attackerSq = target + 1;
+    }
+    if (_.indexOf([pieceKing, pieceSilver], pieceType) >= 0) {
+        if (g_board[target - 17]  == pieceType) attackerSq = target - 17;
+        if (g_board[target - 15]  == pieceType) attackerSq = target - 15;
+        if (g_board[target + 17]  == pieceType) attackerSq = target + 17;
+        if (g_board[target + 15]  == pieceType) attackerSq = target + 15;
+    }
+    if (attackerSq >= 0) {
+        attacks[attacks.length] = attackerSq;
+        return true;
+    }
+    var hit = false;
+    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
+    attackerSq = g_pieceList[pieceIdx++];
+    while (attackerSq != 0) {
+        if (IsSquareAttackableFrom(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+            hit = true;
+        }
+        attackerSq = g_pieceList[pieceIdx++];
+    }
+    return hit;
 }
 
 function configure(name, value) {
