@@ -516,7 +516,7 @@ function ResetGame() {
                 for (let dir = 0; dir < pieceDeltas[i].length; dir++) {
                      let delta  = pieceDeltas[i][dir];
                      let target = square + delta;
-                     while (!(target & 0x88)) {
+                     while (onBoard(target)) {
                          const index = square - target + (VECTORDELTA_SIZE >> 1);
                          g_vectorDelta[index].pieceMask[colorWhite >> TYPE_SIZE] |= (1 << i);
                          let flip = -1;
@@ -1789,10 +1789,14 @@ function IsSquareAttackableFrom(target, from) {
 }
 
 function IsSquareAttackable(target, color) {
-    // Attackable by pawns?
     var inc = color ? -16 : 16;
     var pawn = (color ? colorWhite : colorBlack) | piecePawn;
     if (g_board[target - inc] == pawn) return true;
+
+    var lance = (color ? colorWhite : colorBlack) | pieceLance;
+    var square = target - inc;
+    while (g_board[square] == 0) square -= inc;
+    if (g_board[square] == lance) return true;
 
     var silver = (color ? colorWhite : colorBlack) | pieceSilver;
     if (g_board[target - inc] == silver) return true;
@@ -1846,7 +1850,7 @@ function IsSquareAttackable(target, color) {
     if (g_board[target + 1] == gold) return true;
 
     // Attackable by pieces?
-    for (var i = pieceBishop; i <= pieceKing; i++) {
+    for (var i = pieceSilver; i <= pieceKing; i++) {
          var index = (color | i) << COUNTER_SIZE;
          var square = g_pieceList[index];
          while (square) {
@@ -2001,6 +2005,11 @@ function SeeAddSliderAttacks(target, us, attacks, pieceType) {
     var attackerSq = -1;
     if (pieceSilver == pieceType) {
         if (g_board[target - inc] == pieceType) attackerSq = target - inc;
+    }
+    if (pieceLance == pieceType) {
+        var square = target - inc;
+        while (g_board[square] == 0) square -= inc;
+        if (g_board[square] == pieceType) attackerSq = square;
     }
     if (pieceKnight == pieceType) {
         if (g_board[target - (2 * inc - 1)] == pieceType) attackerSq = target - (2 * inc - 1);

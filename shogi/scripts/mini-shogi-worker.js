@@ -94,3 +94,7 @@ const knightAdj = [
      0,     0,     0,     0,     0,
      0,     0,     0,     0,     0
 ];
+
+function onBoard(target) {
+  return !(target & 0x88);
+}

@@ -2,6 +2,10 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  1.8;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME         = 'scripts/shogi-worker.js';
+Dagaz.AI.WORKER_TIME         = 5000;
+Dagaz.AI.ADVISOR_TIME        = 27000;
+
 Dagaz.AI.g_timeout           = 5000;
 
 Dagaz.Model.WIDTH            = 9;
@@ -58,7 +62,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("promote-dialog", "remap");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
     design.checkVersion("shogi-extension", "true");
     design.checkVersion("shogi-promotion", "true");
     design.checkVersion("common-shogi-invariant", "true");
@@ -868,9 +872,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.View.isTouchDevice ? Dagaz.Controller.newGame : Dagaz.View.switchMenu, 1);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'shogi.htm' : 'shogi-board.htm');
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'shogi-3d-board.htm' : 'shogi-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI",  true, Dagaz.Controller.go, Dagaz.AI.ON ? 'shogi-3d-board.htm' : 'shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
 
     view.defSubControl(1, "R01", "Without Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL-6/6/6/6/6/6/6/6/6-w");
     view.defSubControl(1, "R02", "Left-Kyo Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/1NSGKGSNL-6/6/6/6/6/6/6/6/6-w");

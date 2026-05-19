@@ -94,3 +94,7 @@ const kingAdj = [
      0,    20,     0,
     10,    50,    10
 ];
+
+function onBoard(target) {
+  return !(target & 0x88);
+}

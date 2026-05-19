@@ -201,8 +201,8 @@
 </g>
 <!-- Shogi -->
 <g id="node10" class="node"><title>Shogi</title>
-<a xlink:href="shogi/shogi.htm?selector=1">
-<ellipse fill="darkgreen" stroke="black" cx="637" cy="-90" rx="33.3604" ry="18"></ellipse>
+<a xlink:href="shogi/shogi-3d.htm?selector=1">
+<ellipse fill="gold" stroke="black" cx="637" cy="-90" rx="33.3604" ry="18"></ellipse>
 <text text-anchor="middle" x="637" y="-85.8" font-family="Times,serif" font-size="14.00">Shogi</text>
 </a>
 </g>
