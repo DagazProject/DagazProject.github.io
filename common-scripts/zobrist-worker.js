@@ -112,9 +112,9 @@ function SetHash() {
     result.hashKeyLow = 0;
     result.hashKeyHigh = 0;
 
-    for (var i = 0; i < 256; i++) {
+    for (var i = 0; i < 256 * 9; i++) {
         var piece = g_board[i];
-        if (piece & 0x18) {
+        if (piece & PLAYERS_MASK) {
             result.hashKeyLow ^= g_zobristLow[i][piece & 0xF]
             result.hashKeyHigh ^= g_zobristHigh[i][piece & 0xF]
         }

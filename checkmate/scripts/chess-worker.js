@@ -68,7 +68,7 @@ function GetMoveSAN(move, validMoves) {
 	if (move & moveflagCastleKing) return "O-O";
 	if (move & moveflagCastleQueen) return "O-O-O";
 	
-	var pieceType = g_board[from] & 0x7;
+	var pieceType = g_board[from] & TYPE_MASK;
 	var result = ["", "", "N", "B", "R", "Q", "K", ""][pieceType];
 	
 	var dupe = false, rowDiff = true, colDiff = true;
@@ -80,7 +80,7 @@ function GetMoveSAN(move, validMoves) {
 		var moveTo = (validMoves[i] >> 8) & 0xFF; 
 		if (moveFrom != from &&
 			moveTo == to &&
-			(g_board[moveFrom] & 0x7) == pieceType) {
+			(g_board[moveFrom] & TYPE_MASK) == pieceType) {
 			dupe = true;
 			if ((moveFrom & 0xF0) == (from & 0xF0)) {
 				rowDiff = false;
@@ -373,13 +373,13 @@ function Evaluate() {
     return curEval;
 }
 
-function ScoreMove(move){
+function ScoreMove(move) {
     var moveTo = (move >> 8) & 0xFF;
-    var captured = g_board[moveTo] & 0x7;
+    var captured = g_board[moveTo] & TYPE_MASK;
     var piece = g_board[move & 0xFF];
     var score;
     if (captured != 0) {
-        var pieceType = piece & 0x7;
+        var pieceType = piece & TYPE_MASK;
         score = (captured << 5) - pieceType;
     } else {
         score = historyTable[piece & 0xF][moveTo];
@@ -398,7 +398,7 @@ function IsHashMoveValid(hashMove) {
     var from = hashMove & 0xFF;
     var to = (hashMove >> 8) & 0xFF;
     var ourPiece = g_board[from];
-    var pieceType = ourPiece & 0x7;
+    var pieceType = ourPiece & TYPE_MASK;
     if (pieceType < piecePawn || pieceType > pieceKing) return false;
     // Can't move a piece we don't control
     if (g_toMove != (ourPiece & 0x8))
@@ -662,7 +662,7 @@ function InitializeFromFen(fen) {
     InitializePieceList();
     
     g_toMove = chunks[1].charAt(0) == 'w' ? colorWhite : 0;
-    var them = 8 - g_toMove;
+    var them = colorWhite - g_toMove;
     
     g_castleRights = 0;
     if (chunks[2].indexOf('K') != -1) { 
@@ -697,7 +697,7 @@ function InitializeFromFen(fen) {
     g_enPassentSquare = -1;
     if (chunks[3].indexOf('-') == -1) {
 	var col = chunks[3].charAt(0).charCodeAt() - 'a'.charCodeAt();
-	var row = 8 - (chunks[3].charAt(1).charCodeAt() - '0'.charCodeAt());
+	var row = colorWhite - (chunks[3].charAt(1).charCodeAt() - '0'.charCodeAt());
 	g_enPassentSquare = MakeSquare(row, col);
     }
 
@@ -708,11 +708,11 @@ function InitializeFromFen(fen) {
     g_baseEval = 0;
     for (var i = 0; i < 256; i++) {
         if (g_board[i] & colorWhite) {
-            g_baseEval += pieceSquareAdj[g_board[i] & 0x7][i];
-            g_baseEval += materialTable[g_board[i] & 0x7];
+            g_baseEval += pieceSquareAdj[g_board[i] & TYPE_MASK][i];
+            g_baseEval += materialTable[g_board[i] & TYPE_MASK];
         } else if (g_board[i] & colorBlack) {
-            g_baseEval -= pieceSquareAdj[g_board[i] & 0x7][flipTable[i]];
-            g_baseEval -= materialTable[g_board[i] & 0x7];
+            g_baseEval -= pieceSquareAdj[g_board[i] & TYPE_MASK][flipTable[i]];
+            g_baseEval -= materialTable[g_board[i] & TYPE_MASK];
         }
     }
     if (!g_toMove) g_baseEval = -g_baseEval;
@@ -751,7 +751,7 @@ function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHig
 
 function MakeMove(move){
     var me = g_toMove >> 3;
-	var otherColor = 8 - g_toMove; 
+    var otherColor = colorWhite - g_toMove; 
     
     var flags = move & 0xFF0000;
     var to = (move >> 8) & 0xFF;
@@ -789,8 +789,8 @@ function MakeMove(move){
             g_board[to - 1] = rook;
             g_board[to + 1] = pieceEmpty;
             
-            g_baseEval -= pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to + 1] : (to + 1)];
-            g_baseEval += pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to - 1] : (to - 1)];
+            g_baseEval -= pieceSquareAdj[rook & TYPE_MASK][me == 0 ? flipTable[to + 1] : (to + 1)];
+            g_baseEval += pieceSquareAdj[rook & TYPE_MASK][me == 0 ? flipTable[to - 1] : (to - 1)];
 
             var rookIndex = g_pieceIndex[to + 1];
             g_pieceIndex[to - 1] = rookIndex;
@@ -812,8 +812,8 @@ function MakeMove(move){
             g_board[to + 1] = rook;
             g_board[to - 2] = pieceEmpty;
             
-            g_baseEval -= pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to - 2] : (to - 2)];
-            g_baseEval += pieceSquareAdj[rook & 0x7][me == 0 ? flipTable[to + 1] : (to + 1)];
+            g_baseEval -= pieceSquareAdj[rook & TYPE_MASK][me == 0 ? flipTable[to - 2] : (to - 2)];
+            g_baseEval += pieceSquareAdj[rook & TYPE_MASK][me == 0 ? flipTable[to + 1] : (to + 1)];
 
             var rookIndex = g_pieceIndex[to - 2];
             g_pieceIndex[to + 1] = rookIndex;
@@ -830,13 +830,13 @@ function MakeMove(move){
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]] = 0;
 
-        g_baseEval += materialTable[captured & 0x7];
-        g_baseEval += pieceSquareAdj[captured & 0x7][me ? flipTable[epcEnd] : epcEnd];
+        g_baseEval += materialTable[captured & TYPE_MASK];
+        g_baseEval += pieceSquareAdj[captured & TYPE_MASK][me ? flipTable[epcEnd] : epcEnd];
 
         g_hashKeyLow ^= g_zobristLow[epcEnd][capturedType];
         g_hashKeyHigh ^= g_zobristHigh[epcEnd][capturedType];
         g_move50 = 0;
-    } else if ((piece & 0x7) == piecePawn) {
+    } else if ((piece & TYPE_MASK) == piecePawn) {
         var diff = to - from;
         if (diff < 0) diff = -diff;
         if (diff > 16) {
@@ -854,7 +854,7 @@ function MakeMove(move){
     
     g_castleRights &= g_castleRightsMask[from] & g_castleRightsMask[to];
 
-    g_baseEval -= pieceSquareAdj[piece & 0x7][me == 0 ? flipTable[from] : from];
+    g_baseEval -= pieceSquareAdj[piece & TYPE_MASK][me == 0 ? flipTable[from] : from];
     
     // Move our piece in the piece list
     g_pieceIndex[to] = g_pieceIndex[from];
@@ -877,9 +877,9 @@ function MakeMove(move){
         g_hashKeyLow ^= g_zobristLow[to][newPiece & 0xF];
         g_hashKeyHigh ^= g_zobristHigh[to][newPiece & 0xF];
         
-        g_baseEval += pieceSquareAdj[newPiece & 0x7][me == 0 ? flipTable[to] : to];
+        g_baseEval += pieceSquareAdj[newPiece & TYPE_MASK][me == 0 ? flipTable[to] : to];
         g_baseEval -= materialTable[piecePawn];
-        g_baseEval += materialTable[newPiece & 0x7];
+        g_baseEval += materialTable[newPiece & TYPE_MASK];
 
         var pawnType = piece & 0xF;
         var promoteType = newPiece & 0xF;
@@ -896,7 +896,7 @@ function MakeMove(move){
     } else {
         g_board[to] = g_board[from];
         
-        g_baseEval += pieceSquareAdj[piece & 0x7][me == 0 ? flipTable[to] : to];
+        g_baseEval += pieceSquareAdj[piece & TYPE_MASK][me == 0 ? flipTable[to] : to];
     }
     g_board[from] = pieceEmpty;
 
@@ -961,7 +961,7 @@ function MakeMove(move){
 }
 
 function UnmakeMove(move){
-    g_toMove = 8 - g_toMove;
+    g_toMove = colorWhite - g_toMove;
     g_baseEval = -g_baseEval;
     
     g_moveCount--;
@@ -973,7 +973,7 @@ function UnmakeMove(move){
     g_hashKeyHigh = g_moveUndoStack[g_moveCount].hashKeyHigh;
     g_move50 = g_moveUndoStack[g_moveCount].move50;
     
-    var otherColor = 8 - g_toMove;
+    var otherColor = colorWhite - g_toMove;
     var me = g_toMove >> 3;
     var them = otherColor >> 3;
     
@@ -1349,7 +1349,7 @@ function See(move) {
     }
 
     var us = (fromPiece & colorWhite) ? colorWhite : 0;
-    var them = 8 - us;
+    var them = colorWhite - us;
 
     // Pawn attacks 
     // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
@@ -1415,7 +1415,7 @@ function See(move) {
         // Find the least valuable piece of the opponent that can attack the square
         for (var i = 0; i < themAttacks.length; i++) {
             if (themAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[themAttacks[i]] & 0x7];
+                var pieceValue = g_seeValues[g_board[themAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;
@@ -1448,7 +1448,7 @@ function See(move) {
         // Find our least valuable piece that can attack the square
         for (var i = 0; i < usAttacks.length; i++) {
             if (usAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[usAttacks[i]] & 0x7];
+                var pieceValue = g_seeValues[g_board[usAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;

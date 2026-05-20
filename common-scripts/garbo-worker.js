@@ -55,16 +55,16 @@ function CommonResetGame() {
     g_hashTable = new Array(g_hashSize);
 
     for (var i = 0; i < 32; i++) {
-        historyTable[i] = new Array(256);
-        for (var j = 0; j < 256; j++)
+        historyTable[i] = new Array(256 * 9);
+        for (var j = 0; j < 256 * 9; j++)
             historyTable[i][j] = 0;
     }
 
     var mt = new MT(0x1badf00d);
 
-    g_zobristLow = new Array(256);
-    g_zobristHigh = new Array(256);
-    for (var i = 0; i < 256; i++) {
+    g_zobristLow = new Array(256 * 9);
+    g_zobristHigh = new Array(256 * 9);
+    for (var i = 0; i < 256 * 9; i++) {
         g_zobristLow[i] = new Array(32);
         g_zobristHigh[i] = new Array(32);
         for (var j = 0; j < 32; j++) {
@@ -655,7 +655,7 @@ var minMateBuffer = minEval + 2000;
 var maxMateBuffer = maxEval - 2000;
 
 // Position variables
-var g_board = new Array(256); // Sentinel 0x80, pieces are in low 4 bits, 0x8 for color, 0x7 bits for piece type
+var g_board = new Array(256 * 9); // Sentinel 0x80, pieces are in low 4 bits, 0x8 for color, 0x7 bits for piece type
 var g_toMove; // side to move, 0 or 8, 0 = black, 8 = white
 
 var g_baseEval;
@@ -695,9 +695,9 @@ function MakeTable(table) {
     return result;
 }
 
-var g_pieceIndex = new Array(VECTORDELTA_SIZE);
-var g_pieceList = new Array(2 * 8 * 16);
-var g_pieceCount = new Array(2 * 8);
+var g_pieceIndex = new Array(VECTORDELTA_SIZE * 9);
+var g_pieceList = new Array(2 * 16 * 64);
+var g_pieceCount = new Array(2 * 16);
 
 function InitializePieceList() {
     for (var i = 0; i < 64; i++) {
@@ -708,14 +708,13 @@ function InitializePieceList() {
         }
     }
 
-    for (var i = 0; i < VECTORDELTA_SIZE; i++) {
+    for (var i = 0; i < VECTORDELTA_SIZE * 9; i++) {
         g_pieceIndex[i] = 0;
-        if (g_board[i] & (colorWhite | colorBlack)) {
-			var piece = g_board[i] & PIECE_MASK;
-
-			g_pieceList[(piece << COUNTER_SIZE) | g_pieceCount[piece]] = i;
-			g_pieceIndex[i] = g_pieceCount[piece];
-			g_pieceCount[piece]++;
+        if (g_board[i] & PLAYERS_MASK) {
+            var piece = g_board[i] & PIECE_MASK;
+            g_pieceList[(piece << COUNTER_SIZE) | g_pieceCount[piece]] = i;
+            g_pieceIndex[i] = g_pieceCount[piece];
+            g_pieceCount[piece]++;
         }
     }
 }
