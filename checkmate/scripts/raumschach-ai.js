@@ -1352,11 +1352,6 @@ Dagaz.AI.See = function(move) {
     // King attacks
     SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
 
-    var usAttacks = new Array();
-
-    // King attacks
-    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
-
     // Our attacks
     var usAttacks = new Array();
     SeeAddKnightAttacks(to, us, usAttacks);

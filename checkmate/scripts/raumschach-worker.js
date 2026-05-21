@@ -786,13 +786,13 @@ function InitializeFromFen(fen) {
              if (pln < 0) break;
          } else {
             if (c >= '0' && c <= '9') {
-                for (var j = 0; j < parseInt(c); j++) {
+                for (let j = 0; j < parseInt(c); j++) {
                     g_board[MakeSquare(row, col, pln)] = 0;
                     col++;
                 }
             } else {
-                var isBlack = c >= 'a' && c <= 'z';
-                var piece = isBlack ? colorBlack : colorWhite;
+                let isBlack = c >= 'a' && c <= 'z';
+                let piece = isBlack ? colorBlack : colorWhite;
                 if (!isBlack) 
                     c = pieces.toLowerCase().charAt(i);
                 switch (c) {
@@ -846,7 +846,7 @@ function InitializeFromFen(fen) {
     if (!g_toMove) g_baseEval = -g_baseEval;
 
     g_move50 = 0;
-    var kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
+    const kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
     g_inCheck = false;
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, them);
@@ -876,23 +876,23 @@ function UndoHistory(inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, capture
 }
 
 function MakeMove(move) {
-    var me = g_toMove >> TYPE_SIZE;
-    var otherColor = colorWhite - g_toMove; 
+    const me = g_toMove >> TYPE_SIZE;
+    const otherColor = colorWhite - g_toMove; 
     
-    var flags = move & 0xFF000000;
-    var to = (move >> 12) & 0xFFF;
-    var from = move & 0xFFF;
-    var captured = g_board[to];
-    var piece = g_board[from];
+    const flags = move & 0xFF000000;
+    const to = (move >> 12) & 0xFFF;
+    const from = move & 0xFFF;
+    const captured = g_board[to];
+    let piece = g_board[from];
 
     g_moveUndoStack[g_moveCount] = new UndoHistory(g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
     g_moveCount++;
 
     if (captured) {
         // Remove our piece from the piece list
-        var capturedType = captured & PIECE_MASK;
+        const capturedType = captured & PIECE_MASK;
         g_pieceCount[capturedType]--;
-        var lastPieceSquare = g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]];
+        const lastPieceSquare = g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]];
         g_pieceIndex[lastPieceSquare] = g_pieceIndex[to];
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
         g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]] = 0;
@@ -919,7 +919,7 @@ function MakeMove(move) {
     g_pieceList[((piece & PIECE_MASK) << COUNTER_SIZE) | g_pieceIndex[to]] = to;
 
     if (flags & moveflagPromotion) {
-        var newPiece = piece & (~TYPE_MASK);
+        let newPiece = piece & (~TYPE_MASK);
         newPiece |= pieceQueen;
 
         g_hashKeyLow ^= g_zobristLow[to][piece & PIECE_MASK];
@@ -932,12 +932,12 @@ function MakeMove(move) {
         g_baseEval -= materialTable[piecePawn];
         g_baseEval += materialTable[newPiece & TYPE_MASK];
 
-        var pawnType = piece & PIECE_MASK;
-        var promoteType = newPiece & PIECE_MASK;
+        const pawnType = piece & PIECE_MASK;
+        const promoteType = newPiece & PIECE_MASK;
 
         g_pieceCount[pawnType]--;
 
-        var lastPawnSquare = g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]];
+        const lastPawnSquare = g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]];
         g_pieceIndex[lastPawnSquare] = g_pieceIndex[to];
         g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceIndex[lastPawnSquare]] = lastPawnSquare;
         g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]] = 0;
@@ -953,7 +953,7 @@ function MakeMove(move) {
     g_toMove = otherColor;
     g_baseEval = -g_baseEval;
     
-    var kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+    const kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
         UnmakeMove(move);
         return false;
@@ -961,7 +961,7 @@ function MakeMove(move) {
     
     g_inCheck = false;
     
-    var theirKingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+    const theirKingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
     if (theirKingPos != 0) {
 //      g_inCheck = IsSquareAttackable(theirKingPos, g_toMove);
     }
@@ -983,27 +983,27 @@ function UnmakeMove(move) {
     g_hashKeyHigh = g_moveUndoStack[g_moveCount].hashKeyHigh;
     g_move50 = g_moveUndoStack[g_moveCount].move50;
     
-    var otherColor = colorWhite - g_toMove;
-    var me = g_toMove >> TYPE_SIZE;
-    var them = otherColor >> TYPE_SIZE;
+    const otherColor = colorWhite - g_toMove;
+    const me = g_toMove >> TYPE_SIZE;
+    const them = otherColor >> TYPE_SIZE;
     
-    var flags = move & 0xFF000000;
-    var captured = g_moveUndoStack[g_moveCount].captured;
-    var to = (move >> 12) & 0xFFF;
-    var from = move & 0xFFF;
+    const flags = move & 0xFF000000;
+    const captured = g_moveUndoStack[g_moveCount].captured;
+    const to = (move >> 12) & 0xFFF;
+    const from = move & 0xFFF;
     
-    var piece = g_board[to];
+    let piece = g_board[to];
     
     if (flags & moveflagPromotion) {
         piece = (g_board[to] & (~TYPE_MASK)) | piecePawn;
         g_board[from] = piece;
 
-        var pawnType = g_board[from] & PIECE_MASK;
-        var promoteType = g_board[to] & PIECE_MASK;
+        const pawnType = g_board[from] & PIECE_MASK;
+        const promoteType = g_board[to] & PIECE_MASK;
 
         g_pieceCount[promoteType]--;
 
-        var lastPromoteSquare = g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]];
+        const lastPromoteSquare = g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]];
         g_pieceIndex[lastPromoteSquare] = g_pieceIndex[to];
         g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
         g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]] = 0;
@@ -1022,7 +1022,7 @@ function UnmakeMove(move) {
 
     if (captured) {
         // Restore our piece to the piece list
-        var captureType = captured & PIECE_MASK;
+        const captureType = captured & PIECE_MASK;
         g_pieceIndex[to] = g_pieceCount[captureType];
         g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = to;
         g_pieceCount[captureType]++;
@@ -1030,16 +1030,16 @@ function UnmakeMove(move) {
 }
 
 function IsSquareAttackableFrom(target, from) {
-    var to, pos, piece, pieceType, adj;
+    let to, pos, piece, pieceType, adj;
 
     piece = g_board[from];
     pieceType = piece & TYPE_MASK;
 
     if (pieceType == pieceEmpty) return false;
-    var color = (piece & colorWhite);
-    var enemy = color ? colorBlack : colorWhite;
-    var inc = color ? -1 : 1;
-    var me = color >> TYPE_SIZE;
+    const color = (piece & colorWhite);
+    const enemy = color ? colorBlack : colorWhite;
+    const inc = color ? -1 : 1;
+    const me = color >> TYPE_SIZE;
 
     if (pieceType == piecePawn) {
         if (+from + ((inc * 16) - 1) == target) return true;
@@ -1173,9 +1173,9 @@ function IsSquareAttackableFrom(target, from) {
 }
 
 function IsSquareAttackable(target, color) {
-    for (var i = piecePawn; i <= pieceKing; i++) {
-        var index = (color | i) << COUNTER_SIZE;
-        var square = g_pieceList[index];
+    for (let i = piecePawn; i <= pieceKing; i++) {
+        let index = (color | i) << COUNTER_SIZE;
+        let square = g_pieceList[index];
         while (square != 0) {
             if (IsSquareAttackableFrom(target, square)) return true;
             square = g_pieceList[++index];
@@ -1185,7 +1185,7 @@ function IsSquareAttackable(target, color) {
 }
 
 function GenerateAllMoves(moveStack) {
-    var from, to, piece, pieceIdx;
+    let from, to, piece, pieceIdx;
 
     // Pawn quiet moves
     pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
@@ -1340,9 +1340,10 @@ function GenerateAllMoves(moveStack) {
 }
 
 function GenerateCaptureMoves(moveStack, moveScores) {
-    var from, to, piece, pieceIdx;
-    var inc = (g_toMove == colorWhite) ? -1 : 1;
-    var enemy = g_toMove == colorWhite ? colorBlack : colorWhite;
+    let from, to, piece, pieceIdx;
+
+    const inc = (g_toMove == colorWhite) ? -1 : 1;
+    const enemy = g_toMove == colorWhite ? colorBlack : colorWhite;
 
     // Pawn captures
     pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
@@ -1518,7 +1519,7 @@ function GenerateCaptureMoves(moveStack, moveScores) {
 function GenerateDropMoves(moveStack, force) {}
 
 function MovePawnTo(moveStack, start, square) {
-    var row = square & 0xFF0;
+    const row = square & 0xFF0;
     if ((row == 0x620) || (row == 0x260)) {
         moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion);
     } else {
@@ -1527,28 +1528,28 @@ function MovePawnTo(moveStack, start, square) {
 }
 
 function GeneratePawnMoves(moveStack, from) {
-    var piece = g_board[from];
-    var color = piece & colorWhite;
-    var inc = (color == colorWhite) ? -1 : 1;
+    const piece = g_board[from];
+    const color = piece & colorWhite;
+    const inc = (color == colorWhite) ? -1 : 1;
     // Quiet pawn moves
-    var to = from + (inc * 16);
+    let to = from + (inc * 16);
     if (g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
     }
-    var to = from + (inc * -256);
+    to = from + (inc * -256);
     if (g_board[to] == 0) {
 	MovePawnTo(moveStack, from, to);
     }
 }
 
 function See(move) {
-    var from = move & 0xFFF;
-    var to = (move >> 12) & 0xFFF;
+    const from = move & 0xFFF;
+    const to = (move >> 12) & 0xFFF;
 
-    var fromPiece = g_board[from];
+    const fromPiece = g_board[from];
 
-    var fromValue = g_seeValues[fromPiece & PIECE_MASK];
-    var toValue = g_seeValues[g_board[to] & PIECE_MASK];
+    const fromValue = g_seeValues[fromPiece & PIECE_MASK];
+    const toValue = g_seeValues[g_board[to] & PIECE_MASK];
 
     if (fromValue <= toValue) {
         return true;
@@ -1559,12 +1560,12 @@ function See(move) {
         return true;
     }
 
-    var us = (fromPiece & colorWhite) ? colorWhite : 0;
-    var them = colorWhite - us;
+    const us = (fromPiece & colorWhite) ? colorWhite : 0;
+    const them = colorWhite - us;
 
     // Pawn attacks 
     // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
-    var inc = (fromPiece & colorWhite) ? -1 : 1; // Note: this is capture direction from to, so reversed from normal move direction
+    const inc = (fromPiece & colorWhite) ? -1 : 1; // Note: this is capture direction from to, so reversed from normal move direction
     if (((g_board[to + (inc * 16) + 1] & PIECE_MASK) == (piecePawn | them)) ||
         ((g_board[to + (inc * 16) - 1] & PIECE_MASK) == (piecePawn | them)) ||
         ((g_board[to + (inc * -256) + 1] & PIECE_MASK) == (piecePawn | them)) ||
@@ -1573,7 +1574,7 @@ function See(move) {
         return false;
     }
 
-    var themAttacks = new Array();
+    const themAttacks = new Array();
 
     // Pawn attacks 
     // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
@@ -1584,7 +1585,7 @@ function See(move) {
     // Knight attacks 
     // If any opponent knights can capture back, and the deficit we have to make up is greater than the knights value, 
     // it's not worth it.  We can capture on this square again, and the opponent doesn't have to capture back. 
-    var captureDeficit = fromValue - toValue;
+    const captureDeficit = fromValue - toValue;
     SeeAddKnightAttacks(to, them, themAttacks);
     if (themAttacks.length != 0 && captureDeficit > g_seeValues[pieceKnight]) {
         return false;
@@ -1592,7 +1593,7 @@ function See(move) {
 
     // Slider attacks
     g_board[from] = 0;
-    for (var pieceType = pieceUnicorn; pieceType <= pieceQueen; pieceType++) {
+    for (let pieceType = pieceUnicorn; pieceType <= pieceQueen; pieceType++) {
         if (pieceType == pieceKnight) continue;
         if (SeeAddSliderAttacks(to, them, themAttacks, pieceType)) {
             if (captureDeficit > g_seeValues[pieceType]) {
@@ -1618,15 +1619,10 @@ function See(move) {
     // King attacks
     SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
 
-    var usAttacks = new Array();
-
-    // King attacks
-    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
-
     // Our attacks
-    var usAttacks = new Array();
+    const usAttacks = new Array();
     SeeAddKnightAttacks(to, us, usAttacks);
-    for (var pieceType = pieceUnicorn; pieceType <= pieceKing; pieceType++) {
+    for (let pieceType = pieceUnicorn; pieceType <= pieceKing; pieceType++) {
         if (pieceType == pieceKnight) continue;
         SeeAddSliderAttacks(to, us, usAttacks, pieceType);
     }
@@ -1636,16 +1632,16 @@ function See(move) {
     // We are currently winning the amount of material of the captured piece, time to see if the opponent 
     // can get it back somehow.  We assume the opponent can capture our current piece in this score, which 
     // simplifies the later code considerably. 
-    var seeValue = toValue - fromValue;
+    let seeValue = toValue - fromValue;
 
     for (; ; ) {
-        var capturingPieceValue = 1000;
-        var capturingPieceIndex = -1;
+        let capturingPieceValue = 1000;
+        let capturingPieceIndex = -1;
 
         // Find the least valuable piece of the opponent that can attack the square
-        for (var i = 0; i < themAttacks.length; i++) {
+        for (let i = 0; i < themAttacks.length; i++) {
             if (themAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[themAttacks[i]] & TYPE_MASK];
+                const pieceValue = g_seeValues[g_board[themAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;
@@ -1665,7 +1661,7 @@ function See(move) {
             return false;
         }
 
-        var capturingPieceSquare = themAttacks[capturingPieceIndex];
+        let capturingPieceSquare = themAttacks[capturingPieceIndex];
         themAttacks[capturingPieceIndex] = 0;
 
         // Add any x-ray attackers
@@ -1676,9 +1672,9 @@ function See(move) {
         capturingPieceIndex = -1;
 
         // Find our least valuable piece that can attack the square
-        for (var i = 0; i < usAttacks.length; i++) {
+        for (let i = 0; i < usAttacks.length; i++) {
             if (usAttacks[i] != 0) {
-                var pieceValue = g_seeValues[g_board[usAttacks[i]] & TYPE_MASK];
+                const pieceValue = g_seeValues[g_board[usAttacks[i]] & TYPE_MASK];
                 if (pieceValue < capturingPieceValue) {
                     capturingPieceValue = pieceValue;
                     capturingPieceIndex = i;
@@ -1707,8 +1703,8 @@ function See(move) {
 }
 
 function SeeAddKnightAttacks(target, us, attacks) {
-    var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
-    var attackerSq = g_pieceList[pieceIdx++];
+    let pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
+    let attackerSq = g_pieceList[pieceIdx++];
     while (attackerSq != 0) {
         if (IsSquareAttackableFrom(target, attackerSq)) {
             attacks[attacks.length] = attackerSq;
@@ -1718,9 +1714,9 @@ function SeeAddKnightAttacks(target, us, attacks) {
 }
 
 function SeeAddSliderAttacks(target, us, attacks, pieceType) {
-    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
-    var attackerSq = g_pieceList[pieceIdx++];
-    var hit = false;
+    let pieceIdx = (us | pieceType) << COUNTER_SIZE;
+    let attackerSq = g_pieceList[pieceIdx++];
+    let hit = false;
     while (attackerSq != 0) {
         if (IsSquareAttackableFrom(target, attackerSq)) {
             if (pieceType > piecePawn) {
@@ -1765,7 +1761,7 @@ self.onmessage = function (e) {
         }
     } else if (e.data.match("^position") == "position") {
         ResetGame();
-        var result = InitializeFromFen(e.data.substr(9, e.data.length - 9));
+        const result = InitializeFromFen(e.data.substr(9, e.data.length - 9));
         if (result.length != 0) {
             self.postMessage("message " + result);
         }
