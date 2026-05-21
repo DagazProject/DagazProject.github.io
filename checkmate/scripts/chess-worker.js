@@ -749,7 +749,7 @@ function UndoHistory(ep, castleRights, inCheck, baseEval, hashKeyLow, hashKeyHig
     this.captured = captured;
 }
 
-function MakeMove(move){
+function MakeMove(move) {
     var me = g_toMove >> 3;
     var otherColor = colorWhite - g_toMove; 
     
@@ -960,7 +960,7 @@ function MakeMove(move){
     return true;
 }
 
-function UnmakeMove(move){
+function UnmakeMove(move) {
     g_toMove = colorWhite - g_toMove;
     g_baseEval = -g_baseEval;
     

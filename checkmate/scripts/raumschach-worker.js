@@ -1,14 +1,15 @@
-"use strict";
+﻿"use strict";
 
 let g_width             = 5;
 let g_height            = 5;
 
-let NOISE_FACTOR        = 5;
-let PIECE_MASK          = 0xF;
-let TYPE_MASK           = 0x7;
-let PLAYERS_MASK        = 0x18;
-let COUNTER_SIZE        = 6;
-let TYPE_SIZE           = 3;
+const NOISE_FACTOR      = 5;
+const PIECE_MASK        = 0xF;
+const TYPE_MASK         = 0x7;
+const PLAYERS_MASK      = 0x18;
+const COUNTER_SIZE      = 6;
+const TYPE_SIZE         = 3;
+const VECTORDELTA_SIZE  = 256;
 
 const colorBlack        = 0x10;
 const colorWhite        = 0x08;
@@ -23,7 +24,7 @@ const pieceQueen        = 0x06;
 const pieceKing         = 0x07;
 const pieceNo           = 0x80;
 
-const moveflagPromotion     = 0x01 << 24;
+const moveflagPromotion = 0x01 << 24;
 
 importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
 
@@ -310,7 +311,7 @@ const pieceSquareAdj = new Array(8);
 const flipTable = new Array(256 * 9);
 
 const g_seeValues = [0, 1, 3, 3, 3, 5, 9, 900,
-                   0, 1, 3, 3, 3, 5, 9, 900];
+                     0, 1, 3, 3, 3, 5, 9, 900];
 
 function Mobility(color) {
     let result = 0;
@@ -724,6 +725,7 @@ function ResetGame() {
        }
   }
 
+  pieceSquareAdj[pieceEmpty]   = MakeTable(emptyAdj);
   pieceSquareAdj[piecePawn]    = MakeTable(pawnAdj);
   pieceSquareAdj[pieceUnicorn] = MakeTable(unicornAdj);
   pieceSquareAdj[pieceKnight]  = MakeTable(knightAdj);
@@ -862,4 +864,918 @@ function InitializeFromFen(fen) {
     } 
 
     return '';
+}
+
+function UndoHistory(inCheck, baseEval, hashKeyLow, hashKeyHigh, move50, captured) {
+    this.inCheck = inCheck;
+    this.baseEval = baseEval;
+    this.hashKeyLow = hashKeyLow;
+    this.hashKeyHigh = hashKeyHigh;
+    this.move50 = move50;
+    this.captured = captured;
+}
+
+function MakeMove(move) {
+    var me = g_toMove >> TYPE_SIZE;
+    var otherColor = colorWhite - g_toMove; 
+    
+    var flags = move & 0xFF000000;
+    var to = (move >> 12) & 0xFFF;
+    var from = move & 0xFFF;
+    var captured = g_board[to];
+    var piece = g_board[from];
+
+    g_moveUndoStack[g_moveCount] = new UndoHistory(g_inCheck, g_baseEval, g_hashKeyLow, g_hashKeyHigh, g_move50, captured);
+    g_moveCount++;
+
+    if (captured) {
+        // Remove our piece from the piece list
+        var capturedType = captured & PIECE_MASK;
+        g_pieceCount[capturedType]--;
+        var lastPieceSquare = g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]];
+        g_pieceIndex[lastPieceSquare] = g_pieceIndex[to];
+        g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceIndex[lastPieceSquare]] = lastPieceSquare;
+        g_pieceList[(capturedType << COUNTER_SIZE) | g_pieceCount[capturedType]] = 0;
+
+        g_baseEval += materialTable[captured & TYPE_MASK];
+        g_baseEval += pieceSquareAdj[captured & TYPE_MASK][me ? flipTable[to] : to];
+
+        g_hashKeyLow ^= g_zobristLow[to][capturedType];
+        g_hashKeyHigh ^= g_zobristHigh[to][capturedType];
+        g_move50 = 0;
+    }
+
+    g_hashKeyLow ^= g_zobristLow[from][piece & PIECE_MASK];
+    g_hashKeyHigh ^= g_zobristHigh[from][piece & PIECE_MASK];
+    g_hashKeyLow ^= g_zobristLow[to][piece & PIECE_MASK];
+    g_hashKeyHigh ^= g_zobristHigh[to][piece & PIECE_MASK];
+    g_hashKeyLow ^= g_zobristBlackLow;
+    g_hashKeyHigh ^= g_zobristBlackHigh;
+    
+    g_baseEval -= pieceSquareAdj[piece & TYPE_MASK][me == 0 ? flipTable[from] : from];
+    
+    // Move our piece in the piece list
+    g_pieceIndex[to] = g_pieceIndex[from];
+    g_pieceList[((piece & PIECE_MASK) << COUNTER_SIZE) | g_pieceIndex[to]] = to;
+
+    if (flags & moveflagPromotion) {
+        var newPiece = piece & (~TYPE_MASK);
+        newPiece |= pieceQueen;
+
+        g_hashKeyLow ^= g_zobristLow[to][piece & PIECE_MASK];
+        g_hashKeyHigh ^= g_zobristHigh[to][piece & PIECE_MASK];
+        g_board[to] = newPiece;
+        g_hashKeyLow ^= g_zobristLow[to][newPiece & PIECE_MASK];
+        g_hashKeyHigh ^= g_zobristHigh[to][newPiece & PIECE_MASK];
+        
+        g_baseEval += pieceSquareAdj[newPiece & TYPE_MASK][me == 0 ? flipTable[to] : to];
+        g_baseEval -= materialTable[piecePawn];
+        g_baseEval += materialTable[newPiece & TYPE_MASK];
+
+        var pawnType = piece & PIECE_MASK;
+        var promoteType = newPiece & PIECE_MASK;
+
+        g_pieceCount[pawnType]--;
+
+        var lastPawnSquare = g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]];
+        g_pieceIndex[lastPawnSquare] = g_pieceIndex[to];
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceIndex[lastPawnSquare]] = lastPawnSquare;
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceCount[pawnType]] = 0;
+        g_pieceIndex[to] = g_pieceCount[promoteType];
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceIndex[to]] = to;
+        g_pieceCount[promoteType]++;
+    } else {
+        g_board[to] = g_board[from];
+        g_baseEval += pieceSquareAdj[piece & TYPE_MASK][me == 0 ? flipTable[to] : to];
+    }
+    g_board[from] = pieceEmpty;
+
+    g_toMove = otherColor;
+    g_baseEval = -g_baseEval;
+    
+    var kingPos = g_pieceList[(pieceKing | (colorWhite - g_toMove)) << COUNTER_SIZE];
+    if ((kingPos != 0) && IsSquareAttackable(kingPos, otherColor)) {
+        UnmakeMove(move);
+        return false;
+    }
+    
+    g_inCheck = false;
+    
+    var theirKingPos = g_pieceList[(pieceKing | g_toMove) << COUNTER_SIZE];
+    if (theirKingPos != 0) {
+//      g_inCheck = IsSquareAttackable(theirKingPos, g_toMove);
+    }
+
+    g_repMoveStack[g_moveCount - 1] = g_hashKeyLow;
+    g_move50++;
+
+    return true;
+}
+
+function UnmakeMove(move) {
+    g_toMove = colorWhite - g_toMove;
+    g_baseEval = -g_baseEval;
+    
+    g_moveCount--;
+    g_inCheck = g_moveUndoStack[g_moveCount].inCheck;
+    g_baseEval = g_moveUndoStack[g_moveCount].baseEval;
+    g_hashKeyLow = g_moveUndoStack[g_moveCount].hashKeyLow;
+    g_hashKeyHigh = g_moveUndoStack[g_moveCount].hashKeyHigh;
+    g_move50 = g_moveUndoStack[g_moveCount].move50;
+    
+    var otherColor = colorWhite - g_toMove;
+    var me = g_toMove >> TYPE_SIZE;
+    var them = otherColor >> TYPE_SIZE;
+    
+    var flags = move & 0xFF000000;
+    var captured = g_moveUndoStack[g_moveCount].captured;
+    var to = (move >> 12) & 0xFFF;
+    var from = move & 0xFFF;
+    
+    var piece = g_board[to];
+    
+    if (flags & moveflagPromotion) {
+        piece = (g_board[to] & (~TYPE_MASK)) | piecePawn;
+        g_board[from] = piece;
+
+        var pawnType = g_board[from] & PIECE_MASK;
+        var promoteType = g_board[to] & PIECE_MASK;
+
+        g_pieceCount[promoteType]--;
+
+        var lastPromoteSquare = g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]];
+        g_pieceIndex[lastPromoteSquare] = g_pieceIndex[to];
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceIndex[lastPromoteSquare]] = lastPromoteSquare;
+        g_pieceList[(promoteType << COUNTER_SIZE) | g_pieceCount[promoteType]] = 0;
+        g_pieceIndex[to] = g_pieceCount[pawnType];
+        g_pieceList[(pawnType << COUNTER_SIZE) | g_pieceIndex[to]] = to;
+        g_pieceCount[pawnType]++;
+    } else {
+        g_board[from] = g_board[to];
+    }
+
+    g_board[to] = captured;
+
+    // Move our piece in the piece list
+    g_pieceIndex[from] = g_pieceIndex[to];
+    g_pieceList[((piece & PIECE_MASK) << COUNTER_SIZE) | g_pieceIndex[from]] = from;
+
+    if (captured) {
+        // Restore our piece to the piece list
+        var captureType = captured & PIECE_MASK;
+        g_pieceIndex[to] = g_pieceCount[captureType];
+        g_pieceList[(captureType << COUNTER_SIZE) | g_pieceCount[captureType]] = to;
+        g_pieceCount[captureType]++;
+    }
+}
+
+function IsSquareAttackableFrom(target, from) {
+    var to, pos, piece, pieceType, adj;
+
+    piece = g_board[from];
+    pieceType = piece & TYPE_MASK;
+
+    if (pieceType == pieceEmpty) return false;
+    var color = (piece & colorWhite);
+    var enemy = color ? colorBlack : colorWhite;
+    var inc = color ? -1 : 1;
+    var me = color >> TYPE_SIZE;
+
+    if (pieceType == piecePawn) {
+        if (+from + ((inc * 16) - 1) == target) return true;
+        if (+from + ((inc * 16) + 1) == target) return true;
+        if (+from + ((inc * -256) - 1) == target) return true;
+        if (+from + ((inc * -256) + 1) == target) return true;
+        if (+from + (inc * -240) == target) return true;
+    }
+
+    if (pieceType == pieceUnicorn) {
+       to = from; do { to += 239; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 239; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 273; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 273; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 241; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 241; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 271; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 271; if (to == target) return true; } while (g_board[to] == 0);
+    }
+
+    if (pieceType == pieceBishop) {
+       to = from; do { to += 17; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 17; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 15; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 15; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 272; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 272; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 240; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 240; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 255; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 255; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 257; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 257; if (to == target) return true; } while (g_board[to] == 0);
+    }
+
+    if (pieceType == pieceKnight) {
+        if (+from - 31 == target) return true;
+        if (+from + 31 == target) return true;
+        if (+from - 33 == target) return true;
+        if (+from + 33 == target) return true;
+        if (+from - 14 == target) return true;
+        if (+from + 14 == target) return true;
+        if (+from - 18 == target) return true;
+        if (+from + 18 == target) return true;
+        if (+from - 224 == target) return true;
+        if (+from + 224 == target) return true;
+        if (+from - 288 == target) return true;
+        if (+from + 288 == target) return true;
+        if (+from - 254 == target) return true;
+        if (+from + 254 == target) return true;
+        if (+from - 258 == target) return true;
+        if (+from + 258 == target) return true;
+        if (+from - 496 == target) return true;
+        if (+from + 496 == target) return true;
+        if (+from - 528 == target) return true;
+        if (+from + 528 == target) return true;
+        if (+from - 511 == target) return true;
+        if (+from + 511 == target) return true;
+        if (+from - 513 == target) return true;
+        if (+from + 513 == target) return true;
+    }
+
+    if (pieceType == pieceRook) {
+       to = from; do { to++; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to--; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 16; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 16; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 256; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 256; if (to == target) return true; } while (g_board[to] == 0);
+    }
+
+    if (pieceType == pieceQueen) {
+       to = from; do { to++; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to--; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 16; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 16; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 256; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 256; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 17; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 17; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 15; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 15; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 272; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 272; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 240; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 240; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 255; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 255; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 257; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 257; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 239; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 239; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 273; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 273; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 241; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 241; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to += 271; if (to == target) return true; } while (g_board[to] == 0);
+       to = from; do { to -= 271; if (to == target) return true; } while (g_board[to] == 0);
+    }
+
+    if (pieceType == pieceKing) {
+        if (+from - 1 == target) return true;
+        if (+from + 1 == target) return true;
+        if (+from - 16 == target) return true;
+        if (+from + 16 == target) return true;
+        if (+from - 256 == target) return true;
+        if (+from + 256 == target) return true;
+        if (+from - 17 == target) return true;
+        if (+from + 17 == target) return true;
+        if (+from - 15 == target) return true;
+        if (+from + 15 == target) return true;
+        if (+from - 272 == target) return true;
+        if (+from + 272 == target) return true;
+        if (+from - 240 == target) return true;
+        if (+from + 240 == target) return true;
+        if (+from - 255 == target) return true;
+        if (+from + 255 == target) return true;
+        if (+from - 257 == target) return true;
+        if (+from + 257 == target) return true;
+        if (+from - 239 == target) return true;
+        if (+from + 239 == target) return true;
+        if (+from - 273 == target) return true;
+        if (+from + 273 == target) return true;
+        if (+from - 241 == target) return true;
+        if (+from + 241 == target) return true;
+        if (+from - 271 == target) return true;
+        if (+from + 271 == target) return true;
+    }
+
+    return false;
+}
+
+function IsSquareAttackable(target, color) {
+    for (var i = piecePawn; i <= pieceKing; i++) {
+        var index = (color | i) << COUNTER_SIZE;
+        var square = g_pieceList[index];
+        while (square != 0) {
+            if (IsSquareAttackableFrom(target, square)) return true;
+            square = g_pieceList[++index];
+        }
+    }
+    return false;
+}
+
+function GenerateAllMoves(moveStack) {
+    var from, to, piece, pieceIdx;
+
+    // Pawn quiet moves
+    pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+        GeneratePawnMoves(moveStack, from);
+        from = g_pieceList[pieceIdx++];
+    }
+
+    // Unicorn quiet moves
+    pieceIdx = (g_toMove | pieceUnicorn) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 239; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 239; }
+	to = from + 239; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 239; }
+	to = from - 273; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 273; }
+	to = from + 273; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 273; }
+	to = from - 241; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 241; }
+	to = from + 241; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 241; }
+	to = from - 271; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 271; }
+	to = from + 271; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 271; }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Knight quiet moves
+    pieceIdx = (g_toMove | pieceKnight) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from + 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 14; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 31; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 33; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 18; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 224; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 224; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 288; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 288; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 254; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 254; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 258; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 258; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 496; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 496; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 528; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 528; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 511; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 511; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 513; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 513; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Bishop quiet moves
+    pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 15; }
+	to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 17; }
+	to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 15; }
+	to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 17; }
+	to = from - 272; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 272; }
+	to = from + 272; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 272; }
+	to = from - 240; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 240; }
+	to = from + 240; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 240; }
+	to = from - 255; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 255; }
+	to = from + 255; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 255; }
+	to = from - 257; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 257; }
+	to = from + 257; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 257; }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Rook quiet moves
+    pieceIdx = (g_toMove | pieceRook) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to--; }
+	to = from + 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to++; }
+	to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 16; }
+	to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 16; }
+	to = from + 256; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 256; }
+	to = from - 256; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 256; }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Queen quiet moves
+    pieceIdx = (g_toMove | pieceQueen) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 15; }
+	to = from - 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 17; }
+	to = from + 15; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 15; }
+	to = from + 17; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 17; }
+	to = from - 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to--; }
+	to = from + 1;  while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to++; }
+	to = from + 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 16; }
+	to = from - 16; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 16; }
+	to = from + 256; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 256; }
+	to = from - 256; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 256; }
+	to = from - 272; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 272; }
+	to = from + 272; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 272; }
+	to = from - 240; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 240; }
+	to = from + 240; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 240; }
+	to = from - 255; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 255; }
+	to = from + 255; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 255; }
+	to = from - 257; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 257; }
+	to = from + 257; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 257; }
+	to = from - 239; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 239; }
+	to = from + 239; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 239; }
+	to = from - 273; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 273; }
+	to = from + 273; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 273; }
+	to = from - 241; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 241; }
+	to = from + 241; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 241; }
+	to = from - 271; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to -= 271; }
+	to = from + 271; while (g_board[to] == 0) { moveStack[moveStack.length] = GenerateMove(from, to, 0); to += 271; }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // King quiet moves
+    {
+ 	pieceIdx = (g_toMove | pieceKing) << COUNTER_SIZE;
+	from = g_pieceList[pieceIdx];
+	to = from - 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 15; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 17; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 1;  if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 16; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 256; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 256; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 272; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 272; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 240; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 240; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 255; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 255; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 257; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 257; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 239; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 239; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 273; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 273; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 241; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 241; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 271; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 271; if (g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+    }	
+}
+
+function GenerateCaptureMoves(moveStack, moveScores) {
+    var from, to, piece, pieceIdx;
+    var inc = (g_toMove == colorWhite) ? -1 : 1;
+    var enemy = g_toMove == colorWhite ? colorBlack : colorWhite;
+
+    // Pawn captures
+    pieceIdx = (g_toMove | piecePawn) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+        to = from + (inc * 16) - 1;
+        if (g_board[to] & enemy) {
+            MovePawnTo(moveStack, from, to);
+        }
+        to = from + (inc * 16) + 1;
+        if (g_board[to] & enemy) {
+            MovePawnTo(moveStack, from, to);
+        }
+        to = from + (inc * -256) - 1;
+        if (g_board[to] & enemy) {
+            MovePawnTo(moveStack, from, to);
+        }
+        to = from + (inc * -256) + 1;
+        if (g_board[to] & enemy) {
+            MovePawnTo(moveStack, from, to);
+        }
+        to = from + (inc * -240);
+        if (g_board[to] & enemy) {
+            MovePawnTo(moveStack, from, to);
+        }
+        from = g_pieceList[pieceIdx++];
+    }
+
+    // Unicorn captures
+    pieceIdx = (g_toMove | pieceUnicorn) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to -= 239; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 239; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 273; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 273; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 241; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 241; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 271; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 271; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Knight captures
+    pieceIdx = (g_toMove | pieceKnight) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from + 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 14; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 31; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 33; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 18; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 224; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 224; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 288; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 288; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 254; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 254; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 258; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 258; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 496; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 496; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 528; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 528; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 511; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 511; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 513; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 513; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Bishop captures
+    pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 272; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 272; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 240; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 240; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 255; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 255; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 257; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 257; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Rook captures
+    pieceIdx = (g_toMove | pieceRook) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 256; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 256; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Queen captures
+    pieceIdx = (g_toMove | pieceQueen) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from; do { to--; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to++; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 16; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 256; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 256; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 15; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 17; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 272; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 272; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 240; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 240; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 255; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 255; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 257; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 257; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 239; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 239; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 273; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 273; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 241; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 241; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to -= 271; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from; do { to += 271; } while (g_board[to] == 0); if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // King captures
+    {
+	pieceIdx = (g_toMove | pieceKing) << COUNTER_SIZE;
+	from = g_pieceList[pieceIdx];
+	to = from - 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 15; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 17; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 1;  if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 1;  if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 16; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 256; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 256; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 272; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 272; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 240; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 240; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 255; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 255; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 257; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 257; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 239; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 239; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 273; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 273; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 241; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 241; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from - 271; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+	to = from + 271; if (g_board[to] & enemy) moveStack[moveStack.length] = GenerateMove(from, to, 0);
+    }
+}
+
+function GenerateDropMoves(moveStack, force) {}
+
+function MovePawnTo(moveStack, start, square) {
+    var row = square & 0xFF0;
+    if ((row == 0x620) || (row == 0x260)) {
+        moveStack[moveStack.length] = GenerateMove(start, square, moveflagPromotion);
+    } else {
+        moveStack[moveStack.length] = GenerateMove(start, square, 0);
+    }
+}
+
+function GeneratePawnMoves(moveStack, from) {
+    var piece = g_board[from];
+    var color = piece & colorWhite;
+    var inc = (color == colorWhite) ? -1 : 1;
+    // Quiet pawn moves
+    var to = from + (inc * 16);
+    if (g_board[to] == 0) {
+	MovePawnTo(moveStack, from, to);
+    }
+    var to = from + (inc * -256);
+    if (g_board[to] == 0) {
+	MovePawnTo(moveStack, from, to);
+    }
+}
+
+function See(move) {
+    var from = move & 0xFFF;
+    var to = (move >> 12) & 0xFFF;
+
+    var fromPiece = g_board[from];
+
+    var fromValue = g_seeValues[fromPiece & PIECE_MASK];
+    var toValue = g_seeValues[g_board[to] & PIECE_MASK];
+
+    if (fromValue <= toValue) {
+        return true;
+    }
+
+    if (move >> 24) {
+        // Castles, promotion, ep are always good
+        return true;
+    }
+
+    var us = (fromPiece & colorWhite) ? colorWhite : 0;
+    var them = colorWhite - us;
+
+    // Pawn attacks 
+    // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
+    var inc = (fromPiece & colorWhite) ? -1 : 1; // Note: this is capture direction from to, so reversed from normal move direction
+    if (((g_board[to + (inc * 16) + 1] & PIECE_MASK) == (piecePawn | them)) ||
+        ((g_board[to + (inc * 16) - 1] & PIECE_MASK) == (piecePawn | them)) ||
+        ((g_board[to + (inc * -256) + 1] & PIECE_MASK) == (piecePawn | them)) ||
+        ((g_board[to + (inc * -256) - 1] & PIECE_MASK) == (piecePawn | them)) ||
+        ((g_board[to + (inc * -240)] & PIECE_MASK) == (piecePawn | them))) {
+        return false;
+    }
+
+    var themAttacks = new Array();
+
+    // Pawn attacks 
+    // If any opponent pawns can capture back, this capture is probably not worthwhile (as we must be using knight or above).
+    if (SeeAddSliderAttacks(to, them, themAttacks, piecePawn)) {
+        return false;
+    }
+
+    // Knight attacks 
+    // If any opponent knights can capture back, and the deficit we have to make up is greater than the knights value, 
+    // it's not worth it.  We can capture on this square again, and the opponent doesn't have to capture back. 
+    var captureDeficit = fromValue - toValue;
+    SeeAddKnightAttacks(to, them, themAttacks);
+    if (themAttacks.length != 0 && captureDeficit > g_seeValues[pieceKnight]) {
+        return false;
+    }
+
+    // Slider attacks
+    g_board[from] = 0;
+    for (var pieceType = pieceUnicorn; pieceType <= pieceQueen; pieceType++) {
+        if (pieceType == pieceKnight) continue;
+        if (SeeAddSliderAttacks(to, them, themAttacks, pieceType)) {
+            if (captureDeficit > g_seeValues[pieceType]) {
+                g_board[from] = fromPiece;
+                return false;
+            }
+        }
+    }
+
+    // Pawn defenses 
+    // At this point, we are sure we are making a "losing" capture.  The opponent can not capture back with a 
+    // pawn.  They cannot capture back with a minor/major and stand pat either.  So, if we can capture with 
+    // a pawn, it's got to be a winning or equal capture. 
+    if (((g_board[to - (inc * 16) + 1] & PIECE_MASK) == (piecePawn | us)) ||
+        ((g_board[to - (inc * 16) - 1] & PIECE_MASK) == (piecePawn | us)) ||
+        ((g_board[to - (inc * -256) + 1] & PIECE_MASK) == (piecePawn | us)) ||
+        ((g_board[to - (inc * -256) - 1] & PIECE_MASK) == (piecePawn | us)) ||
+        ((g_board[to - (inc * -240)] & PIECE_MASK) == (piecePawn | us))) {
+        g_board[from] = fromPiece;
+        return true;
+    }
+
+    // King attacks
+    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
+
+    var usAttacks = new Array();
+
+    // King attacks
+    SeeAddSliderAttacks(to, them, themAttacks, pieceKing);
+
+    // Our attacks
+    var usAttacks = new Array();
+    SeeAddKnightAttacks(to, us, usAttacks);
+    for (var pieceType = pieceUnicorn; pieceType <= pieceKing; pieceType++) {
+        if (pieceType == pieceKnight) continue;
+        SeeAddSliderAttacks(to, us, usAttacks, pieceType);
+    }
+
+    g_board[from] = fromPiece;
+
+    // We are currently winning the amount of material of the captured piece, time to see if the opponent 
+    // can get it back somehow.  We assume the opponent can capture our current piece in this score, which 
+    // simplifies the later code considerably. 
+    var seeValue = toValue - fromValue;
+
+    for (; ; ) {
+        var capturingPieceValue = 1000;
+        var capturingPieceIndex = -1;
+
+        // Find the least valuable piece of the opponent that can attack the square
+        for (var i = 0; i < themAttacks.length; i++) {
+            if (themAttacks[i] != 0) {
+                var pieceValue = g_seeValues[g_board[themAttacks[i]] & TYPE_MASK];
+                if (pieceValue < capturingPieceValue) {
+                    capturingPieceValue = pieceValue;
+                    capturingPieceIndex = i;
+                }
+            }
+        }
+
+        if (capturingPieceIndex == -1) {
+            // Opponent can't capture back, we win
+            return true;
+        }
+
+        // Now, if seeValue < 0, the opponent is winning.  If even after we take their piece, 
+        // we can't bring it back to 0, then we have lost this battle. 
+        seeValue += capturingPieceValue;
+        if (seeValue < 0) {
+            return false;
+        }
+
+        var capturingPieceSquare = themAttacks[capturingPieceIndex];
+        themAttacks[capturingPieceIndex] = 0;
+
+        // Add any x-ray attackers
+        // SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
+
+        // Our turn to capture
+        capturingPieceValue = 1000;
+        capturingPieceIndex = -1;
+
+        // Find our least valuable piece that can attack the square
+        for (var i = 0; i < usAttacks.length; i++) {
+            if (usAttacks[i] != 0) {
+                var pieceValue = g_seeValues[g_board[usAttacks[i]] & TYPE_MASK];
+                if (pieceValue < capturingPieceValue) {
+                    capturingPieceValue = pieceValue;
+                    capturingPieceIndex = i;
+                }
+            }
+        }
+
+        if (capturingPieceIndex == -1) {
+            // We can't capture back, we lose :( 
+            return false;
+        }
+
+        // Assume our opponent can capture us back, and if we are still winning, we can stand-pat 
+        // here, and assume we've won. 
+        seeValue -= capturingPieceValue;
+        if (seeValue >= 0) {
+            return true;
+        }
+
+        capturingPieceSquare = usAttacks[capturingPieceIndex];
+        usAttacks[capturingPieceIndex] = 0;
+
+        // Add any x-ray attackers
+        // SeeAddXrayAttack(to, capturingPieceSquare, us, usAttacks, themAttacks);
+    }
+}
+
+function SeeAddKnightAttacks(target, us, attacks) {
+    var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
+    var attackerSq = g_pieceList[pieceIdx++];
+    while (attackerSq != 0) {
+        if (IsSquareAttackableFrom(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+        }
+        attackerSq = g_pieceList[pieceIdx++];
+    }
+}
+
+function SeeAddSliderAttacks(target, us, attacks, pieceType) {
+    var pieceIdx = (us | pieceType) << COUNTER_SIZE;
+    var attackerSq = g_pieceList[pieceIdx++];
+    var hit = false;
+    while (attackerSq != 0) {
+        if (IsSquareAttackableFrom(target, attackerSq)) {
+            if (pieceType > piecePawn) {
+                attacks[attacks.length] = attackerSq;
+            }
+            hit = true;
+        }
+        attackerSq = g_pieceList[pieceIdx++];
+    }
+    return hit;
+}
+
+function configure(name, value) {
+    if (name == 'WIDTH') {
+        g_width = +value;
+        return true;
+    }
+    if (name == 'HEIGHT') {
+        g_height = +value;
+        return true;
+    }
+    if (name == 'FLAGS') {
+        g_flags = +value;
+        return true;
+    }
+    return false;
+}
+
+self.onmessage = function (e) {
+    if (e.data == "go" || needsReset) {
+        ResetGame();
+        needsReset = false;
+        if (e.data == "go") return;
+    }
+    if (e.data.match("^config") == "config") {
+        const s = e.data.substr(7, e.data.length - 7);
+        const r = s.match(/\s*([^\s=]+)\s*=\s*(\S+)/);
+        if (r) {
+            if (configure(r[1], r[2])) {
+                self.postMessage("pv " + r[1] + '=' + r[2]);
+            }
+        }
+    } else if (e.data.match("^position") == "position") {
+        ResetGame();
+        var result = InitializeFromFen(e.data.substr(9, e.data.length - 9));
+        if (result.length != 0) {
+            self.postMessage("message " + result);
+        }
+    } else if (e.data.match("^search") == "search") {
+        g_timeout = parseInt(e.data.substr(7, e.data.length - 7), 10);
+        Search(FinishMoveLocalTesting, 99, FinishPlyCallback);
+    } else if (e.data == "analyze") {
+        g_timeout = 99999999999;
+        Search(null, 99, FinishPlyCallback);
+    } else {
+        MakeMove(GetMoveFromString(e.data));
+    }
 }

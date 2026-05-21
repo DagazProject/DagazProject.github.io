@@ -1,5 +1,9 @@
 Dagaz.View.TARGET_FLAT = true;
 
+Dagaz.AI.WORKER_NAME  = 'scripts/raumschach-worker.js';
+Dagaz.AI.WORKER_TIME  = 5000;
+Dagaz.AI.ADVISOR_TIME = 27000;
+
 ZRF = {
     JUMP:          0,
     IF:            1,
