@@ -54,6 +54,12 @@ function start(fen, isAdvisor) {
     if (!_.isUndefined(Dagaz.AI.FLAGS)) {
         g_backgroundEngine.postMessage("config FLAGS=" + Dagaz.AI.FLAGS);
     }
+    if (!_.isUndefined(Dagaz.AI.POS_MASK)) {
+        g_backgroundEngine.postMessage("config POS_MASK=" + Dagaz.AI.POS_MASK);
+    }
+    if (!_.isUndefined(Dagaz.AI.POS_SIZE)) {
+        g_backgroundEngine.postMessage("config POS_SIZE=" + Dagaz.AI.POS_SIZE);
+    }
     g_backgroundEngine.postMessage("position " + fen);
     if (isAdvisor && !_.isUndefined(Dagaz.AI.ADVISOR_TIME)) {
         g_backgroundEngine.postMessage("search " + Dagaz.AI.ADVISOR_TIME);

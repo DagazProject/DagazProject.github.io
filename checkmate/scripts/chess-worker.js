@@ -1492,6 +1492,18 @@ function SeeAddSliderAttacks(target, us, attacks, pieceType) {
     return hit;
 }
 
+function SeeAddKnightAttacks(target, us, attacks) {
+    var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
+    var attackerSq = g_pieceList[pieceIdx++];
+
+    while (attackerSq != 0) {
+        if (IsSquareOnPieceLine(target, attackerSq)) {
+            attacks[attacks.length] = attackerSq;
+        }
+        attackerSq = g_pieceList[pieceIdx++];
+    }
+}
+
 function configure(name, value) {
     if (name == 'WIDTH') {
         g_width = +value;

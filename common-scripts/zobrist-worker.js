@@ -1,7 +1,7 @@
 var g_hashKeyLow, g_hashKeyHigh;
 
-var g_zobristLow;
-var g_zobristHigh;
+var g_zobristLow = new Array(256 * 9);
+var g_zobristHigh = new Array(256 * 9);
 var g_zobristBlackLow;
 var g_zobristBlackHigh;
 

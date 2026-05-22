@@ -26,6 +26,8 @@ const pieceNo           = 0x80;
 
 const moveflagPromotion = 0x01 << 24;
 
+//var g_vectorDelta = new Array(VECTORDELTA_SIZE);
+
 importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
 
 function GetMoveSAN(move, validMoves) {
@@ -846,7 +848,7 @@ function InitializeFromFen(fen) {
     if (!g_toMove) g_baseEval = -g_baseEval;
 
     g_move50 = 0;
-    const kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
+    let kingPos = g_pieceList[(g_toMove | pieceKing) << COUNTER_SIZE];
     g_inCheck = false;
     if (kingPos != 0) {
         g_inCheck = IsSquareAttackable(kingPos, them);
@@ -1740,6 +1742,14 @@ function configure(name, value) {
     }
     if (name == 'FLAGS') {
         g_flags = +value;
+        return true;
+    }
+    if (name == 'POS_MASK') {
+        POS_MASK = +value;
+        return true;
+    }
+    if (name == 'POS_SIZE') {
+        POS_SIZE = +value;
         return true;
     }
     return false;

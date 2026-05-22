@@ -1,6 +1,9 @@
 var g_debug = true;
 var g_timeout = 40;
 
+let POS_MASK  = 0xFF;
+let POS_SIZE  = 8;
+
 let STALMATED = false;
 
 function GetMoveFromString(moveString) {
@@ -158,8 +161,8 @@ function QSearch(alpha, beta, ply) {
         GenerateCaptureMoves(moves, null);
 
         for (var i = 0; i < moves.length; i++) {
-            var captured = g_board[(moves[i] >> 8) & 0xFF] & TYPE_MASK;
-            var pieceType = g_board[moves[i] & 0xFF] & TYPE_MASK;
+            var captured = g_board[(moves[i] >> POS_SIZE) & POS_MASK] & TYPE_MASK;
+            var pieceType = g_board[moves[i] & POS_MASK] & TYPE_MASK;
 
             moveScores[i] = (captured << 5) - pieceType;
         }
@@ -259,8 +262,8 @@ function MovePicker(hashMove, depth, killer1, killer2/*, moves*/) {
                 this.moveScores = new Array(this.moveCount);
                 // Move ordering
                 for (var i = this.atMove; i < this.moveCount; i++) {
-                    var captured = g_board[(this.moves[i] >> 8) & 0xFF] & TYPE_MASK;
-                    var pieceType = g_board[this.moves[i] & 0xFF] & TYPE_MASK;
+                    var captured = g_board[(this.moves[i] >> POS_SIZE) & POS_MASK] & TYPE_MASK;
+                    var pieceType = g_board[this.moves[i] & POS_MASK] & TYPE_MASK;
                     this.moveScores[i] = (captured << 5) - pieceType;
                 }
                 // No moves, onto next stage
@@ -486,9 +489,9 @@ function AllCutNode(ply, depth, beta, allowNull) {
 
         if (value > realEval) {
             if (value >= beta) {
-				var histTo = (currentMove >> 8) & 0xFF;
+				var histTo = (currentMove >> POS_SIZE) & POS_MASK;
 				if (g_board[histTo] == 0) {
-				    var histPiece = g_board[currentMove & 0xFF] & PIECE_MASK;
+				    var histPiece = g_board[currentMove & POS_MASK] & PIECE_MASK;
 				    historyTable[histPiece][histTo] += ply * ply;
 				    if (historyTable[histPiece][histTo] > 32767) {
 				        historyTable[histPiece][histTo] >>= 1;
@@ -597,9 +600,9 @@ function AlphaBeta(ply, depth, alpha, beta/*, moves*/) {
 
         if (value > realEval) {
             if (value >= beta) {
-                var histTo = (currentMove >> 8) & 0xFF;
+                var histTo = (currentMove >> POS_SIZE) & POS_MASK;
                 if (g_board[histTo] == 0) {
-                    var histPiece = g_board[currentMove & 0xFF] & PIECE_MASK;
+                    var histPiece = g_board[currentMove & POS_MASK] & PIECE_MASK;
                     historyTable[histPiece][histTo] += ply * ply;
                     if (historyTable[histPiece][histTo] > 32767) {
                         historyTable[histPiece][histTo] >>= 1;
@@ -739,13 +742,11 @@ function ExposesCheck(from, kingPos){
 }
 
 function GenerateMove(from, to) {
-//    self.postMessage("message *** " + FormatMove(from | (to << 8)));
-    return from | (to << 8);
+    return from | (to << POS_SIZE);
 }
 
 function GenerateMove(from, to, flags){
-//    self.postMessage("message *** " + FormatMove(from | (to << 8)));
-    return from | (to << 8) | flags;
+    return from | (to << POS_SIZE) | flags;
 }
 
 function GenerateValidMoves() {
@@ -783,8 +784,7 @@ function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
     }
 }
 
-// target = attacking square, us = color of knights to look for, attacks = array to add squares to
-function SeeAddKnightAttacks(target, us, attacks) {
+/*function SeeAddKnightAttacks(target, us, attacks) {
     var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
     var attackerSq = g_pieceList[pieceIdx++];
 
@@ -794,7 +794,7 @@ function SeeAddKnightAttacks(target, us, attacks) {
         }
         attackerSq = g_pieceList[pieceIdx++];
     }
-}
+}*/
 
 function BuildPVMessage(bestMove, value, timeTaken, ply) {
     var totalNodes = g_nodeCount + g_qNodeCount;
