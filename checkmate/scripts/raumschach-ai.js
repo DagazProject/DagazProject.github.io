@@ -30,7 +30,7 @@ var g_moveUndoStack = new Array();
 
 var g_mobUnit;
 
-var materialTable = [0, 800, 2000, 2500, 3350, 5000, 1000, 600000];
+var materialTable = [0, 800, 2000, 2500, 3350, 5000, 10000, 600000];
 
 Dagaz.AI.pieceAdj = [
 [   

@@ -86,7 +86,7 @@ function CommonResetGame() {
     }
 }
 
-function Search(finishMoveCallback, maxPly, finishPlyCallback/*, moves*/) {
+function Search(finishMoveCallback, maxPly, finishPlyCallback) {
     var lastEval;
     var alpha = minEval;
     var beta = maxEval;
@@ -103,7 +103,7 @@ function Search(finishMoveCallback, maxPly, finishPlyCallback/*, moves*/) {
 
     var i;
     for (i = 1; i <= maxPly && g_searchValid; i++) {
-        var tmp = AlphaBeta(i, 0, alpha, beta/*, moves*/);
+        var tmp = AlphaBeta(i, 0, alpha, beta);
         if (!g_searchValid) break;
 
         value = tmp;
@@ -229,7 +229,7 @@ function IsRepDraw() {
     return false;
 }
 
-function MovePicker(hashMove, depth, killer1, killer2/*, moves*/) {
+function MovePicker(hashMove, depth, killer1, killer2) {
     this.hashMove = hashMove;
     this.depth = depth;
     this.killer1 = killer1;
@@ -293,7 +293,7 @@ function MovePicker(hashMove, depth, killer1, killer2/*, moves*/) {
             }
 
             if (this.stage == 5) {
-                GenerateAllMoves(this.moves/*, moves*/);
+                GenerateAllMoves(this.moves);
                 GenerateDropMoves(this.moves, true);
                 this.moveCount = this.moves.length;
                 // Move ordering
@@ -527,7 +527,7 @@ function AllCutNode(ply, depth, beta, allowNull) {
     return realEval;
 }
 
-function AlphaBeta(ply, depth, alpha, beta/*, moves*/) {
+function AlphaBeta(ply, depth, alpha, beta) {
     if (ply <= 0) {
         return QSearch(alpha, beta, 0);
     }
@@ -556,7 +556,7 @@ function AlphaBeta(ply, depth, alpha, beta/*, moves*/) {
     var moveMade = false;
     var realEval = minEval;
 
-    var movePicker = new MovePicker(hashMove, depth, g_killers[depth][0], g_killers[depth][1]/*, moves*/);
+    var movePicker = new MovePicker(hashMove, depth, g_killers[depth][0], g_killers[depth][1]);
 
     for (;;) {
         var currentMove = movePicker.nextMove();
@@ -783,18 +783,6 @@ function SeeAddXrayAttack(target, square, us, usAttacks, themAttacks) {
         }
     }
 }
-
-/*function SeeAddKnightAttacks(target, us, attacks) {
-    var pieceIdx = (us | pieceKnight) << COUNTER_SIZE;
-    var attackerSq = g_pieceList[pieceIdx++];
-
-    while (attackerSq != 0) {
-        if (IsSquareOnPieceLine(target, attackerSq)) {
-            attacks[attacks.length] = attackerSq;
-        }
-        attackerSq = g_pieceList[pieceIdx++];
-    }
-}*/
 
 function BuildPVMessage(bestMove, value, timeTaken, ply) {
     var totalNodes = g_nodeCount + g_qNodeCount;

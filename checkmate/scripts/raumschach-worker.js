@@ -51,7 +51,7 @@ function FormatMove(move) {
     return result;
 }
 
-const materialTable = [0, 800, 2000, 2500, 3350, 5000, 1000, 600000];
+const materialTable = [0, 800, 2000, 2500, 3350, 5000, 10000, 600000];
 
 const emptyAdj = [   
     0,    0,    0,    0,    0, // pieceEmpty
@@ -715,6 +715,21 @@ function IsHashMoveValid(hashMove) {
     }
 }
 
+function MakeTable3D(table) {
+    var result = new Array(256 * 9);
+    for (var i = 0; i < 256 * 9; i++) {
+        result[i] = 0;
+    }
+    for (var plane = 0; plane < g_height; plane++) {
+        for (var row = 0; row < g_height; row++) {
+            for (var col = 0; col < g_width; col++) {
+                result[MakeSquare(row, col, plane)] = table[(plane * g_width * g_height) + (row * g_width) + col];
+            }
+        }
+    }
+    return result;
+}
+
 function ResetGame() {
   CommonResetGame();
 
@@ -727,14 +742,14 @@ function ResetGame() {
        }
   }
 
-  pieceSquareAdj[pieceEmpty]   = MakeTable(emptyAdj);
-  pieceSquareAdj[piecePawn]    = MakeTable(pawnAdj);
-  pieceSquareAdj[pieceUnicorn] = MakeTable(unicornAdj);
-  pieceSquareAdj[pieceKnight]  = MakeTable(knightAdj);
-  pieceSquareAdj[pieceBishop]  = MakeTable(bishopAdj);
-  pieceSquareAdj[pieceRook]    = MakeTable(rookAdj);
-  pieceSquareAdj[pieceQueen]   = MakeTable(queenAdj);
-  pieceSquareAdj[pieceKing]    = MakeTable(kingAdj);
+  pieceSquareAdj[pieceEmpty]   = MakeTable3D(emptyAdj);
+  pieceSquareAdj[piecePawn]    = MakeTable3D(pawnAdj);
+  pieceSquareAdj[pieceUnicorn] = MakeTable3D(unicornAdj);
+  pieceSquareAdj[pieceKnight]  = MakeTable3D(knightAdj);
+  pieceSquareAdj[pieceBishop]  = MakeTable3D(bishopAdj);
+  pieceSquareAdj[pieceRook]    = MakeTable3D(rookAdj);
+  pieceSquareAdj[pieceQueen]   = MakeTable3D(queenAdj);
+  pieceSquareAdj[pieceKing]    = MakeTable3D(kingAdj);
 
   InitializeEval();
 }

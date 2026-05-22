@@ -34,7 +34,7 @@ function p(name) {
 
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("se"); // 0
     design.addDirection("s");  // 1
