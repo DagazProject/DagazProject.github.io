@@ -48,7 +48,7 @@
 <!-- Raumschach -->
 <g id="node49" class="node"><title>Raumschach</title>
 <a xlink:href="checkmate/raumschach.htm">
-<ellipse fill="darkgreen" stroke="black" cx="97" cy="-666" rx="60.0657" ry="18"></ellipse>
+<ellipse fill="gold" stroke="black" cx="97" cy="-666" rx="60.0657" ry="18"></ellipse>
 <text text-anchor="middle" x="97" y="-661.8" font-family="Times,serif" font-size="14.00">Raumschach</text>
 </a>
 </g>

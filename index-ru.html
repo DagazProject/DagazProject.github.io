@@ -3,6 +3,7 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
 <META name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/modal.css"/>
 <link rel="stylesheet" href="css/github-markdown-light.css">
 <style>
 	.markdown-body {
@@ -268,7 +269,7 @@
 <br><a href="shogi/tori-shogi.htm">Tori Shogi 7x7</a>
 <br><a href="shogi/mini-shogi.htm"><b>Минисёги 5x5</b></a> (<a href="shogi/simple-shogi.htm">Simple Shogi 3x5</a> <a href="shogi/treasure-shogi.htm">Treasure Shogi 3x5</a> <a href="shogi/ren-shogi.htm">REN Shogi 3x7</a> <a href="shogi/leshogi.htm">LeShogi 4x6</a> <a href="shogi/goroku-shogi.htm">Go-Roku Shogi 5x6</a> <a href="shogi/rocket-shogi.htm">Rocket Shogi 5x7</a> <a href="shogi/5x7-shogi.htm">5x7 Shogi</a> <a href="shogi/judkins-shogi.htm">Judkins Shogi 6x6</a> <a href="shogi/ikusa-shogi.htm">Ikusa Shogi</a>)
 <br><a href="shogi/micro-shogi.htm">Micro Shogi 4x5</a> (<a href="shogi/kyoto-shogi.htm">Kyoto Shogi 5x5</a> <a href="shogi/kinkei-mai-shogi.htm">Kinkei Mai Shogi 5x5</a> <a href="shogi/renge-shogi.htm">Renge Shogi 7x7</a>  <a href="shogi/hex-kyoto-shogi.htm">Hexagonal Kyoto Shogi</a>)
-<br><a href="shogi/shogi.htm">Сёги</a> (<a href="shogi/shogi-5-hand.htm">5 в руке</a> <a href="shogi/heian-shogi.htm">Хэйан сёги</a> <a href="shogi/sho-shogi.htm">Сё сёги</a>)
+<br><a href="shogi/shogi.htm?selector=1">Сёги</a> (<a href="shogi/shogi-5-hand.htm">5 в руке</a> <a href="shogi/heian-shogi.htm">Хэйан сёги</a> <a href="shogi/sho-shogi.htm">Сё сёги</a>)
 <br><a href="shogi/annan-shogi.htm">Annan Shogi</a>
 <br><a href="shogi/yonin-shogi.htm" class="no-player-modal"><b>Yonin Shogi</b></a> (<a href="shogi/dark-yonin-shogi.htm" class="no-player-modal">втёмную</a> <a href="shogi/yonin-shogi-variant.htm" class="no-player-modal">вариант</a>)
 <br><a href="shogi/kantorai.htm">Kantorai</a> (<a href="shogi/kantorai-variant.htm">variant</a>)
@@ -380,18 +381,41 @@
 <br><a href="https://www.mayhematics.com/v/v.htm" class="no-player-modal">Variant Chess magazine</a>
 
 <div id="dagaz-player-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;">
-  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:340px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
     <h3 style="margin:0 0 12px;">Выберите сторону</h3>
-    <p style="margin:0 0 20px;font-size:14px;color:#555;">Вы хотите играть за первого или второго игрока?</p>
-    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Игрок 1 (ходит первым)</button>
-    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Игрок 2 (ходит вторым)</button>
-    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;">Отмена</button>
+    <p style="margin:0 0 20px;font-size:12px;color:#555;">Вы хотите играть за первого или второго игрока?</p>
+    <div style="margin: 20px 0 16px; text-align: left;">
+      <div class="time-label-row">
+        <span style="font-size:14px; font-weight:500; color:#333;">Ограничение времени на ход</span>
+        <span id="dagaz-time-value" class="time-value-badge">5</span>
+      </div>
+      <input type="range" id="dagaz-time-limit" min="1" max="10" step="1" value="5" class="custom-time-slider">
+      <div style="display: flex; justify-content: space-between; font-size:11px; color:#888; margin-top: 4px; padding: 0 2px;">
+        <span>1 sec</span>
+        <span>5 sec</span>
+        <span>10 sec</span>
+      </div>
+    </div>
+    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;transition:background 0.2s;">&#9654; Игрок 1 (ходит первым)</button>
+    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;transition:background 0.2s;">&#9654; Игрок 2 (ходит вторым)</button>
+    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;transition:background 0.2s;">Отмена</button>
   </div>
 </div>
 <script>
 (function() {
   var modal = document.getElementById('dagaz-player-modal');
   var targetUrl = null;
+  var timeSlider = document.getElementById('dagaz-time-limit');
+  var timeValueSpan = document.getElementById('dagaz-time-value');
+  function updateTimeDisplay() {
+    if (timeValueSpan && timeSlider) {
+      timeValueSpan.textContent = timeSlider.value;
+    }
+  }
+  if (timeSlider) {
+    timeSlider.addEventListener('input', updateTimeDisplay);
+    updateTimeDisplay();
+  }
   document.querySelectorAll('a[href]').forEach(function(link) {
     if (link.classList.contains('no-player-modal')) return;
     if (/\.html?(\?|$)/.test(link.getAttribute('href'))) {
@@ -407,6 +431,12 @@
     if (targetUrl) {
       var url = new URL(targetUrl);
       url.searchParams.set('player', playerNum);
+      if (timeSlider) {
+        var timeValue = timeSlider.value;
+        if (timeValue >= 1 && timeValue <= 10) {
+          url.searchParams.set('time', timeValue);
+        }
+      }
       window.location = url.toString();
     }
     targetUrl = null;

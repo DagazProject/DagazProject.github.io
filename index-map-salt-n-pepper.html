@@ -5,12 +5,13 @@
     <META name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="css/map.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/modal.css"/>
     <title>Dagaz Release 1.4.4</title>
   </head>
   <body>
     <div class="divGameIconWrap">
       <div class="divGameIcon">
-        <a href="races/salt-n-pepper.htm?selector=1">
+        <a href="races/salt-n-pepper.htm?selector=1" class="no-player-modal">
           <img src="upload/salt-n-pepper-1.png">
         </a>
         <p>
@@ -18,7 +19,7 @@
         </p>
       </div>
       <div class="divGameIcon">
-        <a href="races/salt-n-pepper.htm?selector=2">
+        <a href="races/salt-n-pepper.htm?selector=2" class="no-player-modal">
           <img src="upload/salt-n-pepper-2.png">
         </a>
         <p>
@@ -28,18 +29,41 @@
     </div>
 
 <div id="dagaz-player-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;">
-  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+  <div style="background:#fff;padding:24px 32px;border-radius:8px;text-align:center;max-width:340px;box-shadow:0 4px 24px rgba(0,0,0,0.2);">
     <h3 style="margin:0 0 12px;">Choose your side</h3>
-    <p style="margin:0 0 20px;font-size:14px;color:#555;">Do you want to play as the first or second player?</p>
-    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 1 (move first)</button>
-    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;">&#9654; Player 2 (move second)</button>
-    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;">Cancel</button>
+    <p style="margin:0 0 20px;font-size:12px;color:#555;">Do you want to play as the first or second player?</p>
+    <div style="margin: 20px 0 16px; text-align: left;">
+      <div class="time-label-row">
+        <span style="font-size:14px; font-weight:500; color:#333;">Time limit per move</span>
+        <span id="dagaz-time-value" class="time-value-badge">5</span>
+      </div>
+      <input type="range" id="dagaz-time-limit" min="1" max="10" step="1" value="5" class="custom-time-slider">
+      <div style="display: flex; justify-content: space-between; font-size:11px; color:#888; margin-top: 4px; padding: 0 2px;">
+        <span>1 sec</span>
+        <span>5 sec</span>
+        <span>10 sec</span>
+      </div>
+    </div>
+    <button id="dagaz-play-1" style="display:block;width:100%;margin:0 0 10px;padding:10px 0;cursor:pointer;background:#4CAF50;color:#fff;border:none;border-radius:4px;font-size:16px;transition:background 0.2s;">&#9654; Player 1 (move first)</button>
+    <button id="dagaz-play-2" style="display:block;width:100%;margin:0 0 16px;padding:10px 0;cursor:pointer;background:#2196F3;color:#fff;border:none;border-radius:4px;font-size:16px;transition:background 0.2s;">&#9654; Player 2 (move second)</button>
+    <button id="dagaz-cancel" style="padding:5px 18px;cursor:pointer;background:#eee;border:1px solid #ccc;border-radius:4px;font-size:14px;transition:background 0.2s;">Cancel</button>
   </div>
 </div>
 <script>
 (function() {
   var modal = document.getElementById('dagaz-player-modal');
   var targetUrl = null;
+  var timeSlider = document.getElementById('dagaz-time-limit');
+  var timeValueSpan = document.getElementById('dagaz-time-value');
+  function updateTimeDisplay() {
+    if (timeValueSpan && timeSlider) {
+      timeValueSpan.textContent = timeSlider.value;
+    }
+  }
+  if (timeSlider) {
+    timeSlider.addEventListener('input', updateTimeDisplay);
+    updateTimeDisplay();
+  }
   document.querySelectorAll('a[href]').forEach(function(link) {
     if (link.classList.contains('no-player-modal')) return;
     if (/\.html?(\?|$)/.test(link.getAttribute('href'))) {
@@ -55,6 +79,12 @@
     if (targetUrl) {
       var url = new URL(targetUrl);
       url.searchParams.set('player', playerNum);
+      if (timeSlider) {
+        var timeValue = timeSlider.value;
+        if (timeValue >= 1 && timeValue <= 10) {
+          url.searchParams.set('time', timeValue);
+        }
+      }
       window.location = url.toString();
     }
     targetUrl = null;

@@ -755,6 +755,10 @@ Ai.prototype.setContext = function(ctx, board) {
   if (this.parent) {
       this.parent.setContext(ctx, board);
   }
+  var timeout = Dagaz.Controller.aiTimeout();
+  if (timeout !== null) {
+      Dagaz.AI.g_timeout = timeout;
+  }
   ctx.timestamp = Date.now();
   ctx.board  = board;
   inProgress = false;

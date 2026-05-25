@@ -20,6 +20,11 @@ Dagaz.Controller.humanPlayer = (function() {
   return result ? +result[1] : 1;
 })();
 
+Dagaz.Controller.aiTimeout = function() {
+  var result = window.location.search.match(/[?&]time=(\d+)/);
+  return result ? (+result[1] * 1000) : null;
+}
+
 Dagaz.Controller.Done = function(board) {}
 
 Dagaz.Controller.go = function(url) {

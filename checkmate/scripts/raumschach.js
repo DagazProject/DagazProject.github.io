@@ -1,8 +1,8 @@
 Dagaz.View.TARGET_FLAT = true;
 
 Dagaz.AI.WORKER_NAME  = 'scripts/raumschach-worker.js';
-Dagaz.AI.WORKER_TIME  = 5000;
-Dagaz.AI.ADVISOR_TIME = 27000;
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 7000;
 
 Dagaz.AI.POS_MASK     = 0xFFF;
 Dagaz.AI.POS_SIZE     = 12;
