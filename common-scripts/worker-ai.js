@@ -65,7 +65,7 @@ function start(fen, isAdvisor) {
         g_backgroundEngine.postMessage("search " + Dagaz.AI.ADVISOR_TIME);
     } else {
         const timeout = Dagaz.Controller.aiTimeout();
-        g_backgroundEngine.postMessage("search " + (timeout !== null) ? timeout : Dagaz.AI.WORKER_TIME);
+        g_backgroundEngine.postMessage("search " + ((timeout !== null) ? timeout : Dagaz.AI.WORKER_TIME));
     }
     if (!_.isUndefined(Dagaz.View.switchControl)) {
         Dagaz.View.switchControl(4, 1);
