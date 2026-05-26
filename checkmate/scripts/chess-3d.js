@@ -408,11 +408,17 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
-    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
+    view.defControl("NewControl", "New Game", true, Dagaz.View.isTouchDevice ? Dagaz.Controller.newGame : Dagaz.View.switchMenu, 1);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'chess.htm' : 'chess-board.htm');
     view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'chess-3d-board.htm' : 'chess-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
+
+    view.defSubControl(1, "R00", "Chess", true, Dagaz.Controller.newGame);
+    view.defSubControl(1, "R01", "Peasants' Revolt", true, Dagaz.Controller.loadGame, "?turn=0;&setup=4k3/pppppppp/8/8/8/8/4P3/1NN1KNN1+w+----+-");
+    view.defSubControl(1, "R02", "Charge of the Light Brigade", true, Dagaz.Controller.loadGame, "?turn=0;&setup=nnnnknnn/pppppppp/8/8/8/8/PPPPPPPP/1Q1QK1Q1+w+----+-");
+    view.defSubControl(1, "R03", "Weak!", true, Dagaz.Controller.loadGame, "?turn=0;&setup=nnnnknnn/pppppppp/2p2p2/1pppppp1/8/8/PPPPPPPP/RNBQKBNR+w+KQ--+-");
+    view.defSubControl(1, "R04", "Knight & Bishop Checkmate", true, Dagaz.Controller.loadGame, ["?turn=0;&setup=7N/8/7K/6B1/2k5/8/8/8+w+----+-", "?turn=0;&setup=8/8/1k6/8/2K5/8/8/N1B5+w+----+-", "?turn=0;&setup=3N4/8/8/8/6K1/8/k7/3B4+w+----+-", "?turn=0;&setup=2B5/8/8/8/8/7K/2N5/7k+w+----+", "?turn=0;&setup=8/8/8/8/1B1NK3/6k1/8/8+w+----+-", "?turn=0;&setup=8/8/8/3K3k/8/B7/8/2N5+w+----+-", "?turn=0;&setup=8/8/8/K1N5/6B1/8/2k5/8+w+----+-", "?turn=0;&setup=1k5K/8/8/8/8/8/1N6/7B+w+----+-", "?turn=0;&setup=8/8/8/8/2k1N3/8/7B/5K2+w+----+-", "?turn=0;&setup=8/8/1K6/8/8/3B4/7N/k7+w+----+-"]);
  
     view.defPosition("a8", -236, -236, 68, 68, 0);
     view.defPosition("b8", -168, -236, 68, 68, 0);

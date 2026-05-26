@@ -2,6 +2,10 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  1.8;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/judkins-shogi-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 10000;
+
 Dagaz.Model.WIDTH         = 6;
 Dagaz.Model.HEIGHT        = 6;
 
@@ -51,7 +55,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
     design.checkVersion("judkins-shogi-promotion", "true");
     design.checkVersion("judkins-shogi-extension", "true");
 

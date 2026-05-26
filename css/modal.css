@@ -1,0 +1,97 @@
+      .custom-time-slider {
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      .custom-time-slider:focus {
+        outline: none;
+      }
+      .custom-time-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 10px;
+        transition: background 0.2s;
+      }
+      .custom-time-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #2196F3;
+        margin-top: -6px;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: transform 0.1s, background 0.2s;
+      }
+      .custom-time-slider::-webkit-slider-thumb:hover {
+        background: #0b7dda;
+        transform: scale(1.2);
+      }
+      .custom-time-slider::-moz-range-track {
+        width: 100%;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 10px;
+      }
+      .custom-time-slider::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #2196F3;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: transform 0.1s, background 0.2s;
+      }
+      .custom-time-slider::-moz-range-thumb:hover {
+        background: #0b7dda;
+        transform: scale(1.2);
+      }
+      .custom-time-slider::-ms-track {
+        width: 100%;
+        height: 6px;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
+      .custom-time-slider::-ms-fill-lower {
+        background: #e0e0e0;
+        border-radius: 10px;
+      }
+      .custom-time-slider::-ms-fill-upper {
+        background: #e0e0e0;
+        border-radius: 10px;
+      }
+      .custom-time-slider::-ms-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #2196F3;
+        margin-top: 0;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+      .time-value-badge {
+        display: inline-block;
+        background: #f0f0f0;
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #2196F3;
+        min-width: 44px;
+        text-align: center;
+        transition: background 0.2s;
+      }
+      .time-label-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }

@@ -3,8 +3,8 @@ Dagaz.View.TARGET_RADIUS     =  1.8;
 Dagaz.Controller.persistense = "setup";
 
 Dagaz.AI.WORKER_NAME  = 'scripts/mini-shogi-worker.js';
-Dagaz.AI.WORKER_TIME  = 5000;
-Dagaz.AI.ADVISOR_TIME = 27000;
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 10000;
 
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 5;

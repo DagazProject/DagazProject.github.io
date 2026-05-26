@@ -87,6 +87,8 @@ Dagaz.Controller.newGame = function() {
   if (result) {
       str = result[1];
   }
+  str = str + urlParam("player", "?");
+  str = str + urlParam("time");
   localStorage.removeItem('dagaz.camera');
   window.location = str;
 }
@@ -116,6 +118,16 @@ Dagaz.Controller.shuffleGame = function(cnt) {
   window.location = str + s;
 }
 
+function urlParam(name, sep) {
+  if (_.isUndefined(sep)) sep = '&';
+  var re = new RegExp("[?&]" + name + "=(\\d+)");
+  var r = window.location.search.match(re);
+  if (r) {
+      return sep + name + "=" + r[1];
+  }
+  return "";
+}
+
 Dagaz.Controller.loadGame = function(setup) {
   if (_.isArray(setup)) {
       var ix = 0;
@@ -124,6 +136,8 @@ Dagaz.Controller.loadGame = function(setup) {
       }
       setup = setup[ix];
   }
+  setup = setup + urlParam("player");
+  setup = setup + urlParam("time");
   if (!confirm("Restart Game?")) return;
   if (!_.isUndefined(Dagaz.Controller.clearGame)) {
       Dagaz.Controller.clearGame();
