@@ -27,7 +27,19 @@ Dagaz.Controller.aiTimeout = function() {
 
 Dagaz.Controller.Done = function(board) {}
 
+function urlParam(name, sep) {
+  if (_.isUndefined(sep)) sep = '&';
+  var re = new RegExp("[?&]" + name + "=(\\d+)");
+  var r = window.location.search.match(re);
+  if (r) {
+      return sep + name + "=" + r[1];
+  }
+  return "";
+}
+
 Dagaz.Controller.go = function(url) {
+  url = url + urlParam("player");
+  url = url + urlParam("time");
   window.location = url;
 }
 
