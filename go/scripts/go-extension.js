@@ -28,7 +28,7 @@ var go = Dagaz.Controller.go;
 
 Dagaz.Controller.go = function(url, flag) {
   if (_.isUndefined(flag)) {
-      go(url);
+      go(url, '?');
       return;
   }
   var design = Dagaz.Model.design;

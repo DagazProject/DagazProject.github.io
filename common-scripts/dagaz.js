@@ -37,8 +37,8 @@ function urlParam(name, sep) {
   return "";
 }
 
-Dagaz.Controller.go = function(url) {
-  url = url + urlParam("player");
+Dagaz.Controller.go = function(url, sep) {
+  url = url + urlParam("player", sep);
   url = url + urlParam("time");
   window.location = url;
 }
