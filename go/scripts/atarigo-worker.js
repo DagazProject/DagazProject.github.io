@@ -264,6 +264,248 @@ function MakeSquare(row, col, offset) {
    return row * g_width + col + offset;
 }
 
+function GetMoveFromString(str) {
+    // преобразует строку типа "a1" в индекс клетки
+    const col = str.charCodeAt(0) - 'a'.charCodeAt(0);
+    const row = parseInt(str.substr(1)) - 1;
+    if (row >= 0 && row < g_height && col >= 0 && col < g_width) {
+        return row * g_width + col;
+    }
+    return -1;
+}
+
+function cloneState(state) {
+    return {
+        board: new Int16Array(state.board),
+        player: state.player,
+        movecnt: state.movecnt
+    };
+}
+
+// Перемешивание массива (Fisher-Yates)
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+
+function applyMove(state, move) {
+    const newBoard = new Int16Array(state.board);
+    const oldBoard = g_board;
+    const oldPlayer = g_player;
+    const oldMovecnt = g_movecnt;
+
+    g_board = newBoard;
+    g_player = state.player;
+    g_movecnt = state.movecnt;
+
+    const success = MakeMove(move);
+
+    g_board = oldBoard;
+    g_player = oldPlayer;
+    g_movecnt = oldMovecnt;
+
+    if (!success) return null;
+
+    return {
+        board: newBoard,
+        player: -state.player,
+        movecnt: state.movecnt + 1
+    };
+}
+
+// Случайная симуляция от заданного состояния, возвращает победителя (1, -1 или 0)
+function simulate(state) {
+    let curState = cloneState(state);
+    const maxMoves = MAX_MOVES;
+
+    while (curState.movecnt < maxMoves) {
+        // собираем все пустые клетки
+        const empty = [];
+        for (let i = 0; i < g_width * g_height; i++) {
+            if (curState.board[i] === 0) empty.push(i);
+        }
+        if (empty.length === 0) break;
+
+        shuffleArray(empty);
+        let moved = false;
+        for (let idx = 0; idx < empty.length; idx++) {
+            const move = empty[idx];
+            const next = applyMove(curState, move);
+            if (next !== null) {
+                curState = next;
+                moved = true;
+                break;
+            }
+        }
+        if (!moved) break; // нет легальных ходов
+    }
+
+    // проверка, есть ли легальные ходы у текущего игрока
+    let hasLegal = false;
+    for (let i = 0; i < g_width * g_height; i++) {
+        if (curState.board[i] === 0) {
+            if (applyMove(curState, i) !== null) {
+                hasLegal = true;
+                break;
+            }
+        }
+    }
+    if (!hasLegal) {
+        // текущий игрок не может ходить -> побеждает противник
+        return -curState.player;
+    }
+    return 0; // ничья (лимит ходов или нет победителя)
+}
+
+class MCTSNode {
+    constructor(state, parent = null, move = null) {
+        this.state = state;          // {board, player, movecnt}
+        this.parent = parent;
+        this.move = move;            // ход, приведший к этому узлу
+        this.children = [];
+        this.visits = 0;
+        this.wins = 0;
+        // непросмотренные ходы – все пустые клетки
+        this.untriedMoves = [];
+        for (let i = 0; i < g_width * g_height; i++) {
+            if (state.board[i] === 0) this.untriedMoves.push(i);
+        }
+    }
+
+    isFullyExpanded() {
+        return this.untriedMoves.length === 0;
+    }
+
+    isTerminal() {
+        // терминальный, если нет легальных ходов для текущего игрока
+        for (let i = 0; i < g_width * g_height; i++) {
+            if (this.state.board[i] === 0) {
+                if (applyMove(this.state, i) !== null) return false;
+            }
+        }
+        return true;
+    }
+}
+
+function selectBestChild(node, C) {
+    let bestValue = -Infinity;
+    let bestChild = null;
+    const logParent = Math.log(node.visits);
+    for (const child of node.children) {
+        const exploit = child.wins / child.visits;
+        const explore = C * Math.sqrt(logParent / child.visits);
+        const ucb = exploit + explore;
+        if (ucb > bestValue) {
+            bestValue = ucb;
+            bestChild = child;
+        }
+    }
+    return bestChild;
+}
+
+function expand(node) {
+    while (node.untriedMoves.length > 0) {
+        const moveIndex = Math.floor(Math.random() * node.untriedMoves.length);
+        const move = node.untriedMoves[moveIndex];
+        // удаляем этот ход из списка
+        node.untriedMoves[moveIndex] = node.untriedMoves[node.untriedMoves.length - 1];
+        node.untriedMoves.pop();
+
+        const newState = applyMove(node.state, move);
+        if (newState !== null) {
+            const child = new MCTSNode(newState, node, move);
+            node.children.push(child);
+            return child;
+        }
+    }
+    return null;
+}
+
+function backpropagate(node, winner) {
+    while (node !== null) {
+        node.visits++;
+        if (winner === node.state.player) {
+            node.wins++;
+        }
+        node = node.parent;
+    }
+}
+
+function mcts(rootState, timeLimitMs) {
+    const root = new MCTSNode(cloneState(rootState));
+    const startTime = Date.now();
+    const C = Math.sqrt(2);
+
+    while (Date.now() - startTime < timeLimitMs) {
+        let node = root;
+        // Selection
+        while (!node.isTerminal() && node.isFullyExpanded()) {
+            node = selectBestChild(node, C);
+            if (!node) break;
+        }
+        if (!node || node.isTerminal()) {
+            // Симуляция прямо из терминального узла
+            const winner = simulate(node ? node.state : root.state);
+            backpropagate(node || root, winner);
+            continue;
+        }
+        // Expansion
+        const child = expand(node);
+        if (!child) {
+            // Не удалось расширить – узел, видимо, терминальный
+            const winner = simulate(node.state);
+            backpropagate(node, winner);
+            continue;
+        }
+        // Simulation
+        const winner = simulate(child.state);
+        // Backpropagation
+        backpropagate(child, winner);
+    }
+
+    // Выбор лучшего хода из корня (по количеству посещений)
+    let bestMove = null;
+    let bestVisits = -1;
+    for (const child of root.children) {
+        if (child.visits > bestVisits) {
+            bestVisits = child.visits;
+            bestMove = child.move;
+        }
+    }
+    return bestMove;
+}
+
+function FinishMoveLocalTesting(move) {
+    if (move === undefined || move === null) return;
+    MakeMove(move);
+    g_player = -g_player;
+    g_movecnt++;
+    Analyze();
+    // оповестим основную программу о сделанном ходе (опционально)
+    self.postMessage("move " + move);
+}
+
+function FinishPlyCallback() {
+    // коллбэк после каждого хода (можно оставить пустым)
+}
+
+function Search(callback, maxDepth, plyCallback) {
+    // ограничение времени: 500 мс (можно настроить)
+    const timeLimit = 500;
+    const currentState = {
+        board: new Int16Array(g_board),
+        player: g_player,
+        movecnt: g_movecnt
+    };
+    const bestMove = mcts(currentState, timeLimit);
+    if (bestMove !== null && callback) {
+        callback(bestMove);
+    }
+    if (plyCallback) plyCallback();
+}
+
 self.onmessage = function (e) {
     if (e.data.match("^config") == "config") {
         Configure(e.data.substr(7, e.data.length - 7));
