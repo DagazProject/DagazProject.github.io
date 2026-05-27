@@ -17,7 +17,11 @@ Dagaz.Model.moveToString = function(move) {
 
 var go = Dagaz.Controller.go;
 
-Dagaz.Controller.go = function(url) {
+Dagaz.Controller.go = function(url, flag) {
+  if (_.isUndefined(flag)) {
+      go(url);
+      return;
+  }
   var design = Dagaz.Model.design;
   var board = Dagaz.Controller.app.board;
   url = url + "?setup="; 
