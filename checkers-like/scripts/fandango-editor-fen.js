@@ -33,11 +33,7 @@ var getTurn = function() {
 
 var go = Dagaz.Controller.go;
 
-Dagaz.Controller.go = function(url, flag) {
-  if (_.isUndefined(flag)) {
-      go(url);
-      return;
-  }
+Dagaz.Controller.go = function(url) {
   if (!url) {
        url = getUrl();
   }

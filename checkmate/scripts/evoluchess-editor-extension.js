@@ -18,11 +18,7 @@ var toChar = function(n) {
 
 var go = Dagaz.Controller.go;
 
-Dagaz.Controller.go = function(url, flag) {
-  if (_.isUndefined(flag)) {
-      go(url);
-      return;
-  }
+Dagaz.Controller.go = function(url) {
   var design = Dagaz.Model.design;
   var board = Dagaz.Controller.app.board;
   url = url + "?setup="; 
