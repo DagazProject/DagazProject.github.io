@@ -38,6 +38,7 @@ function urlParam(name, sep) {
 }
 
 Dagaz.Controller.go = function(url, sep) {
+  if (_.isUndefined(sep)) sep = '?';
   url = url + urlParam("player", sep);
   url = url + urlParam("time");
   window.location = url;

@@ -1,5 +1,7 @@
 (function() {
 
+Dagaz.Model.PROM_IS_FORCED = false;
+
 var promote = [];
 
 var checkVersion = Dagaz.Model.checkVersion;
@@ -51,7 +53,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                        var p = design.navigate(board.player, target, n);
                        if ((p === null) || (design.navigate(board.player, p, n) === null)) isForced = true;
                    }
-                   if (isForced) {
+                   if (isForced || Dagaz.Model.PROM_IS_FORCED) {
                        move.actions[0][2] = [ promoted ];
                    } else {
                        move.actions[0][2] = [ piece, promoted ];
