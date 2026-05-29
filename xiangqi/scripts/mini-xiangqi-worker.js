@@ -17,7 +17,7 @@ var pawnAdj =
     0,    0,    0,    0,    0,    0,    0, 
     0,    0,    0,    0,    0,    0,    0, 
     0,    0,    0,    0,    0,    0,    0
-]
+];
 
 var advisorAdj =
 [   0,    0,    0,    0,    0,    0,    0, // pieceAdvisor

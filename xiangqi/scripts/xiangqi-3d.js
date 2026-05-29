@@ -4,6 +4,10 @@ Dagaz.AI.Q_SEARCH_LIMIT = -4;
 Dagaz.AI.ALL_CUT_LIMIT  = 5;
 Dagaz.AI.INC_CHECK_PLY  = false;
 
+Dagaz.AI.WORKER_NAME  = 'scripts/xiangqi-worker.js';
+Dagaz.AI.WORKER_TIME  = 5000;
+Dagaz.AI.ADVISOR_TIME = 10000;
+
 Dagaz.Model.WIDTH  = 9;
 Dagaz.Model.HEIGHT = 10;
 
@@ -34,7 +38,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("animate-captures", "false");
-    design.checkVersion("advisor-wait", "15");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("w");
     design.addDirection("e");
@@ -357,9 +361,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi.htm' : 'xiangqi-board.htm');
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi-3d-board.htm' : 'xiangqi-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'xiangqi-3d-board.htm' : 'xiangqi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
 
     view.defPosition("a10", -240, -270, 42, 42, 0);
     view.defPosition("b10", -180, -270, 42, 42, 0);

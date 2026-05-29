@@ -1,21 +1,161 @@
+"use strict";
+
+let g_width          = 11;
+let g_height         = 11;
+
 let NOISE_FACTOR     = 5;
-let PIECE_MASK       = 0xF;
-let TYPE_MASK        = 0x7;
-let PLAYERS_MASK     = 0x18;
-let COUNTER_SIZE     = 6;
-let TYPE_SIZE        = 3;
+
+const PIECE_MASK     = 0x1F;
+const TYPE_MASK      = 0xF;
+const PLAYERS_MASK   = 0x30;
+const COUNTER_SIZE   = 3;
+const TYPE_SIZE      = 4;
+
+var VECTORDELTA_SIZE = 512;
+
+let colorBlack       = 0x20;
+let colorWhite       = 0x10;
+
+importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
 
 var pieceEmpty       = 0x00;
 var piecePawn        = 0x01;
-var pieceAdvisor     = 0x02;
-var pieceBishop      = 0x03;
-var pieceKnight      = 0x04;
-var pieceCannon      = 0x05;
-var pieceRook        = 0x06;
-var pieceKing        = 0x07;
+var pieceDun         = 0x02;
+var pieceAdvisor     = 0x03;
+var pieceBishop      = 0x04;
+var pieceKnight      = 0x05;
+var pieceCannon      = 0x06;
+var pieceRook        = 0x07;
+var pieceKing        = 0x08;
 var pieceNo          = 0x80;
 
 STALMATED            = true;
+
+var emptyAdj =
+[   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceEmpty
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0
+];
+
+var pawnAdj =
+[  50,  100,   50,   40,   20,   10,   10,    5,    3,    1,    0, // piecePawn
+  100,  200,  100,   40,   30,   10,   10,    5,    3,    1,    0,
+   50,  100,   50,   40,   30,   20,   10,    5,    3,    0,    0,
+   40,   40,   40,   30,   30,   20,   10,    5,    0,    0,    0,
+   20,   30,   30,   30,   20,   20,   10,    0,    0,    0,    0,
+   10,   20,   20,   20,   20,    0,    0,    0,    0,    0,    0,
+    5,   10,   10,   10,    0,    0,    0,    0,    0,    0,    0,
+    3,    5,    5,    0,    0,    0,    0,    0,    0,    0,    0,
+    1,    1,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0
+];
+
+var dunAdj =
+[  50,    0,   50,    0,   10,    0,    5,    0,    1,    0,    0, // pieceDun
+    0,  100,    0,   40,    0,   10,    0,    5,    0,    1,    0,
+   50,    0,   50,    0,   20,    0,    5,    0,    1,    0,    1,
+    0,   40,    0,   20,    0,    5,    0,    1,    0,    5,    0,
+   10,    0,   20,    0,    5,    0,    1,    0,    5,    0,    3,
+    0,   10,    0,    5,    0,    1,    0,    5,    0,    5,    0,
+    5,    0,    5,    0,    1,    0,   10,    0,   10,    0,    3,
+    0,    5,    0,    1,    0,    5,    0,   20,    0,    5,    0,
+    1,    0,    1,    0,    5,    0,   10,    0,   10,    0,    1,
+    0,    1,    0,    5,    0,    5,    0,    5,    0,    1,    0,
+    0,    0,    1,    0,    3,    0,    3,    0,    1,    0,    1
+];
+
+var advisorAdj =
+[   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceAdvisor
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,   10,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,   10,   15,   10,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,   10,    0
+];
+
+var bishopAdj =
+[   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceBishop
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    1,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,   10,    0,    5,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    5,    0,   10,    0,   20,    0,   10,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    5,    0,   10,    0,   20,    0,   20,    0,   10,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    1,    0,    5,    0,   10,    0,   10,    0,    1
+];
+
+var knightAdj =
+[-200, -100,  -50,  -50,  -50,  -50,  -50,  -50,  -50, -100, -200, // pieceKnight
+ -100,    0,    0,  200,  100,    0,    0,    0,    0,    0, -100,
+  -50,    0,    0,  100,   60,   60,   60,   60,   60,    0,  -50,
+  -50,  200,  100,  200,   60,   60,   60,   60,   60,    0,  -50,
+  -50,  100,   60,   60,   60,   60,   60,   60,   60,    0,  -50,
+  -50,    0,   60,   60,   60,   60,   60,   60,   60,    0,  -50,
+  -50,    0,   60,   60,   60,   60,   60,   60,   60,    0,  -50,
+  -50,    0,   60,   60,   60,   60,   60,   60,    0,    0,  -50,
+  -50,    0,   60,   60,   60,   60,   60,    0,  -10,  -50,  -50,
+ -100,    0,    0,    0,    0,    0,    0,    0,  -50,  -50, -100,
+ -200, -100,  -50,  -50,  -50,  -50,  -50,  -50,  -50, -100, -200
+];
+
+var cannonAdj =
+[ -60,  -30,  -10,   10,   50,   50,   50,   50,   50,   50,  -60, // pieceCannon
+  -30,  -10,  -10,   10,  100,  100,  100,  100,   20,   10,  -30,
+  -10,  -10,  -10,   50,   50,   50,   50,   20,   10,    0,  -30,
+   50,   10,   10,   10,   10,   10,   10,   10,   10,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,   20,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,   10,   10,   10,    0,    0,    0,    0,    0,    0,  -30,
+  -60,    0,    0,    0,    0,    0,    0,    0,    0,    0,  -30,
+  -60,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -60
+];
+
+var rookAdj =
+[ -60,  -30,  -10,   50,   50,   50,   50,   50,   50,   50,  -60, // pieceRook
+  -30,  -10,  -10,  100,  100,  100,  100,  100,   20,   10,  -30,
+  -10,  -10,  -10,   50,   50,   50,   50,   20,   10,    0,  -30,
+   50,  100,   50,   10,   10,   10,   10,   10,   10,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,  100,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,   20,   50,   10,    0,    0,    0,    0,    0,    0,  -30,
+   50,   10,   10,   10,    0,    0,    0,    0,    0,    0,  -30,
+  -60,    0,    0,    0,    0,    0,    0,    0,    0,    0,  -30,
+  -60,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -30,  -60
+];
+
+var kingAdj =
+[   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, // pieceKing
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    5,   10,    5,
+    0,    0,    0,    0,    0,    0,    0,    0,   10,   25,   10,
+    0,    0,    0,    0,    0,    0,    0,    0,    5,   10,    5
+];
 
 function GetFen() {
     var result = "";
@@ -30,7 +170,7 @@ function GetFen() {
                 if (empty != 0) 
                     result += empty;
                 empty = 0;
-                var pieceChar = [" ", "p", "a", "b", "n", "c", "r", "k"][(piece & TYPE_MASK)];
+                var pieceChar = [" ", "p", "g", "a", "b", "n", "c", "r", "k"][(piece & TYPE_MASK)];
                 result += ((piece & colorWhite) != 0) ? pieceChar.toUpperCase() : pieceChar;
             }
         }
@@ -47,24 +187,22 @@ function GetMoveSAN(move, validMoves) {
 }
 
 function FormatSquare(square) {
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-    return letters[(square & 0xF) - 4] + (((g_height + 1) - (square >> 4)) + 1);
+    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
+    return letters[(square & 0xF) - 2] + (((g_height + 1) - (square >> 4)) + 1);
 }
 
 function FormatMove(move) {
-    var result = FormatSquare(move & 0xFF) + FormatSquare((move >> 8) & 0xFF);
+    var result = FormatSquare(move & 0xFF) + ' - ' + FormatSquare((move >> 8) & 0xFF);
     return result;
 }
 
 function MakeSquare(row, column) {
-    return ((row + 2) << 4) | (column + 4);
+    return ((row + 2) << 4) | (column + 2);
 }
 
-var materialTable = [0, 300, 1200, 1200, 1700, 3850, 6000, 600000];
+var materialTable = [0, 800, 800, 800, 1500, 3350, 4000, 5500, 600000];
 
-var pieceSquareAdj = new Array(8);
-
-// Returns the square flipped
+var pieceSquareAdj = new Array(9);
 var flipTable = new Array(256);
 
 function Mobility(color) {
@@ -172,7 +310,7 @@ function Evaluate() {
     return curEval;
 }
 
-function ScoreMove(move){
+function ScoreMove(move) {
     var moveTo = (move >> 8) & 0xFF;
     var captured = g_board[moveTo] & TYPE_MASK;
     var piece = g_board[move & 0xFF];
@@ -213,60 +351,67 @@ function IsSquareAttackableFromX(target, from) {
     if (pieceType == pieceEmpty) return false;
     var color = (piece & colorWhite);
     var enemy = color ? colorBlack : colorWhite;
-    var inc = color ? -16 : 16;
+    var inc = color ? -1 : 1;
     var me = color >> TYPE_SIZE;
 
     if (pieceType == piecePawn) {
         adj = pieceSquareAdj[piecePawn][me == 0 ? flipTable[from] : from];
-        if (+from + inc == target) return true;
+        if (from + inc == target) return true;
+        if (from + (inc * 16) == target) return true;
         if (adj != 0) {
-            if (+from + 1 == target) return true;
-            if (+from - 1 == target) return true;
+            if (from - inc == target) return true;
+            if (from - (inc * 16) == target) return true;
         }
     }
+    if (pieceType == pieceDun) {
+        to = from - 17; if (to == target) return true;
+        to = from - 15; if (to == target) return true;
+        to = from + 17; if (to == target) return true;
+        to = from + 15; if (to == target) return true;
+    }
     if (pieceType == pieceAdvisor) {
-        to = from + 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (to == target) return true;
         }
-        to = from + 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (to == target) return true;
         }
-        to = from - 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (to == target) return true;
         }
-        to = from - 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (to == target) return true;
         }
     }
     if (pieceType == pieceBishop) {
-        to = from + 15;
+        to = from + 16;
         if (g_board[to] == 0) {
-            to += 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to += 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (to == target) return true;
             }
         }
-        to = from + 17;
+        to = from + 1;
         if (g_board[to] == 0) {
-            to += 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to++; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (to == target) return true;
             }
         }
-        to = from - 15;
+        to = from - 16;
         if (g_board[to] == 0) {
-            to -= 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to -= 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (to == target) return true;
             }
         }
-        to = from - 17;
+        to = from - 1;
         if (g_board[to] == 0) {
-            to -= 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to--; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (to == target) return true;
             }
@@ -293,6 +438,46 @@ function IsSquareAttackableFromX(target, from) {
             to = pos - 15; if (to == target) return true;
             to = pos + 17; if (to == target) return true;
         }
+    }
+    if (pieceType == pieceKing) {
+       to = from + 1; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+       if (adj != 0) {
+           if (to == target) return true;
+       }
+       to = from - 1; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+       if (adj != 0) {
+           if (to == target) return true;
+       }
+       to = from + 16; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+       if (adj != 0) {
+           if (to == target) return true;
+       }
+       to = from - 16; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+       if (adj != 0) {
+           if (to == target) return true;
+       }
+       adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[from] : from];
+       if ((adj % 2) != 0) {
+           to = from - 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+           if (adj != 0) {
+               if (to == target) return true;
+           }
+           to = from - 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+           if (adj != 0) {
+               if (to == target) return true;
+           }
+           to = from + 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+           if (adj != 0) {
+               if (to == target) return true;
+           }
+           to = from + 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+           if (adj != 0) {
+               if (to == target) return true;
+           }
+       }
+       to = from + (inc * 17); while (g_board[to] == 0) { to += inc * 17; }
+       if (to != target) return false;
+       if ((g_board[to] & TYPE_MASK) == pieceKing) return true;
     }
     if (((target & 0xF) != (from & 0xF)) && ((target & 0xF0) != (from & 0xF0))) return false;
     if (pieceType == pieceRook) {
@@ -323,27 +508,6 @@ function IsSquareAttackableFromX(target, from) {
            if (to == target) return true;
        }
     }
-    if (pieceType == pieceKing) {
-       to = from + 1; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
-       if (adj != 0) {
-           if (to == target) return true;
-       }
-       to = from - 1; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
-       if (adj != 0) {
-           if (to == target) return true;
-       }
-       to = from + 16; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
-       if (adj != 0) {
-           if (to == target) return true;
-       }
-       to = from - 16; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
-       if (adj != 0) {
-           if (to == target) return true;
-       }
-       to = from + inc; while (g_board[to] == 0) { to += inc; }
-       if (to != target) return false;
-       if ((g_board[to] & TYPE_MASK) == pieceKing) return true;
-    }
     return false;
 }
 
@@ -362,8 +526,16 @@ function IsSquareAttackableX(target, color) {
 function ResetGame() {
     CommonResetGame();
 
+    for (var row = 0; row < g_height; row++) {
+       for (var col = 0; col < g_width; col++) {
+            var square = MakeSquare(row, col);
+            flipTable[square] = MakeSquare((g_height - 1) - row, (g_width - 1) - col);
+       }
+    }
+
     pieceSquareAdj[pieceEmpty]   = MakeTable(emptyAdj);
     pieceSquareAdj[piecePawn]    = MakeTable(pawnAdj);
+    pieceSquareAdj[pieceDun]     = MakeTable(dunAdj);
     pieceSquareAdj[pieceAdvisor] = MakeTable(advisorAdj);
     pieceSquareAdj[pieceBishop]  = MakeTable(bishopAdj);
     pieceSquareAdj[pieceKnight]  = MakeTable(knightAdj);
@@ -384,12 +556,14 @@ function InitializeEval() {
         g_mobUnit[i][pieceNo] = 0;
         g_mobUnit[i][enemy  | piecePawn]    = 1;
         g_mobUnit[i][enemy  | pieceAdvisor] = 1;
+        g_mobUnit[i][enemy  | pieceDun]     = 1;
         g_mobUnit[i][enemy  | pieceBishop]  = 1;
         g_mobUnit[i][enemy  | pieceKnight]  = 2;
         g_mobUnit[i][enemy  | pieceCannon]  = 4;
         g_mobUnit[i][enemy  | pieceRook]    = 5;
         g_mobUnit[i][enemy  | pieceKing]    = 6;
         g_mobUnit[i][friend | piecePawn]    = 0;
+        g_mobUnit[i][friend | pieceDun]     = 0;
         g_mobUnit[i][friend | pieceAdvisor] = 0;
         g_mobUnit[i][friend | pieceBishop]  = 0;
         g_mobUnit[i][friend | pieceKnight]  = 0;
@@ -403,7 +577,7 @@ function InitializeFromFen(fen) {
     var chunks = fen.split(' ');
     
     for (var i = 0; i < 256; i++) 
-        g_board[i] = 0x80;
+        g_board[i] = pieceNo;
     
     var row = 0;
     var col = 0;
@@ -421,8 +595,7 @@ function InitializeFromFen(fen) {
                     g_board[MakeSquare(row, col)] = 0;
                     col++;
                 }
-            }
-            else {
+            } else {
                 var isBlack = c >= 'a' && c <= 'z';
                 var piece = isBlack ? colorBlack : colorWhite;
                 if (!isBlack) 
@@ -443,6 +616,9 @@ function InitializeFromFen(fen) {
                     case 'a':
                         piece |= pieceAdvisor;
                         break;
+                    case 'g':
+                        piece |= pieceDun;
+                        break;
                     case 'c':
                         piece |= pieceCannon;
                         break;
@@ -450,7 +626,6 @@ function InitializeFromFen(fen) {
                         piece |= pieceKing;
                         break;
                 }
-                
                 if (piece & TYPE_MASK) {
                     g_board[MakeSquare(row, col)] = piece;
                 }
@@ -458,11 +633,11 @@ function InitializeFromFen(fen) {
             }
         }
     }
-    
+
     InitializePieceList();
     
     g_toMove = chunks[1].charAt(0) == 'w' ? colorWhite : 0;
-    var them = 8 - g_toMove;
+    var them = colorWhite - g_toMove;
     
     var hashResult = SetHash();
     g_hashKeyLow = hashResult.hashKeyLow;
@@ -471,11 +646,11 @@ function InitializeFromFen(fen) {
     g_baseEval = 0;
     for (var i = 0; i < 256; i++) {
         if (g_board[i] & colorWhite) {
-            g_baseEval += pieceSquareAdj[g_board[i] & 0x7][i];
-            g_baseEval += materialTable[g_board[i] & 0x7];
+            g_baseEval += pieceSquareAdj[g_board[i] & TYPE_MASK][i];
+            g_baseEval += materialTable[g_board[i] & TYPE_MASK];
         } else if (g_board[i] & colorBlack) {
-            g_baseEval -= pieceSquareAdj[g_board[i] & 0x7][flipTable[i]];
-            g_baseEval -= materialTable[g_board[i] & 0x7];
+            g_baseEval -= pieceSquareAdj[g_board[i] & TYPE_MASK][flipTable[i]];
+            g_baseEval -= materialTable[g_board[i] & TYPE_MASK];
         }
     }
     if (!g_toMove) g_baseEval = -g_baseEval;
@@ -624,11 +799,28 @@ function GenerateAllMoves(moveStack) {
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from + inc; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + (inc * 16); if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
         adj = pieceSquareAdj[piecePawn][me == 0 ? flipTable[from] : from];
         if (adj != 0) {
-            to = from - 1; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
-            to = from + 1; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+            to = from - inc; 
+            if ((g_board[to] == 0) && (pieceSquareAdj[piecePawn][me == 0 ? flipTable[to] : to] != 0)) {
+                moveStack[moveStack.length] = GenerateMove(from, to);
+            }
+            to = from - (inc * 16); 
+            if ((g_board[to] == 0) && (pieceSquareAdj[piecePawn][me == 0 ? flipTable[to] : to] != 0)) {
+                moveStack[moveStack.length] = GenerateMove(from, to);
+            }
         }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    pieceIdx = (g_toMove | pieceDun) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+        to = from - 17; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from - 15; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + 17; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + 15; if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
 	from = g_pieceList[pieceIdx++];
     }
 
@@ -636,19 +828,19 @@ function GenerateAllMoves(moveStack) {
     pieceIdx = (g_toMove | pieceAdvisor) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        to = from - 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from - 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from + 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from + 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
@@ -659,30 +851,30 @@ function GenerateAllMoves(moveStack) {
     pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        pos = from - 15; 
+        pos = from - 16; 
         if (g_board[pos] == 0) {
-            to = pos - 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos - 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from - 17; 
+        pos = from - 1; 
         if (g_board[pos] == 0) {
-            to = pos - 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos - 1; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from + 15; 
+        pos = from + 16; 
         if (g_board[pos] == 0) {
-            to = pos + 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos + 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from + 17; 
+        pos = from + 1; 
         if (g_board[pos] == 0) {
-            to = pos + 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos + 1; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
@@ -758,6 +950,25 @@ function GenerateAllMoves(moveStack) {
     if (adj != 0) {
         if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
     }
+    adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[from] : from];
+    if ((adj % 2) != 0) {
+        to = from - 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from - 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from + 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from + 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] == 0) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+    }
 }
 
 function GenerateCaptureMoves(moveStack, moveScores) {
@@ -771,11 +982,29 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
         to = from + inc; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + (inc * 16); if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
         adj = pieceSquareAdj[piecePawn][me == 0 ? flipTable[from] : from];
         if (adj != 0) {
-            to = from - 1; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
-            to = from + 1; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+            to = from - inc; 
+            if ((g_board[to] & enemy) && (pieceSquareAdj[piecePawn][me == 0 ? flipTable[to] : to] != 0)) {
+                moveStack[moveStack.length] = GenerateMove(from, to);
+            }
+            to = from - (inc * 16); 
+            if ((g_board[to] & enemy) && (pieceSquareAdj[piecePawn][me == 0 ? flipTable[to] : to] != 0)) {
+                moveStack[moveStack.length] = GenerateMove(from, to);
+            }
         }
+	from = g_pieceList[pieceIdx++];
+    }
+
+    // Dun captures
+    pieceIdx = (g_toMove | pieceDun) << COUNTER_SIZE;
+    from = g_pieceList[pieceIdx++];
+    while (from != 0) {
+        to = from - 17; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from - 15; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + 17; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        to = from + 15; if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
 	from = g_pieceList[pieceIdx++];
     }
 
@@ -783,19 +1012,19 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     pieceIdx = (g_toMove | pieceAdvisor) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        to = from - 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from - 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from - 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from + 15; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 16; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
-        to = from + 17; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
+        to = from + 1; adj = pieceSquareAdj[pieceAdvisor][me == 0 ? flipTable[to] : to];
         if (adj != 0) {
             if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
         }
@@ -806,30 +1035,30 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     pieceIdx = (g_toMove | pieceBishop) << COUNTER_SIZE;
     from = g_pieceList[pieceIdx++];
     while (from != 0) {
-        pos = from - 15; 
+        pos = from - 16; 
         if (g_board[pos] == 0) {
-            to = pos - 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos - 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from - 17; 
+        pos = from - 1; 
         if (g_board[pos] == 0) {
-            to = pos - 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos - 1; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from + 15; 
+        pos = from + 16; 
         if (g_board[pos] == 0) {
-            to = pos + 15; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos + 16; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
         }
-        pos = from + 17; 
+        pos = from + 1; 
         if (g_board[pos] == 0) {
-            to = pos + 17; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
+            to = pos + 1; adj = pieceSquareAdj[pieceBishop][me == 0 ? flipTable[to] : to];
             if (adj != 0) {
                 if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
             }
@@ -921,12 +1150,31 @@ function GenerateCaptureMoves(moveStack, moveScores) {
     if (adj != 0) {
         if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
     }
+    adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[from] : from];
+    if ((adj % 2) != 0) {
+        to = from - 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from - 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from + 17; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+        to = from + 15; adj = pieceSquareAdj[pieceKing][me == 0 ? flipTable[to] : to];
+        if (adj != 0) {
+            if (g_board[to] & enemy) {moveStack[moveStack.length] = GenerateMove(from, to);}
+        }
+    }
 }
 
 function GenerateDropMoves(moveStack, force) {}
 
-var g_seeValues    = [0, 1, 2, 2, 3, 4, 5, 900,
-                      0, 1, 2, 2, 3, 4, 5, 900];
+var g_seeValues = [0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0,
+                   0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0];
 
 function See(move) {
     var from = move & 0xFF;
@@ -959,7 +1207,7 @@ function See(move) {
 
     // Slider attacks
     g_board[from] = 0;
-    for (var pieceType = pieceAdvisor; pieceType <= pieceRook; pieceType++) {
+    for (var pieceType = pieceDun; pieceType <= pieceRook; pieceType++) {
         if (SeeAddSliderAttacksX(to, them, themAttacks, pieceType)) {
             if (captureDeficit > g_seeValues[pieceType]) {
                 g_board[from] = fromPiece;
@@ -983,7 +1231,7 @@ function See(move) {
     SeeAddSliderAttacksX(to, them, themAttacks, pieceKing);
 
     // Our attacks
-    for (var pieceType = pieceAdvisor; pieceType <= pieceKing; pieceType++) {
+    for (var pieceType = pieceDun; pieceType <= pieceKing; pieceType++) {
         SeeAddSliderAttacksX(to, us, usAttacks, pieceType);
     }
 

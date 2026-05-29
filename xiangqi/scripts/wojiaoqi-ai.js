@@ -144,8 +144,8 @@ Dagaz.AI.pieceAdj = [
 var pieceSquareAdj = new Array(9);
 var flipTable = new Array(256);
 
-var g_seeValues    = [0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0,
-                      0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0];
+var g_seeValues = [0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0,
+                   0, 1, 1, 2, 2, 3, 4, 5, 900, 0, 0, 0, 0, 0, 0, 0];
 
 function FormatSquare(square) {
     var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
@@ -262,7 +262,7 @@ Dagaz.AI.Evaluate = function() {
     return curEval;
 }
 
-Dagaz.AI.ScoreMove = function(move){
+Dagaz.AI.ScoreMove = function(move) {
     var moveTo = (move >> 8) & 0xFF;
     var captured = Dagaz.AI.g_board[moveTo] & Dagaz.AI.TYPE_MASK;
     var piece = Dagaz.AI.g_board[move & 0xFF];
