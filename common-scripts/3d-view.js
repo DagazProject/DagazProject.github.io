@@ -55,6 +55,7 @@ Dagaz.View.BG_COLOR       = 0xE5E5E5;
 
 let resTask = [];
 let resList = [];
+let popups  = [];
 
 Dagaz.View.markType = {
    TARGET:            0,
@@ -222,7 +223,6 @@ function View3D() {
   this.targets = [];
   this.queue   = [];
   this.boards  = [];
-  this.popups  = [];
   this.ready   = false;
 }
 
@@ -884,81 +884,6 @@ View3D.prototype.clearControls = function() {
   this.invalidate();
 }
 
-View3D.prototype.defPopup = function(img, x, y, selector) {
-  if (!_.isUndefined(Dagaz.Model.setupSelector) && !_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
-  var res = {
-     h: document.getElementById(img),
-     g: [],
-     x: x ? x : 0,
-     y: y ? y : 0
-  };
-  this.popups.push(res);
-  this.res.push(res);
-}
-
-View3D.prototype.defPopupPosition = function(name, x, y, dx, dy) {
-  if (this.popups.length > 0) {
-      var popup = this.popups[this.popups.length - 1];
-      popup.g.push({
-          name: name,
-          x:    x,
-          y:    y,
-          dx:   dx,
-          dy:   dy
-      });
-  }
-}
-
-View3D.prototype.findPopup = function(n) {
-  for (var i = 0; i < this.popups.length; i++) {
-       if (this.popups[i].g.length == n) {
-           return i;
-       }
-  }
-  return 0;
-}
-
-View3D.prototype.openPopup = function(ix, pieces, x, y) {
-  if (ix < this.popups.length) {
-      this.stack.push({
-          popup: ix,
-          list:  pieces,
-          x: x ? x : this.popups[ix].x,
-          y: y ? y : this.popups[ix].y
-      });
-  }
-}
-
-View3D.prototype.closePopup = function() {
-  if (this.stack.length > 0) {
-      this.stack.pop();
-  }
-}
-
-View3D.prototype.getPopupPositions = function(ix) {
-  var r = [];
-  if (ix < this.popups.length) {
-      _.each(this.popups[ix].g, function(f) {
-           r.push(Dagaz.Model.stringToPos(f.name));
-      });
-  }
-  return r;
-}
-
-View3D.prototype.getSelected = function(pos) {
-  var r = null;
-  if (this.stack.length > 0) {
-      var frame = this.stack[ this.stack.length - 1 ];
-      var popup = frame.popup;
-      var positions = this.getPopupPositions(popup);
-      var ix = _.indexOf(positions, pos);
-      if ((ix >= 0) && (ix < frame.list.length)) {
-          r = frame.list[ix];
-      }
-  }
-  return r;
-}
-
 View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, selector) {
   if (!_.isUndefined(selector) && (selector != Dagaz.Model.getResourceSelector())) return;
   var type = 0;
@@ -977,6 +902,7 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      this.res.push({h:img});
      return img;
   }, this);
+  menus[0].isModal = false;
   menus[0].items.push({
      h: imgs,
      x: 0,
@@ -985,6 +911,64 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
      p: proc,
      a: args,
      y: type
+  });
+}
+
+View3D.prototype.defSubMenu = function(ix, imgs) {
+  if (_.isUndefined(menus[ix])) {
+      menus[ix] = {
+         v: false,
+         x: 3  + 5,
+         y: 50 + 5,
+         sx: 3,
+         sy: 0,
+         dx: 300,
+         dy: 70,
+         items: []
+      };
+  }
+  if (!_.isArray(imgs)) {
+     imgs = [imgs];
+  }
+  imgs = _.map(imgs, function(res) {
+     const img = document.getElementById(res);
+     this.res.push({h:img});
+     return img;
+  }, this);
+  menus[ix].h = imgs;
+  menus[ix].isModal = true;
+}
+
+View3D.prototype.defSubMenuControl = function(ix, imgs, hint, isVisible, proc, args) {
+  if (_.isUndefined(menus[ix])) {
+      menus[ix] = {
+         v: false,
+         x: 3  + 5,
+         y: 50 + 5,
+         sx: 3,
+         sy: 0,
+         dx: 300,
+         dy: 70,
+         items: []
+      };
+  }
+  if (_.isUndefined(isVisible)) isVisible = true;
+  if (!_.isArray(imgs)) {
+     imgs = [imgs];
+  }
+  imgs = _.map(imgs, function(res) {
+     const img = document.getElementById(res);
+     this.res.push({h:img});
+     return img;
+  }, this);
+  menus[ix].isModal = true;
+  menus[ix].items.push({
+     h: imgs,
+     x: 0,
+     t: hint,
+     v: isVisible,
+     p: proc,
+     a: args
   });
 }
 
@@ -1011,6 +995,7 @@ View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args)
      this.res.push({h:img});
      return img;
   }, this);
+  menus[ix].isModal = false;
   menus[ix].items.push({
      h: imgs,
      x: 0,
@@ -1477,15 +1462,14 @@ View3D.prototype.allResLoaded = function() {
 
 const overlay = document.getElementById('overlay');
 const ctx = overlay.getContext('2d');
+const OVERLAY_HEIGHT = 160;
 
 View3D.prototype.configure = function() {
   if (!isConfigured && this.controller) {
       Dagaz.View.configure(this);
       isConfigured = true;
-
-      // DEBUG:
-      overlay.width = 1200;
-      overlay.height = 160;  
+      overlay.width = window.innerWidth;
+      overlay.height = OVERLAY_HEIGHT;  
   }
 }
 
@@ -1561,7 +1545,7 @@ function drawTooltip(text, x, y, menuIndex) {
     const height = lineHeight * lines.length;
 
     let tipX = x + 15;
-    let tipY = y - 15;
+    let tipY = y - 20;
 
     if (tipX + maxWidth > overlay.width) tipX = x - maxWidth - 15;
     if (tipY + height > overlay.height) tipY = overlay.height - height;
@@ -1589,15 +1573,35 @@ Dagaz.View.switchMenu = function(ix) {
   Dagaz.View.view.invalidate();
 }
 
+Dagaz.View.openPopup = function(ix, pieces) {
+  overlay.height = window.innerHeight;
+  popups.push(ix);
+  Dagaz.View.switchMenu(ix);
+}
+
+Dagaz.View.closePopup = function() {
+  if (popups.length == 0) return;
+  const ix = popups.pop();
+  Dagaz.View.switchMenu(ix);
+  overlay.height = OVERLAY_HEIGHT;
+}
+
 View3D.prototype.invalidate = function() {
     let h = null;
     let activeMenuIdx = -1;
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (let i = 0; i < menus.length; i++) {
-        const x = this.menuDraw(menus[i]);
+        if (_.isUndefined(menus[i])) continue;
+        const x = this.menuDraw(menus[i], i);
         if (h === null && x !== null) {
             h = x;
             activeMenuIdx = i;
         }
+    }
+    let yo = 0;
+    if (activeMenuIdx >= 0) {
+        const offset = getMenuOffset(menus[activeMenuIdx], activeMenuIdx);
+        yo = offset.y;
     }
     const s = camera.position.x + ';' + camera.position.y + ';' + camera.position.z + ';' + camera.zoom;
     if ((cameraSettings === null) || (cameraSettings != s)) {
@@ -1606,24 +1610,53 @@ View3D.prototype.invalidate = function() {
     }
     if (h !== null) {
         let t = h.t.replace('{move}', Dagaz.AI.ADVISOR_MOVE);
-        drawTooltip(t, h.x, h.y, activeMenuIdx);
+        drawTooltip(t, h.x, h.y + yo, activeMenuIdx);
     }
     renderer.render(scene, camera);
 }
 
-View3D.prototype.menuDraw = function(m) {
+function getMenuOffset(m, ix) {
+    const width   = window.innerWidth;
+    const height  = window.innerHeight;
+    const isModal = _.indexOf(popups, ix) >= 0;
+    let x = m.x;
+    let y = m.y;
+    if (isModal) {
+        let o = 0;
+        for (let i = 0; i < m.items.length; i++) {
+            const t = m.items[i];
+            if (!t.v) continue;
+            o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
+        }
+        x = (width - o) / 2;
+        y = height / 4;
+    }
+    return {
+        isModal: isModal,
+        x: x,
+        y: y
+    };
+}
+
+View3D.prototype.menuDraw = function(m, ix) {
+    let mc = mobileCoeff;
     if (!m.v) {
-        ctx.clearRect(m.x, m.y, m.dx * mobileCoeff, m.dy * mobileCoeff);
+//      ctx.clearRect(m.x, m.y, m.dx * mc, m.dy * mc);
         return null;
     }
-    let o = m.x; let h = null;
-    ctx.clearRect(o, m.y, 1500 /*m.dx * mobileCoeff*/, m.dy * mobileCoeff);
+    const offset = getMenuOffset(m, ix);
+    let o = offset.x; let h = null;
+//  ctx.clearRect(o, offset.y, window.innerWidth, m.dy * mc);
+    if (offset.isModal && !_.isUndefined(m.h)) {
+        mc = 1;
+        ctx.drawImage(m.h[0], 0, 0, m.h[0].naturalWidth, m.h[0].naturalHeight,
+                      o - 3, offset.y - 7, m.h[0].naturalWidth * mc, m.h[0].naturalHeight * mc);
+    }
     for (let i = 0; i < m.items.length; i++) {
         const t = m.items[i];
         if (!t.v) continue;
-        ctx.clearRect(o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
         ctx.drawImage(t.h[t.x], 0, 0, t.h[t.x].naturalWidth, t.h[t.x].naturalHeight,
-                      o, m.y, t.h[t.x].naturalWidth * mobileCoeff, t.h[t.x].naturalHeight * mobileCoeff);
+                      o, offset.y, t.h[t.x].naturalWidth * mc, t.h[t.x].naturalHeight * mc);
         if ((tooltipIx !== null) && (activeTooltipMenu === m) && (tooltipIx == i) && (tooltipIx != tooltipHide) && t.t) {
             h = {
                 t: t.t,
@@ -1631,18 +1664,21 @@ View3D.prototype.menuDraw = function(m) {
                 y: t.h[t.x].naturalHeight * 2
             };
         }
-        o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
+        o += (t.h[t.x].naturalWidth + m.sx*2) * mc;
     }
     return h;
 }
 
-View3D.prototype.menuClick = function(x, m) {
+View3D.prototype.menuClick = function(x, m, ix) {
   if (_.isUndefined(m)) m = menus[0];
-  let o = m.sx;
+  const offset = getMenuOffset(m, ix);
+  let mc = mobileCoeff;
+  if (offset.isModal) mc = 1;
+  let o = offset.x;
   for (let i = 0; i < m.items.length; i++) {
       const t = m.items[i];
       if (!t.v) continue;
-      if ((x > o) && (x < o + t.h[t.x].naturalWidth * mobileCoeff)) {
+      if ((x > o) && (x < o + t.h[t.x].naturalWidth * mc)) {
          if (t.h.length > 1) {
              t.x++;
              if (t.x >= t.h.length) {
@@ -1655,13 +1691,16 @@ View3D.prototype.menuClick = function(x, m) {
          tooltipHide = tooltipIx;
          this.invalidate();
       }
-      o += (t.h[t.x].naturalWidth + m.sx*2) * mobileCoeff;
+      o += (t.h[t.x].naturalWidth + m.sx*2) * mc;
   }
 }
 
-View3D.prototype.menuHint = function(x, m) {
+View3D.prototype.menuHint = function(x, m, ix) {
   if (_.isUndefined(m)) m = menus[0];
-  let o = m.sx;
+  const offset = getMenuOffset(m, ix);
+  let mc = mobileCoeff;
+  if (offset.isModal) mc = 1;
+  let o = offset.x;
   for (let i = 0; i < m.items.length; i++) {
       const t = m.items[i];
       if (!t.v) continue;
@@ -2401,6 +2440,7 @@ View3D.prototype.draw = function(canvas) {
 }
 
 function changeDimensions() {
+    Dagaz.View.view.invalidate();
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
     const aspectRatio = sizes.width / sizes.height;
@@ -2428,30 +2468,30 @@ function processMenu({x, y, click}) {
     let ix = null;
     let activeMenu = null;
 
-    // Проверяем все меню от последнего к первому
     for (let i = menus.length - 1; i >= 0; i--) {
         const m = menus[i];
+        if (_.isUndefined(m)) continue;
         if (!m.v) continue;
 
-        // Вычисляем ширину меню
         let totalWidth = m.sx;
         for (let j = 0; j < m.items.length; j++) {
             const item = m.items[j];
             if (!item.v) continue;
-            totalWidth += item.h[item.x].naturalWidth * mobileCoeff + m.sx * 2;
+            totalWidth += item.h[item.x].naturalWidth * (m.isModal ? 1 : mobileCoeff) + m.sx * 2;
         }
 
+        const offset = getMenuOffset(m, i);
         const menuRect = {
-            left: m.x,
-            right: m.x + totalWidth,
-            top: m.y,
-            bottom: m.y + m.dy * mobileCoeff
+            left: offset.x,
+            right: offset.x + totalWidth,
+            top: offset.y,
+            bottom: offset.y + m.dy * (m.isModal ? 1 : mobileCoeff)
         };
 
         if (mx >= menuRect.left && mx <= menuRect.right &&
             my >= menuRect.top && my <= menuRect.bottom) {
             activeMenu = m;
-            ix = Dagaz.View.view.menuHint(mx, m);
+            ix = Dagaz.View.view.menuHint(mx, m, i);
             break;
         }
     }
@@ -2460,29 +2500,30 @@ function processMenu({x, y, click}) {
         ix = null;
     }
 
-    // Обработка клика
     if (click) {
         for (let i = menus.length - 1; i >= 0; i--) {
             const m = menus[i];
+            if (_.isUndefined(m)) continue;
             if (!m.v) continue;
 
             let totalWidth = m.sx;
             for (let j = 0; j < m.items.length; j++) {
                 const item = m.items[j];
                 if (!item.v) continue;
-                totalWidth += item.h[item.x].naturalWidth * mobileCoeff + m.sx * 2;
+                totalWidth += item.h[item.x].naturalWidth * (m.isModal ? 1 : mobileCoeff) + m.sx * 2;
             }
 
+            const offset = getMenuOffset(m, i);
             const menuRect = {
-                left: m.x,
-                right: m.x + totalWidth,
-                top: m.y,
-                bottom: m.y + m.dy * mobileCoeff
+                left: offset.x,
+                right: offset.x + totalWidth,
+                top: offset.y,
+                bottom: offset.y + m.dy * (m.isModal ? 1 : mobileCoeff)
             };
 
             if (canvasPos.x >= menuRect.left && canvasPos.x <= menuRect.right &&
                 canvasPos.y >= menuRect.top && canvasPos.y <= menuRect.bottom) {
-                Dagaz.View.view.menuClick(mx, m);
+                Dagaz.View.view.menuClick(mx, m, i);
                 break;
             }
         }

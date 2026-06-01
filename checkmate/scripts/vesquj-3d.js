@@ -243,6 +243,18 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
+    view.defSubMenu(4, "Promote");
+    view.defSubMenuControl(4, "WWing-Commander", "Wing-Commander", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(4, "WBrigadier", "Brigadier", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(4, "WCaptain", "Captain", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(4, "WMarshal", "Marshal", true, Dagaz.Controller.menuItem, 4);
+
+    view.defSubMenu(14, "Promote");
+    view.defSubMenuControl(14, "BWing-Commander", "Wing-Commander", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(14, "BBrigadier", "Brigadier", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(14, "BCaptain", "Captain", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(14, "BMarshal", "Marshal", true, Dagaz.Controller.menuItem, 4);
+
     view.defPosition("a6", -105, -105, 41, 41, 0.1);
     view.defPosition("b6", -63, -105, 41, 41, 0.1);
     view.defPosition("c6", -21, -105, 41, 41, 0.1);

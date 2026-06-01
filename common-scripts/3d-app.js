@@ -6,8 +6,9 @@ const STATE = {
     WAIT: 2,
     BUZY: 3,
     EXEC: 4,
-    DONE: 5,
-    STOP: 6
+    MENU: 5,
+    DONE: 6,
+    STOP: 7
 };
 
 const WAIT_FRAME = 100;
@@ -212,11 +213,69 @@ App.prototype.clearPositions = function() {
   this.view.clearDrops();
 }
 
+var getPieces = function(move) {
+  var r = null;
+  _.each(move.actions, function(a) {
+      if ((a[0] !== null) && (a[1] !== null) && (a[2] !== null) && (a[2].length > 1)) {
+           r = _.map(a[2], function(piece) {
+                if (Dagaz.Model.remapPromote) {
+                    return piece.changeOwner(1);
+                } else {
+                    return piece;
+                }
+           }); 
+      }
+  });
+  return r;
+}
+
+App.prototype.clarify = function(move) {
+  if (!_.isUndefined(this.selected) && _.isUndefined(Dagaz.Controller.SelectPiece)) {
+      for (var i = 0; i < move.actions.length; i++) {
+          if ((move.actions[i][0] !== null) && (move.actions[i][2] !== null) && (move.actions[i][2].length > 1)) {
+               move.actions[i][2] = [ this.selected.changeOwner(this.board.player) ];
+               break;
+          }
+      }
+  }
+  return move;
+}
+
 App.prototype.setPosition = function(pos) {
   this.move = this.list.setPosition(pos);
   this.clearPositions();
-  this.state = STATE.EXEC;
+  var pieces = getPieces(this.move);
+  if ((pieces !== null) && (pieces.length > 1)) {
+      if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.popup)) {
+          Dagaz.Controller.play(Dagaz.Sounds.popup);
+      }
+      var piece = pieces[0];
+      var ix = pieces.length;
+      if (piece.player > 1) {
+          ix = +ix + 10;
+      }
+      Dagaz.View.openPopup(ix, pieces);
+      this.state = STATE.MENU;
+  } else {
+     this.state = STATE.EXEC;
+  }
   Canvas.style.cursor = "default";
+}
+
+Dagaz.Controller.menuItem = function(ix) {
+  Dagaz.View.closePopup();
+  Dagaz.Controller.app.chooseMenuItem(ix);
+}
+
+App.prototype.chooseMenuItem = function(ix) {
+  var pieces = getPieces(this.move);
+  for (var i = 0; i < pieces.length; i++) {
+      if (pieces[i].type == ix) {
+          this.move = this.list.setPiece(pieces[i]);
+          this.state = STATE.EXEC;
+          break;
+      }
+  }
 }
 
 App.prototype.boardApply = function(move) {
@@ -550,6 +609,7 @@ App.prototype.exec = function() {
           if ((moves.length == 1) && (moves[0].isDropMove())) this.move = moves[0];
       }
       if (!this.move.isPass()) {
+          this.move = this.clarify(this.move);
           this.checkCaptures(this.move);
           this.move.applyAll(this.view);
           this.state = STATE.IDLE;
@@ -559,7 +619,7 @@ App.prototype.exec = function() {
               var moves = this.list.filterDrops(this.list.getMoves(), dropIndex);
               delete this.list;
               this.view.clearDrops();
-              var m = this.move;
+              var m = this.clarify(this.move);
               this.boardApply(m);
               Dagaz.Model.Done(this.design, this.board);
               console.log("Debug: " + m.toString());
