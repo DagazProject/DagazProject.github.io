@@ -242,6 +242,7 @@ App.prototype.clarify = function(move) {
 }
 
 App.prototype.setPosition = function(pos) {
+  if (this.state == STATE.MENU) return;
   this.move = this.list.setPosition(pos);
   this.clearPositions();
   var pieces = getPieces(this.move);

@@ -552,6 +552,18 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'platform-chess-3d-board.htm' : 'platform-chess-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+
+    view.defSubMenu(4, "Promote");
+    view.defSubMenuControl(4, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(4, "WBishop", "Bishop", true, Dagaz.Controller.menuItem, 5);
+    view.defSubMenuControl(4, "WRook",   "Rook", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(4, "WQueen",  "Queen", true, Dagaz.Controller.menuItem, 6);
+ 
+    view.defSubMenu(14, "Promote");
+    view.defSubMenuControl(14, "BKnight", "Knight", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(14, "BBishop", "Bishop", true, Dagaz.Controller.menuItem, 5);
+    view.defSubMenuControl(14, "BRook",   "Rook", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(14, "BQueen",  "Queen", true, Dagaz.Controller.menuItem, 6);
  
     view.defPosition("ad", -202, -202, 136, 136, -5);
     view.defPosition("bd", -66, -202, 136, 136, -5);

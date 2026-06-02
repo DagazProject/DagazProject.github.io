@@ -419,6 +419,18 @@ Dagaz.View.configure = function(view) {
     view.defSubControl(1, "R02", "Charge of the Light Brigade", true, Dagaz.Controller.loadGame, "?turn=0;&setup=nnnnknnn/pppppppp/8/8/8/8/PPPPPPPP/1Q1QK1Q1+w+----+-");
     view.defSubControl(1, "R03", "Weak!", true, Dagaz.Controller.loadGame, "?turn=0;&setup=nnnnknnn/pppppppp/2p2p2/1pppppp1/8/8/PPPPPPPP/RNBQKBNR+w+KQ--+-");
     view.defSubControl(1, "R04", "Knight & Bishop Checkmate", true, Dagaz.Controller.loadGame, ["?turn=0;&setup=7N/8/7K/6B1/2k5/8/8/8+w+----+-", "?turn=0;&setup=8/8/1k6/8/2K5/8/8/N1B5+w+----+-", "?turn=0;&setup=3N4/8/8/8/6K1/8/k7/3B4+w+----+-", "?turn=0;&setup=2B5/8/8/8/8/7K/2N5/7k+w+----+", "?turn=0;&setup=8/8/8/8/1B1NK3/6k1/8/8+w+----+-", "?turn=0;&setup=8/8/8/3K3k/8/B7/8/2N5+w+----+-", "?turn=0;&setup=8/8/8/K1N5/6B1/8/2k5/8+w+----+-", "?turn=0;&setup=1k5K/8/8/8/8/8/1N6/7B+w+----+-", "?turn=0;&setup=8/8/8/8/2k1N3/8/7B/5K2+w+----+-", "?turn=0;&setup=8/8/1K6/8/8/3B4/7N/k7+w+----+-"]);
+
+    view.defSubMenu(4, "Promote");
+    view.defSubMenuControl(4, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(4, "WBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(4, "WRook",   "Rook", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(4, "WQueen",  "Queen", true, Dagaz.Controller.menuItem, 4);
+ 
+    view.defSubMenu(14, "Promote");
+    view.defSubMenuControl(14, "BKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(14, "BBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(14, "BRook",   "Rook", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(14, "BQueen",  "Queen", true, Dagaz.Controller.menuItem, 4);
  
     view.defPosition("a8", -236, -236, 68, 68, 0);
     view.defPosition("b8", -168, -236, 68, 68, 0);

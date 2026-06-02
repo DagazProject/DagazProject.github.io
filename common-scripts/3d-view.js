@@ -57,6 +57,8 @@ let resTask = [];
 let resList = [];
 let popups  = [];
 
+let missClick = false;
+
 Dagaz.View.markType = {
    TARGET:            0,
    ATTACKING:         1,
@@ -1576,6 +1578,7 @@ Dagaz.View.switchMenu = function(ix) {
 Dagaz.View.openPopup = function(ix, pieces) {
   overlay.height = window.innerHeight;
   popups.push(ix);
+  missClick = true;
   Dagaz.View.switchMenu(ix);
 }
 
@@ -2529,7 +2532,6 @@ function processMenu({x, y, click}) {
         }
     }
 
-    // Обновление тултипа: учитываем и индекс элемента, и меню
     if ((tooltipIx === null) || (ix === null) || (tooltipIx != ix) || (activeTooltipMenu !== activeMenu)) {
         tooltipIx = ix;
         tooltipHide = -1;
@@ -2682,10 +2684,8 @@ function mouseMove({x, y}, clean = false) {
   Dagaz.View.view.invalidate();
 }
 
-// resize event
 window.addEventListener('resize', changeDimensions);
 
-// mouse events
 window.addEventListener('mousedown', (event) => {
   lastX = event.clientX;
   lastY = event.clientY;
@@ -2706,7 +2706,6 @@ window.addEventListener('mouseup', (event) => {
   mouseMove({x: event.clientX, y: event.clientY}, true);
 });
 
-// touch events
 window.addEventListener('touchstart', (event) => {
     leastTouch = event.touches[0];
     lastX = leastTouch.clientX;
@@ -2728,8 +2727,11 @@ window.addEventListener('touchend', (event) => {
     }
 });
 
-// click events
 window.addEventListener('click', (event) => {
+  if (missClick) {
+      missClick = false;
+      return;
+  }
   processMenu({x: event.clientX, y: event.clientY, click: true});
 });
 
