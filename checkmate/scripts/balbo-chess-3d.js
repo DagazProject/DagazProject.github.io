@@ -375,6 +375,26 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
  
+    view.defSubMenu(2, "Promote-2");
+    view.defSubMenuControl(2, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "WBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+ 
+    view.defSubMenu(12, "Promote-2");
+    view.defSubMenuControl(12, "BKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(12, "BBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+
+    view.defSubMenu(4, "Promote-4");
+    view.defSubMenuControl(4, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(4, "WBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(4, "WRook",   "Rook", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(4, "WQueen",  "Queen", true, Dagaz.Controller.menuItem, 4);
+ 
+    view.defSubMenu(14, "Promote-4");
+    view.defSubMenuControl(14, "BKnight", "Knight", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(14, "BBishop", "Bishop", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(14, "BRook",   "Rook", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(14, "BQueen",  "Queen", true, Dagaz.Controller.menuItem, 4);
+
     view.defPosition("a10", -250, -225, 50, 50, 0);
     view.defPosition("b10", -200, -225, 50, 50, 0);
     view.defPosition("c10", -150, -225, 50, 50, 0);

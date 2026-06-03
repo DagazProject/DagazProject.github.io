@@ -615,6 +615,15 @@ App.prototype.exec = function() {
           this.move.applyAll(this.view);
           this.state = STATE.IDLE;
       }
+      if (!this.move.isPass()) {
+          if (!_.isUndefined(Dagaz.Controller.play)) {
+              var sound = Dagaz.Sounds.move;
+              if (!_.isUndefined(this.move.sound)) {
+                  sound = this.move.sound;
+              }
+              Dagaz.Controller.play(sound, this.board.player);
+          }
+      }
       if (!_.isUndefined(this.list)) {
           if (this.list.isDone() || (Dagaz.Model.completePartial && !this.move.isPass())) {
               var moves = this.list.filterDrops(this.list.getMoves(), dropIndex);
@@ -624,13 +633,6 @@ App.prototype.exec = function() {
               this.boardApply(m);
               Dagaz.Model.Done(this.design, this.board);
               console.log("Debug: " + m.toString());
-              if (!_.isUndefined(Dagaz.Controller.play) && !Dagaz.Controller.customSound) {
-                  var sound = Dagaz.Sounds.move;
-                  if (!_.isUndefined(this.move.sound)) {
-                      sound = this.move.sound;
-                  }
-                  Dagaz.Controller.play(sound, this.board.player);
-              }
               delete this.move;
               this.state = STATE.IDLE;
           }

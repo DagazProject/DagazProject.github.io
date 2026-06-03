@@ -301,6 +301,20 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
+    view.defSubMenu(5, "Promote");
+    view.defSubMenuControl(5, "WSoldier", "Soldier", true, Dagaz.Controller.menuItem, 0);
+    view.defSubMenuControl(5, "WHorse",   "Horse", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(5, "WLeopard", "Leopard", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(5, "WCannon",  "Cannon", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(5, "WChariot", "Chariot", true, Dagaz.Controller.menuItem, 2);
+
+    view.defSubMenu(15, "Promote");
+    view.defSubMenuControl(15, "BSoldier", "Soldier", true, Dagaz.Controller.menuItem, 0);
+    view.defSubMenuControl(15, "BHorse",   "Horse", true, Dagaz.Controller.menuItem, 1);
+    view.defSubMenuControl(15, "BLeopard", "Leopard", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(15, "BCannon",  "Cannon", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(15, "BChariot", "Chariot", true, Dagaz.Controller.menuItem, 2);
+
     view.defPosition("a7", -180, -180, 42, 42, 0);
     view.defPosition("b7", -120, -180, 42, 42, 0);
     view.defPosition("c7", -60, -180, 42, 42, 0);
