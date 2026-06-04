@@ -916,7 +916,9 @@ View3D.prototype.defControl = function(imgs, hint, isVisible, proc, args, select
   });
 }
 
-View3D.prototype.defSubMenu = function(ix, imgs) {
+View3D.prototype.defSubMenu = function(ix, imgs, xx, yy) {
+  if (_.isUndefined(xx)) xx = 0;
+  if (_.isUndefined(yy)) yy = 0;
   if (_.isUndefined(menus[ix])) {
       menus[ix] = {
          v: false,
@@ -939,6 +941,8 @@ View3D.prototype.defSubMenu = function(ix, imgs) {
   }, this);
   menus[ix].h = imgs;
   menus[ix].isModal = true;
+  menus[ix].xx = xx;
+  menus[ix].yy = yy;
 }
 
 View3D.prototype.defSubMenuControl = function(ix, imgs, hint, isVisible, proc, args) {
@@ -1464,13 +1468,15 @@ View3D.prototype.allResLoaded = function() {
 
 const overlay = document.getElementById('overlay');
 const ctx = overlay.getContext('2d');
+
+const OVERLAY_WIDTH  = 450;
 const OVERLAY_HEIGHT = 160;
 
 View3D.prototype.configure = function() {
   if (!isConfigured && this.controller) {
       Dagaz.View.configure(this);
       isConfigured = true;
-      overlay.width = window.innerWidth;
+      overlay.width = OVERLAY_WIDTH;
       overlay.height = OVERLAY_HEIGHT;  
   }
 }
@@ -1570,8 +1576,18 @@ function drawTooltip(text, x, y, menuIndex) {
     });
 }
 
+Dagaz.View.getPromotionDialogIx = function(pieces) {
+  let ix = pieces.length;
+  const piece = pieces[0];
+  if (piece.player > 1) {
+      ix = +ix + 10;
+  }
+  return ix;
+}
+
 Dagaz.View.switchMenu = function(ix) {
   menus[ix].v = !menus[ix].v;
+  overlay.width = menus[ix].v ? window.innerWidth : OVERLAY_WIDTH;
   Dagaz.View.view.invalidate();
 }
 
@@ -1644,16 +1660,14 @@ function getMenuOffset(m, ix) {
 View3D.prototype.menuDraw = function(m, ix) {
     let mc = mobileCoeff;
     if (!m.v) {
-//      ctx.clearRect(m.x, m.y, m.dx * mc, m.dy * mc);
         return null;
     }
     const offset = getMenuOffset(m, ix);
     let o = offset.x; let h = null;
-//  ctx.clearRect(o, offset.y, window.innerWidth, m.dy * mc);
     if (offset.isModal && !_.isUndefined(m.h)) {
         mc = 1;
         ctx.drawImage(m.h[0], 0, 0, m.h[0].naturalWidth, m.h[0].naturalHeight,
-                      o - 3, offset.y - 7, m.h[0].naturalWidth * mc, m.h[0].naturalHeight * mc);
+                      o - 3 + m.xx, offset.y - 7 + m.yy, m.h[0].naturalWidth * mc, m.h[0].naturalHeight * mc);
     }
     for (let i = 0; i < m.items.length; i++) {
         const t = m.items[i];

@@ -250,11 +250,7 @@ App.prototype.setPosition = function(pos) {
       if (!_.isUndefined(Dagaz.Sounds) && !_.isUndefined(Dagaz.Sounds.popup)) {
           Dagaz.Controller.play(Dagaz.Sounds.popup);
       }
-      var piece = pieces[0];
-      var ix = pieces.length;
-      if (piece.player > 1) {
-          ix = +ix + 10;
-      }
+      var ix = Dagaz.View.getPromotionDialogIx(pieces);
       Dagaz.View.openPopup(ix, pieces);
       this.state = STATE.MENU;
   } else {

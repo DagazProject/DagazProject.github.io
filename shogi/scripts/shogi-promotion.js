@@ -19,6 +19,11 @@ Dagaz.Model.moveToString = function(move) {
   return r;
 }
 
+Dagaz.View.getPromotionDialogIx = function(pieces) {
+  const piece = pieces[0];
+  return +piece.type;
+}
+
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {

@@ -887,6 +887,30 @@ Dagaz.View.configure = function(view) {
     view.defSubControl(1, "R09", "Five-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/2SGKGSN1-6/6/6/6/6/6/6/6/6-w");
     view.defSubControl(1, "R10", "Six-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/2SGKGS2-6/6/6/6/6/6/6/6/6-w");
     view.defSubControl(1, "R11", "Eight-Piece Handicap", true, Dagaz.Controller.loadGame, "?turn=0;&setup=lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/9/3GKG3-6/6/6/6/6/6/6/6/6-w");
+
+    view.defSubMenu(2, "Promote", -7, -8);
+    view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 8);
+
+    view.defSubMenu(3, "Promote", -7, -8);
+    view.defSubMenuControl(3, "Knight", "Knight", true, Dagaz.Controller.menuItem, 3);
+    view.defSubMenuControl(3, "Gold", "Gold", true, Dagaz.Controller.menuItem, 9);
+
+    view.defSubMenu(4, "Promote", -7, -8);
+    view.defSubMenuControl(4, "Lance", "Lance", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(4, "Gold", "Gold", true, Dagaz.Controller.menuItem, 10);
+
+    view.defSubMenu(5, "Promote", -7, -8);
+    view.defSubMenuControl(5, "Bishop", "Bishop", true, Dagaz.Controller.menuItem, 5);
+    view.defSubMenuControl(5, "BishopP", "Horse", true, Dagaz.Controller.menuItem, 11);
+ 
+    view.defSubMenu(6, "Promote", -7, -8);
+    view.defSubMenuControl(6, "Rook", "Rook", true, Dagaz.Controller.menuItem, 6);
+    view.defSubMenuControl(6, "RookP", "Dragon", true, Dagaz.Controller.menuItem, 12);
+
+    view.defSubMenu(7, "Promote", -7, -8);
+    view.defSubMenuControl(7, "Pawn", "Pawn", true, Dagaz.Controller.menuItem, 7);
+    view.defSubMenuControl(7, "Gold", "Tokin", true, Dagaz.Controller.menuItem, 13);
  
     view.defPosition("X9", -328, -184, 41, 46, 0);
     view.defPosition("Y9", -287, -184, 41, 46, 0);
