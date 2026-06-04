@@ -15,8 +15,6 @@ Dagaz.AI.RESERVE_SIZE        = 3;
 Dagaz.AI.WHITE_PROM          = 0x40;
 Dagaz.AI.BLACK_PROM          = 0x80;
 
-Dagaz.Model.PROM_IS_FORCED   = true;
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -61,7 +59,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("promote-dialog", "remap");
     design.checkVersion("advisor-wait", "0");
     design.checkVersion("shogi-extension", "true");
     design.checkVersion("shogi-promotion", "true");
