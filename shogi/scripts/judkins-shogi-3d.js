@@ -9,8 +9,6 @@ Dagaz.AI.ADVISOR_TIME = 10000;
 Dagaz.Model.WIDTH         = 6;
 Dagaz.Model.HEIGHT        = 6;
 
-Dagaz.Model.PROM_IS_FORCED = true;
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -362,6 +360,10 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'judkins-shogi-3d-board.htm' : 'judkins-shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
+
+    view.defSubMenu(2, "Promote", -7, -8);
+    view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
 
     view.defPosition("X6", -225, -115, 41, 46, 0);
     view.defPosition("Y6", -184, -115, 41, 46, 0);

@@ -9,8 +9,6 @@ Dagaz.AI.ADVISOR_TIME = 10000;
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 5;
 
-Dagaz.Model.PROM_IS_FORCED = true;
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -304,6 +302,10 @@ Dagaz.View.configure = function(view) {
     view.defPieceShogi(8, 2, 39, 39, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawn", 1);
     view.defPieceShogi(9, 1, 39, 39, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawnP", 1, Math.PI);
     view.defPieceShogi(9, 2, 39, 39, 1, 0, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "SouthPawnP", 1);
+
+    view.defSubMenu(2, "Promote", -7, -8);
+    view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
 
     view.setCamera(0, 0, 0, -96, 170, 210);
 

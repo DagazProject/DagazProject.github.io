@@ -12,8 +12,6 @@ Dagaz.Model.HEIGHT        = 7;
 Dagaz.AI.WHITE_PROM       = 0x30;
 Dagaz.AI.BLACK_PROM       = 0x70;
 
-Dagaz.Model.PROM_IS_FORCED = true;
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -165,7 +163,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("advisor-wait", "0");
-    design.checkVersion("promote-dialog", "remap");
 
     design.addDirection("se"); // 0
     design.addDirection("s");  // 1
@@ -505,6 +502,30 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
  
+    view.defSubMenu(2, "Promote", -7, -8);
+    view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
+
+    view.defSubMenu(4, "Promote", -7, -8);
+    view.defSubMenuControl(3, "Knight", "Knight", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(3, "Gold", "Gold", true, Dagaz.Controller.menuItem, 5);
+
+    view.defSubMenu(6, "Promote", -7, -8);
+    view.defSubMenuControl(4, "Lance", "Lance", true, Dagaz.Controller.menuItem, 6);
+    view.defSubMenuControl(4, "Gold", "Gold", true, Dagaz.Controller.menuItem, 7);
+
+    view.defSubMenu(8, "Promote", -7, -8);
+    view.defSubMenuControl(5, "Bishop", "Bishop", true, Dagaz.Controller.menuItem, 8);
+    view.defSubMenuControl(5, "BishopP", "Horse", true, Dagaz.Controller.menuItem, 9);
+ 
+    view.defSubMenu(10, "Promote", -7, -8);
+    view.defSubMenuControl(6, "Rook", "Rook", true, Dagaz.Controller.menuItem, 10);
+    view.defSubMenuControl(6, "RookP", "Dragon", true, Dagaz.Controller.menuItem, 11);
+
+    view.defSubMenu(12, "Promote", -7, -8);
+    view.defSubMenuControl(7, "Pawn", "Pawn", true, Dagaz.Controller.menuItem, 12);
+    view.defSubMenuControl(7, "Gold", "Tokin", true, Dagaz.Controller.menuItem, 13);
+
     view.defPosition("X7", -205, -138, 41, 46, 0);
     view.defPosition("Y7", -164, -138, 41, 46, 0);
     view.defPosition("I7", -123, -138, 41, 46, 0);

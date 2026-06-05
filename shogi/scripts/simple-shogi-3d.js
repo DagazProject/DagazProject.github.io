@@ -12,8 +12,6 @@ Dagaz.Model.HEIGHT        = 5;
 Dagaz.AI.WHITE_PROM       = 0x30;
 Dagaz.AI.BLACK_PROM       = 0x50;
 
-Dagaz.Model.PROM_IS_FORCED = true;
-
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -43,7 +41,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("advisor-wait", "0");
-    design.checkVersion("promote-dialog", "remap");
 
     design.addDirection("se");  // 0
     design.addDirection("s");   // 1
@@ -227,6 +224,10 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'simple-shogi-3d-board.htm' : 'simple-shogi-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
+
+    view.defSubMenu(2, "Promote", -7, -8);
+    view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
+    view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
 
     view.defPosition("X5", -164, -92, 41, 46, 0);
     view.defPosition("Y5", -123, -92, 41, 46, 0);

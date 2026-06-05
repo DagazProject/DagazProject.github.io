@@ -27,6 +27,11 @@ Dagaz.Model.moveToString = function(move) {
   return r;
 }
 
+Dagaz.View.getPromotionDialogIx = function(pieces) {
+  const piece = pieces[0];
+  return +piece.type;
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
