@@ -204,7 +204,10 @@ AbAi.prototype.getMove = function(ctx) {
            this.expand(ctx, ctx.cache[i]);
       }
       ctx.timestamp = Date.now();
-      this.ab(ctx, ctx, -MAXVALUE, MAXVALUE, this.params.MIN_DEEP);
+      var x = this.ab(ctx, ctx, -MAXVALUE, MAXVALUE, this.params.MIN_DEEP);
+      if (x <= MAXVALUE) {
+          return this.parent.getMove(ctx);
+      }
   }
   if (ctx.best !== null) {
       return {
