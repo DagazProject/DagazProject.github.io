@@ -2,12 +2,11 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Le Shogi</title>
-<link rel="stylesheet" href="../css/style-7eb2a9d6.css"/>
+<link rel="stylesheet" href="../css/3d-view.css"/>
 </head>
 <body>
 
-<img id="Board" style="display:none" src="images/4x6.png">
-<img id="Promote" style="display:none" src="images/dialog-2.png">
+<img id="Board" style="display:none" src="images/4x6-3d.png">
 <img id="SouthKing" style="display:none" src="images/sking.png">
 <img id="NorthKing" style="display:none" src="images/nking.png">
 <img id="SouthGold" style="display:none" src="images/sgold.png">
@@ -37,39 +36,58 @@
 <img id="SouthPawnP" style="display:none" src="images/spawnp.png">
 <img id="NorthPawnP" style="display:none" src="images/npawnp.png">
 
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "AiLightControl" style="display:none" src="../images/ailight.png"/>
+<img id = "AiAlertControl" style="display:none" src="../images/aialert.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<img id="Promote" style="display:none" src="images/dialog-2.png">
+<img id="Silver" style="display:none" src="images/ssilver.png">
+<img id="SilverP" style="display:none" src="images/ssilverp.png">
+<img id="Knight" style="display:none" src="images/sknight.png">
+<img id="KnightP" style="display:none" src="images/sknightp.png">
+<img id="Lance" style="display:none" src="images/slance.png">
+<img id="LanceP" style="display:none" src="images/slancep.png">
+<img id="Bishop" style="display:none" src="images/sbishop.png">
+<img id="BishopP" style="display:none" src="images/sbishopp.png">
+<img id="Rook" style="display:none" src="images/srook.png">
+<img id="RookP" style="display:none" src="images/srookp.png">
+<img id="Pawn" style="display:none" src="images/spawn.png">
+<img id="PawnP" style="display:none" src="images/spawnp.png">
+
 <div class="center-body">
     <div class="canvas-wrap" id="canvasFit">
-        <div class="section-menu" style="position:absolute;left:0;right:0;bottom:100%;padding-bottom:2px;">
-        <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
-        Copyright (c) 2009 Yamamoto Mitsuo 
-        <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
-        <a href="javascript:Dagaz.Controller.go('leshogi-3d-board.htm')">3D</a>
-        <a href="leshogi.htm">AI</a>
-        <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
-        <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
-        </div>
-        <div class="cc2">
-        <canvas id="Canvas" width="428" height="306" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
         </div>
     </div>
 </div>
 
 <script src="../underscore/underscore-min.js"></script>
-<script src="../common-scripts/autofit.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
 <script src="../common-scripts/dagaz.js"></script>
 <script src="../common-scripts/zrf-model.js"></script>
 <script src="../common-scripts/zobrist-v2.js"></script>
-<script src="../common-scripts/2d-view-v3.js"></script>
-<script src="../common-scripts/move-list-v2.js"></script>
-<script src="../common-scripts/session-manager.js"></script>
-<script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
 <script src="scripts/shogi-fen.js"></script>
 <script src="scripts/leshogi-goal.js"></script>
 <script src="scripts/leshogi-invariant.js"></script>
 <script src="scripts/leshogi-extension.js"></script>
 <script src="scripts/leshogi-promotion.js"></script>
-<script src="scripts/leshogi.js"></script>
-<script src="../common-scripts/app-v5.js"></script>
+<script src="scripts/leshogi-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
 
 </body>
 </html>
