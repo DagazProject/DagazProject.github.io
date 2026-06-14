@@ -104,9 +104,9 @@ function FormatMove(move) {
         from = (move >> 16) & 0xFF;
         result = FormatReserve(from) + FormatSquare((move >> 8) & 0xFF);
     }
-/*  if (move & moveflagPromotion) {
+    if (move & moveflagPromotion) {
         result = result + '+';
-    }*/
+    }
     return result;
 }
 
