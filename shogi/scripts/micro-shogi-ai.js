@@ -506,32 +506,6 @@ Dagaz.AI.ResetGame = function() {
                              break;
                          target += delta;
                      }
-                     delta = -delta;
-                     var target = square + delta;
-                     while (!(target & 0x88)) {
-                         var index = square - target + (Dagaz.AI.VECTORDELTA_SIZE >> 1);
-                         g_vectorDelta[index].pieceMask[0] |= (1 << i);
-                         var flip = -1;
-                         if (square < target) flip = 1;
-                         if ((square & 0xF0) == (target & 0xF0)) {
-                             // On the same row
-                             g_vectorDelta[index].delta = flip * 1;
-                         } else if ((square & 0x0F) == (target & 0x0F)) {
-                             // On the same column
-                             g_vectorDelta[index].delta = flip * 16;
-                         } else if ((square % 15) == (target % 15)) {
-                             g_vectorDelta[index].delta = flip * 15;
-                         } else if ((square % 17) == (target % 17)) {
-                             g_vectorDelta[index].delta = flip * 17;
-                         }
-                         if (i < pieceLance) {
-                             g_vectorDelta[index].delta = delta;
-                             break;
-                         }
-                         if (i == pieceKing)
-                             break;
-                         target += delta;
-                     }
                 }
            }
       }
