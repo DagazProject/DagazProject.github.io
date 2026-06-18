@@ -77,6 +77,8 @@ var getTurn = function(setup) {
 var createPiece = function(design, c) {
   if (c == 'X') return Dagaz.Model.createPiece(design.getPieceType("Platform"), 1);
   if (c == 'x') return Dagaz.Model.createPiece(design.getPieceType("Platform"), 2);
+  if (c == 'M') return Dagaz.Model.createPiece(design.getPieceType("Bomb"), 1);
+  if (c == 'm') return Dagaz.Model.createPiece(design.getPieceType("Bomb"), 2);
   if (c == 'P') return Dagaz.Model.createPiece(design.getPieceType("Pawn"), 1);
   if (c == 'p') return Dagaz.Model.createPiece(design.getPieceType("Pawn"), 2);
   if (c == 'R') return Dagaz.Model.createPiece(design.getPieceType("Rook"), 1);
@@ -171,6 +173,7 @@ Dagaz.Model.setup = function(board, init) {
 var getPieceNotation = function(design, piece) {
   var r = '';
   if (piece.type == design.getPieceType("Platform")) r = 'X';
+  if (piece.type == design.getPieceType("Bomb"))     r = 'M';
   if (piece.type == design.getPieceType("Pawn"))     r = 'P';
   if (piece.type == design.getPieceType("Rook"))     r = 'R';
   if (piece.type == design.getPieceType("Knight"))   r = 'N';
