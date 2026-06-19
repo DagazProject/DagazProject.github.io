@@ -343,10 +343,6 @@ Dagaz.View.configure = function(view) {
     view.defSubMenuControl(2, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
     view.defSubMenuControl(2, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
 
-    view.defSubMenu(12, "Promote", -7, -8);
-    view.defSubMenuControl(12, "Silver", "Silver", true, Dagaz.Controller.menuItem, 2);
-    view.defSubMenuControl(12, "Gold", "Gold", true, Dagaz.Controller.menuItem, 3);
-
     view.setCamera(0, 0, 0, -96, 170, 210);
 
     view.defControl("InfoControl", "2012 Itsubaki Yoshihisa ", true);
