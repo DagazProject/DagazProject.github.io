@@ -39,7 +39,7 @@
 ))
 
 (define pawn-step (
-  $1 (verify enemy?)
+  $1 (or (verify enemy?) (piece? Bomb))
   (check-platform)
   (if (in-zone? last-rank)
       (add Queen)
@@ -61,13 +61,13 @@
 ))
 
 (define step (
-  $1 (verify not-friend?)
+  $1 (or (verify not-friend?) (piece? Bomb))
   (check-platform)
   add
 ))
 
 (define leap (
-  $1 $2 (verify not-friend?)
+  $1 $2 (or (verify not-friend?) (piece? Bomb))
   (check-platform)
   add
 ))
@@ -75,7 +75,7 @@
 (define slide (
   $1 
   (while empty? (check-platform) add $1)
-  (verify not-friend?)
+  (or (verify not-friend?) (piece? Bomb))
   (check-platform)
   add
 ))

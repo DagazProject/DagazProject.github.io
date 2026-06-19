@@ -14,33 +14,28 @@ Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   var down   = design.getDirection("down");
   var up     = design.getDirection("up");
-  var king   = design.getPieceType("King");
+  var bomb   = design.getPieceType("Bomb");
+  var none   = design.getPieceType("None");
   _.each(board.moves, function(move) {
-     _.each(move.actions, function(action) {
-         if ((action[0] !== null) && (action[1] === null)) {
-             var pos = action[0][0];
-             var piece = board.getPiece(pos);
-             if ((piece !== null) && (piece.type != 2)) return;
-             var p = design.navigate(board.player, pos, down);
-             var fuse = true;
-             while (p !== null) {
-                 var piece = board.getPiece(p);
-                 if ((p != pos) && (piece !== null)) {
-                     if ((piece.player == board.player) && (piece.type == king)) {
-                         move.failed = true;
-                     }
-                     if (piece.player != board.player) {
-                         fuse = false;
-                     }
-                     move.capturePiece(p);
-                 }
-                 p = design.navigate(board.player, p, up);
-             }
-             if (fuse) {
-                 move.failed = true;
-             }
+     if (move.actions[0][0] === null) return;
+     if (move.actions[0][1] === null) return;
+     var pos = move.actions[0][1][0];
+     var piece = board.getPiece(pos);
+     if (piece === null) return;
+     if (piece.type != bomb) return;
+     piece = board.getPiece(move.actions[0][0][0]);
+     if ((piece !== null) && !_.isUndefined(none)) {
+         move.actions[0][2] = [ piece.promote(none) ];
+     }
+     var p = design.navigate(board.player, pos, down);
+     while (p !== null) {
+         var piece = board.getPiece(p);
+         if (piece !== null) {
+             move.capturePiece(p);
          }
-     });
+         p = design.navigate(board.player, p, up);
+     }
+     move.sound = 11;
   });
   CheckInvariants(board);
 }
