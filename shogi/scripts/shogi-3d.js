@@ -38,18 +38,16 @@ ZRF = {
 
 Dagaz.Model.moveToString = function(move) {
   var r = "";
-  _.each(move.actions, function(a) {
-      if (a[1] === null) return;
-      if (r != "") {
-          r = r + " ";
+  for (var i = 0; i < move.actions.length; i++) {
+      var a = move.actions[i];
+      if (a[0] === null) continue;
+      if (a[1] === null) continue;
+      r = Dagaz.Model.posToString(a[0][0]) + Dagaz.Model.posToString(a[1][0]);
+      if ((a[2] !== null) && (move.mode > 0) && (a[2][0].type == move.mode)) {
+          r = r + '+';
       }
-      if (a[0] != null) {
-          r = r + Dagaz.Model.posToString(a[0][0]);
-      }
-      if (a[1] !== null) {
-          r = r + Dagaz.Model.posToString(a[1][0]);
-      }
-  });
+      break;
+  }
   return r;
 }
 

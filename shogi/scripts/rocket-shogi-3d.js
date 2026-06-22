@@ -2,8 +2,15 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  1.8;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/rocket-shogi-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 10000;
+
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 7;
+
+Dagaz.AI.WHITE_PROM       = 0x40;
+Dagaz.AI.BLACK_PROM       = 0x60;
 
 ZRF = {
     JUMP:          0,
@@ -26,6 +33,21 @@ ZRF = {
     VERIFY:        20
 };
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  for (var i = 0; i < move.actions.length; i++) {
+      var a = move.actions[i];
+      if (a[0] === null) continue;
+      if (a[1] === null) continue;
+      r = Dagaz.Model.posToString(a[0][0]) + Dagaz.Model.posToString(a[1][0]);
+      if ((a[2] !== null) && (move.mode > 0) && (a[2][0].type == move.mode)) {
+          r = r + '+';
+      }
+      break;
+  }
+  return r;
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("animate-captures", "false");
@@ -33,7 +55,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("w");  // 0
     design.addDirection("e");  // 1
