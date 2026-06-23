@@ -3,15 +3,15 @@
 (function() {
 
 Dagaz.AI.NOISE_FACTOR     = 0;
-Dagaz.AI.PIECE_MASK       = 0xF;
-Dagaz.AI.TYPE_MASK        = 0x7;
-Dagaz.AI.PLAYERS_MASK     = 0x18;
-Dagaz.AI.COUNTER_SIZE     = 6;
+Dagaz.AI.PIECE_MASK       = 0x1F;
+Dagaz.AI.TYPE_MASK        = 0xF;
+Dagaz.AI.PLAYERS_MASK     = 0x30;
+Dagaz.AI.COUNTER_SIZE     = 4;
 Dagaz.AI.TYPE_SIZE        = 3;
 Dagaz.AI.VECTORDELTA_SIZE = 512;
 
-Dagaz.AI.colorBlack       = 0x10;
-Dagaz.AI.colorWhite       = 0x08;
+Dagaz.AI.colorBlack       = 0x20;
+Dagaz.AI.colorWhite       = 0x10;
 
 var pieceEmpty            = 0x00;
 var piecePawn             = 0x01;
@@ -21,6 +21,7 @@ var pieceRook             = 0x04;
 var pieceQueen            = 0x05;
 var pieceKing             = 0x06;
 var piecePlatform         = 0x07;
+var pieceBomb             = 0x08;
 var pieceNo               = 0x80;
 
 var moveflagEPC           = 0x2  << 16;
@@ -442,6 +443,7 @@ Dagaz.AI.ResetGame = function() {
   }
 
   pieceSquareAdj[pieceEmpty]    = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
+  pieceSquareAdj[pieceBomb]     = MakeTable(Dagaz.AI.pieceAdj[pieceEmpty]);
   pieceSquareAdj[piecePawn]     = MakeTable(Dagaz.AI.pieceAdj[piecePawn]);
   pieceSquareAdj[pieceKnight]   = MakeTable(Dagaz.AI.pieceAdj[pieceKnight]);
   pieceSquareAdj[pieceBishop]   = MakeTable(Dagaz.AI.pieceAdj[pieceBishop]);
@@ -574,6 +576,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                     case 'p':
                         piece |= piecePawn;
+                        break;
+                    case 'm':
+                        piece |= pieceBomb;
                         break;
                     case 'b':
                         piece |= pieceBishop;
@@ -1155,6 +1160,17 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
 
     // Platform quiet moves
     pieceIdx = (Dagaz.AI.g_toMove | piecePlatform) << Dagaz.AI.COUNTER_SIZE;
+    from = Dagaz.AI.g_pieceList[pieceIdx++];
+    while (from != 0) {
+	to = from - 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from - 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	to = from + 8; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
+	from = Dagaz.AI.g_pieceList[pieceIdx++];
+    }
+
+    // Bomb quiet moves
+    pieceIdx = (Dagaz.AI.g_toMove | pieceBomb) << Dagaz.AI.COUNTER_SIZE;
     from = Dagaz.AI.g_pieceList[pieceIdx++];
     while (from != 0) {
 	to = from - 1; if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);

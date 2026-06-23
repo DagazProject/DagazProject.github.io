@@ -494,6 +494,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(7, 9, [1, 1, 1, 0, 0], 0);
     design.addMove(7, 10, [0, 0, 0, 0, 1, 1, 1], 0);
 
+    design.addPiece("None", 8, 0);
+
     design.setup("White", "Platform", 8);
     design.setup("White", "Platform", 12);
     design.setup("White", "Platform", 13);

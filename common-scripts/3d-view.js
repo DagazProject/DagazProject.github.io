@@ -1770,6 +1770,12 @@ View3D.prototype.animate = function() {
       if (q.type  != MOVE_TYPE.PROMOTE) return;
       if (q.state != ANIMATE_STATE.READY) return;
       if (q.phase != phase) return;
+      if (_.isUndefined(q.pieceType)) {
+          scene.remove(q.piece);
+          q.state = ANIMATE_STATE.DONE;
+          changed = true;
+          return;
+      }
       let piece = null;
       if (q.pieceType.kind == PIECE_TYPE.TOKEN) {
           piece = new THREE.Mesh(q.pieceType.geometry, [q.pieceType.matborder, q.pieceType.mattop]);
