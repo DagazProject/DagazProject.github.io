@@ -2634,7 +2634,7 @@ function mouseMove({x, y}, clean = false) {
                                  steps:  Dagaz.View.STEP_CNT
                               });
                           } else {
-                              var uuids = [];;
+                              var uuids = [];
                               _.each(move.actions, function(a) {                                 
                                   const start = view.pos[a[0][0]];
                                   const stop  = view.pos[a[1][0]];
@@ -2663,7 +2663,7 @@ function mouseMove({x, y}, clean = false) {
                       if (!_.isUndefined(Dagaz.Controller.play)) {
                          let sound = Dagaz.Sounds.move;
                          if (!_.isUndefined(move.sound)) {
-                             sound = this.move.sound;
+                             sound = move.sound;
                          }
                          if (Dagaz.Controller.customSound) {
                              view.queue.push({

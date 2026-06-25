@@ -162,13 +162,16 @@ Dagaz.Controller.switchView = function() {
 }
 
 App.prototype.getStarts = function() {
-/*if (_.isUndefined(this.starts)) {
+  if (Dagaz.Controller.NO_STARTS_CACHE) {
+      delete this.starts;
+  }
+  if (_.isUndefined(this.starts)) {
       if (_.isUndefined(this.list)) {
           this.starts = [];
-      } else {*/
+      } else {
           this.starts = this.list.getStarts();
-/*    }
-  }*/
+      }
+  }
   return this.starts;
 }
 

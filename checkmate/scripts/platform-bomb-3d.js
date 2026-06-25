@@ -2,7 +2,8 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  2.5;
 Dagaz.Controller.persistense = "setup";
 
-Dagaz.View.RECT_OPACITY      = true;
+Dagaz.Controller.NO_STARTS_CACHE = true;
+Dagaz.View.RECT_OPACITY = true;
 
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;

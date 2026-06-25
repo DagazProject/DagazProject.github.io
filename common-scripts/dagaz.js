@@ -6,12 +6,13 @@ var Dagaz  = {
   Controller: {}
 };
 
-Dagaz.Controller.persistense = "none";
-Dagaz.Controller.loseRefresh = true;
-Dagaz.Controller.randomized  = false;
-Dagaz.Controller.noDropIndex = false;
+Dagaz.Controller.persistense     = "none";
+Dagaz.Controller.loseRefresh     = true;
+Dagaz.Controller.randomized      = false;
+Dagaz.Controller.noDropIndex     = false;
 Dagaz.Controller.cyclicDropIndex = false;
-Dagaz.Controller.turnChanged = false;
+Dagaz.Controller.turnChanged     = false;
+Dagaz.Controller.NO_STARTS_CACHE = false;
 
 Dagaz.AI.selector = false;
 

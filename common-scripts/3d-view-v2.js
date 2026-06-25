@@ -90,7 +90,6 @@ let isFirstDraw       = true;
 let currPos           = null;
 let ko                = null;
 let cameraSettings    = null;
-let onceResolve       = true;
 let activeTooltipMenu = null;
 
 let lastX = null;
@@ -227,6 +226,8 @@ function View3D() {
   this.queue   = [];
   this.boards  = [];
   this.ready   = false;
+  this.jsonLoading = false;
+  this.glbLoading = false;
 }
 
 Dagaz.View.getView = function() {
@@ -497,7 +498,6 @@ View3D.prototype.addPieceShogi = function(pieceType, pos) {
       top = pieceType.img[0];
   }
   const materials = [
-     // Материал для верхнего основания (с текстурой)
      new THREE.MeshBasicMaterial({
            map: top.t, 
            color: pieceType.colors[0], 
@@ -505,7 +505,6 @@ View3D.prototype.addPieceShogi = function(pieceType, pos) {
            opacity: pieceType.opacity,
            side: THREE.DoubleSide
      }),
-     // Материал для остальных граней
      new THREE.MeshBasicMaterial({ 
            color: pieceType.colors[1], 
            transparent: true, 
@@ -545,7 +544,6 @@ View3D.prototype.addPieceHexagonal = function(pieceType, pos) {
       top = pieceType.img[0];
   }
   const materials = [
-     // Материал для верхнего основания (с текстурой)
      new THREE.MeshBasicMaterial({
            map: top.t, 
            color: pieceType.colors[0], 
@@ -553,7 +551,6 @@ View3D.prototype.addPieceHexagonal = function(pieceType, pos) {
            opacity: pieceType.opacity,
            side: THREE.DoubleSide
      }),
-     // Материал для остальных граней
      new THREE.MeshBasicMaterial({ 
            color: pieceType.colors[1], 
            transparent: true, 
@@ -589,14 +586,12 @@ View3D.prototype.addPieceTriangle = function(pieceType, pos) {
   const p = this.pos[pos];
   const geometry = createTriangularPrism(pieceType.dx / 10, 1, pieceType.dy / 10);
   const materials = [
-     // Материал для верхнего основания (с текстурой)
      new THREE.MeshBasicMaterial({ 
            color: pieceType.colors[0], 
            transparent: true, 
            opacity: pieceType.opacity,
            side: THREE.DoubleSide
      }),
-     // Материал для остальных граней
      new THREE.MeshBasicMaterial({ 
            color: pieceType.colors[1], 
            transparent: true, 
@@ -604,13 +599,10 @@ View3D.prototype.addPieceTriangle = function(pieceType, pos) {
            side: THREE.DoubleSide
      }),
   ];
-  // Назначаем материал группе граней
   geometry.clearGroups();
-  // Верхнее основание (индексы 3-5)
-  geometry.addGroup(3, 3, 0); // 0 - материал с текстурой
-  // Все остальные грани
-  geometry.addGroup(0, 3, 1); // нижнее основание
-  geometry.addGroup(6, 18, 1); // боковые грани
+  geometry.addGroup(3, 3, 0);
+  geometry.addGroup(0, 3, 1);
+  geometry.addGroup(6, 18, 1);
   const edgeColor = 0x555555;
   const edgesGeometry = new THREE.EdgesGeometry(geometry);
   const edgesMaterial = new THREE.LineBasicMaterial({ 
@@ -666,12 +658,11 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
   ];
   if (Dagaz.View.RECT_OPACITY) {
       geometry = createRectangularPrismWithGroups(
-                    pieceType.dx / 10,  // width
-                    1,                  // height (толщина доски)
-                    pieceType.dy / 10   // depth
+                    pieceType.dx / 10,
+                    1,
+                    pieceType.dy / 10
       );
       materials = [
-                    // Материал 0: Верхняя грань (с текстурой)
                     new THREE.MeshBasicMaterial({ 
                         map: top !== null ? top.t : null,
                         color: top === null ? pieceType.colors[2] : 0xFFFFFF,
@@ -679,9 +670,8 @@ View3D.prototype.addPiecePlatform = function(pieceType, pos) {
                         opacity: pieceType.opacity,
                         side: THREE.DoubleSide
                     }),
-                    // Материал 1: Остальные грани (цветные)
                     new THREE.MeshBasicMaterial({ 
-                        color: pieceType.colors[1] || 0x8B4513, // или используйте цвет из настроек
+                        color: pieceType.colors[1] || 0x8B4513,
                         transparent: true,
                         opacity: 0.3,
                         side: THREE.DoubleSide
@@ -1348,197 +1338,267 @@ View3D.prototype.defPosition = function(name, x, y, dx, dy, z, dz, selector) {
 
 View3D.prototype.allResLoaded = function() {
   if (this.ready) return true;
-  for (var i = 0; i < this.res.length; i++) {
-       var image = this.res[i].h;
-       if (!image.complete || (image.naturalWidth == 0)) return false;
-       this.res[i].dx = image.naturalWidth;
-       this.res[i].dy = image.naturalHeight;
-  }
+
   if (resTask.length > 0) {
       Promise.all(resTask).then((results) => {
           for (let i = 0; i < results.length; i++) {
-               if (i >= resList.length) break;
-               resList[i].t = results[i];
+              if (i >= resList.length) break;
+              resList[i].t = results[i];
           }
           resTask = [];
           resList = [];
           this.invalidate();
       }).catch((error) => {
-          console.error('Error loading assets:', error);
+          console.error('Error loading textures:', error);
+          resTask = [];
+          resList = [];
       });
       return false;
   }
-  if (onceResolve && ((Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) || (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN))) {
-      onceResolve = false;
-      const loadingManager = new THREE.LoadingManager();
-      const textureLoader = new THREE.TextureLoader(loadingManager);
-      const jsonLoader = new THREE.JSONLoader(loadingManager);
-      let res = []; let ix = 0;
-      for (let i = 0; i < pieceKeys.length; i++) {
-           const key = pieceKeys[i];
-           if (pieceTypes[key].kind == PIECE_TYPE.GLB) continue;
-           if (pieceTypes[key].kind >= PIECE_TYPE.PLATFORM) continue;
-           pieceTypes[key].ix = ix++;
-           if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
-               const d = new Promise((resolve) => {
-                 textureLoader.load(pieceTypes[key].textures.diffuse, resolve);
-               });
-               res.push(d);
-               const t = new Promise((resolve) => {
-                 textureLoader.load(pieceTypes[key].textures.normal, resolve);
-               });
-               res.push(t);
-           }
-           const m = new Promise((resolve, reject) => {
-                 jsonLoader.load(pieceTypes[key].model, (geometry, materials) => {
-                     resolve({ geometry, materials });
-                 }, undefined, reject);
-           });
-           res.push(m);
-      }
-      if (res.length > 0) {
-          Promise.all(res).then((results) => {
-                for (let i = 0; i < pieceKeys.length; i++) {
-                     const key = pieceKeys[i];
-                     if (pieceTypes[key].kind == PIECE_TYPE.GLB) continue;
-                     if (pieceTypes[key].kind >= PIECE_TYPE.PLATFORM) continue;
-                     let modelData;
-                     if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.MODEL) {
-                         const ix = pieceTypes[key].ix;
-                         modelData = results[ix * 3 + 2];
-                         const diffuseMap = results[ix * 3];
-                         const normalMap = results[ix * 3 + 1];
-                         const color = pieceTypes[key].color;
-                         pieceTypes[key].material = new THREE.MeshStandardMaterial({
-                             map: diffuseMap,
-                             normalMap: normalMap,
-                             metalness: 0.3,
-                             roughness: 0.7,
-                             color: color,
-                             emissive: 0x111111,
-                             emissiveIntensity: 1.4,
-                             side: THREE.DoubleSide
-                         });
-                     }
-                     if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
-                         const ix = pieceTypes[key].ix;
-                         modelData = results[ix];
-                         const specular="#050505", shininess=30, color=pieceTypes[key].color;
 
-                         var canvasDiffuse = document.createElement('canvas');
-                         canvasDiffuse.width = canvasDiffuse.height=TEXTURE_CANVAS_SZ;
-                         var textureDiff = new THREE.Texture(canvasDiffuse);
-                         if (pieceTypes[key].image !== null) {
-                             var ctxDiff = canvasDiffuse.getContext("2d");
-                             ctxDiff.drawImage(pieceTypes[key].image, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
-                         }
-                         textureDiff.needsUpdate = true;
+  for (var i = 0; i < this.res.length; i++) {
+      var res = this.res[i];
+      if (res.t) continue;
+      if (res.h && res.h.complete && res.h.naturalWidth > 0) continue;
+      return false;
+  }
 
-                         var textureBorder = null;
-                         if (Dagaz.View.TEXTURE_BORDER) {
-                             var canvasBorder = document.createElement('canvas');
-                             canvasBorder.width = canvasBorder.height=TEXTURE_CANVAS_SZ;
-                             textureBorder = new THREE.Texture(canvasBorder);
-                             var ctxBorder = canvasBorder.getContext("2d");
-                             ctxBorder.fillStyle = color;
-                             ctxBorder.fillRect(0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
-                             textureBorder.needsUpdate = true;
-                         }
-
-                         var canvasBump = document.createElement('canvas');
-                         canvasBump.width = canvasBump.height=TEXTURE_CANVAS_SZ;
-                         var textureBump = new THREE.Texture(canvasBump);
-                         if (pieceTypes[key].bump !== null) {
-                             var ctxBump = canvasBump.getContext("2d");
-                             ctxBump.drawImage(pieceTypes[key].bump, 0, 0, TEXTURE_CANVAS_SZ,TEXTURE_CANVAS_SZ);
-                         }
-                         textureBump.needsUpdate = true;
-
-                         pieceTypes[key].matborder = new THREE.MeshPhongMaterial({
-                               name: "pieceborders",
-                               color : (textureBorder === null) ? color : undefined,
-                               map: textureBorder,
-                               specular: specular,
-                               shininess: shininess
-                         });
-                         pieceTypes[key].matborderi = new THREE.MeshPhongMaterial({
-                               name: "pieceborders",
-                               color : (textureBorder === null) ? color : undefined,
-                               transparent: true,
-                               opacity: 0.5,
-                               map: textureBorder,
-                               specular: specular,
-                               shininess: shininess
-                         });
-
-                         if (pieceTypes[key].image !== null) {
-                             pieceTypes[key].mattop = new THREE.MeshPhongMaterial({
-                                   name: "piecetop",
-                                   color : (textureBorder === null) ? color : undefined,
-                                   specular: specular,
-                                   shininess: shininess,
-                                   map: textureDiff,
-                                   bumpMap: textureBump,
-                                   bumpScale: 0.2
-                             });
-                             pieceTypes[key].mattopi = new THREE.MeshPhongMaterial({
-                                   name: "piecetop",
-                                   color : (textureBorder === null) ? color : undefined,
-                                   transparent: true,
-                                   opacity: 0.5,
-                                   specular: specular,
-                                   shininess: shininess,
-                                   map: textureDiff,
-                                   bumpMap: textureBump,
-                                   bumpScale: 0.2
-                             });
-                         } else {
-                             pieceTypes[key].mattop = pieceTypes[key].matborder;
-                             pieceTypes[key].mattopi = pieceTypes[key].matborderi;
-                         }
-
-                     }
-                     pieceTypes[key].geometry = modelData.geometry;
-                }
-                this.loadGLBModels();
-          }).catch((error) => {
-                console.error('Error loading assets:', error);
-          });
-          return false;
-      } else {
-          this.loadGLBModels();
-          return false;
-      }
-  } else {
-      let allLoaded = true;
-      for (let i = 0; i < pieceKeys.length; i++) {
-          const key = pieceKeys[i];
-          const pt = pieceTypes[key];
-          if (pt.kind == PIECE_TYPE.GLB) {
-              if (!pt.gltfScene) { allLoaded = false; break; }
-          } else if (pt.kind >= PIECE_TYPE.PLATFORM) {
-          } else {
-              if (_.isUndefined(pt.material) && (_.isUndefined(pt.mattop) || _.isUndefined(pt.matborder))) { allLoaded = false; break; }
-              if (_.isUndefined(pt.geometry)) { allLoaded = false; break; }
+  let hasUnloadedJson = false;
+  for (let i = 0; i < pieceKeys.length; i++) {
+      const key = pieceKeys[i];
+      const pt = pieceTypes[key];
+      if (pt && (pt.kind === PIECE_TYPE.MODEL || pt.kind === PIECE_TYPE.TOKEN)) {
+          if (_.isUndefined(pt.geometry)) {
+              hasUnloadedJson = true;
+              break;
+          }
+          if (pt.kind === PIECE_TYPE.MODEL && _.isUndefined(pt.material)) {
+              hasUnloadedJson = true;
+              break;
+          }
+          if (pt.kind === PIECE_TYPE.TOKEN && (_.isUndefined(pt.mattop) || _.isUndefined(pt.matborder))) {
+              hasUnloadedJson = true;
+              break;
           }
       }
-      if (allLoaded) {
-          this.ready = true;
-          return true;
-      } else {
-          this.loadGLBModels();
-          return false;
+  }
+
+  if (hasUnloadedJson) {
+      if (!this.jsonLoading) {
+          this.loadJSONModels();
+      }
+      return false;
+  }
+
+  let hasUnloadedGlb = false;
+  for (let i = 0; i < pieceKeys.length; i++) {
+      const key = pieceKeys[i];
+      const pt = pieceTypes[key];
+      if (pt && pt.kind === PIECE_TYPE.GLB) {
+          if (!pt.gltfScene) {
+              hasUnloadedGlb = true;
+              break;
+          }
       }
   }
+
+  if (hasUnloadedGlb) {
+      if (!this.glbLoading) {
+          this.loadGLBModels();
+      }
+      return false;
+  }
+
+  this.ready = true;
+  return true;
+};
+
+View3D.prototype.loadJSONModels = function() {
+    if (this.jsonLoading) return;
+    this.jsonLoading = true;
+
+    const loadingManager = new THREE.LoadingManager();
+    const textureLoader = new THREE.TextureLoader(loadingManager);
+    const jsonLoader = new THREE.JSONLoader(loadingManager);
+
+    let promises = [];
+    let indices = {};
+
+    for (let i = 0; i < pieceKeys.length; i++) {
+        const key = pieceKeys[i];
+        const pt = pieceTypes[key];
+        if (!pt) continue;
+        if (pt.kind === PIECE_TYPE.MODEL || pt.kind === PIECE_TYPE.TOKEN) {
+            let idx = promises.length;
+            indices[key] = idx;
+            if (pt.kind === PIECE_TYPE.MODEL) {
+                const diff = new Promise((resolve) => {
+                    textureLoader.load(pt.textures.diffuse, resolve);
+                });
+                promises.push(diff);
+                const norm = new Promise((resolve) => {
+                    textureLoader.load(pt.textures.normal, resolve);
+                });
+                promises.push(norm);
+            }
+            const modelPromise = new Promise((resolve, reject) => {
+                jsonLoader.load(pt.model, (geometry, materials) => {
+                    resolve({ geometry, materials });
+                }, undefined, reject);
+            });
+            promises.push(modelPromise);
+        }
+    }
+
+    if (promises.length === 0) {
+        this.jsonLoading = false;
+        this.invalidate();
+        return;
+    }
+
+    Promise.allSettled(promises).then((results) => {
+        for (let i = 0; i < pieceKeys.length; i++) {
+            const key = pieceKeys[i];
+            const pt = pieceTypes[key];
+            if (!pt) continue;
+            if (pt.kind === PIECE_TYPE.MODEL || pt.kind === PIECE_TYPE.TOKEN) {
+                let resultIdx = indices[key];
+                if (pt.kind === PIECE_TYPE.MODEL) {
+                    const diffResult = results[resultIdx];
+                    const normResult = results[resultIdx + 1];
+                    const geomResult = results[resultIdx + 2];
+                    if (geomResult.status === 'fulfilled') {
+                        const data = geomResult.value;
+                        pt.geometry = data.geometry;
+                        const diffuseMap = (diffResult.status === 'fulfilled') ? diffResult.value : null;
+                        const normalMap = (normResult.status === 'fulfilled') ? normResult.value : null;
+                        const color = pt.color || 0xcccccc;
+                        pt.material = new THREE.MeshStandardMaterial({
+                            map: diffuseMap,
+                            normalMap: normalMap,
+                            metalness: 0.3,
+                            roughness: 0.7,
+                            color: color,
+                            emissive: 0x111111,
+                            emissiveIntensity: 1.4,
+                            side: THREE.DoubleSide
+                        });
+                    } else {
+                        console.warn('Не удалось загрузить модель:', pt.model);
+                        pt.geometry = new THREE.BoxGeometry(1, 1, 1);
+                        pt.material = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+                    }
+                } else if (pt.kind === PIECE_TYPE.TOKEN) {
+                    const geomResult = results[resultIdx];
+                    if (geomResult.status === 'fulfilled') {
+                        const data = geomResult.value;
+                        pt.geometry = data.geometry;
+                        const color = pt.color || 0x3F3F3F;
+                        const specular = "#050505";
+                        const shininess = 30;
+
+                        var canvasDiffuse = document.createElement('canvas');
+                        canvasDiffuse.width = canvasDiffuse.height = TEXTURE_CANVAS_SZ;
+                        var textureDiff = new THREE.Texture(canvasDiffuse);
+                        if (pt.image !== null) {
+                            var ctxDiff = canvasDiffuse.getContext("2d");
+                            ctxDiff.drawImage(pt.image, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                        }
+                        textureDiff.needsUpdate = true;
+
+                        var textureBorder = null;
+                        if (Dagaz.View.TEXTURE_BORDER) {
+                            var canvasBorder = document.createElement('canvas');
+                            canvasBorder.width = canvasBorder.height = TEXTURE_CANVAS_SZ;
+                            textureBorder = new THREE.Texture(canvasBorder);
+                            var ctxBorder = canvasBorder.getContext("2d");
+                            ctxBorder.fillStyle = color;
+                            ctxBorder.fillRect(0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                            textureBorder.needsUpdate = true;
+                        }
+
+                        var canvasBump = document.createElement('canvas');
+                        canvasBump.width = canvasBump.height = TEXTURE_CANVAS_SZ;
+                        var textureBump = new THREE.Texture(canvasBump);
+                        if (pt.bump !== null) {
+                            var ctxBump = canvasBump.getContext("2d");
+                            ctxBump.drawImage(pt.bump, 0, 0, TEXTURE_CANVAS_SZ, TEXTURE_CANVAS_SZ);
+                        }
+                        textureBump.needsUpdate = true;
+
+                        pt.matborder = new THREE.MeshPhongMaterial({
+                            name: "pieceborders",
+                            color: (textureBorder === null) ? color : undefined,
+                            map: textureBorder,
+                            specular: specular,
+                            shininess: shininess
+                        });
+                        pt.matborderi = new THREE.MeshPhongMaterial({
+                            name: "pieceborders",
+                            color: (textureBorder === null) ? color : undefined,
+                            transparent: true,
+                            opacity: 0.5,
+                            map: textureBorder,
+                            specular: specular,
+                            shininess: shininess
+                        });
+
+                        if (pt.image !== null) {
+                            pt.mattop = new THREE.MeshPhongMaterial({
+                                name: "piecetop",
+                                color: (textureBorder === null) ? color : undefined,
+                                specular: specular,
+                                shininess: shininess,
+                                map: textureDiff,
+                                bumpMap: textureBump,
+                                bumpScale: 0.2
+                            });
+                            pt.mattopi = new THREE.MeshPhongMaterial({
+                                name: "piecetop",
+                                color: (textureBorder === null) ? color : undefined,
+                                transparent: true,
+                                opacity: 0.5,
+                                specular: specular,
+                                shininess: shininess,
+                                map: textureDiff,
+                                bumpMap: textureBump,
+                                bumpScale: 0.2
+                            });
+                        } else {
+                            pt.mattop = pt.matborder;
+                            pt.mattopi = pt.matborderi;
+                        }
+                    } else {
+                        console.warn('Не удалось загрузить токен:', pt.model);
+                        pt.geometry = new THREE.BoxGeometry(1, 1, 1);
+                        pt.mattop = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+                        pt.matborder = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+                        pt.mattopi = pt.mattop;
+                        pt.matborderi = pt.matborder;
+                    }
+                }
+            }
+        }
+
+        this.jsonLoading = false;
+        this.invalidate();
+    });
 }
 
 View3D.prototype.loadGLBModels = function() {
+    if (this.glbLoading) return;
+    this.glbLoading = true;
+
     if (typeof THREE.GLTFLoader === 'undefined') {
-        console.error('GLTFLoader не найден. Убедитесь, что подключен скрипт GLTFLoader.');
+        console.error('GLTFLoader не найден.');
+        this.glbLoading = false;
         this.ready = true;
+        this.invalidate();
         return;
     }
+
     const glbPromises = [];
+    const glbKeys = [];
     for (let i = 0; i < pieceKeys.length; i++) {
         const key = pieceKeys[i];
         const pt = pieceTypes[key];
@@ -1561,32 +1621,46 @@ View3D.prototype.loadGLBModels = function() {
                                     mat.emissive = new THREE.Color(pt.color);
                                     mat.emissiveIntensity = 1.0;
                                     mat.needsUpdate = true;
-                               });
-                           }
-                       });
+                                });
+                            }
+                        });
                     }
-                    pt.gltfScene = scene;
-                    resolve();
+                    resolve(scene);
                 }, undefined, (error) => {
                     console.error('Ошибка загрузки GLB:', url, error);
                     reject(error);
                 });
             });
             glbPromises.push(promise);
+            glbKeys.push(key);
         }
     }
-    if (glbPromises.length > 0) {
-        Promise.all(glbPromises).then(() => {
-            this.ready = true;
-            this.invalidate();
-        }).catch((error) => {
-            console.error('Ошибка загрузки GLB-моделей:', error);
-            this.ready = true; // чтобы не блокировать интерфейс
-        });
-    } else {
-        // Если GLB-моделей нет, помечаем как готово
-        this.ready = true;
+
+    if (glbPromises.length === 0) {
+        this.glbLoading = false;
+        this.invalidate();
+        return;
     }
+
+    Promise.allSettled(glbPromises).then((results) => {
+        results.forEach((result, index) => {
+            const key = glbKeys[index];
+            const pt = pieceTypes[key];
+            if (result.status === 'fulfilled') {
+                pt.gltfScene = result.value;
+            } else {
+                console.warn('Ошибка загрузки GLB:', pt.model, result.reason);
+                const geo = new THREE.BoxGeometry(1, 1, 1);
+                const mat = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+                pt.gltfScene = new THREE.Scene();
+                const mesh = new THREE.Mesh(geo, mat);
+                pt.gltfScene.add(mesh);
+            }
+        });
+
+        this.glbLoading = false;
+        this.invalidate();
+    });
 };
 
 const overlay = document.getElementById('overlay');
@@ -1681,7 +1755,6 @@ function drawTooltip(text, x, y, menuIndex) {
     if (tipX + maxWidth > overlay.width) tipX = x - maxWidth - 15;
     if (tipY + height > overlay.height) tipY = overlay.height - height;
 
-    // Для подменю (индекс > 0) поднимаем тултип выше
     if (menuIndex > 0) {
         tipY = tipY - 25;
     }
@@ -2143,44 +2216,33 @@ function createTriangularPrism(width, height, depth) {
   const halfDepth  = depth  / 2;
   const halfHeight = height / 2;
   	
-  // 6 вершин для треугольных оснований
   const vertices = new Float32Array([
-     // Нижнее основание (треугольник)
-     -halfWidth, -halfHeight, -halfDepth,  // 0: левый нижний угол
-     halfWidth, -halfHeight, -halfDepth,   // 1: правый нижний угол
-     0, -halfHeight, halfDepth,            // 2: верхний угол (по Z)
-        
-     // Верхнее основание (треугольник)
-     -halfWidth, halfHeight, -halfDepth,   // 3: левый верхний угол
-     halfWidth, halfHeight, -halfDepth,    // 4: правый верхний угол
-     0, halfHeight, halfDepth,             // 5: верхний угол (по Z)
+     -halfWidth, -halfHeight, -halfDepth,
+     halfWidth, -halfHeight, -halfDepth,
+     0, -halfHeight, halfDepth,
+     -halfWidth, halfHeight, -halfDepth,
+     halfWidth, halfHeight, -halfDepth,
+     0, halfHeight, halfDepth,
   ]);
 
-  // Индексы для треугольников (12 треугольников для всей призмы)
   const indices = [
-     // Нижнее основание
      0, 1, 2,
-     // Верхнее основание
      3, 5, 4,
-     // Боковые грани (3 прямоугольника -> 6 треугольников)
-     0, 3, 1,   // левая грань часть 1
-     1, 3, 4,   // левая грань часть 2
-     1, 4, 2,   // правая грань часть 1
-     2, 4, 5,   // правая грань часть 2
-     2, 5, 0,   // задняя грань часть 1
-     0, 5, 3,   // задняя грань часть 2
+     0, 3, 1,
+     1, 3, 4,
+     1, 4, 2,
+     2, 4, 5,
+     2, 5, 0,
+     0, 5, 3,
   ];
 
-  // UV координаты для текстуры
   const uvs = new Float32Array([
-     // Нижнее основание
-     0, 0,  // вершина 0
-     1, 0,  // вершина 1
-     0.5, 1, // вершина 2
-     // Верхнее основание
-     0, 0,  // вершина 3
-     1, 0,  // вершина 4
-     0.5, 1, // вершина 5
+     0, 0,
+     1, 0,
+     0.5, 1,
+     0, 0,
+     1, 0,
+     0.5, 1,
   ]);
 
   geometry.setIndex(indices);
@@ -2198,97 +2260,61 @@ function createRectangularPrismWithGroups(width, height, depth) {
   const halfHeight = height / 2;
   const halfDepth = depth / 2;
   
-  // Вершины для 6 граней (по 4 вершины на грань, всего 24 вершины)
-  // Каждая грань определяется отдельно для правильных UV и нормалей
   const vertices = new Float32Array([
-    // Правая грань (X+)
-    halfWidth, halfHeight, -halfDepth,   // 0
-    halfWidth, -halfHeight, -halfDepth,  // 1
-    halfWidth, -halfHeight, halfDepth,   // 2
-    halfWidth, halfHeight, halfDepth,    // 3
-    
-    // Левая грань (X-)
-    -halfWidth, halfHeight, halfDepth,   // 4
-    -halfWidth, -halfHeight, halfDepth,  // 5
-    -halfWidth, -halfHeight, -halfDepth, // 6
-    -halfWidth, halfHeight, -halfDepth,  // 7
-    
-    // Верхняя грань (Y+) - будем использовать для текстуры
-    -halfWidth, halfHeight, -halfDepth,  // 8
-    halfWidth, halfHeight, -halfDepth,   // 9
-    halfWidth, halfHeight, halfDepth,    // 10
-    -halfWidth, halfHeight, halfDepth,   // 11
-    
-    // Нижняя грань (Y-)
-    -halfWidth, -halfHeight, halfDepth,  // 12
-    halfWidth, -halfHeight, halfDepth,   // 13
-    halfWidth, -halfHeight, -halfDepth,  // 14
-    -halfWidth, -halfHeight, -halfDepth, // 15
-    
-    // Передняя грань (Z+)
-    -halfWidth, halfHeight, halfDepth,   // 16
-    halfWidth, halfHeight, halfDepth,    // 17
-    halfWidth, -halfHeight, halfDepth,   // 18
-    -halfWidth, -halfHeight, halfDepth,  // 19
-    
-    // Задняя грань (Z-)
-    halfWidth, halfHeight, -halfDepth,   // 20
-    -halfWidth, halfHeight, -halfDepth,  // 21
-    -halfWidth, -halfHeight, -halfDepth, // 22
-    halfWidth, -halfHeight, -halfDepth,  // 23
+    halfWidth, halfHeight, -halfDepth,
+    halfWidth, -halfHeight, -halfDepth,
+    halfWidth, -halfHeight, halfDepth,
+    halfWidth, halfHeight, halfDepth,
+    -halfWidth, halfHeight, halfDepth,
+    -halfWidth, -halfHeight, halfDepth,
+    -halfWidth, -halfHeight, -halfDepth,
+    -halfWidth, halfHeight, -halfDepth,
+    -halfWidth, halfHeight, -halfDepth,
+    halfWidth, halfHeight, -halfDepth,
+    halfWidth, halfHeight, halfDepth,
+    -halfWidth, halfHeight, halfDepth,
+    -halfWidth, -halfHeight, halfDepth,
+    halfWidth, -halfHeight, halfDepth,
+    halfWidth, -halfHeight, -halfDepth,
+    -halfWidth, -halfHeight, -halfDepth,
+    -halfWidth, halfHeight, halfDepth,
+    halfWidth, halfHeight, halfDepth,
+    halfWidth, -halfHeight, halfDepth,
+    -halfWidth, -halfHeight, halfDepth,
+    halfWidth, halfHeight, -halfDepth,
+    -halfWidth, halfHeight, -halfDepth,
+    -halfWidth, -halfHeight, -halfDepth,
+    halfWidth, -halfHeight, -halfDepth,
   ]);
   
-  // Индексы для треугольников (6 граней × 2 треугольника × 3 вершины = 36 индексов)
   const indices = [
-    // Правая грань
     0, 1, 2, 0, 2, 3,
-    // Левая грань
     4, 5, 6, 4, 6, 7,
-    // Верхняя грань - группа 0
     8, 9, 10, 8, 10, 11,
-    // Нижняя грань
     12, 13, 14, 12, 14, 15,
-    // Передняя грань
     16, 17, 18, 16, 18, 19,
-    // Задняя грань
     20, 21, 22, 20, 22, 23,
   ];
   
-  // UV координаты для текстур
   const uvs = new Float32Array([
-    // Правая грань
     0, 1, 0, 0, 1, 0, 1, 1,
-    // Левая грань
     0, 1, 0, 0, 1, 0, 1, 1,
-    // Верхняя грань
     0, 1, 1, 1, 1, 0, 0, 0,
-    // Нижняя грань
     0, 0, 1, 0, 1, 1, 0, 1,
-    // Передняя грань
     0, 1, 1, 1, 1, 0, 0, 0,
-    // Задняя грань
     1, 1, 0, 1, 0, 0, 1, 0,
   ]);
   
-  // Устанавливаем атрибуты
   geometry.setIndex(indices);
   geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
   geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-  
-  // Вычисляем нормали
   geometry.computeVertexNormals();
-  
-  // Создаем группы для материалов
   geometry.clearGroups();
-  
-  // Группа 0: Верхняя грань (индексы 12-17) - материал с текстурой
   geometry.addGroup(12, 6, 0);
-  
-  // Группа 1: Остальные грани (индексы 0-11 и 18-35) - цветной материал
-  geometry.addGroup(0, 12, 1);    // Правая и левая грани
-  geometry.addGroup(18, 6, 1);    // Нижняя грань
-  geometry.addGroup(24, 6, 1);    // Передняя грань
-  geometry.addGroup(30, 6, 1);    // Задняя грань
+  geometry.addGroup(0, 12, 1);
+  geometry.addGroup(18, 6, 1);
+  geometry.addGroup(24, 6, 1);
+  geometry.addGroup(30, 6, 1);
   
   return geometry;
 }
@@ -2297,51 +2323,41 @@ function createHexagonalPrism(radius, height) {
   const positions = [];
   const uvs = [];
 
-  // Центр нижнего основания (индекс 0)
   positions.push(0, -height/2, 0);
-  uvs.push(0.5, 0.5); // центр нижней грани
+  uvs.push(0.5, 0.5);
 
-  // Вершины нижнего шестиугольника (индексы 1–6)
   for (let i = 0; i < 6; i++) {
     const angle = (i / 6) * Math.PI * 2;
     const x = radius * Math.cos(angle);
     const z = radius * Math.sin(angle);
     positions.push(x, -height/2, z);
-    // UV для нижней грани (не критично, но пусть будет)
     const u = (x / radius) * 0.5 + 0.5;
     const v = (z / radius) * 0.5 + 0.5;
     uvs.push(u, v);
   }
 
-  // Центр верхнего основания (индекс 7)
   positions.push(0, height/2, 0);
-  uvs.push(0.5, 0.5); // центр верхней грани
+  uvs.push(0.5, 0.5);
 
-  // Вершины верхнего шестиугольника (индексы 8–13)
   for (let i = 0; i < 6; i++) {
     const angle = (i / 6) * Math.PI * 2;
     const x = radius * Math.cos(angle);
     const z = radius * Math.sin(angle);
     positions.push(x, height/2, z);
-    // UV для верхней грани: отображаем круглую текстуру на шестиугольник
     const u = (x / radius) * 0.5 + 0.5;
     const v = (z / radius) * 0.5 + 0.5;
     uvs.push(u, v);
   }
 
-  // Индексы треугольников (как и раньше)
   const indices = [];
-  // Нижнее основание
   for (let i = 0; i < 6; i++) {
     const next = (i + 1) % 6;
     indices.push(0, 1 + i, 1 + next);
   }
-  // Верхнее основание
   for (let i = 0; i < 6; i++) {
     const next = (i + 1) % 6;
     indices.push(7, 8 + i, 8 + next);
   }
-  // Боковые грани
   for (let i = 0; i < 6; i++) {
     const next = (i + 1) % 6;
     const b1 = 1 + i;
@@ -2356,54 +2372,47 @@ function createHexagonalPrism(radius, height) {
   geometry.addAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geometry.addAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
-  
-  // Группы материалов (как и было)
   geometry.clearGroups();
-  geometry.addGroup(18, 18, 0); // верхнее основание
-  geometry.addGroup(0, 18, 1);   // нижнее основание
-  geometry.addGroup(36, 36, 1);  // боковые грани
+  geometry.addGroup(18, 18, 0);
+  geometry.addGroup(0, 18, 1);
+  geometry.addGroup(36, 36, 1);
 
   return geometry;
 }
 
-// baseWidth = 40, topWidth = 25, trapHeight = 35, triangleHeight = 5, thickness = 10
 function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeight, thickness) {
-            // Координаты пятиугольника в плоскости XZ
-            const zBottom = -(trapHeight + triangleHeight) / 2;   // -20
-            const zTrapTop = zBottom + trapHeight;                // 15
-            const zTop = zTrapTop + triangleHeight;               // 20
+            const zBottom = -(trapHeight + triangleHeight) / 2;
+            const zTrapTop = zBottom + trapHeight;
+            const zTop = zTrapTop + triangleHeight;
 
-            const xBottomLeft  = -baseWidth / 2;   // -20
-            const xBottomRight =  baseWidth / 2;   //  20
-            const xTrapLeft    = -topWidth / 2;    // -12.5
-            const xTrapRight   =  topWidth / 2;    //  12.5
+            const xBottomLeft  = -baseWidth / 2;
+            const xBottomRight =  baseWidth / 2;
+            const xTrapLeft    = -topWidth / 2;
+            const xTrapRight   =  topWidth / 2;
             const xTop = 0;
 
             const vertices = [
-                { x: xBottomLeft,  z: zBottom },   // 0
-                { x: xBottomRight, z: zBottom },   // 1
-                { x: xTrapRight,   z: zTrapTop },  // 2
-                { x: xTop,         z: zTop },      // 3
-                { x: xTrapLeft,    z: zTrapTop }   // 4
+                { x: xBottomLeft,  z: zBottom },
+                { x: xBottomRight, z: zBottom },
+                { x: xTrapRight,   z: zTrapTop },
+                { x: xTop,         z: zTop },
+                { x: xTrapLeft,    z: zTrapTop }
             ];
-            const numVertices = vertices.length; // 5
+            const numVertices = vertices.length;
 
             const positions = [];
             const uvs = [];
             const indices = [];
 
-            // UV-отображение (линейное по bounding box)
             const getUV = (x, z) => {
                 const u = (x + baseWidth/2) / baseWidth;
                 const v = (z + (trapHeight+triangleHeight)/2) / (trapHeight+triangleHeight);
                 return [u, v];
             };
 
-            const yBottom = -thickness / 2;   // -5
-            // Центр нижнего основания
+            const yBottom = -thickness / 2;
             positions.push(0, yBottom, 0);
             uvs.push(0.5, 0.5);
-            // Вершины нижнего пятиугольника
             for (let i = 0; i < numVertices; i++) {
                 const v = vertices[i];
                 positions.push(v.x, yBottom, v.z);
@@ -2411,11 +2420,9 @@ function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeigh
                 uvs.push(u, vCoord);
             }
 
-            const yTop = thickness / 2;        // 5
-            // Центр верхнего основания
+            const yTop = thickness / 2;
             positions.push(0, yTop, 0);
             uvs.push(0.5, 0.5);
-            // Вершины верхнего пятиугольника
             for (let i = 0; i < numVertices; i++) {
                 const v = vertices[i];
                 positions.push(v.x, yTop, v.z);
@@ -2423,8 +2430,6 @@ function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeigh
                 uvs.push(u, vCoord);
             }
 
-            // Индексы: всего вершин = 1 + 5 + 1 + 5 = 12 (индексы 0..11)
-            // Нижнее основание (веер от центра)
             const bottomCenterIdx = 0;
             const bottomFirstVertexIdx = 1;
             for (let i = 0; i < numVertices; i++) {
@@ -2432,15 +2437,13 @@ function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeigh
                 indices.push(bottomCenterIdx, bottomFirstVertexIdx + i, bottomFirstVertexIdx + next);
             }
 
-            // Верхнее основание (исправлено: центр верха имеет индекс 6, вершины 7..11)
-            const topCenterIdx = 1 + numVertices;        // =6
-            const topFirstVertexIdx = topCenterIdx + 1;  // =7
+            const topCenterIdx = 1 + numVertices;
+            const topFirstVertexIdx = topCenterIdx + 1;
             for (let i = 0; i < numVertices; i++) {
                 const next = (i + 1) % numVertices;
                 indices.push(topCenterIdx, topFirstVertexIdx + i, topFirstVertexIdx + next);
             }
 
-            // Боковые грани (5 четырёхугольников → 10 треугольников)
             for (let i = 0; i < numVertices; i++) {
                 const next = (i + 1) % numVertices;
                 const b1 = bottomFirstVertexIdx + i;
@@ -2455,15 +2458,13 @@ function createShogiPieceGeometry(baseWidth, topWidth, trapHeight, triangleHeigh
             geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
             geometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvs), 2));
             geometry.setIndex(indices);
-
-            // Группы материалов (0 – верх, 1 – низ и бока)
             geometry.clearGroups();
-            const bottomIndicesCount = numVertices * 3;      // 15
-            const topIndicesCount    = numVertices * 3;      // 15
-            const sideIndicesCount   = numVertices * 2 * 3;  // 30
-            geometry.addGroup(0, bottomIndicesCount, 1);           // нижнее основание (материал 1)
-            geometry.addGroup(bottomIndicesCount, topIndicesCount, 0); // верхнее основание (материал 0)
-            geometry.addGroup(bottomIndicesCount + topIndicesCount, sideIndicesCount, 1); // бока (материал 1)
+            const bottomIndicesCount = numVertices * 3;
+            const topIndicesCount    = numVertices * 3;
+            const sideIndicesCount   = numVertices * 2 * 3;
+            geometry.addGroup(0, bottomIndicesCount, 1);
+            geometry.addGroup(bottomIndicesCount, topIndicesCount, 0);
+            geometry.addGroup(bottomIndicesCount + topIndicesCount, sideIndicesCount, 1);
 
             return geometry;
 }
@@ -2491,13 +2492,12 @@ View3D.prototype.draw = function(canvas) {
                 ];
                 if (Dagaz.View.RECT_OPACITY) {
                     boardGeometry = createRectangularPrismWithGroups(
-                        b.dx / 10,  // width
-                        1,          // height (толщина доски)
-                        b.dy / 10   // depth
+                        b.dx / 10,
+                        1,
+                        b.dy / 10
                     );
 
                     materials = [
-                        // Материал 0: Верхняя грань (с текстурой)
                         new THREE.MeshBasicMaterial({ 
                             map: b.img !== null ? b.img.t : null,
                             color: b.img === null ? b.colors[2] : 0xFFFFFF,
@@ -2505,9 +2505,8 @@ View3D.prototype.draw = function(canvas) {
                             opacity: b.opacity,
                             side: THREE.DoubleSide
                         }),
-                        // Материал 1: Остальные грани (цветные)
-                            new THREE.MeshBasicMaterial({ 
-                            color: b.colors[1] || 0x8B4513, // или используйте цвет из настроек
+                        new THREE.MeshBasicMaterial({ 
+                            color: b.colors[1] || 0x8B4513,
                             transparent: true,
                             opacity: 0.3,
                             side: THREE.DoubleSide
@@ -2524,12 +2523,10 @@ View3D.prototype.draw = function(canvas) {
             if (b.type == BOARD_TYPE.HEXAGONAL) {
                 const boardGeometry = createHexagonalPrism(b.dx / 10, 1);
                 const materials = [
-                   // Материал для верхнего основания (с текстурой)
                    new THREE.MeshBasicMaterial({ 
                        map: b.img.t, transparent: true, opacity: b.opacity,
                        side: THREE.DoubleSide
                    }),
-                   // Материал для остальных граней
                    new THREE.MeshBasicMaterial({ 
                        color: b.colors[1], transparent: true, opacity: 0.3,
                        side: THREE.DoubleSide
@@ -2545,25 +2542,20 @@ View3D.prototype.draw = function(canvas) {
             if (b.type == BOARD_TYPE.TRIANGLE) {
                 const boardGeometry = createTriangularPrism(b.dx / 10, 1, b.dy / 10);
                 const materials = [
-                   // Материал для верхнего основания (с текстурой)
                    new THREE.MeshBasicMaterial({ 
                        map: b.img.t, transparent: true, opacity: b.opacity,
                        side: THREE.DoubleSide
                    }),
-                   // Материал для остальных граней
                    new THREE.MeshBasicMaterial({ 
                        color: b.colors[1], transparent: true, opacity: 0.3,
                        side: THREE.DoubleSide
                    }),
                 ];
 
-                // Назначаем материал группе граней
                 boardGeometry.clearGroups();
-                // Верхнее основание (индексы 3-5)
-                boardGeometry.addGroup(3, 3, 0); // 0 - материал с текстурой
-                // Все остальные грани
-                boardGeometry.addGroup(0, 3, 1); // нижнее основание
-                boardGeometry.addGroup(6, 18, 1); // боковые грани
+                boardGeometry.addGroup(3, 3, 0);
+                boardGeometry.addGroup(0, 3, 1);
+                boardGeometry.addGroup(6, 18, 1);
 
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
                 boardBlock.rotation.y = Math.PI;
@@ -2759,7 +2751,7 @@ function mouseMove({x, y}, clean = false) {
                                  steps:  Dagaz.View.STEP_CNT
                               });
                           } else {
-                              var uuids = [];;
+                              var uuids = [];
                               _.each(move.actions, function(a) {                                 
                                   const start = view.pos[a[0][0]];
                                   const stop  = view.pos[a[1][0]];
@@ -2788,7 +2780,7 @@ function mouseMove({x, y}, clean = false) {
                       if (!_.isUndefined(Dagaz.Controller.play)) {
                          let sound = Dagaz.Sounds.move;
                          if (!_.isUndefined(move.sound)) {
-                             sound = this.move.sound;
+                             sound = move.sound;
                          }
                          if (Dagaz.Controller.customSound) {
                              view.queue.push({
