@@ -498,12 +498,14 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("None", 8, 0);
 
     design.setup("White", "Platform", 8);
+    design.setup("White", "Platform", 9);
     design.setup("White", "Platform", 12);
     design.setup("White", "Platform", 13);
     design.setup("White", "Platform", 14);
     design.setup("White", "Platform", 15);
     design.setup("White", "Platform", 11);
     design.setup("Black", "Platform", 4);
+    design.setup("Black", "Platform", 6);
     design.setup("Black", "Platform", 0);
     design.setup("Black", "Platform", 1);
     design.setup("Black", "Platform", 2);

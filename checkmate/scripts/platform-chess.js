@@ -1,3 +1,5 @@
+Dagaz.Controller.persistense = "setup";
+
 ZRF = {
     JUMP:          0,
     IF:            1,
@@ -489,6 +491,9 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("None", 8, 0);
 
     design.setup("White", "Platform", 8);
+    if (Dagaz.Model.IS_BOMB) {
+        design.setup("White", "Platform", 9);
+    }
     design.setup("White", "Platform", 12);
     design.setup("White", "Platform", 13);
     design.setup("White", "Platform", 14);
@@ -511,6 +516,9 @@ Dagaz.Model.BuildDesign = function(design) {
     design.setup("White", "Queen", 75);
     design.setup("White", "King", 76);
     design.setup("Black", "Platform", 4);
+    if (Dagaz.Model.IS_BOMB) {
+        design.setup("Black", "Platform", 6);
+    }
     design.setup("Black", "Platform", 0);
     design.setup("Black", "Platform", 1);
     design.setup("Black", "Platform", 2);
