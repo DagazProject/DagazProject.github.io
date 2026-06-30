@@ -557,8 +557,8 @@ Dagaz.View.configure = function(view) {
 
     view.defPieceModel(1, 1, modelPath, 'pawn', white);
     view.defPieceModel(1, 2, modelPath, 'pawn', black);
-    view.defPieceGLB(2, 1, modelPath, 'bomb', '#777777', 2.5, 0, 3);
-    view.defPieceGLB(2, 2, modelPath, 'bomb', '#333333', 2.5, 0, 3);
+    view.defPieceGLB(2, 1, modelPath, 'bomb', '#777777', 2.5, 0, 0);
+    view.defPieceGLB(2, 2, modelPath, 'bomb', '#333333', 2.5, 0, 0);
     view.defPieceModel(3, 1, modelPath, 'rook', white);
     view.defPieceModel(3, 2, modelPath, 'rook', black);
     view.defPieceModel(4, 1, modelPath, 'knight', white);

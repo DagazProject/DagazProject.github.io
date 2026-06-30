@@ -131,8 +131,6 @@ function FormatSquare(square) {
 }
 
 function FormatMove(move) {
-//  if (move & moveflagCastleKing) return "O-O";
-//  if (move & moveflagCastleQueen) return "O-O-O";
     var result = FormatSquare(move & 0xFF) + '-' + FormatSquare((move >> 8) & 0xFF);
     if (move & moveflagPromotion) {
         if (move & moveflagPromoteBishop) result += " Bishop";

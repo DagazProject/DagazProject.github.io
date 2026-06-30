@@ -42,7 +42,7 @@ var g_moveUndoStack = new Array();
 // Evaulation variables
 var g_mobUnit;
 
-var materialTable = [0, 800, 3350, 3450, 5000, 9750, 600000, 0];
+var materialTable = [0, 800, 3350, 3450, 5000, 9750, 600000, 0, 0];
 
 Dagaz.AI.pieceAdj = [
 [   0,    0,   0,   0,   0,   0,    0,    0, // pieceEmpty
@@ -119,8 +119,8 @@ var g_knightDeltas = [31, 33, 14, -14, -31, -33, 18, -18];
 var g_rookDeltas   = [-1, +1, -16, +16];
 var g_queenDeltas  = [-1, +1, -15, +15, -17, +17, -16, +16];
 
-var g_seeValues = [0, 1, 3, 3, 5, 9, 900, 0,
-                   0, 1, 3, 3, 5, 9, 900, 0];
+var g_seeValues = [0, 1, 3, 3, 5, 9, 900, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                   0, 1, 3, 3, 5, 9, 900, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var g_castleRightsMask = [
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -176,13 +176,6 @@ function FormatSquare(square) {
 }
 
 Dagaz.AI.FormatMove = function(move, color) {
-    if (color == Dagaz.AI.colorWhite) {
-        if (move & moveflagCastleKing) return "e1-g1";
-        if (move & moveflagCastleQueen) return "e1-c1";
-    } else {
-        if (move & moveflagCastleKing) return "e8-g8";
-        if (move & moveflagCastleQueen) return "e8-c8";
-    }
     var result = FormatSquare(move & 0xFF) + '-' + FormatSquare((move >> 8) & 0xFF);
     if (move & moveflagPromotion) {
         if (move & moveflagPromoteBishop) result += " Bishop";
