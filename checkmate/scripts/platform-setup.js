@@ -65,7 +65,7 @@ Dagaz.Model.setup = function(board, init) {
   var design = Dagaz.Model.design;
   var s = getSetup(init);
   if (s != "") {
-      setup(board, s);
+      setup(board, '?setup=' + s);
       return;
   }
   var pawn   = design.getPieceType("Pawn");

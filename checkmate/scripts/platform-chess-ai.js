@@ -520,12 +520,14 @@ function InitializeEval() {
         var friend = i == 0 ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
         g_mobUnit[i][0] = 1;
         g_mobUnit[i][pieceNo] = 0;
+        g_mobUnit[i][enemy  | pieceBomb]   = 0;
         g_mobUnit[i][enemy  | piecePawn]   = 1;
         g_mobUnit[i][enemy  | pieceBishop] = 2;
         g_mobUnit[i][enemy  | pieceKnight] = 2;
         g_mobUnit[i][enemy  | pieceRook]   = 4;
         g_mobUnit[i][enemy  | pieceQueen]  = 6;
         g_mobUnit[i][enemy  | pieceKing]   = 6;
+        g_mobUnit[i][friend | pieceBomb]   = 0;
         g_mobUnit[i][friend | piecePawn]   = 0;
         g_mobUnit[i][friend | pieceBishop] = 0;
         g_mobUnit[i][friend | pieceKnight] = 0;
@@ -590,7 +592,9 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         break;
                 }
                 
-                Dagaz.AI.g_board[MakeSquare(row, col)] = piece;
+                if (piece & Dagaz.AI.TYPE_MASK) {
+                    Dagaz.AI.g_board[MakeSquare(row, col)] = piece;
+                }
                 col++;
             }
         }
@@ -696,10 +700,10 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     }
 
     // Check for king capture (invalid FEN)
-/*  kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
+    kingPos = Dagaz.AI.g_pieceList[(them | pieceKing) << Dagaz.AI.COUNTER_SIZE];
     if ((kingPos != 0) && IsSquareAttackable(kingPos, Dagaz.AI.g_toMove)) {
         return 'Invalid FEN: Can capture king';
-    }*/
+    }
 
     // Checkmate/stalemate
     if (GenerateValidMoves().length == 0) {
