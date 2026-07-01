@@ -9,6 +9,9 @@ Dagaz.AI.ADVISOR_TIME = 10000;
 Dagaz.Model.WIDTH         = 5;
 Dagaz.Model.HEIGHT        = 5;
 
+Dagaz.AI.WHITE_PROM       = 0x20;
+Dagaz.AI.BLACK_PROM       = 0x60;
+
 ZRF = {
     JUMP:          0,
     IF:            1,

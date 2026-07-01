@@ -7,9 +7,6 @@ importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobris
 let g_width          = 5;
 let g_height         = 5;
 
-Dagaz.AI.WHITE_PROM       = 0x20;
-Dagaz.AI.BLACK_PROM       = 0x60;
-
 const emptyAdj = [
      0,     0,     0,     0,     0, // pieceEmpty
      0,     0,     0,     0,     0,
