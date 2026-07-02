@@ -58,6 +58,13 @@
             ("2/1" (0 85)) ; ranks
           )
      )
+     (grid
+          (start-rectangle 126 122 183 199)
+          (dimensions
+            ("E/F/G/H" (93 0)) ; files
+            ("2/1" (0 85)) ; ranks
+          )
+     )
      (positions
             (X0 258 19 315 96)
      )

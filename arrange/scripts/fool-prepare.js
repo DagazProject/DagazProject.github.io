@@ -19,9 +19,9 @@ Dagaz.Model.CheckInvariants = function(board) {
        if (piece === null) continue;
        pieces.push(pos);
        type = (piece.type / 4) | 0;
-       var m = Dagaz.Model.createMove(0);
+/*     var m = Dagaz.Model.createMove(0);
        m.movePiece(pos, pos + 20, piece, 1, 1);
-       board.moves.push(m);
+       board.moves.push(m);*/
   }
   for (var pos = 20; pos < 40; pos++) {
        var piece = board.getPiece(pos);
