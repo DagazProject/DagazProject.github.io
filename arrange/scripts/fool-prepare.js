@@ -38,6 +38,20 @@ Dagaz.Model.CheckInvariants = function(board) {
        }
        board.moves.push(m);
   }
+  _.each(pieces, function(src) {
+       var piece = board.getPiece(src);
+       if (piece === null) return;
+       var dst = 80;
+       var m = Dagaz.Model.createMove(0);
+       m.movePiece(src, dst++, piece);
+       _.each(pieces, function(pos) {
+           if (pos == src) return;
+           var piece = board.getPiece(pos);
+           if (piece === null) return;
+           m.movePiece(pos, dst++, piece);
+       });
+       board.moves.push(m);
+  });
   CheckInvariants(board);
 }
 
