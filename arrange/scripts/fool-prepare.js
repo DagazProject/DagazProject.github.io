@@ -36,6 +36,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                m.movePiece(p, p + 20, x, 1, 1);
            });
        }
+       m.goTo(board.turn);
        board.moves.push(m);
   }
   _.each(pieces, function(src) {
@@ -43,6 +44,7 @@ Dagaz.Model.CheckInvariants = function(board) {
        if (piece === null) return;
        var dst = 80;
        var m = Dagaz.Model.createMove(0);
+       while (board.getPiece(dst) !== null) dst++;
        m.movePiece(src, dst++, piece);
        _.each(pieces, function(pos) {
            if (pos == src) return;

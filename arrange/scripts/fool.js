@@ -39,6 +39,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("N", []);
 
     design.addTurn(1, [0]);
+    design.addTurn(2, [1]);
 
     design.addPosition("a2", []);
     design.addPosition("b2", []);
