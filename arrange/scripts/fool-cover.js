@@ -30,6 +30,7 @@ function getTrump(board, move) {
 
 function isCovered(board) {
   for (var pos = 80; pos < 88; pos++) {
+       if (board.getPiece(pos) === null) continue;
        if (board.getPiece(+pos + 8) === null) return false;
   }
   return true;
@@ -60,6 +61,16 @@ function getLayout(board) {
   return null;
 }
 
+function getNextTurn(turn) {
+  if (turn == 1) {
+      return 5;
+  } else if (turn == 4) {
+      return 8;
+  } else {
+      return 2;
+  }
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -85,33 +96,51 @@ Dagaz.Model.CheckInvariants = function(board) {
             board.moves.push(m);
        }
   }
-  for (var src = 80; src < 96; src++) {
-       var piece = board.getPiece(src);
-       if (piece === null) continue;
-       var layout = getLayout(board);
-       if (layout === null) continue;
-       var m = Dagaz.Model.createMove(1, 10);
-       var cnt = getCount(board);
-       m.movePiece(src, layout[cnt], piece.changeOwner(board.player));
-       var ix = 0;
-       for (var pos = 0; pos < 80; pos++) {
-            piece = board.getPiece(pos);
-            if (piece === null) continue;
-            if (piece.player != board.player) continue;
-            if (pos == layout[ix]) {
-                ix++;
-                continue;
-            }
-            m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
-       }
-       ix = cnt + 1;
-       for (var pos = 80; pos < 96; pos++) {
-            if (pos == src) continue;
-            piece = board.getPiece(pos);
-            if (piece === null) continue;
-            m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
-       }
-       board.moves.push(m);
+  if (isCovered(board)) {
+      for (var src = 80; src < 96; src++) {
+           var piece = board.getPiece(src);
+           if (piece === null) continue;
+           var m = Dagaz.Model.createMove(2, 10);
+           m.movePiece(src, 115, piece);
+           for (var pos = 80; pos < 96; pos++) {
+                if (pos == src) continue;
+                var piece = board.getPiece(pos);
+                if (piece === null) continue;
+                m.movePiece(pos, 115, piece);
+           }
+           m.capturePiece(115);
+           board.moves.push(m);
+      }
+  } else {
+      for (var src = 80; src < 96; src++) {
+           var piece = board.getPiece(src);
+           if (piece === null) continue;
+           var layout = getLayout(board);
+           if (layout === null) continue;
+           var m = Dagaz.Model.createMove(1, 10);
+           var cnt = getCount(board);
+           m.movePiece(src, layout[cnt], piece.changeOwner(board.player));
+           var ix = 0;
+           for (var pos = 0; pos < 80; pos++) {
+                piece = board.getPiece(pos);
+                if (piece === null) continue;
+                if (piece.player != board.player) continue;
+                if (pos == layout[ix]) {
+                    ix++;
+                    continue;
+                }
+                m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
+           }
+           ix = cnt + 1;
+           for (var pos = 80; pos < 96; pos++) {
+                if (pos == src) continue;
+                piece = board.getPiece(pos);
+                if (piece === null) continue;
+                m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
+           }
+           m.goTo(getNextTurn(board.turn));
+           board.moves.push(m);
+      }
   }
   CheckInvariants(board);
 }

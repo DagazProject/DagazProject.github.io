@@ -43,8 +43,15 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("Right", []);
     design.addPlayer("N", []);
 
-    design.addTurn(1, [0]);
-    design.addTurn(2, [1]);
+    design.addTurn(1, [0]);        // 0: Ход Игрока
+    design.addTurn(2, [1, 2]);     // 1: Отбой Левой руки
+    design.addRandom(4, [3]);      // 2: Распределение карт из колоды
+    design.addTurn(2, [0]);        // 3: Ход Левой руки
+    design.addTurn(3, [1, 2]);     // 4: Отбой Правой руки
+    design.addRandom(4, [3]);      // 5: Распределение карт из колоды
+    design.addTurn(3, [0]);        // 6: Ход Правой руки
+    design.addTurn(1, [1, 2]);     // 7: Отбой Игрока
+    design.addRandom(4, [3]);      // 8: Распределение карт из колоды
 
     design.addPosition("a2", []);
     design.addPosition("b2", []);
@@ -161,6 +168,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("P0", []);
     design.addPosition("Q0", []);
     design.addPosition("R0", []);
+    design.addPosition("XX", []);
 
     design.addZone("home", 1, [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]);
     design.addZone("left", 1, [40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78]);
@@ -443,22 +451,21 @@ Dagaz.View.configure = function(view) {
     view.defPosition("X20", 11, 200, 77, 57);
     view.defPosition("Y20", 485, 200, 77, 57);
 
-    view.defPosition("A2", 107, 143, 57, 77);     // +80:
-    view.defPosition("B2", 200, 143, 57, 77);
-    view.defPosition("C2", 293, 143, 57, 77);
-    view.defPosition("D2", 386, 143, 57, 77);
-    view.defPosition("A1", 107, 228, 57, 77);
-    view.defPosition("B1", 200, 228, 57, 77);
-    view.defPosition("C1", 293, 228, 57, 77);
+    view.defPosition("A2", 200, 143, 57, 77);     // +80:
+    view.defPosition("B2", 293, 143, 57, 77);
+    view.defPosition("C2", 200, 228, 57, 77);
+    view.defPosition("D2", 293, 228, 57, 77);
+    view.defPosition("A1", 107, 143, 57, 77);
+    view.defPosition("B1", 386, 143, 57, 77);
+    view.defPosition("C1", 107, 228, 57, 77);
     view.defPosition("D1", 386, 228, 57, 77);
-
-    view.defPosition("E2", 126, 122, 57, 77);     // +88:
-    view.defPosition("F2", 219, 122, 57, 77);
-    view.defPosition("G2", 312, 122, 57, 77);
-    view.defPosition("H2", 405, 122, 57, 77);
-    view.defPosition("E1", 126, 207, 57, 77);
-    view.defPosition("F1", 219, 207, 57, 77);
-    view.defPosition("G1", 312, 207, 57, 77);
+    view.defPosition("E2", 219, 122, 57, 77);     // +88:
+    view.defPosition("F2", 312, 122, 57, 77);
+    view.defPosition("G2", 219, 207, 57, 77);
+    view.defPosition("H2", 312, 207, 57, 77);
+    view.defPosition("E1", 126, 122, 57, 77);
+    view.defPosition("F1", 405, 122, 57, 77);
+    view.defPosition("G1", 126, 207, 57, 77);
     view.defPosition("H1", 405, 207, 57, 77);
 
     view.defPosition("X0", 258, 19, 57, 77);      // +96:
@@ -480,4 +487,6 @@ Dagaz.View.configure = function(view) {
     view.defPosition("P0", 256,  8, 77, 57);
     view.defPosition("Q0", 257,  7, 77, 57);
     view.defPosition("R0", 257,  7, 77, 57);
+
+    view.defPosition("XX", 500,-80, 77, 57);      // +115:
 }
