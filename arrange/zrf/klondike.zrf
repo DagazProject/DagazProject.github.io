@@ -51,11 +51,11 @@
           (start-rectangle 0 100 62 182)
           (dimensions
             ("a/b/c/d/e/f/g" (62 0)) ; files
-            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 15)) ; ranks
+            ("19/18/17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1/0" (0 15)) ; ranks
           )
           (directions (next 0 1) (up 0 -1) (down 0 1))
       )
-      (links next (a1 b19) (b1 c19) (c1 d19) (d1 e19) (e1 f19) (f1 g19) (g1 X3) (X3 X4) (X4 X5) (X5 X6))
+      (links next (a0 b19) (b0 c19) (c0 d19) (d0 e19) (e0 f19) (f0 g19) (g0 X3) (X3 X4) (X4 X5) (X5 X6))
       (kill-positions X3)
   )
 

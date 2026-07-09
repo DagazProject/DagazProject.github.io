@@ -177,13 +177,20 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("e2", [7, -7, 7]);
     design.addPosition("f2", [7, -7, 7]);
     design.addPosition("g2", [7, -7, 7]);
-    design.addPosition("a1", [-125, -7, 0]);
-    design.addPosition("b1", [-125, -7, 0]);
-    design.addPosition("c1", [-125, -7, 0]);
-    design.addPosition("d1", [-125, -7, 0]);
-    design.addPosition("e1", [-125, -7, 0]);
-    design.addPosition("f1", [-125, -7, 0]);
-    design.addPosition("g1", [0, -7, 0]);
+    design.addPosition("a1", [7, -7, 7]);
+    design.addPosition("b1", [7, -7, 7]);
+    design.addPosition("c1", [7, -7, 7]);
+    design.addPosition("d1", [7, -7, 7]);
+    design.addPosition("e1", [7, -7, 7]);
+    design.addPosition("f1", [7, -7, 7]);
+    design.addPosition("g1", [7, -7, 7]);
+    design.addPosition("a0", [-132, -7, 0]);
+    design.addPosition("b0", [-132, -7, 0]);
+    design.addPosition("c0", [-132, -7, 0]);
+    design.addPosition("d0", [-132, -7, 0]);
+    design.addPosition("e0", [-132, -7, 0]);
+    design.addPosition("f0", [-132, -7, 0]);
+    design.addPosition("g0", [0, -7, 0]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PROMOTE,	1);	// O1
@@ -650,4 +657,11 @@ Dagaz.View.configure = function(view) {
     view.defPosition("e1", 248, 370, 62, 82);
     view.defPosition("f1", 310, 370, 62, 82);
     view.defPosition("g1", 372, 370, 62, 82);
+    view.defPosition("a0", 0, 385, 62, 82);
+    view.defPosition("b0", 62, 385, 62, 82);
+    view.defPosition("c0", 124, 385, 62, 82);
+    view.defPosition("d0", 186, 385, 62, 82);
+    view.defPosition("e0", 248, 385, 62, 82);
+    view.defPosition("f0", 310, 385, 62, 82);
+    view.defPosition("g0", 372, 385, 62, 82);
 }

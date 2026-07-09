@@ -52,6 +52,25 @@ Dagaz.Model.CheckInvariants = function(board) {
            });
            board.moves.push(m);
       });
+  } else {
+      for (var src = 40; src < 80; src++) {
+           var piece = board.getPiece(src);
+           if (piece === null) continue;
+           if (piece.player != board.player) continue;
+           type = (piece.type / 4) | 0;
+           var dst = 80;
+           var m = Dagaz.Model.createMove(0, 10);
+           m.movePiece(src, dst++, piece.changeOwner(1));
+           for (var pos = 40; pos < 80; pos++) {
+                if (pos == src) continue;
+                var piece = board.getPiece(pos);
+                if (piece === null) continue;
+                if (piece.player != board.player) continue;
+                if (((piece.type / 4) | 0) != type) continue;
+                m.movePiece(pos, dst++, piece.changeOwner(1));
+           }
+           board.moves.push(m);
+      }
   }
   CheckInvariants(board);
 }

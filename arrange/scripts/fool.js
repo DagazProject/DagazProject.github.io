@@ -1,4 +1,4 @@
-Dagaz.Controller.persistense = "none";
+п»їDagaz.Controller.persistense = "none";
 Dagaz.Controller.UNDO_ONCE   = true;
 Dagaz.Model.NO_SOUND         = true;
 
@@ -43,15 +43,15 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("Right", []);
     design.addPlayer("N", []);
 
-    design.addTurn(1, [0]);        // 0: Ход Игрока
-    design.addTurn(2, [1, 2]);     // 1: Отбой Левой руки
-    design.addRandom(4, [3]);      // 2: Распределение карт из колоды
-    design.addTurn(2, [0]);        // 3: Ход Левой руки
-    design.addTurn(3, [1, 2]);     // 4: Отбой Правой руки
-    design.addRandom(4, [3]);      // 5: Распределение карт из колоды
-    design.addTurn(3, [0]);        // 6: Ход Правой руки
-    design.addTurn(1, [1, 2]);     // 7: Отбой Игрока
-    design.addRandom(4, [3]);      // 8: Распределение карт из колоды
+    design.addTurn(1, [0]);        // 0: РҐРѕРґ РРіСЂРѕРєР°
+    design.addTurn(2, [1, 2]);     // 1: РћС‚Р±РѕР№ Р›РµРІРѕР№ СЂСѓРєРё
+    design.addRandom(4, [3]);      // 2: Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РєР°СЂС‚ РёР· РєРѕР»РѕРґС‹
+    design.addTurn(2, [0]);        // 3: РҐРѕРґ Р›РµРІРѕР№ СЂСѓРєРё
+    design.addTurn(3, [1, 2]);     // 4: РћС‚Р±РѕР№ РџСЂР°РІРѕР№ СЂСѓРєРё
+    design.addRandom(4, [3]);      // 5: Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РєР°СЂС‚ РёР· РєРѕР»РѕРґС‹
+    design.addTurn(3, [0]);        // 6: РҐРѕРґ РџСЂР°РІРѕР№ СЂСѓРєРё
+    design.addTurn(1, [1, 2]);     // 7: РћС‚Р±РѕР№ РРіСЂРѕРєР°
+    design.addRandom(4, [3]);      // 8: Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РєР°СЂС‚ РёР· РєРѕР»РѕРґС‹
 
     design.addPosition("a2", []);
     design.addPosition("b2", []);
