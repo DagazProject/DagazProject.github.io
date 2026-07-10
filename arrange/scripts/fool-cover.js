@@ -61,6 +61,14 @@ function getLayout(board) {
   return null;
 }
 
+Dagaz.Model.getLayout = function(player, cnt) {
+  var l = LAYOUTS[player - 1];
+  for (var i = 0; i < l.length; i++) {
+       if (l[i].length >= cnt) return l[i];
+  }
+  return null;
+}
+
 function getNextTurn(turn) {
   if (turn == 1) {
       return 5;

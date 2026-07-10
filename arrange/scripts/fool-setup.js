@@ -118,7 +118,7 @@ Dagaz.Model.setup = function(board, init) {
           avail = createPiece(board, pos, 3, avail);
       });
       avail = createPiece(board, 96, 1, avail);
-      _.each([97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114], function(pos) {
+      _.each([97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 114], function(pos) {
           avail = createPiece(board, pos, 4, avail);
       });
   }
