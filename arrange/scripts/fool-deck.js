@@ -32,6 +32,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       var m = Dagaz.Model.createMove(3, 10);
       _.each(order, function(player) {
           if (src < 96) return;
+          if (Dagaz.Model.getCount(board, player) > 5) return;
           var layout = Dagaz.Model.getLayout(player, 6);
           if (layout === null) return;
           var ix = 0;
@@ -49,12 +50,10 @@ Dagaz.Model.CheckInvariants = function(board) {
                if (ix > 5) break;
                var p = src--;
                var piece = board.getPiece(p);
-//             console.log(piece);
                if (piece === null) continue;
-               m.movePiece(src--, layout[ix++], piece.changeOwner(player));
+               m.movePiece(p, layout[ix++], piece.changeOwner(player));
           }
       });
-//    console.log(m);
       board.moves.push(m);
   }
   CheckInvariants(board);

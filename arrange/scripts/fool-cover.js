@@ -47,6 +47,17 @@ function getCount(board) {
   return cnt;
 }
 
+Dagaz.Model.getCount = function(board, player) {
+  var cnt = 0;
+  for (var pos = 0; pos < 80; pos++) {
+       var piece = board.getPiece(pos);
+       if (piece === null) continue;
+       if (piece.player != player) continue;
+       cnt++;
+  }
+  return cnt;
+}
+
 function getLayout(board) {
   var cnt = getCount(board);
   for (var pos = 80; pos < 96; pos++) {
