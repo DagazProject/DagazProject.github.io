@@ -8,6 +8,17 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+function getCnt(board) {
+  var r = 0;
+  for (var p = 40; p < 80; p++) {
+       var piece = board.getPiece(p);
+       if (piece === null) continue;
+       if (piece.player != 2) continue;
+       r++;
+  }
+  return r;
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -25,9 +36,9 @@ Dagaz.Model.CheckInvariants = function(board) {
            var piece = board.getPiece(pos);
            if (piece === null) continue;
            var t = (piece.type / 4) | 0;
-           var m = Dagaz.Model.createMove(0, 10);
+           var m = Dagaz.Model.createMove(4, 10);
            m.movePiece(pos, pos - 20, piece, 1, 1);
-           if ((pieces.length > 0) && (t != type)) {
+           if (((pieces.length > 0) && (t != type)) || (getCnt(board) <= pieces.length)) {
                _.each(pieces, function(p) {
                    var x = board.getPiece(p);
                    if (x === null) return;
