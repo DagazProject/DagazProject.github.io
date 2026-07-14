@@ -45,7 +45,6 @@ Dagaz.Model.CheckInvariants = function(board) {
       var player = getPlayer(board.turn);
       if (player == 0) return;
       var cnt = getCnt(board, player);
-      console.log('cnt = ' + cnt);
       if (move.actions.length > cnt) {
           move.failed = true;
       }

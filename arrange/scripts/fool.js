@@ -37,6 +37,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("smart-moves", "from");
     design.checkVersion("show-blink", "false");
     design.checkVersion("shared-pieces", "true");
+    design.checkVersion("pass-turn", "forced");
 
     design.addPlayer("You", []);
     design.addPlayer("Left", []);

@@ -18,12 +18,11 @@ Dagaz.Model.checkGoals = function(design, board, player) {
            if (piece === null) continue;
            c[piece.player - 1]++;
       }
-      console.log(c);
-      if (c[0] == 0) {
+      if ((c[0] == 0) && ((c[1] == 0) || (c[2] == 0))) {
           if (player == 1) return 1;
               else return -1;
       }
-      if ((c[1] == 0) || (c[2] == 0)) {
+      if ((c[1] == 0) && (c[2] == 0)) {
           if (player == 1) return -1;
               else return 1;
       }

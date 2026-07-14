@@ -105,7 +105,7 @@ Dagaz.Model.CheckInvariants = function(board) {
             var m = Dagaz.Model.createMove(1, 11);
             var f = false;
             if ((piece.type % 4) == (target.type % 4)) {
-                f = piece.type > target.type;
+                f = +piece.type > +target.type;
             } else {
                 f = (piece.type % 4) == getTrump(board, m);
             }
