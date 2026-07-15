@@ -10,11 +10,14 @@ Dagaz.Model.checkVersion = function(design, name, value) {
 
 function getCnt(board) {
   var r = 0;
-  for (var p = 40; p < 80; p++) {
-       var piece = board.getPiece(p);
-       if (piece === null) continue;
-       if (piece.player != 2) continue;
-       r++;
+  for (var player = 2; player <= 3; player++) {
+       for (var p = 40; p < 80; p++) {
+            var piece = board.getPiece(p);
+            if (piece === null) continue;
+            if (piece.player != player) continue;
+            r++;
+       }
+       if (r > 0) break;
   }
   return r;
 }

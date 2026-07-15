@@ -36,6 +36,22 @@ function getCnt(board, player) {
   return r;
 }
 
+function nextPlayer(player) {
+  var r = +player + 1;
+  if (r > 3) r = 1;
+  return r;
+}
+
+function getTurn(player) {
+  if (player == 1) {
+      return 7;
+  } else if (player == 2) {
+      return 1;
+  } else {
+      return 4;
+  }
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -45,6 +61,11 @@ Dagaz.Model.CheckInvariants = function(board) {
       var player = getPlayer(board.turn);
       if (player == 0) return;
       var cnt = getCnt(board, player);
+      if (cnt == 0) {
+          player = nextPlayer(player);
+          cnt = getCnt(board, player);
+          move.goTo(getTurn(player));
+      }
       if (move.actions.length > cnt) {
           move.failed = true;
       }
