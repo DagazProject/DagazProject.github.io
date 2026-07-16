@@ -136,7 +136,7 @@ Dagaz.Model.CheckInvariants = function(board) {
            if (piece === null) continue;
            var layout = getLayout(board);
            if (layout === null) continue;
-           var m = Dagaz.Model.createMove(1, 10);
+           var m = Dagaz.Model.createMove(2, 10);
            var cnt = getCount(board);
            m.movePiece(src, layout[cnt], piece.changeOwner(board.player));
            var ix = 0;
