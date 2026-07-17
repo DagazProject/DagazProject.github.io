@@ -57,6 +57,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (board.turn == 8) {
           m.goTo(0);
       }
+      m.dropPiece(115, Dagaz.Model.createPiece(0, 1));
       board.moves.push(m);
   }
   CheckInvariants(board);
