@@ -18,16 +18,25 @@ function getPlayer(turn) {
   }
 }
 
-function getAvail(board) {
+function calcUncovered(board) {
+  var r = 0;
+  for (var pos = 80; pos < 88; pos++) {
+       if (board.getPiece(pos) === null) continue;
+       if (board.getPiece(+pos + 8) === null) r++;
+  }
+  return r;
+}
+
+Dagaz.Model.getAvail = function(board) {
   for (var pos = 80; pos < 88; pos++) {
        if (board.getPiece(pos) === null) return pos;
   }
   return null;
 }
 
-function getRanks(board) {
+Dagaz.Model.getRanks = function(board) {
   var r = [];
-  for (var pos = 80; pos < 88; pos++) {
+  for (var pos = 80; pos < 96; pos++) {
        var piece = board.getPiece(pos);
        if (piece === null) continue;
        r.push((piece.type / 4) | 0);
@@ -35,7 +44,7 @@ function getRanks(board) {
   return r;
 }
 
-function getSrc(board, player, ranks) {
+Dagaz.Model.getSrc = function(board, player, ranks) {
   for (var pos = 20; pos < 80; pos++) {
        var piece = board.getPiece(pos);
        if (piece === null) continue;
@@ -63,10 +72,14 @@ function getCnt(board, player) {
 }
 
 function getMoveRank(board, move) {
-  for (var i = 0; i < move.actions; i++) {
-       var a = move.actions[0];
+  for (var i = 0; i < move.actions.length; i++) {
+       var a = move.actions[i];
        if (a[0] === null) continue;
        if (a[1] === null) continue;
+       if (a[2] !== null) {
+           piece = a[2][0];
+           return (piece.type / 4) | 0;
+       }
        var piece = board.getPiece(a[0][0]);
        if (piece === null) continue;
        return (piece.type / 4) | 0;
@@ -81,24 +94,40 @@ Dagaz.Model.CheckInvariants = function(board) {
   var player = getPlayer(board.turn);
   if (player !== null) {
       var cnt = getCnt(board, board.player);
-      var dst = getAvail(board);
+      var dst = Dagaz.Model.getAvail(board);
       if ((dst !== null) && (cnt > 0)) {
-          var ranks = getRanks(board);
+          var ranks = Dagaz.Model.getRanks(board);
           _.each(board.moves, function(move) {
               if (move.mode != 1) return;
               if (move.actions[0][2] === null) return;
               ranks.push(getMoveRank(board, move));
-              var src = getSrc(board, player, ranks);
+              var src = Dagaz.Model.getSrc(board, player, ranks);
               if (src !== null) {
                   var p = board.getPiece(src);
                   if (p !== null) {
                       move.movePiece(src, dst, p.changeOwner(1));
+                      move.goTo(board.turn);
+                      move.checked = true;
                   }
               }
               ranks.pop();
           });
       }
   }
+  var c = calcUncovered(board);
+  _.each(board.moves, function(move) {
+      if (move.mode != 1) return;
+      if (!_.isUndefined(move.checked)) return;
+      if (c == 1) {
+          if (board.turn == 1) {
+              move.goTo(9);
+          } else {
+              move.goTo(10);
+          }
+      } else {
+          move.goTo(board.turn);
+      }
+  });
   CheckInvariants(board);
 }
 

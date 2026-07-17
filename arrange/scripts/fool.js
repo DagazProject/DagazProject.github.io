@@ -53,6 +53,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addTurn(3, [0]);        // 6: Ход Правой руки
     design.addTurn(1, [1, 2, 5]);  // 7: Отбой Игрока
     design.addRandom(4, [3]);      // 8: Распределение карт из колоды
+    design.addTurn(1, [2]);        // 9: Подкидывание Левой руке
+    design.addTurn(1, [2]);        // 10: Подкидывание Правой руке
 
     design.addPosition("a2", []);
     design.addPosition("b2", []);

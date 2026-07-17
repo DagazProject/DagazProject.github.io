@@ -54,6 +54,9 @@ Dagaz.Model.CheckInvariants = function(board) {
                m.movePiece(p, layout[ix++], piece.changeOwner(player));
           }
       });
+      if (board.turn == 8) {
+          m.goTo(0);
+      }
       board.moves.push(m);
   }
   CheckInvariants(board);
