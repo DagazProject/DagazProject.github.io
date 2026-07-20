@@ -29,7 +29,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (board.getPiece(src) !== null) break;
           src--;
       }
-      var m = Dagaz.Model.createMove(3, 10);
+      var m = Dagaz.Model.createMove(3, 12);
       _.each(order, function(player) {
           if (src < 96) return;
           if (Dagaz.Model.getCount(board, player) > 5) return;
@@ -45,6 +45,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                    continue;
                }
                m.movePiece(pos, layout[ix++], piece.changeOwner(player));
+               m.sound = 10;
           }
           while (src >= 96) {
                if (ix > 5) break;
@@ -52,12 +53,15 @@ Dagaz.Model.CheckInvariants = function(board) {
                var piece = board.getPiece(p);
                if (piece === null) continue;
                m.movePiece(p, layout[ix++], piece.changeOwner(player));
+               m.sound = 10;
           }
       });
       if (board.turn == 8) {
           m.goTo(0);
       }
-      m.dropPiece(115, Dagaz.Model.createPiece(0, 1));
+      if (m.sound == 12) {
+          m.dropPiece(115, Dagaz.Model.createPiece(0, 1));
+      }
       board.moves.push(m);
   }
   CheckInvariants(board);

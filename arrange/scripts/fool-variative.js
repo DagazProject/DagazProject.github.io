@@ -37,6 +37,10 @@ Dagaz.Model.CheckInvariants = function(board) {
       }
   });
   _.each(moves, function(move) {
+      if (move.actions == 0) {
+          move.sound = 12;
+          move.dropPiece(115, Dagaz.Model.createPiece(0, 1));
+      }
       board.moves.push(move);
   });
   CheckInvariants(board);

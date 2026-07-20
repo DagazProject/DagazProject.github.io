@@ -121,8 +121,10 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (c == 1) {
           if (board.turn == 1) {
               move.goTo(9);
-          } else {
+          } else if (board.turn == 4) {
               move.goTo(10);
+          } else {
+              move.goTo(board.turn);
           }
       } else {
           move.goTo(board.turn);
