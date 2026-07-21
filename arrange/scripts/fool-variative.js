@@ -23,6 +23,7 @@ var CheckInvariants = Dagaz.Model.CheckInvariants;
 Dagaz.Model.CheckInvariants = function(board) {
   var design = Dagaz.Model.design;
   var moves = [];
+  var f = false;
   _.each(board.moves, function(move) {
       if (move.mode != 0) return;
       if (move.actions.length < 2) return;
@@ -33,13 +34,19 @@ Dagaz.Model.CheckInvariants = function(board) {
                 if ((i & mask) == 0) continue;
                 m.actions.push(move.actions[i]);
            }
+           if (m.actions.length > 0) {
+               f = true;
+           }
            moves.push(m);
       }
   });
   _.each(moves, function(move) {
       if (move.actions == 0) {
           move.sound = 12;
-          move.dropPiece(115, Dagaz.Model.createPiece(0, 1));
+          move.dropPiece(115, Dagaz.Model.createPiece(0, 1));          
+          if (f) {
+              move.failed = true;
+          }
       }
       board.moves.push(move);
   });

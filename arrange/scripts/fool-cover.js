@@ -16,7 +16,7 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
-function getTrump(board, move) {
+Dagaz.Model.getTrump = function(board, move) {
   var v = board.getValue(0);
   if (v !== null) {
       return v;
@@ -118,7 +118,7 @@ Dagaz.Model.CheckInvariants = function(board) {
             if ((piece.type % 4) == (target.type % 4)) {
                 f = +piece.type > +target.type;
             } else {
-                f = (piece.type % 4) == getTrump(board, m);
+                f = (piece.type % 4) == Dagaz.Model.getTrump(board, m);
             }
             if (!f) continue;
             m.movePiece(src, dst + 8, piece.changeOwner(1));

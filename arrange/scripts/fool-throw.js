@@ -41,7 +41,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                m.capturePiece(115);
                if (board.turn == 9) {
                    m.goTo(2);
-               } else {
+               } else if (board.turn == 10) {
                    m.goTo(5);
                }
                board.moves.push(m);
@@ -58,7 +58,7 @@ Dagaz.Model.CheckInvariants = function(board) {
                    m.movePiece(src, dst, piece);
                    if (board.turn == 9) {
                        m.goTo(1);
-                   } else {
+                   } else if (board.turn == 10) {
                        m.goTo(4);
                    }
                    board.moves.push(m);
