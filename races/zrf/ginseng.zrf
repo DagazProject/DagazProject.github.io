@@ -1,0 +1,122 @@
+(define step (
+  $1 (verify empty?) add
+))
+
+(game
+  (title "Ginseng Pai Sho")
+
+  (players Light Dark)
+  (turn-order Light Dark)
+
+  (board
+    (image "images/ginseng/board.bmp")
+     (grid
+         (start-rectangle 27 25 77 75)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q" (52 0)) ; files
+           ("17/16/15/14/13/12/11/10/9/8/7/6/5/4/3/2/1" (0 52)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+  )	
+
+  (piece
+     (name Lotus)
+     (image Light "images/ginseng/hlm.bmp"
+            Dark "images/ginseng/glm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Koi)
+     (image Light "images/ginseng/hkm.bmp"
+            Dark "images/ginseng/gkm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Badger)
+     (image Light "images/ginseng/hbm.bmp"
+            Dark "images/ginseng/gbm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Dragon)
+     (image Light "images/ginseng/hdm.bmp"
+            Dark "images/ginseng/gdm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Bison)
+     (image Light "images/ginseng/hfbm.bmp"
+            Dark "images/ginseng/gfbm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Turtle)
+     (image Light "images/ginseng/hltm.bmp"
+            Dark "images/ginseng/gltm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Orchid)
+     (image Light "images/ginseng/hom.bmp"
+            Dark "images/ginseng/gom.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Ginseng)
+     (image Light "images/ginseng/hgm.bmp"
+            Dark "images/ginseng/ggm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+  (piece
+     (name Wheel)
+     (image Light "images/ginseng/hwm.bmp"
+            Dark "images/ginseng/gwm.bmp")
+     (moves
+         (step n) (step e) (step w) (step s)
+     )
+  )
+
+  (board-setup
+    (Light 
+         (Lotus i1)
+         (Koi g3)
+         (Badger h2)
+         (Dragon j2)
+         (Bison k3)
+         (Turtle i5)
+         (Orchid d5 n5)
+         (Ginseng e5 m5)
+         (Wheel f4 l4)
+    )
+    (Dark 
+         (Lotus i17)
+         (Koi k15)
+         (Badger j16)
+         (Dragon h16)
+         (Bison g15)
+         (Turtle i13)
+         (Orchid d13 n13)
+         (Ginseng e13 m13)
+         (Wheel f14 l14)
+    )
+)
