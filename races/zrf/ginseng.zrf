@@ -1,5 +1,8 @@
-(define step (
-  $1 (verify empty?) add
+(define slide (
+  $1 
+  (while empty? add $1)
+  (verify not-friend?)
+  add
 ))
 
 (game
@@ -21,78 +24,73 @@
               (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
          )
      )
+     (kill-positions a1 a2 a3 a4 a14 a15 a16 a17 b1 b2 b3 b15 b16 b17 c1 c2 c16 c17 d1 d17 n1 n17 o1 o2 o16 o17 p1 p2 p3 p15 p16 p17 q1 q2 q3 q4 q14 q15 q16 q17)
+     (zone (name ST) (players Light Dark)
+           (positions i1)
+     )
+     (zone (name NT) (players Light Dark)
+           (positions i17)
+     )
+     (zone (name WT) (players Light Dark)
+           (positions a9)
+     )
+     (zone (name ET) (players Light Dark)
+           (positions q9)
+     )
+     (zone (name RZ) (players Light Dark)
+           (positions b9 c8 c9 d7 d8 d9 e6 e7 e8 e9 f5 f6 f7 f8 f9 g4 g5 g6 g7 g8 g9 h3 h4 h5 h6 h7 h8 h9 i2 i3 i4 i5 i6 i7 i8 i9 i10 i11 i12 i13 i14 i15 i16 j9 j10 j11 j12 j13 j14 j15 k9 k10 k11 k12 k13 k14 l9 l10 l11 l12 l13 m9 m10 m11 m12 n9 n10 n11 o9 o10 p9)
+     )
+     (zone (name WZ) (players Light Dark)
+           (positions b9 c9 c10 d9 d10 d11 e9 e10 e11 e12 f9 f10 f11 f12 f13 g9 g10 g11 g12 g13 g14 h9 h10 h11 h12 h13 h14 h15 i2 i3 i4 i5 i6 i7 i8 i9 i10 i11 i12 i13 i14 i15 i16 j3 j4 j5 j6 j7 j8 j9 k4 k5 k6 k7 k8 k9 l5 l6 l7 l8 l9 m6 m7 m8 m9 n7 n8 n9 o8 o9 p9)
+     )
   )	
 
   (piece
      (name Lotus)
      (image Light "images/ginseng/hlm.bmp"
             Dark "images/ginseng/glm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Koi)
      (image Light "images/ginseng/hkm.bmp"
             Dark "images/ginseng/gkm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Badger)
      (image Light "images/ginseng/hbm.bmp"
             Dark "images/ginseng/gbm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Dragon)
      (image Light "images/ginseng/hdm.bmp"
             Dark "images/ginseng/gdm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Bison)
      (image Light "images/ginseng/hfbm.bmp"
             Dark "images/ginseng/gfbm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Turtle)
      (image Light "images/ginseng/hltm.bmp"
             Dark "images/ginseng/gltm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Orchid)
      (image Light "images/ginseng/hom.bmp"
             Dark "images/ginseng/gom.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Ginseng)
      (image Light "images/ginseng/hgm.bmp"
             Dark "images/ginseng/ggm.bmp")
-     (moves
-         (step n) (step e) (step w) (step s)
-     )
   )
   (piece
      (name Wheel)
      (image Light "images/ginseng/hwm.bmp"
             Dark "images/ginseng/gwm.bmp")
      (moves
-         (step n) (step e) (step w) (step s)
+         (slide n) (slide e) (slide w) (slide s)
      )
   )
 

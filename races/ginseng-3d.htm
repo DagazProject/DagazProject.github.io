@@ -1,0 +1,66 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Ginseng Pai Sho</title>
+<link rel="stylesheet" href="../css/3d-view.css"/>
+</head>
+<body>
+
+<img id="Board" style="display:none" src="images/ginseng/board.png">
+<img id="Bump" style="display:none" src="../res/xiangqi/piecebump.jpg">
+<img id="LightLotus" style="display:none" src="images/ginseng/hlm.png">
+<img id="DarkLotus" style="display:none" src="images/ginseng/glm.png">
+<img id="LightKoi" style="display:none" src="images/ginseng/hkm.png">
+<img id="DarkKoi" style="display:none" src="images/ginseng/gkm.png">
+<img id="LightBadger" style="display:none" src="images/ginseng/hbm.png">
+<img id="DarkBadger" style="display:none" src="images/ginseng/gbm.png">
+<img id="LightDragon" style="display:none" src="images/ginseng/hdm.png">
+<img id="DarkDragon" style="display:none" src="images/ginseng/gdm.png">
+<img id="LightBison" style="display:none" src="images/ginseng/hfbm.png">
+<img id="DarkBison" style="display:none" src="images/ginseng/gfbm.png">
+<img id="LightTurtle" style="display:none" src="images/ginseng/hltm.png">
+<img id="DarkTurtle" style="display:none" src="images/ginseng/gltm.png">
+<img id="LightOrchid" style="display:none" src="images/ginseng/hom.png">
+<img id="DarkOrchid" style="display:none" src="images/ginseng/gom.png">
+<img id="LightGinseng" style="display:none" src="images/ginseng/hgm.png">
+<img id="DarkGinseng" style="display:none" src="images/ginseng/ggm.png">
+<img id="LightWheel" style="display:none" src="images/ginseng/hwm.png">
+<img id="DarkWheel" style="display:none" src="images/ginseng/gwm.png">
+
+<img id = "UndoControl" style="display:none" src="../images/u.png"/>
+<img id = "InfoControl" style="display:none" src="../images/rules.png"/>
+<img id = "ResControl" style="display:none" src="../images/resa.png"/>
+<img id = "NewControl" style="display:none" src="../images/new.png"/>
+<img id = "AiLightControl" style="display:none" src="../images/ailight.png"/>
+<img id = "AiAlertControl" style="display:none" src="../images/aialert.png"/>
+<img id = "AiOnControl" style="display:none" src="../images/aion.png"/>
+<img id = "AiOffControl" style="display:none" src="../images/aioff.png"/>
+<img id = "SoundOnControl" style="display:none" src="../images/soundon.png"/>
+<img id = "SoundOffControl" style="display:none" src="../images/soundoff.png"/>
+<img id = "RedoControl" style="display:none" src="../images/r.png"/>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="container">
+           <canvas id="overlay" width="1" height="1"></canvas>
+           <canvas id="Canvas" width="1" height="1" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        </div>
+    </div>
+</div>
+
+<script src="../underscore/underscore-min.js"></script>
+<script src="../underscore/three.98.min.js"></script>
+<script src="../underscore/orbit-controls.js"></script>
+<script src="../common-scripts/dagaz.js"></script>
+<script src="../common-scripts/zrf-model.js"></script>
+<script src="../common-scripts/zobrist-v2.js"></script>
+<script src="../common-scripts/common-setup-v2.js"></script>
+<script src="../common-scripts/3d-view.js"></script>
+<script src="../common-scripts/move-list-v3.js"></script>
+<script src="../common-scripts/session-manager-v2.js"></script>
+<script src="../common-scripts/sound-manager-v3.js"></script>
+<script src="scripts/ginseng-3d.js"></script>
+<script src="../common-scripts/3d-app.js"></script>
+
+</body>
+</html>
