@@ -414,31 +414,29 @@ Dagaz.Model.BuildDesign = function(design) {
 }
 
 Dagaz.View.configure = function(view) {
-    view.defBoard3D(934, 934, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
+    view.defBoardCylinder(934, 934, 1, -3, [0xFFEDCB, 0xAC5146, 0xAC5146, 0xAC5146, 0xAC5146, 0xFFEDCB], "Board");
 
-    const light = '#767227';
-    const dark  = '#BF9668';
-
+    const color = '#301000';
     const tokenPath = '../res/xiangqi';
 
-    view.defPieceToken(0, 1, tokenPath, 'token.js', 'LightLotus', 'Bump'/*, light*/);
-    view.defPieceToken(0, 2, tokenPath, 'token.js', 'DarkLotus', 'Bump'/*, dark*/);
-    view.defPieceToken(1, 1, tokenPath, 'token.js', 'LightKoi', 'Bump'/*, light*/);
-    view.defPieceToken(1, 2, tokenPath, 'token.js', 'DarkKoi', 'Bump'/*, dark*/);
-    view.defPieceToken(2, 1, tokenPath, 'token.js', 'LightBadger', 'Bump'/*, light*/);
-    view.defPieceToken(2, 2, tokenPath, 'token.js', 'DarkBadger', 'Bump'/*, dark*/);
-    view.defPieceToken(3, 1, tokenPath, 'token.js', 'LightDragon', 'Bump'/*, light*/);
-    view.defPieceToken(3, 2, tokenPath, 'token.js', 'DarkDragon', 'Bump'/*, dark*/);
-    view.defPieceToken(4, 1, tokenPath, 'token.js', 'LightBison', 'Bump'/*, light*/);
-    view.defPieceToken(4, 2, tokenPath, 'token.js', 'DarkBison', 'Bump'/*, dark*/);
-    view.defPieceToken(5, 1, tokenPath, 'token.js', 'LightTurtle', 'Bump'/*, light*/);
-    view.defPieceToken(5, 2, tokenPath, 'token.js', 'DarkTurtle', 'Bump'/*, dark*/);
-    view.defPieceToken(6, 1, tokenPath, 'token.js', 'LightOrchid', 'Bump'/*, light*/);
-    view.defPieceToken(6, 2, tokenPath, 'token.js', 'DarkOrchid', 'Bump'/*, dark*/);
-    view.defPieceToken(7, 1, tokenPath, 'token.js', 'LightGinseng', 'Bump'/*, light*/);
-    view.defPieceToken(7, 2, tokenPath, 'token.js', 'DarkGinseng', 'Bump'/*, dark*/);
-    view.defPieceToken(8, 1, tokenPath, 'token.js', 'LightWheel', 'Bump'/*, light*/);
-    view.defPieceToken(8, 2, tokenPath, 'token.js', 'DarkWheel', 'Bump'/*, dark*/);
+    view.defPieceToken(0, 1, tokenPath, 'token.js', 'LightLotus', 'Bump', undefined, undefined, color);
+    view.defPieceToken(0, 2, tokenPath, 'token.js', 'DarkLotus', 'Bump', undefined, undefined, color);
+    view.defPieceToken(1, 1, tokenPath, 'token.js', 'LightKoi', 'Bump', undefined, undefined, color);
+    view.defPieceToken(1, 2, tokenPath, 'token.js', 'DarkKoi', 'Bump', undefined, undefined, color);
+    view.defPieceToken(2, 1, tokenPath, 'token.js', 'LightBadger', 'Bump', undefined, undefined, color);
+    view.defPieceToken(2, 2, tokenPath, 'token.js', 'DarkBadger', 'Bump', undefined, undefined, color);
+    view.defPieceToken(3, 1, tokenPath, 'token.js', 'LightDragon', 'Bump', undefined, undefined, color);
+    view.defPieceToken(3, 2, tokenPath, 'token.js', 'DarkDragon', 'Bump', undefined, undefined, color);
+    view.defPieceToken(4, 1, tokenPath, 'token.js', 'LightBison', 'Bump', undefined, undefined, color);
+    view.defPieceToken(4, 2, tokenPath, 'token.js', 'DarkBison', 'Bump', undefined, undefined, color);
+    view.defPieceToken(5, 1, tokenPath, 'token.js', 'LightTurtle', 'Bump', undefined, undefined, color);
+    view.defPieceToken(5, 2, tokenPath, 'token.js', 'DarkTurtle', 'Bump', undefined, undefined, color);
+    view.defPieceToken(6, 1, tokenPath, 'token.js', 'LightOrchid', 'Bump', undefined, undefined, color);
+    view.defPieceToken(6, 2, tokenPath, 'token.js', 'DarkOrchid', 'Bump', undefined, undefined, color);
+    view.defPieceToken(7, 1, tokenPath, 'token.js', 'LightGinseng', 'Bump', undefined, undefined, color);
+    view.defPieceToken(7, 2, tokenPath, 'token.js', 'DarkGinseng', 'Bump', undefined, undefined, color);
+    view.defPieceToken(8, 1, tokenPath, 'token.js', 'LightWheel', 'Bump', undefined, undefined, color);
+    view.defPieceToken(8, 2, tokenPath, 'token.js', 'DarkWheel', 'Bump', undefined, undefined, color);
 
     view.setCamera(0, 0, 0, -109, 215, 255);
 

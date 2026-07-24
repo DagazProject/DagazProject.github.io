@@ -10,7 +10,8 @@ Dagaz.View.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints 
 const BOARD_TYPE = {
    RECT:              0,
    TRIANGLE:          1,
-   HEXAGONAL:         2
+   HEXAGONAL:         2,
+   CYLINDER:          3
 };
 
 const PIECE_TYPE = {
@@ -781,6 +782,38 @@ View3D.prototype.findRes = function(res) {
 
 View3D.prototype.defBoard = function(res) {}
 
+View3D.prototype.defBoardCylinder = function(dx, dy, dz, z, colors, res, opacity) {
+  if (_.isUndefined(opacity)) opacity = 1;
+  let board = null;
+  if (!_.isUndefined(res)) {
+      board = this.findRes(res);
+      if (board === null) {
+          const img = document.getElementById(res);
+          const t = new Promise((resolve) => {
+                textureLoader.load(
+                    img.currentSrc,
+                    resolve,
+                    undefined,
+                    undefined,
+                  { crossOrigin: 'anonymous' }
+                );
+          });
+          resTask.push(t); 
+          board = {
+             r: res,
+             h: img
+          };
+          resList.push(board);
+          this.res.push(board);
+      }
+  }
+  this.boards.push({
+     dx: dx, dy: dy, dz: dz, z: z,
+     colors: colors, img: board,
+     opacity: opacity, type: BOARD_TYPE.CYLINDER
+  });
+}
+
 View3D.prototype.defBoardHexagonal = function(dx, dy, dz, z, colors, res, opacity) {
   if (_.isUndefined(opacity)) opacity = 1;
   let board = null;
@@ -1012,8 +1045,9 @@ View3D.prototype.defSubControl = function(ix, imgs, hint, isVisible, proc, args)
   });
 }
 
-View3D.prototype.defPieceToken = function(type, player, path, model, image, bump, color, scale) {
+View3D.prototype.defPieceToken = function(type, player, path, model, image, bump, color, scale, side) {
   if (_.isUndefined(color)) color = 0x3F3F3F;
+  if (_.isUndefined(side))  side  = color;
   if (_.isUndefined(scale)) scale = 2.5;
   Dagaz.View.NO_PIECE = false;
   Dagaz.View.PIECE_TYPE = PIECE_TYPE.TOKEN;
@@ -1035,6 +1069,7 @@ View3D.prototype.defPieceToken = function(type, player, path, model, image, bump
      image:  !_.isUndefined(image) ? document.getElementById(image) : null,
      bump:   !_.isUndefined(bump)  ? document.getElementById(bump)  : null,
      color:  color,
+     side:   side,
      scale:  scale
   };
 }
@@ -1372,7 +1407,7 @@ View3D.prototype.allResLoaded = function() {
                      if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.TOKEN) {
                          const ix = pieceTypes[key].ix;
                          modelData = results[ix];
-                         const specular="#050505", shininess=30, color=pieceTypes[key].color;
+                         const specular="#050505", shininess=30, color=pieceTypes[key].color, side=pieceTypes[key].side;
 
                          var canvasDiffuse = document.createElement('canvas');
                          canvasDiffuse.width = canvasDiffuse.height=TEXTURE_CANVAS_SZ;
@@ -1405,14 +1440,14 @@ View3D.prototype.allResLoaded = function() {
 
                          pieceTypes[key].matborder = new THREE.MeshPhongMaterial({
                                name: "pieceborders",
-                               color : (textureBorder === null) ? color : undefined,
+                               color : side,
                                map: textureBorder,
                                specular: specular,
                                shininess: shininess
                          });
                          pieceTypes[key].matborderi = new THREE.MeshPhongMaterial({
                                name: "pieceborders",
-                               color : (textureBorder === null) ? color : undefined,
+                               color : side,
                                transparent: true,
                                opacity: 0.5,
                                map: textureBorder,
@@ -2391,6 +2426,46 @@ View3D.prototype.draw = function(canvas) {
                 }
                 const boardBlock = new THREE.Mesh(boardGeometry, materials);
                 boardBlock.position.set(b.x / 10, b.z / 10, b.y / 10);
+                if (Dagaz.View.RENDER_ORDER) {
+                    boardBlock.renderOrder = 1;
+                }
+                scene.add(boardBlock);
+            }
+            if (b.type == BOARD_TYPE.CYLINDER) {
+                const boardGeometry = new THREE.CylinderGeometry(b.dx / 20, b.dy / 20, 1, 64);
+                const indices = boardGeometry.index;
+                if (indices) {
+                    const count = indices.count;
+                    const sideCount = 384;
+                    const topCount = 192;
+                    const bottomCount = 192;
+                    boardGeometry.clearGroups();
+                    boardGeometry.addGroup(0, sideCount, 1);
+                    boardGeometry.addGroup(sideCount, topCount, 0);
+                    boardGeometry.addGroup(sideCount + topCount, bottomCount, 1);
+                }
+                const materials = [
+                    new THREE.MeshBasicMaterial({
+                        color: b.colors[1],
+                        transparent: true,
+                        opacity: 0.3,
+                        side: THREE.DoubleSide
+                    }),
+                    new THREE.MeshBasicMaterial({
+                        map: b.img.t,
+                        transparent: true,
+                        opacity: b.opacity,
+                        side: THREE.DoubleSide
+                    }),
+                    new THREE.MeshBasicMaterial({
+                        color: b.colors[1],
+                        transparent: true,
+                        opacity: 0.3,
+                        side: THREE.DoubleSide
+                    })                
+                ];
+                const boardBlock = new THREE.Mesh(boardGeometry, materials);
+                boardBlock.position.set(0, b.z / 10, 0);
                 if (Dagaz.View.RENDER_ORDER) {
                     boardBlock.renderOrder = 1;
                 }
