@@ -30,12 +30,13 @@ Dagaz.Model.CheckInvariants = function(board) {
           src--;
       }
       var m = Dagaz.Model.createMove(3, 12);
+      var t = Dagaz.Model.getTrump(board, m);
       _.each(order, function(player) {
           if (src < 96) return;
           if (Dagaz.Model.getCount(board, player) > 5) return;
           var layout = Dagaz.Model.getLayout(player, 6);
           if (layout === null) return;
-          var ix = 0;
+          var h = []; var ix = 0;
           for (var pos = 0; pos < 80; pos++) {
                var piece = board.getPiece(pos);
                if (piece === null) continue;
@@ -44,7 +45,15 @@ Dagaz.Model.CheckInvariants = function(board) {
                    ix++;
                    continue;
                }
-               m.movePiece(pos, layout[ix++], piece.changeOwner(player));
+/*             if (player == 1) {
+                   h.push({
+                       key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
+                       pos: pos,
+                       piece: piece.changeOwner(board.player)
+                   });
+               } else {*/
+                   m.movePiece(pos, layout[ix++], piece.changeOwner(player));
+//             }
                m.sound = 10;
           }
           while (src >= 96) {
@@ -52,9 +61,28 @@ Dagaz.Model.CheckInvariants = function(board) {
                var p = src--;
                var piece = board.getPiece(p);
                if (piece === null) continue;
-               m.movePiece(p, layout[ix++], piece.changeOwner(player));
+/*             if (player == 1) {
+                   h.push({
+                       key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
+                       pos: p,
+                       piece: piece.changeOwner(board.player)
+                   });
+                   ix++;
+               } else {*/
+                   m.movePiece(p, layout[ix++], piece.changeOwner(player));
+//             }
                m.sound = 10;
           }
+/*        if (player == 1) {
+              console.log(h);
+              h = _.sortBy(h, function(x) {
+                  return x.key;
+              });
+              console.log(h);
+              for (var i = 0; i < h.length; i++) {
+                  m.movePiece(h[i].pos, layout[i], h[i].piece);
+              }
+          }*/
       });
       if (board.turn == 8) {
           m.goTo(0);

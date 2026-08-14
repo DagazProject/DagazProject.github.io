@@ -154,57 +154,57 @@ Dagaz.Model.CheckInvariants = function(board) {
                var m = Dagaz.Model.createMove(2, 10);
                var t = Dagaz.Model.getTrump(board, m);
                var h = [];
-               if (board.player == 1) {
+/*             if (board.player == 1) {
                    h.push({
                        key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
                        pos: src,
                        piece: piece.changeOwner(board.player)
                    });
-               } else {
+               } else {*/
                    m.movePiece(src, layout[cnt], piece.changeOwner(board.player));
-               }
+//             }
                var ix = 0;
                for (var pos = 0; pos < 80; pos++) {
                     piece = board.getPiece(pos);
                     if (piece === null) continue;
                     if (piece.player != board.player) continue;
-                    if (board.player == 1) {
+/*                  if (board.player == 1) {
                         h.push({
                             key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
                             pos: pos,
                             piece: piece.changeOwner(board.player)
                         });
-                    } else {
+                    } else {*/
                         if (pos == layout[ix]) {
                             ix++;
                             continue;
                         }
                         m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
-                    }
+//                  }
                }
                ix = cnt + 1;
                for (var pos = 80; pos < 96; pos++) {
                     if (pos == src) continue;
                     piece = board.getPiece(pos);
                     if (piece === null) continue;
-                    if (board.player == 1) {
+/*                  if (board.player == 1) {
                         h.push({
                             key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
                             pos: pos,
                             piece: piece.changeOwner(board.player)
                         });
-                    } else {
+                    } else {*/
                         m.movePiece(pos, layout[ix++], piece.changeOwner(board.player));
-                    }
+//                  }
                }
-               if (board.player == 1) {
+/*             if (board.player == 1) {
                    h = _.sortBy(h, function(x) {
                        return x.key;
                    });
                    for (var i = 0; i < h.length; i++) {
                         m.movePiece(h[i].pos, layout[i], h[i].piece);
                    }
-               }
+               }*/
                m.goTo(getNextTurn(board.turn));
                board.moves.push(m);
           }
