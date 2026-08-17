@@ -41,19 +41,20 @@ Dagaz.Model.CheckInvariants = function(board) {
                var piece = board.getPiece(pos);
                if (piece === null) continue;
                if (piece.player != player) continue;
-               if (pos == layout[ix]) {
-                   ix++;
-                   continue;
-               }
-/*             if (player == 1) {
+               if (player == 1) {
                    h.push({
-                       key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
+                       key: (+piece.type % 4)*100 + (+piece.type / 4) + (((piece.type % 4) == t) ? 1000: 0),
                        pos: pos,
-                       piece: piece.changeOwner(board.player)
+                       piece: piece.changeOwner(player)
                    });
-               } else {*/
+                   ix++;
+               } else {
+                   if (pos == layout[ix]) {
+                       ix++;
+                       continue;
+                   }
                    m.movePiece(pos, layout[ix++], piece.changeOwner(player));
-//             }
+               }
                m.sound = 10;
           }
           while (src >= 96) {
@@ -61,28 +62,27 @@ Dagaz.Model.CheckInvariants = function(board) {
                var p = src--;
                var piece = board.getPiece(p);
                if (piece === null) continue;
-/*             if (player == 1) {
+               if (player == 1) {
                    h.push({
-                       key: +piece.type + (((piece.type % 4) == t) ? 100: 0),
+                       key: (+piece.type % 4)*100 + (+piece.type / 4) + (((piece.type % 4) == t) ? 1000: 0),
                        pos: p,
-                       piece: piece.changeOwner(board.player)
+                       piece: piece.changeOwner(player)
                    });
                    ix++;
-               } else {*/
+               } else {
                    m.movePiece(p, layout[ix++], piece.changeOwner(player));
-//             }
+               }
                m.sound = 10;
           }
-/*        if (player == 1) {
-              console.log(h);
+          if (player == 1) {
               h = _.sortBy(h, function(x) {
                   return x.key;
               });
-              console.log(h);
               for (var i = 0; i < h.length; i++) {
+                  if (h[i].pos == layout[i]) continue;
                   m.movePiece(h[i].pos, layout[i], h[i].piece);
               }
-          }*/
+          }
       });
       if (board.turn == 8) {
           m.goTo(0);

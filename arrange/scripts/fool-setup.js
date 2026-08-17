@@ -108,16 +108,33 @@ Dagaz.Model.setup = function(board, init) {
       commonSetup(board, init);
   } else {
       var avail = _.range(36);
-      _.each([24, 26, 28, 30, 32, 34], function(pos) {
+      avail = createPiece(board, 96, 1, avail);
+      var t = board.getPiece(96).type % 4;
+      var hand = [24, 26, 28, 30, 32, 34];
+      _.each(hand, function(pos) {
           avail = createPiece(board, pos, 1, avail);
       });
+      var h = _.map(hand, function(pos) {
+          var piece = board.getPiece(pos);
+          return {
+              key: (+piece.type % 4)*100 + (+piece.type / 4) + (((piece.type % 4) == t) ? 1000: 0),
+              piece: piece
+          };
+      });
+      h = _.sortBy(h, function(x) {
+          return x.key;
+      });
+      for (var i = 0; i < h.length; i++) {
+           console.log(h[i].key);
+           console.log(h[i].piece);
+           board.setPiece(hand[i], h[i].piece);
+      }
       _.each([40, 46, 52, 58, 64, 70], function(pos) {
           avail = createPiece(board, pos, 2, avail);
       });
       _.each([41, 47, 53, 59, 65, 71], function(pos) {
           avail = createPiece(board, pos, 3, avail);
       });
-      avail = createPiece(board, 96, 1, avail);
       _.each([97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 114], function(pos) {
           avail = createPiece(board, pos, 4, avail);
       });
