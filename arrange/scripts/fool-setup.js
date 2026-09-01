@@ -125,8 +125,6 @@ Dagaz.Model.setup = function(board, init) {
           return x.key;
       });
       for (var i = 0; i < h.length; i++) {
-           console.log(h[i].key);
-           console.log(h[i].piece);
            board.setPiece(hand[i], h[i].piece);
       }
       _.each([40, 46, 52, 58, 64, 70], function(pos) {
@@ -138,6 +136,16 @@ Dagaz.Model.setup = function(board, init) {
       _.each([97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 114], function(pos) {
           avail = createPiece(board, pos, 4, avail);
       });
+      var turn = getTurn(init);
+      if (turn) {
+          board.turn   = +turn;
+          board.player = design.currPlayer(board.turn);
+      } else {
+          var r = [0, 3, 6];
+          var ix = _.random(0, 2);
+          board.turn   = +r[ix];
+          board.player = design.currPlayer(board.turn);
+      }
   }
 }
 

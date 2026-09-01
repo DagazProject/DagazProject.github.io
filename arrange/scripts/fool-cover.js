@@ -16,6 +16,29 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+var cont = Dagaz.Model.continue;
+
+Dagaz.Model.continue = function(design, board, text, goal) {
+  var str = cont(design, board, text);
+  var r = 3;
+  for (var pos = 40; pos < 80; pos++) {
+      if (board.getPiece(pos) !== null) {
+          if ((pos % 2) == 0) {
+               r = 6;
+          } else {
+               r = 0;
+          }
+          break;
+      }
+  }
+  var result = str.match(/^([^?&]+)/);
+  if (result) {
+      return result[1] + '?turn=' + r;
+  } else {
+      return 'fool-forward.htm?turn=' + r;
+  }
+}
+
 Dagaz.Model.getTrump = function(board, move) {
   var v = board.getValue(0);
   if (v !== null) {
