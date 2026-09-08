@@ -46,20 +46,20 @@
   (board
      (image "images/blank.bmp")
      (grid
-         (start-rectangle 2 2 70 70)
+         (start-rectangle 0 0 67 67)
          (dimensions
-           ("A/B/C/D/E/F/G" (68 0)) ; files
-           ("7/6/5/4/3/2/1" (0 68)) ; ranks
+           ("A/B/C/D/E/F/G" (67 0)) ; files
+           ("7/6/5/4/3/2/1" (0 67)) ; ranks
          )
          (directions 
            (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
          )
      )
      (grid
-         (start-rectangle 2 2 70 70)
+         (start-rectangle 0 0 67 67)
          (dimensions
-           ("a/b/c/d/e/f/g" (68 0)) ; files
-           ("7/6/5/4/3/2/1" (0 68)) ; ranks
+           ("a/b/c/d/e/f/g" (67 0)) ; files
+           ("7/6/5/4/3/2/1" (0 67)) ; ranks
          )
          (directions 
               (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
@@ -84,7 +84,6 @@
          (a6 A6) (b6 B6) (c6 C6) (d6 D6) (e6 E6) (f6 F6) (g6 G6)
          (a7 A7) (b7 B7) (c7 C7) (d7 D7) (e7 E7) (f7 F7) (g7 G7)
      )
-     (symmetry Black (n s) (s n) (nw sw) (sw nw) (ne se) (se ne) (w w) (e e) (up up) (down down))
   )
 
   (piece
