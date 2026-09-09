@@ -8,6 +8,10 @@ Dagaz.Model.checkVersion = function(design, name, value) {
   }
 }
 
+if (!_.isUndefined(Dagaz.Controller.addSound)) {
+    Dagaz.Controller.addSound(10, "../sounds/slide.ogg", true);
+}
+
 var CheckInvariants = Dagaz.Model.CheckInvariants;
 
 Dagaz.Model.CheckInvariants = function(board) {
@@ -23,19 +27,20 @@ Dagaz.Model.CheckInvariants = function(board) {
            if (t !== null) {
                if (t.type == 0) return;
            }
-           var m = Dagaz.Model.createMove(1);
+           var m = Dagaz.Model.createMove(1, 10);
            m.movePiece(pos, p, piece);
            if (t !== null) {
-               m.movePiece(p, pos, t);
+               m.movePiece(p, pos, t.changeOwner(design.nextPlayer(t.player)));
            }
            var q = pos;
            while ((p !== null) && (q !== null)) {
+               p = design.navigate(1, p, 8);
+               q = design.navigate(1, q, 8);
+               if ((p === null) || (q === null)) break;
                t = board.getPiece(p);
                if (t !== null) {
                    m.movePiece(p, q, t);
                }
-               p = design.navigate(1, p, 8);
-               q = design.navigate(1, q, 8);
            }
            board.moves.push(m);
        });
