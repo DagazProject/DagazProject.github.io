@@ -404,6 +404,14 @@ Dagaz.View.configure = function(view) {
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
     view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
 
+    view.defSubMenu(2, "Promote");
+    view.defSubMenuControl(2, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(2, "WRook",   "Rook", true, Dagaz.Controller.menuItem, 3);
+ 
+    view.defSubMenu(12, "Promote");
+    view.defSubMenuControl(12, "BKnight", "Knight", true, Dagaz.Controller.menuItem, 4);
+    view.defSubMenuControl(12, "BRook",   "Rook", true, Dagaz.Controller.menuItem, 3);
+
     view.defPosition("A7", -201, -201, 67, 67, 0);
     view.defPosition("B7", -134, -201, 67, 67, 0);
     view.defPosition("C7", -67, -201, 67, 67, 0);

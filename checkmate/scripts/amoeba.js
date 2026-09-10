@@ -19,6 +19,27 @@ ZRF = {
     VERIFY:        20
 };
 
+Dagaz.Model.moveToString = function(move) {
+  var r = "";
+  _.each(move.actions, function(a) {
+      if (a[1] === null) return;
+      if (r != "") return;
+      if (a[0] != null) {
+          r = r + Dagaz.Model.posToString(a[0][0]);
+          if (a[1] !== null) {
+              r = r + '-';
+          }
+      }
+      if (a[1] !== null) {
+          r = r + Dagaz.Model.posToString(a[1][0]);
+      }
+      if ((a[2] !== null) && ((a[0] != null) || (a[1] !== null))) {
+          r = r + " " + a[2][0].getType();
+      }
+  });
+  return r;
+}
+
 Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("z2j", "2");
     design.checkVersion("smart-moves", "false");
@@ -143,6 +164,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("e1", [0, 1, -1, -7, 0, 0, -6, -8, 0, -49]);
     design.addPosition("f1", [0, 1, -1, -7, 0, 0, -6, -8, 0, -49]);
     design.addPosition("g1", [0, 0, -1, -7, 0, 0, 0, -8, 0, -49]);
+    design.addPosition("X1", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("X2", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PARAM,	0);	// $1
@@ -458,4 +481,8 @@ Dagaz.View.configure = function(view) {
     view.defPosition("e1", 268, 402, 67, 67);
     view.defPosition("f1", 335, 402, 67, 67);
     view.defPosition("g1", 402, 402, 67, 67);
+
+    view.defPopup("Promote", 159, 100);
+    view.defPopupPosition("X1", 10, 7, 68, 68);
+    view.defPopupPosition("X2", 80, 7, 68, 68);
 }

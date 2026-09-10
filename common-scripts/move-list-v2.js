@@ -233,6 +233,7 @@ Dagaz.Controller.SelectPiece = function(move, piece, part) {
   _.each(move.actions, function(a) {
       if ((a[3] != part) || (a[2] === null)) return;
       for (var i = 0; i < a[2].length; i++) {
+           if (a[2].length < 2) continue;
            if (a[2][i].type == piece.type) {
                a[2] = [piece];
            }
