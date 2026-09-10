@@ -2104,8 +2104,8 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
   if (from == to) {
       if (Dagaz.View.NO_PIECE) {
           start.p.material = getPlayerMaterial(piece.player, false);
+          return;
       }
-      return;
   }
   let mesh = start.p;
   if (!Dagaz.View.NO_PIECE) {
