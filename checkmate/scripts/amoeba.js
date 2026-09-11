@@ -59,7 +59,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addDirection("down"); // 9
 
     design.addPlayer("White", [3, 2, 1, 0, 7, 6, 5, 4, 9, 8]);
-    design.addPlayer("Black", [3, 1, 2, 0, 5, 6, 7, 4, 5, 9]);
+    design.addPlayer("Black", [3, 1, 2, 0, 6, 7, 4, 5, 8, 9]);
 
     design.addTurn(1, 0); // 0
     design.addTurn(1, 1); // 1
