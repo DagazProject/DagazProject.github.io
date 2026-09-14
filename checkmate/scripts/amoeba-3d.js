@@ -70,10 +70,10 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPlayer("White", [3, 2, 1, 0, 7, 6, 5, 4, 9, 8]);
     design.addPlayer("Black", [3, 1, 2, 0, 6, 7, 4, 5, 8, 9]);
 
-    design.addTurn(1, 0); // 0
-    design.addTurn(1, 1); // 1
-    design.addTurn(2, 0); // 2
-    design.addTurn(2, 1); // 3
+    design.addTurn(1, [0]);    // 0
+    design.addTurn(1, [1, 2]); // 1
+    design.addTurn(2, [0]);    // 2
+    design.addTurn(2, [1, 2]); // 3
 
     design.addPosition("A7", [7, 1, 0, 0, 0, 0, 0, 0, 49, 0]);
     design.addPosition("B7", [7, 1, -1, 0, 0, 0, 0, 0, 49, 0]);
@@ -173,6 +173,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPosition("e1", [0, 1, -1, -7, 0, 0, -6, -8, 0, -49]);
     design.addPosition("f1", [0, 1, -1, -7, 0, 0, -6, -8, 0, -49]);
     design.addPosition("g1", [0, 0, -1, -7, 0, 0, 0, -8, 0, -49]);
+    design.addPosition("P1", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    design.addPosition("P2", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
     design.addCommand(0, ZRF.FUNCTION,	24);	// from
     design.addCommand(0, ZRF.PARAM,	0);	// $1
@@ -305,6 +307,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addMove(5, 4, [6, 9], 0);
     design.addMove(5, 4, [4, 9], 0);
 
+    design.addPiece("Pass", 6, 0);
+
     design.setup("White", "Platform", 28);
     design.setup("White", "Platform", 14);
     design.setup("White", "Platform", 36);
@@ -393,6 +397,8 @@ Dagaz.View.configure = function(view) {
     view.defPieceModel(4, 2, modelPath, 'knight', black);
     view.defPieceModel(5, 1, modelPath, 'king', white);
     view.defPieceModel(5, 2, modelPath, 'king', black);
+    view.defPieceGLB(6, 1, modelPath, 'pass', undefined, 4, 0, 0);
+    view.defPieceGLB(6, 2, modelPath, 'pass', undefined, 4, 0, 0);
 
     view.setCamera(0, 0, 0, -109, 215, 155);
  
@@ -510,4 +516,6 @@ Dagaz.View.configure = function(view) {
     view.defPosition("e1", 67, 201, 67, 67, 0);
     view.defPosition("f1", 134, 201, 67, 67, 0);
     view.defPosition("g1", 201, 201, 67, 67, 0);
+    view.defPosition("P1", 245, 225, 16, 16, 0);
+    view.defPosition("P2", -245, -225, 16, 16, 0);
 }
