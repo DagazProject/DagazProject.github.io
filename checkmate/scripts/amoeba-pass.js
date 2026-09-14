@@ -26,7 +26,7 @@ Dagaz.Model.CheckInvariants = function(board) {
           }
       });
       var m = Dagaz.Model.createMove(2);
-      m.movePiece(f, f, p);
+      m.movePiece(f, f, p.promote(0));
       m.capturePiece(f);
       board.moves.push(m);
   } else {
