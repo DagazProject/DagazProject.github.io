@@ -336,15 +336,41 @@ App.prototype.setMove = function(move) {
   }
 }
 
+function decomp(move) {
+  for (var ix = 0; ix < move.actions.length; ix++) {
+       if (move.actions[ix][0] === null) continue;
+       if (move.actions[ix][1] === null) continue;
+       if (move.actions[ix][2] === null) continue;
+       if (move.actions[ix][2].length < 2) continue;
+       var r = [];
+       for (var i = 0; i < move.actions[ix][2].length; i++) {
+            var m = Dagaz.Model.createMove(move.mode, move.sound);
+            for (var k = 0; k < move.actions.length; k++) {
+                 if (k == ix) {
+                     m.actions.push([[move.actions[k][0][0]], [move.actions[k][1][0]], [move.actions[k][2][i]], move.actions[k][3]]);
+                 } else {
+                     m.actions.push(move.actions[k]);
+                 }
+            }
+            r.push(m);
+       }
+       return r;
+  }
+  return [move];
+}
+
 Dagaz.AI.callback = function(result) {
   var app = Dagaz.Controller.app;
   console.log('Advisor: ' + result);
   var move = null;
   _.each(app.board.moves, function(m) {
-      var x = m.toString() + ' ';
-      if (x.startsWith(result + ' ')) {
-          move = m;
-      }
+      var moves = decomp(z);
+      _.each(moves, function(m) {
+          var x = m.toString() + ' ';
+          if (x.startsWith(result + ' ')) {
+              move = m;
+          }
+      });
   });
   if (move === null) return;
   if (app.state == STATE.BUZY) {
