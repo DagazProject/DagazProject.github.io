@@ -428,7 +428,7 @@ Dagaz.AI.callback = function(result) {
   var app = Dagaz.Controller.app;
   console.log('Advisor: ' + result);
   var move = null;
-  _.each(app.board.moves, function(m) {
+  _.each(app.board.moves, function(z) {
       var moves = decomp(z);
       _.each(moves, function(m) {
           var x = m.toString() + ' ';
