@@ -38,14 +38,8 @@ var isSafe = function(design, board, pos) {
 }
 
 var checkDirection = function(design, board, player, pos, dir, leapers, riders, checkSafe) {
-  if (checkSafe) {
-      if (isSafe(design, board, pos)) return false;
-  }
   var p = design.navigate(player, pos, dir);
   if (p === null) return false;
-  if (checkSafe) {
-      if (isSafe(design, board, p)) return false;
-  }
   var piece = board.getPiece(p);
   if (piece !== null) {
       if (piece.player == player) return false;
@@ -53,26 +47,20 @@ var checkDirection = function(design, board, player, pos, dir, leapers, riders, 
   }
   while (piece === null) {
       if (isHole(design, board, p)) return false;
-      p = design.navigate(player, p, dir);
-      if (p === null) return false;
       if (checkSafe) {
           if (isSafe(design, board, p)) return false;
       }
+      p = design.navigate(player, p, dir);
+      if (p === null) return false;
       piece = board.getPiece(p);
   }
   if (piece.player == player) return false;
   return _.indexOf(riders, +piece.type) >= 0;
 }
 
-var checkLeap = function(design, board, player, pos, o, d, knight, checkSafe) {
-  if (checkSafe) {
-      if (isSafe(design, board, pos)) return false;
-  }
+var checkLeap = function(design, board, player, pos, o, d, knight) {
   var p = design.navigate(player, pos, o);
   if (p === null) return false;
-  if (checkSafe) {
-      if (isSafe(design, board, p)) return false;
-  }
   p = design.navigate(player, p, d);
   if (p === null) return false;
   var piece = board.getPiece(p);
@@ -99,14 +87,14 @@ Dagaz.Model.checkPositions = function(design, board, player, positions, checkSaf
        if (checkDirection(design, board, player, pos, ne, [king, pawn], [], checkSafe)) return true;
        if (checkDirection(design, board, player, pos, sw, [king], [], checkSafe)) return true;
        if (checkDirection(design, board, player, pos, se, [king], [], checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, n, nw, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, n, ne, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, s, sw, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, s, se, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, w, nw, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, w, sw, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, e, ne, knight, checkSafe)) return true;
-       if (checkLeap(design, board, player, pos, e, se, knight, checkSafe)) return true;
+       if (checkLeap(design, board, player, pos, n, nw, knight)) return true;
+       if (checkLeap(design, board, player, pos, n, ne, knight)) return true;
+       if (checkLeap(design, board, player, pos, s, sw, knight)) return true;
+       if (checkLeap(design, board, player, pos, s, se, knight)) return true;
+       if (checkLeap(design, board, player, pos, w, nw, knight)) return true;
+       if (checkLeap(design, board, player, pos, w, sw, knight)) return true;
+       if (checkLeap(design, board, player, pos, e, ne, knight)) return true;
+       if (checkLeap(design, board, player, pos, e, se, knight)) return true;
   }
   return false;
 }
