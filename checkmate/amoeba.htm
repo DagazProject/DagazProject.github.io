@@ -6,6 +6,7 @@
 </head>
 <body>
 
+<img id="Promote" style="display:none" src="images/dialog-2.png">
 <img id="WhiteHole" style="display:none" src="images/h.png">
 <img id="BlackHole" style="display:none" src="images/h.png">
 <img id="WhitePlatform" style="display:none" src="images/wc.png">
@@ -18,6 +19,8 @@
 <img id="BlackKnight" style="display:none" src="images/bknight.png">
 <img id="WhiteKing" style="display:none" src="images/wking.png">
 <img id="BlackKing" style="display:none" src="images/bking.png">
+<img id="WhitePass" style="display:none" src="images/p.png">
+<img id="BlackPass" style="display:none" src="images/p.png">
 
 <div class="center-body">
     <div class="canvas-wrap" id="canvasFit">
@@ -25,11 +28,13 @@
         <a href="javascript:Dagaz.Controller.undo()" style="display:none" id="undo"><img src="../images/undo.png"/></a>
         Copyright (c) 1997 Jim Aikin
         <a href="javascript:Dagaz.Controller.newGame()">New Game</a>
+        <a href="javascript:Dagaz.Controller.go('amoeba-3d.htm')">3D</a>
+        <a href="javascript:Dagaz.Controller.go('amoeba-board.htm')">no AI</a>
         <a href="javascript:Dagaz.Controller.sound()" id="sound">no Sound</a>
         <a href="javascript:Dagaz.Controller.redo()" style="display:none" id="redo"><img src="../images/redo.png"/></a>
         </div>
         <div class="cc2">
-        <canvas id="Canvas" width="470" height="470" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
+        <canvas id="Canvas" width="508" height="470" style="cursor:default" class="canvas-body">Broken canvas...</canvas>
         </div>
     </div>
 </div>
@@ -43,6 +48,13 @@
 <script src="../common-scripts/move-list-v2.js"></script>
 <script src="../common-scripts/session-manager.js"></script>
 <script src="../common-scripts/sound-manager-v2.js"></script>
+<script src="../common-scripts/random-ai.js"></script>
+<script src="../common-scripts/garbo-ai-v2.js"></script>
+<script src="scripts/amoeba-ai.js"></script>
+<script src="scripts/amoeba-fen.js"></script>
+<script src="scripts/amoeba-invariant.js"></script>
+<script src="scripts/amoeba-promote.js"></script>
+<script src="scripts/amoeba-pass.js"></script>
 <script src="scripts/amoeba-hole.js"></script>
 <script src="scripts/amoeba.js"></script>
 <script src="../common-scripts/app-v5.js"></script>

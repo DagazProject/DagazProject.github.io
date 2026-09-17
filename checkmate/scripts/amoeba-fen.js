@@ -190,10 +190,10 @@ Dagaz.Model.getSetup = function(design, board) {
   if (c > 0) {
       str += c;
   }
-  if (board.turn == 0) {
-      str += "+w";
+  if ((board.turn % 2) == 0) {
+      str += "+w+" + board.turn;
   } else {
-      str += "+b";
+      str += "+b+" + board.turn;
   }
   if (Dagaz.Controller.persistense == "setup") {
       var s = str + "&game=" + getName() + "*";

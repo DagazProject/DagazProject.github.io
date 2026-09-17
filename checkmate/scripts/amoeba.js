@@ -37,7 +37,7 @@ Dagaz.Model.moveToString = function(move) {
           r = r + " " + a[2][0].getType();
       }
   });
-  return r;
+  return r.toLowerCase();
 }
 
 Dagaz.Model.BuildDesign = function(design) {
@@ -46,6 +46,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("drag-n-drop", "false");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("s");    // 0
     design.addDirection("e");    // 1

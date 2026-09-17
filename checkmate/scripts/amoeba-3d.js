@@ -46,7 +46,7 @@ Dagaz.Model.moveToString = function(move) {
           r = r + " " + a[2][0].getType();
       }
   });
-  return r;
+  return r.toLowerCase();
 }
 
 Dagaz.Model.BuildDesign = function(design) {
