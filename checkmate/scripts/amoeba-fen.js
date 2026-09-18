@@ -190,7 +190,7 @@ Dagaz.Model.getSetup = function(design, board) {
   if (c > 0) {
       str += c;
   }
-  if ((board.turn % 2) == 0) {
+  if ((board.turn >> 1) == 0) {
       str += "+w+" + board.turn;
   } else {
       str += "+b+" + board.turn;
