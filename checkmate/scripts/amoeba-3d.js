@@ -55,6 +55,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-hints", "false");
     design.checkVersion("show-blink", "false");
     design.checkVersion("drag-n-drop", "false");
+    design.checkVersion("ko", "situation");
+    design.checkVersion("advisor-wait", "25");
 
     design.addDirection("s");    // 0
     design.addDirection("e");    // 1

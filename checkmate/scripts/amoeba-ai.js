@@ -2,7 +2,7 @@
 
 (function() {
 
-Dagaz.AI.NOISE_FACTOR     = 0;
+Dagaz.AI.NOISE_FACTOR     = 3;
 
 Dagaz.AI.PIECE_MASK       = 0xF;
 Dagaz.AI.TYPE_MASK        = 0x7;
@@ -118,7 +118,7 @@ Dagaz.AI.FormatMove = function(move, color) {
 function Mobility(color) {
     var result = 0;
     var from, to, mob, pieceIdx;
-    var enemy = color == Dagaz.AI.colorWhite ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite
+    var enemy = color == Dagaz.AI.colorWhite ? Dagaz.AI.colorBlack : Dagaz.AI.colorWhite;
     var mobUnit = color == Dagaz.AI.colorWhite ? g_mobUnit[0] : g_mobUnit[1];
 
     // Knight mobility
@@ -351,6 +351,8 @@ function InitializeEval() {
 
 Dagaz.AI.InitializeFromFen = function(fen) {
     var chunks = fen.split('+');
+    Dagaz.AI.g_toMove = chunks[1].charAt(0) == 'w' ? Dagaz.AI.colorWhite : 0;
+    var me = (Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) ? Dagaz.AI.colorWhite : Dagaz.AI.colorBlack;
     
     for (var i = 0; i < 256; i++) 
         Dagaz.AI.g_board[i] = 0x80;
@@ -389,7 +391,7 @@ Dagaz.AI.InitializeFromFen = function(fen) {
                         piece |= pieceRook;
                         break;
                     case 'x':
-                        piece |= pieceHole;
+                        piece  = pieceHole | me;
                         break;
                     case 'k':
                         piece |= pieceKing;
@@ -404,7 +406,6 @@ Dagaz.AI.InitializeFromFen = function(fen) {
     
     Dagaz.AI.InitializePieceList();
     
-    Dagaz.AI.g_toMove = chunks[1].charAt(0) == 'w' ? Dagaz.AI.colorWhite : 0;
     var them = Dagaz.AI.colorWhite - Dagaz.AI.g_toMove;
     
     g_specMove = (chunks[2] % 2) != 0;
@@ -673,7 +674,7 @@ Dagaz.AI.GenerateAllMoves = function(moveStack) {
     var from, to, piece, pieceIdx;
 
     if (g_specMove) {
-        pieceIdx = (Dagaz.AI.g_toMove | piecePawn) << Dagaz.AI.COUNTER_SIZE;
+        pieceIdx = (Dagaz.AI.g_toMove | pieceHole) << Dagaz.AI.COUNTER_SIZE;
         from = Dagaz.AI.g_pieceList[pieceIdx++];
         while (from != 0) {
             to = from - 1;  if (Dagaz.AI.g_board[to] == 0) moveStack[moveStack.length] = GenerateMove(from, to);
@@ -798,9 +799,12 @@ Dagaz.AI.GenerateCaptureMoves = function(moveStack) {
 }
 
 function canPromote(square) {
-    // TODO:
-
-    return false;
+    var inc = (Dagaz.AI.g_toMove == Dagaz.AI.colorWhite) ? -16 : 16;
+    square += inc;
+    while (Dagaz.AI.g_board[square] == pieceHole) {
+        square += inc;
+    }
+    return (Dagaz.AI.g_board[square] != pieceNo);
 }
 
 function MovePawnTo(moveStack, start, square) {
