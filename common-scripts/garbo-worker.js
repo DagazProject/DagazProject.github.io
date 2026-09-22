@@ -13,7 +13,7 @@ function GetMoveFromString(moveString) {
             return moves[i];
         }
     }
-    alert("busted! ->" + moveString + " fen:" + GetFen());
+//  alert("busted! ->" + moveString + " fen:" + GetFen());
 }
 
 function PVFromHash(move, ply) {

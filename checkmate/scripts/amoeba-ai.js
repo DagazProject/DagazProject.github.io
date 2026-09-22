@@ -3,6 +3,7 @@
 (function() {
 
 Dagaz.AI.NOISE_FACTOR     = 3;
+Dagaz.AI.g_timeout        = 1000;
 
 Dagaz.AI.PIECE_MASK       = 0xF;
 Dagaz.AI.TYPE_MASK        = 0x7;
@@ -804,7 +805,7 @@ function canPromote(square) {
     while (Dagaz.AI.g_board[square] == pieceHole) {
         square += inc;
     }
-    return (Dagaz.AI.g_board[square] != pieceNo);
+    return (Dagaz.AI.g_board[square] == pieceNo);
 }
 
 function MovePawnTo(moveStack, start, square) {

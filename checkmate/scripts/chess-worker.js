@@ -16,7 +16,7 @@ var colorWhite          = 0x08;
 
 importScripts('../../underscore/underscore-min.js', '../../common-scripts/zobrist-worker.js', '../../common-scripts/garbo-worker.js');
 
-function GetFen() {
+/*function GetFen() {
     var result = "";
     for (var row = 0; row < g_height; row++) {
         if (row != 0) result += '/';
@@ -59,7 +59,7 @@ function GetFen() {
         result += FormatSquare(g_enPassentSquare);
     }
     return result;
-}
+}*/
 
 function GetMoveSAN(move, validMoves) {
 	var from = move & 0xFF;
@@ -219,13 +219,13 @@ var pieceSquareAdj = new Array(8);
 // Returns the square flipped
 var flipTable = new Array(256);
 
-function PawnEval(color) {
+/*function PawnEval(color) {
     var pieceIdx = (color | 1) << COUNTER_SIZE;
     var from = g_pieceList[pieceIdx++];
     while (from != 0) {
         from = g_pieceList[pieceIdx++];
     }
-}
+}*/
 
 function Mobility(color) {
     var result = 0;

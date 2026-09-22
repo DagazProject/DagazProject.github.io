@@ -4,6 +4,10 @@ Dagaz.Controller.persistense = "setup";
 
 Dagaz.View.RECT_OPACITY      = true;
 
+Dagaz.AI.WORKER_NAME  = 'scripts/amoeba-worker.js';
+Dagaz.AI.WORKER_TIME  = 3000;
+Dagaz.AI.ADVISOR_TIME = 10000;
+
 Dagaz.Model.WIDTH  = 7;
 Dagaz.Model.HEIGHT = 7;
 
@@ -56,7 +60,7 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("drag-n-drop", "false");
     design.checkVersion("ko", "situation");
-    design.checkVersion("advisor-wait", "25");
+    design.checkVersion("advisor-wait", "0");
 
     design.addDirection("s");    // 0
     design.addDirection("e");    // 1
@@ -408,9 +412,9 @@ Dagaz.View.configure = function(view) {
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
     view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'amoeba.htm' : 'amoeba-board.htm');
-    view.defControl(Dagaz.AI.ON ? "AiOnControl" : "AiOffControl", Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'amoeba-3d-board.htm' : 'amoeba-3d.htm');
+    view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'amoeba-3d-board.htm' : 'amoeba-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);
-    view.defControl("RedoControl", "Redo Move", false, Dagaz.Controller.redo);
+    view.defControl("RedoControl", "Redo Move{move}", false, Dagaz.Controller.redo);
 
     view.defSubMenu(2, "Promote");
     view.defSubMenuControl(2, "WKnight", "Knight", true, Dagaz.Controller.menuItem, 4);
