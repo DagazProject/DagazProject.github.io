@@ -615,6 +615,7 @@ function InitializeFromFen(fen) {
         if (c == '/') {
             row++;
             col = 0;
+            if (row > 7) break;
         }
         else {
             if (c >= '0' && c <= '9') {

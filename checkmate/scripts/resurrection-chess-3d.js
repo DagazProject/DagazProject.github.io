@@ -2,6 +2,10 @@ Dagaz.View.TARGET_FLAT       =  true;
 Dagaz.View.TARGET_RADIUS     =  2.5;
 Dagaz.Controller.persistense = "setup";
 
+Dagaz.AI.WORKER_NAME  = 'scripts/chess-worker.js';
+Dagaz.AI.WORKER_TIME  = 5000;
+Dagaz.AI.ADVISOR_TIME = 27000;
+
 Dagaz.Model.WIDTH  = 8;
 Dagaz.Model.HEIGHT = 8;
 
@@ -66,6 +70,8 @@ Dagaz.Model.BuildDesign = function(design) {
     design.checkVersion("show-blink", "false");
     design.checkVersion("show-hints", "false");
     design.checkVersion("advisor-wait", "25");
+    design.checkVersion("resurrection-kill", "3d");
+    design.checkVersion("resurrection-bishop", "3d");
 
     design.addDirection("se");   // 0
     design.addDirection("s");    // 1
@@ -519,7 +525,7 @@ Dagaz.View.configure = function(view) {
 
     view.defPieceGLB(6, 1, modelPath, 'rooki', white, 2.5, 0, 0);
     view.defPieceGLB(6, 2, modelPath, 'rooki', black, 2.5, 0, 0);
-    view.defPieceGLB(7, 1, modelPath, 'knighti', white, 2.5, 0, 0);
+    view.defPieceGLB(7, 1, modelPath, 'knighti', white, 2.5, Math.PI, 0);
     view.defPieceGLB(7, 2, modelPath, 'knighti', black, 2.5, 0, 0);
     view.defPieceGLB(8, 1, modelPath, 'bishopi', white, 2.5, 0, 0);
     view.defPieceGLB(8, 2, modelPath, 'bishopi', black, 2.5, 0, 0);
@@ -529,7 +535,7 @@ Dagaz.View.configure = function(view) {
     view.setCamera(0, 0, 0, -109, 215, 155);
  
     view.defControl("UndoControl", "Undo Move", false, Dagaz.Controller.undo);
-    view.defControl("NewControl", "New Game", true, Dagaz.View.isTouchDevice ? Dagaz.Controller.newGame : Dagaz.View.switchMenu, 1);
+    view.defControl("NewControl", "New Game", true, Dagaz.Controller.newGame);
     view.defControl("ResControl", "3D", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'resurrection-chess.htm' : 'resurrection-chess-board.htm');
     view.defControl(Dagaz.AI.ON ? ["AiOnControl", "AiLightControl", "AiAlertControl"] : ["AiOffControl", "AiOffControl", "AiOffControl"], Dagaz.AI.ON ? "AI" : "No AI", true, Dagaz.Controller.go, Dagaz.AI.ON ? 'resurrection-chess-3d-board.htm' : 'resurrection-chess-3d.htm');
     view.defControl(Dagaz.Controller.soundOff ? ["SoundOffControl", "SoundOnControl"] : ["SoundOnControl", "SoundOffControl"], "Sound", true, Dagaz.Controller.switchSound);

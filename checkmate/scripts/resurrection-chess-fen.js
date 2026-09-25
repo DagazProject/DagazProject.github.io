@@ -103,6 +103,14 @@ var createPiece = function(design, c) {
   if (c == 'q') return Dagaz.Model.createPiece(design.getPieceType("Queen"), 2);
   if (c == 'K') return Dagaz.Model.createPiece(design.getPieceType("King"), 1);
   if (c == 'k') return Dagaz.Model.createPiece(design.getPieceType("King"), 2);
+  if (c == 'D') return Dagaz.Model.createPiece(design.getPieceType("RookI"), 1);
+  if (c == 'd') return Dagaz.Model.createPiece(design.getPieceType("RookI"), 2);
+  if (c == 'H') return Dagaz.Model.createPiece(design.getPieceType("KnightI"), 1);
+  if (c == 'h') return Dagaz.Model.createPiece(design.getPieceType("KnightI"), 2);
+  if (c == 'E') return Dagaz.Model.createPiece(design.getPieceType("BishopI"), 1);
+  if (c == 'e') return Dagaz.Model.createPiece(design.getPieceType("BishopI"), 2);
+  if (c == 'X') return Dagaz.Model.createPiece(design.getPieceType("QueenI"), 1);
+  if (c == 'x') return Dagaz.Model.createPiece(design.getPieceType("QueenI"), 2);
   return null;
 }
 
@@ -167,12 +175,16 @@ Dagaz.Model.setup = function(board, init) {
 
 var getPieceNotation = function(design, piece) {
   var r = 'X';
-  if (piece.type == design.getPieceType("Pawn"))   r = 'P';
-  if (piece.type == design.getPieceType("Rook"))   r = 'R';
-  if (piece.type == design.getPieceType("Knight")) r = 'N';
-  if (piece.type == design.getPieceType("Bishop")) r = 'B';
-  if (piece.type == design.getPieceType("Queen"))  r = 'Q';
-  if (piece.type == design.getPieceType("King"))   r = 'K';
+  if (piece.type == design.getPieceType("Pawn"))    r = 'P';
+  if (piece.type == design.getPieceType("Rook"))    r = 'R';
+  if (piece.type == design.getPieceType("Knight"))  r = 'N';
+  if (piece.type == design.getPieceType("Bishop"))  r = 'B';
+  if (piece.type == design.getPieceType("Queen"))   r = 'Q';
+  if (piece.type == design.getPieceType("King"))    r = 'K';
+  if (piece.type == design.getPieceType("RookI"))   r = 'D';
+  if (piece.type == design.getPieceType("KnightI")) r = 'H';
+  if (piece.type == design.getPieceType("BishopI")) r = 'E';
+  if (piece.type == design.getPieceType("QueenI"))  r = 'X';
   if (piece.player > 1) {
       return r.toLowerCase();
   }

@@ -1,9 +1,13 @@
 (function() {
 
+var is3d = false;
+
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "resurrection-kill") {
+  if (name == "resurrection-kill") {
+      is3d = value == "3d";
+  } else {
       checkVersion(design, name, value);
   }
 }
@@ -40,7 +44,11 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (piece.type == 0) return;
       var p = design.navigate(board.player, pos, 8);
       if (p === null) return;
-      move.movePiece(pos, p, piece);
+      if (is3d) {
+          move.movePiece(pos, p, piece.promote(+piece.type + 5));
+      } else {
+          move.movePiece(pos, p, piece);
+      }
   });
   CheckInvariants(board);
 }
