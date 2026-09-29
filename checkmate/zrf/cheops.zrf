@@ -1,0 +1,46 @@
+(define step (
+  $1 (verify not-friend?)
+  add
+))
+
+(game
+  (title "Imperial Cheops")
+
+  (players Black White)
+  (turn-order Black White)
+
+  (board
+     (image "images/cheops/ic.bmp")
+     (grid
+         (start-rectangle 6 6 74 74)
+         (dimensions
+           ("a/b/c/d/e/f/g/h/i/j/k" (68 0)) ; files
+           ("11/10/9/8/7/6/5/4/3/2/1" (0 68)) ; ranks
+         )
+         (directions 
+              (n 0 -1) (s 0 1) (e 1 0) (w -1 0)
+              (nw -1 -1) (sw -1 1) (ne 1 -1) (se 1 1)
+         )
+     )
+     (kill-positions d1 d2 d3 d4 d5 d6 d7 d8 d9 d10 d11 h1 h2 h3 h4 h5 h6 h7 h8 h9 h10 h11 a4 b4 c4 e4 f4 g4 i4 j4 k4 a8 b8 c8 e8 f8 g8 i8 j8 k8 d5 e5 f5 d6 e6 f6 d7 e7 f7)
+  )
+
+  (piece
+     (name King)
+     (image White "images/wking.bmp"
+            Black "images/bking.bmp")
+     (moves
+         (step n) (step s) (step w) (step e)
+         (step nw) (step sw) (step ne) (step se)
+     )
+  )
+
+  (board-setup
+    (White 
+         (King f11)
+    )
+    (Black 
+         (King f1)
+    )
+  )
+)
