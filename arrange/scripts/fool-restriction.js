@@ -66,7 +66,9 @@ Dagaz.Model.CheckInvariants = function(board) {
           cnt = getCnt(board, player);
           move.goTo(getTurn(player));
       }
-      if (move.actions.length > cnt) {
+      if (_.filter(move.actions, function(a) {
+             return (a[0] !== null) && (a[1] !== null);
+          }).length > cnt) {
           move.failed = true;
       }
   });
