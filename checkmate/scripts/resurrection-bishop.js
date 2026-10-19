@@ -29,7 +29,11 @@ Dagaz.Model.CheckInvariants = function(board) {
       var piece = board.getPiece(p);
       if (piece === null) return;
       if (piece.player != board.player) return;
-      move.capturePiece(p);
+      if (is3d) {
+          move.movePiece(p, pos, piece);
+      } else {
+          move.capturePiece(p);
+      }
       if (piece.type > 5) {
           piece = piece.promote(+piece.type - 5);
       }
