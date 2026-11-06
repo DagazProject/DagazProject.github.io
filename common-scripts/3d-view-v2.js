@@ -278,6 +278,56 @@ View3D.prototype.existsPiece = function(pos) {
   return false;
 }
 
+function createSymmetricGlowTexture() {
+   const size = 512;
+   const canvas = document.createElement('canvas');
+   canvas.width = canvas.height = size;
+   const ctx = canvas.getContext('2d');
+
+   const g = ctx.createRadialGradient(
+         size / 2, size / 2, 0,
+         size / 2, size / 2, size / 2
+   );
+
+   g.addColorStop(0.00, 'rgba(255, 210,  80, 0.00)');
+   g.addColorStop(0.15, 'rgba(255, 212,  85, 0.06)');
+   g.addColorStop(0.30, 'rgba(255, 216,  95, 0.22)');
+   g.addColorStop(0.42, 'rgba(255, 222, 110, 0.52)');
+   g.addColorStop(0.50, 'rgba(255, 232, 135, 0.85)');
+   g.addColorStop(0.58, 'rgba(255, 222, 110, 0.52)');
+   g.addColorStop(0.70, 'rgba(255, 216,  95, 0.22)');
+   g.addColorStop(0.85, 'rgba(255, 200,  70, 0.06)');
+   g.addColorStop(1.00, 'rgba(255, 190,  50, 0.00)');
+
+   ctx.fillStyle = g;
+   ctx.fillRect(0, 0, size, size);
+
+   const tex = new THREE.CanvasTexture(canvas);
+   tex.needsUpdate = true;
+   return tex;
+}
+
+let glowTexture = null;
+
+function makeHalo(scale, color, opacity, renderOrder) {
+   if (glowTexture === null) {
+       glowTexture = createSymmetricGlowTexture();
+   }
+   const mat = new THREE.SpriteMaterial({
+         map: glowTexture,
+         color: color,
+         transparent: true,
+         opacity: opacity,
+         blending: THREE.AdditiveBlending,
+         depthWrite: false,
+         depthTest: false
+   });
+   const r = new THREE.Sprite(mat);
+   r.scale.set(scale, scale, 1);
+   r.renderOrder = renderOrder; 
+   return r;
+}
+
 View3D.prototype.markPositions = function(type, positions) {
   if (Dagaz.View.PIECE_TYPE == PIECE_TYPE.CUBE) return;
   if (type == Dagaz.View.markType.ATTACKING) {
@@ -313,24 +363,38 @@ View3D.prototype.markPositions = function(type, positions) {
   if (type == Dagaz.View.markType.KO) {
       this.ko = positions;
       if (this.ko.length > 0) {
-          if (ko === null) {
+/*        if (ko === null) {
               ko = new THREE.Mesh(koGeometry, koMaterial);
               scene.add(ko);
           } else {
               ko.material = koMaterial;
-          }
+          }*/
           const p = this.pos[this.ko[0]];
-          if (p) {
+          if (p  && (ko === null)) {
+              ko = makeHalo(12, 0xffcc66, 0.55, 999);
               ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
               if (Dagaz.View.RENDER_ORDER) {
                   ko.renderOrder = 2;
               }
+              scene.add(ko);
+/*            ko = makeHalo(14, 0xffaa33, 0.30, 998);
+              ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
+              if (Dagaz.View.RENDER_ORDER) {
+                  ko.renderOrder = 2;
+              }
+              scene.add(ko);*/
+              ko = makeHalo(10, 0xffee88, 0.45, 1000);
+              ko.position.set((p.x / 10) + settings.dx, (p.z / 10) + settings.dz, (p.y / 10) + settings.dy);
+              if (Dagaz.View.RENDER_ORDER) {
+                  ko.renderOrder = 2;
+              }
+              scene.add(ko);
           }
-      } else {
+      }/* else {
           if (ko !== null) {
               ko.material = posMaterial;
           }
-      }
+      }*/
   }
   this.invalidate();
 }

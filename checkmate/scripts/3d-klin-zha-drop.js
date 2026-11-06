@@ -1,15 +1,19 @@
 (function() {
 
+var isCrown = false;
+
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name != "3d-klin-zha-drop") {
+  if (name == "3d-klin-zha-drop") {
+     if (value == "crown") isCrown = true;
+  } else {
      checkVersion(design, name, value);
   }
 }
 
 var getZones = function(design, board) {
-  var r = [1, 2, 3, 4];
+  var r = isCrown ? [1, 2, 3] : [1, 2, 3, 4];
   for (var zone = 1; zone < 5; zone++) {
       for (var pos = 0; pos < design.positions.length; pos++) {
            if (!design.inZone(zone, 1, pos)) continue;
@@ -91,6 +95,9 @@ Dagaz.Model.CheckInvariants = function(board) {
       if (move.mode == mode) return;
       move.failed = true;
   });
+  if (isCrown) {
+      board.ko = [139];
+  }
   CheckInvariants(board);
 }
 
