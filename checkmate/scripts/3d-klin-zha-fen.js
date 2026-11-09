@@ -232,7 +232,7 @@ Dagaz.Model.getSetup = function(design, board) {
   if (c > 0) {
       str += c;
   }
-  if (board.turn == 0) {
+  if (board.player == 1) {
       str += "-w";
   } else {
       str += "-b";

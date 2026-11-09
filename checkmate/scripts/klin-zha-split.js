@@ -34,7 +34,11 @@ Dagaz.Model.CheckInvariants = function(board) {
           if (_.indexOf([0, 2, 4, 6, 8, 10, 12], +piece.type) < 0) return;
           var dst = move.actions[0][1][0];
           var m = Dagaz.Model.createMove(1);
-          m.movePiece(src, dst, board.getPiece(src));
+          var x = board.getPiece(src);
+          if (x === null) return;
+          if (x.player != board.player) return;
+          if (piece.player != board.player) return;
+          m.movePiece(src, dst, x);
           m.movePiece(pos, pos, piece.promote(0));
           board.moves.push(m);
       });
