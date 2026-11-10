@@ -1905,6 +1905,7 @@ View3D.prototype.animate = function() {
                   q.piece.position.z = q.ez;
               }
           }
+          if (!_.isUndefined(q.to)) q.piece.pos = q.to;
       }
       changed = true;
   }, this);
@@ -1949,7 +1950,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       const ix = this.findPiece(from);
       if (ix >= 0) {
           mesh = pieces[ix];
-          pieces[ix].pos = to;
+//        pieces[ix].pos = to;
       } else return;
   }
   if (!start || !stop) return;
@@ -1958,6 +1959,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       state: ANIMATE_STATE.INIT,
       piece: mesh,
       final: stop.p,
+      to:    to,
       phase: phase,
       steps: steps,
       dx: (stop.p.position.x - start.p.position.x)/(steps + 1),
@@ -1968,7 +1970,7 @@ View3D.prototype.movePiece = function(move, from, to, piece, phase, steps) {
       sz: start.p.position.z, ez: stop.p.position.z,
       player: piece.player
   });
-  if ((piece !== null) && (piece.type != mesh.type) && !Dagaz.View.NO_PIECE) {
+  if ((piece !== null) && (piece.type != mesh.type.type) && !Dagaz.View.NO_PIECE) {
       const pieceType = pieceTypes[piece.type*10 + (+piece.player)];
           this.queue.push({
              type:  MOVE_TYPE.PROMOTE,
