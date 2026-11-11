@@ -205,8 +205,7 @@ MoveList.prototype.getCaptures = function() {
   var result = [];
   _.each(this.moves, function(move) {
       var actions = this.getMoveActions(move);
-      if (((actions.length > 0) && (_.indexOf(actions[0][0], this.position) >= 0)) ||
-          ((actions.length == 0) && (this.position === null))) {
+      if ((actions.length == 0) && (this.position === null)) {
           _.chain(this.getActions(move))
            .filter(isCapturing)
            .each(function(action) {

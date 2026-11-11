@@ -314,7 +314,7 @@ App.prototype.click = function(pos, name) {
       return;
   }
   if (_.indexOf(this.getStarts(), +pos) >= 0) {
-      this.setPosition(pos);
+      this.setPosition(+pos);
       const targets = this.getTargets();
       this.view.markPositions(Dagaz.View.markType.TARGET, targets);
       const starts = this.getStarts();
