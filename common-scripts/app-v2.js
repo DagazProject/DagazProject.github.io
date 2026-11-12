@@ -481,6 +481,7 @@ Dagaz.AI.callback = function(result) {
   if (app.state == STATE.BUZY) {
       app.boardApply(move);
       Dagaz.Model.Done(app.design, app.board);
+      app.view.board = null;
       app.move = move;
       delete app.list;
       app.state = STATE.EXEC;

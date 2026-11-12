@@ -175,6 +175,7 @@ Dagaz.View.configure = function(view) {
     view.defSubControl(1, "R14", "", true, Dagaz.Controller.loadGame, "?setup=0:1;9:1;8:1;2:1;0:1;8:1+3;16:1;13:1;8:1;16:1;;7:1;8:1;0:1;16:1;8:1+3;2:1+1;8:1;9:1;0:1;&turn=0");
     view.defSubControl(1, "R15", "", true, Dagaz.Controller.loadGame, "?setup=22:1;0:1;22:1+1;0:1;22:1+1;0:1;22:1;0:1+1;22:1;0:1;;23:1;22:1;20:1;0:1;22:1+2;0:1+2;22:1+2;&turn=0");
     view.defSubControl(1, "R16", "", true, Dagaz.Controller.loadGame, "?setup=5:1+3;0:1+1;5:1;0:1;5:1+1;9:1;0:1;7:1;;0:1+2;5:1+1;0:1;5:1;0:1+1;5:1+3;&turn=0");
+    view.defSubControl(1, "R17", "", true, Dagaz.Controller.loadGame, "?setup=0:1+1;8:1;0:1+2;8:1+2;0:1+1;8:1;0:1;;0:1+3;8:1;0:1;8:1+1;0:1+1;8:1;0:1+1;&turn=0");
 
     view.defPosition("a3", -84, -84, 84, 84, -84);
     view.defPosition("b3", 0, -84, 84, 84, -84);
