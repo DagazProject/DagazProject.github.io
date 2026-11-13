@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Sokoban — Telegram</title>
+
+<!-- Telegram WebApp SDK (must be first) -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- Underscore (Dagaz dependency) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+
+<style>
+  :root {
+    --bg:    #1a1a2e;
+    --panel: #2d3561;
+    --edge:  #4a5480;
+    --text:  #e8e8f0;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    overscroll-behavior: contain;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 20px;
+    gap: 8px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: var(--text);
+  }
+  #Canvas {
+    width: 100%;
+    max-width: 528px;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    background: #000;
+    image-rendering: pixelated;
+    box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  }
+
+  /* ── D-pad ───────────────────────────────────── */
+  #controls {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+  }
+  .dpad-row { display: flex; gap: 10px; }
+  .dpad-btn {
+    width: 68px; height: 68px;
+    font-size: 26px;
+    font-family: inherit;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--panel);
+    border: 2px solid var(--edge);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform .06s, background .1s;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dpad-btn:active {
+    background: var(--edge);
+    transform: scale(.94);
+  }
+  .dpad-btn.ghost { visibility: hidden; pointer-events: none; }
+
+  /* ── Action bar ──────────────────────────────── */
+  #actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+  }
+  #actions button {
+    padding: 10px 22px;
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--panel);
+    border: 2px solid var(--edge);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .06s, background .1s;
+    touch-action: manipulation;
+  }
+  #actions button:active { background: var(--edge); transform: scale(.95); }
+  #actions button:disabled { opacity: .4; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<h1>📦 Sokoban</h1>
+
+<!-- Hidden image assets (GitHub Pages) -->
+<img id="Board"   style="display:none" src="https://dagazproject.github.io/sokoban/images/l-01.png">
+<img id="YouBox"  style="display:none" src="https://dagazproject.github.io/sokoban/images/box.png">
+<img id="YouWall" style="display:none" src="https://dagazproject.github.io/sokoban/images/wall.png">
+<img id="YouBall" style="display:none" src="https://dagazproject.github.io/sokoban/images/ball.png">
+
+<!-- Game canvas -->
+<canvas id="Canvas" width="528" height="271"></canvas>
+
+<!-- Directional pad -->
+<div id="controls">
+  <div class="dpad-row">
+    <button class="dpad-btn ghost"></button>
+    <button class="dpad-btn" data-dir="up">▲</button>
+    <button class="dpad-btn ghost"></button>
+  </div>
+  <div class="dpad-row">
+    <button class="dpad-btn" data-dir="left">◀</button>
+    <button class="dpad-btn" data-dir="down">▼</button>
+    <button class="dpad-btn" data-dir="right">▶</button>
+  </div>
+</div>
+
+<!-- Extra actions -->
+<div id="actions">
+  <button id="undoBtn">↶ Undo</button>
+  <button id="restartBtn">🔄 Restart</button>
+</div>
+
+<!-- ══════════════ Game engine scripts (GitHub Pages CDN) ══════════════ -->
+<script src="https://dagazproject.github.io/common-scripts/dagaz.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/move-list-v2.js"></script>
+<script src="https://dagazproject.github.io/sokoban/scripts/sokoban-goal.js"></script>
+<script src="https://dagazproject.github.io/sokoban/scripts/sokoban-01.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/app-v2.js"></script>
+
+<!-- ══════════════ Telegram integration + D-pad logic ══════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ─── 1. Telegram WebApp initialisation ─────────────────────── */
+  if (window.Telegram && Telegram.WebApp) {
+    try {
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();
+      Telegram.WebApp.setHeaderColor && Telegram.WebApp.setHeaderColor('#1a1a2e');
+      Telegram.WebApp.setBackgroundColor && Telegram.WebApp.setBackgroundColor('#1a1a2e');
+    } catch (_) { /* non-Telegram context */ }
+  }
+
+  var APP = Dagaz.Controller.app;
+
+  /* ─── 2. Prevent auto‑navigation on win ─────────────────────── */
+  Dagaz.Model.progressive    = false;
+  Dagaz.Model.progressiveUrl = null;
+  Dagaz.Model.continue       = function () { return null; };
+  Dagaz.Controller.newGame   = function () { location.reload(); };
+
+  /* ─── 3. Redirect native alerts to Telegram dialogs ─────────── */
+  var nativeAlert = window.alert;
+  window.alert = function (msg) {
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.showAlert) {
+      Telegram.WebApp.showAlert(String(msg));
+    } else {
+      nativeAlert(msg);
+    }
+  };
+
+  /* ─── 4. Undo / Redo stacks ─────────────────────────────────── */
+  var past   = [];   // boards from initial → current
+  var future = [];   // boards that can be redone
+
+  function primeHistory() {
+    if (APP && APP.board) { past = [APP.board]; }
+    updateUndoBtn();
+  }
+  primeHistory();
+
+  Dagaz.Controller.addState = function (move, board) {
+    if (!move.isPass()) {
+      past.push(board);
+      future = [];               // a fresh move invalidates redo
+      if (past.length > 200) past.shift();
+      updateUndoBtn();
+    }
+  };
+
+  function updateUndoBtn() {
+    var b = document.getElementById('undoBtn');
+    if (!b) return;
+    b.disabled = past.length < 2;
+  }
+
+  function undo() {
+    if (past.length < 2) return;
+    future.push(past.pop());
+    APP.setBoard(past[past.length - 1], true);
+    updateUndoBtn();
+    haptic('light');
+  }
+
+  /* ─── 5. Direction → Dagaz direction index ──────────────────── */
+  // Design direction order is [ w, e, s, n ] → indices 0,1,2,3
+  var DIR_INDEX = {
+    up:    3,   // north  → positions[..][3] = −22
+    down:  2,   // south  → positions[..][2] = +22
+    left:  0,   // west   → positions[..][0] = −1
+    right: 1    // east   → positions[..][1] = +1
+  };
+
+  /* ─── 6. Find the player piece (Ball, type 2) ───────────────── */
+  function findBall() {
+    var pieces = APP.board.pieces;
+    for (var key in pieces) {
+      if (!pieces.hasOwnProperty(key)) continue;
+      var p = pieces[key];
+      if (p && p.type === 2) return +key;
+    }
+    return null;
+  }
+
+  /* ─── 7. Haptic feedback helper ─────────────────────────────── */
+  function haptic(style) {
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) {
+      try { Telegram.WebApp.HapticFeedback.impactOccurred(style || 'light'); } catch (_) {}
+    }
+  }
+
+  /* ─── 8. The actual move ────────────────────────────────────── */
+  // STATE.IDLE === 1 (see app-v2.js STATE table)
+  var STATE_IDLE = 1;
+
+  function movePlayer(direction) {
+    if (!APP || !APP.view || !APP.view.allDone) return;   // assets not ready
+    if (APP.state !== STATE_IDLE) return;                 // animating / busy
+    if (!APP.list) return;                                // move list not built
+
+    var ballPos = findBall();
+    if (ballPos === null) return;
+
+    var dir = DIR_INDEX[direction];
+    if (dir === undefined) return;
+
+    var offset = APP.design.positions[ballPos][dir];
+    if (!offset) return;                                  // wall / off‑board
+
+    var target = ballPos + offset;
+    APP.setPosition(target);                              // simulates a tap on target
+    haptic('light');
+  }
+
+  /* ─── 9. Wire up D-pad buttons ──────────────────────────────── */
+  document.querySelectorAll('.dpad-btn[data-dir]').forEach(function (btn) {
+    btn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      movePlayer(btn.dataset.dir);
+    });
+  });
+
+  /* ─── 10. Wire up action buttons ────────────────────────────── */
+  document.getElementById('undoBtn').addEventListener('click', undo);
+
+  document.getElementById('restartBtn').addEventListener('click', function () {
+    var doReload = function () { location.reload(); };
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.showConfirm) {
+      Telegram.WebApp.showConfirm('Restart the game?', function (ok) { if (ok) doReload(); });
+    } else if (confirm('Restart the game?')) {
+      doReload();
+    }
+  });
+
+  /* ─── 11. Keyboard support (desktop / testing) ──────────────── */
+  document.addEventListener('keydown', function (ev) {
+    var keyMap = {
+      ArrowUp: 'up',    ArrowDown:  'down',
+      ArrowLeft: 'left', ArrowRight: 'right',
+      w: 'up', s: 'down', a: 'left', d: 'right',
+      W: 'up', S: 'down', A: 'left', D: 'right'
+    };
+    var dir = keyMap[ev.key];
+    if (dir) { ev.preventDefault(); movePlayer(dir); return; }
+    if (ev.key === 'z' || ev.key === 'Z') { ev.preventDefault(); undo(); }
+  });
+
+  /* ─── 12. Swipe gestures on the canvas ──────────────────────── */
+  (function enableSwipe() {
+    var sx = 0, sy = 0, tracking = false;
+    var cv = document.getElementById('Canvas');
+    if (!cv) return;
+
+    cv.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+
+    cv.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx;
+      var dy = t.clientY - sy;
+      if (Math.abs(dx) < 24 && Math.abs(dy) < 24) return;  // tap → ignore
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        movePlayer(dx > 0 ? 'right' : 'left');
+      } else {
+        movePlayer(dy > 0 ? 'down' : 'up');
+      }
+    }, { passive: true });
+  })();
+
+  /* ─── 13. Small polish: stop page rubber‑banding ────────────── */
+  document.body.addEventListener('touchmove', function (e) {
+    if (e.target === document.body) e.preventDefault();
+  }, { passive: false });
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>NetWalk — Telegram</title>
+
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #e8e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            overscroll-behavior: contain;
+            min-height: 100vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 10px 20px;
+            gap: 8px;
+        }
+        /* Центрированная надпись СВЕРХУ */
+        .section-menu {
+            font-size: 14px;
+            color: #8ab4f8;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        #Canvas {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            background: #1a1a2e;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(0,0,0,.5);
+            touch-action: manipulation;
+        }
+        /* Индикатор загрузки */
+        #loading {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            color: #8ab4f8;
+            font-size: 16px;
+            z-index: 10;
+            transition: opacity .3s;
+        }
+        #loading.hide { opacity: 0; pointer-events: none; }
+        /* Панель ошибок */
+        #errors {
+            display: none;
+            width: 100%;
+            max-width: 450px;
+            padding: 10px;
+            background: #4a1a1a;
+            border: 1px solid #a44;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #ffb0b0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== Изображения NetWalk ========== -->
+<img id="Board" style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/board.png">
+<img id="Youb1"     style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b1.png">
+<img id="Youb2we"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2we.png">
+<img id="Youb2ns"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2ns.png">
+<img id="Youb2ew"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2ew.png">
+<img id="Youb2sn"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2sn.png">
+<img id="Youb2ne"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2ne.png">
+<img id="Youb2se"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2se.png">
+<img id="Youb2sw"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2sw.png">
+<img id="Youb2nw"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b2nw.png">
+<img id="Youb3n"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b3n.png">
+<img id="Youb3e"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b3e.png">
+<img id="Youb3s"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b3s.png">
+<img id="Youb3w"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b3w.png">
+<img id="Youb4"     style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b4.png">
+<img id="Youb1n"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b1n.png">
+<img id="Youb1e"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b1e.png">
+<img id="Youb1s"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b1s.png">
+<img id="Youb1w"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/b1w.png">
+<img id="Youg1"     style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g1.png">
+<img id="Youg2we"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2we.png">
+<img id="Youg2ns"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2ns.png">
+<img id="Youg2ew"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2ew.png">
+<img id="Youg2sn"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2sn.png">
+<img id="Youg2ne"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2ne.png">
+<img id="Youg2se"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2se.png">
+<img id="Youg2sw"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2sw.png">
+<img id="Youg2nw"   style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g2nw.png">
+<img id="Youg3n"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g3n.png">
+<img id="Youg3e"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g3e.png">
+<img id="Youg3s"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g3s.png">
+<img id="Youg3w"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g3w.png">
+<img id="Youg4"     style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g4.png">
+<img id="Youg1n"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g1n.png">
+<img id="Youg1e"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g1e.png">
+<img id="Youg1s"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g1s.png">
+<img id="Youg1w"    style="display:none" src="https://dagazproject.github.io/arrange/images/netwalk/g1w.png">
+
+<!-- ========== Интерфейс ========== -->
+<div class="section-menu">Designed by Greg Schmidt</div>
+
+<canvas id="Canvas" width="450" height="450">Broken canvas...</canvas>
+
+<div id="errors"></div>
+
+<div id="loading">Загрузка…</div>
+
+<!-- ========== Скрипты (порядок важен) ========== -->
+<!-- внешние библиотеки: используем проверенный CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.4/seedrandom.min.js"></script>
+
+<!-- движок Dagaz (пути, которые точно работают) -->
+<script src="https://dagazproject.github.io/common-scripts/dagaz.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zobrist.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/common-setup-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/move-list-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/sound-manager-v2.js"></script>
+
+<!-- специфика NetWalk -->
+<script src="https://dagazproject.github.io/arrange/scripts/netwalk.js"></script>
+<script src="https://dagazproject.github.io/arrange/scripts/netwalk-setup.js"></script>
+
+<!-- контроллер, который сам всё стартует -->
+<script src="https://dagazproject.github.io/common-scripts/app-v2.js"></script>
+
+<!-- ========== Инициализация Telegram + диагностика ========== -->
+<script>
+(function() {
+    'use strict';
+
+    // 1. Инициализация Telegram WebApp
+    if (window.Telegram && Telegram.WebApp) {
+        try {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            Telegram.WebApp.setHeaderColor('#1a1a2e');
+            Telegram.WebApp.setBackgroundColor('#1a1a2e');
+        } catch (_) {}
+    }
+
+    // 2. Заменяем alert на нативный диалог Telegram
+    var _alert = window.alert;
+    window.alert = function(msg) {
+        if (window.Telegram?.WebApp?.showAlert) {
+            Telegram.WebApp.showAlert(String(msg));
+        } else {
+            _alert(msg);
+        }
+    };
+
+    // 3. Отключаем авто-переходы при победе
+    Dagaz.Model.progressive    = false;
+    Dagaz.Model.progressiveUrl = null;
+    Dagaz.Model.continue       = function() { return null; };
+
+    // 4. Диагностика: собираем ошибки и показываем на странице
+    var errorsEl = document.getElementById('errors');
+    function showError(msg) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent += msg + '\n';
+    }
+    window.addEventListener('error', function(e) {
+        showError('❌ ' + (e.message || e.error) +
+                  (e.filename ? ' @ ' + e.filename.split('/').pop() + ':' + e.lineno : ''));
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+        showError('❌ Promise: ' + (e.reason && e.reason.message || e.reason));
+    });
+
+    // 5. Проверяем, что все изображения реально загрузились
+    var imgs = document.querySelectorAll('img');
+    var broken = [];
+    imgs.forEach(function(img) {
+        img.addEventListener('error', function() {
+            broken.push(img.id || img.src);
+            showError('🖼️ 404: ' + img.src);
+        });
+    });
+
+    // 6. Прячем «Загрузка…», когда канвас что-то отрисовал
+    var loadingEl = document.getElementById('loading');
+    var checks = 0;
+    var iv = setInterval(function() {
+        // если движок инициализировался и холст получил контент
+        if (window.Dagaz && Dagaz.Controller && Dagaz.Controller.app &&
+            Dagaz.Controller.app.view && Dagaz.Controller.app.view.allDone) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+        // через 8 секунд принудительно скрываем, чтобы не висело вечно
+        if (++checks > 80) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+    }, 100);
+})();
+</script>
+
+</body>
+</html>
