@@ -468,6 +468,11 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addPiece("BishopI", 8, 0);
     design.addPiece("QueenI", 9, 0);
 
+    design.addPiece("RookN", 10, 0);
+    design.addPiece("KnightN", 11, 0);
+    design.addPiece("BishopN", 12, 0);
+    design.addPiece("QueenN", 13, 0);
+
     design.setup("White", "Pawn", 48);
     design.setup("White", "Pawn", 49);
     design.setup("White", "Pawn", 50);

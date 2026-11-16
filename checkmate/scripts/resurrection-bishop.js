@@ -5,7 +5,7 @@ var is3d = false;
 var checkVersion = Dagaz.Model.checkVersion;
 
 Dagaz.Model.checkVersion = function(design, name, value) {
-  if (name = "resurrection-bishop") {
+  if (name == "resurrection-bishop") {
       is3d = value == "3d";
   } else {
       checkVersion(design, name, value);

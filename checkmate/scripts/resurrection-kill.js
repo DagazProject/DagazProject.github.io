@@ -45,9 +45,9 @@ Dagaz.Model.CheckInvariants = function(board) {
       var p = design.navigate(board.player, pos, 8);
       if (p === null) return;
       if (is3d) {
-          move.movePiece(pos, p, piece.promote(+piece.type + 5));
+          move.movePiece(pos, p, piece.promote(+piece.type + 5 + 4));
       } else {
-          move.movePiece(pos, p, piece);
+          move.movePiece(pos, p, piece.promote(+piece.type + 5));
       }
   });
   CheckInvariants(board);

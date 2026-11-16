@@ -185,6 +185,10 @@ var getPieceNotation = function(design, piece) {
   if (piece.type == design.getPieceType("KnightI")) r = 'H';
   if (piece.type == design.getPieceType("BishopI")) r = 'E';
   if (piece.type == design.getPieceType("QueenI"))  r = 'X';
+  if (piece.type == design.getPieceType("RookN"))   r = 'D';
+  if (piece.type == design.getPieceType("KnightN")) r = 'H';
+  if (piece.type == design.getPieceType("BishopN")) r = 'E';
+  if (piece.type == design.getPieceType("QueenN"))  r = 'X';
   if (piece.player > 1) {
       return r.toLowerCase();
   }
