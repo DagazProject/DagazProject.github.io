@@ -1,338 +1,386 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Sokoban — Telegram</title>
-
-<!-- Telegram WebApp SDK (must be first) -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<!-- Underscore (Dagaz dependency) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
-
-<style>
-  :root {
-    --bg:    #1a1a2e;
-    --panel: #2d3561;
-    --edge:  #4a5480;
-    --text:  #e8e8f0;
-  }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body {
-    margin: 0; padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    overscroll-behavior: contain;
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 10px 20px;
-    gap: 8px;
-  }
-  h1 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: .5px;
-    color: var(--text);
-  }
-  #Canvas {
-    width: 100%;
-    max-width: 528px;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-    background: #000;
-    image-rendering: pixelated;
-    box-shadow: 0 4px 20px rgba(0,0,0,.4);
-  }
-
-  /* ── D-pad ───────────────────────────────────── */
-  #controls {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    user-select: none;
-  }
-  .dpad-row { display: flex; gap: 10px; }
-  .dpad-btn {
-    width: 68px; height: 68px;
-    font-size: 26px;
-    font-family: inherit;
-    font-weight: 700;
-    color: var(--text);
-    background: var(--panel);
-    border: 2px solid var(--edge);
-    border-radius: 14px;
-    cursor: pointer;
-    transition: transform .06s, background .1s;
-    touch-action: manipulation;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .dpad-btn:active {
-    background: var(--edge);
-    transform: scale(.94);
-  }
-  .dpad-btn.ghost { visibility: hidden; pointer-events: none; }
-
-  /* ── Action bar ──────────────────────────────── */
-  #actions {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-  }
-  #actions button {
-    padding: 10px 22px;
-    font-size: 15px;
-    font-family: inherit;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--panel);
-    border: 2px solid var(--edge);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform .06s, background .1s;
-    touch-action: manipulation;
-  }
-  #actions button:active { background: var(--edge); transform: scale(.95); }
-  #actions button:disabled { opacity: .4; pointer-events: none; }
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Sokoban — Telegram</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            margin: 0; padding: 0;
+            background: #1a1a2e;
+            color: #e8e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            overscroll-behavior: contain;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 10px 20px;
+            gap: 8px;
+        }
+        #level-info {
+            font-size: 16px;
+            font-weight: 600;
+            color: #8ab4f8;
+            text-align: center;
+            min-height: 24px;
+        }
+        .canvas-wrap {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+        }
+        #Canvas {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 10px;
+            background: #ffffff;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(0,0,0,.4);
+            touch-action: manipulation;
+        }
+        .dpad {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 4px;
+        }
+        .dpad-btn {
+            height: 64px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #e8e8f0;
+            background: #2d3561;
+            border: 2px solid #4a5480;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform .06s, background .1s;
+            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dpad-btn:active { background: #4a5480; transform: scale(.95); }
+        .dpad-btn.up   { grid-column: span 2; }
+        .dpad-btn.down { grid-column: span 2; }
+        #new-level {
+            margin-top: 8px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #e8e8f0;
+            background: #2d3561;
+            border: 2px solid #4a5480;
+            border-radius: 12px;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        #new-level:active { background: #4a5480; }
+        #loading {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            color: #8ab4f8;
+            font-size: 16px;
+            z-index: 10;
+            transition: opacity .3s;
+        }
+        #loading.hide { opacity: 0; pointer-events: none; }
+        #errors {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background: #4a1a1a;
+            border: 1px solid #a44;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #ffb0b0;
+        }
+    </style>
 </head>
 <body>
 
-<h1>📦 Sokoban</h1>
+<div id="level-info">Загрузка уровня…</div>
 
-<!-- Hidden image assets (GitHub Pages) -->
-<img id="Board"   style="display:none" src="https://dagazproject.github.io/sokoban/images/l-01.png">
+<div class="canvas-wrap">
+    <canvas id="Canvas" width="600" height="400">Broken canvas…</canvas>
+</div>
+
+<div class="dpad">
+    <button class="dpad-btn up"    data-key="ArrowUp">▲</button>
+    <button class="dpad-btn left"  data-key="ArrowLeft">◀</button>
+    <button class="dpad-btn right" data-key="ArrowRight">▶</button>
+    <button class="dpad-btn down"  data-key="ArrowDown">▼</button>
+</div>
+
+<button id="new-level">🔄 Новый уровень</button>
+
+<div id="errors"></div>
+<div id="loading">Загрузка…</div>
+
+<img id="Board"   style="display:none">
 <img id="YouBox"  style="display:none" src="https://dagazproject.github.io/sokoban/images/box.png">
 <img id="YouWall" style="display:none" src="https://dagazproject.github.io/sokoban/images/wall.png">
 <img id="YouBall" style="display:none" src="https://dagazproject.github.io/sokoban/images/ball.png">
 
-<!-- Game canvas -->
-<canvas id="Canvas" width="528" height="271"></canvas>
-
-<!-- Directional pad -->
-<div id="controls">
-  <div class="dpad-row">
-    <button class="dpad-btn ghost"></button>
-    <button class="dpad-btn" data-dir="up">▲</button>
-    <button class="dpad-btn ghost"></button>
-  </div>
-  <div class="dpad-row">
-    <button class="dpad-btn" data-dir="left">◀</button>
-    <button class="dpad-btn" data-dir="down">▼</button>
-    <button class="dpad-btn" data-dir="right">▶</button>
-  </div>
-</div>
-
-<!-- Extra actions -->
-<div id="actions">
-  <button id="undoBtn">↶ Undo</button>
-  <button id="restartBtn">🔄 Restart</button>
-</div>
-
-<!-- ══════════════ Game engine scripts (GitHub Pages CDN) ══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.4/seedrandom.min.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/dagaz.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/move-list-v2.js"></script>
 <script src="https://dagazproject.github.io/sokoban/scripts/sokoban-goal.js"></script>
-<script src="https://dagazproject.github.io/sokoban/scripts/sokoban-01.js"></script>
-<script src="https://dagazproject.github.io/common-scripts/app-v2.js"></script>
 
-<!-- ══════════════ Telegram integration + D-pad logic ══════════════ -->
 <script>
 (function () {
-  'use strict';
+    'use strict';
 
-  /* ─── 1. Telegram WebApp initialisation ─────────────────────── */
-  if (window.Telegram && Telegram.WebApp) {
-    try {
-      Telegram.WebApp.ready();
-      Telegram.WebApp.expand();
-      Telegram.WebApp.setHeaderColor && Telegram.WebApp.setHeaderColor('#1a1a2e');
-      Telegram.WebApp.setBackgroundColor && Telegram.WebApp.setBackgroundColor('#1a1a2e');
-    } catch (_) { /* non-Telegram context */ }
-  }
-
-  var APP = Dagaz.Controller.app;
-
-  /* ─── 2. Prevent auto‑navigation on win ─────────────────────── */
-  Dagaz.Model.progressive    = false;
-  Dagaz.Model.progressiveUrl = null;
-  Dagaz.Model.continue       = function () { return null; };
-  Dagaz.Controller.newGame   = function () { location.reload(); };
-
-  /* ─── 3. Redirect native alerts to Telegram dialogs ─────────── */
-  var nativeAlert = window.alert;
-  window.alert = function (msg) {
-    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.showAlert) {
-      Telegram.WebApp.showAlert(String(msg));
-    } else {
-      nativeAlert(msg);
+    /* ─── Telegram ─────────────────────────────────────────────── */
+    if (window.Telegram && Telegram.WebApp) {
+        try {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            if (Telegram.WebApp.setHeaderColor) Telegram.WebApp.setHeaderColor('#1a1a2e');
+            if (Telegram.WebApp.setBackgroundColor) Telegram.WebApp.setBackgroundColor('#1a1a2e');
+        } catch (_) {}
     }
-  };
 
-  /* ─── 4. Undo / Redo stacks ─────────────────────────────────── */
-  var past   = [];   // boards from initial → current
-  var future = [];   // boards that can be redone
-
-  function primeHistory() {
-    if (APP && APP.board) { past = [APP.board]; }
-    updateUndoBtn();
-  }
-  primeHistory();
-
-  Dagaz.Controller.addState = function (move, board) {
-    if (!move.isPass()) {
-      past.push(board);
-      future = [];               // a fresh move invalidates redo
-      if (past.length > 200) past.shift();
-      updateUndoBtn();
+    var errorsEl = document.getElementById('errors');
+    function showError(msg) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent += msg + '\n';
     }
-  };
-
-  function updateUndoBtn() {
-    var b = document.getElementById('undoBtn');
-    if (!b) return;
-    b.disabled = past.length < 2;
-  }
-
-  function undo() {
-    if (past.length < 2) return;
-    future.push(past.pop());
-    APP.setBoard(past[past.length - 1], true);
-    updateUndoBtn();
-    haptic('light');
-  }
-
-  /* ─── 5. Direction → Dagaz direction index ──────────────────── */
-  // Design direction order is [ w, e, s, n ] → indices 0,1,2,3
-  var DIR_INDEX = {
-    up:    3,   // north  → positions[..][3] = −22
-    down:  2,   // south  → positions[..][2] = +22
-    left:  0,   // west   → positions[..][0] = −1
-    right: 1    // east   → positions[..][1] = +1
-  };
-
-  /* ─── 6. Find the player piece (Ball, type 2) ───────────────── */
-  function findBall() {
-    var pieces = APP.board.pieces;
-    for (var key in pieces) {
-      if (!pieces.hasOwnProperty(key)) continue;
-      var p = pieces[key];
-      if (p && p.type === 2) return +key;
-    }
-    return null;
-  }
-
-  /* ─── 7. Haptic feedback helper ─────────────────────────────── */
-  function haptic(style) {
-    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) {
-      try { Telegram.WebApp.HapticFeedback.impactOccurred(style || 'light'); } catch (_) {}
-    }
-  }
-
-  /* ─── 8. The actual move ────────────────────────────────────── */
-  // STATE.IDLE === 1 (see app-v2.js STATE table)
-  var STATE_IDLE = 1;
-
-  function movePlayer(direction) {
-    if (!APP || !APP.view || !APP.view.allDone) return;   // assets not ready
-    if (APP.state !== STATE_IDLE) return;                 // animating / busy
-    if (!APP.list) return;                                // move list not built
-
-    var ballPos = findBall();
-    if (ballPos === null) return;
-
-    var dir = DIR_INDEX[direction];
-    if (dir === undefined) return;
-
-    var offset = APP.design.positions[ballPos][dir];
-    if (!offset) return;                                  // wall / off‑board
-
-    var target = ballPos + offset;
-    APP.setPosition(target);                              // simulates a tap on target
-    haptic('light');
-  }
-
-  /* ─── 9. Wire up D-pad buttons ──────────────────────────────── */
-  document.querySelectorAll('.dpad-btn[data-dir]').forEach(function (btn) {
-    btn.addEventListener('click', function (ev) {
-      ev.preventDefault();
-      movePlayer(btn.dataset.dir);
+    window.addEventListener('error', function (e) {
+        showError('❌ ' + (e.message || e.error));
     });
-  });
 
-  /* ─── 10. Wire up action buttons ────────────────────────────── */
-  document.getElementById('undoBtn').addEventListener('click', undo);
+    /* ─── Случайный уровень ────────────────────────────────────── */
+    var TOTAL_LEVELS = 60;
+    var level = Dagaz.Model.getSetupSelector(TOTAL_LEVELS);
+    var levelStr = level < 10 ? '0' + level : '' + level;
+    document.getElementById('level-info').textContent =
+        '📦 Уровень ' + level + ' из ' + TOTAL_LEVELS;
 
-  document.getElementById('restartBtn').addEventListener('click', function () {
-    var doReload = function () { location.reload(); };
-    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.showConfirm) {
-      Telegram.WebApp.showConfirm('Restart the game?', function (ok) { if (ok) doReload(); });
-    } else if (confirm('Restart the game?')) {
-      doReload();
+    function levelFile(n) {
+        return 'https://dagazproject.github.io/sokoban/scripts/sokoban-' +
+               (n < 10 ? '0' + n : n) + '.js';
     }
-  });
+    function boardUrl(n) {
+        var s = n < 10 ? '0' + n : '' + n;
+        return 'https://dagazproject.github.io/sokoban/images/l-' + s + '.png';
+    }
 
-  /* ─── 11. Keyboard support (desktop / testing) ──────────────── */
-  document.addEventListener('keydown', function (ev) {
-    var keyMap = {
-      ArrowUp: 'up',    ArrowDown:  'down',
-      ArrowLeft: 'left', ArrowRight: 'right',
-      w: 'up', s: 'down', a: 'left', d: 'right',
-      W: 'up', S: 'down', A: 'left', D: 'right'
+    /* ─── Board image с fallback'ом ────────────────────────────── */
+    function makePlaceholder(w, h) {
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        var g = c.getContext('2d');
+        g.fillStyle = '#ffffff';
+        g.fillRect(0, 0, w, h);
+        g.strokeStyle = '#cccccc';
+        g.lineWidth = 1;
+        for (var x = 0; x <= w; x += 24) {
+            g.beginPath(); g.moveTo(x + 0.5, 0); g.lineTo(x + 0.5, h); g.stroke();
+        }
+        for (var y = 0; y <= h; y += 24) {
+            g.beginPath(); g.moveTo(0, y + 0.5); g.lineTo(w, y + 0.5); g.stroke();
+        }
+        return c.toDataURL();
+    }
+
+    var boardImg = document.getElementById('Board');
+    boardImg.onerror = function () {
+        boardImg.onerror = function () {
+            boardImg.onerror = null;
+            boardImg.src = makePlaceholder(600, 400);
+        };
+        boardImg.src = 'https://dagazproject.github.io/sokoban/images/l-01.png';
     };
-    var dir = keyMap[ev.key];
-    if (dir) { ev.preventDefault(); movePlayer(dir); return; }
-    if (ev.key === 'z' || ev.key === 'Z') { ev.preventDefault(); undo(); }
-  });
+    boardImg.src = boardUrl(level);
 
-  /* ─── 12. Swipe gestures on the canvas ──────────────────────── */
-  (function enableSwipe() {
-    var sx = 0, sy = 0, tracking = false;
-    var cv = document.getElementById('Canvas');
-    if (!cv) return;
+    /* ─── Зондирование всех 60 картинок для max размеров ──────── */
+    function probeSize(n) {
+        return new Promise(function (resolve) {
+            var img = new Image();
+            var done = false;
+            var timer = setTimeout(function () {
+                if (!done) { done = true; resolve(null); }
+            }, 3000);
+            img.onload = function () {
+                clearTimeout(timer);
+                if (!done) { done = true; resolve({ w: img.naturalWidth, h: img.naturalHeight }); }
+            };
+            img.onerror = function () {
+                clearTimeout(timer);
+                if (!done) { done = true; resolve(null); }
+            };
+            img.src = boardUrl(n);
+        });
+    }
 
-    cv.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-      tracking = true;
-    }, { passive: true });
+    function getMaxBoardSize() {
+        var promises = [];
+        for (var i = 1; i <= TOTAL_LEVELS; i++) promises.push(probeSize(i));
+        return Promise.all(promises).then(function (results) {
+            var maxW = 0, maxH = 0;
+            results.forEach(function (r) {
+                if (r) {
+                    if (r.w > maxW) maxW = r.w;
+                    if (r.h > maxH) maxH = r.h;
+                }
+            });
+            return { w: maxW || 600, h: maxH || 400 };
+        });
+    }
 
-    cv.addEventListener('touchend', function (e) {
-      if (!tracking) return;
-      tracking = false;
-      var t = e.changedTouches[0];
-      var dx = t.clientX - sx;
-      var dy = t.clientY - sy;
-      if (Math.abs(dx) < 24 && Math.abs(dy) < 24) return;  // tap → ignore
+    function withTimeout(promise, ms, fallback) {
+        return Promise.race([
+            promise,
+            new Promise(function (resolve) {
+                setTimeout(function () { resolve(fallback); }, ms);
+            })
+        ]);
+    }
 
-      if (Math.abs(dx) > Math.abs(dy)) {
-        movePlayer(dx > 0 ? 'right' : 'left');
-      } else {
-        movePlayer(dy > 0 ? 'down' : 'up');
-      }
-    }, { passive: true });
-  })();
+    /* ─── Загрузчик скриптов ──────────────────────────────────── */
+    function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = function () {
+                showError('Не загрузился скрипт: ' + src);
+                reject();
+            };
+            document.body.appendChild(s);
+        });
+    }
 
-  /* ─── 13. Small polish: stop page rubber‑banding ────────────── */
-  document.body.addEventListener('touchmove', function (e) {
-    if (e.target === document.body) e.preventDefault();
-  }, { passive: false });
+    /* ─── Центрирование текущего уровня в canvas ──────────────── */
+    function centerLevel() {
+        var attempts = 0;
+        var iv = setInterval(function () {
+            attempts++;
+            var app = Dagaz.Controller.app;
+            if (!app || !app.view) return;
+            var view = app.view;
+            if (!view.allDone) return;                            // ждём все картинки
+            if (!view.back || view.back.length === 0) return;
+            if (!view.pos || view.pos.length === 0) return;
+            if (!view.setup || view.setup.length === 0) return;
+            var board = view.back[0];
+            if (!board.h || !board.h.complete || !board.h.naturalWidth) return;
 
+            clearInterval(iv);
+
+            var canvas = document.getElementById('Canvas');
+            var levelW = board.h.naturalWidth;
+            var levelH = board.h.naturalHeight;
+
+            // Расширяем canvas, если текущий уровень больше
+            if (levelW > canvas.width)  canvas.width  = levelW;
+            if (levelH > canvas.height) canvas.height = levelH;
+
+            var offX = Math.floor((canvas.width  - levelW) / 2);
+            var offY = Math.floor((canvas.height - levelH) / 2);
+
+            // 1) двигаем картинку поля
+            board.x = offX;
+            board.y = offY;
+            // 2) двигаем позиции (к ним привязаны фишки и hit-зона)
+            for (var i = 0; i < view.pos.length; i++) {
+                if (view.pos[i]) {
+                    view.pos[i].x += offX;
+                    view.pos[i].y += offY;
+                }
+            }
+            // 3) двигаем уже расставленные фишки
+            for (var j = 0; j < view.setup.length; j++) {
+                view.setup[j].x += offX;
+                view.setup[j].y += offY;
+            }
+            // 4) маркеры (цель, KO) тоже
+            Dagaz.View.SHIFT_X = offX;
+            Dagaz.View.SHIFT_Y = offY;
+
+            view.invalidate();
+            document.getElementById('loading').classList.add('hide');
+        }, 100);
+
+        setTimeout(function () {
+            clearInterval(iv);
+            document.getElementById('loading').classList.add('hide');
+        }, 15000);
+    }
+
+    /* ─── Главный поток ───────────────────────────────────────── */
+    var canvas = document.getElementById('Canvas');
+
+    withTimeout(getMaxBoardSize(), 5000, { w: 600, h: 500 }).then(function (dims) {
+        // Задаём canvas максимальный размер по всем 60 уровням
+        canvas.width  = dims.w;
+        canvas.height = dims.h;
+
+        loadScript(levelFile(level))
+            .then(function () {
+                return loadScript('https://dagazproject.github.io/common-scripts/app-v2.js');
+            })
+            .then(function () {
+                return loadScript('https://dagazproject.github.io/sokoban/scripts/keyboard.js');
+            })
+            .then(function () {
+                centerLevel();
+            })
+            .catch(function () {
+                document.getElementById('loading').classList.add('hide');
+            });
+    });
+
+    /* ─── D-pad ───────────────────────────────────────────────── */
+    document.querySelectorAll('.dpad-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            window.dispatchEvent(new KeyboardEvent('keyup', {
+                key: btn.dataset.key, bubbles: true, cancelable: true
+            }));
+        });
+    });
+
+    /* ─── Кнопка нового уровня ────────────────────────────────── */
+    document.getElementById('new-level').addEventListener('click', function () {
+        location.reload();
+    });
+
+    /* ─── Telegram dialogs + отключение авто-перехода ─────────── */
+    var _alert = window.alert;
+    window.alert = function (msg) {
+        if (window.Telegram?.WebApp?.showAlert) {
+            Telegram.WebApp.showAlert(String(msg));
+        } else {
+            _alert(msg);
+        }
+    };
+    Dagaz.Model.progressive    = false;
+    Dagaz.Model.progressiveUrl = null;
+    Dagaz.Model.continue       = function () { return null; };
 })();
 </script>
+
 </body>
 </html>
