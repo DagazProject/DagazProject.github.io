@@ -135,8 +135,8 @@
 <script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/zobrist.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/common-setup-v2.js"></script>
-<script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
-<script src="https://dagazproject.github.io/common-scripts/move-list-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/2d-view.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/move-list.js"></script>
 <script src="https://dagazproject.github.io/common-scripts/sound-manager-v2.js"></script>
 
 <!-- специфика NetWalk -->
@@ -144,7 +144,7 @@
 <script src="https://dagazproject.github.io/arrange/scripts/netwalk-setup.js"></script>
 
 <!-- контроллер, который сам всё стартует -->
-<script src="https://dagazproject.github.io/common-scripts/app-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/app.js"></script>
 
 <!-- ========== Инициализация Telegram + диагностика ========== -->
 <script>
@@ -161,14 +161,24 @@
         } catch (_) {}
     }
 
-    // 2. Заменяем alert на нативный диалог Telegram
-    var _alert = window.alert;
+    // 2. Заменяем alert на нативный диалог Telegram (только если он реально поддерживается)
+    var _alert = window.alert.bind(window);
     window.alert = function(msg) {
-        if (window.Telegram?.WebApp?.showAlert) {
-            Telegram.WebApp.showAlert(String(msg));
-        } else {
-            _alert(msg);
+        var text = String(msg == null ? '' : msg);
+        try {
+            var wa = window.Telegram && window.Telegram.WebApp;
+            // showAlert опирается на showPopup, который появился только в Bot API 6.1
+            if (wa &&
+                typeof wa.isVersionAtLeast === 'function' &&
+                wa.isVersionAtLeast('6.1') &&
+                typeof wa.showAlert === 'function') {
+                wa.showAlert(text);
+                return;
+            }
+        } catch (_) {
+            // если что-то пошло не так — молча уходим в fallback
         }
+        _alert(text);
     };
 
     // 3. Отключаем авто-переходы при победе
