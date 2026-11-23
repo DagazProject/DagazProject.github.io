@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Gauntlet 7×7 — Telegram</title>
+
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            margin: 0; padding: 0;
+            background: #1a1a2e;
+            color: #e8e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            overscroll-behavior: contain;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 10px 20px;
+            gap: 8px;
+        }
+        .center-body {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .canvas-wrap {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .cc2 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        #Canvas {
+            display: block;
+            width: 100%;
+            max-width: 436px;
+            height: auto;
+            border-radius: 10px;
+            background: #ffffff;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(0,0,0,.4);
+            touch-action: manipulation;
+        }
+        /* Скрытые служебные элементы для session-manager.js */
+        #undo, #redo, #sound { display: none !important; }
+        #errors {
+            display: none;
+            width: 100%;
+            max-width: 436px;
+            padding: 10px;
+            background: #4a1a1a;
+            border: 1px solid #a44;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #ffb0b0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Служебные элементы, которые ожидает session-manager.js -->
+<a id="undo"  style="display:none"></a>
+<a id="redo"  style="display:none"></a>
+<a id="sound" style="display:none"></a>
+
+<div class="center-body">
+    <div class="canvas-wrap" id="canvasFit">
+        <div class="cc2" id="cc2">
+            <canvas id="Canvas" width="436" height="436" class="canvas-body">Broken canvas…</canvas>
+        </div>
+    </div>
+</div>
+
+<div id="errors"></div>
+
+<!-- ========== Изображения Gauntlet 7×7 ========== -->
+<img id="Board"      style="display:none" src="https://dagazproject.github.io/breakthrough/images/gauntlet/7x7.png">
+<img id="BlueRunner" style="display:none" src="https://dagazproject.github.io/breakthrough/images/gauntlet/white.png">
+<img id="RedLeft"    style="display:none" src="https://dagazproject.github.io/breakthrough/images/gauntlet/left.png">
+<img id="RedRight"   style="display:none" src="https://dagazproject.github.io/breakthrough/images/gauntlet/right.png">
+
+<!-- ========== Базовые скрипты Dagaz ========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.4/seedrandom.min.js"></script>
+
+<script src="https://dagazproject.github.io/common-scripts/autofit.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/dagaz.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zobrist-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/move-list-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/session-manager.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/sound-manager-v2.js"></script>
+
+<!-- ========== AI-модули ========== -->
+<script src="https://dagazproject.github.io/common-scripts/random-ai.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/garbo-ai-v3.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/fast-ai.js"></script>
+
+<!-- ========== Логика Gauntlet ========== -->
+<script src="https://dagazproject.github.io/breakthrough/scripts/gauntlet-ai.js"></script>
+<script src="https://dagazproject.github.io/breakthrough/scripts/gauntlet-fen.js"></script>
+<script src="https://dagazproject.github.io/breakthrough/scripts/gauntlet-7x7.js"></script>
+
+<!-- ========== Telegram init ДО app-v2.js ========== -->
+<script>
+(function () {
+    if (window.Telegram && Telegram.WebApp) {
+        try {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+        } catch (_) {}
+    }
+})();
+</script>
+
+<!-- ========== Контроллер приложения ========== -->
+<script src="https://dagazproject.github.io/common-scripts/app-v2.js"></script>
+
+<!-- ========== Пост-инициализация: диалоги и отключение авто-переходов ========== -->
+<script>
+(function () {
+    'use strict';
+
+    var errorsEl = document.getElementById('errors');
+    window.addEventListener('error', function (e) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent += '❌ ' + (e.message || e.error) + '\n';
+    });
+
+    /* Диалоги Telegram с проверкой версии Bot API (showAlert с 6.2) */
+    function tgVersionAtLeast(v) {
+        if (!window.Telegram || !Telegram.WebApp) return false;
+        return parseFloat(Telegram.WebApp.version || '0') >= v;
+    }
+    var _alert = window.alert.bind(window);
+    window.alert = function (msg) {
+        if (tgVersionAtLeast(6.2) && Telegram.WebApp.showAlert) {
+            try { Telegram.WebApp.showAlert(String(msg)); return; }
+            catch (e) { /* fallback */ }
+        }
+        _alert(msg);
+    };
+
+    /* Отключаем автоматические переходы при завершении игры */
+    Dagaz.Model.progressive    = false;
+    Dagaz.Model.progressiveUrl = null;
+    Dagaz.Model.continue       = function () { return null; };
+    if (Dagaz.Controller) {
+        Dagaz.Controller.go = function () {};
+    }
+})();
+</script>
+
+</body>
+</html>
