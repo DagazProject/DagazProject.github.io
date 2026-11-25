@@ -16,7 +16,7 @@ Dagaz.Model.CheckInvariants = function(board) {
       var piece = board.getPiece(pos);
       if (piece === null) return;
       if (piece.player != board.player) return;
-      if (piece.type == 8) return;
+      if (_.indexOf([0, 8], +piece.type) >= 0) return;
       var group = [pos]; var levels = [0];
       for (var ix = 0; ix < group.length; ix++) {
            if (levels[ix] >= 5) continue;
