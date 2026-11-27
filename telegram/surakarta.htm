@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Surakarta — Telegram</title>
+
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #e8e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            overscroll-behavior: contain;
+            min-height: 100vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 10px 20px;
+            gap: 8px;
+        }
+        /* Центрированная надпись СВЕРХУ */
+        .section-menu {
+            font-size: 14px;
+            color: #8ab4f8;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        #Canvas {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            background: #1a1a2e;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(0,0,0,.5);
+            touch-action: manipulation;
+        }
+        /* Индикатор загрузки */
+        #loading {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            color: #8ab4f8;
+            font-size: 16px;
+            z-index: 10;
+            transition: opacity .3s;
+        }
+        #loading.hide { opacity: 0; pointer-events: none; }
+        /* Панель ошибок */
+        #errors {
+            display: none;
+            width: 100%;
+            max-width: 450px;
+            padding: 10px;
+            background: #4a1a1a;
+            border: 1px solid #a44;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #ffb0b0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== Изображения Surakarta ========== -->
+<img id="Board"    style="display:none" src="https://dagazproject.github.io/elimination/images/surakarta/board.png">
+<img id="WhiteMan" style="display:none" src="https://dagazproject.github.io/elimination/images/surakarta/white.png">
+<img id="BlackMan" style="display:none" src="https://dagazproject.github.io/elimination/images/surakarta/black.png">
+
+<!-- ========== Интерфейс ========== -->
+<canvas id="Canvas" width="404" height="404">Broken canvas...</canvas>
+
+<div id="errors"></div>
+
+<div id="loading">Загрузка…</div>
+
+<!-- ========== Скрипты (порядок важен) ========== -->
+<!-- внешние библиотеки: используем проверенный CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+
+<!-- движок Dagaz (пути, которые точно работают) -->
+<script src="https://dagazproject.github.io/common-scripts/dagaz.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zrf-model.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/zobrist.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/common-setup-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/2d-view-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/move-list-v4.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/sound-manager-v2.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/random-ai.js"></script>
+<script src="https://dagazproject.github.io/common-scripts/uct-ai-v4.js"></script>
+
+<!-- специфика Surakarta -->
+<script src="https://dagazproject.github.io/elimination/scripts/surakarta-extension.js"></script>
+<script src="https://dagazproject.github.io/elimination/scripts/surakarta.js"></script>
+
+<!-- контроллер, который сам всё стартует -->
+<script src="https://dagazproject.github.io/common-scripts/app-v3.js"></script>
+
+<!-- ========== Инициализация Telegram + диагностика ========== -->
+<script>
+(function() {
+    'use strict';
+
+    // 1. Инициализация Telegram WebApp
+    if (window.Telegram && Telegram.WebApp) {
+        try {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            Telegram.WebApp.setHeaderColor('#1a1a2e');
+            Telegram.WebApp.setBackgroundColor('#1a1a2e');
+        } catch (_) {}
+    }
+
+    // 2. Заменяем alert на нативный диалог Telegram (только если он реально поддерживается)
+    var _alert = window.alert.bind(window);
+    window.alert = function(msg) {
+        var text = String(msg == null ? '' : msg);
+        try {
+            var wa = window.Telegram && window.Telegram.WebApp;
+            // showAlert опирается на showPopup, который появился только в Bot API 6.1
+            if (wa &&
+                typeof wa.isVersionAtLeast === 'function' &&
+                wa.isVersionAtLeast('6.1') &&
+                typeof wa.showAlert === 'function') {
+                wa.showAlert(text);
+                return;
+            }
+        } catch (_) {
+            // если что-то пошло не так — молча уходим в fallback
+        }
+        _alert(text);
+    };
+
+    // 3. Отключаем авто-переходы при победе
+    Dagaz.Model.progressive    = false;
+    Dagaz.Model.progressiveUrl = null;
+    Dagaz.Model.continue       = function() { return null; };
+
+    // 4. Диагностика: собираем ошибки и показываем на странице
+    var errorsEl = document.getElementById('errors');
+    function showError(msg) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent += msg + '\n';
+    }
+    window.addEventListener('error', function(e) {
+        showError('❌ ' + (e.message || e.error) +
+                  (e.filename ? ' @ ' + e.filename.split('/').pop() + ':' + e.lineno : ''));
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+        showError('❌ Promise: ' + (e.reason && e.reason.message || e.reason));
+    });
+
+    // 5. Проверяем, что все изображения реально загрузились
+    var imgs = document.querySelectorAll('img');
+    var broken = [];
+    imgs.forEach(function(img) {
+        img.addEventListener('error', function() {
+            broken.push(img.id || img.src);
+            showError('🖼️ 404: ' + img.src);
+        });
+    });
+
+    // 6. Прячем «Загрузка…», когда канвас что-то отрисовал
+    var loadingEl = document.getElementById('loading');
+    var checks = 0;
+    var iv = setInterval(function() {
+        // если движок инициализировался и холст получил контент
+        if (window.Dagaz && Dagaz.Controller && Dagaz.Controller.app &&
+            Dagaz.Controller.app.view && Dagaz.Controller.app.view.allDone) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+        // через 8 секунд принудительно скрываем, чтобы не висело вечно
+        if (++checks > 80) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+    }, 100);
+})();
+</script>
+
+</body>
+</html>

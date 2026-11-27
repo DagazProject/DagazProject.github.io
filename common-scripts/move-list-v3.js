@@ -323,18 +323,36 @@ MoveList.prototype.setPosition = function(pos) {
                   m[0][0] = [ this.position ];
                   m[0][1] = [ pos ];
                   this.copyActions(result, actions, move.mode, move.sound);
+                  if (!_.isUndefined(move.hints)) {
+                      result.hints = [];
+                      _.each(move.hints, function(h) {
+                          result.hints.push(h);
+                      });
+                  }
                   return true;
               }
               if (Dagaz.Model.smartFrom && (this.position == null) && (_.indexOf(m[0][0], pos) >= 0)) {
                   // Smart from move
                   m[0][0] = [ pos ];
                   this.copyActions(result, actions, move.mode, move.sound);
+                  if (!_.isUndefined(move.hints)) {
+                      result.hints = [];
+                      _.each(move.hints, function(h) {
+                          result.hints.push(h);
+                      });
+                  }
                   return true;
               }
               if (Dagaz.Model.smartTo && (this.position == null) && (_.indexOf(m[0][1], pos) >= 0)) {
                   // Smart from move
                   m[0][1] = [ pos ];
                   this.copyActions(result, actions, move.mode, move.sound);
+                  if (!_.isUndefined(move.hints)) {
+                      result.hints = [];
+                      _.each(move.hints, function(h) {
+                          result.hints.push(h);
+                      });
+                  }
                   return true;
               }
           } else {
@@ -355,6 +373,12 @@ MoveList.prototype.setPosition = function(pos) {
                 }).value();
               if ((this.position === null) && (n.length > 0)) {
                   this.copyActions(result, actions, move.mode, move.sound);
+                  if (!_.isUndefined(move.hints)) {
+                      result.hints = [];
+                      _.each(move.hints, function(h) {
+                          result.hints.push(h);
+                      });
+                  }
                   return true;
               }
           }

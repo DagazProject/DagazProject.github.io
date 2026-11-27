@@ -431,6 +431,9 @@ function decomp(move) {
        var r = [];
        for (var i = 0; i < move.actions[ix][2].length; i++) {
             var m = Dagaz.Model.createMove(move.mode, move.sound);
+            if (!_.isUndefined(move.hints)) {
+                m.hints = _.clone(move.hints);
+            }
             for (var k = 0; k < move.actions.length; k++) {
                  if (k == ix) {
                      m.actions.push([[move.actions[k][0][0]], [move.actions[k][1][0]], [move.actions[k][2][i]], move.actions[k][3]]);

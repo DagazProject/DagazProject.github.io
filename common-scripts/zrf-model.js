@@ -2302,6 +2302,9 @@ ZrfMove.prototype.determinate = function() {
        .map(function (l) {
            var r = new ZrfMove(this.mode);
            r.serial = this.serial;
+           if (!_.isUndefined(this.hints)) {
+               r.hints = _.clone(this.hints);
+           }
            var pos = 0;
            _.each(this.actions, function (action) {
               var x = [];

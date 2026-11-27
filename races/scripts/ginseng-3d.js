@@ -380,10 +380,6 @@ Dagaz.Model.BuildDesign = function(design) {
     design.addCommand(1, ZRF.FUNCTION,	28);	// end
 
     design.addPiece("Lotus", 0);
-    design.addMove(0, 1, [0, 0], 1);
-    design.addMove(0, 1, [2, 2], 1);
-    design.addMove(0, 1, [5, 5], 1);
-    design.addMove(0, 1, [6, 6], 1);
 
     design.addPiece("Koi", 1);
 
