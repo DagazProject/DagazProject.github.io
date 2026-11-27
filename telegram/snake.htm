@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Snake — Telegram</title>
+
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #e8e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            overscroll-behavior: contain;
+            min-height: 100vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 10px 20px;
+            gap: 8px;
+        }
+        /* Центрированная надпись СВЕРХУ */
+        .section-menu {
+            font-size: 14px;
+            color: #8ab4f8;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        #Canvas {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            background: #1a1a2e;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(0,0,0,.5);
+            touch-action: manipulation;
+        }
+
+        /* ── D-pad (как в Sokoban) ──────────────────────────── */
+        .dpad {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 4px;
+            user-select: none;
+        }
+        .dpad-btn {
+            height: 64px;
+            font-size: 26px;
+            font-family: inherit;
+            font-weight: 700;
+            color: #e8e8f0;
+            background: #2d3561;
+            border: 2px solid #4a5480;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform .06s, background .1s;
+            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dpad-btn:active {
+            background: #4a5480;
+            transform: scale(.95);
+        }
+        .dpad-btn.up   { grid-column: span 2; }
+        .dpad-btn.down { grid-column: span 2; }
+
+        /* ── Кнопка «Заново» ────────────────────────────────── */
+        #new-game {
+            margin-top: 4px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: 600;
+            color: #e8e8f0;
+            background: #2d3561;
+            border: 2px solid #4a5480;
+            border-radius: 12px;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        #new-game:active { background: #4a5480; }
+
+        /* Индикатор загрузки */
+        #loading {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            color: #8ab4f8;
+            font-size: 16px;
+            z-index: 10;
+            transition: opacity .3s;
+        }
+        #loading.hide { opacity: 0; pointer-events: none; }
+        /* Панель ошибок */
+        #errors {
+            display: none;
+            width: 100%;
+            max-width: 450px;
+            padding: 10px;
+            background: #4a1a1a;
+            border: 1px solid #a44;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #ffb0b0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== Изображения Snake ========== -->
+<img id="background" style="display:none" src="https://dagazproject.github.io/arrange/images/snake/board.png">
+<img id="wall"       style="display:none" src="https://dagazproject.github.io/arrange/images/snake/wall.png">
+<img id="cherry"     style="display:none" src="https://dagazproject.github.io/arrange/images/snake/cherry.png">
+<img id="body-en"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-en.png">
+<img id="body-ew"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-ew.png">
+<img id="body-ns"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-ns.png">
+<img id="body-nw"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-nw.png">
+<img id="body-se"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-se.png">
+<img id="body-sn"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-sn.png">
+<img id="body-we"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-we.png">
+<img id="body-ws"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/body-ws.png">
+<img id="head-ew"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-ew.png">
+<img id="head-ewh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-ewh.png">
+<img id="head-ns"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-ns.png">
+<img id="head-nsh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-nsh.png">
+<img id="head-sn"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-sn.png">
+<img id="head-snh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-snh.png">
+<img id="head-we"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-we.png">
+<img id="head-weh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/head-weh.png">
+<img id="tail-ew"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-ew.png">
+<img id="tail-ewh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-ewh.png">
+<img id="tail-ns"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-ns.png">
+<img id="tail-nsh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-nsh.png">
+<img id="tail-sn"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-sn.png">
+<img id="tail-snh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-snh.png">
+<img id="tail-we"    style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-we.png">
+<img id="tail-weh"   style="display:none" src="https://dagazproject.github.io/arrange/images/snake/tail-weh.png">
+<img id="bee"        style="display:none" src="https://dagazproject.github.io/arrange/images/snake/bee.png">
+
+<!-- ========== Игровое поле ========== -->
+<canvas id="Canvas" width="672" height="360">Broken canvas...</canvas>
+
+<!-- ========== D-pad ========== -->
+<div class="dpad" aria-label="Управление змейкой">
+    <button class="dpad-btn up"    data-key="ArrowUp"    aria-label="Вверх">▲</button>
+    <button class="dpad-btn left"  data-key="ArrowLeft"  aria-label="Влево">◀</button>
+    <button class="dpad-btn right" data-key="ArrowRight" aria-label="Вправо">▶</button>
+    <button class="dpad-btn down"  data-key="ArrowDown"  aria-label="Вниз">▼</button>
+</div>
+
+<!-- ========== Кнопка «Заново» ========== -->
+<button id="new-game">🔄 Заново</button>
+
+<div id="errors"></div>
+
+<div id="loading">Загрузка…</div>
+
+<!-- ========== Скрипты ========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+
+<script src="https://dagazproject.github.io/arrange/scripts/snake.js"></script>
+<script src="https://dagazproject.github.io/arrange/scripts/snake-const.js"></script>
+<script src="https://dagazproject.github.io/arrange/scripts/snake-model.js"></script>
+<script src="https://dagazproject.github.io/arrange/scripts/snake-view.js"></script>
+<script src="https://dagazproject.github.io/arrange/scripts/snake-controller.js"></script>
+
+<!-- ========== Инициализация Telegram + управление ========== -->
+<script>
+(function () {
+    'use strict';
+
+    /* 1. Telegram WebApp */
+    if (window.Telegram && Telegram.WebApp) {
+        try {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            if (Telegram.WebApp.setHeaderColor)     Telegram.WebApp.setHeaderColor('#1a1a2e');
+            if (Telegram.WebApp.setBackgroundColor) Telegram.WebApp.setBackgroundColor('#1a1a2e');
+        } catch (_) {}
+    }
+
+    /* 2. alert → showAlert (только если поддерживается) */
+    var _alert = window.alert.bind(window);
+    window.alert = function (msg) {
+        var text = String(msg == null ? '' : msg);
+        try {
+            var wa = window.Telegram && window.Telegram.WebApp;
+            if (wa &&
+                typeof wa.isVersionAtLeast === 'function' &&
+                wa.isVersionAtLeast('6.1') &&
+                typeof wa.showAlert === 'function') {
+                wa.showAlert(text);
+                return;
+            }
+        } catch (_) {}
+        _alert(text);
+    };
+
+    /* 3. Диагностика */
+    var errorsEl = document.getElementById('errors');
+    function showError(msg) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent += msg + '\n';
+    }
+    window.addEventListener('error', function (e) {
+        showError('❌ ' + (e.message || e.error) +
+            (e.filename ? ' @ ' + e.filename.split('/').pop() + ':' + e.lineno : ''));
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+        showError('❌ Promise: ' + (e.reason && e.reason.message || e.reason));
+    });
+
+    /* 4. Проверка картинок */
+    document.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('error', function () {
+            showError('🖼️ 404: ' + img.src);
+        });
+    });
+
+    /* 5. Скрываем индикатор загрузки */
+    var loadingEl = document.getElementById('loading');
+    var checks = 0;
+    var iv = setInterval(function () {
+        if (window.MySnake && MySnake.view && MySnake.view.allReady) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+        if (++checks > 30) {
+            loadingEl.classList.add('hide');
+            clearInterval(iv);
+        }
+    }, 100);
+
+    /* 6. ─── Управление с экранных кнопок ──────────────────── */
+    var KEY_CODES = {
+        ArrowUp:    38,
+        ArrowDown:  40,
+        ArrowLeft:  37,
+        ArrowRight: 39
+    };
+
+    function fireKey(type, key) {
+        var code = KEY_CODES[key];
+        var ev;
+        try {
+            ev = new KeyboardEvent(type, {
+                key: key,
+                code: key,
+                bubbles: true,
+                cancelable: true
+            });
+        } catch (_) {
+            // Совсем старые браузеры (edge case)
+            ev = document.createEvent('Event');
+            ev.initEvent(type, true, true);
+            ev.key  = key;
+            ev.code = key;
+        }
+        // Классические поля для тех контроллеров, что читают e.keyCode/e.which
+        try {
+            Object.defineProperty(ev, 'keyCode', { get: function () { return code; } });
+            Object.defineProperty(ev, 'which',   { get: function () { return code; } });
+        } catch (_) {}
+
+        // Шлём и в window, и в document — на случай, если snake-контроллер
+        // подписан на конкретный объект.
+        window.dispatchEvent(ev);
+        if (ev.cancelBubble !== true) {
+            document.dispatchEvent(ev);
+        }
+    }
+
+    document.querySelectorAll('.dpad-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            var key = btn.dataset.key;
+            // Snake-движок обычно слушает keydown. Дополнительно шлём keyup —
+            // безвредно, но помогает совместимости с некоторыми реализациями.
+            fireKey('keydown', key);
+            fireKey('keyup', key);
+            // Тактильная отдача
+            try {
+                var wa = window.Telegram && window.Telegram.WebApp;
+                if (wa && wa.HapticFeedback) {
+                    wa.HapticFeedback.impactOccurred('light');
+                }
+            } catch (_) {}
+        });
+        // Предотвращаем "залипание" фокуса после клика
+        btn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    });
+
+    /* 7. Кнопка «Заново» */
+    document.getElementById('new-game').addEventListener('click', function () {
+        if (window.Telegram?.WebApp?.showConfirm &&
+            typeof Telegram.WebApp.isVersionAtLeast === 'function' &&
+            Telegram.WebApp.isVersionAtLeast('6.2')) {
+            try {
+                Telegram.WebApp.showConfirm('Начать заново?', function (ok) {
+                    if (ok) location.reload();
+                });
+                return;
+            } catch (_) {}
+        }
+        if (confirm('Начать заново?')) location.reload();
+    });
+
+})();
+</script>
+
+</body>
+</html>
